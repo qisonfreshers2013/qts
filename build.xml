@@ -1,0 +1,283 @@
+<project name="qts" basedir="./" default="package" >
+
+    <!-- Jetty Deployment folders -->
+    <property name="jetty.deploy.dir"
+              value="D:/qts/jetty/jetty-distribution-9.0.2.v20130417/jetty-distribution-9.0.2.v20130417"/>
+    <property name="jetty.deploy.webapp.dir" value="${jetty.deploy.dir}/webapps"/>
+    <property name="jetty.deploy.context.dir" value="${jetty.deploy.dir}/contexts"/>
+    <!-- project-specific variables -->
+    <property name="src.dir" value="src"/>
+    <property name="webapp.dir" value="WEB-INF"/>
+    <property name="metainf.dir" value="${webapp.dir}/META-INF"/>
+    <property name="jsp.dir" value="${webapp.dir}"/>
+    <property name="java.dir" value="${src.dir}/java/main"/>
+    <property name="test.dir" value="${src.dir}/java/test"/>
+    <property name="package.name" value="qtsplatform"/>
+    <property name="package.war.name" value="${package.name}.war"/>
+    <property name="package.context.name" value="${package.name}.xml"/>
+    <property name="lib.dir" value="lib"/>
+    <property name="resources.dir" value="resources"/>
+    <property name="jetty.dir" value="jetty"/>
+    <property name="jetty.lib.dir" value="${jetty.dir}/lib"/>
+    <property name="jetty.classes.dir" value="${jetty.dir}/classes"/>
+    <property name="config.dir" value="${src.dir}/config"/>
+    <property name="res.dir" value="resources"/>
+    <!-- <property name="affinities.dir" value="affinities"/>
+    <property name="qts.dir" value="qts"/>
+ -->
+
+    <!-- build output directory -->
+    <property name="dest.dir" value="../target"/>
+
+    <!-- environment -->
+    <property environment="env"/>
+    <property name="build.dir" value="build"/>
+    <property file="${build.dir}/build.${env.HOSTNAME}"/>
+
+
+    <!-- put everything in a temp folder with the right structure during the build -->
+    <property name="temp.dir" value="../temp"/>
+    <property name="temp.dir.web-inf" value="${temp.dir}/WEB-INF"/>
+    <property name="temp.dir.upload" value="${temp.dir}/upload"/>
+    <property name="temp.dir.lib" value="${temp.dir.web-inf}/lib"/>
+    <property name="temp.dir.classes" value="${temp.dir.web-inf}/classes"/>
+    <property name="temp.dir.meta-inf" value="${temp.dir}/META-INF"/>
+    <property name="temp.dir.resources" value="${temp.dir}/resources"/>
+    <property name="temp.dir.affinities" value="${temp.dir}/affinities"/>
+    <property name="temp.dir.qts" value="${temp.dir}/qts"/>
+    <!--<property name="uploadbackup.dir" value="uploadbackup"></property>-->
+
+
+    <property name="temp.dir.classes.woa" value="../tempclasses"/>
+    <property name="temp.dir.config" value="${temp.dir}/config"/>
+    <property name="log.dir" value="../logs"/>
+
+
+    <property name="package.file" value="${dest.dir}/${package.war.name}"/>
+
+    <path id="build.class.path">
+        <fileset dir="${lib.dir}">
+            <include name="**/*.jar"/>
+        </fileset>
+    </path>
+
+    <path id="jetty.build.class.path">
+        <fileset dir="${jetty.lib.dir}">
+            <include name="**/*.jar"/>
+        </fileset>
+    </path>
+
+    <target name="checkos">
+        <condition property="isWindows" value="true">
+            <os family="windows"/>
+        </condition>
+
+        <condition property="isUnix" value="true">
+            <os family="unix"/>
+        </condition>
+    </target>
+
+    <target name="clean">
+        <delete includeEmptyDirs="true" failonerror="false">
+            <fileset dir="${dest.dir}" includes="**/*"/>
+        </delete>
+        <delete dir="${temp.dir}"/>
+        <delete dir="${temp.dir.classes}"/>
+        <delete dir="${temp.dir.meta-inf}"/>
+        <delete dir="${temp.dir.web-inf}"/>
+      <!--  <delete dir="${temp.dir.classes.woa}"/>-->
+        <delete dir="${temp.dir.config}"/>
+    </target>
+
+    <!--full clean will delete all class files, so build time will be more if we use full clean-->
+    <target name="fullclean">
+        <delete includeEmptyDirs="true" failonerror="false">
+            <fileset dir="${dest.dir}" includes="**/*"/>
+        </delete>
+        <delete dir="${temp.dir}"/>
+        <delete dir="${temp.dir.classes}"/>
+        <delete dir="${temp.dir.meta-inf}"/>
+        <delete dir="${temp.dir.web-inf}"/>
+        <delete dir="${temp.dir.classes.woa}"/>
+        <delete dir="${temp.dir.config}"/>
+    </target>
+
+    <target name="prepare" depends="clean">
+        <mkdir dir="${dest.dir}"/>
+        <mkdir dir="${temp.dir}"/>
+        <mkdir dir="${temp.dir.lib}"/>
+        <mkdir dir="${temp.dir.meta-inf}"/>
+        <mkdir dir="${temp.dir.web-inf}"/>
+        <mkdir dir="${temp.dir.upload}"/>
+        <mkdir dir="${temp.dir.classes}"/>
+        <mkdir dir="${temp.dir.resources}"/>
+        <mkdir dir="${temp.dir.affinities}"/>
+        <mkdir dir="${temp.dir.qts}"/>
+        <mkdir dir="${temp.dir.classes.woa}"/>
+        <mkdir dir="${temp.dir.config}"/>
+    </target>
+
+    <target name="requiredFolders">
+        <mkdir dir="${log.dir}"/>
+    </target>
+
+    <!-- COMPILE -->
+    <target name="compile" depends="prepare, init.aspectj, checkos">
+        <echo>=== COMPILE ===</echo>
+        <echo>Compiling ${src.dir} files ...</echo>
+        <javac debug="on" srcdir="${java.dir}" destdir="${temp.dir.classes.woa}" includes="**/*" >
+            <classpath refid="build.class.path"/>
+        </javac>
+        <javac debug="on" srcdir="${jetty.dir}/src" destdir="${jetty.classes.dir}" includes="**/*"  >
+            <classpath refid="jetty.build.class.path"/>
+        </javac>
+        <iajc destdir="${temp.dir.classes}" Xlintwarnings="true" showWeaveInfo="false" verbose="false">
+            <inpath>
+                <pathelement location="${temp.dir.classes.woa}"/>
+            </inpath>
+            <classpath>
+                <pathelement location="${aspectjrt.jar}"/>
+                <path refid="build.class.path"/>
+            </classpath>
+        </iajc>
+    </target>
+
+    <!-- PACKAGE -->
+    <target name="package" depends="compile">
+        <echo>=== PACKAGE ===</echo>
+        <copy file="${webapp.dir}/web.xml" tofile="${temp.dir.web-inf}/web.xml" overwrite="true"/>
+        <copy todir="${temp.dir.classes}">
+            <fileset dir="${java.dir}">
+                <include name="**/*.xml"/>
+                <include name="**/*.xsl"/>
+                <include name="**/*.der"/>
+                <include name="**/*.properties"/>
+            </fileset>
+        </copy>
+        <copy todir="${temp.dir}">
+            <fileset dir=".">
+                <include name="*.*"/>
+                <exclude name="build.xml"/>
+                <exclude name="*.git"/>
+                <exclude name="context.xml"/>
+            </fileset>
+        </copy>
+        <copy todir="${temp.dir.resources}">
+            <fileset dir="${resources.dir}">
+                <include name="**"/>
+            </fileset>
+        </copy>
+        <!-- <copy todir="${temp.dir.affinities}">
+            <fileset dir="${affinities.dir}">
+                <include name="**"/>
+            </fileset>
+        </copy> -->
+        <!-- <copy todir="${temp.dir.qts}">
+            <fileset dir="${qts.dir}">
+                <include name="**"/>
+            </fileset>
+        </copy> -->
+        <copy todir="${temp.dir.lib}">
+            <fileset dir="${lib.dir}">
+                <include name="**"/>
+            </fileset>
+        </copy>
+        <copy todir="${temp.dir.web-inf}">
+            <fileset dir="${webapp.dir}">
+                <include name="*.*"/>
+                <exclude name="web.xml"/>
+            </fileset>
+        </copy>
+        <copy todir="${temp.dir}">
+            <fileset dir="${jetty.classes.dir}">
+                <include name="**"/>
+            </fileset>
+        </copy>
+        <copy todir="${temp.dir}">
+            <fileset dir="${jetty.lib.dir}/jetty">
+                <include name="**/*.*"/>
+            </fileset>
+        </copy>
+        <copy todir="${temp.dir}">
+                    <fileset dir="${jetty.lib.dir}/servlet">
+                        <include name="**/*.*"/>
+                    </fileset>
+                </copy>
+        <!-- the ant war task. with all resources in place, create the war file -->
+        <war destfile="${package.file}" webxml="${temp.dir.web-inf}/web.xml" basedir="${temp.dir}">
+            <fileset dir="${jsp.dir}"/>
+            <!--<lib dir="${lib.dir}"/> dupliactes are being created-->
+            <classes dir="${temp.dir.classes}"/>
+            <manifest>
+                <attribute name="Main-Class" value="JettyServer"/>
+                <attribute name="Class-Path" value="."/>
+            </manifest>
+        </war>
+        <copy file="${metainf.dir}/context.xml" tofile="${dest.dir}/${package.context.name}"/>
+        <delete dir="${temp.dir}" failonerror="false"/>
+    </target>
+    <!-- INSTALL -->
+    <target name="install" depends="package">
+        <echo>=== INSTALL ===</echo>
+        <copy file="${package.file}" todir="${jetty.deploy.webapp.dir}"/>
+        <copy file="${dest.dir}/${package.context.name}" todir="${jetty.deploy.context.dir}"/>
+    </target>
+    <!-- RUN -->
+    <!-- AspectJ related tasks -->
+    <target name="init.aspectj" depends="init.aspectj.variables,init.taskdefs"/>
+    <target name="init.aspectj.variables" description="init aspectj variables">
+        <!-- build.compiler value to pick up our CompilerAdapter for javac -->
+        <property name="ajc.adapter" value="org.aspectj.tools.ant.taskdefs.Ajc11CompilerAdapter"/>
+        <property name="aspectj.lib.dir" location="aspectjlib"/>
+        <!-- required libraries - install or predefine -->
+        <property name="aspectjrt.jar" location="${lib.dir}/aspectjrt.jar"/>
+        <property name="aspectjtools.jar" location="${lib.dir}/aspectjtools.jar"/>
+        <!-- checking required libraries -->
+        <available file="${aspectjtools.jar}" property="aspectjtools.jar.available"/>
+        <available file="${aspectjrt.jar}" property="aspectjrt.jar.available"/>
+    </target>
+    <target name="init.taskdefs" depends="init.aspectj.variables, aspectjtools.jar.available, aspectjrt.jar.available"
+            unless="taskdefs.init">
+        <!-- sets name of new task to iajc, old task to ajc -->
+        <taskdef resource="org/aspectj/tools/ant/taskdefs/aspectjTaskdefs.properties">
+            <classpath>
+                <pathelement path="${aspectjtools.jar}"/>
+            </classpath>
+        </taskdef>
+        <property name="taskdefs.init" value="true"/>
+    </target>
+    <target name="aspectjrt.jar.available" depends="init.aspectj.variables" unless="aspectjrt.jar.available">
+        <fail message="expecting aspectjrt.jar at ${aspectjrt.jar}"/>
+    </target>
+    <target name="aspectjtools.jar.available" depends="init.aspectj.variables" unless="aspectjtools.jar.available">
+        <fail message="expecting aspectjtools.jar at ${aspectjtools.jar}"/>
+    </target>
+    <!-- End of aspectj tasks-->
+    <target name="run" depends="checkos, package, requiredFolders">
+        <antcall target="runUnix"/>
+        <antcall target="runWindows"/>
+    </target>
+    <target name="runUnix" if="isUnix" >
+        <echo>=== RUNNING UNIX Build ===</echo>
+        <java dir="${dest.dir}" jar="${package.file}" fork="true" >
+            <jvmarg value="-Xrunjdwp:transport=dt_socket,address=8585,server=y,suspend=n"/>
+            <jvmarg value="-Xmx1024m"/>
+            <jvmarg value="-XX:MaxPermSize=256m"/>
+            <jvmarg value="-XX:HeapDumpPath=../heapdumps"/>
+            <jvmarg value="-XX:ErrorFile=../heapdumps/hs_err_pid.log"/>
+            <jvmarg value="-XX:+HeapDumpOnOutOfMemoryError"/>
+        </java>
+    </target>
+    <target name="runWindows" if="isWindows">
+        <echo>=== RUNNING WINDOWS Build ===</echo>
+        <java dir="${dest.dir}" jar="${package.file}" fork="true" >
+            <jvmarg value="-Xrunjdwp:transport=dt_socket,address=8585,server=y,suspend=n"/>
+            <jvmarg value="-Xmx1025m"/>
+            <jvmarg value="-XX:MaxPermSize=256m"/>
+            <jvmarg value="-XX:HeapDumpPath=../heapdumps"/>
+            <jvmarg value="-XX:ErrorFile=../heapdumps/hs_err_pid.log"/>
+            <jvmarg value="-XX:+HeapDumpOnOutOfMemoryError"/>
+            <jvmarg value="-XX:-UseSplitVerifier"/>
+        </java>
+    </target>
+</project>

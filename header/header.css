@@ -1,0 +1,132 @@
+/* CSS Document */
+
+.logo{
+    /*background: url("../img/qisonlogo.png") no-repeat scroll 0 0 transparent;
+    cursor: pointer;*/
+    height: 80px;
+    margin-left: 10px;
+    min-width: 10%;
+    max-width: 85%;
+    /*width: 71%;*/
+    margin-top: 5px;
+    background-repeat: no-repeat;
+}
+
+.logoHolder {
+    float: left;
+    height: 80px;
+    width: 71%;
+}
+
+.welcomeUser,
+.userLinks{
+    /*    float: left;
+        max-width: 85%;
+        text-align: left;
+        width: 75%;
+        margin-right: 20px; */
+    font-weight: bold;
+}
+
+.avatarImg{
+    margin: 0px 5px 0px 5px;
+    height: 40px;
+    width: 40px;
+    float: left;
+}
+
+/*.userProfile {
+	float: right;
+	margin-top: 2.5%;
+	height: 60px;
+	width: 27%;
+}*/
+
+.navbar ul.nav li {
+    display: inline;
+    line-height: 40px;
+    margin-right: 10px;
+    cursor:pointer;
+}
+
+.headerPanel{
+    /*background:#f1f1f1;*/
+}
+
+
+
+.forgotPwd .forgotPwdLabel{
+    width: 143px;
+    height: auto;
+    float: left;
+    margin:0px 5px 10px 0px;
+}
+.forgotPwd .forgotPwdFields{
+    width: 200px;
+    height: auto;
+    float: left;
+    margin:0px 0px 10px 0px;
+}
+/* .forgotPwd .dvLoading {
+   background:#c3c3c3 url(../myaccount/loader.gif) no-repeat center center;
+   height: 31px;
+   width: 31px;
+   left:60%;
+   position: fixed;
+   z-index: 1000;
+} */
+
+.myAccountLink,
+.logoutLink {
+    display:none;
+}
+
+#loginModal {
+    width: 40%;
+    margin-left: -289px;
+}
+
+#forgotPwdModal {
+    width: 400px;
+    margin-left: -225px;
+}
+
+#forgotPwdRequestModal {
+    width: 500px;
+    margin-left: -225px;
+}
+
+#loginModal .modalHeading {
+    color: #0074CC;
+}
+
+.registerForm .user_tags {
+    width: 150px;
+    float: right;
+}
+
+.welcomeUser .welcome {
+    padding-right: 7px;
+}
+
+.checkBoxLabel {
+    float: left;
+}
+
+.userInfo {
+    float: left;
+    margin-top: 2.5%;
+    width: 27%;
+}
+
+.logoImgContainer {
+    max-width: 98%;
+    max-height: 80px;
+}
+
+
+
+.checkboxFields {
+	margin-right: 20px;
+	float: right;
+}

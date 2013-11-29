@@ -1,0 +1,167 @@
+<div class="headerPanel">
+	<div class="logoHolder">
+	<div class="logo"><a class="logoLink" href="javascript: void(0);"><img class="logoImgContainer" src="" /></a>
+	</div></div>
+	
+	<div class="userInfo">
+	<img id="profilePic" class="avatarImg detailThumbImage" alt="" src="img/noImage.png"/>
+	<div class="welcomeUser"><span class="welcome" msgkey="common.welcome.label"></span>
+	<span class="userName" msgkey="common.guest.label">Guest</span><span class="exclamationMark">!</span></div>
+	<div class="userLinks"><span class="loginLinks"><a class="loginLink" msgkey="common.login.label"></a> | 
+	<a class="registerLink" msgkey="common.register.label"></a> </span> 
+	<span class="myAccountLink"><a href="#myAccount" msgkey="common.myaccount.label"></a> | 
+	<a href="javascript: void(0);" class="logoutLink" msgkey="common.logout.label"></a></span></div>
+	</div>
+</div>
+
+
+
+<div class="modal hide" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-header">
+			<h3 id="myModalLabel" class="modalHeading" msgkey="common.login.label"></h3>
+	</div>
+	<div class="modal-body">
+	<div class="alert alert-error hide">				
+					<span class="errMsg"></span>
+				</div>
+				<div class="alert alert-success hide">
+					<span class="successMsg"></span>
+				</div>
+		<div style="width:100%; text-align: center;">
+		
+	        <div class="loginWithFt">
+	            <!---- <span class="loginTitle" msgkey="common.loginsocialnetwork.message"></span>!---->
+	            <div class="loginLeft">
+	            <span class="faceBookLogin hide"></span>
+	            <span class="googleLogin hide"></span>
+	            </div>
+	            <div class="loginOr"></div>
+	        </div>
+			<div class="login">
+				
+				
+				 <div class="loginLabel" msgkey="common.email.label"></div>
+				 <div class="loginFields"><input name="user_email" class="user_email" type="text" value=""/><sup class="manadatory">&lowast;</sup></div>
+				 <div class="loginLabel" msgkey="common.password.label"> </div>
+				 <div class="loginFields"><input name="user_password" class="user_password" type="password" value=""/><sup class="manadatory">&lowast;</sup></div>
+			</div>
+		</div>
+	</div>
+	<div class="modal-footer">
+		<!--<div class="fb-login-button"  data-show-faces="false" data-width="200" data-max-rows="1"></div>-->
+		<!-- <img src="img/fbLogin.png" class="fbLoginLink" /> -->
+		<button class="btn uesrLoginCancelBtn" data-dismiss="modal" aria-hidden="true" msgkey="common.cancel.label"></button>
+		<button class="btn btn-primary userLoginBtn" type="submit" msgkey="common.login.label"></button>
+		<span><a msgkey="common.forgotPassword.label" class="forgotPwdLink">?</a></span>
+	</div>
+</div>
+
+<div class="modal hide" id="forgotPwdModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
+	<div class="modal-header">
+			<h3 id="myModalLabel" class="modalHeading" msgkey="common.forgotPassword.label"></h3>
+	</div>
+	<div class="modal-body">
+		<div class="forgotPwd">
+			<div class="alert alert-error hide">
+				
+				<span class="errMsg"></span>
+			</div>
+			<div class="alert alert-success hide">
+				
+				<span class="successMsg"></span>
+			</div><!-- <div class="dvLoading hide"></div> -->
+			 <div class="forgotPwdLabel" msgkey="common.registeredemail.label"></div>
+			 <div class="forgotPwdFields"><input name="user_email" class="forget_user_email" type="text" value=""/></div>
+		  </div>
+	</div>
+	<div class="modal-footer">
+		<button class="btn forgotPwdCancelBtn" data-dismiss="modal" aria-hidden="true" msgkey="common.cancel.label"></button>
+		<button class="btn btn-primary forgotPwdRequestBtn" type="submit" msgkey="common.submit.label"></button>		
+	</div>
+</div>
+
+<div class="modal hide" id="forgotPwdRequestModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
+	<div class="modal-header">
+			<h3 id="myModalLabel" class="modalHeading" msgkey="common.forgotPassword.label"></h3>
+	</div>
+	<div class="modal-body">
+		<div class="forgotPwdRequest">
+			 <div class="forgotPwdRequestStatus">
+			 	<span class="statusMsg"></span>
+			 </div>
+		 </div>
+	</div>
+	<div class="modal-footer">
+		<button class="btn closeBtn" data-dismiss="modal" aria-hidden="true" msgkey="common.close.label"></button>
+	</div>
+</div>
+
+<div class="modal hide" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-header">
+		
+		<h3 id="myModalLabel" class="modalHeading" msgkey="common.register.label"></h3>
+	</div>
+	<div class="modal-body">
+		<div class="register">
+			<div class="alert alert-error hide">
+				<span class="errMsg"></span>
+			</div>
+			
+			<div class="alert alert-success hide">
+				<span class="successMsg"></span>
+			</div>
+			<!--<div class="fieldsMandatory" msgkey="common.fieldsaremandatory.label"> <sup>*</sup> </div>-->
+			<div class="registerForm">
+			 <span class="loginLabel" msgkey="common.firstname.label">:</span>
+			 <span class="loginFields"><input name="user_fname" class="user_first_name" type="text" value=""/><sup class="manadatory">&lowast;</sup></span>
+			 <span class="loginLabel" msgkey="common.lastname.label">: </span>
+			 <span class="loginFields"><input name="user_lname" class="user_last_name" type="text" value=""/><sup class="manadatory">&lowast;</sup></span>
+			 <span class="loginLabel" msgkey="common.email.label">: </span>
+			 <span class="loginFields"><input name="user_email" class="user_register_email" type="text" value=""/><sup class="manadatory">&lowast;</sup></span>
+			 <span class="loginLabel" msgkey="common.password.label">: </span>
+			 <span class="loginFields"><input name="user_pwd" class="user_pwd" type="password" value=""/><sup class="manadatory">&lowast;</sup></span>
+			 <span class="loginLabel" msgkey="common.confirmpassword.label">: </span>
+			 <span class="loginFields"><input name="user_conf_pwd" class="user_conf_pwd" type="password" value=""/><sup class="manadatory">&lowast;</sup></span>
+			 <span class="loginLabel tagLabel" msgkey="common.selectTags.label">: </span>
+			 <span class="loginFields tagsSelectBox"><select name="user_tags" class="user_tags" multiple="multiple" /></span>
+			 <div class="checkboxFields">
+				 <span class=""><input name="" class="anonymousChkBox" type="checkbox" value=""/></span>			 
+				 <span class="loginFields" msgkey="common.anonymous.label"></span>
+				 <br>
+				 <span><input type="checkbox" value="" class="termsAndConditions" name=""></span>
+	 			 <span class="loginFields" > I agree to the <a class="termsNCondsLink">Terms & Conditions</a></span>
+	 		</div>
+			</div>
+		</div>
+	</div>
+	<div class="modal-footer">
+		<button class="btn userRegisterCancelBtn" data-dismiss="modal" aria-hidden="true" msgkey="common.cancel.label"></button>
+		<button class="btn btn-primary userRegisterBtn" type="submit" msgkey="common.register.label"></button>		
+	</div>
+</div>
+
+
+<div class="modal hide" id="termsNConditions" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-header">
+		
+		<h3 id="myModalLabel" class="modalHeading">Terms & Conditions</h3>
+	</div>
+	<div class="modal-body">
+		<div class="register">
+			<div class="alert alert-error hide">
+				<span class="errMsg"></span>
+			</div>
+			
+			<div class="alert alert-success hide">
+				<span class="successMsg"></span>
+			</div>
+			<!--<div class="fieldsMandatory" msgkey="common.fieldsaremandatory.label"> <sup>*</sup> </div>-->
+			<div class="termsNConditionsContent">
+			 
+			</div>
+		</div>
+	</div>
+	<div class="modal-footer">
+		<button class="btn termsCancelBtn" data-dismiss="modal" aria-hidden="true">Close</button>
+	</div>
+</div>
