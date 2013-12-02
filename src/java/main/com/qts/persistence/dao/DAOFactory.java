@@ -13,7 +13,7 @@ public class DAOFactory {
 
 	private DAOFactory() {
 	}
-
+   // testing
 	public static DAOFactory getInstance() {
 		if (INSTANCE == null) {
 			INSTANCE = new DAOFactory();
