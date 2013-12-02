@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+	"-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+	"http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<<hibernate-configuration>
+<session-factory>
+	<property name="hibernate.connection.dialect">org.hibernate.dialect.MySQLDialect</property>
+	<property name="class_name">com.mysql.jdbc.Driver</property>
+	<property name="url">jdbc:mysql://192.168.10.32:3306/project</property>
+	<property name="username">qison</property>
+	<property name="password">Qis0n123$</property>
+	<mapping class="com.qts.model.Roles"/>
+</session-factory>
+</hibernate-configuration>
