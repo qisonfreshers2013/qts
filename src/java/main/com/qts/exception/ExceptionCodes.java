@@ -158,4 +158,30 @@ public interface ExceptionCodes {
 	public static final int FB_USER_SETTING_INPUT_NULL = 4008;
 	public static final int FACEBOOK_ID_DOESNOT_EXIST = 4009;
 	
+	//user web services releted exceptions
+	public static final int USER_ID_NOT_NUMBER = 7001;
+	public static final int USER_NAME_FORMAT = 7002;
+	public static final int USER_EMAIL_FORMAT = 7003;
+	public static final int EMP_ID_FORMAT = 7004;
+	public static final int INVALID_DESIGNATION_PATTERN = 7005;
+	//public static final String DESIGNATION_FORMAT = null;
+	public static final int USER_ID_FORMAT = 7006;
+	public static final int PASSWORD_FORMAT = 7007;
+	public static final int USER_ID_AND_PASSWORD_NULL = 7008;
+	public static final int USER_DETAILS_NULL = 7009;
+	public static final int CONFIRM_PASSWORD_NULL = 7010;
+	public static final int CONFIRM_PASSWORD_NOT_EQUAL = 7011;
+	public static final int FIRST_NAME_SHOULD_NOT_NULL = 7012;
+	public static final int FIRST_NAME_INVALID = 7013;
+	public static final int LAST_NAME_SHOULD_NOT_NULL = 7014;
+	public static final int LAST_NAME_INVALID = 7015;
+	public static final int NICKNAME_INVALID = 7016;
+	public static final int GENDER_NOT_NULL = 7017;
+	public static final int GENDER_INVALID = 7018;
+	public static final int EMAIL_FORMAT = 7019;
+	public static final int EMPLOYEE_ID_NULL = 7020;
+	public static final int EMPLOYEE_ID_INVALID = 7021;
+	public static final int USER_ID_NULL = 7022;
+	
+	
 }

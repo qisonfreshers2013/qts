@@ -22,5 +22,8 @@ public class DAOFactory {
 	}
 
 	// Implement all the factory methods, after this line.
+	public static UserDAO getUserDAOImpl(){
+		return UserDAOImpl.getInstance();
+	}
 
 }

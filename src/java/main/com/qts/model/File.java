@@ -23,8 +23,8 @@ public class File extends AbstractObject{
 	private String path;
 	@Column(name="SERVER_URL")
 	private String serverURL;
-	@OneToOne(mappedBy="photoFile",cascade=CascadeType.ALL)
-	private User1 user;
+//	@OneToOne(mappedBy="photoFile",cascade=CascadeType.ALL)
+//	private User1 user;
 	public File() {
 		
 	}
@@ -71,16 +71,16 @@ public class File extends AbstractObject{
 	/**
 	 * @return the user
 	 */
-	public User1 getUser() {
-		return user;
-	}
-
-	/**
-	 * @param user the user to set
-	 */
-	public void setUser(User1 user) {
-		this.user = user;
-	}
+//	public User1 getUser() {
+//		return user;
+//	}
+//
+//	/**
+//	 * @param user the user to set
+//	 */
+//	public void setUser(User1 user) {
+//		this.user = user;
+//	}
 
 	@Override
 	public int getObjectType() {

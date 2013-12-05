@@ -1,5 +1,6 @@
 package com.qts.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -10,18 +11,16 @@ import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="user_project_role")
+@Table(name="user_projects_roles")
 public class UserProjectRoles extends AbstractObject {
 	@Id
 	@GeneratedValue
+	@Column(name="Id")
 	private long id;
-	@OneToOne
-	@PrimaryKeyJoinColumn
-	private UserProject userProject;
-	@ManyToOne()
-	@JoinColumn(name="role_id")
-	private Roles roles;
-	
+	@Column(name="user_project_id")
+	private long userProjectId;
+	@Column(name="Role_id")
+	private long roleId;
 	
 	public UserProjectRoles() {
 		super();
@@ -32,17 +31,30 @@ public class UserProjectRoles extends AbstractObject {
 	public void setId(long id) {
 		this.id = id;
 	}
-	public UserProject getUserProject() {
-		return userProject;
+	
+	/**
+	 * @return the userProjectId
+	 */
+	public long getUserProjectId() {
+		return userProjectId;
 	}
-	public void setUserProject(UserProject userProject) {
-		this.userProject = userProject;
+	/**
+	 * @param userProjectId the userProjectId to set
+	 */
+	public void setUserProjectId(long userProjectId) {
+		this.userProjectId = userProjectId;
 	}
-	public Roles getRoles() {
-		return roles;
+	/**
+	 * @return the roleId
+	 */
+	public long getRoleId() {
+		return roleId;
 	}
-	public void setRoles(Roles roles) {
-		this.roles = roles;
+	/**
+	 * @param roleId the roleId to set
+	 */
+	public void setRoleId(long roleId) {
+		this.roleId = roleId;
 	}
 	public int getObjectType() {
 	return 0;

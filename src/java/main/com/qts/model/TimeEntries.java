@@ -23,9 +23,8 @@ public class TimeEntries extends AbstractObject {
     @Column(name="ID")
     @GeneratedValue
 	private long id;
-    @ManyToOne
-    @JoinColumn(name="USER_ID")
-	private User1 user1;
+    @Column(name="USER_ID")
+	private long userId;
     @Column(name="DATE")
 	private long date;
     @Column(name="HOURS")
@@ -45,34 +44,41 @@ public class TimeEntries extends AbstractObject {
 	private String modified_by;
     @Column(name="STATUS")
 	private int status;
-   @ManyToOne
-   @JoinColumn(name="release_id")
-   private Releases releases;
-   @ManyToOne
-   @JoinColumn(name="project_id")
-   private Project project;
-   @ManyToOne
-   @JoinColumn(name="activity_id")
-    private Activities activities;
+//   @ManyToOne
+//   @JoinColumn(name="release_id")
+//   private Releases releases;
+//   @ManyToOne
+//   @JoinColumn(name="project_id")
+//   private Project project;
+//   @ManyToOne
+//   @JoinColumn(name="activity_id")
+//    private Activities activities;
+    
+    @Column(name="Project_id")
+    private long projectId;
+    @Column(name="activity_id")
+    private long activityId;
+    @Column(name="release_id")
+    private long releaseId;
    
-	public Releases getReleases() {
-		return releases;
-	}
-	public void setReleases(Releases releases) {
-		this.releases = releases;
-	}
-	public Project getProject() {
-		return project;
-	}
-	public void setProject(Project project) {
-		this.project = project;
-	}
-	public Activities getActivities() {
-		return activities;
-	}
-	public void setActivities(Activities activities) {
-		this.activities = activities;
-	}
+//	public Releases getReleases() {
+//		return releases;
+//	}
+//	public void setReleases(Releases releases) {
+//		this.releases = releases;
+//	}
+//	public Project getProject() {
+//		return project;
+//	}
+//	public void setProject(Project project) {
+//		this.project = project;
+//	}
+//	public Activities getActivities() {
+//		return activities;
+//	}
+//	public void setActivities(Activities activities) {
+//		this.activities = activities;
+//	}
 	public long getId() {
 		return id;
 	}
@@ -80,12 +86,12 @@ public class TimeEntries extends AbstractObject {
 		this.id = id;
 	}
 
-	public User1 getUser() {
-		return user1;
-	}
-	public void setUser(User1 user) {
-		this.user1 = user;
-	}
+//	public User1 getUser() {
+//		return user1;
+//	}
+//	public void setUser(User1 user) {
+//		this.user1 = user;
+//	}
 	public long getDate() {
 		return date;
 	}
@@ -140,6 +146,57 @@ public class TimeEntries extends AbstractObject {
 	}
 	public void setStatus(int status) {
 		this.status = status;
+	}
+	
+	
+	/**
+	 * @return the projectId
+	 */
+	public long getProjectId() {
+		return projectId;
+	}
+	/**
+	 * @param projectId the projectId to set
+	 */
+	public void setProjectId(long projectId) {
+		this.projectId = projectId;
+	}
+	/**
+	 * @return the activityId
+	 */
+	public long getActivityId() {
+		return activityId;
+	}
+	/**
+	 * @param activityId the activityId to set
+	 */
+	public void setActivityId(long activityId) {
+		this.activityId = activityId;
+	}
+	/**
+	 * @return the releaseId
+	 */
+	public long getReleaseId() {
+		return releaseId;
+	}
+	/**
+	 * @param releaseId the releaseId to set
+	 */
+	public void setReleaseId(long releaseId) {
+		this.releaseId = releaseId;
+	}
+	
+	/**
+	 * @return the userId
+	 */
+	public long getUserId() {
+		return userId;
+	}
+	/**
+	 * @param userId the userId to set
+	 */
+	public void setUserId(long userId) {
+		this.userId = userId;
 	}
 	@Override
 	public int getObjectType() {

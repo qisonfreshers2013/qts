@@ -29,11 +29,13 @@ public class Releases extends AbstractObject{
 	private long id;
 	@Column(name="name")
 	private String name;
-	@ManyToOne(fetch=FetchType.EAGER)
-	@JoinColumn(name = "project_id")
-	private Project project;
-	@OneToMany(mappedBy="releases")
-	private Set<TimeEntries> timeEntries=new HashSet<TimeEntries>();
+//	@ManyToOne(fetch=FetchType.EAGER)
+//	@JoinColumn(name = "project_id")
+//	private Project project;
+	@Column(name="project_id")
+	private long projectid;
+//	@OneToMany(mappedBy="releases")
+//	private Set<TimeEntries> timeEntries=new HashSet<TimeEntries>();
 	public Releases() {
 		super();
 	}
@@ -53,22 +55,34 @@ public class Releases extends AbstractObject{
 	public void setName(String name) {
 		this.name = name;
 	}
-	public Project getProject() {
-		return project;
-	}
-	public void setProject(Project project) {
-		this.project = project;
-	}
-	public Set<TimeEntries> getTimeEntries() {
-		return timeEntries;
-	}
-	public void setTimeEntries(Set<TimeEntries> timeEntries) {
-		this.timeEntries = timeEntries;
-	}
+//	public Project getProject() {
+//		return project;
+//	}
+//	public void setProject(Project project) {
+//		this.project = project;
+//	}
+//	public Set<TimeEntries> getTimeEntries() {
+//		return timeEntries;
+//	}
+//	public void setTimeEntries(Set<TimeEntries> timeEntries) {
+//		this.timeEntries = timeEntries;
+//	}
 	@Override
 	public int getObjectType() {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+	/**
+	 * @return the projectid
+	 */
+	public long getProjectid() {
+		return projectid;
+	}
+	/**
+	 * @param projectid the projectid to set
+	 */
+	public void setProjectid(long projectid) {
+		this.projectid = projectid;
 	}
 	
 	

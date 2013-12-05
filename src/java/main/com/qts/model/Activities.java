@@ -5,6 +5,7 @@ import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
@@ -22,14 +23,14 @@ public class Activities {
 	private String name;
 	@Column(name="DESCRIPTION")
 	private String description;
-	@OneToMany(mappedBy="activities")
-	private Set<TimeEntries> timeentries=new HashSet<TimeEntries>();
-	public Set<TimeEntries> getTimeentries() {
-		return timeentries;
-	}
-	public void setTimeentries(Set<TimeEntries> timeentries) {
-		this.timeentries = timeentries;
-	}
+//	@OneToMany(mappedBy="activities",fetch=FetchType.EAGER)
+//	private Set<TimeEntries> timeentries=new HashSet<TimeEntries>();
+//	public Set<TimeEntries> getTimeentries() {
+//		return timeentries;
+//	}
+//	public void setTimeentries(Set<TimeEntries> timeentries) {
+//		this.timeentries = timeentries;
+//	}
 	public Activities() {
 		
 	}

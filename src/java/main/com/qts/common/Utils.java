@@ -17,9 +17,14 @@ public class Utils {
 
     public static final String EMAIL_PATTERN = "^[_A-Za-z]+[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
     public static final String NAME_PATTERN = "^[A-Za-z0-9\\s]*$";
+    public static final String USER_NAME_PATTERN = "^[A-Za-z\\s]*$";//-----
+    public static final String DESIGNATION = "^([A-Z]+)$";//-----
+    public static final String GENDER = "^(?:m|M|male|Male|f|F|female|Female)$";//----//^M(ale)?$|^F(emale)?$
+    public static final String EMPLOYEE_ID_PATTERN = "^[A-Za-z0-9]*$";
     public static final int MIN_PASSWORD_LENGTH = 6;
     public static final int ARTICLE_BRIEF_DESCRIPTION_LENGTH = 190;
     public static final int BRIEF_DESCRIPTION_START_INDEX = 0;
+	
 
 
     public static void validateEmail(String email)

@@ -3,17 +3,20 @@ package com.qts.persistence.dao;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.AnnotationConfiguration;
 
+@SuppressWarnings("deprecation")
 public class SessionUtil {
-	private static SessionFactory session; //"com/qison/hibernate/hibernate.cfg.xml"
+	private static final SessionFactory session; //"com/qison/hibernate/hibernate.cfg.xml"
 	static
 	{
 		try
 		{
-			session=new AnnotationConfiguration().configure("com/qts/persistence/dao/hibernate.cfg.xml").buildSessionFactory();
+			session=new AnnotationConfiguration().configure().buildSessionFactory();
 		}
 		catch (Throwable e) 
 		{
-			System.out.println(e);
+			System.err.println("Initial SessionFactory creation Failed"+e);
+			e.printStackTrace();
+			throw new ExceptionInInitializerError(e);
 		}
 	}
 	public static SessionFactory getSessionFactory() {
