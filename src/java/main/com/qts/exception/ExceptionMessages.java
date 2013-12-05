@@ -19,6 +19,7 @@ public interface ExceptionMessages {
 	public static final String  CACHE_REGION_NOT_FOUND = "Cache region not found.";
 	public static final String INTERNAL_ERROR = "Internal Error.";
 	public static final String AUTH_INPUT_NULL = "Authentication error has occurred. Please try again.";
+    public static final String USER_NOT_AUTHENTICATED = "Please login.";
 
 	
 	//user web services releted exceptions

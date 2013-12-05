@@ -22,7 +22,6 @@ public class DefaultAuthenticationInput implements AuthenticationInput {
 		this.password = password;
 	}
 	
-	@Override
 	public String getAuthType() {
 		return UserExt.AUTH_TYPE_REGULAR;
 	}
