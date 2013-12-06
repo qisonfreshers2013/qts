@@ -6,7 +6,7 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 
 import com.qts.model.Roles;
-import com.qts.persistence.dao.SessionUtil;
+import com.qts.persistence.dao.SessionFactoryUtil;
 /**
  * 
  * @author Jagadish
@@ -26,7 +26,7 @@ public class RoleHandler extends AbstractHandler {
 	}
 	@SuppressWarnings("unchecked")
 	public String listRoles() {
-		Session session=SessionUtil.getSessionFactory().openSession();
+		Session session=SessionFactoryUtil.getInstance().openSession();
 		Query query=session.createQuery("from Roles");
 		Roles r;
 		String s="";

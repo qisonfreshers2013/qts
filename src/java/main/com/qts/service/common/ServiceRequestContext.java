@@ -2,6 +2,8 @@ package com.qts.service.common;
 
 import java.io.Serializable;
 
+import org.hibernate.Session;
+
 import com.qts.common.security.RequestId;
 import com.qts.model.UserSessionToken;
 
@@ -86,6 +88,11 @@ public class ServiceRequestContext implements Serializable, Cloneable {
 	 */
 	public void setCategoryId(long categoryId) {
 		this.categoryId = categoryId;
+	}
+
+	public Session getDBSession() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	

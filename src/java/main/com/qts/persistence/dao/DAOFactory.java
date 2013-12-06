@@ -20,6 +20,12 @@ public class DAOFactory {
 		}
 		return INSTANCE;
 	}
+	public ReleasesDAO getReleasesDAOImplInstance() {
+		return ReleasesDAOImpl.getInstance();
+	}
+	public ProjectDAO getProjectDAOImplInstance(){
+		return ProjectDAOImpl.getInstance();
+	}
 
 	// Implement all the factory methods, after this line.
 

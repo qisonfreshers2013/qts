@@ -35,14 +35,13 @@ public interface ObjectTypes {
 	public static final int USER_AFFINITY_AUTHORIZATION = 126;
 	public static final int PAGE = 127;
 	public static final int FLAGGED_COMMENT_HISTORY = 128;
-//	public static final int USER1=129;
-//	public static final int TIME_ENTRIES=130;
-//	public static final int PROJECT=131;
-//	public static final int ROLES=132;
-//	public static final int RELEASES=133;
-//	public static final int USER_PROJECT=134;
-//	public static final int USER_PROJECT_ROLES=135;
-//  public static final int ACTIVITIES=136;
+	public static final int TIME_ENTRIES=129;
+	public static final int PROJECT=130;
+	public static final int ROLES=131;
+	public static final int RELEASES=132;
+	public static final int USER_PROJECT=133;
+	public static final int USER_PROJECT_ROLES=134;
+  public static final int ACTIVITIES=135;
 	
 	
 	

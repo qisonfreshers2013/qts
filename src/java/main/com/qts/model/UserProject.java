@@ -1,37 +1,28 @@
 package com.qts.model;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
-import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
 
 @Entity
 @Table(name="USER_PROJECT")
-public class UserProject {
+public class UserProject extends AbstractObject {
 	@Id
 	@GeneratedValue
 	@Column(name="ID")
 	private long id;
-	@ManyToOne(cascade=CascadeType.ALL)
-	@JoinColumn(name="USER_ID")
-	private User1 user1;
-	@ManyToOne
-	@JoinColumn(name="PROJECT_ID")
-	private Project project;
-	@ManyToOne(cascade=CascadeType.ALL)
-	@JoinColumn(name="REPORTING_USER_ID")
-	private User1 reportingUserId;
+	@Column(name="user_id")
+	private long userId;
+	@Column(name="project_id")
+	private long projectId;
+	@Column(name="reporting_user_id")
+	private long reportingUserId;
 	public UserProject()
 	{
-		
+
 	}
 	public long getId() {
 		return id;
@@ -41,28 +32,31 @@ public class UserProject {
 		this.id = id;
 	}
 
-	public User1 getUser1() {
-		return user1;
-	}
-
-	public void setUser1(User1 user1) {
-		this.user1 = user1;
-	}
-
-	public Project getProject() {
-		return project;
-	}
-
-	public void setProject(Project project) {
-		this.project = project;
-	}
-
 	public long getReportingUserId() {
 		return reportingUserId;
 	}
 
 	public void setReportingUserId(long reportingUserId) {
 		this.reportingUserId = reportingUserId;
+	}
+	
+	
+	public long getUserId() {
+		return userId;
+	}
+	public void setUserId(long userId) {
+		this.userId = userId;
+	}
+	public long getProjectId() {
+		return projectId;
+	}
+	public void setProjectId(long projectId) {
+		this.projectId = projectId;
+	}
+	@Override
+	public int getObjectType() {
+		// TODO Auto-generated method stub
+		return ObjectTypes.USER_PROJECT;
 	}
 
 }

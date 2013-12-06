@@ -1,14 +1,9 @@
 package com.qts.model;
 
-import java.sql.Date;
-import java.sql.Timestamp;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 
@@ -23,14 +18,18 @@ public class TimeEntries extends AbstractObject {
     @Column(name="ID")
     @GeneratedValue
 	private long id;
-    @ManyToOne
-    @JoinColumn(name="USER_ID")
-	private User1 user1;
+    @Column(name="user_id")
+    private long userId;
     @Column(name="DATE")
 	private long date;
     @Column(name="HOURS")
 	private int hours;
-  
+    @Column(name="project_id")
+    private long projectId;
+    @Column(name="release_id")
+    private long releaseId;
+    @Column(name="activity_id")
+    private long activityId;
     @Column(name="TASK")
 	private String task;
     @Column(name="REMARKS")
@@ -45,34 +44,8 @@ public class TimeEntries extends AbstractObject {
 	private String modified_by;
     @Column(name="STATUS")
 	private int status;
-   @ManyToOne
-   @JoinColumn(name="release_id")
-   private Releases releases;
-   @ManyToOne
-   @JoinColumn(name="project_id")
-   private Project project;
-   @ManyToOne
-   @JoinColumn(name="activity_id")
-    private Activities activities;
-   
-	public Releases getReleases() {
-		return releases;
-	}
-	public void setReleases(Releases releases) {
-		this.releases = releases;
-	}
-	public Project getProject() {
-		return project;
-	}
-	public void setProject(Project project) {
-		this.project = project;
-	}
-	public Activities getActivities() {
-		return activities;
-	}
-	public void setActivities(Activities activities) {
-		this.activities = activities;
-	}
+    
+    
 	public long getId() {
 		return id;
 	}
@@ -80,11 +53,12 @@ public class TimeEntries extends AbstractObject {
 		this.id = id;
 	}
 
-	public User1 getUser() {
-		return user1;
+
+	public long getUserId() {
+		return userId;
 	}
-	public void setUser(User1 user) {
-		this.user1 = user;
+	public void setUserId(long userId) {
+		this.userId = userId;
 	}
 	public long getDate() {
 		return date;
@@ -141,9 +115,28 @@ public class TimeEntries extends AbstractObject {
 	public void setStatus(int status) {
 		this.status = status;
 	}
+	
+	public long getProjectId() {
+		return projectId;
+	}
+	public void setProjectId(long projectId) {
+		this.projectId = projectId;
+	}
+	public long getReleaseId() {
+		return releaseId;
+	}
+	public void setReleaseId(long releaseId) {
+		this.releaseId = releaseId;
+	}
+	public long getActivityId() {
+		return activityId;
+	}
+	public void setActivityId(long activityId) {
+		this.activityId = activityId;
+	}
 	@Override
 	public int getObjectType() {
 		// TODO Auto-generated method stub
-		return 0;
+		return ObjectTypes.TIME_ENTRIES;
 	}
 }

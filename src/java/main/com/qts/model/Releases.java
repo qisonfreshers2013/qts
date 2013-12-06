@@ -1,77 +1,81 @@
 package com.qts.model;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
-
-/*
- * author @ N V Siva Reddy
+/**
+ * 
+ * @author Shiva
  * 
  */
 
+/*
+ * POJO Class that is mapped to RELEASES Table in MySQL DataBase
+ */
+
 @Entity
-@Table(name="releases",uniqueConstraints={@UniqueConstraint(columnNames={"name","project_id"})})
-public class Releases extends AbstractObject{
+@Table(name = "releases", uniqueConstraints = { @UniqueConstraint(columnNames = {
+		"name", "project_id" }) })
+public class Releases extends AbstractObject {
 	@Id
 	@GeneratedValue
-	@Column(name="id")
+	@Column(name = "id")
 	private long id;
-	@Column(name="name")
+	@Column(name = "name")
 	private String name;
-	@ManyToOne(fetch=FetchType.EAGER)
-	@JoinColumn(name = "project_id")
-	private Project project;
-	@OneToMany(mappedBy="releases")
-	private Set<TimeEntries> timeEntries=new HashSet<TimeEntries>();
+	@Column(name = "project_id")
+	private long projectId;
+
+	/**
+	 * No Args Constructor
+	 */
 	public Releases() {
 		super();
 	}
+
+	/**
+	 * 
+	 * @param name
+	 */
 	public Releases(String name) {
 		super();
 		this.name = name;
 	}
+
+	// getter Methods
 	public long getId() {
 		return id;
 	}
-	public void setId(long id) {
-		this.id = id;
-	}
+
 	public String getName() {
 		return name;
 	}
+	
+	public long getProjectId() {
+		return projectId;
+	}	
+
+
+	// setter Methods
+	public void setId(long id) {
+		this.id = id;
+	}
+	
 	public void setName(String name) {
 		this.name = name;
+	}	
+
+	public void setProjectId(long projectId) {
+		this.projectId = projectId;
 	}
-	public Project getProject() {
-		return project;
-	}
-	public void setProject(Project project) {
-		this.project = project;
-	}
-	public Set<TimeEntries> getTimeEntries() {
-		return timeEntries;
-	}
-	public void setTimeEntries(Set<TimeEntries> timeEntries) {
-		this.timeEntries = timeEntries;
-	}
+
 	@Override
 	public int getObjectType() {
-		// TODO Auto-generated method stub
-		return 0;
+		return ObjectTypes.RELEASES;
 	}
-	
-	
 
 }
-

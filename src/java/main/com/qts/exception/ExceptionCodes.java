@@ -158,4 +158,16 @@ public interface ExceptionCodes {
 	public static final int FB_USER_SETTING_INPUT_NULL = 4008;
 	public static final int FACEBOOK_ID_DOESNOT_EXIST = 4009;
 	
+	
+	
+	//Releases related Exceptions Codes
+	public static final int RELEASES_NAME_NULL = 9001;
+	public static final int RELEASES_NAME_LENGTH = 9002;
+	public static final int RELEASES_NAME_CONTAINS_NONALPHANUMERIC = 9003;
+	public static final int RELEASES_ID_DOES_NOT_EXISTS = 9004;
+	public static final int RELEASES_EMPTY=9005;
+	public static final int RELEASESBEAN_NOT_NULL = 9006;
+	public static final int RELEASES_CANNOT_BE_ADDED = 9007;
+	public static final int PROJECT_ID_INVALID = 5005;
+	
 }

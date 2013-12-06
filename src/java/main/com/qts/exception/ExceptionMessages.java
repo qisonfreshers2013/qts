@@ -20,5 +20,15 @@ public interface ExceptionMessages {
 
 	public static final String INTERNAL_ERROR = "Internal Error.";
 	public static final String AUTH_INPUT_NULL = "Authentication error has occurred. Please try again.";
+	
+	//Releases Exception Messages
+	public static final String RELEASES_NAME_CANNOT_BE_EMPTY = "Releases Name Cannot Be Empty.";
+	public static final String RELEASES_NAME_CANNOT_CONTAIN_SPECIALCHARS = "Releases Name Format Exception.";
+	public static final String RELEASES_NAME_LENGTH_IS_MORE = "Releases Name Cannot be More Than 128 characters.";
+	public static final String RELEASES_ID_INVALID = "Releases ID is Invalid.";
+	public static final String RELEASES_EMPTY_FOR_THE_PROJECT="There are no releases for this project";
+	public static final String RELEASESBEAN_NOT_NULL = "Project Id Cannot be null";
+	public static final String RELEASES_CANNOT_BE_ADDED_FOR_THE_PROJECT = "Cannot add Entry..Entry already Exists.";
+	public static final String PROJECT_ID_INVALID = "Invalid Project Id";
 
 }
