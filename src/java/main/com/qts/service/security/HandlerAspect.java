@@ -1,19 +1,16 @@
 package com.qts.service.security;
 
-import com.qsp.common.EntityConstants;
-import com.qsp.exception.BusinessException;
-import com.qsp.exception.ExceptionCodes;
-import com.qsp.exception.ExceptionMessages;
-import com.qsp.exception.ObjectNotFoundException;
-import com.qsp.handler.AbstractHandler;
-import com.qsp.handler.annotations.AuthorizeCategory;
-import com.qsp.handler.annotations.AuthorizeEntity;
-import com.qsp.model.CategoryPrivilege;
-import com.qsp.model.EntityPrivilege;
-import com.qsp.model.Role;
-import com.qsp.persistence.dao.DAOFactory;
-import com.qsp.service.common.ServiceRequestContext;
-import com.qsp.service.common.ServiceRequestContextHolder;
+import com.qts.common.EntityConstants;
+import com.qts.exception.BusinessException;
+import com.qts.exception.ExceptionCodes;
+import com.qts.exception.ExceptionMessages;
+import com.qts.exception.ObjectNotFoundException;
+import com.qts.handler.AbstractHandler;
+import com.qts.handler.annotations.AuthorizeCategory;
+import com.qts.handler.annotations.AuthorizeEntity;
+import com.qts.persistence.dao.DAOFactory;
+import com.qts.service.common.ServiceRequestContext;
+import com.qts.service.common.ServiceRequestContextHolder;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -22,15 +19,15 @@ import org.aspectj.lang.reflect.MethodSignature;
 import java.lang.reflect.Method;
 
 /**
- * @author Nikitha
+ * @author Vamsi Kuchi
  * 
  */
 
 @Aspect
 public class HandlerAspect {
 
-	@Around("execution(* com.qsp.handler.*.*AOP(..))"
-			+ " && !cflowbelow(execution(* com.qsp.handler.*.*AOP(..)))")
+	@Around("execution(* com.qts.handler.*.*AOP(..))"
+			+ " && !cflowbelow(execution(* com.qts.handler.*.*AOP(..)))")
 	public Object doCheck(ProceedingJoinPoint thisJoinPoint) throws Throwable {
 		checkIsUserAuthorized(thisJoinPoint);
 		Object ob = thisJoinPoint.proceed();
@@ -63,7 +60,7 @@ public class HandlerAspect {
 		String action = authorizeEntity.action();
 		String entity = authorizeEntity.entity();
 
-		long affinityId = context.getAffinityId();
+		/*long affinityId = context.getAffinityId();
 		long userRoleId = context.getUserSessionToken().getRoleId();
 
 		DAOFactory daoFactory = DAOFactory.getInstance();
@@ -88,7 +85,7 @@ public class HandlerAspect {
 		if (entityPrivilege == null) {
 			throw new BusinessException(ExceptionCodes.USER_NOT_AUTHORIZED,
 					ExceptionMessages.USER_NOT_AUTHORIZED);
-		}
+		}*/
 	}
 
 	private void checkIsUserCategoryAuthorized(ProceedingJoinPoint thisJoinPoint)
@@ -103,7 +100,7 @@ public class HandlerAspect {
 		String[] roles = authorizeCategory.roles();
 		String action = authorizeCategory.action();
 
-		long affinityId = context.getAffinityId();
+		/*long affinityId = context.getAffinityId();
 		long userRoleId = context.getUserSessionToken().getRoleId();
 		long categoryId = context.getCategoryId();
 
@@ -137,7 +134,7 @@ public class HandlerAspect {
 		if (categoryPrivilege == null) {
 			throw new BusinessException(ExceptionCodes.USER_NOT_AUTHORIZED,
 					ExceptionMessages.USER_NOT_AUTHORIZED);
-		}
+		}*/
 	}
 
 	private boolean roleCheck(String roleName, String[] roles) {

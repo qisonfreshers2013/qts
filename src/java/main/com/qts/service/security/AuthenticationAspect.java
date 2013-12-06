@@ -1,5 +1,6 @@
 package com.qts.service.security;
 
+import com.qts.common.cache.Cache;
 import com.qts.common.cache.CacheManager;
 import com.qts.common.cache.CacheRegionType;
 import com.qts.common.json.JsonUtil;
@@ -9,6 +10,7 @@ import com.qts.exception.*;
 import com.qts.handler.UserHandler;
 import com.qts.model.User;
 import com.qts.model.UserSessionToken;
+import com.qts.model.user.AuthenticationInput;
 import com.qts.model.user.DefaultAuthenticationInput;
 import com.qts.service.BaseService;
 import com.qts.service.annotations.Public;
@@ -46,9 +48,9 @@ public class AuthenticationAspect {
     public Object doAccessCheck(ProceedingJoinPoint thisJoinPoint) {
         //Object key = null;
         try {
-            String url = getHttpHeaderValues(thisJoinPoint);
+            //String url = getHttpHeaderValues(thisJoinPoint);
             // uncomment below line and comment above line for testing through poster
-            // String url = getHostUrl(thisJoinPoint);
+            String url = getHostUrl(thisJoinPoint);
             //No Public Annotation
             if (!isPublic(thisJoinPoint)) {
                 // If Affinity is public then Check for @Unsecure Annotation
@@ -99,7 +101,9 @@ public class AuthenticationAspect {
         }
 
         //check if session is valid or not
-        UserSessionToken userSessionToken = (UserSessionToken) CacheManager.getInstance().getCache(CacheRegionType.USER_SESSION_CACHE).getValue(sessionId);
+        Cache cache = CacheManager.getInstance().getCache(CacheRegionType.USER_SESSION_CACHE);
+        System.out.println("Cached : "+cache.getValue(sessionId));
+        UserSessionToken userSessionToken = (UserSessionToken) cache.getValue(sessionId);
         if (userSessionToken == null) {
             throw new SystemException(ExceptionCodes.USER_NOT_AUTHENTICATED, ExceptionMessages.USER_NOT_AUTHENTICATED);
         } else {
@@ -258,12 +262,14 @@ public class AuthenticationAspect {
         try {
             method = WebserviceSecurityObject.class.getMethod(methodName);
         } catch (Exception e) {
+        	e.printStackTrace();
         }
 
         if (securityObject != null && method != null) {
             try {
                 value = (String) method.invoke(securityObject);
             } catch (Exception e) {
+            	e.printStackTrace();
             }
         }
 
@@ -329,7 +335,7 @@ public class AuthenticationAspect {
         }
 
         Object payload = webServiceRequest.getPayload();
-        DefaultAuthenticationInput input = (DefaultAuthenticationInput) JsonUtil.getObject(payload, DefaultAuthenticationInput.class);
+        DefaultAuthenticationInput input = (DefaultAuthenticationInput) JsonUtil.getObject(payload, AuthenticationInput.class);
         return input.getEmail();
     }
 
@@ -337,8 +343,8 @@ public class AuthenticationAspect {
             throws ObjectNotFoundException, BusinessException {
         // check User Affinity Authorization Table
         String userEmail = getEmailFromPayload(thisJoinPoint);
-       // User user = UserHandler.getInstance().getUserByEmail(userEmail);
-        //long userId = user.getId();
+        User user = UserHandler.getInstance().getUserByEmail(userEmail);
+        long userId = user.getId();
 
     }
 
@@ -352,7 +358,7 @@ public class AuthenticationAspect {
             }
         }
         Map<String, List<String>> map = headers.getRequestHeaders();
-        String url = map.get("Referer").toString();
+       /* String url = map.get("Referer").toString();
         final int endIndex = url.indexOf("?");
         if (endIndex > -1)
             url = url.substring(0, endIndex);
@@ -362,8 +368,8 @@ public class AuthenticationAspect {
             url = url.substring(0, indexOfHash);
         }
         url = url.replace("[", "");
-        url = url.replace("]", "");
-        return url.trim();
+        url = url.replace("]", "");*/
+        return "";
     }
 
 }

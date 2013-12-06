@@ -23,6 +23,14 @@ public interface OptionOutputDescriptor extends JSONSerializationDescriptor {
 	@JsonProperty
 	public String getPassword();
 	
+	 @JsonProperty
+	 public Long getId();
+	 
+	 @JsonProperty
+	 public String getName();
+	 
+	
+	
 //	@JsonProperty
 //	public String getDesignation();
 	

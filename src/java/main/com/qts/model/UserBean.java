@@ -4,20 +4,36 @@ package com.qts.model;
 import java.io.Serializable;
 
 public class UserBean implements Serializable {
-	String firstName;
-	String lastName;
-	String nickName;
-    String gender;
-	String email;
-	String employeeId;
-	String designation;
-	String location;
-	String userId;
-	String password;
-	String confirmPassword;
+	private long id;
+	private String firstName;
+	private String lastName;
+	private String nickName;
+	private String gender;
+	private String email;
+	private String employeeId;
+	private String designation;
+	private String location;
+	private String userId;
+	private String password;
+	private String confirmPassword;
 	public UserBean() {
 		
 	}
+	
+	/**
+	 * @return the id
+	 */
+	public long getId() {
+		return id;
+	}
+
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(long id) {
+		this.id = id;
+	}
+
 	public String getFirstName() {
 		return firstName;
 	}

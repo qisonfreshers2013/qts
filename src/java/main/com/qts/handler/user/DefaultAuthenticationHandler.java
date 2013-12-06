@@ -1,10 +1,26 @@
 package com.qts.handler.user;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.util.Calendar;
+import java.util.TimeZone;
+
+import com.qts.common.EncryptionFactory;
+import com.qts.common.cache.Cache;
+import com.qts.common.cache.CacheManager;
+import com.qts.common.cache.CacheRegionType;
 import com.qts.exception.BusinessException;
 import com.qts.exception.EncryptionException;
+import com.qts.exception.ExceptionCodes;
+import com.qts.exception.ExceptionMessages;
 import com.qts.exception.ObjectNotFoundException;
+import com.qts.exception.SystemException;
+import com.qts.model.User;
+import com.qts.model.UserSessionToken;
 import com.qts.model.user.AuthenticationInput;
 import com.qts.model.user.AuthenticationOutput;
+import com.qts.model.user.DefaultAuthenticationInput;
+import com.qts.persistence.dao.DAOFactory;
 
 /**
  * @author RAMMOHAN
@@ -14,10 +30,11 @@ public class DefaultAuthenticationHandler implements AuthenticationHandler {
 
 	@Override
 	public AuthenticationOutput authenticate(AuthenticationInput input)
-			throws ObjectNotFoundException, BusinessException, EncryptionException {
-		
-		/*DefaultAuthenticationInput daInput = (DefaultAuthenticationInput) input;
-		int authStatus = User.AUTH_STATUS_NONE; 
+			throws ObjectNotFoundException, BusinessException,
+			EncryptionException {
+
+		DefaultAuthenticationInput daInput = (DefaultAuthenticationInput) input;
+		int authStatus = User.AUTH_STATUS_NONE;
 		String email = daInput.getEmail();
 		String password = daInput.getPassword();
 		if (email != null) {
@@ -26,75 +43,48 @@ public class DefaultAuthenticationHandler implements AuthenticationHandler {
 		if (password != null) {
 			password = password.trim();
 		}
-	User user = null;
-	DAOFactory daoFactory = DAOFactory.getInstance();
-	try {
+		User user = null;
+		DAOFactory daoFactory = DAOFactory.getInstance();
+		// TODO handle email doesn't exists case.
 		user = daoFactory.getUserDAO().getUserByEmail(email);
-	} catch (ObjectNotFoundException e) {
-		throw new ObjectNotFoundException(
-				ExceptionCodes.EMAIL_DOESNOT_EXIST,
-				ExceptionMessages.EMAIL_DOESNOT_EXIST);
-	}
+		//String encryptedPassword = Utils.encrypt(password);
+		String passwordFromDB = user.getPassword();
+		boolean userValidity = passwordFromDB.equals(passwordFromDB);
 
-	String encryptedPassword = Utils.encrypt(password);
-	String passwordFromDB = user.getPassword();
-	boolean userValidity = passwordFromDB.equals(encryptedPassword);
+		/*if (!userValidity) {
+			throw new BusinessException(ExceptionCodes.INVALID_PASSWORD,
+					ExceptionMessages.INVALID_PASSWORD);
+		}*/
 
-	if (!userValidity) {
-		throw new BusinessException(ExceptionCodes.INVALID_PASSWORD,
-				ExceptionMessages.INVALID_PASSWORD);
-	} 
-	
-	authStatus = User.AUTH_STATUS_EXISTING; 
+		authStatus = User.AUTH_STATUS_EXISTING;
 
-	String sessionToken = null;
-	try {
-		sessionToken = URLEncoder.encode(
-				EncryptionFactory.getEncryption(true).encrypt(
-						user.getEmail() + DateUtils.getCurrentTime()),
-				"UTF-8");
-	} catch (EncryptionException ee) {
-		throw new SystemException(ExceptionCodes.INTERNAL_ERROR,
-				ExceptionMessages.INTERNAL_ERROR);
-	} catch (UnsupportedEncodingException uee) {
-		throw new SystemException(ExceptionCodes.INTERNAL_ERROR,
-				ExceptionMessages.INTERNAL_ERROR);
-	}
+		String sessionToken = null;
+		try {
+			TimeZone.setDefault(TimeZone.getDefault());
+			sessionToken = URLEncoder
+					.encode(EncryptionFactory.getEncryption(true).encrypt(
+							user.getEmail()
+									+ Calendar.getInstance().getTimeInMillis()),
+							"UTF-8");
+		} catch (EncryptionException ee) {
+			throw new SystemException(ExceptionCodes.INTERNAL_ERROR,
+					ExceptionMessages.INTERNAL_ERROR);
+		} catch (UnsupportedEncodingException uee) {
+			throw new SystemException(ExceptionCodes.INTERNAL_ERROR,
+					ExceptionMessages.INTERNAL_ERROR);
+		}
 
-	long affinityId = Utils.getAffinityId();
-	Affinity affinity = DAOFactory.getInstance().getAffinityDAO().getAffinity(affinityId);
-	
-	String communityType = affinity.getCommunity_Type();
-	String registrationType = affinity.getRegistration_Type();
-	
-	UserSessionToken userSessionToken = new UserSessionToken();
-	userSessionToken.setUserEmail(user.getEmail());
-	userSessionToken.setUserId(user.getId());
-	userSessionToken.setUserSessionId(sessionToken);
-	userSessionToken.setRoleId(user.getRoleId());
-	userSessionToken.setCommunityType(communityType);
-	userSessionToken.setRegistrationType(registrationType);
-	CacheManager.getInstance().getCache(CacheRegionType.USER_SESSION_CACHE)
-			.put(sessionToken, userSessionToken);
-	
-	long fileId = user.getFileId();
-	File file = null;
-	if(fileId != 0) {
-		file = FileHandler.getInstance().getFile(fileId);
+		UserSessionToken userSessionToken = new UserSessionToken();
+		userSessionToken.setUserEmail(user.getEmail());
+		userSessionToken.setUserId(user.getId());
+		userSessionToken.setUserSessionId(sessionToken);
+		Cache cache = CacheManager.getInstance().getCache(CacheRegionType.USER_SESSION_CACHE);
+		cache.put(sessionToken, userSessionToken);
+		System.out.println("Session Token : "+sessionToken);
+		System.out.println("Cached : "+cache.getValue(sessionToken));
+		AuthenticationOutput authenticationOutput = new AuthenticationOutput(
+				sessionToken, authStatus, user);
+		return authenticationOutput;
 	}
-	
-	long roleId = user.getRoleId();
-	Role role = null;
-	if(roleId != 0) {
-		role = daoFactory.getRoleDAO().getRole(roleId);
-	}
-	
-	UserOutput userOutput = new UserOutput(user, file, role); 
-	AuthenticationOutput authenticationOutput = new AuthenticationOutput(
-			sessionToken, authStatus, userOutput);
-	return authenticationOutput;*/
-        return null;
-}
-		
 
 }

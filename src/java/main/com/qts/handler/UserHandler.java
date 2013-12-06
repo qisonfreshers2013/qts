@@ -1,7 +1,7 @@
 package com.qts.handler;
 
 import java.util.ArrayList;
-import java.util.Calendar;
+//import java.util.Calendar;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -60,7 +60,7 @@ public class UserHandler extends AbstractHandler {
 //						bean.setDesignation("Not");
 //					}
 
-					list = DAOFactory.getUserDAOImpl().searchUser(bean);
+					list = DAOFactory.getInstance().getUserDAO().searchUser(bean);
 				//	List<SearchUserRecord> record = new LinkedList<SearchUserRecord>();
 				    records = new LinkedList<SearchUserRecord>();
 					for(User user : list){
@@ -183,19 +183,36 @@ public class UserHandler extends AbstractHandler {
 	public long addUser(UserBean bean) throws UserException {
 		String userId = null;
 		long id = 0;
-		if(isaddUserIsValidated(bean)){
-		UserDAO userDAOImpl = DAOFactory.getUserDAOImpl();		
 		
-	    id = 11;
+		if(isaddUserIsValidated(bean)){
+		UserDAO userDAOImpl = DAOFactory.getInstance().getUserDAO();			
+	    id = 11;	   
 		Date date = new Date();
 		long cts = date.getTime();
 		long mts = cts;
 		boolean isDeleted = false;
-		long photoFileId = 0;
+		long photoFileId = 7;
 	    String createdBy = userDAOImpl.getUserName(id);	
 	    String modifiedBy = createdBy;
+	    boolean gender = bean.getGender().equalsIgnoreCase("male")?true:false;	
+	    User user = new User(bean.getEmail(),
+				bean.getPassword(),
+				bean.getEmployeeId(), 
+				bean.getFirstName(), 
+				bean.getLastName(), 
+				bean.getNickName(),
+				bean.getLocation(), 
+				gender,
+				bean.getDesignation(),
+				cts,
+				mts, 
+				createdBy, 
+				modifiedBy,
+				isDeleted, 
+				bean.getUserId(),
+				photoFileId);
 			try {
-				id = userDAOImpl.addUser(bean,id,cts,mts,createdBy,modifiedBy,isDeleted,photoFileId);
+				id = userDAOImpl.addUser(user);
 				
 			} catch (HibernateException he) {
 				he.printStackTrace();
@@ -208,39 +225,50 @@ public class UserHandler extends AbstractHandler {
 
 	private boolean isaddUserIsValidated(UserBean bean) throws UserException {
 		boolean isValidated = false;
-		if(null==bean){
+		if(null == bean){
 			throw new UserException(ExceptionCodes.USER_DETAILS_NULL,ExceptionMessages.USER_DETAILS_NULL);
 	 	}
-		try {
-			Utils.validatePassword(bean.getPassword());
-			isValidated = true;
-		} catch (Exception be) {
-			isValidated = false;
-			throw new UserException(ExceptionCodes.PASSWORD_FORMAT,
-					ExceptionMessages.PASSWORD_FORMAT);
-		}
-		if(bean.getConfirmPassword()==null){
-			isValidated = false;
-			throw new UserException(ExceptionCodes.CONFIRM_PASSWORD_NULL,ExceptionMessages.CONFIRM_PASSWORD_NULL );
-			
-		}
-		if(!bean.getPassword().equals(bean.getConfirmPassword())){
-			throw new UserException(ExceptionCodes.CONFIRM_PASSWORD_NOT_EQUAL,ExceptionMessages.CONFIRM_PASSWORD_NOT_EQUAL);
-		}
-		if(bean.getFirstName()==null){	
-			isValidated = false;
-			throw new UserException(ExceptionCodes.FIRST_NAME_SHOULD_NOT_NULL,ExceptionMessages.FIRST_NAME_SHOULD_NOT_NULL);
-		}
-		else{
-			boolean isNamePatternValid = Pattern.compile(Utils.USER_NAME_PATTERN)
-				.matcher(bean.getFirstName()).matches();
-			isValidated = true;
-			if (!isNamePatternValid) {
-				isValidated = false;
-				throw new UserException(ExceptionCodes.FIRST_NAME_INVALID, ExceptionMessages.FIRST_NAME_INVALID);
-			}
-		}
-		if(bean.getLastName()==null){	
+//		if(bean.getPassword()==null){
+//			isValidated = false;
+//			throw new UserException(ExceptionCodes.PASSWORD_NULL,ExceptionMessages.PASSWORD_NULL );			
+//		}
+//		try {
+//			Utils.validatePassword(bean.getPassword());
+//			isValidated = true;
+//		} catch (Exception be) {
+//			isValidated = false;
+//			throw new UserException(ExceptionCodes.PASSWORD_FORMAT,
+//					ExceptionMessages.PASSWORD_FORMAT);
+//		}
+		isValidated = validatePassword(bean.getPassword());
+		isValidated = validateConfirmPassword(bean.getPassword(),bean.getConfirmPassword());
+		isValidated = validateFirstName(bean.getFirstName());
+		isValidated = validateLastName(bean.getLastName());
+		
+//		if(bean.getConfirmPassword()==null){
+//			isValidated = false;
+//			throw new UserException(ExceptionCodes.CONFIRM_PASSWORD_NULL,ExceptionMessages.CONFIRM_PASSWORD_NULL );
+//			
+//		}
+//		if(!bean.getPassword().equals(bean.getConfirmPassword())){
+//			isValidated = false;
+//			throw new UserException(ExceptionCodes.CONFIRM_PASSWORD_NOT_EQUAL,ExceptionMessages.CONFIRM_PASSWORD_NOT_EQUAL);
+//		}
+		
+//		if(bean.getFirstName()==null||bean.getFirstName().trim().length()==0){	
+//			isValidated = false;
+//			throw new UserException(ExceptionCodes.FIRST_NAME_SHOULD_NOT_NULL,ExceptionMessages.FIRST_NAME_SHOULD_NOT_NULL);
+//		}
+//		else{
+//			boolean isNamePatternValid = Pattern.compile(Utils.USER_NAME_PATTERN)
+//				.matcher(bean.getFirstName()).matches();
+//			isValidated = true;
+//			if (!isNamePatternValid) {
+//				isValidated = false;
+//				throw new UserException(ExceptionCodes.FIRST_NAME_INVALID, ExceptionMessages.FIRST_NAME_INVALID);
+//			}
+//		}
+		if(bean.getLastName()==null||bean.getLastName().trim().length()==0){	
 			isValidated = false;
 			throw new UserException(ExceptionCodes.LAST_NAME_SHOULD_NOT_NULL,ExceptionMessages.LAST_NAME_SHOULD_NOT_NULL);
 		}
@@ -263,7 +291,7 @@ public class UserHandler extends AbstractHandler {
 				throw new UserException(ExceptionCodes.NICKNAME_INVALID, ExceptionMessages.NICKNAME_INVALID);
 			}
 		}
-		if(bean.getGender()==null){	
+		if(bean.getGender()==null||bean.getGender().trim().length()==0){	
 			isValidated = false;
 			throw new UserException(ExceptionCodes.GENDER_NOT_NULL,ExceptionMessages.GENDER_NOT_NULL);
 		}
@@ -285,7 +313,7 @@ public class UserHandler extends AbstractHandler {
 					ExceptionMessages.EMAIL_FORMAT);
 
 		}
-		if(bean.getEmployeeId()==null){
+		if(bean.getEmployeeId()==null || bean.getEmployeeId().trim().length()==0){
 			isValidated = false;
 			throw new UserException(ExceptionCodes.EMPLOYEE_ID_NULL,ExceptionMessages.EMPLOYEE_ID_NULL);
 		}else{
@@ -317,7 +345,7 @@ public class UserHandler extends AbstractHandler {
 		
 		}
 		
-		if(bean.getUserId()==null){
+		if(bean.getUserId()==null||bean.getUserId().trim().length()==0||!(bean.getUserId().equalsIgnoreCase(bean.getEmail()))){
 			isValidated = false;
 			throw new UserException(ExceptionCodes.USER_ID_NULL, ExceptionMessages.USER_ID_NULL);
 		}else {			
@@ -332,10 +360,26 @@ public class UserHandler extends AbstractHandler {
 		return isValidated;
 	}
 
-	public boolean deleteUser(long id) {
+	private boolean validateConfirmPassword(String password,
+			String confirmPassword) throws UserException {
+		boolean isValidated = true;
+		if(password == null){
+			isValidated = false;
+			throw new UserException(ExceptionCodes.CONFIRM_PASSWORD_NULL,ExceptionMessages.CONFIRM_PASSWORD_NULL );
+			
+		}
+		if(!password.equals(confirmPassword)){
+			isValidated = false;
+			throw new UserException(ExceptionCodes.CONFIRM_PASSWORD_NOT_EQUAL,ExceptionMessages.CONFIRM_PASSWORD_NOT_EQUAL);
+		}
+		
+		return isValidated;
+	}
+
+	public boolean deleteUser(UserBean bean) {
 		boolean isDeleted = false;
-		UserDAO userDAOImpl = DAOFactory.getUserDAOImpl();
-		userDAOImpl.deleteUser(id);
+		UserDAO userDAOImpl = DAOFactory.getInstance().getUserDAO();
+		isDeleted = userDAOImpl.deleteUser(bean.getId());
 		return isDeleted;
 	}
 
@@ -344,33 +388,33 @@ public class UserHandler extends AbstractHandler {
 	 * */
 	public User getUserByUserId(String userId) {
 		User user = null;
-		UserDAO userDAOImpl = DAOFactory.getUserDAOImpl();
+		UserDAO userDAOImpl = DAOFactory.getInstance().getUserDAO();
 		user = userDAOImpl.getUserByUserId(userId);
 		return user;
 	}
 	public User getUserByEmail(String email) {
 		User user = null;
-		UserDAO userDAOImpl = DAOFactory.getUserDAOImpl();
+		UserDAO userDAOImpl = DAOFactory.getInstance().getUserDAO();
 		user = userDAOImpl.getUserByEmail(email);
 		return user;
 	}
 //SearchUserRecords
-	public List<User> login(LoginBean bean) throws UserException {
-		List<User> list = null;		
+	public User login(LoginBean bean) throws UserException {
+		User user = null;		
 		if(isSearchLoginValidated(bean)){
 			try{
-			 list = DAOFactory.getUserDAOImpl().getUserLogin(bean);	
+			 user = DAOFactory.getInstance().getUserDAO().getUserLogin(bean);	
 			}catch(HibernateException he){
 			  he.printStackTrace();	
 			}
 		}		
-		return list;
+		return user;
 	}
 
 private boolean isSearchLoginValidated(LoginBean bean) throws UserException {
 	boolean isValidated = false;
-	String email = null;
-	String password = null;
+//	String email = null;
+//	String password = null;
 	//boolean isValidated;
 	if(null==bean){
 		throw new UserException(ExceptionCodes.USER_ID_AND_PASSWORD_NULL,ExceptionMessages.USER_ID_AND_PASSWORD_NULL);
@@ -384,8 +428,7 @@ private boolean isSearchLoginValidated(LoginBean bean) throws UserException {
 				ExceptionMessages.PASSWORD_FORMAT);
 	}
 	
-//	if(!((email = bean.getEmail())==null||email.trim().length()>0)&&((password = bean.getPassword())==null||password.trim().length()>0)) {
-	
+
 	try {		
 		Utils.validateEmail(bean.getEmail());
 		isValidated = true;
@@ -406,6 +449,136 @@ private boolean isSearchLoginValidated(LoginBean bean) throws UserException {
 	
 	return isValidated;
 	
+}
+
+public boolean updateUser(UserBean bean) throws UserException {
+	boolean isUpdated = false;
+	if(isUpdateUserIsValidated(bean)){
+		UserDAO userDAOImpl = DAOFactory.getInstance().getUserDAO();	
+		isUpdated = userDAOImpl.updateUser(bean);
+		}	
+	return isUpdated;
+
+	}
+
+private boolean isUpdateUserIsValidated(UserBean bean) throws UserException {
+	boolean isValidated = false;
+	isValidated = validateFirstName(bean.getFirstName());
+	isValidated = validateLastName(bean.getLastName());
+	isValidated = validateNickName(bean.getNickName());
+	isValidated = validateLocation(bean.getLocation());
+	return isValidated;
+}
+
+private boolean validateNickName(String nickName) throws UserException {
+	
+	boolean isValidated = false;
+	if(nickName==null||nickName.trim().length()==0){	
+		isValidated = false;
+		throw new UserException(ExceptionCodes.LAST_NAME_SHOULD_NOT_NULL,ExceptionMessages.LAST_NAME_SHOULD_NOT_NULL);
+	}
+	else{
+		boolean isNamePatternValid = Pattern.compile(Utils.USER_NAME_PATTERN)
+			.matcher(nickName).matches();
+		isValidated = true;
+		if (!isNamePatternValid) {
+			isValidated = false;
+			throw new UserException(ExceptionCodes.LAST_NAME_INVALID, ExceptionMessages.LAST_NAME_INVALID);
+		}
+	}
+	
+	return isValidated;
+}
+
+
+
+private boolean validateLocation(String location) throws UserException {
+	boolean isValidated = false;
+	if(location==null||location.trim().length()==0){	
+		isValidated = false;
+		throw new UserException(ExceptionCodes.LAST_NAME_SHOULD_NOT_NULL,ExceptionMessages.LAST_NAME_SHOULD_NOT_NULL);
+	}
+	else{
+		boolean isNamePatternValid = Pattern.compile(Utils.USER_NAME_PATTERN)
+			.matcher(location).matches();
+		isValidated = true;
+		if (!isNamePatternValid) {
+			isValidated = false;
+			throw new UserException(ExceptionCodes.LAST_NAME_INVALID, ExceptionMessages.LAST_NAME_INVALID);
+		}
+	}
+	
+	return isValidated;
+}
+
+private boolean validateLastName(String lastName) throws UserException {
+	boolean isValidated = false;
+	if(lastName==null||lastName.trim().length()==0){	
+		isValidated = false;
+		throw new UserException(ExceptionCodes.LAST_NAME_SHOULD_NOT_NULL,ExceptionMessages.LAST_NAME_SHOULD_NOT_NULL);
+	}
+	else{
+		boolean isNamePatternValid = Pattern.compile(Utils.USER_NAME_PATTERN)
+			.matcher(lastName).matches();
+		isValidated = true;
+		if (!isNamePatternValid) {
+			isValidated = false;
+			throw new UserException(ExceptionCodes.LAST_NAME_INVALID, ExceptionMessages.LAST_NAME_INVALID);
+		}
+	}
+	
+	return isValidated;
+}
+
+private boolean validateFirstName(String firstName) throws UserException {
+	boolean isValidated = false;
+	if(firstName==null||firstName.trim().length()==0){	
+		isValidated = false;
+		throw new UserException(ExceptionCodes.FIRST_NAME_SHOULD_NOT_NULL,ExceptionMessages.FIRST_NAME_SHOULD_NOT_NULL);
+	}
+	else{
+		boolean isNamePatternValid = Pattern.compile(Utils.USER_NAME_PATTERN)
+			.matcher(firstName).matches();
+		isValidated = true;
+		if (!isNamePatternValid) {
+			isValidated = false;
+			throw new UserException(ExceptionCodes.FIRST_NAME_INVALID, ExceptionMessages.FIRST_NAME_INVALID);
+		}
+	}
+	
+	return isValidated;
+}
+
+public boolean changePassword(UserBean bean) throws UserException {
+	boolean isPasswordChanged = false;
+	isPasswordChanged = validatePassword(bean.getPassword());
+	isPasswordChanged = validateConfirmPassword(bean.getPassword(), bean.getConfirmPassword());
+//	if(bean.getConfirmPassword()==null){
+//		throw new UserException(ExceptionCodes.CONFIRM_PASSWORD_NOT_EQUAL, ExceptionMessages.CONFIRM_PASSWORD_NOT_EQUAL);
+//	}
+//	if(!bean.getPassword().equals(bean.getConfirmPassword())){
+//		throw new UserException(ExceptionCodes.CONFIRM_PASSWORD_NOT_EQUAL, ExceptionMessages.CONFIRM_PASSWORD_NOT_EQUAL);
+//	}
+	UserDAO userDAOImpl = DAOFactory.getInstance().getUserDAO();
+	isPasswordChanged = userDAOImpl.changePassword(bean.getPassword(),bean.getId());	
+	return isPasswordChanged;
+}
+
+private boolean validatePassword(String password) throws UserException {
+	boolean isValidated = false;
+	if(password == null){
+		isValidated = false;
+		throw new UserException(ExceptionCodes.PASSWORD_NULL,ExceptionMessages.PASSWORD_NULL );			
+	}
+	try {
+		Utils.validatePassword(password);
+		isValidated = true;
+	} catch (Exception be) {
+		isValidated = false;
+		throw new UserException(ExceptionCodes.PASSWORD_FORMAT,
+				ExceptionMessages.PASSWORD_FORMAT);
+	}
+	return isValidated;
 }
 }
 

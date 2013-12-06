@@ -92,7 +92,14 @@ public class User extends AbstractObject{
 	 * @param isDelete
 	 * @param userId
 	 * @param photoFileId
+	 * 
 	 */
+	
+	public static final String AUTH_TYPE_REGULAR = "REGULAR";
+	public static final int AUTH_STATUS_EXISTING = 0;
+	public static final int AUTH_STATUS_NEW = 1;	
+	public static final int AUTH_STATUS_NONE = 2;
+	
 	public User(String email, String password, String employeeId,
 			String firstName, String lastName,
 			String nickName, String location, boolean gender, String designation,

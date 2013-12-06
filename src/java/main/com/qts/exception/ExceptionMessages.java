@@ -45,4 +45,6 @@ public interface ExceptionMessages {
 	public static final String EMPLOYEE_ID_NULL = "Employee is null";
 	public static final String EMPLOYEE_ID_INVALID = "Employee id is Invalid";
 	public static final String USER_ID_NULL = "User Id can not be null";
+	public static final String USER_ID_AND_PASSWORD_INVALID = "User id/password does not exist";
+	public static final String PASSWORD_NULL = "pass word can not be null";
 }

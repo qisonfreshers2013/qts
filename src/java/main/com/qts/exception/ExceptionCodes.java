@@ -182,6 +182,8 @@ public interface ExceptionCodes {
 	public static final int EMPLOYEE_ID_NULL = 7020;
 	public static final int EMPLOYEE_ID_INVALID = 7021;
 	public static final int USER_ID_NULL = 7022;
+	public static final int USER_ID_AND_PASSWORD_INVALID = 7023;
+	public static final int PASSWORD_NULL = 7024;
 	
 	
 }

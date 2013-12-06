@@ -113,19 +113,19 @@ public class Utils {
         return userId;
     }
 
-    public static long getAffinityId() {
+    /*public static long getAffinityId() {
         long affinityId = 0;
         try {
             affinityId = ServiceRequestContextHolder.getContext().getAffinityId();
         } catch (Throwable throwable) {
         }
         return affinityId;
-    }
+    }*/
 
-    public static long getRoleId() {
+   /* public static long getRoleId() {
         return ServiceRequestContextHolder.getContext().getUserSessionToken().getRoleId();
     }
-
+*/
     public static String getStringFromList(List list) {
         if (null != list)
             return list.toString().replaceFirst("\\[", "").replace("]", "");
