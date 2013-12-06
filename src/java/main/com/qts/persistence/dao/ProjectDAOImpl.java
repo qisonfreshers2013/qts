@@ -8,7 +8,6 @@ import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.criterion.Projections;
-
 import com.qts.exception.ExceptionCodes;
 import com.qts.exception.ExceptionMessages;
 import com.qts.exception.ObjectNotFoundException;
@@ -20,7 +19,6 @@ import com.qts.model.User;
 
 public class ProjectDAOImpl extends BaseDAOHibernateImpl implements ProjectDAO {
 	private static ProjectDAO INSTANCE=null;
-	
 	private ProjectDAOImpl(){
 		
 	}

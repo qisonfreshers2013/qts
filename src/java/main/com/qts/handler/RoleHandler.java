@@ -26,7 +26,7 @@ public class RoleHandler extends AbstractHandler {
 	}
 	@SuppressWarnings("unchecked")
 	public String listRoles() {
-		Session session=SessionFactoryUtil.getCurrentSession();
+		Session session=SessionFactoryUtil.getInstance().openSession();
 		Query query=session.createQuery("from Roles");
 		Roles r;
 		String s="";

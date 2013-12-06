@@ -1,17 +1,9 @@
 package com.qts.model;
 
-import java.util.HashSet;
-import java.util.Set;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 /**
  * 
@@ -23,32 +15,32 @@ import javax.persistence.Table;
 @Table(name="ROLES")
 public class Roles extends AbstractObject
 {
-	@Id
-	@GeneratedValue
-	@Column(name="ID")
-	private long id;
-	@Column(name="NAME")
-	private String name;
-	public Roles() {
-	}
-	public Roles(String name) {
-		this.name = name;
-	}
-	public long getId() {
-		return id;
-	}
-	public void setId(long id) {
-		this.id = id;
-	}
-	public String getName() {
-		return name;
-	}
-	public void setName(String name) {
-		this.name = name;
-	}
-	
-	@Override
-	public int getObjectType() {
-		return 0;//ObjectTypes.ROLE;
-	}
+ @Id
+ @GeneratedValue
+ @Column(name="ID")
+ private long id;
+ @Column(name="NAME")
+ private String name;
+ public Roles() {
+ }
+ public Roles(String name) {
+  this.name = name;
+ }
+ public long getId() {
+  return id;
+ }
+ public void setId(long id) {
+  this.id = id;
+ }
+ public String getName() {
+  return name;
+ }
+ public void setName(String name) {
+  this.name = name;
+ }
+
+ @Override
+ public int getObjectType() {
+  return ObjectTypes.ROLES;
+ }
 }

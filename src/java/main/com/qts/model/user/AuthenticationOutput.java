@@ -1,6 +1,9 @@
 package com.qts.model.user;
 
-import com.qts.model.UserEx;
+import org.codehaus.jackson.annotate.JsonProperty;
+
+import com.qts.model.User;
+import com.qts.service.annotations.SerializationDescriptor;
 
 /**
  * @author RAMMOHAN
@@ -8,26 +11,29 @@ import com.qts.model.UserEx;
  */
 public class AuthenticationOutput {
 
-	private String sessionToken;
-	private int authStatus;
-	private UserEx user;
+ private String sessionToken;
+ private int authStatus;
+ private User user;
 
-	public AuthenticationOutput(String sessionToken, int authStatus, UserEx user) {
-		this.sessionToken = sessionToken;
-		this.authStatus = authStatus;
-		this.user = user;
-	}
+ public AuthenticationOutput(String sessionToken, int authStatus, User user) {
+  this.sessionToken = sessionToken;
+  this.authStatus = authStatus;
+  this.user = user;
+ }
 
-	public String getSessionToken() {
-		return sessionToken;
-	}
+ @JsonProperty
+ public String getSessionToken() {
+  return sessionToken;
+ }
 
-	public int getAuthStatus() {
-		return authStatus;
-	}
-
-	public UserEx getUser() {
-		return user;
-	}
+ @JsonProperty
+ public int getAuthStatus() {
+  return authStatus;
+ }
+ 
+ @SerializationDescriptor(value = User.class)
+    @JsonProperty
+ public User getUser() {
+  return user;
+ }
 }
-

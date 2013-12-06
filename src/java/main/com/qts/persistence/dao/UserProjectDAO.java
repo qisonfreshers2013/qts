@@ -13,6 +13,6 @@ public interface UserProjectDAO extends BaseDAO {
 	public void addUserToProject(List<UserProject> userProject) throws ProjectException,Exception;
 	public UserProject getUserProjectByIds(long projectId,long userId) throws ProjectException, Exception;
 	public RoleBean updateReportingUserId(RoleBean roleBean) throws ProjectException,Exception;
-	public void deAllocateUsersFromProject(long projectId,
+	public boolean deAllocateUsersFromProject(long projectId,
 			List<Long> userIdsList) throws Exception;
 }
