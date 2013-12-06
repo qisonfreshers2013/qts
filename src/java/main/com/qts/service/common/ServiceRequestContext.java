@@ -13,9 +13,7 @@ public class ServiceRequestContext implements Serializable, Cloneable {
 	protected String hashcode;
 	UserSessionToken userSessionToken;
 	protected RequestId requestId;
-	private long affinityId;
-	private long categoryId;
-	
+	private long userId;
 
 	public String getHashcode() {
 		if (getUserSessionToken() != null)
@@ -62,33 +60,9 @@ public class ServiceRequestContext implements Serializable, Cloneable {
 		this.requestId = requestId;
 	}
 
-	/**
-	 * @return the affinityId
-	 */
-	public long getAffinityId() {
-		return affinityId;
-	}
-
-	/**
-	 * @param affinityId the affinityId to set
-	 */
-	public void setAffinityId(long affinityId) {
-		this.affinityId = affinityId;
-	}
-
-	/**
-	 * @return the categoryId
-	 */
-	public long getCategoryId() {
-		return categoryId;
-	}
-
-	/**
-	 * @param categoryId the categoryId to set
-	 */
-	public void setCategoryId(long categoryId) {
-		this.categoryId = categoryId;
-	}
+    public long getUserId() {
+        return userId;
+    }
 
 	public Session getDBSession() {
 		// TODO Auto-generated method stub
@@ -99,4 +73,7 @@ public class ServiceRequestContext implements Serializable, Cloneable {
 	
 	
 	
+    public void setUserId(long userId) {
+        this.userId = userId;
+    }
 }

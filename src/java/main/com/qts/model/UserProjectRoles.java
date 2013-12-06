@@ -11,14 +11,13 @@ import javax.persistence.Table;
 public class UserProjectRoles extends AbstractObject {
 	@Id
 	@GeneratedValue
+	@Column(name="Id")
 	private long id;
 	@Column(name="user_project_id")
 	private long user_project_id;
 	@Column(name="role_id")
 	private long roleId;
-
-
-
+	
 	public UserProjectRoles() {
 		super();
 	}
@@ -37,9 +36,6 @@ public class UserProjectRoles extends AbstractObject {
 	}
 	public long getRoleId() {
 		return roleId;
-	}
-	public void setRoleId(long roleId) {
-		this.roleId = roleId;
 	}
 	public int getObjectType() {
 		return ObjectTypes.USER_PROJECT_ROLES;

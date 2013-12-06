@@ -1,18 +1,9 @@
 package com.qts.model;
 
-import java.util.HashSet;
-import java.util.Set;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 /**
  * 
@@ -30,7 +21,6 @@ public class Roles extends AbstractObject
 	private long id;
 	@Column(name="NAME")
 	private String name;
-
 	public Roles() {
 	}
 	public Roles(String name) {
@@ -48,7 +38,7 @@ public class Roles extends AbstractObject
 	public void setName(String name) {
 		this.name = name;
 	}
-	
+
 	@Override
 	public int getObjectType() {
 		return ObjectTypes.ROLES;

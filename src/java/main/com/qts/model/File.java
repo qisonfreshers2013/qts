@@ -1,11 +1,9 @@
 package com.qts.model;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 //import org.hibernate.annotations.Cascade;
@@ -23,6 +21,7 @@ public class File extends AbstractObject{
 	private String path;
 	@Column(name="SERVER_URL")
 	private String serverURL;
+//	@OneToOne(mappedBy="photoFile",cascade=CascadeType.ALL)
 	public File() {
 		
 	}
@@ -66,14 +65,10 @@ public class File extends AbstractObject{
 		this.serverURL = serverURL;
 	}
 
-	/**
-	 * @return the user
-	 */
-
 	@Override
 	public int getObjectType() {
 		
-		return ObjectTypes.FILE;//--------
+		return ObjectTypes.FILE;
 	}
 	
 

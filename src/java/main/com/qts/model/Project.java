@@ -1,15 +1,9 @@
 package com.qts.model;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -23,6 +17,15 @@ public class Project extends AbstractObject{
 	private String name;
 	@Column(name="Technologies")
 	private String technologies;
+	
+//	@OneToMany(mappedBy= "project",fetch=FetchType.EAGER )
+//	private Set<Releases> releases =new HashSet();
+//	@ManyToMany(mappedBy = "project",fetch=FetchType.EAGER)  
+//	private Set<User1> user1= new HashSet<User1>();
+//	@OneToMany(mappedBy="project",fetch=FetchType.EAGER)
+//	private Set<TimeEntries> timeEntries= new HashSet();
+//	@OneToMany(mappedBy="project" ,fetch=FetchType.EAGER)
+//	private Set<UserProject> userProject =new HashSet(); 
 	public Project() {
 		super();
 	}

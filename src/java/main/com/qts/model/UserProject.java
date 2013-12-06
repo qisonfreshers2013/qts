@@ -1,5 +1,4 @@
 package com.qts.model;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -20,24 +19,9 @@ public class UserProject extends AbstractObject {
 	private long projectId;
 	@Column(name="reporting_user_id")
 	private long reportingUserId;
-	public UserProject()
-	{
-
-	}
-	public long getId() {
-		return id;
-	}
-
-	public void setId(long id) {
-		this.id = id;
-	}
-
-	public long getReportingUserId() {
-		return reportingUserId;
-	}
-
-	public void setReportingUserId(long reportingUserId) {
-		this.reportingUserId = reportingUserId;
+	
+	public UserProject(){
+		
 	}
 	
 	
@@ -56,7 +40,7 @@ public class UserProject extends AbstractObject {
 	@Override
 	public int getObjectType() {
 		// TODO Auto-generated method stub
-		return ObjectTypes.USER_PROJECT;
+		return 0;
 	}
-
 }
+

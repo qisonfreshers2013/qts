@@ -2,19 +2,33 @@ package com.qts.persistence.dao;
 
 import java.util.List;
 
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+
 import com.qts.exception.ObjectNotFoundException;
 import com.qts.model.BaseObject;
 
-public class BaseDAOImpl implements BaseDAO {
+public class BaseDAOImpl implements BaseDAO{
+	
+	
 
 	@Override
 	public BaseObject saveObject(BaseObject persistentObject) {
-		// TODO Auto-generated method stub
-		return null;
+		Session session = DAOConnection.openSession();
+	    Transaction transaction = session.beginTransaction();
+	    session.save(persistentObject);
+	    transaction.commit();
+	    DAOConnection.closeSession(session);
+		return persistentObject;
 	}
 
 	@Override
 	public BaseObject update(BaseObject persistentObject) {
+
+		return null;
+	}
+	public BaseObject updateWithOutModifiedDate(BaseObject persistentObject) {
+
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -30,5 +44,4 @@ public class BaseDAOImpl implements BaseDAO {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
 }

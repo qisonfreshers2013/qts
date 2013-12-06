@@ -8,6 +8,7 @@ import org.codehaus.jackson.map.type.TypeFactory;
 import org.codehaus.jackson.type.JavaType;
 
 import com.qts.model.User;
+import com.qts.model.UserExt;
 
 public class AuthTypeJSONResolver extends TypeNameIdResolver {
 
@@ -22,13 +23,13 @@ public class AuthTypeJSONResolver extends TypeNameIdResolver {
 	
 	public static HashMap<String, String> getTypeToId() {
 		HashMap<String, String> typeToId = new HashMap<String, String>();
-		typeToId.put("com.qts.model.user.DatabaseAuthenticationInput", User.AUTH_TYPE_REGULAR);
+		typeToId.put("com.qts.model.user.DatabaseAuthenticationInput", UserExt.AUTH_TYPE_REGULAR);
 		return typeToId;
 	}
 
 	public static HashMap<String, JavaType> getIdToType() {
 		HashMap<String, JavaType> idToType = new HashMap<String, JavaType>();
-		idToType.put(User.AUTH_TYPE_REGULAR, TypeFactory.type(DefaultAuthenticationInput.class));
+		idToType.put(UserExt.AUTH_TYPE_REGULAR, TypeFactory.type(DefaultAuthenticationInput.class));
 		return idToType;
 	}
 

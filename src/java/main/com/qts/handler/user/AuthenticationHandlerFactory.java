@@ -13,6 +13,6 @@ public class AuthenticationHandlerFactory {
 		if (authType.equals(User.AUTH_TYPE_REGULAR)) {
 			return new DefaultAuthenticationHandler();
 		}
-		return null;
+		return new DefaultAuthenticationHandler();
 	}
 }

@@ -29,7 +29,7 @@ public class ResourceBundleHandler {
 		return INSTANCE;
 	}
 
-	public Map<String, String> getLabels() throws UnsupportedEncodingException {
+	/*public Map<String, String> getLabels() throws UnsupportedEncodingException {
 		Locale locale = getLocale();
 		ResourceBundle rb = ResourceBundle.getBundle(LABELS_BUNDLE, locale);
 		Enumeration<String> keys = rb.getKeys();
@@ -42,11 +42,10 @@ public class ResourceBundleHandler {
 			labels.put(key, val);
 		}
 		return labels;
-	}
+	}*/
 
-	private Locale getLocale() {
-		int affinityId = (int) ServiceRequestContextHolder.getContext()
-				.getAffinityId();
+	/*private Locale getLocale() {
+		int affinityId = (int) ServiceRequestContextHolder.getContext().getAffinityId();
 		switch (affinityId) {
 		case 1:
 			return new Locale("en", "US");
@@ -56,5 +55,5 @@ public class ResourceBundleHandler {
 			return new Locale("en", "US");
 		}
 	}
-
+*/
 }

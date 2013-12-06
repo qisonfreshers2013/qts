@@ -44,16 +44,12 @@ public class TimeEntries extends AbstractObject {
 	private String modified_by;
     @Column(name="STATUS")
 	private int status;
-    
-    
 	public long getId() {
 		return id;
 	}
 	public void setId(long id) {
 		this.id = id;
 	}
-
-
 	public long getUserId() {
 		return userId;
 	}

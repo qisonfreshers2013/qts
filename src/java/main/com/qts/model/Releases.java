@@ -33,6 +33,11 @@ public class Releases extends AbstractObject {
 	/**
 	 * No Args Constructor
 	 */
+//	@ManyToOne(fetch=FetchType.EAGER)
+//	@JoinColumn(name = "project_id")
+//	private Project project;
+//	@OneToMany(mappedBy="releases")
+//	private Set<TimeEntries> timeEntries=new HashSet<TimeEntries>();
 	public Releases() {
 		super();
 	}
@@ -72,10 +77,11 @@ public class Releases extends AbstractObject {
 	public void setProjectId(long projectId) {
 		this.projectId = projectId;
 	}
-
 	@Override
 	public int getObjectType() {
 		return ObjectTypes.RELEASES;
 	}
+	
+	
 
 }
