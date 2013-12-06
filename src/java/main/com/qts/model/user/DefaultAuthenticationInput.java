@@ -1,6 +1,6 @@
 package com.qts.model.user;
 
-import com.qts.model.User;
+import com.qts.model.UserEx;
 
 public class DefaultAuthenticationInput implements AuthenticationInput {
 
@@ -24,7 +24,7 @@ public class DefaultAuthenticationInput implements AuthenticationInput {
 	
 	@Override
 	public String getAuthType() {
-		return User.AUTH_TYPE_REGULAR;
+		return UserEx.AUTH_TYPE_REGULAR;
 	}
 
 }

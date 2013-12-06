@@ -16,11 +16,8 @@ public interface BaseDAO {
 
 	public BaseObject update(BaseObject persistentObject);
 
-    public BaseObject updateWithOutModifiedDate(BaseObject persistentObject);
-
 	public List<BaseObject> save(List<BaseObject> persistentObjects);
 
 	public BaseObject getObjectById(long id) throws ObjectNotFoundException;
 	
-	public BaseObject updateWithoutModifiedTime(BaseObject persistentObject);
 }

@@ -8,7 +8,6 @@ import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-//import org.hibernate.annotations.Cascade;
 
 @Entity
 @Table(name="FILE")
@@ -23,8 +22,6 @@ public class File extends AbstractObject{
 	private String path;
 	@Column(name="SERVER_URL")
 	private String serverURL;
-	@OneToOne(mappedBy="photoFile",cascade=CascadeType.ALL)
-	private User1 user;
 	public File() {
 		
 	}
@@ -68,24 +65,10 @@ public class File extends AbstractObject{
 		this.serverURL = serverURL;
 	}
 
-	/**
-	 * @return the user
-	 */
-	public User1 getUser() {
-		return user;
-	}
-
-	/**
-	 * @param user the user to set
-	 */
-	public void setUser(User1 user) {
-		this.user = user;
-	}
-
 	@Override
 	public int getObjectType() {
 		
-		return 0;//--------
+		return 0;
 	}
 	
 

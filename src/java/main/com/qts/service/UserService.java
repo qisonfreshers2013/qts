@@ -33,30 +33,30 @@ public class UserService extends BaseService{
 		return "{\"status\":\"SUCCESS\", \"payload\":\"Hurry its working !!!!\"}";
 	}
 	
-	@POST
-	@RestService(input = String.class, output = String.class)
-	@ServiceStatus(value = "complete")
-	@Consumes(MediaType.APPLICATION_JSON)
-	@Produces(MediaType.APPLICATION_JSON)
-	@Path("/testHandler")
-	public String testHandler(@Context HttpHeaders headers, @Context UriInfo uriInfo,
-			WebserviceRequest request) {
-	String testResult = UserHandler.getInstance().getTestResult();
-	return "{\"status\":\"SUCCESS\", \"payload\":\"Hurry its working !!!!\"}";
-	}
-	
-	@POST
-    @RestService(input = String.class, output = Boolean.class)
-    @ServiceStatus(value = "complete")
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)
-    @Path("/testWithInput")
-    public Boolean testWithInput(@Context HttpHeaders headers, @Context UriInfo uriInfo,
-                       WebserviceRequest request) throws Exception {
-        String text = (String) JsonUtil.getObject(request.getPayload(),
-        		String.class);
-        boolean testResult = UserHandler.getInstance().testWithInput(text);
-        return testResult;
-    }
+//	@POST
+//	@RestService(input = String.class, output = String.class)
+//	@ServiceStatus(value = "complete")
+//	@Consumes(MediaType.APPLICATION_JSON)
+//	@Produces(MediaType.APPLICATION_JSON)
+//	@Path("/testHandler")
+//	public String testHandler(@Context HttpHeaders headers, @Context UriInfo uriInfo,
+//			WebserviceRequest request) {
+//	String testResult = UserHandler.getInstance().getTestResult();
+//	return "{\"status\":\"SUCCESS\", \"payload\":\"Hurry its working !!!!\"}";
+//	}
+//	
+//	@POST
+//    @RestService(input = String.class, output = Boolean.class)
+//    @ServiceStatus(value = "complete")
+//    @Consumes(MediaType.APPLICATION_JSON)
+//    @Produces(MediaType.APPLICATION_JSON)
+//    @Path("/testWithInput")
+//    public Boolean testWithInput(@Context HttpHeaders headers, @Context UriInfo uriInfo,
+//                       WebserviceRequest request) throws Exception {
+//        String text = (String) JsonUtil.getObject(request.getPayload(),
+//        		String.class);
+//        boolean testResult = UserHandler.getInstance().testWithInput(text);
+//        return testResult;
+//    }
 
 }
