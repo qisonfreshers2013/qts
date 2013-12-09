@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE hibernate-configuration PUBLIC
+<!DOCTYPE hibernate-configuration PUBLIC 
         "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
         "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
-
 <hibernate-configuration>
 <session-factory>
-
+<!-- hibernate dialect -->
 <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
 <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
 <property name="hibernate.connection.url">jdbc:mysql://192.168.10.32/project</property>
@@ -15,10 +14,14 @@
 <property name="hibernate.hbm2ddl.auto">update</property>
 <property name="current_session_context_class">thread</property>
 <property name= "show_sql">true</property> 
-<mapping class="com.qison.models.TimeEntries"/>
-<mapping class="com.qison.models.Releases"/>
-<mapping class="com.qison.models.Project"/>
-<mapping class="com.qison.models.Activities"/>
-
+<mapping class="com.qts.model.TimeEntries"/>
+<mapping class="com.qts.model.Releases"/>
+<mapping class="com.qts.model.Project"/>
+<mapping class="com.qts.model.User"/>
+<mapping class="com.qts.model.File"/>
+<mapping class="com.qts.model.UserProject"/>
+<mapping class="com.qts.model.UserProjectRoles"/>
+<mapping class="com.qts.model.Roles"/>
+<mapping class="com.qts.model.Activities"/>
 </session-factory>
 </hibernate-configuration>

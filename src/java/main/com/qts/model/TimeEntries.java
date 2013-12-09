@@ -5,8 +5,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -15,33 +13,34 @@ public class TimeEntries extends AbstractObject {
     @Id
     @Column(name="ID")
     @GeneratedValue
-	private long id;
+    private long id;
     @Column(name="USER_ID")
 	private long userId;
     @Column(name="DATE")
-	private long date;
+    private long date;
     @Column(name="HOURS")
-	private int hours;
+    private int hours;
+    @Column(name="project_id")
+    private long projectId;
+    @Column(name="release_id")
+    private long releaseId;
+    @Column(name="activity_id")
+    private long activityId;
     @Column(name="TASK")
-	private String task;
+    private String task;
     @Column(name="REMARKS")
-	private String remarks;
+    private String remarks;
     @Column(name="CTS")
-	private long cts;
+    private long cts;
     @Column(name="MTS")
-	private long mts;
+    private long mts;
     @Column(name="CREATED_BY")
-	private long created_by;
+    private long created_by;
     @Column(name="MODIFIED_BY")
 	private long modified_by;
     @Column(name="STATUS")
 	private int status;
-    @Column(name="release_id")
-    private long releaseId;
-    @Column(name="PROJECT_ID")
-    private long projectId;
-    @Column(name="activity_id")
-    private long activityId;
+
    
     public TimeEntries()
     {
@@ -155,3 +154,5 @@ public void setProjectId(long projectId) {
 		return ObjectTypes.TIME_ENTRIES;
 	}
 }
+
+

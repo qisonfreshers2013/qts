@@ -1,560 +1,387 @@
 package com.qts.model;
 
-import com.qts.common.Utils;
-import org.codehaus.jackson.annotate.JsonAutoDetect;
-import org.codehaus.jackson.annotate.JsonMethod;
+//import java.sql.Timestamp;
+import java.util.HashSet;
+import java.util.Set;
 
-import java.util.List;
-import java.util.Map;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
+import javax.persistence.Table;
 
 /**
- * @author RAMMOHAN
- * 
+ * @author 
+ *
  */
-@JsonAutoDetect(JsonMethod.SETTER)
-public class User extends AbstractObject {
+@Entity
+@Table(name = "USER")
+public class User extends AbstractObject{
+ 
+ @Id
+ @GeneratedValue
+ @Column(name = "ID")
+ private long id;
+ @Column(name = "EMAIL")
+ private String email;
+ @Column(name = "PASSWORD")
+ private String password; 
+ @Column(name = "EMPLOYEE_ID")
+ private String employeeId;
+ 
+ 
+ //private long photoFileId; 
+ @Column(name = "FIRST_NAME")
+ private String firstName;
+ @Column(name = "LAST_NAME")
+ private String lastName;
+ @Column(name = "NICKNAME")
+ private String nickName;
+ @Column(name = "LOCATION")
+ private String location;
+ 
+ @Column(name = "GENDER" , columnDefinition= "bit")
+ private boolean gender;
+ 
+ @Column(name = "DESIGNATION")
+ private String designation;
+ 
+ @Column(name = "CTS", columnDefinition= "BIGINT")
+ private long cts;
+ @Column(name = "MTS",columnDefinition= "BIGINT")
+ private long mts;
+ @Column(name = "CREATED_BY")
+ private String createdBy; 
+ @Column(name = "MODIFIED_BY")
+ private String modifiedBy;
+ @Column(name = "IS_DELETED" , columnDefinition= "bit")
+ private Boolean isDeleted;
+ @Column(name = "USER_ID")
+ private String userId; 
+ //@OneToOne
+ //@PrimaryKeyJoinColumn 
+ //private File photoFile;
+ @Column(name = "PHOTO_FILE_ID",columnDefinition= "BIGINT")
+ private long photoFileId;
+ public User() {
+  
+ }
+ /**
+  * 
+  * @param email
+  * @param password
+  * @param employeeId
+  * @param photoFileId
+  * @param firstName
+  * @param lastName
+  * @param nickName
+  * @param location
+  * @param gender
+  * @param designation
+  * @param cts
+  * @param mts
+  * @param createdBy
+  * @param modifiedBy
+  * @param isDelete
+  * @param userId
+  * @param photoFileId
+  * 
+  */
+ 
+ public static final String AUTH_TYPE_REGULAR = "REGULAR";
+ public static final int AUTH_STATUS_EXISTING = 0;
+ public static final int AUTH_STATUS_NEW = 1; 
+ public static final int AUTH_STATUS_NONE = 2;
+ 
+ public User(String email, String password, String employeeId,
+   String firstName, String lastName,
+   String nickName, String location, boolean gender, String designation,
+   long cts, long mts, String createdBy, String modifiedBy,
+   Boolean isDeleted, String userId,long photoFileId) {
+  super();
+  this.email = email;
+  this.password = password;
+  this.employeeId = employeeId;
+  //this.photoFileId = photoFileId;
+  this.firstName = firstName;
+  this.lastName = lastName;
+  this.nickName = nickName;
+  this.location = location;
+  this.gender = gender;
+  this.designation = designation;
+  this.cts = cts;
+  this.mts = mts;
+  this.createdBy = createdBy;
+  this.modifiedBy = modifiedBy;
+  this.isDeleted = isDeleted;
+  this.userId = userId;
+  this.photoFileId = photoFileId;
+  
+ }
 
-	public static final String LABEL_USER_ID = "userId";
-	public static final String LABEL_EMAIL = "email";
-	public static final String LABEL_FIRST_NAME = "firstName";
-	public static final String LABEL_LAST_NAME = "lastName";
-	public static final String LABEL_USERS = "users";
-	public static final String LABEL_NAME = "name";
-	public static final String LABEL_PRIMARY_AFFINITY_ID = "primaryAffinityId";
-	public static final String LABEL_FACEBOOK_ID = "userSourceId";
-	public static final String LABEL_ROLE_ID = "roleId";
-	public static final String LABEL_GENDER = "gender";
-	public static final String LABEL_ADDRESS1 = "address1";
-	public static final String LABEL_ADDRESS2 = "address2";
-	public static final String LABEL_CITY = "city";
-	public static final String LABEL_STATE = "state";
-	public static final String LABEL_QUALIFICATION_YEAR = "qualification_year";
-	public static final String LABEL_SPECIALIZATION = "specialization";
-	public static final String LABEL_IS_ANONYMOUS = "isAnonymous";
-	public static final String LABEL_DOB = "dob";
-	public static final String LABEL_AFFINITIES = "affinities";
-	public static final String LABEL_COUNTRY = "country";
-	public static final String LABEL_GOOGLE_ID = "userSourceId";
-	public static final String LABEL_USER_SOURCE = "userSource";
+ /**
+  * @return the id
+  */
+ public long getId() {
+  return id;
+ }
 
-	public static final String USER_SOURCE_REGULAR = "regular";
-	public static final String USER_SOURCE_FACEBOOK = "facebook";
-	public static final String USER_SOURCE_GOOGLE = "google";	
-	
-	public static final String AUTH_TYPE_REGULAR = "REGULAR";	
-	public static final String AUTH_TYPE_FACEBOOK = "FACEBOOK";
-	
-	public static final int AUTH_STATUS_EXISTING = 0;
-	public static final int AUTH_STATUS_NEW = 1;	
-	public static final int AUTH_STATUS_NONE = 2;
-	
-	public static final int USER_ACCEPTED_TERMS = 1;
-	public static final int USER_NOT_ACCEPTED_TERMS = 0;
-	
-	public static final int FACEBOOK_PUBLISH_ALLOWED = 1;
-	public static final int FACEBOOK_PUBLISH_NOT_ALLOWED = 0;
-	
-	public static final int  ANONYMOUS = 1;
-	public static final int  ONYMOUS = 0;
-	
-	public static final String LABEL_GENDER_MALE = "Male";
-	public static final String LABEL_GENDER_FEMALE = "Female";
-	
-	public static final String LABEL_ANONYMOUS = "ANONYMOUS";
-	public static final String  LABEL_ONYMOUS = "ONYMOUS";
-	
-	private String userId;
-	private long primaryAffinityId;
-	private long qtsId;
-	private String firstName;
-	private String lastName;
-	private String email;
-	private String password;
-	private String gender;
-	private String address1;
-	private String address2;
-	private String city;
-	private String state;
-	private String country;
-	private String zip;
-	private long dob;
-    private long roleId;
-    private long fileId;
-    private Map<String, String> userSource;
-    private String qualification_year;
-    private String specialization;
-    private List<String> tags;
-    private int isAnonymous;
-    private List<Long> affinities;
+ /**
+  * @param id the id to set
+  */
+ public void setId(long id) {
+  this.id = id;
+ }
 
-	public User() {
-		super();
-	}
-	
-	public User(User user) {
-		super(user);
-		this.primaryAffinityId = user.primaryAffinityId;
-		this.qtsId = user.qtsId;
-		this.firstName = user.firstName;
-		this.lastName = user.lastName;
-		this.email = user.email;
-		this.password = user.password;
-		this.gender = user.gender;
-		this.address1 = user.address1;
-		this.address2 = user.address2;
-		this.city = user.city;
-		this.state = user.state;
-		this.country = user.country;
-		this.zip = user.zip;
-		this.dob = user.dob;
-		this.roleId = user.roleId;
-		this.fileId = user.fileId;
-		this.userSource = user.userSource;
-		this.qualification_year = user.qualification_year;
-		this.specialization = user.specialization;
-		this.tags = user.tags;
-		this.isAnonymous = user.isAnonymous;
-		this.affinities = user.affinities;
-	}
+ /**
+  * @return the email
+  */
+ public String getEmail() {
+  return email;
+ }
 
-    public long getQtsId() {
-        return qtsId;
-    }
+ /**
+  * @param email the email to set
+  */
+ public void setEmail(String email) {
+  this.email = email;
+ }
 
-    public void setQtsId(long qtsId) {
-        this.qtsId = qtsId;
-    }
+ /**
+  * @return the password
+  */
+ public String getPassword() {
+  return password;
+ }
 
-    public String getUserId() {
-		return userId;
-	}
+ /**
+  * @param password the password to set
+  */
+ public void setPassword(String password) {
+  this.password = password;
+ }
 
-	public void setUserId(String userId) {
-		this.userId = userId;
-	}
+ /**
+  * @return the employeeId
+  */
+ public String getEmployeeId() {
+  return employeeId;
+ }
 
-	/**
-	 * @return the primaryAffinityId
-	 */
-	public long getPrimaryAffinityId() {
-		return primaryAffinityId;
-	}
+ /**
+  * @param employeeId the employeeId to set
+  */
+ public void setEmployeeId(String employeeId) {
+  this.employeeId = employeeId;
+ }
 
-	/**
-	 * @param primaryAffinityId
-	 *            the primaryAffinityId to set
-	 */
-	public void setPrimaryAffinityId(long primaryAffinityId) {
-		this.primaryAffinityId = primaryAffinityId;
-	}
+ /**
+  * @return the photoFileId
+  */
+ public long getPhotoFileId() {
+  return photoFileId;
+ }
 
-	/**
-	 * @return the firstName
-	 */
-	public String getFirstName() {
-		return firstName;
-	}
+ /**
+  * @param photoFileId the photoFileId to set
+  */
+ public void setPhotoFileId(long photoFileId) { 
+  this.photoFileId = photoFileId;
+ }
 
-	/**
-	 * @param firstName
-	 *            the firstName to set
-	 */
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
+ /**
+  * @return the firstName
+  */
+ public String getFirstName() {
+  return firstName;
+ }
 
-	/**
-	 * @return the lastName
-	 */
-	public String getLastName() {
-		return lastName;
-	}
+ /**
+  * @param firstName the firstName to set
+  */
+ public void setFirstName(String firstName) {
+  this.firstName = firstName;
+ }
 
-	/**
-	 * @param lastName
-	 *            the lastName to set
-	 */
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
+ /**
+  * @return the lastName
+  */
+ public String getLastName() {
+  return lastName;
+ }
 
-	/**
-	 * @return the email
-	 */
-	public String getEmail() {
-		return email;
-	}
+ /**
+  * @param lastName the lastName to set
+  */
+ public void setLastName(String lastName) {
+  this.lastName = lastName;
+ }
 
-	/**
-	 * @param email
-	 *            the email to set
-	 */
-	public void setEmail(String email) {
-		this.email = email;
-	}
+ /**
+  * @return the nickName
+  */
+ public String getNickName() {
+  return nickName;
+ }
 
-	/**
-	 * @return the password
-	 */
-	public String getPassword() {
-		return password;
-	}
+ /**
+  * @param nickName the nickName to set
+  */
+ public void setNickName(String nickName) {
+  this.nickName = nickName;
+ }
 
-	/**
-	 * @param password
-	 *            the password to set
-	 */
-	public void setPassword(String password) {
-		this.password = password;
-	}
+ /**
+  * @return the location
+  */
+ public String getLocation() {
+  return location;
+ }
 
-	/**
-	 * @return the gender
-	 */
-	public String getGender() {
-		return gender;
-	}
+ /**
+  * @param location the location to set
+  */
+ public void setLocation(String location) {
+  this.location = location;
+ }
 
-	/**
-	 * @param gender
-	 *            the gender to set
-	 */
-	public void setGender(String gender) {
-		this.gender = gender;
-	}
+ /**
+  * @return the gender
+  */
+ public boolean getGender() {
+  return gender;
+ }
 
-	/**
-	 * @return the address1
-	 */
-	public String getAddress1() {
-		return address1;
-	}
+ /**
+  * @param gender the gender to set
+  */
+ public void setGender(boolean gender) {
+  this.gender = gender;
+ }
 
-	/**
-	 * @param address1
-	 *            the address1 to set
-	 */
-	public void setAddress1(String address1) {
-		this.address1 = address1;
-	}
+ /**
+  * @return the designation
+  */
+ public String getDesignation() {
+  return designation;
+ }
 
-	/**
-	 * @return the address2
-	 */
-	public String getAddress2() {
-		return address2;
-	}
+ /**
+  * @param designation the designation to set
+  */
+ public void setDesignation(String designation) {
+  this.designation = designation;
+ }
 
-	/**
-	 * @param address2
-	 *            the address2 to set
-	 */
-	public void setAddress2(String address2) {
-		this.address2 = address2;
-	}
+ /**
+  * @return the cts
+  */
+ public long getCts() {
+  return cts;
+ }
 
-	/**
-	 * @return the city
-	 */
-	public String getCity() {
-		return city;
-	}
+ /**
+  * @param cts the cts to set
+  */
+ public void setCts(long cts) {
+  this.cts = cts;
+ }
 
-	/**
-	 * @param city
-	 *            the city to set
-	 */
-	public void setCity(String city) {
-		this.city = city;
-	}
+ /**
+  * @return the mts
+  */
+ public long getMts() {
+  return mts;
+ }
 
-	/**
-	 * @return the state
-	 */
-	public String getState() {
-		return state;
-	}
+ /**
+  * @param mts the mts to set
+  */
+ public void setMts(long mts) {
+  this.mts = mts;
+ }
 
-	/**
-	 * @param state
-	 *            the state to set
-	 */
-	public void setState(String state) {
-		this.state = state;
-	}
+ /**
+  * @return the createdBy
+  */
+ public String getCreatedBy() {
+  return createdBy;
+ }
 
-	/**
-	 * @return the country
-	 */
-	public String getCountry() {
-		return country;
-	}
+ /**
+  * @param createdBy the createdBy to set
+  */
+ public void setCreatedBy(String createdBy) {
+  this.createdBy = createdBy;
+ }
 
-	/**
-	 * @param country
-	 *            the country to set
-	 */
-	public void setCountry(String country) {
-		this.country = country;
-	}
+ /**
+  * @return the modifiedBy
+  */
+ public String getModifiedBy() {
+  return modifiedBy;
+ }
 
-	/**
-	 * @return the zip
-	 */
-	public String getZip() {
-		return zip;
-	}
+ /**
+  * @param modifiedBy the modifiedBy to set
+  */
+ public void setModifiedBy(String modifiedBy) {
+  this.modifiedBy = modifiedBy;
+ }
 
-	/**
-	 * @param zip
-	 *            the zip to set
-	 */
-	public void setZip(String zip) {
-		this.zip = zip;
-	}
+ /**
+  * @return the isDelete
+  */
+ public Boolean getIsDeleted() {
+  return isDeleted;
+ }
 
-	/**
-	 * @return the dob
-	 */
-	public long getDob() {
-		return dob;
-	}
+ /**
+  * @param isDelete the isDelete to set
+  */
+ public void setIsDeleted(Boolean isDeleted) {
+  this.isDeleted = isDeleted;
+ }
 
-	/**
-	 * @param dob
-	 *            the dob to set
-	 */
-	public void setDob(long dob) {
-		this.dob = dob;
-	}
-	
-	/**
-	 * @return the role
-	 */
-	public long getRoleId() {
-		return roleId;
-	}
+ /**
+  * @return the userId
+  */
+ public String getUserId() {
+  return userId;
+ }
 
-	/**
-	 *
-	 */
-	public void setRoleId(long roleId) {
-		this.roleId = roleId;
-	}
-		
-	/**
-	 * @return the fileId
-	 */
-	public long getFileId() {
-		return fileId;
-	}
+ /**
+  * @param userId the userId to set
+  */
+ public void setUserId(String userId) {
+  this.userId = userId;
+ }
 
-	/**
-	 * @param fileId
-	 *            the fileId to set
-	 */
-	public void setFileId(long fileId) {
-		this.fileId = fileId;
-	}
-	
-	
-	public Map<String, String> getUserSource() {
-		return userSource;
-	}
-
-	public void setUserSource(Map<String, String> userSource) {
-		this.userSource = userSource;
-	}
-
-	
-	/**
-	 * @return the full name of user
-	 */
-	public String getFullName() {
-		return firstName + " " + lastName;
-	}
-
-	/**
-	 * @return the qualification_year
-	 */
-	public String getQualification_year() {
-		return qualification_year;
-	}
-
-	/**
-	 * @param qualification_year
-	 *            the qualification_year to set
-	 */
-	public void setQualification_year(String qualification_year) {
-		this.qualification_year = qualification_year;
-	}
-
-	/**
-	 * @return the specialization
-	 */
-	public String getSpecialization() {
-		return specialization;
-	}
-
-	/**
-	 * @param specialization
-	 *            the specialization to set
-	 */
-	public void setSpecialization(String specialization) {
-		this.specialization = specialization;
-	}
-
-	/**
-	 * @return the tags
-	 */
-	public List<String> getTags() {
-		return tags;
-	}
-
-	/**
-	 * @param tags
-	 *            the tags to set
-	 */
-	public void setTags(List<String> tags) {
-		this.tags = tags;
-	}
-	
-	/**
-	 * @return the isAnonymous
-	 */
-	public int getIsAnonymous() {
-		return isAnonymous;
-	}
-
-	/**
-	 * @param isAnonymous the isAnonymous to set
-	 */
-	public void setIsAnonymous(int isAnonymous) {
-		this.isAnonymous = isAnonymous;
-	}
-
-	//To Return FirstName when User is Anonymous 
-	public String getFirstNameForUI() {
-		if (this.getIsAnonymous() == User.ANONYMOUS) {
-			// Yes User is Anonymous
-			// Check session is Null or Not
-			if (Utils.getUserId() != 0) {
-				// User Logged In
-				if (Utils.getUserId() == this.getId()) {
-					return this.getFirstName();
-				} else {
-					this.setFirstName("Anonymous");
-					return this.getFirstName();
-				}
-			} else {
-				// Session is Null
-				this.setFirstName("Anonymous");
-				return this.getFirstName();
-			}
-		} else {
-			// No User is Not Anonymous
-			return this.getFirstName();
-		}
-	}
-
-	//To Return LastName when User is Anonymous
-	public String getLastNameForUI() {
-		if (this.getIsAnonymous() == User.ANONYMOUS) {
-			// Yes User is Anonymous
-			// Check session is Null or Not
-			if (Utils.getUserId() != 0) {
-				// User Logged In
-				if (Utils.getUserId() == this.getId()) {
-					return this.getLastName();
-				} else {
-					this.setLastName("");
-					return this.getLastName();
-				}
-			} else {
-				// Session is Null
-				this.setLastName("");
-				return this.getLastName();
-			}
-		} else {
-			// No User is Not Anonymous
-			return this.getLastName();
-		}
-	}
-
-	//To Return Email when User is Anonymous
-	public String getEmailForUI() {
-		if (this.getIsAnonymous() == User.ANONYMOUS) {
-			// Yes User is Anonymous
-			//Check session is Null or Not
-			if (Utils.getUserId() != 0) {
-				// User Logged In
-				if (Utils.getUserId() == this.getId()) {
-					return this.getEmail();
-				} else {
-					this.setEmail("Anonymous");
-					return this.getEmail();
-				}
-			} else {
-				// Session is Null
-				this.setEmail("Anonymous");
-				return this.getEmail();
-			}
-		} else {
-			// No User is Not Anonymous
-			return this.getEmail();
-		}
-	}
-
-	
-	//To Return FullName when User is Anonymous
-	public String getFullNameForUI() {
-		if (this.getIsAnonymous() == User.ANONYMOUS) {
-			// Yes User is Anonymous
-			//Check session is Null or Not
-			if (Utils.getUserId() != 0) {
-				// User Logged In
-				if (Utils.getUserId() == this.getId()) {
-					return this.getFullName();
-				} else {
-					this.setFirstName("Anonymous");
-					this.setLastName("");
-					return this.getFullName().trim();
-				}
-			} else {
-				// Session is Null
-				this.setFirstName("Anonymous");
-				this.setLastName("");
-				return this.getFullName().trim();
-			}
-		} else {
-			// No User is Not Anonymous
-			return this.getFullName();
-		}
-	}
-
-	/**
-	 * @return the affinities
-	 */
-	public List<Long> getAffinities() {
-		return affinities;
-	}
-
-	/**
-	 * @param affinities the affinities to set
-	 */
-	public void setAffinities(List<Long> affinities) {
-		this.affinities = affinities;
-	}
-
-    /*
-    * (non-Javadoc)
-    *
-    * @see com.qts.model.BaseObject#getObjectType()
-    */
-	@Override
-	public int getObjectType() {
-		return ObjectTypes.USER;
-	}
-
+// /**
+//  * @return the photoFile
+//  */
+// public File getPhotoFile() {
+//  return photoFile;
+// }
+//
+// /**
+//  * @param photoFile the photoFile to set
+//  */
+// public void setPhotoFile(File photoFile) {
+//  this.photoFile = photoFile;
+// }
+// 
+ @Override
+ public int getObjectType() {
+  
+  return ObjectTypes.PROJECT;
+ }
 
 }

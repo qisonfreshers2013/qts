@@ -24,6 +24,17 @@ id="WebApp_ID" version="3.0">
         <servlet-name>JerseyWebApp</servlet-name>
         <url-pattern>/services/*</url-pattern>
     </servlet-mapping>
+    
+    <servlet>
+    	<servlet-name>InitializationServlet</servlet-name>
+   		<servlet-class>com.qts.common.InitializationServlet</servlet-class>
+   		 <load-on-startup>2</load-on-startup>
+    </servlet>
+    
+    <servlet-mapping>
+        <servlet-name>InitializationServlet</servlet-name>
+        <url-pattern>/InitializationServlet</url-pattern>
+    </servlet-mapping>
 
 	<welcome-file-list>
 		<welcome-file>index.html</welcome-file>
