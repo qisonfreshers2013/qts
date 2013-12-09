@@ -20,6 +20,8 @@ public interface ReleasesDAO extends BaseDAO {
 	
 	public Releases addReleases(Releases releases) throws ReleasesException;
 
+	public Releases deleteReleases(Releases releases)throws Exception;
+
 	
 
 }

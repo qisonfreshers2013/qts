@@ -35,24 +35,24 @@ public class ReleasesHandler extends AbstractHandler {
 	// Request Comes from ReleasesService Class and calls Method
 	// ReleasesDAOImplClass
 
-	public List<Releases> listReleases(ReleasesInput releasesBean)
+	public List<Releases> listReleases(ReleasesInput releasesInput)
 			throws ReleasesException, ObjectNotFoundException {
-		if (validateListReleases(releasesBean)) {
+		if (validateListReleases(releasesInput)) {
 			return DAOFactory.getInstance().getReleasesDAOImplInstance().listReleases(
-					releasesBean);
+					releasesInput);
 		}
 		return null;
 	}
 
 	// validations before listing Releases of a project
-	private boolean validateListReleases(ReleasesInput releasesBean)
+	private boolean validateListReleases(ReleasesInput releasesInput)
 			throws ReleasesException, ObjectNotFoundException {
-		if (releasesBean == null)
+		if (releasesInput == null)
 			throw new ReleasesException(ExceptionCodes.RELEASESBEAN_NOT_NULL,
 					ExceptionMessages.RELEASESBEAN_NOT_NULL);
 		try {
 			ProjectHandler.getInstance().getObjectById(
-					releasesBean.getProjectId());
+					releasesInput.getProjectId());
 		} catch (ObjectNotFoundException e) {
 			throw e;
 		}
@@ -90,6 +90,30 @@ public class ReleasesHandler extends AbstractHandler {
 			throw new ReleasesException(ExceptionCodes.RELEASES_NAME_LENGTH,
 					ExceptionMessages.RELEASES_NAME_LENGTH_IS_MORE);
 		return true;
+	}
+
+	public Releases deleteReleases(ReleasesInput releasesInput) throws Exception {
+		if(validateDeleteReleases(releasesInput)){
+			Releases releases=ReleasesHandler.getInstance().getObjectById(releasesInput.getId());
+		return DAOFactory.getInstance().getReleasesDAOImplInstance()
+				.deleteReleases(releases);
+		}
+		return null;
+	}
+
+	private boolean validateDeleteReleases(ReleasesInput releasesInput) throws ReleasesException {
+		if (releasesInput == null)
+			throw new ReleasesException(ExceptionCodes.RELEASESBEAN_NOT_NULL,
+					ExceptionMessages.RELEASESBEAN_NOT_NULL);
+//		if(TimeEntryHandler.getInstance().isEntryMapped(releasesInput.getId()))
+//			return true;
+//		else
+//			throw new ReleasesException(ExceptionCodes.TIME_ENTRY_PRESENT,ExceptionMessages.TIME_ENTRY_PRESENT);
+		return true;
+	}
+	public Releases getObjectById(long id) throws ObjectNotFoundException{
+		return (Releases) DAOFactory.getInstance().getReleasesDAOImplInstance()
+		.getObjectById(id);
 	}
 
 }

@@ -31,4 +31,5 @@ public class ProjectDAOImpl extends BaseDAOHibernateImpl implements ProjectDAO{
 			throw new ObjectNotFoundException(ExceptionCodes.PROJECT_ID_INVALID,ExceptionMessages.PROJECT_ID_INVALID);
 		return list.get(0);
 	}
+	
 }

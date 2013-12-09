@@ -194,6 +194,7 @@ public interface ExceptionCodes {
 	public static final int USER_ID_NULL = 7022;
 	public static final int USER_ID_AND_PASSWORD_INVALID = 7023;
 	public static final int PASSWORD_NULL = 7024;
+	public static final int PROJECT_ID_INVALID = 5007;
 	
 	
 }

@@ -72,6 +72,25 @@ public class ReleasesDAOImpl extends BaseDAOHibernateImpl implements
 
 	}
 
+	@Override
+	public Releases deleteReleases(Releases releases) throws Exception {
+		Session session=SessionFactoryUtil.getInstance().openSession();
+		session.beginTransaction();
+		try{
+//			int isDeleted=session.createQuery("delete from Releases where id="+releases.getId()).executeUpdate();
+			session.delete(releases);
+			session.getTransaction().commit();
+//			if(isDeleted==1){
+//				return releases;
+//			}
+			return releases;
+		}
+		catch(Exception e){
+			throw e;
+		}
+//		return null;
+	}
+	
 	@SuppressWarnings("unchecked")
 	public Releases getObjectById(long releaseId)
 			throws ObjectNotFoundException {
@@ -80,7 +99,7 @@ public class ReleasesDAOImpl extends BaseDAOHibernateImpl implements
 		List<Releases> releasesList;
 		try {
 			releasesList = session.createQuery(
-					"from Releases where release_id=" + releaseId).list();
+					"from Releases where id=" + releaseId).list();
 			if (releasesList.isEmpty()) {
 				throw new ObjectNotFoundException(
 						ExceptionCodes.RELEASES_ID_DOES_NOT_EXISTS,

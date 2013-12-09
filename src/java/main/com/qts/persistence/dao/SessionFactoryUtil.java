@@ -13,31 +13,31 @@ public class SessionFactoryUtil {
 	private static  SessionFactory sessionFactory; 
 	public static SessionFactory getInstance() {
 		try{
-	  if(sessionFactory==null){
-		  sessionFactory= new AnnotationConfiguration().configure().buildSessionFactory();
-	  return sessionFactory;
-	  }
-	  return sessionFactory;
+			if(sessionFactory==null){
+				sessionFactory= new AnnotationConfiguration().configure().buildSessionFactory();
+				return sessionFactory;
+			}
+			return sessionFactory;
 		}
 		catch(Throwable ex){
 			System.err.println("Initial SessionFactory creation failed." + ex);
 			ex.printStackTrace();
 			throw new ExceptionInInitializerError(ex);
 		}
-	 }
+	}
 	public Session getCurrentSession() {
-		  if(session==null){
-		  session= sessionFactory.openSession();
-		  return session;
-		  }
-		  return session;
-		 }
+		if(session==null){
+			session= sessionFactory.openSession();
+			return session;
+		}
+		return session;
+	}
 	public Transaction getCurrentTransaction(){
-		 if(transaction==null){
-			 transaction= session.beginTransaction();
-			  return transaction;
-			  }
-			  return transaction;
+		if(transaction==null){
+			transaction= session.beginTransaction();
+			return transaction;
+		}
+		return transaction;
 	}
 
 }
