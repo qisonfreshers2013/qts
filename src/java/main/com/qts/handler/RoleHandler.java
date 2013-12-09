@@ -11,6 +11,7 @@ import com.qts.model.Roles;
 import com.qts.model.UserProject;
 import com.qts.model.UserProjectRoles;
 import com.qts.persistence.dao.DAOFactory;
+import com.qts.persistence.dao.SessionFactoryUtil;
 
 /**
  * 
@@ -30,7 +31,6 @@ public class RoleHandler extends AbstractHandler {
 			INSTANCE = new RoleHandler();
 		return INSTANCE;
 	}
-
 	public List<Roles> listRoles() throws Exception {
 		return DAOFactory.getRoleDAOImplInstance().listRoles();
 	}
@@ -92,7 +92,6 @@ public class RoleHandler extends AbstractHandler {
 			throw e;
 		}
 	}
-
 	public boolean validateBean(RoleBean roleBean) throws Exception {
 		try {
 			if (roleBean == null)

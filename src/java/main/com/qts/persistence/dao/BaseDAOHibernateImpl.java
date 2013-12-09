@@ -1,93 +1,57 @@
 package com.qts.persistence.dao;
 
-import java.util.Calendar;
-import java.util.Iterator;
 import java.util.List;
-
 import org.hibernate.Session;
-import org.hibernate.Transaction;
-
 import com.qts.exception.ObjectNotFoundException;
 import com.qts.model.BaseObject;
-import com.qts.model.Roles;
 
-public class BaseDAOHibernateImpl implements BaseDAO
-{
-	Session session;
-	@Override
-	public BaseObject saveObject(BaseObject persistentObject) {
-		if(persistentObject!=null)
-		{
-			session=SessionFactoryUtil.getInstance().getCurrentSession();
-			session.beginTransaction();
-			session.save(persistentObject);
-			session.getTransaction().commit();
-		}
-		return persistentObject;
-	}
+/**
+ * @author vthandra
+ */
 
-	@Override
-	public BaseObject update(BaseObject persistentObject) {
-//		if(persistentObject!=null)
-//		{
-//			session=Connection.openSession();
-//			session.beginTransaction();
-//			session.update(persistentObject);
-//			session.getTransaction().commit();
-//		}
-//		return persistentObject;
-		Session dbSession=null; 
-        Transaction tx=SessionFactoryUtil.getCurrentTransaction();
-        if (dbSession == null) { // since here we can come from upload servlet directly w/o authentication aspect
-            // so db session can be null
-        	 dbSession = SessionFactoryUtil.getInstance().getCurrentSession();
-        }
-        session.update(persistentObject);
-            tx.commit();
-        return persistentObject;
-	}
+public abstract class BaseDAOHibernateImpl implements BaseDAO {
 
-	@Override
-	public BaseObject updateWithOutModifiedDate(BaseObject persistentObject) {
-		if(persistentObject!=null)
-		{
-			session=SessionFactoryUtil.getInstance().getCurrentSession();
-			session.beginTransaction();
-			session.update(persistentObject);
-			session.getTransaction().commit();
-		}
-		return persistentObject;
-	}
+ /**
+  * Individual hibernate DAO Impls must implement this method to return right
+  * type of object with the specified id
+  */
+ @Override
+ public abstract BaseObject getObjectById(long id)
+   throws ObjectNotFoundException;
 
-	@Override
-	public List<BaseObject> save(List<BaseObject> persistentObjects) {
-		for (Iterator<BaseObject> iterator = persistentObjects.iterator(); iterator.hasNext();) 
-		{
-			BaseObject baseObject = (BaseObject) iterator.next();
-			session=SessionFactoryUtil.getCurrentSession();
-			session.beginTransaction();
-			session.save(baseObject);
-			session.getTransaction().commit();
-		}
-		return persistentObjects;
-	}
+ @Override
+ public BaseObject saveObject(BaseObject persistentObject) {
+  Session session = SessionFactoryUtil.getInstance().getCurrentSession();
+  session.save(persistentObject);
+  session.getTransaction().commit();
+  return persistentObject;
+ }
 
-	@Override
-	public BaseObject getObjectById(long id) throws ObjectNotFoundException {
-		session=SessionFactoryUtil.getCurrentSession();
-		return (BaseObject)session.get(Roles.class, id);
-	}
+ @Override
+ public BaseObject update(BaseObject persistentObject) {
+  Session session = SessionFactoryUtil.getInstance().getCurrentSession();
 
-	@Override
-	public BaseObject updateWithoutModifiedTime(BaseObject persistentObject) {
-		if(persistentObject!=null)
-		{
-			session=SessionFactoryUtil.getCurrentSession();
-			session.beginTransaction();
-			session.update(persistentObject);
-			persistentObject.setMts(Calendar.getInstance().getTimeInMillis());
-			session.getTransaction().commit();
-		}
-		return persistentObject;
-	}
+  session.update(persistentObject);
+  session.getTransaction().commit();
+  return persistentObject;
+ }
+
+ @Override
+ public List<BaseObject> save(List<BaseObject> objectList) {
+  Session session = SessionFactoryUtil.getInstance().getCurrentSession();
+  if (null != objectList && objectList.size() > 0) {
+   short count = 0;
+   for (BaseObject object : objectList) {
+    session.save(object);
+    count++;
+    if (count == 1000) {// batch update for each 30 records
+     session.flush();
+     session.clear();
+     count = 0;
+    }
+   }
+   session.getTransaction().commit();
+  }
+  return objectList;
+ }
 }
