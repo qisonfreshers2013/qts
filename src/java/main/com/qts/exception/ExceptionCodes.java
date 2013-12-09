@@ -158,4 +158,30 @@ public interface ExceptionCodes {
 	public static final int FB_USER_SETTING_INPUT_NULL = 4008;
 	public static final int FACEBOOK_ID_DOESNOT_EXIST = 4009;
 	
+	//roles related exception
+	public static final int ROLES_EMPTY_EXCEPTION=7000;
+	public static final int ROLES_LIST_EMPTY_EXCEPTION=7001;
+	public static final int PARAMETERS_EMPTY_EXCEPTION =7002;
+	public static final int NO_ROLES_FOR_THIS_USERPROJECT_ID = 7003;
+	public static final int INVALID_ROLE_ID = 7004;
+	public static final int ROLE_ID_EXISTS = 7005;
+	public static final int ONLY_ONE_APPROVER = 7006;
+	public static final int PARAMETERS_ZERO_EXCEPTION = 7007;
+	
+	//userproject
+	public static final int PROJECT_NAME_NOTNULL=5001;
+	 public static final int PROJECT_NAME_LENGTH_MORE=5002;
+	 public static final int TECHNOLOGIES_FIELD_LENGTH_MORE=5003;
+	 public static final int ADD_PROJECT_FAILED=5004;
+	 public static final int PROJECT_ID_INVALID=5005;
+	 public static final int PROJECT_ID_NOT_NULL=5006;
+	 public static final int ADD_USER_TO_PROJECT_FAILED=5007;
+	 public static final int PROJECT_OR_USER_ID_INVALID=5008;
+	 public static final int PROJECT_NAME_FORMAT=5009;
+	 public static final int TECHNOLOGIES_NAME_FORMAT=5010;
+	 public static final int NO_PROJECTS_AVAILABLE=5011;
+	 public static final int USER_PROJECT_ID_INVALID=5012;
+	public static final int USER_ID_INVALID = 13232;
+	
+	
 }
