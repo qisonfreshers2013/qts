@@ -19,7 +19,36 @@ public interface ExceptionMessages {
 	public static final String  CACHE_REGION_NOT_FOUND = "Cache region not found.";
 	public static final String INTERNAL_ERROR = "Internal Error.";
 	public static final String AUTH_INPUT_NULL = "Authentication error has occurred. Please try again.";
+	
+
+	
+	//Project WebService related Exceptions
+	public static final String PROJECT_NAME_NOT_NULL="Project Name field Can't Be Null.";
+	public static final String PROJECT_NAME_LENGTH_MORE="Project Name field Can't Be More Than 128 Characters.";
+	public static final String TECHNOLOGIES_FIELD_LENGTH_MORE="Technologies field Can't Be More Than 512 Characters.";
+	public static final String ADD_PROJECT_FAILED="Adding of project failed. Please try again.";
+	public static final String PROJECT_ID_INVALID="Invalid project Id";
+	public static final String PROJECT_ID_NOT_NULL="Project Id can't be null";
+	public static final String ADD_USER_TO_PROJECT_FAILED="Allocating user to project failed. Please try again.";
+	public static final String PROJECT_OR_USER_ID_INVALID="Invalid project or user Id";
+	public static final String PROJECT_NAME_FORMAT="Invalid format for project name";
+	public static final String TECHNOLOGIES_NAME_FORMAT="Invalid format for project technologies";
+	public static final String NO_PROJECTS_AVAILABLE="There is no projects";
+	public static final String USER_PROJECT_ID_INVALID="User Project Id invalid";
+	public static final String USER_ID_NOT_NULL="User id can not be null";
+	public static final String USER_ID_INVALID="User id is invalid";
+	public static final String DELETE_USER_FROM_PROJECT_FAILED="Deallocating users fro project failed.Invalid user and project id combination . Please try again.";
+
+	//Releases Exception Messages
+	public static final String RELEASES_NAME_CANNOT_BE_EMPTY = "Releases Name Cannot Be Empty.";
+	public static final String RELEASES_NAME_CANNOT_CONTAIN_SPECIALCHARS = "Releases Name Format Exception.";
+	public static final String RELEASES_NAME_LENGTH_IS_MORE = "Releases Name Cannot be More Than 128 characters.";
+	public static final String RELEASES_ID_INVALID = "Releases ID is Invalid.";
+	public static final String RELEASES_EMPTY_FOR_THE_PROJECT="There are no releases for this project";
+	public static final String RELEASESBEAN_NOT_NULL = "Project Id Cannot be null";
+	public static final String RELEASES_CANNOT_BE_ADDED_FOR_THE_PROJECT = "Cannot add Entry..Entry already Exists.";
     public static final String USER_NOT_AUTHENTICATED = "Please login.";
+    public static final String TIME_ENTRY_PRESENT = "Time Entry is Referring The Record";
 
 	
 	//user web services releted exceptions
@@ -55,4 +84,29 @@ public interface ExceptionMessages {
 	public static final String DELETED_ALREADY = "User already deleted";
 	public static final String SEND_MAIL_FAILED = "An Error occured.Try Again";
 	public static final String DELETE_ID_ZERO = "Choose id from one to perform delete operation";
+
+
+	//Time Entry Exception messages
+	public static final String DATE_CANNOT_BE_NULL= "DATE CANNOT BE NULL";
+	public static final String DATE_LENGTH_MISMATCH= "DATE LENGTH SHOULD BE 10 AND DATE PATTERN IS MM/DD/YYYY";
+	public static final String DATE_MONTH_EXCEPTION="MONTH LIES BETWEEN 1 AND 12 AND DATE PATTERN IS MM/DD/YYYY";	
+	public static final String DATE_EXCEPTION="DATE DOES NOT EXIST IN THE PRESENT MONTH AND DATE PATTERN IS MM/DD/YYYY";
+	public static final String DATE_YEAR_EXCEPTION="ONLY CURRENT YEAR ACCEPTED";
+	public static final String INVALID_DATE_PATTERN= "ENTER DATE IN MM/DD/YYYY FORMAT";
+	public static final String PROJECTNAME_CANNOT_BE_EMPTY= "PROJECT NAME CANNOT BE EMPTY";
+	public static final String RELEASENAME_CANNOT_BE_EMPTY= "RELEASE NAME CANNOT BE EMPTY";
+	public static final String ACTIVITY_CANNOT_BE_EMPTY= "ACTIVITY CANNOT BE EMPTY";
+	public static final String HOURS_CANNOT_BE_NULL= "HOURS CANNOT BE NULL";
+	public static final String REMARKS_EXCEEDS_LENGTH= "REMARKS FIELD EXCEEDS DEFAULT LENGTH";
+	public static final String TASK_CANNOT_BE_EMPTY= "TASK CANNOT BE EMPTY";
+
+	//roles exception
+	public static final String ROLES_EMPTY_EXCEPTION="Select atleast one role.";
+	public static final String ROLES_LIST_EMPTY_EXCEPTION="No Roles available add few.";
+	public static final String PARAMETERS_EMPTY_EXCEPTION = "You need to specify correct userid and projectid";
+	public static final String NO_ROLES_FOR_THIS_USERPROJECT_ID = "No roles allocated for this user for this project";
+	public static final String INVALID_ROLE_ID = "Invalid roleid";
+	public static final String ROLE_ID_EXISTS = "This role already exists for this user";
+	public static final String ONLY_ONE_APPROVER = "only one approver allowed for one project";
+
 }

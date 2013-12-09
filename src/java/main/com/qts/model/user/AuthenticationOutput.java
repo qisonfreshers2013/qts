@@ -11,30 +11,29 @@ import com.qts.service.annotations.SerializationDescriptor;
  */
 public class AuthenticationOutput {
 
-	private String sessionToken;
-	private int authStatus;
-	private User user;
+ private String sessionToken;
+ private int authStatus;
+ private User user;
 
-	public AuthenticationOutput(String sessionToken, int authStatus, User user) {
-		this.sessionToken = sessionToken;
-		this.authStatus = authStatus;
-		this.user = user;
-	}
+ public AuthenticationOutput(String sessionToken, int authStatus, User user) {
+  this.sessionToken = sessionToken;
+  this.authStatus = authStatus;
+  this.user = user;
+ }
 
-	@JsonProperty
-	public String getSessionToken() {
-		return sessionToken;
-	}
+ @JsonProperty
+ public String getSessionToken() {
+  return sessionToken;
+ }
 
-	@JsonProperty
-	public int getAuthStatus() {
-		return authStatus;
-	}
-	
-	@SerializationDescriptor(value = User.class)
+ @JsonProperty
+ public int getAuthStatus() {
+  return authStatus;
+ }
+ 
+ @SerializationDescriptor(value = User.class)
     @JsonProperty
-	public User getUser() {
-		return user;
-	}
+ public User getUser() {
+  return user;
+ }
 }
-

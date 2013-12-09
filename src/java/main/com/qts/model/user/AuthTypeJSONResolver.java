@@ -8,11 +8,10 @@ import org.codehaus.jackson.map.type.TypeFactory;
 import org.codehaus.jackson.type.JavaType;
 
 import com.qts.model.User;
-//import com.qts.model.UserExt;
 
 public class AuthTypeJSONResolver extends TypeNameIdResolver {
 
-	public AuthTypeJSONResolver() {
+ public AuthTypeJSONResolver() {
         super(getBaseType(), getTypeToId(), getIdToType());
 	}
 	

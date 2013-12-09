@@ -24,12 +24,11 @@ public class BaseDAOImpl implements BaseDAO{
 
 	@Override
 	public BaseObject update(BaseObject persistentObject) {
-		// TODO Auto-generated method stub
+
 		return null;
 	}
-
-	@Override
 	public BaseObject updateWithOutModifiedDate(BaseObject persistentObject) {
+
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -45,12 +44,4 @@ public class BaseDAOImpl implements BaseDAO{
 		// TODO Auto-generated method stub
 		return null;
 	}
-
-	@Override
-	public BaseObject updateWithoutModifiedTime(BaseObject persistentObject) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	
-
 }

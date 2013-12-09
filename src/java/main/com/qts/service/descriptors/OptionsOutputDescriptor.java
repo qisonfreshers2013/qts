@@ -7,16 +7,12 @@ import java.util.List;
 
 import org.codehaus.jackson.annotate.JsonProperty;
 
-import com.qts.model.User;
+import com.qts.model.Project;
 import com.qts.service.annotations.SerializationDescriptor;
 
-/**
- * @author AnilRam
- *
- */
-public interface OptionsOutputDescriptor {
+public interface OptionsOutputDescriptor extends JSONSerializationDescriptor{
 	
-	 @JsonProperty
-	 @SerializationDescriptor(value = OptionOutputDescriptor.class)
-	 public List<User> getData();
+	@JsonProperty
+	@SerializationDescriptor(value = OptionOutputDescriptor.class)
+	public List<Project> getData();
 }

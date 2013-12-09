@@ -11,6 +11,7 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.UriInfo;
+
 import com.qts.common.Constants;
 import com.qts.common.json.JsonUtil;
 import com.qts.exception.BusinessException;
@@ -84,19 +85,19 @@ public class UserService extends BaseService {
 			throws ObjectNotFoundException, BusinessException,
 			EncryptionException {
 
-		AuthenticationInput input = (AuthenticationInput) JsonUtil.getObject(
-				request.getPayload(), AuthenticationInput.class);
+  AuthenticationInput input = (AuthenticationInput) JsonUtil.getObject(
+    request.getPayload(), AuthenticationInput.class);
 
-		AuthenticationOutput output = AuthenticationHandlerFactory
-				.getAuthenticationHandler(input.getAuthType()).authenticate(
-						input);
-		return JsonUtil.getJsonBasedOnDescriptor(output,
-				AuthenticationOutput.class);
-	}
-	
-	@POST
-	@RestService(input = String.class, output = String.class)
-	@ServiceStatus(value = "complete")	
+  AuthenticationOutput output = AuthenticationHandlerFactory
+    .getAuthenticationHandler(input.getAuthType()).authenticate(
+      input);
+  return JsonUtil.getJsonBasedOnDescriptor(output,
+    AuthenticationOutput.class);
+ }
+ 
+ @POST
+ @RestService(input = String.class, output = String.class)
+ @ServiceStatus(value = "complete") 
     @Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("/addUser")

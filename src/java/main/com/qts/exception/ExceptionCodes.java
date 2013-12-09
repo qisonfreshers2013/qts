@@ -1,4 +1,10 @@
-package com.qts.exception;
+package com.qts.exception;public static final int LOCATION_INVALID = 7026;
+	public static final int DELETE_INVALID = 7027;
+	public static final int UPDATE_NOT_EXIST_INVALID = 7028;
+	public static final int DELETED_ALREADY = 7029;
+	public static final int SEND_MAIL_FAILED = 7030;
+	public static final int DELETE_ID_ZERO = 7031;
+	
 
 /**
  * All Exception Codes in the system
@@ -158,6 +164,65 @@ public interface ExceptionCodes {
 	public static final int FB_USER_SETTING_INPUT_NULL = 4008;
 	public static final int FACEBOOK_ID_DOESNOT_EXIST = 4009;
 	
+
+	//Time entries related exception
+	
+	public static final int DATE_CANNOT_BE_NULL = 6001;
+	public static final int DATE_LENGTH_MISMATCH = 6002;
+	public static final int DATE_FORMAT_EXCEPTION = 6003;
+	public static final int PROJECTNAME_CANNOT_BE_NULL = 6004;
+	public static final int PROJECTNAME_EXCEEDS_SIZE = 6005;
+	public static final int RELEASENAME_CANNOT_BE_NULL = 6006;
+	public static final int RELEASENAME_EXCEEDS_SIZE = 6007;
+	public static final int ACTIVITY_CANNOT_BE_NULL = 6008;
+	public static final int ACTIVITY_EXCEEDS_SIZE = 6009;
+	public static final int TASK_CANNOT_BE_NULL = 6010;
+	public static final int TASK_EXCEEDS_SIZE = 6011;
+	public static final int HOURS_CANNOT_BE_NULL = 6012;
+	public static final int HOURS_EXCEEDS_SIZE = 6013;
+	public static final int REMARK_EXCEEDS_SIZE = 6014;
+
+	//roles related exception
+	public static final int ROLES_EMPTY_EXCEPTION=7000;
+	public static final int ROLES_LIST_EMPTY_EXCEPTION=7001;
+	public static final int PARAMETERS_EMPTY_EXCEPTION =7002;
+	public static final int NO_ROLES_FOR_THIS_USERPROJECT_ID = 7003;
+	public static final int INVALID_ROLE_ID = 7004;
+	public static final int ROLE_ID_EXISTS = 7005;
+	public static final int ONLY_ONE_APPROVER = 7006;
+	public static final int PARAMETERS_ZERO_EXCEPTION = 7007;
+
+	
+	//Project WebService related Exceptions
+	public static final int PROJECT_NAME_NOTNULL=5001;
+	public static final int PROJECT_NAME_LENGTH_MORE=5002;
+	public static final int TECHNOLOGIES_FIELD_LENGTH_MORE=5003;
+	public static final int ADD_PROJECT_FAILED=5004;
+	public static final int PROJECT_ID_INVALID=5005;
+	public static final int PROJECT_ID_NOT_NULL=5006;
+	public static final int ADD_USER_TO_PROJECT_FAILED=5007;
+	public static final int PROJECT_OR_USER_ID_INVALID=5008;
+	public static final int PROJECT_NAME_FORMAT=5009;
+	public static final int TECHNOLOGIES_NAME_FORMAT=5010;
+	public static final int NO_PROJECTS_AVAILABLE=5011;
+	public static final int USER_PROJECT_ID_INVALID=5012;
+	public static final int USER_ID_NOT_NULL=5013;
+	public static final int USER_ID_INVALID=5014;
+	public static final int DELETE_USER_FROM_PROJECT_FAILED=5007;
+	
+	
+	
+
+	//Releases related Exceptions Codes
+	public static final int RELEASES_NAME_NULL = 9001;
+	public static final int RELEASES_NAME_LENGTH = 9002;
+	public static final int RELEASES_NAME_CONTAINS_NONALPHANUMERIC = 9003;
+	public static final int RELEASES_ID_DOES_NOT_EXISTS = 9004;
+	public static final int RELEASES_EMPTY=9005;
+	public static final int RELEASESBEAN_NOT_NULL = 9006;
+	public static final int RELEASES_CANNOT_BE_ADDED = 9007;
+	public static final int TIME_ENTRY_PRESENT = 9008;
+	
 	//user web services releted exceptions
 	public static final int USER_ID_NOT_NUMBER = 7001;
 	public static final int USER_NAME_FORMAT = 7002;
@@ -185,12 +250,14 @@ public interface ExceptionCodes {
 	public static final int USER_ID_AND_PASSWORD_INVALID = 7023;
 	public static final int PASSWORD_NULL = 7024;
 	public static final int USER_CAN_NOT_ADDED = 7025;
-	public static final int LOCATION_INVALID = 7026;
+public static final int LOCATION_INVALID = 7026;
 	public static final int DELETE_INVALID = 7027;
 	public static final int UPDATE_NOT_EXIST_INVALID = 7028;
 	public static final int DELETED_ALREADY = 7029;
 	public static final int SEND_MAIL_FAILED = 7030;
 	public static final int DELETE_ID_ZERO = 7031;
+	
+
 	
 	
 }
