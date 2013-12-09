@@ -21,4 +21,18 @@ public interface ExceptionMessages {
 	public static final String INTERNAL_ERROR = "Internal Error.";
 	public static final String AUTH_INPUT_NULL = "Authentication error has occurred. Please try again.";
 
+	//Time Entry Exception messages
+	public static final String DATE_CANNOT_BE_NULL= "DATE CANNOT BE NULL";
+	public static final String DATE_LENGTH_MISMATCH= "DATE LENGTH SHOULD BE 10 AND DATE PATTERN IS MM/DD/YYYY";
+	public static final String DATE_MONTH_EXCEPTION="MONTH LIES BETWEEN 1 AND 12 AND DATE PATTERN IS MM/DD/YYYY";	
+	public static final String DATE_EXCEPTION="DATE DOES NOT EXIST IN THE PRESENT MONTH AND DATE PATTERN IS MM/DD/YYYY";
+	public static final String DATE_YEAR_EXCEPTION="ONLY CURRENT YEAR ACCEPTED";
+	public static final String INVALID_DATE_PATTERN= "ENTER DATE IN MM/DD/YYYY FORMAT";
+	public static final String PROJECTNAME_CANNOT_BE_EMPTY= "PROJECT NAME CANNOT BE EMPTY";
+	public static final String RELEASENAME_CANNOT_BE_EMPTY= "RELEASE NAME CANNOT BE EMPTY";
+	public static final String ACTIVITY_CANNOT_BE_EMPTY= "ACTIVITY CANNOT BE EMPTY";
+	public static final String HOURS_CANNOT_BE_NULL= "HOURS CANNOT BE NULL";
+	public static final String REMARKS_EXCEEDS_LENGTH= "REMARKS FIELD EXCEEDS DEFAULT LENGTH";
+	public static final String TASK_CANNOT_BE_EMPTY= "TASK CANNOT BE EMPTY";
+
 }

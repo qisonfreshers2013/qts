@@ -1,10 +1,12 @@
 package com.qts.persistence.dao;
 
+import org.hibernate.SessionFactory;
+
 
 /**
  * DAO Factory. Handlers use this factory to get appropriate DAO.
  * 
- * @author Vinay Thandra
+ * @author vinay
  * 
  */
 public class DAOFactory {
@@ -23,4 +25,14 @@ public class DAOFactory {
 
 	// Implement all the factory methods, after this line.
 
+    
+	public static TimeEntryDAO getTimeEntryDAOInstance()
+	{
+		return TimeEntryDAOImpl.getTimeEntryDAOInstance();
+	}
+	
+	
+	
+	
+	
 }

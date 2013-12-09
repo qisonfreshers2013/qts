@@ -158,4 +158,22 @@ public interface ExceptionCodes {
 	public static final int FB_USER_SETTING_INPUT_NULL = 4008;
 	public static final int FACEBOOK_ID_DOESNOT_EXIST = 4009;
 	
+	//Time entries related exception
+	
+	public static final int DATE_CANNOT_BE_NULL = 6001;
+	public static final int DATE_LENGTH_MISMATCH = 6002;
+	public static final int DATE_FORMAT_EXCEPTION = 6003;
+	public static final int PROJECTNAME_CANNOT_BE_NULL = 6004;
+	public static final int PROJECTNAME_EXCEEDS_SIZE = 6005;
+	public static final int RELEASENAME_CANNOT_BE_NULL = 6006;
+	public static final int RELEASENAME_EXCEEDS_SIZE = 6007;
+	public static final int ACTIVITY_CANNOT_BE_NULL = 6008;
+	public static final int ACTIVITY_EXCEEDS_SIZE = 6009;
+	public static final int TASK_CANNOT_BE_NULL = 6010;
+	public static final int TASK_EXCEEDS_SIZE = 6011;
+	public static final int HOURS_CANNOT_BE_NULL = 6012;
+	public static final int HOURS_EXCEEDS_SIZE = 6013;
+	public static final int REMARK_EXCEEDS_SIZE = 6014;
+	
+	
 }
