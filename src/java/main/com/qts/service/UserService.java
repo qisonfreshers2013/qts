@@ -11,7 +11,6 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.UriInfo;
-
 import com.qts.common.Constants;
 import com.qts.common.json.JsonUtil;
 import com.qts.exception.BusinessException;
@@ -32,28 +31,13 @@ import com.qts.service.annotations.ServiceStatus;
 import com.qts.service.annotations.UnSecure;
 import com.qts.service.common.WebserviceRequest;
 import com.qts.service.descriptors.DeleteUserOutputDescriptor;
+import com.qts.service.descriptors.ForgotPasswordOutputDescriptor;
 import com.qts.service.descriptors.OptionOutputDescriptor;
 
 
 
-@Path("/userService/")
+@Path("/v1/userService/")
 public class UserService extends BaseService {
-	@POST
-	@RestService(input = String.class, output = String.class)
-	@ServiceStatus(value = "complete")	
-    @Consumes(MediaType.APPLICATION_JSON)
-	@Produces(MediaType.APPLICATION_JSON)
-	@Path("/searchUser")
-	public String searchUsers(@Context HttpHeaders headers, @Context UriInfo uriInfo,
-			WebserviceRequest request) throws UserException {
-		    UserBean searchUserBean = (UserBean)JsonUtil.getObject(request.getPayload(), UserBean.class);
-	        SearchUserRecords userInfo = UserHandler.getInstance().searchUsers(searchUserBean);		    
-	        return JsonUtil.getJsonForListBasedOnDescriptor(userInfo, SearchUserRecords.class,  OptionOutputDescriptor.class);
-	
-	}
-
-	//{"payload":{"nickName":"anil","email":"anilram.laxmisetty@qison.com","employeeId":"68","designation":"APM"}}
-	
 	
 	@POST
 	@RestService(input = String.class, output = String.class)
@@ -69,6 +53,24 @@ public class UserService extends BaseService {
 		}
 	
 	//{"payload":{"email":"ANILRAM.LAXMISETTY@QISON.COM","password":"ANIL@123"}}
+	
+	@POST
+	@RestService(input = String.class, output = String.class)
+	@ServiceStatus(value = "complete")	
+    @Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	@Path("/searchUser")
+	public String searchUsers(@Context HttpHeaders headers, @Context UriInfo uriInfo,
+			WebserviceRequest request) throws UserException {
+		    UserBean searchUserBean = (UserBean)JsonUtil.getObject(request.getPayload(), UserBean.class);
+	        SearchUserRecords userInfo = UserHandler.getInstance().searchUsers(searchUserBean);		    
+	        return JsonUtil.getJsonForListBasedOnDescriptor(userInfo, SearchUserRecords.class,  OptionOutputDescriptor.class);
+	}
+
+	//{"payload":{"nickName":"anil","email":"anilram.laxmisetty@qison.com","employeeId":"68","designation":"APM"}}
+	
+	
+
 	
 	@POST
 	@RestService(input = String.class, output = String.class)
@@ -98,9 +100,9 @@ public class UserService extends BaseService {
     @Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("/addUser")
-//	@UnSecure
+	
 	public String addUser(@Context HttpHeaders headers,@Context UriInfo uriInfo,
-			          WebserviceRequest request) throws UserException{
+			          WebserviceRequest request) throws Exception{
 		UserBean user = (UserBean)JsonUtil.getObject(request.getPayload(),UserBean.class);		
 		long primaryUserId = UserHandler.getInstance().addUser(user);
 		return JsonUtil.getJsonForListBasedOnDescriptor(primaryUserId,User.class,OptionOutputDescriptor.class);
@@ -114,15 +116,14 @@ public class UserService extends BaseService {
     @Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("/deleteUser")
-	@UnSecure
+
 	public String deleteUser(@Context HttpHeaders headers,@Context UriInfo uriInfo,
-			WebserviceRequest request){
+			WebserviceRequest request) throws UserException{
 		UserBean bean = (UserBean)JsonUtil.getObject(request.getPayload(),UserBean.class);
 		boolean isDeleted = UserHandler.getInstance().deleteUser(bean);
 		return JsonUtil.getJsonForListBasedOnDescriptor(isDeleted, User.class, DeleteUserOutputDescriptor.class);		
 	}
-	
-	
+		
 	//Update User
 	@POST
 	@RestService(input = String.class, output = String.class)
@@ -130,11 +131,11 @@ public class UserService extends BaseService {
     @Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("/updateUser")
-//	@UnSecure
+	
 	public String updateUser(@Context HttpHeaders headers,@Context UriInfo uriInfo,WebserviceRequest request) throws UserException{
 		UserBean userBean = (UserBean)JsonUtil.getObject(request.getPayload(),UserBean.class);	
-		boolean isUpdated = UserHandler.getInstance().updateUser(userBean);
-		return JsonUtil.getJsonForListBasedOnDescriptor(isUpdated, User.class,OptionOutputDescriptor.class);
+		User userInfo = UserHandler.getInstance().updateUser(userBean);
+		return JsonUtil.getJsonForListBasedOnDescriptor(userInfo, User.class,OptionOutputDescriptor.class);
 	}
 	
 	@POST
@@ -143,14 +144,34 @@ public class UserService extends BaseService {
     @Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("/changePassword")
-	@UnSecure
+	
 	public String changePassword(@Context HttpHeaders headers,@Context UriInfo uriInfo,WebserviceRequest request) throws UserException{
 		UserBean userBean = (UserBean)JsonUtil.getObject(request.getPayload(),UserBean.class);	
 		boolean isChanged = UserHandler.getInstance().changePassword(userBean);
 		return JsonUtil.getJsonForListBasedOnDescriptor(isChanged, User.class,OptionOutputDescriptor.class);
+	}	
+	@POST
+	@RestService(input = String.class, output = String.class)
+	@ServiceStatus(value = "complete")	
+    @Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	@Path("/forgotPassword")
+	@UnSecure
+	public String forgotPassword(@Context HttpHeaders headers,@Context UriInfo uriInfo,WebserviceRequest request) throws UserException{
+		UserBean bean = (UserBean)JsonUtil.getObject(request.getPayload(),UserBean.class);
+		boolean isSend = UserHandler.getInstance().forgotPassword(bean);
+		return JsonUtil.getJsonForListBasedOnDescriptor(isSend, Boolean.class, ForgotPasswordOutputDescriptor.class);		
 	}
 	
-	
-	
-	
+	@POST
+	@RestService(input = String.class, output = String.class)
+	@ServiceStatus(value = "complete")	
+    @Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	@Path("/logout")
+	public String logout(@Context HttpHeaders headers ,@Context UriInfo uriInfo,WebserviceRequest request){
+		//UserBean bean = (UserBean)JsonUtil.getObject(request.getPayload(),UserBean.class);
+		boolean isLogout = UserHandler.getInstance().logout();
+		return JsonUtil.getJsonForListBasedOnDescriptor(isLogout, Boolean.class, ForgotPasswordOutputDescriptor.class);
+	}
 }

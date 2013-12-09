@@ -381,7 +381,7 @@ public class User extends AbstractObject{
 	@Override
 	public int getObjectType() {
 		
-		return ObjectTypes.PROJECT;
+		return ObjectTypes.USER;
 	}
 
 }

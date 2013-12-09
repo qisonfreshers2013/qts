@@ -184,6 +184,13 @@ public interface ExceptionCodes {
 	public static final int USER_ID_NULL = 7022;
 	public static final int USER_ID_AND_PASSWORD_INVALID = 7023;
 	public static final int PASSWORD_NULL = 7024;
+	public static final int USER_CAN_NOT_ADDED = 7025;
+	public static final int LOCATION_INVALID = 7026;
+	public static final int DELETE_INVALID = 7027;
+	public static final int UPDATE_NOT_EXIST_INVALID = 7028;
+	public static final int DELETED_ALREADY = 7029;
+	public static final int SEND_MAIL_FAILED = 7030;
+	public static final int DELETE_ID_ZERO = 7031;
 	
 	
 }

@@ -80,7 +80,7 @@ public class DefaultAuthenticationHandler implements AuthenticationHandler {
 		userSessionToken.setUserSessionId(sessionToken);
 		Cache cache = CacheManager.getInstance().getCache(CacheRegionType.USER_SESSION_CACHE);
 		cache.put(sessionToken, userSessionToken);
-		System.out.println("Session Token : "+sessionToken);
+		System.out.println("Session Token : "+sessionToken);		
 		System.out.println("Cached : "+cache.getValue(sessionToken));
 		AuthenticationOutput authenticationOutput = new AuthenticationOutput(
 				sessionToken, authStatus, user);

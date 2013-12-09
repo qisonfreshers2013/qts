@@ -31,7 +31,7 @@ public interface ExceptionMessages {
 	public static final String USER_ID_FORMAT = "invalid email pattern";
 	public static final String PASSWORD_FORMAT = "invalid password";
 	public static final String USER_ID_AND_PASSWORD_NULL = "user id and pass word are empty";
-	public static final String USER_DETAILS_NULL = "Enter All Field";
+	public static final String USER_DETAILS_NULL = "Enter mandatoryfields";
 	public static final String CONFIRM_PASSWORD_NULL = "Confirm password Null";
 	public static final String CONFIRM_PASSWORD_NOT_EQUAL = "Confirm password is not equal to password";
 	public static final String FIRST_NAME_SHOULD_NOT_NULL = "First Name should not empty";
@@ -42,9 +42,17 @@ public interface ExceptionMessages {
 	public static final String GENDER_NOT_NULL = "Gender Field is null";
 	public static final String GENDER_INVALID = "Gender entered is invalid";
 	public static final String EMAIL_FORMAT = "invalid Email";
-	public static final String EMPLOYEE_ID_NULL = "Employee is null";
+	public static final String EMPLOYEE_ID_NULL = "Employee id is null";
 	public static final String EMPLOYEE_ID_INVALID = "Employee id is Invalid";
 	public static final String USER_ID_NULL = "User Id can not be null";
 	public static final String USER_ID_AND_PASSWORD_INVALID = "User id/password does not exist";
-	public static final String PASSWORD_NULL = "pass word can not be null";
+	public static final String PASSWORD_NULL = "password can not be null";
+	public static final String USER_DOESNOT_EXIST = "user not existing with this id";
+	public static final String USER_CAN_NOT_ADDED = "user can not be added";
+	public static final String LOCATION_INVALID = "Invalid location";
+	public static final String DELETE_INVALID = "User not existing";
+	public static final String UPDATE_NOT_EXIST_INVALID = "invalid user id,Action can not be performed";
+	public static final String DELETED_ALREADY = "User already deleted";
+	public static final String SEND_MAIL_FAILED = "An Error occured.Try Again";
+	public static final String DELETE_ID_ZERO = "Choose id from one to perform delete operation";
 }

@@ -17,18 +17,18 @@ public interface OptionOutputDescriptor extends JSONSerializationDescriptor {
 //	@JsonProperty
 //	public String getPhoto();
 
-	@JsonProperty
-	public String getEmail();
-	
-	@JsonProperty
-	public String getPassword();
-	
-	 @JsonProperty
-	 public Long getId();
-	 
-	 @JsonProperty
-	 public String getName();
-	 
+//	@JsonProperty
+//	public String getEmail();
+//	
+//	@JsonProperty
+//	public String getPassword();
+//	
+//	 @JsonProperty
+//	 public Long getId();
+//	 
+//	 @JsonProperty
+//	 public String getName();
+//	 
 	
 	
 //	@JsonProperty
