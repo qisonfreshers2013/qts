@@ -6,6 +6,7 @@ package com.qts.persistence.dao;
 import java.util.List;
 
 import com.qts.exception.UserException;
+import com.qts.model.ChangePasswordBean;
 import com.qts.model.LoginBean;
 import com.qts.model.User;
 import com.qts.model.UserBean;
@@ -15,16 +16,20 @@ import com.qts.model.UserBean;
  *
  */
 public interface UserDAO {	
-	public boolean deleteUser(long id); //deleteUser
-	public User getUserByUserId(String userId);
-	public List<User> searchUser(UserBean bean); //search User
+	public boolean deleteUser(long id) throws UserException; //deleteUser
+	public User getUserByUserId(long userId) throws UserException;
+	public List<User> searchUser(UserBean bean) throws UserException; //search User
 	public User getUserLogin(LoginBean bean) throws UserException;//login
-	public User getUserByEmail(String email);
+	public User getUserByEmail(String email) throws UserException;
 	public String getUserName(long id);
+
+	public long addUser(User user) throws UserException;//addUser
+	public User updateUser(UserBean bean) throws UserException;
+	
+	boolean changePassword(ChangePasswordBean bean) throws UserException;
+	public boolean isUserDeleted(long id) throws Exception;
+	public List<User> getUserById(List<Long> userIds);
 //	public long addUser(UserBean bean, long id, long cts, long mts,
-//			String createdBy, String modifiedBy, boolean isDeleted, long photoFileId);
-	public long addUser(User user);//addUser
-	public boolean updateUser(UserBean bean);
+//	String createdBy, String modifiedBy, boolean isDeleted, long photoFileId);
 	//public boolean changePassword(String password);
-	boolean changePassword(String password, long id);
 }

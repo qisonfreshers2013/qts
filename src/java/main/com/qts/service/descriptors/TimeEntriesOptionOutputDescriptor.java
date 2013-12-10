@@ -11,17 +11,27 @@ public interface TimeEntriesOptionOutputDescriptor  extends JSONSerializationDes
 	public Long getDate();
 	
 	@JsonProperty
-	public int getHours();
-	
-	@JsonProperty
-	public int getStatus();
-	
-	@JsonProperty
 	public int getProjectId();
 	
 	@JsonProperty
-	public int getUSerId();
+	public int getUserId();
 	
+	@JsonProperty
+	public int getReleaseId();
+	
+	@JsonProperty
+	public int getTask();
+	
+	@JsonProperty
+	public int ActivityId();
+	@JsonProperty
+	public int getHours();
+	@JsonProperty
+	public int getStatus();
+	@JsonProperty
+	public int getAppovedComments();
+	@JsonProperty
+	public int getRejectedComments();
 	@JsonProperty
 	public int getId();
 	

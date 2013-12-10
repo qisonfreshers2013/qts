@@ -14,25 +14,24 @@ public class TimeEntriesForm {
 	private Long activityId;
 	private Integer hours;
 	private String from;
-	private String to;
-	private String remarks;
+    private String to;
+	private String userRemarks;
 	private Integer status;
-
-
+    private String approvedComments;
+    private String rejectedComments;
 	public TimeEntriesForm() {
 	}
 
 	public TimeEntriesForm(long userId, String date, long projectID,
 			long releaseId, String task, long activityId, int hours,
 			String remarks,String from,String to) {
-		this.userId = userId;
 		this.date = date;
 		this.projectId = projectID;
 		this.releaseId = releaseId;
 		this.task = task;
 		this.activityId = activityId;
 		this.hours = hours;
-		this.remarks = remarks;
+		this.userRemarks = remarks;
 		this.from=from;
 		this.to=to;
 	}
@@ -100,13 +99,31 @@ public class TimeEntriesForm {
 		this.hours = hours;
 	}
 
-	public String getRemarks() {
-		return remarks;
+
+	public String getUserRemarks() {
+		return userRemarks;
 	}
 
-	public void setRemarks(String remarks) {
-		this.remarks = remarks;
+	public void setUserRemarks(String userRemarks) {
+		this.userRemarks = userRemarks;
 	}
+
+	public String getApprovedComments() {
+		return approvedComments;
+	}
+
+	public void setApprovedComments(String approvedComments) {
+		this.approvedComments = approvedComments;
+	}
+
+	public String getRejectedComments() {
+		return rejectedComments;
+	}
+
+	public void setRejectedComments(String rejectedComments) {
+		this.rejectedComments = rejectedComments;
+	}
+
 	public void setFrom(String from) {
 		this.from = from;
 	}
