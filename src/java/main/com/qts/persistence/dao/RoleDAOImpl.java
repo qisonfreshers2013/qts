@@ -45,7 +45,7 @@ import com.qts.model.UserProjectRoles;
  public List<Roles> listRoles() throws Exception {
  try{
  Criteria projectCriteria;
- session = SessionFactoryUtil.getInstance().getNewSession();
+ session = SessionFactoryUtil.getInstance().getCurrentSession();
  projectCriteria = session.createCriteria(Roles.class);
  projectCriteria.setProjection(Projections.projectionList()
  .add(Projections.property("id"))
@@ -107,7 +107,7 @@ import com.qts.model.UserProjectRoles;
 
  public boolean deleteUserRole(UserProject userProject) throws Exception {
  try{
- session = SessionFactoryUtil.getInstance().getNewSession();
+ session = SessionFactoryUtil.getInstance().getCurrentSession();
  session.beginTransaction();
  List<UserProjectRoles> listUPR = DAOFactory
  .getUserProjectsRolesDAOInstance()
@@ -148,7 +148,7 @@ import com.qts.model.UserProjectRoles;
  }
 
  public boolean validateRoleId(long roleId) throws Exception {
- if (SessionFactoryUtil.getInstance().getNewSession()
+ if (SessionFactoryUtil.getInstance().getCurrentSession()
  .createCriteria(Roles.class).setProjection(Projections.property("id"))
  .list().contains(roleId))
  return true;
@@ -159,7 +159,7 @@ import com.qts.model.UserProjectRoles;
  @Override
  public BaseObject getObjectById(long id) throws ObjectNotFoundException {
  try{
- session = SessionFactoryUtil.getInstance().getNewSession();
+ session = SessionFactoryUtil.getInstance().getCurrentSession();
  if (session.createQuery("from Roles where id=" + id).list()
  .isEmpty())				
  throw new ObjectNotFoundException(
@@ -174,6 +174,7 @@ import com.qts.model.UserProjectRoles;
  */
 package com.qts.persistence.dao;
 
+import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
@@ -181,8 +182,8 @@ import java.util.Set;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
-import org.hibernate.Transaction;
 import org.hibernate.criterion.Projections;
+import org.hibernate.criterion.Restrictions;
 
 import com.qts.exception.ExceptionCodes;
 import com.qts.exception.ExceptionMessages;
@@ -198,6 +199,7 @@ public class RoleDAOImpl extends BaseDAOHibernateImpl implements RoleDAO {
 
 	public static RoleDAO roleDAO = null;
 	public Session session = null;
+
 	private RoleDAOImpl() {
 
 	}
@@ -214,9 +216,6 @@ public class RoleDAOImpl extends BaseDAOHibernateImpl implements RoleDAO {
 			Criteria projectCriteria;
 			session = SessionFactoryUtil.getInstance().getNewSession();
 			session.beginTransaction();
-//			session = SessionFactoryUtil.getNewSession();
-//			SessionFactoryUtil.getNewTransaction(transaction);
-			//SessionFactoryUtil.getNewTransaction();
 			projectCriteria = session.createCriteria(Roles.class);
 			projectCriteria.setProjection(Projections.projectionList()
 					.add(Projections.property("id"))
@@ -230,7 +229,9 @@ public class RoleDAOImpl extends BaseDAOHibernateImpl implements RoleDAO {
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw e;
-		} 
+		} finally {
+			session.close();
+		}
 	}
 
 	@Override
@@ -250,7 +251,6 @@ public class RoleDAOImpl extends BaseDAOHibernateImpl implements RoleDAO {
 		validateRoleId(roleBean.getRoleIds());
 		// passUserIdProjectId(roleBean);
 		for (Long roleId : roleBean.getRoleIds()) {
-
 			UserProjectRoles userProjectRoles = new UserProjectRoles();
 			userProjectRoles.setUserProjectId(userProject.getId());
 			userProjectRoles.setRoleId(roleId);
@@ -270,21 +270,29 @@ public class RoleDAOImpl extends BaseDAOHibernateImpl implements RoleDAO {
 		try {
 			session = SessionFactoryUtil.getInstance().getNewSession();
 			session.beginTransaction();
-			//SessionFactoryUtil.getNewTransaction(transaction);
 			List<Roles> list = session.createCriteria(Roles.class)
 					.setProjection(Projections.property("id")).list();
-			// session.getTransaction().commit();
+			//session.getTransaction().commit();
 			if (list.containsAll(roleIds)) {
+
 				return true;
 			}
 			throw new RolesException(ExceptionCodes.INVALID_ROLE_ID,
 					ExceptionMessages.INVALID_ROLE_ID);
 
 		} catch (Exception e) {
-			e.printStackTrace();
 			throw e;
+		} finally {
+			session.close();
 		}
 	}
+
+	//
+	// @Override
+	// public boolean deleteUserRole(UserProject userProject) throws Exception {
+	// // TODO Auto-generated method stub
+	// return false;
+	// }
 
 	@Override
 	public RoleBean deallocateRole(RoleBean roleBean, UserProject userProject)
@@ -293,9 +301,6 @@ public class RoleDAOImpl extends BaseDAOHibernateImpl implements RoleDAO {
 		try {
 			session = SessionFactoryUtil.getInstance().getNewSession();
 			session.beginTransaction();
-			//session = SessionFactoryUtil.getNewSession();
-			//transaction=SessionFactoryUtil.getNewTransaction(transaction);
-			//SessionFactoryUtil.getNewTransaction();
 			for (Long roleId : roleBean.getRoleIds()) {
 				Query query = session
 						.createQuery("delete from UserProjectRoles where user_project_id="
@@ -316,15 +321,16 @@ public class RoleDAOImpl extends BaseDAOHibernateImpl implements RoleDAO {
 
 	@Override
 	public BaseObject getObjectById(long id) throws ObjectNotFoundException {
-		session = SessionFactoryUtil.getInstance().getNewSession();
-		session.beginTransaction();
-//			session = SessionFactoryUtil.getNewSession();
-//			SessionFactoryUtil.getNewTransaction(transaction);
+		try {
+			session = SessionFactoryUtil.getInstance().getNewSession();
 			if (session.createQuery("from Roles where id=" + id).list()
 					.isEmpty())
 				throw new ObjectNotFoundException(
 						ExceptionCodes.OBJECT_NOT_FOUND, "Invalid role id");
 			return (Roles) session.createQuery("from Roles where id=" + id)
 					.list().iterator().next();
+		} finally {
+			session.close();
+		}
 	}
 }

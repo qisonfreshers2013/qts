@@ -331,6 +331,7 @@ public class UserDAOImpl extends BaseDAOImpl implements UserDAO {
 					ExceptionMessages.USER_DOESNOT_EXIST);
 		Session session =SessionFactoryUtil.getInstance().getNewSession();
 		Criteria createCriteria = session.createCriteria(User.class);
+<<<<<<< HEAD
 		createCriteria.add(Restrictions.eq("id", id));		
 		 createCriteria.add(Restrictions.eq("isDeleted",false));
 		 List<User> list = createCriteria.list();
@@ -338,6 +339,15 @@ public class UserDAOImpl extends BaseDAOImpl implements UserDAO {
 			 return null;
 			}
 		 session.close();
+=======
+		createCriteria.add(Restrictions.eq("id", id));	
+		createCriteria.add(Restrictions.eq("isDeleted",false));
+		List<User> list = createCriteria.list();
+		if (list.size() == 0) {
+			return null;
+		}
+		session.close();
+>>>>>>> aa6fb43f09ad3c0280514b8e976f1af9f568cf71
 		return list.get(0);
 	}
 
@@ -367,7 +377,7 @@ public class UserDAOImpl extends BaseDAOImpl implements UserDAO {
 		  try{
 		   Criteria userCriteria=session.createCriteria(User.class);
 		   userCriteria.add(Restrictions.eq("id",id)).
-		       add(Restrictions.eq("isDeleted",1));
+		       add(Restrictions.eq("isDeleted",true));
 		   List<User> list=userCriteria.list();
 		   if(list.isEmpty())
 		    return false;

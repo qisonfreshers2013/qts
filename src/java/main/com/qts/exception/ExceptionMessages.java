@@ -95,8 +95,13 @@ public interface ExceptionMessages {
 	 public static final String EMAIL_USERID_NOT_EQUAL = "UserId must equal to Email";
 	 public static final String UPDATE_HANDLAER_EXCEPTION = "exception in update handler,validations return false";
 	 public static final String EMAIL_NOT_EXISTS = "Email is not existing";
+<<<<<<< HEAD
 	 public static final String USER_NOT_AUTHENTICATED = "Please login.";
 	 public static final String SEARCH_RESULTS_NO_MATCH = "no matchs found";
+=======
+	 public static final String USER_NOT_AUTHENTICATED="user not authenticated";
+	 public static final String SEARCH_RESULTS_NO_MATCH = "no matches found";
+>>>>>>> aa6fb43f09ad3c0280514b8e976f1af9f568cf71
 
 	//Time Entry Exception messages
 	public static final String DATE_CANNOT_BE_NULL= "DATE CANNOT BE NULL";
@@ -120,6 +125,11 @@ public interface ExceptionMessages {
 	public static final String TIMEENTRY_USERSEARCH="COULD NOT FIND SEARCH RESULTS";
 	public static final String TIMEENTRY_FILLING_FOR_APPROVER="APPROVER CANNOT FILL TIMESHEET UNLESS HE IS A MEMBER";
 	public static final String TIMEENTRY_APPROVER_NOT_AUTHORIZED="APPROVER IS NOT AUTHORIZED FOR THIS PROJECT";
+<<<<<<< HEAD
+=======
+	public static final String TIME_DATAFIELD_TO_NOT_PRESENT="FIELD TO IS NOT PRESENT";
+	
+>>>>>>> aa6fb43f09ad3c0280514b8e976f1af9f568cf71
 	
 	//roles exception
 	public static final String ROLES_EMPTY_EXCEPTION="Select atleast one role.";

@@ -39,6 +39,7 @@ public class ReleasesHandler extends AbstractHandler {
 	public List<Releases> listReleases(ReleasesInput releasesInput)throws ReleasesException, ObjectNotFoundException {
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 	public List<Releases> listReleases(ReleasesInput releasesInput)
 			throws Exception {
 		if (validateListReleases(releasesInput)) {
@@ -48,6 +49,15 @@ public class ReleasesHandler extends AbstractHandler {
 		if (validateProjectId(releasesInput)) {
 			return DAOFactory.getInstance().getReleasesDAOImplInstance().listReleases(releasesInput);
 >>>>>>> 7719fa5f39d1939b4b46fc46756ffa075dd00157
+=======
+		try {
+			if (validateProjectId(releasesInput)) {
+				return DAOFactory.getInstance().getReleasesDAOImplInstance().listReleases(releasesInput);
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+>>>>>>> aa6fb43f09ad3c0280514b8e976f1af9f568cf71
 		}
 		return null;
 
