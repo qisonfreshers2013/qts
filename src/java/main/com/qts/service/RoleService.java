@@ -20,7 +20,7 @@ import com.qts.service.annotations.ServiceStatus;
 import com.qts.service.common.WebserviceRequest;
 import com.qts.service.descriptors.OptionOutputDescriptor;
 
-@Path("/roleService")
+@Path("/roleservice")
 public class RoleService extends BaseService{
 
 	@POST
@@ -28,7 +28,7 @@ public class RoleService extends BaseService{
 	@ServiceStatus(value="complete")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	@Path("/listRoles")
+	@Path("/listroles")
 	public String listRoles(@Context HttpHeaders headers,@Context UriInfo info,
 			WebserviceRequest request) throws Exception {
 		List<Roles> listRoles=RoleHandler.getInstance().listRoles();
@@ -40,7 +40,7 @@ public class RoleService extends BaseService{
 	@ServiceStatus(value="complete")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	@Path("/listUserRoles")
+	@Path("/listuserroles")
 	public String listUserRoles(@Context HttpHeaders headers,@Context UriInfo info,
 			WebserviceRequest request) throws Exception {
 		RoleBean roleBeanInput=(RoleBean)JsonUtil.getObject(request.getPayload(), RoleBean.class);
@@ -53,7 +53,7 @@ public class RoleService extends BaseService{
 	@ServiceStatus(value="complete")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.TEXT_PLAIN)
-	@Path("/allocateRoles")
+	@Path("/allocaterole")
 	public String allocateRole(@Context HttpHeaders headers,@Context UriInfo info,
 			WebserviceRequest request) throws Exception 
 	{
@@ -67,7 +67,7 @@ public class RoleService extends BaseService{
 	@ServiceStatus(value="complete")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	@Path("/deallocateRoles")
+	@Path("/deallocaterole")
 	public String deallocateRole(@Context HttpHeaders headers,@Context UriInfo info,
 			WebserviceRequest request) throws Exception 
 	{

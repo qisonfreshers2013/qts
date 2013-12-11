@@ -62,24 +62,6 @@ public class ProjectDAOImpl extends BaseDAOHibernateImpl implements ProjectDAO {
 		}
 	}
 	
-	//List of projects Using userId
-	@Override
-	public Project addProject(Project project) throws Exception{
-		Session session=SessionFactoryUtil.getInstance().getNewSession();
-		try{
-			session.beginTransaction();
-			session.save(project);
-			session.getTransaction().commit();
-			return project;
-		}catch(Exception e){
-			e.printStackTrace();
-			throw  new ProjectException(ExceptionCodes.ADD_PROJECT_FAILED,ExceptionMessages.ADD_PROJECT_FAILED);
-		}finally{
-			session.close();
-		}
-		
-		
-	}
 	
 	//returns Project object by using corresponding project Id
 	@Override 

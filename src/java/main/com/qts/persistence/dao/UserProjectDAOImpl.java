@@ -44,12 +44,12 @@ public class UserProjectDAOImpl extends BaseDAOHibernateImpl implements UserProj
 			Criteria userProjectCriteria = session.createCriteria(UserProject.class);
 			userProjectCriteria.add(Restrictions.eq("userId", id));
 			List<UserProject> list = userProjectCriteria.list();
-			if(list.isEmpty())
-				throw new ProjectException(ExceptionCodes.USER_ID_INVALID,ExceptionMessages.USER_ID_INVALID);
-			return list;
-		}catch(ProjectException e){
-			e.printStackTrace();
-			throw e;
+//			if(list.isEmpty())
+//				throw new ProjectException(ExceptionCodes.USER_ID_INVALID,ExceptionMessages.USER_ID_INVALID);
+		return list;
+//		}catch(ProjectException e){
+//			e.printStackTrace();
+//			throw e;
 		}
 		catch(Exception e){
 			e.printStackTrace();
@@ -57,25 +57,6 @@ public class UserProjectDAOImpl extends BaseDAOHibernateImpl implements UserProj
 		}finally{
 			session.close();
 		}
-//	    session=SessionFactoryUtil.getInstance().getNewSession();
-//		session.beginTransaction();
-//		try{
-//			List<UserProject> list=session.createQuery("from UserProject where user_id="+id).list();
-//			if( list.size()==0)
-//				throw new ProjectException(ExceptionCodes.USER_ID_INVALID,ExceptionMessages.USER_ID_INVALID);
-//			return list;
-//		}
-//		catch(ProjectException e){
-//			e.printStackTrace();
-//			throw e;
-//		}
-//		catch(Exception e){
-//			e.printStackTrace();
-//			throw e;
-//		}finally{
-//			session.close();
-//		}
-
 
 	}
 
@@ -84,14 +65,8 @@ public class UserProjectDAOImpl extends BaseDAOHibernateImpl implements UserProj
 		session.beginTransaction();
 		try{
 			List<UserProject> list=session.createQuery("from UserProject where project_id="+id).list();
-//			if( list.size()==0)
-//				throw new ProjectException(ExceptionCodes.PROJECT_ID_INVALID,ExceptionMessages.PROJECT_ID_INVALID);
 			return list;
 		}
-//		catch(ProjectException e){
-//			e.printStackTrace();
-//			throw e;
-//		}
 		catch(Exception e){
 			e.printStackTrace();
 			throw e;
@@ -134,8 +109,6 @@ public class UserProjectDAOImpl extends BaseDAOHibernateImpl implements UserProj
 			session=SessionFactoryUtil.getInstance().getNewSession();
 			session.beginTransaction();
 			userProjectObject=iterator.next();	
-			long i=userProjectObject.getProjectId();
-			long j=userProjectObject.getUserId();
 			session.save(userProjectObject);
 			session.getTransaction().commit();
 			}
@@ -146,8 +119,6 @@ public class UserProjectDAOImpl extends BaseDAOHibernateImpl implements UserProj
 		catch(Exception e){
 			e.printStackTrace();
 			throw  new ProjectException(ExceptionCodes.ADD_USER_TO_PROJECT_FAILED,ExceptionMessages.ADD_USER_TO_PROJECT_FAILED);
-		}finally{
-			session.close();
 		}
 	}
 
@@ -170,25 +141,6 @@ public class UserProjectDAOImpl extends BaseDAOHibernateImpl implements UserProj
 		}
 
 	}
-	
-//	@Override
-//	public RoleBean updateReportingUserId(RoleBean roleBean) throws ProjectException,Exception {
-//		
-//		session=SessionFactoryUtil.getInstance().getNewSession();
-//		try{
-//		List<UserProject> listup=getListOfUserProjectByProjectId(roleBean.getProjectId());
-//		for(UserProject up:listup){
-//			if(up.getUserId()!=roleBean.getUserId()){
-//				up.setReportingUserId(roleBean.getUserId());
-//				session.update(up);
-//			}
-//		}
-//		return roleBean;
-//		}catch(Exception e){
-//			e.printStackTrace();
-//			throw new ProjectException(ExceptionCodes.PROJECT_OR_USER_ID_INVALID,ExceptionMessages.PROJECT_OR_USER_ID_INVALID);
-//		}
-//	}
 
 	@Override
 	public boolean deAllocateUsersFromProject(long projectId,Long userId) throws Exception {
@@ -227,7 +179,7 @@ public class UserProjectDAOImpl extends BaseDAOHibernateImpl implements UserProj
 		}
 		catch(Exception e){
 			e.printStackTrace();
-			throw new ProjectException(ExceptionCodes.DELETE_USER_FROM_PROJECT_FAILED,ExceptionMessages.DELETE_USER_FROM_PROJECT_FAILED);
+			throw new ProjectException(ExceptionCodes.PROJECT_OR_USER_ID_INVALID,ExceptionMessages.PROJECT_OR_USER_ID_INVALID);
 		}finally{
 			session.close();
 		}
@@ -250,26 +202,4 @@ public class UserProjectDAOImpl extends BaseDAOHibernateImpl implements UserProj
 			session.close();
 		}
 	}
-	
-//	@Override
-//	public boolean updateUserProjectReportingId(UserProject userProject)
-//			throws Exception {
-//		session=SessionFactoryUtil.getInstance().getNewSession();
-//		session.beginTransaction();
-//		try{
-//			Query query=session.createQuery("update UserProject set reporting_user_id =:reportingId where project_id =:projectId and userId= :userId");
-//			query.setParameter("reportingId",11);
-//			query.setParameter("projectId",userProject.getProjectId());
-//			query.setParameter("userId",userProject.getUserId());
-//			query.executeUpdate();
-//			session.getTransaction().commit();
-//		}
-//		catch(Exception e){
-//			e.printStackTrace();
-//			throw e;
-//		}finally{
-//			session.close();
-//		}
-//		return false;
-//	}
 }

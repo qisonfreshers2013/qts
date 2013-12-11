@@ -26,7 +26,7 @@ public class DAOFactory {
 		return INSTANCE;
 	}
 
-	public RoleDAO getRoleDAOImplInstance() {
+	public  RoleDAO getRoleDAOImplInstance() {
 		if (ROLEDAO_INSTANCE == null) {
 			ROLEDAO_INSTANCE = RoleDAOImpl.getInstance();
 		}
@@ -46,7 +46,7 @@ public class DAOFactory {
 		return UserDAOImpl.getInstance();
 	}
 
-	public UserProjectDAO getUserProjectDAOImplInstance() {
+	public static UserProjectDAO getUserProjectDAOImplInstance() {
 		if (USERPROJECTDAO_INSTANCE == null) {
 			USERPROJECTDAO_INSTANCE = UserProjectDAOImpl.getInstance();
 		}
@@ -61,7 +61,7 @@ public class DAOFactory {
 	}
 	
 
-	public UserProjectsRolesDAO getUserProjectsRolesDAOInstance() {
+	public  UserProjectsRolesDAO getUserProjectsRolesDAOInstance() {
 		if (USER_PROJECT_ROLESDAO_INSTANCE == null) {
 			USER_PROJECT_ROLESDAO_INSTANCE = UserProjectsRolesDAOImpl
 					.getInstance();
