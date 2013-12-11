@@ -130,9 +130,7 @@ public class TimeEntryHandler {
 			if (!deleted) {
 				throw new TimeEntryException(
 						ExceptionCodes.TIMEENTRYDELETIONFAILED,
-						ExceptionMessages.TIMEENTRY_DELETE); // write exception
-																// for this
-																// case(TimeEntryDeletionFailed)
+						ExceptionMessages.TIMEENTRY_DELETE); 
 			}
 		} else {
 			throw new InvalidTimeEntryDataException();
@@ -154,10 +152,7 @@ public class TimeEntryHandler {
 				if (!updated) {
 					throw new TimeEntryException(
 							ExceptionCodes.TIMEENTRYUPDATEFAILED,
-							ExceptionMessages.TIMEENTRY_UPDATE); // write
-																	// exception
-																	// for this
-																	// case(TimeEntryUpdateFailed)
+							ExceptionMessages.TIMEENTRY_UPDATE); 
 				}
 			}
 		}
