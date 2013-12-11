@@ -122,7 +122,11 @@ public class TimeEntryHandler {
 	 * Handler Method Used By DeleteEntry Service
 	 */
 	public boolean deleteEntry(TimeEntriesForm deletedata) throws Exception {
+
                  deletedata.setUserId(ServiceRequestContextHolder.getContext().getUserSessionToken().getUserId());
+
+
+
 		if (deletedata.getId() != null) {
 			boolean deleted = DAOFactory.getInstance()
 					.getTimeEntryDAOInstance().deleteTimeEntry(deletedata);

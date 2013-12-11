@@ -5,9 +5,11 @@ package com.qts.persistence.dao;
  * @author Ajay
  */
 import java.sql.Timestamp;
+<<<<<<< HEAD
 import java.util.Calendar;
+
+>>>>>>> 7719fa5f39d1939b4b46fc46756ffa075dd00157
 import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.List;
 
 import org.apache.commons.lang3.time.DateUtils;
@@ -262,7 +264,11 @@ public class TimeEntryDAOImpl extends BaseDAOImpl implements TimeEntryDAO {
 		Session session = SessionFactoryUtil.getInstance().getNewSession();
 		try {
 			session.beginTransaction();
+
 			List<TimeEntries> mapped = session.createQuery("from TimeEntries where release_Id=" + id).list();
+
+			List<TimeEntries> mapped = session.createQuery("from TimeEntries where releaseId=" + id).list();
+
 			if (mapped.size() != 0) {
 				return true;
 			}
@@ -354,16 +360,21 @@ public class TimeEntryDAOImpl extends BaseDAOImpl implements TimeEntryDAO {
 	public List<TimeEntries> listEntriesToApprove(TimeEntriesForm timeEntry){
 		Session session=SessionFactoryUtil.getInstance().getNewSession();
 		try{
+
 			Calendar getPreviousWeekDate=new GregorianCalendar().getInstance();
 			getPreviousWeekDate.add(Calendar.DAY_OF_YEAR,-7);
 			getPreviousWeekDate.getTimeInMillis();
+
 			session.beginTransaction();
 			Criteria searchUserCriteria = session.createCriteria(TimeEntries.class);
 		  searchUserCriteria.setProjection(
 		         Projections.projectionList().
 		           add(Projections.property("id")).
 		           add(Projections.property("date")).
+
 		           add(Projections.property("userId")).
+
+
 		           add(Projections.property("projectId")).
 		           add(Projections.property("releaseId")).
 		           add(Projections.property("task")).
@@ -375,22 +386,34 @@ public class TimeEntryDAOImpl extends BaseDAOImpl implements TimeEntryDAO {
 		           add(Projections.property("rejectedComments"))
 		           );
 		  if(timeEntry.getFrom()==null && timeEntry.getProjectId()!=null && timeEntry.getUserId()==null && timeEntry.getTo()==null && timeEntry.getStatus()==null){
+
 		 // searchUserCriteria.add(Restrictions.eq("date",getPreviousWorkingDay(session)));
 	      searchUserCriteria.add(Restrictions.eq("date",getPreviousWeekDate.getTimeInMillis()));
+
+		  searchUserCriteria.add(Restrictions.eq("date",getPreviousWorkingDay(session)));
+
 		  searchUserCriteria.add(Restrictions.eq("status",1));
 		  searchUserCriteria.add(Restrictions.eq("projectId",timeEntry.getProjectId()));
 		  }
 		  else if(timeEntry.getFrom()!=null && timeEntry.getTo()!=null){
 			  searchUserCriteria.add(Restrictions.between("date",parseDateToLong(timeEntry.getFrom()),parseDateToLong(timeEntry.getTo())));
 		      searchUserCriteria.add(Restrictions.eq("projectId",timeEntry.getProjectId()));
+
 		      searchUserCriteria.add(Restrictions.eq("userId",timeEntry.getUserId()));
+
+		      searchUserCriteria.add(Restrictions.eq("UserId",timeEntry.getProjectId()));
+
 		      searchUserCriteria.add(Restrictions.eq("status",timeEntry.getStatus()));
 		       }
 		  else if(timeEntry.getFrom()!=null && timeEntry.getTo()==null){
 			  searchUserCriteria.add(Restrictions.eq("projectId",timeEntry.getProjectId()));
 			  searchUserCriteria.add(Restrictions.eq("status",timeEntry.getStatus()));
 			  searchUserCriteria.add(Restrictions.between("date",parseDateToLong(timeEntry.getFrom()),new Date().getTime()));
+
 			  searchUserCriteria.add(Restrictions.eq("userId",timeEntry.getUserId()));
+
+			  searchUserCriteria.add(Restrictions.eq("UserId",timeEntry.getProjectId()));
+
 		  }
 		  else if(timeEntry.getFrom()==null && timeEntry.getTo()!=null){
 			  return null;
