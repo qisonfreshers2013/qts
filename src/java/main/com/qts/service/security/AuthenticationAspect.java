@@ -74,7 +74,7 @@ public class AuthenticationAspect {
             return ob;
         } catch (Throwable ex) {
             logger.error(ex.toString(), ex);
-            //ex.printStackTrace();
+            ex.printStackTrace();
             return ServiceResponse.getFailureResponseString(ex);
         } finally {
             ServiceRequestContextHolder.setContext(null);
