@@ -3,13 +3,16 @@ package com.qts.handler;
 
 import java.util.List;
 
-import com.qts.exception.InternalTimeEntryDBException;
+
+
+
+
+
+import com.qts.exception.ExceptionCodes;
+import com.qts.exception.ExceptionMessages;
 import com.qts.exception.InvalidTimeEntryDataException;
 import com.qts.exception.ObjectNotFoundException;
-import com.qts.exception.SearchFailedException;
-import com.qts.exception.TimeEntryDeletionFailedException;
-import com.qts.exception.TimeEntrySubmissionFailedException;
-import com.qts.exception.TimeEntryUpdateFailedException;
+import com.qts.exception.TimeEntryException;
 import com.qts.model.TimeEntries;
 import com.qts.model.TimeEntriesForm;
 import com.qts.persistence.dao.DAOFactory;
@@ -34,12 +37,12 @@ public class TimeEntryHandler {
   /*
    * Handler Method Used By AddEntry Service
   */
-	public boolean addEntry(TimeEntriesForm formdata) throws InvalidTimeEntryDataException, TimeEntrySubmissionFailedException, Exception {
+	public boolean addEntry(TimeEntriesForm formdata) throws Exception{
 			if (ValidateData.validateDate(formdata.getDate())) {
 				if(ValidateData.validate(formdata)){
-	boolean added = DAOFactory.getTimeEntryDAOInstance().addTimeEntry(formdata,null);
+	boolean added = DAOFactory.getInstance().getTimeEntryDAOInstance().addTimeEntry(formdata,null);
 			if (!added) {
-					throw new TimeEntrySubmissionFailedException(); 
+					throw new TimeEntryException(ExceptionCodes.TIMEENTRY_ADDITION_FAILED,ExceptionMessages.TIEMENTRY_ADD); //SubmissionFailedException 
 					}
 			}
 			}
@@ -53,10 +56,10 @@ public class TimeEntryHandler {
         
 		for (TimeEntriesForm data : formdata) {
 			if(data.getId()!=null){
-			boolean rejected = DAOFactory.getTimeEntryDAOInstance()
+			boolean rejected = DAOFactory.getInstance().getTimeEntryDAOInstance()
 					.rejectTimeEntry(data);
 			if (!rejected) {
-				throw new InternalTimeEntryDBException();// write exception code and message
+			throw new TimeEntryException(ExceptionCodes.TIMEENTRY_REJECT_FAILED,ExceptionMessages.TIMEENTRY_REJECT);// write exception code and message DBException
 			}
 			}else{
 				throw new InvalidTimeEntryDataException();
@@ -71,10 +74,10 @@ public class TimeEntryHandler {
 	public boolean approveEntry(List<TimeEntriesForm> entrydata) throws Exception {
 		for (TimeEntriesForm data : entrydata) {
 			if(data.getId()!=null){
-			boolean approved = DAOFactory.getTimeEntryDAOInstance()
+			boolean approved = DAOFactory.getInstance().getTimeEntryDAOInstance()
 					.approveTimeEntry(data);
 			if (!approved) {
-				throw new InternalTimeEntryDBException(); // write exception for this case
+				throw new TimeEntryException(ExceptionCodes.TIMEENTRY_APPROVE_FAILED,ExceptionMessages.TIMEENTRY_APPROVE); // write exception for this case( InternalTimeEntryDB)
 			}}else{
 				throw new InvalidTimeEntryDataException();
 			}
@@ -89,10 +92,10 @@ public class TimeEntryHandler {
 	public boolean deleteEntry(TimeEntriesForm deletedata) throws Exception {
 
 			if(deletedata.getId()!=null){
-			boolean deleted = DAOFactory.getTimeEntryDAOInstance()
+			boolean deleted = DAOFactory.getInstance().getTimeEntryDAOInstance()
 					.deleteTimeEntry(deletedata);
 			if (!deleted) {
-				throw new TimeEntryDeletionFailedException(); // write exception for this case
+				throw new TimeEntryException(ExceptionCodes.TIMEENTRYDELETIONFAILED,ExceptionMessages.TIMEENTRY_DELETE); // write exception for this case(TimeEntryDeletionFailed)
 			}}else{
 				throw new InvalidTimeEntryDataException();
 			}
@@ -105,10 +108,10 @@ public class TimeEntryHandler {
 	public boolean updateEntry(TimeEntriesForm dataToUpdate) throws Exception {
  
 		
-		boolean updated = DAOFactory.getTimeEntryDAOInstance().updateTimeEntry(
+		boolean updated = DAOFactory.getInstance().getTimeEntryDAOInstance().updateTimeEntry(
 				dataToUpdate);
 		if (!updated) {
-			throw new TimeEntryUpdateFailedException(); // write exception for this case
+			throw new TimeEntryException(ExceptionCodes.TIMEENTRYUPDATEFAILED,ExceptionMessages.TIMEENTRY_UPDATE); // write exception for this case(TimeEntryUpdateFailed)
 		}
 		return true;
 		
@@ -118,14 +121,14 @@ public class TimeEntryHandler {
 	 * Handler Method Used By Search Service
 	 */
 	public List<TimeEntries> searchUserEntries(TimeEntriesForm formdata)
-			throws InvalidTimeEntryDataException, SearchFailedException {
+			throws Exception{
 		if (formdata.getUserId() == null) {
 			throw new InvalidTimeEntryDataException();
 		}
-		List<TimeEntries> responseList = DAOFactory.getTimeEntryDAOInstance()
+		List<TimeEntries> responseList = DAOFactory.getInstance().getTimeEntryDAOInstance()
 				.searchTimeEntriesForUser(formdata);
 		if (responseList == null) {
-			throw new SearchFailedException();		}
+			throw new TimeEntryException(ExceptionCodes.TIMEENTRY_SEARCH_FAILED,ExceptionMessages.TIMEENTRY_USERSEARCH);		} //(SearchFailed)
 		
 		return responseList;
 	}
@@ -139,7 +142,7 @@ public class TimeEntryHandler {
 			throw new InvalidTimeEntryDataException();
 		}
 		
-		List<TimeEntries> responseList = DAOFactory.getTimeEntryDAOInstance()
+		List<TimeEntries> responseList = DAOFactory.getInstance().getTimeEntryDAOInstance()
 				.searchTimeEntriesForApprover(formdata);
 		if (responseList != null) {
 			return responseList;
@@ -151,20 +154,20 @@ public class TimeEntryHandler {
 	 * Handler method to Check whether ReleaseId Mapped or not
 	 */
 	public boolean isEntryMapped(long id) throws Exception{
-		if( DAOFactory.getTimeEntryDAOInstance().getTimeEntryObjectById(id)==null){
+		if( DAOFactory.getInstance().getTimeEntryDAOInstance().getTimeEntryObjectById(id)==null){
 			throw new ObjectNotFoundException();
 		}
 		
 		return true;
 	}
-	public boolean submitTimeEntries(List<TimeEntriesForm> submissionEntries) throws TimeEntrySubmissionFailedException, Exception
+	public boolean submitTimeEntries(List<TimeEntriesForm> entriesToSubmit) throws  Exception
 	{
-		for(TimeEntriesForm formdata:submissionEntries)
+		for(TimeEntriesForm formdata:entriesToSubmit)
 		if (ValidateData.validateDate(formdata.getDate())) {
 			if(ValidateData.validate(formdata)){
-boolean added = DAOFactory.getTimeEntryDAOInstance().addTimeEntry(formdata,null);
-		if (!added) {
-				throw new TimeEntrySubmissionFailedException(); 
+boolean submitted = DAOFactory.getInstance().getTimeEntryDAOInstance().submitTimeEntries(formdata);
+		if (!submitted) {
+				throw new TimeEntryException(ExceptionCodes.TIMEENTRYSUBMISSIONFAILED,ExceptionMessages.TIMEENTRY_SUBMIT); 
 				}
 		}
 		}

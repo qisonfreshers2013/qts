@@ -49,12 +49,12 @@ public class DefaultAuthenticationHandler implements AuthenticationHandler {
 		user = daoFactory.getUserDAO().getUserByEmail(email);
 		//String encryptedPassword = Utils.encrypt(password);
 		String passwordFromDB = user.getPassword();
-		boolean userValidity = passwordFromDB.equals(passwordFromDB);
+		boolean userValidity = passwordFromDB.equals(password);//anil
 
-		/*if (!userValidity) {
+		if (!userValidity) {
 			throw new BusinessException(ExceptionCodes.INVALID_PASSWORD,
-					ExceptionMessages.INVALID_PASSWORD);
-		}*/
+					ExceptionMessages.INVALID_PASSWORD);//anil
+		}
 
 		authStatus = User.AUTH_STATUS_EXISTING;
 

@@ -9,6 +9,7 @@ import org.hibernate.criterion.Restrictions;
 import com.qts.exception.ExceptionCodes;
 import com.qts.exception.ExceptionMessages;
 import com.qts.exception.RolesException;
+import com.qts.model.UserProject;
 import com.qts.model.UserProjectRoles;
 
 public class UserProjectsRolesDAOImpl implements UserProjectsRolesDAO{
@@ -36,7 +37,7 @@ public class UserProjectsRolesDAOImpl implements UserProjectsRolesDAO{
 	public List<UserProjectRoles> getUserProjectRolesByUserProjectId(long userProjectId) throws Exception{
 //		Connection.query(
 //				"from UserProjectRoles where user_Project_Id=" + userProjectId).list();
-		Criteria criteria=SessionFactoryUtil.getInstance().getCurrentSession().createCriteria(UserProjectRoles.class)
+		Criteria criteria=SessionFactoryUtil.getInstance().getNewSession().createCriteria(UserProjectRoles.class)
 				.add(Restrictions.eq("userProjectId", userProjectId));
 		if(criteria.list().isEmpty())
 			throw new RolesException(ExceptionCodes.NO_ROLES_FOR_THIS_USERPROJECT_ID, ExceptionMessages.NO_ROLES_FOR_THIS_USERPROJECT_ID);
@@ -44,6 +45,20 @@ public class UserProjectsRolesDAOImpl implements UserProjectsRolesDAO{
 
 	}
 	private boolean checkRoleAlreadyExists(List<Long> userProjectId) {
-		return getU;
+		return true;
 	}
+public boolean deletUserProjectRoleByUserProjectId(UserProject userProject)
+	   throws Exception {
+	  session=SessionFactoryUtil.getInstance().getNewSession();
+	  try{
+	   session.beginTransaction();
+	   UserProjectRoles userProjectRoles = (UserProjectRoles) session.createCriteria(UserProjectRoles.class).add(Restrictions.eq("userProjectId",userProject.getId())).uniqueResult();
+	   session.delete(userProjectRoles);
+	   session.getTransaction().commit();
+	   return true;
+	  }catch(IllegalArgumentException e){
+	   session.getTransaction().commit();
+	   return true;
+	  }
+	 }
 }

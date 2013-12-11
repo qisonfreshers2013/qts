@@ -112,6 +112,6 @@ public class RoleHandler extends AbstractHandler {
 		return true;
 	}
 	public void passUserIdProjectId(RoleBean roleBean) throws Exception {
-		UserProjectHandler.getInstance().updateReportingUserId(roleBean);
+		//UserProjectHandler.getInstance().updateReportingUserId(roleBean);
 	}
 }

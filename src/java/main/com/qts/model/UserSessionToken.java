@@ -17,22 +17,9 @@ public class UserSessionToken implements Serializable {
     private static final long serialVersionUID = -8723630138842849229L;
     protected String userSessionId;
     protected String userEmail;
-    protected long userId;
-    protected String nickName; //anil
+    protected long userId;  
 
-    /**
-	 * @return the nickName
-	 */
-	public String getNickName() {
-		return nickName;
-	}
-
-	/**
-	 * @param nickName the nickName to set
-	 */
-	public void setNickName(String nickName) {
-		this.nickName = nickName;
-	}
+   
 
 	public UserSessionToken() {
     }
