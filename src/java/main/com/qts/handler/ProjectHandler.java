@@ -85,7 +85,7 @@ public class ProjectHandler extends AbstractHandler {
 	public  Project addProject(Project project) throws Exception{
 		try{
 			if(validateProjectName(project.getName())&&validateProjectTechnologies(project.getTechnologies()))
-				return DAOFactory.getInstance().getProjectDAOImplInstance().addProject(project);
+				return (Project)DAOFactory.getInstance().getProjectDAOImplInstance().saveObject(project);
 			else 
 				return null;
 		}catch(Exception e){
@@ -107,6 +107,7 @@ public class ProjectHandler extends AbstractHandler {
 			Iterator<UserProject> iterator=userProject.iterator();
 			while(iterator.hasNext()){
 				User user = UserHandler.getInstance().getUserByUserId(iterator.next().getUserId());
+				if(user!=null)
 				userList.add(user);
 			}
 			return userList;
@@ -172,34 +173,16 @@ public class ProjectHandler extends AbstractHandler {
 		List<UserProject> userProjects=new LinkedList<UserProject>();
 		if(!userIds.isEmpty()){
 		for(Long userid:userIds){
+			if(!UserHandler.getInstance().isUserDeleted(userid)){
 			UserProject userProject=new UserProject();
 			userProject.setProjectId(projectId);
 			userProject.setUserId(userid);
 			userProjects.add(userProject);
+			}
 		}
 		UserProjectHandler.getInstance().addUserToProject(userProjects);
 		}
 		return null;
-//		try{
-//		while(iterator.hasNext()){
-//			userId=iterator.next();
-////			if(UserHandler.getInstance().isUserDeleted(userId))
-////				throw new UserException(ExceptionCodes.DELETED_ALREADY,ExceptionMessages.DELETED_ALREADY);
-//			UserProject userProject=new UserProject();
-//			userProject.setProjectId(projectId);
-//			userProject.setUserId(userId);
-//			userProjectList.add(userProject);
-//		}
-	
-//		return project;
-//		}catch(ProjectException e){
-//			e.printStackTrace();
-//			throw e;
-//		}
-//		catch(UserException e){
-//			e.printStackTrace();
-//			throw e;
-//		}
 	}
 	/*
 	 * Returns project Object by using projectId
