@@ -37,7 +37,7 @@ public class UserDAOImpl extends BaseDAOImpl implements UserDAO {
 
 	// @SuppressWarnings("unchecked")
 	// public List<User> getListOfUsersObjects() {
-	// Session session =SessionFactoryUtil.getInstance().getNewSession();
+// Session session =SessionFactoryUtil.getInstance().getNewSession();
 	// List<User> list = session.createQuery("from User").list();
 	// DAOConnection.closeSession(session);
 	// return list;
@@ -90,6 +90,7 @@ public class UserDAOImpl extends BaseDAOImpl implements UserDAO {
 				throw new UserException(ExceptionCodes.DELETED_ALREADY,
 						ExceptionMessages.DELETED_ALREADY);
 			User user = (User) list.get(0);
+			
 			user.setIsDeleted(true);
 			session.update(user);
 			transaction.commit();
@@ -113,7 +114,8 @@ public class UserDAOImpl extends BaseDAOImpl implements UserDAO {
 		session =SessionFactoryUtil.getInstance().getNewSession();
 		Criteria searchUserCriteria = session.createCriteria(User.class);
 		searchUserCriteria.add(Restrictions.eq("id", id));
-		List<User> list = searchUserCriteria.list();		
+		List<User> list = searchUserCriteria.list();	
+		session.close();
 		return list.iterator().next().getNickName();
 	}
 
@@ -147,8 +149,10 @@ public class UserDAOImpl extends BaseDAOImpl implements UserDAO {
 		searchUserCriteria.add(Restrictions.like("isDeleted",false));
 		list = searchUserCriteria.list();
 		if(list.size() == 0){
+			session.close();
 			throw new UserException(ExceptionCodes.SEARCH_RESULTS_NO_MATCH,ExceptionMessages.SEARCH_RESULTS_NO_MATCH);
 		}
+		session.close();
 		return list;
 		// Set<User> set = new HashSet<User>();
 		// List<User> list = new ArrayList<User>();
@@ -175,7 +179,9 @@ public class UserDAOImpl extends BaseDAOImpl implements UserDAO {
 
 	@Override
 	public User getUserLogin(LoginBean bean) throws UserException {
-		Session session =SessionFactoryUtil.getInstance().getNewSession();
+		Session session = null;
+		try{
+		session =SessionFactoryUtil.getInstance().getNewSession();
 		Criteria searchUserCriteria = session.createCriteria(User.class);
 		String email = bean.getEmail();
 		String password = bean.getPassword();
@@ -188,6 +194,10 @@ public class UserDAOImpl extends BaseDAOImpl implements UserDAO {
 					ExceptionCodes.USER_ID_AND_PASSWORD_INVALID,
 					ExceptionMessages.USER_ID_AND_PASSWORD_INVALID);
 		return list.get(0);
+	
+	}finally{
+		session.close();
+	}
 	}
 
 	@Override
@@ -321,19 +331,24 @@ public class UserDAOImpl extends BaseDAOImpl implements UserDAO {
 					ExceptionMessages.USER_DOESNOT_EXIST);
 		Session session =SessionFactoryUtil.getInstance().getNewSession();
 		Criteria createCriteria = session.createCriteria(User.class);
+<<<<<<< HEAD
 		createCriteria.add(Restrictions.eq("id", id));		
+		 createCriteria.add(Restrictions.eq("isDeleted",false));
+		 List<User> list = createCriteria.list();
+		 if (list.size() == 0) {
+			 return null;
+			}
+		 session.close();
+=======
+		createCriteria.add(Restrictions.eq("id", id));	
+		createCriteria.add(Restrictions.eq("isDeleted",false));
 		List<User> list = createCriteria.list();
 		if (list.size() == 0) {
-			throw new UserException(ExceptionCodes.USER_DOESNOT_EXIST,
-					ExceptionMessages.USER_DOESNOT_EXIST);
+			return null;
 		}
-		 createCriteria.add(Restrictions.eq("isDeleted",false));
-		 list = createCriteria.list();
-		 if (list.size() == 0) {
-				throw new UserException(ExceptionCodes.DELETED_ALREADY,
-						ExceptionMessages.DELETED_ALREADY);
-			}
-		return list.iterator().next();
+		session.close();
+>>>>>>> aa6fb43f09ad3c0280514b8e976f1af9f568cf71
+		return list.get(0);
 	}
 
 	// -----
@@ -343,25 +358,17 @@ public class UserDAOImpl extends BaseDAOImpl implements UserDAO {
 		try{
 		session =SessionFactoryUtil.getInstance().getNewSession();
 		Criteria createCriteria = session.createCriteria(User.class);
-		createCriteria.add(Restrictions.eq("email", email));
-		
+		createCriteria.add(Restrictions.eq("email", email));		
+		createCriteria.add(Restrictions.eq("isDeleted", false));
 		list = createCriteria.list();
 		if (list.size() == 0) {			
 			throw new UserException(ExceptionCodes.EMAIL_NOT_EXISTS,
 					ExceptionMessages.EMAIL_NOT_EXISTS);
-		}
-		createCriteria.add(Restrictions.eq("isDeleted", false));
-		list = createCriteria.list();
-		if (list.size() == 0) {		
-			throw new UserException(ExceptionCodes.DELETED_ALREADY,
-					ExceptionMessages.DELETED_ALREADY);
-		}}finally{
+		}		
+		}finally{
 			session.close();
-		}
-		
-		
-		return list.iterator().next();
-		
+		}	
+		return list.iterator().next();		
 	}
 
 	public boolean isUserDeleted(long id) throws Exception {
@@ -370,16 +377,16 @@ public class UserDAOImpl extends BaseDAOImpl implements UserDAO {
 		  try{
 		   Criteria userCriteria=session.createCriteria(User.class);
 		   userCriteria.add(Restrictions.eq("id",id)).
-		       add(Restrictions.eq("isDeleted",1));
+		       add(Restrictions.eq("isDeleted",true));
 		   List<User> list=userCriteria.list();
 		   if(list.isEmpty())
 		    return false;
 		   return true;
 		  }catch(Exception e){
+			  session.close();
 		   e.printStackTrace();
 		   throw e;
-		  }
-		  
+		  }		  
 		 }
 	 public List<User> getUserById(List<Long> userIds) {
 		  Session session=SessionFactoryUtil.getInstance().getNewSession();

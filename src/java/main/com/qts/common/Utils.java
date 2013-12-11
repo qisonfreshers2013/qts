@@ -24,8 +24,12 @@ public class Utils {
     public static final int MIN_PASSWORD_LENGTH = 6;
     public static final int ARTICLE_BRIEF_DESCRIPTION_LENGTH = 190;
     public static final int BRIEF_DESCRIPTION_START_INDEX = 0;
+<<<<<<< HEAD
+public static final String LOCATION_PATTERN = "^[A-Za-z\\s]*$";//------
+=======
 	public static final String LOCATION_PATTERN = "^[A-Za-z\\s]*$";//-----
 	
+>>>>>>> aa6fb43f09ad3c0280514b8e976f1af9f568cf71
 
 
     public static void validateEmail(String email)
@@ -170,7 +174,7 @@ public class Utils {
     public static boolean isSolaris() {
         return (System.getProperty("os.name").contains("sunos"));
     }
-    
+
     public static void assignNull(Object...objects ){
     	for(Object object:objects){
     		object=null;

@@ -40,8 +40,8 @@ public class ReleasesDAOImpl extends BaseDAOHibernateImpl implements ReleasesDAO
 	@Override
 	public List<Releases> listReleases(ReleasesInput releasesBean)throws ReleasesException,ObjectNotFoundException {
 		
-		
 		Session session= SessionFactoryUtil.getInstance().getNewSession();
+		try{
 		Criteria releasesCriteria = session.createCriteria(Releases.class);
 		releasesCriteria.setProjection(Projections.projectionList()
 				.add(Projections.property("id"))
@@ -52,31 +52,19 @@ public class ReleasesDAOImpl extends BaseDAOHibernateImpl implements ReleasesDAO
 			throw new ReleasesException(ExceptionCodes.RELEASES_EMPTY,ExceptionMessages.RELEASES_EMPTY_FOR_THE_PROJECT);
 		}
 		return releasesList;
-
-	}
-
-
-	@Override
-	public Releases addReleases(Releases releases) throws ReleasesException {
-		
-		try {
-			Session session = SessionFactoryUtil.getInstance().getNewSession();
-			Transaction txn=session.beginTransaction();
-			session.save(releases);
-			txn.commit();
-			return releases;
-		} catch (Exception e) {
-			throw new ReleasesException(ExceptionCodes.RELEASES_CANNOT_BE_ADDED,ExceptionMessages.RELEASES_CANNOT_BE_ADDED_FOR_THE_PROJECT);
 		}
+		finally{
+			session.close();
+		}
+		
 
 	}
 
 	@Override
 	public Releases deleteReleases(Releases releases) throws Exception {
 		
-		
-		try{
-			Session session=SessionFactoryUtil.getInstance().getNewSession();
+		Session session=SessionFactoryUtil.getInstance().getNewSession();
+		try{		
 			Transaction txn=session.beginTransaction();
 			session.delete(releases);
 			txn.commit();
@@ -85,26 +73,32 @@ public class ReleasesDAOImpl extends BaseDAOHibernateImpl implements ReleasesDAO
 		catch(Exception e){
 			throw e;
 		}
+		finally{
+			session.close();
+		}
 
 	}
 
 	@SuppressWarnings("unchecked")
 	public Releases getObjectById(long releaseId)throws ObjectNotFoundException {
 		
-		
+		Session session = SessionFactoryUtil.getInstance().getNewSession();
 		List<Releases> releasesList;
-		try {
-			Session session = SessionFactoryUtil.getInstance().getNewSession();
+		try {		
 			session.beginTransaction();
 			releasesList = session.createQuery("from Releases where id=" + releaseId).list();
 			if (releasesList.isEmpty()) {
 				throw new ObjectNotFoundException(ExceptionCodes.RELEASES_ID_DOES_NOT_EXISTS,ExceptionMessages.RELEASES_ID_INVALID);
 			}
+			return (Releases) releasesList.get(0);
 		} catch (ObjectNotFoundException e) {
 			throw e;
 		}
+		finally{
+			session.close();
+		}
 
-		return (Releases) releasesList.get(0);
+		
 
 	}
 

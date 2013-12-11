@@ -123,7 +123,7 @@ public class UserService extends BaseService {
 	@Path("/deleteUser")
 	public String deleteUser(@Context HttpHeaders headers,
 			@Context UriInfo uriInfo, WebserviceRequest request)
-			throws UserException {
+			throws UserException , Exception{
 		UserBean bean = (UserBean) JsonUtil.getObject(request.getPayload(),
 				UserBean.class);
 		boolean isDeleted = UserHandler.getInstance().deleteUser(bean);
@@ -164,7 +164,7 @@ public class UserService extends BaseService {
 				Boolean.class, BooleanOutputDescriptor.class);
 	}
 
-	// {"payload":{"oldPassword":"MANIG@123","newPassword":"MANI@123","confirmPassword":"MANI@123"}}
+	// {"payload":{"oldPassword":"MANIG@123","password":"MANI@123","confirmPassword":"MANI@123"}}
 
 	@POST
 	@RestService(input = String.class, output = String.class)
@@ -197,4 +197,6 @@ public class UserService extends BaseService {
 		return JsonUtil.getJsonForListBasedOnDescriptor(isLogout,
 				Boolean.class, BooleanOutputDescriptor.class);
 	}
+	
+	
 }

@@ -111,7 +111,36 @@ public class RoleHandler extends AbstractHandler {
 		}
 		return true;
 	}
+<<<<<<< HEAD
+<<<<<<< HEAD
+	public void passUserIdProjectId(RoleBean roleBean) throws Exception {
+		//UserProjectHandler.getInstance().updateReportingUserId(roleBean);
+=======
+
+=======
+>>>>>>> aa6fb43f09ad3c0280514b8e976f1af9f568cf71
 //	public void passUserIdProjectId(RoleBean roleBean) throws Exception {
 //		UserProjectHandler.getInstance().updateReportingUserId(roleBean);
 //	}
+<<<<<<< HEAD
+	public boolean validateRoleId(long roleId) throws Exception {
+		Set<Long> roleIds=new HashSet<Long>();
+		roleIds.add(roleId);
+		return DAOFactory.getInstance().getRoleDAOImplInstance().validateRoleId(roleIds);
+	}
+	private boolean checkRoleAlreadyExists(long id, long roleId)
+			throws Exception {
+//		try {
+			if (UserProjectsRolesHandler.getInstance().getUserProjectRoleByIds(
+					id, roleId) != null)
+				return false;
+			return true;
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//			throw e;
+//		}
+>>>>>>> 7719fa5f39d1939b4b46fc46756ffa075dd00157
+	}
+=======
+>>>>>>> aa6fb43f09ad3c0280514b8e976f1af9f568cf71
 }

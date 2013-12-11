@@ -49,12 +49,12 @@ public class DefaultAuthenticationHandler implements AuthenticationHandler {
 		user = daoFactory.getUserDAO().getUserByEmail(email);
 		//String encryptedPassword = Utils.encrypt(password);
 		String passwordFromDB = user.getPassword();
-		boolean userValidity = passwordFromDB.equals(passwordFromDB);
+		boolean userValidity = passwordFromDB.equals(password);//anil
 
-		/*if (!userValidity) {
+		if (!userValidity) {
 			throw new BusinessException(ExceptionCodes.INVALID_PASSWORD,
-					ExceptionMessages.INVALID_PASSWORD);
-		}*/
+					ExceptionMessages.INVALID_PASSWORD);//anil
+		}
 
 		authStatus = User.AUTH_STATUS_EXISTING;
 
@@ -80,7 +80,7 @@ public class DefaultAuthenticationHandler implements AuthenticationHandler {
 		userSessionToken.setUserSessionId(sessionToken);
 		Cache cache = CacheManager.getInstance().getCache(CacheRegionType.USER_SESSION_CACHE);
 		cache.put(sessionToken, userSessionToken);
-		System.out.println("Session Token : "+sessionToken);
+		System.out.println("Session Token : "+sessionToken);		
 		System.out.println("Cached : "+cache.getValue(sessionToken));
 		AuthenticationOutput authenticationOutput = new AuthenticationOutput(
 				sessionToken, authStatus, user);

@@ -63,7 +63,7 @@ public interface ExceptionMessages {
 	 public static final String USER_ID_FORMAT = "invalid email pattern";
 	 public static final String PASSWORD_FORMAT = "invalid password";
 	 public static final String USER_ID_AND_PASSWORD_NULL = "user id and pass word are empty";
-	 public static final String USER_DETAILS_NULL = "Enter mandatoryfields";
+	 public static final String USER_DETAILS_NULL = "Enter mandatory fields";
 	 public static final String CONFIRM_PASSWORD_NULL = "Confirm password Null";
 	 public static final String CONFIRM_PASSWORD_NOT_EQUAL = "Confirm password is not equal to password";
 	 public static final String FIRST_NAME_SHOULD_NOT_NULL = "First Name should not empty";
@@ -95,8 +95,17 @@ public interface ExceptionMessages {
 	 public static final String EMAIL_USERID_NOT_EQUAL = "UserId must equal to Email";
 	 public static final String UPDATE_HANDLAER_EXCEPTION = "exception in update handler,validations return false";
 	 public static final String EMAIL_NOT_EXISTS = "Email is not existing";
+<<<<<<< HEAD
 	 public static final String USER_NOT_AUTHENTICATED = "Please login.";
+=======
+<<<<<<< HEAD
+	 public static final String USER_NOT_AUTHENTICATED = "Please login.";
+	 public static final String SEARCH_RESULTS_NO_MATCH = "no matchs found";
+=======
+	 public static final String USER_NOT_AUTHENTICATED="user not authenticated";
+>>>>>>> 9ae18a307a9c45e084cfb89503b486037b6846d4
 	 public static final String SEARCH_RESULTS_NO_MATCH = "no matches found";
+>>>>>>> aa6fb43f09ad3c0280514b8e976f1af9f568cf71
 
 	//Time Entry Exception messages
 	public static final String DATE_CANNOT_BE_NULL= "DATE CANNOT BE NULL";
@@ -120,7 +129,16 @@ public interface ExceptionMessages {
 	public static final String TIMEENTRY_USERSEARCH="COULD NOT FIND SEARCH RESULTS";
 	public static final String TIMEENTRY_FILLING_FOR_APPROVER="APPROVER CANNOT FILL TIMESHEET UNLESS HE IS A MEMBER";
 	public static final String TIMEENTRY_APPROVER_NOT_AUTHORIZED="APPROVER IS NOT AUTHORIZED FOR THIS PROJECT";
+<<<<<<< HEAD
 	public static final String TIME_DATAFIELD_TO_NOT_PRESENT="FIELD TO IS NOT PRESENT";
+=======
+<<<<<<< HEAD
+=======
+	public static final String TIME_DATAFIELD_TO_NOT_PRESENT="FIELD TO IS NOT PRESENT";
+	
+>>>>>>> aa6fb43f09ad3c0280514b8e976f1af9f568cf71
+	
+>>>>>>> 9ae18a307a9c45e084cfb89503b486037b6846d4
 	//roles exception
 	public static final String ROLES_EMPTY_EXCEPTION="Select atleast one role.";
 	public static final String ROLES_LIST_EMPTY_EXCEPTION="No Roles available add few.";

@@ -16,7 +16,7 @@ import com.qts.model.RoleBean;
 import com.qts.model.UserProject;
 import com.qts.persistence.dao.DAOFactory;
 
-public class UserProjectHandler {
+public class UserProjectHandler extends AbstractHandler{
 	
 	private static UserProjectHandler INSTANCE = null;
 
@@ -32,7 +32,11 @@ public class UserProjectHandler {
 		return INSTANCE;
 	}
 	
+<<<<<<< HEAD
+	public  Set<Long> reportingIds=new HashSet();
+=======
 	public  Set<Long> reportingIds=new HashSet<Long>();
+>>>>>>> 7719fa5f39d1939b4b46fc46756ffa075dd00157
 	public List<UserProject> getListOfUserProjectByUserId(long id) throws Exception{
 		return DAOFactory.getInstance().getUserProjectDAOImplInstance().getListOfUserProjectByUserId(id);
 	}
@@ -52,10 +56,6 @@ public class UserProjectHandler {
 		return DAOFactory.getInstance().getUserProjectDAOImplInstance().getUserProjectByIds(projectId, userId);
 	}
 	
-	
-//	public RoleBean updateReportingUserId(RoleBean roleBean) throws ProjectException,Exception{
-//		return DAOFactory.getInstance().getUserProjectDAOImplInstance().updateReportingUserId(roleBean);
-//	}
 	
 	
 	public BaseObject getObjectById(long id) throws ObjectNotFoundException {
