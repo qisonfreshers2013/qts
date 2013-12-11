@@ -32,7 +32,11 @@ public class UserProjectHandler {
 		return INSTANCE;
 	}
 	
+<<<<<<< HEAD
 	public  Set<Long> reportingIds=new HashSet();
+=======
+	public  Set<Long> reportingIds=new HashSet<Long>();
+>>>>>>> 7719fa5f39d1939b4b46fc46756ffa075dd00157
 	public List<UserProject> getListOfUserProjectByUserId(long id) throws Exception{
 		return DAOFactory.getInstance().getUserProjectDAOImplInstance().getListOfUserProjectByUserId(id);
 	}

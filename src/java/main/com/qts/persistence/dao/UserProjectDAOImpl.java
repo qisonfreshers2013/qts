@@ -38,8 +38,13 @@ public class UserProjectDAOImpl extends BaseDAOHibernateImpl implements UserProj
 
 
 	public List<UserProject> getListOfUserProjectByUserId(long id) throws ProjectException,Exception{
+<<<<<<< HEAD
 		Session session=DAOConnection.openSession();
 	//	session.beginTransaction();
+=======
+		Session session=SessionFactoryUtil.getInstance().getNewSession();
+		session.beginTransaction();
+>>>>>>> 7719fa5f39d1939b4b46fc46756ffa075dd00157
 		try{
 			Criteria userProjectCriteria = session.createCriteria(UserProject.class);
 			userProjectCriteria.add(Restrictions.eq("userId", id));
@@ -231,6 +236,7 @@ public class UserProjectDAOImpl extends BaseDAOHibernateImpl implements UserProj
 			throw new ProjectException(ExceptionCodes.DELETE_USER_FROM_PROJECT_FAILED,ExceptionMessages.DELETE_USER_FROM_PROJECT_FAILED);
 		}finally{
 			session.close();
+<<<<<<< HEAD
 		}
 	}
 
@@ -251,6 +257,28 @@ public class UserProjectDAOImpl extends BaseDAOHibernateImpl implements UserProj
 			session.close();
 		}
 	}
+=======
+		}
+	}
+
+	@Override
+	public List<UserProject> getListOfNonUserProjectByProjectId(long id)throws Exception {
+		session=SessionFactoryUtil.getInstance().getNewSession();
+		session.beginTransaction();
+		try{
+			Criteria userProjectCriteria=session.createCriteria(UserProject.class);
+			userProjectCriteria.add(Restrictions.ne("projectId",id));
+			List<UserProject> list=userProjectCriteria.list();
+			return list;
+		}
+		catch(Exception e){
+			e.printStackTrace();
+			throw e;
+		}finally{
+			session.close();
+		}
+	}
+>>>>>>> 7719fa5f39d1939b4b46fc46756ffa075dd00157
 	
 //	@Override
 //	public boolean updateUserProjectReportingId(UserProject userProject)

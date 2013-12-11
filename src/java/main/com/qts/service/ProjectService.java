@@ -25,6 +25,7 @@ import com.qts.model.ProjectBean;
 import com.qts.model.User;
 import com.qts.service.annotations.RestService;
 import com.qts.service.annotations.ServiceStatus;
+import com.qts.service.annotations.UnSecure;
 import com.qts.service.common.WebserviceRequest;
 import com.qts.service.descriptors.ProjectBeanDescriptor;
 import com.qts.service.descriptors.ProjectOutputDescriptor;
@@ -120,14 +121,34 @@ public class ProjectService {
 	@ServiceStatus(value = "complete")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	@Path("/DeAllocateUserFromProject")
+	@Path("/deAllocateUserFromProject")
 	public String deAllocateUsersFromProject(@Context HttpHeaders headers,
-			@Context UriInfo uriInfo, WebserviceRequest request){
+			@Context UriInfo uriInfo, WebserviceRequest request) throws Exception{
 		ProjectBean projectBean = (ProjectBean) JsonUtil.getObject(request.getPayload(),
 				ProjectBean.class);
 		projectBean=ProjectHandler.getInstance()
 		.deAllocateUsersFromProject(projectBean);
-		return null;
+		return "success";
+	}
+	
+	
+	@POST
+	@RestService(input = String.class, output = String.class)
+	@ServiceStatus(value = "complete")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	@Path("/nonMembersOfProject")
+	public String nonMembersOfProject(@Context HttpHeaders headers,
+			@Context UriInfo uriInfo, WebserviceRequest request) throws Exception{
+		Project project = (Project) JsonUtil.getObject(request.getPayload(),
+				Project.class);
+		List<User> usersList=ProjectHandler.getInstance()
+		.nonMembersOfProject(project);
+		String jsonForListBasedOnDescriptor = JsonUtil
+		.getJsonForListBasedOnDescriptor(usersList, User.class,
+				UserListOutputDescriptor.class);
+
+		return jsonForListBasedOnDescriptor;
 	}
 
 }

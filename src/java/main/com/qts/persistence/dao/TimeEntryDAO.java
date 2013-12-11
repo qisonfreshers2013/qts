@@ -5,6 +5,7 @@ package com.qts.persistence.dao;
  * @author Ajay
  */
 import java.util.List;
+import java.util.Set;
 
 import org.hibernate.Session;
 
@@ -15,15 +16,15 @@ public interface TimeEntryDAO {
 
 	
     public boolean addTimeEntry(TimeEntriesForm timeEntry,Session session);
-    public boolean rejectTimeEntry(TimeEntriesForm timeEntry);
+    public TimeEntries rejectTimeEntry(TimeEntriesForm timeEntry);
     public boolean approveTimeEntry(TimeEntriesForm timeEntry);
     public boolean deleteTimeEntry(TimeEntriesForm deleteEntry);
     public boolean updateTimeEntry(TimeEntriesForm updateWithData);
-    public List<TimeEntries> searchTimeEntriesForUser(TimeEntriesForm timeEntry);
 	public long parseDateToLong(String date);
 	public Session deleteTimeEntryById(int id,Session session);
 	public String getDateInString(long timeinMilliSeconds);
-	public List<TimeEntries> searchTimeEntriesForApprover(TimeEntriesForm timeEntry);
-	public TimeEntries getTimeEntryObjectById(long id);
+	public boolean getTimeEntryObjectById(long id);
 	public boolean submitTimeEntries(TimeEntriesForm submitData);
+	public List<TimeEntries> listUserEntries(TimeEntriesForm timeEntry);
+	public List<TimeEntries> listEntriesToApprove(TimeEntriesForm timeEntry);
 }

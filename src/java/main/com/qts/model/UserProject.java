@@ -17,8 +17,6 @@ public class UserProject extends AbstractObject {
  private long userId;
  @Column(name="project_id")
  private long projectId;
- @Column(name="reporting_user_id")
- private long reportingUserId;
  
  public UserProject(){
   
@@ -37,9 +35,18 @@ public class UserProject extends AbstractObject {
  public void setProjectId(long projectId) {
   this.projectId = projectId;
  }
- @Override
+ public long getId() {
+	return id;
+}
+
+
+public void setId(long id) {
+	this.id = id;
+}
+
+@Override
  public int getObjectType() {
   // TODO Auto-generated method stub
-  return 0;
+  return ObjectTypes.USER_PROJECT;
  }
 }

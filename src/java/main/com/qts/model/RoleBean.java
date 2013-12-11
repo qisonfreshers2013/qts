@@ -7,7 +7,7 @@ public class RoleBean {
 	private long projectId;
 	private long userId;
 	private Set<Long> roleIds;
-	private RoleBean() {
+	public RoleBean() {
 	}
 	public long getProjectId() {
 		return projectId;

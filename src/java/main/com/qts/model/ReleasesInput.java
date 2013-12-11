@@ -11,34 +11,44 @@ package com.qts.model;
  */
 
 public class ReleasesInput {
+
+	private long id;
 	private String releaseName;
 	private long projectId;
 
-	public ReleasesInput(String releaseName, long projectId) {
-		super();
-		this.releaseName = releaseName;
-		this.projectId = projectId;
-	}
-	
+//	public ReleasesInput(long id,String releaseName, long projectId) {
+//		this.id=id;
+//		this.releaseName = releaseName;
+//		this.projectId = projectId;
+//	}
+
 	public ReleasesInput() {
-		super();
+
 	}
-	
+
 	public String getReleaseName() {
 		return releaseName;
 	}
-	
+
 	public void setReleaseName(String releaseName) {
 		this.releaseName = releaseName;
 	}
-	
+
 	public long getProjectId() {
 		return projectId;
 	}
-	
+
 	public void setProjectId(long projectId) {
 		this.projectId = projectId;
 	}
-	
+
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
 
 }
