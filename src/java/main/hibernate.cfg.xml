@@ -5,15 +5,23 @@
 <hibernate-configuration>
 <session-factory>
 <!-- hibernate dialect -->
-<property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
-<property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
-<property name="hibernate.connection.url">jdbc:mysql://192.168.10.32/project</property>
+
+<property name="connection.url">jdbc:mysql://192.168.10.32/project</property>
 <property name="hibernate.connection.username">qison</property>
 <property name="hibernate.connection.password">Qis0n123$</property>
+<property name="connection.driver_class">com.mysql.jdbc.Driver</property>
+<property name="dialect">org.hibernate.dialect.MySQLDialect</property>
+<property name="connection.autocommit">false</property>
 <property name="transaction.factory_class">org.hibernate.transaction.JDBCTransactionFactory</property>
-<property name="hibernate.hbm2ddl.auto">update</property>
 <property name="current_session_context_class">thread</property>
-<property name= "show_sql">true</property> 
+<property name="hibernate.show_sql">true</property>
+<property name="c3p0.min_size">20</property>
+<property name="c3p0.max_size">50</property>
+<property name="c3p0.timeout">7200</property>
+<property name="c3p0.max_statements">50</property>
+<property name="c3p0.idle_test_period">1200</property>
+<property name="connection.provider_class">org.hibernate.connection.C3P0ConnectionProvider</property>
+
 <mapping class="com.qts.model.TimeEntries"/>
 <mapping class="com.qts.model.Releases"/>
 <mapping class="com.qts.model.Project"/>

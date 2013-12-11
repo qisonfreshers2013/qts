@@ -1,6 +1,8 @@
 package com.qts.handler;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import com.qts.exception.ExceptionCodes;
 import com.qts.exception.ExceptionMessages;
@@ -111,18 +113,7 @@ public class RoleHandler extends AbstractHandler {
 		}
 		return true;
 	}
-<<<<<<< HEAD
-<<<<<<< HEAD
-	public void passUserIdProjectId(RoleBean roleBean) throws Exception {
-		//UserProjectHandler.getInstance().updateReportingUserId(roleBean);
-=======
 
-=======
->>>>>>> aa6fb43f09ad3c0280514b8e976f1af9f568cf71
-//	public void passUserIdProjectId(RoleBean roleBean) throws Exception {
-//		UserProjectHandler.getInstance().updateReportingUserId(roleBean);
-//	}
-<<<<<<< HEAD
 	public boolean validateRoleId(long roleId) throws Exception {
 		Set<Long> roleIds=new HashSet<Long>();
 		roleIds.add(roleId);
@@ -139,8 +130,6 @@ public class RoleHandler extends AbstractHandler {
 //			e.printStackTrace();
 //			throw e;
 //		}
->>>>>>> 7719fa5f39d1939b4b46fc46756ffa075dd00157
+
 	}
-=======
->>>>>>> aa6fb43f09ad3c0280514b8e976f1af9f568cf71
 }

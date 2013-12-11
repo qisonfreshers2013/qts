@@ -4,15 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-<<<<<<< HEAD
-
-
-
-
-
-=======
 import com.qts.exception.AuthenticateException;
->>>>>>> 7719fa5f39d1939b4b46fc46756ffa075dd00157
 import com.qts.exception.ExceptionCodes;
 import com.qts.exception.ExceptionMessages;
 import com.qts.exception.InvalidTimeEntryDataException;
@@ -47,19 +39,6 @@ public class TimeEntryHandler {
 		}
 		return INSTANCE;
 	}
-<<<<<<< HEAD
-  /*
-   * Handler Method Used By AddEntry Service
-  */
-	public boolean addEntry(TimeEntriesForm formdata) throws Exception{
-			if (ValidateData.validateDate(formdata.getDate())) {
-				if(ValidateData.validate(formdata)){
-	boolean added = DAOFactory.getInstance().getTimeEntryDAOInstance().addTimeEntry(formdata,null);
-			if (!added) {
-					throw new TimeEntryException(ExceptionCodes.TIMEENTRY_ADDITION_FAILED,ExceptionMessages.TIEMENTRY_ADD); //SubmissionFailedException 
-					}
-			}
-=======
 
 	/*
 	 * Handler Method Used By AddEntry Service
@@ -76,7 +55,6 @@ public class TimeEntryHandler {
 							ExceptionCodes.TIMEENTRY_ADDITION_FAILED,
 							ExceptionMessages.TIEMENTRY_ADD); // SubmissionFailedException
 				}
->>>>>>> 7719fa5f39d1939b4b46fc46756ffa075dd00157
 			}
 		}
 		return true;
@@ -86,70 +64,45 @@ public class TimeEntryHandler {
 	 * Handler Method Used By RejectEntry Service by Approver
 	 */
 
-	public List<TimeEntries> rejectEntry(List<TimeEntriesForm> formdata)
+	public boolean rejectEntry(TimeEntriesForm formData)
 			throws Exception {
-		List<TimeEntries> rejectedSet = new ArrayList<TimeEntries>();
-
-		for (TimeEntriesForm data : formdata) {
-<<<<<<< HEAD
-			if(data.getId()!=null){
-			boolean rejected = DAOFactory.getInstance().getTimeEntryDAOInstance()
-					.rejectTimeEntry(data);
-			if (!rejected) {
-			throw new TimeEntryException(ExceptionCodes.TIMEENTRY_REJECT_FAILED,ExceptionMessages.TIMEENTRY_REJECT);// write exception code and message DBException
-			}
-			}else{
-				throw new InvalidTimeEntryDataException();
-=======
-			if (getApprovers(data.getProjectId()).contains(
+		List<UserProject> associatedProjectList=UserProjectHandler.getInstance().getListOfUserProjectByUserId(ServiceRequestContextHolder.getContext().getUserSessionToken().getUserId());
+		for(UserProject associatedProject:associatedProjectList){
+			if (getApprovers(associatedProject.getProjectId()).contains(
 					ServiceRequestContextHolder.getContext()
 							.getUserSessionToken().getUserId())) {
-				if (data.getId() != null && data.getRejectedComments() != null) {
-					TimeEntries rejected = DAOFactory.getInstance()
-							.getTimeEntryDAOInstance().rejectTimeEntry(data);
-					if (rejected == null) {
+				if (formData.getId() != null && formData.getRejectedComments() != null) {
+					formData.setProjectId(associatedProject.getProjectId());
+					boolean rejected = DAOFactory.getInstance()
+							.getTimeEntryDAOInstance().rejectTimeEntry(formData);
+					if (rejected == false) {
 						throw new TimeEntryException(
 								ExceptionCodes.TIMEENTRY_REJECT_FAILED,
-								ExceptionMessages.TIMEENTRY_REJECT);// write
-																	// exception
-																	// code and
-																	// message
-																	// DBException
+								ExceptionMessages.TIMEENTRY_REJECT);
 					} else
-						rejectedSet.add(rejected);
+					          return rejected;
 				} else {
 					throw new InvalidTimeEntryDataException();
 				}
->>>>>>> 7719fa5f39d1939b4b46fc46756ffa075dd00157
 			}
 		}
-		return rejectedSet;
+		return false;
 	}
 
 	/*
 	 * Handler Method Used By ApproveEntry Service by Approver
 	 */
-	public boolean approveEntry(List<TimeEntriesForm> entrydata)
+	public boolean approveEntry(TimeEntriesForm entrydata)
 			throws Exception {
-		for (TimeEntriesForm data : entrydata) {
-<<<<<<< HEAD
-			if(data.getId()!=null){
-			boolean approved = DAOFactory.getInstance().getTimeEntryDAOInstance()
-					.approveTimeEntry(data);
-			if (!approved) {
-				throw new TimeEntryException(ExceptionCodes.TIMEENTRY_APPROVE_FAILED,ExceptionMessages.TIMEENTRY_APPROVE); // write exception for this case( InternalTimeEntryDB)
-			}}else{
-				throw new InvalidTimeEntryDataException();
-			}
-=======
-			if (getApprovers(data.getProjectId()).contains(
+		List<UserProject> associatedProjectList=UserProjectHandler.getInstance().getListOfUserProjectByUserId(ServiceRequestContextHolder.getContext().getUserSessionToken().getUserId());
+		for(UserProject associatedProject:associatedProjectList){
+			if (getApprovers(associatedProject.getProjectId()).contains(
 					ServiceRequestContextHolder.getContext()
 							.getUserSessionToken().getUserId())) {
-				if (data.getId() != null) {
->>>>>>> 7719fa5f39d1939b4b46fc46756ffa075dd00157
-
-					boolean approved = DAOFactory.getInstance()
-							.getTimeEntryDAOInstance().approveTimeEntry(data);
+				if (entrydata.getId() != null) {
+					entrydata.setProjectId(associatedProject.getProjectId());
+                 boolean approved = DAOFactory.getInstance()
+							.getTimeEntryDAOInstance().approveTimeEntry(entrydata);
 					if (!approved) {
 						throw new TimeEntryException(
 								ExceptionCodes.TIMEENTRY_APPROVE_FAILED,
@@ -167,22 +120,10 @@ public class TimeEntryHandler {
 	 */
 	public boolean deleteEntry(TimeEntriesForm deletedata) throws Exception {
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-			if(deletedata.getId()!=null){
-			boolean deleted = DAOFactory.getInstance().getTimeEntryDAOInstance()
-					.deleteTimeEntry(deletedata);
-			if (!deleted) {
-				throw new TimeEntryException(ExceptionCodes.TIMEENTRYDELETIONFAILED,ExceptionMessages.TIMEENTRY_DELETE); // write exception for this case(TimeEntryDeletionFailed)
-			}}else{
-				throw new InvalidTimeEntryDataException();
-=======
-=======
                  deletedata.setUserId(ServiceRequestContextHolder.getContext().getUserSessionToken().getUserId());
 
 
 
->>>>>>> aa6fb43f09ad3c0280514b8e976f1af9f568cf71
 		if (deletedata.getId() != null) {
 			boolean deleted = DAOFactory.getInstance()
 					.getTimeEntryDAOInstance().deleteTimeEntry(deletedata);
@@ -192,7 +133,6 @@ public class TimeEntryHandler {
 						ExceptionMessages.TIMEENTRY_DELETE); // write exception
 																// for this
 																// case(TimeEntryDeletionFailed)
->>>>>>> 7719fa5f39d1939b4b46fc46756ffa075dd00157
 			}
 		} else {
 			throw new InvalidTimeEntryDataException();
@@ -204,14 +144,6 @@ public class TimeEntryHandler {
 	 * Handler Method Used By Update Service
 	 */
 	public boolean updateEntry(TimeEntriesForm dataToUpdate) throws Exception {
-<<<<<<< HEAD
- 
-		
-		boolean updated = DAOFactory.getInstance().getTimeEntryDAOInstance().updateTimeEntry(
-				dataToUpdate);
-		if (!updated) {
-			throw new TimeEntryException(ExceptionCodes.TIMEENTRYUPDATEFAILED,ExceptionMessages.TIMEENTRY_UPDATE); // write exception for this case(TimeEntryUpdateFailed)
-=======
 		dataToUpdate.setUserId(ServiceRequestContextHolder.getContext()
 				.getUserSessionToken().getUserId());
 		if (ValidateData.validateDate(dataToUpdate.getDate())) {
@@ -228,7 +160,6 @@ public class TimeEntryHandler {
 																	// case(TimeEntryUpdateFailed)
 				}
 			}
->>>>>>> 7719fa5f39d1939b4b46fc46756ffa075dd00157
 		}
 		return true;
 
@@ -237,18 +168,6 @@ public class TimeEntryHandler {
 	/*
 	 * Handler Method Used By Search Service
 	 */
-<<<<<<< HEAD
-	public List<TimeEntries> searchUserEntries(TimeEntriesForm formdata)
-			throws Exception{
-		if (formdata.getUserId() == null) {
-			throw new InvalidTimeEntryDataException();
-		}
-		List<TimeEntries> responseList = DAOFactory.getInstance().getTimeEntryDAOInstance()
-				.searchTimeEntriesForUser(formdata);
-		if (responseList == null) {
-			throw new TimeEntryException(ExceptionCodes.TIMEENTRY_SEARCH_FAILED,ExceptionMessages.TIMEENTRY_USERSEARCH);		} //(SearchFailed)
-		
-=======
 	public List<TimeEntries> searchUserEntries(TimeEntriesForm formData)
 			throws Exception {
 
@@ -262,78 +181,25 @@ public class TimeEntryHandler {
 					ExceptionMessages.TIMEENTRY_USERSEARCH);
 		} // (SearchFailed)
 
->>>>>>> 7719fa5f39d1939b4b46fc46756ffa075dd00157
 		return responseList;
 	}
 
 	/*
 	 * Handler Method Used By Search Service for Approver
 	 */
-<<<<<<< HEAD
-	public List<TimeEntries> searchUserEntriesForApprover(TimeEntriesForm formdata)
-			throws InvalidTimeEntryDataException {
-		if (formdata.getUserId() == null && formdata.getProjectId()==null) {
-			throw new InvalidTimeEntryDataException();
-		}
-		
-		List<TimeEntries> responseList = DAOFactory.getInstance().getTimeEntryDAOInstance()
-				.searchTimeEntriesForApprover(formdata);
-		if (responseList != null) {
-			return responseList;
-		}
-		return null;
-	}
-	
-	/*
-	 * Handler method to Check whether ReleaseId Mapped or not
-	 */
-	public boolean isEntryMapped(long id) throws Exception{
-		if( DAOFactory.getInstance().getTimeEntryDAOInstance().getTimeEntryObjectById(id)==null){
-=======
-//	public List<TimeEntries> searchUserEntriesForApprover(
-//			TimeEntriesForm formdata) throws Exception {
-//		// if (formdata.getUserId() == null && formdata.getProjectId()==null) {
-//		// throw new InvalidTimeEntryDataException();
-//		// }
-//		List<UserProject> associatedProjectList=UserProjectHandler.getInstance().getListOfUserProjectByUserId(ServiceRequestContextHolder.getContext().getUserSessionToken().getUserId());
-//		//Set<Long> approversList = UserProjectHandler.getInstance().getApproversListByProjectId(formdata.getProjectId());
-//	    for(UserProject getProjectId:associatedProjectList){
-//				List<TimeEntries> responseList = DAOFactory.getInstance()
-//				.getTimeEntryDAOInstance()
-//				.listEntriesToApprove(formdata, approversList);
-//		if (responseList != null) {
-//			return responseList;
-//		} else
-//			throw new AuthenticationException(
-//					"User is Not allowed to perform this operation");
-//	}
+
 
 	/*
 	 * Handler method to Check whether ReleaseId Mapped or not
 	 */
 	public boolean isEntryMapped(long id) throws Exception {
-		if (DAOFactory.getInstance().getTimeEntryDAOInstance()
-				.getTimeEntryObjectById(id) == false) {
-<<<<<<< HEAD
->>>>>>> 7719fa5f39d1939b4b46fc46756ffa075dd00157
-=======
->>>>>>> aa6fb43f09ad3c0280514b8e976f1af9f568cf71
+		if (!(DAOFactory.getInstance().getTimeEntryDAOInstance()
+				.getTimeEntryObjectById(id))) {
 			throw new ObjectNotFoundException();
 		}
 
 		return true;
 	}
-<<<<<<< HEAD
-	public boolean submitTimeEntries(List<TimeEntriesForm> entriesToSubmit) throws  Exception
-	{
-		for(TimeEntriesForm formdata:entriesToSubmit)
-		if (ValidateData.validateDate(formdata.getDate())) {
-			if(ValidateData.validate(formdata)){
-boolean submitted = DAOFactory.getInstance().getTimeEntryDAOInstance().submitTimeEntries(formdata);
-		if (!submitted) {
-				throw new TimeEntryException(ExceptionCodes.TIMEENTRYSUBMISSIONFAILED,ExceptionMessages.TIMEENTRY_SUBMIT); 
-				}
-=======
 
 	public boolean submitTimeEntries(List<TimeEntriesForm> entriesToSubmit)
 			throws Exception {
@@ -347,7 +213,6 @@ boolean submitted = DAOFactory.getInstance().getTimeEntryDAOInstance().submitTim
 						ExceptionCodes.TIMEENTRYSUBMISSIONFAILED,
 						ExceptionMessages.TIMEENTRY_SUBMIT);
 			}
->>>>>>> 7719fa5f39d1939b4b46fc46756ffa075dd00157
 		}
 		return true;
 	}
@@ -365,7 +230,6 @@ boolean submitted = DAOFactory.getInstance().getTimeEntryDAOInstance().submitTim
 			}
 		}
 		long id;
-		
 		for (UserProjectRoles userProjectRoles : listUserProjectRoles) {
 			id = userProjectRoles.getRoleId();
 			if (id == 2){
@@ -375,13 +239,22 @@ boolean submitted = DAOFactory.getInstance().getTimeEntryDAOInstance().submitTim
 		return listOfApprovers;
 	}
 	
+	
+	
+	/*
+	 * Handler Method Used By Search Service for Approver
+	 */
+	
 	public List<TimeEntries> searchUserEntriesForApprover(
 			TimeEntriesForm formdata) throws Exception {
+		if(formdata.getFrom()!=null && formdata.getTo()==null && formdata.getUserId()==null && formdata.getStatus()==null && formdata.getProjectId()==null){
+			throw new InvalidTimeEntryDataException(ExceptionCodes.TIMEENTRY_SEARCH_FAILED,ExceptionMessages.TIME_DATAFIELD_TO_NOT_PRESENT);
+		}
 	List<TimeEntries> timeEntriesToApporve=new ArrayList<TimeEntries>();
 	List<UserProject> associatedProjectList=UserProjectHandler.getInstance().getListOfUserProjectByUserId(ServiceRequestContextHolder.getContext().getUserSessionToken().getUserId());
 	for(UserProject associatedProject:associatedProjectList){
 		if(getApprovers(associatedProject.getProjectId()).contains(ServiceRequestContextHolder.getContext().getUserSessionToken().getUserId())){
-		         formdata.setProjectId(associatedProject.getProjectId());
+		         
 			List<TimeEntries> responseList = DAOFactory.getInstance()
 					.getTimeEntryDAOInstance()
 					.listEntriesToApprove(formdata);
@@ -392,7 +265,7 @@ boolean submitted = DAOFactory.getInstance().getTimeEntryDAOInstance().submitTim
 		}
 	}
 	if(timeEntriesToApporve.size()==0){
-		throw new AuthenticateException();
+		throw new TimeEntryException(ExceptionCodes.TIMEENTRY_SEARCH_FAILED,ExceptionMessages.TIMEENTRY_APPROVER_NOT_AUTHORIZED);
 	}
 	return timeEntriesToApporve;
 	}

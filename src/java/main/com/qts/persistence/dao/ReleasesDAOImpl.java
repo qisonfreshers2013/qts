@@ -20,7 +20,7 @@ import com.qts.model.ReleasesInput;
  * @author Shiva
  * 
  */
-public class ReleasesDAOImpl extends BaseDAOHibernateImpl implements ReleasesDAO {
+public class ReleasesDAOImpl extends BaseDAOImpl implements ReleasesDAO {
 	
 	private static ReleasesDAO RELEASES_INSTANCE = null;
 
@@ -40,8 +40,8 @@ public class ReleasesDAOImpl extends BaseDAOHibernateImpl implements ReleasesDAO
 	@Override
 	public List<Releases> listReleases(ReleasesInput releasesBean)throws ReleasesException,ObjectNotFoundException {
 		
-		Session session= SessionFactoryUtil.getInstance().getNewSession();
-		try{
+		Session session= getSession();
+		
 		Criteria releasesCriteria = session.createCriteria(Releases.class);
 		releasesCriteria.setProjection(Projections.projectionList()
 				.add(Projections.property("id"))
@@ -52,29 +52,20 @@ public class ReleasesDAOImpl extends BaseDAOHibernateImpl implements ReleasesDAO
 			throw new ReleasesException(ExceptionCodes.RELEASES_EMPTY,ExceptionMessages.RELEASES_EMPTY_FOR_THE_PROJECT);
 		}
 		return releasesList;
-		}
-		finally{
-			session.close();
-		}
+
 		
 
 	}
 
 	@Override
 	public Releases deleteReleases(Releases releases) throws Exception {
-		
-		Session session=SessionFactoryUtil.getInstance().getNewSession();
-		try{		
-			Transaction txn=session.beginTransaction();
+		try{
+			Session session=getSession();
 			session.delete(releases);
-			txn.commit();
 			return releases;
 		}
 		catch(Exception e){
 			throw e;
-		}
-		finally{
-			session.close();
 		}
 
 	}
@@ -82,10 +73,9 @@ public class ReleasesDAOImpl extends BaseDAOHibernateImpl implements ReleasesDAO
 	@SuppressWarnings("unchecked")
 	public Releases getObjectById(long releaseId)throws ObjectNotFoundException {
 		
-		Session session = SessionFactoryUtil.getInstance().getNewSession();
 		List<Releases> releasesList;
-		try {		
-			session.beginTransaction();
+		try {
+			Session session = getSession();
 			releasesList = session.createQuery("from Releases where id=" + releaseId).list();
 			if (releasesList.isEmpty()) {
 				throw new ObjectNotFoundException(ExceptionCodes.RELEASES_ID_DOES_NOT_EXISTS,ExceptionMessages.RELEASES_ID_INVALID);
@@ -94,12 +84,6 @@ public class ReleasesDAOImpl extends BaseDAOHibernateImpl implements ReleasesDAO
 		} catch (ObjectNotFoundException e) {
 			throw e;
 		}
-		finally{
-			session.close();
-		}
-
-		
-
 	}
 
 }

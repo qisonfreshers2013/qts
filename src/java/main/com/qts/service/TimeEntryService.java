@@ -6,8 +6,6 @@ package com.qts.service;
  */
 
 import java.util.List;
-import java.util.Set;
-
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -16,7 +14,6 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.UriInfo;
-
 import com.qts.common.json.JsonUtil;
 import com.qts.handler.TimeEntryHandler;
 import com.qts.model.GetTimeEntriesForm;
@@ -25,9 +22,10 @@ import com.qts.model.TimeEntriesForm;
 import com.qts.service.annotations.RestService;
 import com.qts.service.annotations.ServiceStatus;
 import com.qts.service.common.WebserviceRequest;
+import com.qts.service.descriptors.BooleanOutputDescriptor;
 import com.qts.service.descriptors.TimeEntriesOptionOutputDescriptor;
 
-@Path("/TimeEntryService")
+@Path("/v1/TimeEntryService")
 public class TimeEntryService {
    /*
     * AddEntry Service 
@@ -36,7 +34,7 @@ public class TimeEntryService {
 	@RestService(input = String.class, output = String.class)
 	@ServiceStatus(value = "complete")
 	@Consumes(MediaType.APPLICATION_JSON)
-	@Produces(MediaType.TEXT_PLAIN)
+	@Produces(MediaType.APPLICATION_JSON)
 	@Path("/AddEntry")
 	public String addEntry(@Context HttpHeaders headers,
 			@Context UriInfo uriInfo, WebserviceRequest request)
@@ -44,7 +42,8 @@ public class TimeEntryService {
 		TimeEntriesForm form = (TimeEntriesForm) JsonUtil
 				.getObject(request.getPayload(), TimeEntriesForm.class);
         Boolean added=TimeEntryHandler.getInstance().addEntry(form);
-		return "STATUS "+added;
+        return JsonUtil.getJsonForListBasedOnDescriptor(added,
+				Boolean.class, BooleanOutputDescriptor.class);
 		}
 
 	 /*
@@ -54,15 +53,16 @@ public class TimeEntryService {
 	@RestService(input = String.class, output = String.class)
 	@ServiceStatus(value = "complete")
 	@Consumes(MediaType.APPLICATION_JSON)
-	@Produces(MediaType.TEXT_PLAIN)
+	@Produces(MediaType.APPLICATION_JSON)
 	@Path("/RejectEntries")
 	public String rejectEntry(@Context HttpHeaders headers,
 			@Context UriInfo uriInfo, WebserviceRequest request)
 			throws Exception {
-		GetTimeEntriesForm timeEntries = (GetTimeEntriesForm) JsonUtil
-				.getObject(request.getPayload(), GetTimeEntriesForm.class);
-		List<TimeEntries> rejectedTimeEntries=TimeEntryHandler.getInstance().rejectEntry(timeEntries.getTimeEntriesform());
-             return JsonUtil.getJsonForListBasedOnDescriptor(rejectedTimeEntries, TimeEntries.class, TimeEntriesOptionOutputDescriptor.class);
+		TimeEntriesForm timeEntries = (TimeEntriesForm) JsonUtil
+				.getObject(request.getPayload(), TimeEntriesForm.class);
+		  Boolean rejected=TimeEntryHandler.getInstance().rejectEntry(timeEntries);
+		  return JsonUtil.getJsonForListBasedOnDescriptor(rejected,
+					Boolean.class, BooleanOutputDescriptor.class); 
 	}
 	 /*
 	  * UpdateEntry Service
@@ -78,9 +78,9 @@ public class TimeEntryService {
 			throws Exception {
 		TimeEntriesForm updateWithData = (TimeEntriesForm) JsonUtil
 				.getObject(request.getPayload(), TimeEntriesForm.class);
-		Boolean update=TimeEntryHandler.getInstance().updateEntry(updateWithData);
-          
-		return "Status"+update;
+		Boolean update=TimeEntryHandler.getInstance().updateEntry(updateWithData);  
+	     return JsonUtil.getJsonForListBasedOnDescriptor(update,
+					Boolean.class, BooleanOutputDescriptor.class);
 	}
 	 /*
 	  * DeleteEntry Service
@@ -89,7 +89,7 @@ public class TimeEntryService {
 	@RestService(input = String.class, output = String.class)
 	@ServiceStatus(value = "complete")
 	@Consumes(MediaType.APPLICATION_JSON)
-	@Produces(MediaType.TEXT_PLAIN)
+	@Produces(MediaType.APPLICATION_JSON)
 	@Path("/DeleteEntry")
 	public String deleteEntry(@Context HttpHeaders headers,
 			@Context UriInfo uriInfo, WebserviceRequest request)
@@ -97,7 +97,8 @@ public class TimeEntryService {
 		TimeEntriesForm timeEntries = (TimeEntriesForm) JsonUtil
 				.getObject(request.getPayload(), TimeEntriesForm.class);
 		Boolean deleted=TimeEntryHandler.getInstance().deleteEntry(timeEntries);
-		return "STATUS"+deleted;
+	     return JsonUtil.getJsonForListBasedOnDescriptor(deleted,
+					Boolean.class, BooleanOutputDescriptor.class);
 	}
 	 /*
 	  * ApproveEntries Service For Approver
@@ -111,10 +112,11 @@ public class TimeEntryService {
 	public String approveEntries(@Context HttpHeaders headers,
 			@Context UriInfo uriInfo, WebserviceRequest request)
 			throws Exception {
-		GetTimeEntriesForm timeEntries = (GetTimeEntriesForm) JsonUtil
-				.getObject(request.getPayload(), GetTimeEntriesForm.class);
-		Boolean approved=TimeEntryHandler.getInstance().approveEntry(timeEntries.getTimeEntriesform());
-         return "Status"+approved;     
+		TimeEntriesForm timeEntries = (TimeEntriesForm) JsonUtil
+				.getObject(request.getPayload(), TimeEntriesForm.class);
+		Boolean approved=TimeEntryHandler.getInstance().approveEntry(timeEntries);
+	     return JsonUtil.getJsonForListBasedOnDescriptor(approved,
+					Boolean.class, BooleanOutputDescriptor.class);     
 		
 		
 	}
@@ -154,7 +156,7 @@ public class TimeEntryService {
 		List<TimeEntries> entriesList=TimeEntryHandler.getInstance().searchUserEntriesForApprover(form);
 		return JsonUtil.getJsonForListBasedOnDescriptor(entriesList, TimeEntries.class, TimeEntriesOptionOutputDescriptor.class);
 		}
-
+                     
 
 	@POST
 	@RestService(input = String.class, output = String.class)
@@ -169,7 +171,8 @@ public class TimeEntryService {
 				.getObject(request.getPayload(), GetTimeEntriesForm.class);
 		
 		boolean submitted=TimeEntryHandler.getInstance().submitTimeEntries(submitEntries.getTimeEntriesform());
-		return "status"+submitted;
+	     return JsonUtil.getJsonForListBasedOnDescriptor(submitted,
+					Boolean.class, BooleanOutputDescriptor.class);
 	
 	}
 }

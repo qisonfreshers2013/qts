@@ -10,6 +10,7 @@ import com.qts.model.UserSessionToken;
 
 public class ServiceRequestContext implements Serializable, Cloneable {
 	private static final long serialVersionUID = -8321298246752932991L;
+	 private Session dbSession;
 	protected String hashcode;
 	UserSessionToken userSessionToken;
 	protected RequestId requestId;
@@ -64,16 +65,19 @@ public class ServiceRequestContext implements Serializable, Cloneable {
         return userId;
     }
 
-	public Session getDBSession() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	
-	
-	
-	
     public void setUserId(long userId) {
         this.userId = userId;
     }
+
+	public Session getSession() {
+		return dbSession;
+	}
+
+	public void setDbSession(Session dbSession) {
+		this.dbSession = dbSession;
+	}
+
+	
+    
+    
 }

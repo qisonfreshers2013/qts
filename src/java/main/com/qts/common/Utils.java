@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.hibernate.Session;
+
 import com.qts.exception.EncryptionException;
 import com.qts.exception.BusinessException;
 import com.qts.exception.ExceptionCodes;
@@ -13,7 +15,7 @@ import com.qts.service.common.ServiceRequestContextHolder;
 /**
  * @author RAMMOHAN
  */
-public class Utils {
+public final class Utils {
 
     public static final String EMAIL_PATTERN = "^[_A-Za-z]+[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
     public static final String NAME_PATTERN = "^[A-Za-z0-9\\s]*$";
@@ -24,14 +26,7 @@ public class Utils {
     public static final int MIN_PASSWORD_LENGTH = 6;
     public static final int ARTICLE_BRIEF_DESCRIPTION_LENGTH = 190;
     public static final int BRIEF_DESCRIPTION_START_INDEX = 0;
-<<<<<<< HEAD
-public static final String LOCATION_PATTERN = "^[A-Za-z\\s]*$";//------
-=======
 	public static final String LOCATION_PATTERN = "^[A-Za-z\\s]*$";//-----
-	
->>>>>>> aa6fb43f09ad3c0280514b8e976f1af9f568cf71
-
-
     public static void validateEmail(String email)
             throws BusinessException {
         if (email == null || email.isEmpty() || email.trim().isEmpty()) {
@@ -180,5 +175,14 @@ public static final String LOCATION_PATTERN = "^[A-Za-z\\s]*$";//------
     		object=null;
     	}
     }
+    
+    public static Session getDBSession(){
+    	return ServiceRequestContextHolder.getContext().getSession();
+    		
+    	}
+    	
+    	
+    	
+
 
 }
