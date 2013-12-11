@@ -208,8 +208,8 @@ public class TimeEntryHandler {
 	 * Handler method to Check whether ReleaseId Mapped or not
 	 */
 	public boolean isEntryMapped(long id) throws Exception {
-		if (DAOFactory.getInstance().getTimeEntryDAOInstance()
-				.getTimeEntryObjectById(id) == false) {
+		if (!(DAOFactory.getInstance().getTimeEntryDAOInstance()
+				.getTimeEntryObjectById(id))) {
 			throw new ObjectNotFoundException();
 		}
 

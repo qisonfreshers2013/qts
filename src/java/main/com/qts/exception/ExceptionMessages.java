@@ -95,6 +95,8 @@ public interface ExceptionMessages {
 	 public static final String EMAIL_USERID_NOT_EQUAL = "UserId must equal to Email";
 	 public static final String UPDATE_HANDLAER_EXCEPTION = "exception in update handler,validations return false";
 	 public static final String EMAIL_NOT_EXISTS = "Email is not existing";
+	 public static final String USER_NOT_AUTHENTICATED = "Please login.";
+	 public static final String SEARCH_RESULTS_NO_MATCH = "no matches found";
 
 	//Time Entry Exception messages
 	public static final String DATE_CANNOT_BE_NULL= "DATE CANNOT BE NULL";
@@ -128,6 +130,7 @@ public interface ExceptionMessages {
 	public static final String ROLE_ID_EXISTS = "This role already exists for this user";
 	public static final String ONLY_ONE_APPROVER = "only one approver allowed for one project";
 	public static final String ROLE_ID_DOESNOT_EXISTS = "This role id doesnot exists for this user.";
+	
 
 }
 

@@ -22,7 +22,7 @@ public class ActivitiesDAOImpl {
 	  @SuppressWarnings("unchecked")
 	public Activities getObjectById(long id)
 	{
-		Session session=SessionFactoryUtil.getInstance().getCurrentSession();
+		Session session=SessionFactoryUtil.getInstance().getNewSession();
 		try{
 	         session.beginTransaction();
 			List<Activities> activityobj=session.createQuery("from Activities where id="+id).list();

@@ -51,25 +51,4 @@ public void setId(long id) {
  }
 
 
-public long getId() {
-	return id;
-}
-
-
-public void setId(long id) {
-	this.id = id;
-}
-
-
-public long getReportingUserId() {
-	return reportingUserId;
-}
-
-
-public void setReportingUserId(long reportingUserId) {
-	this.reportingUserId = reportingUserId;
-}
-
-
-
 }
