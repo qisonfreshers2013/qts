@@ -24,8 +24,9 @@ public class SessionFactoryUtil {
 	}
 		
 	public Session getNewSession() {
-		session= new AnnotationConfiguration().configure().buildSessionFactory().openSession();
+			session= new AnnotationConfiguration().configure().buildSessionFactory().openSession();
 		return session;
 	}
+	
 	
 }

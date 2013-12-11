@@ -1,6 +1,7 @@
 package com.qts.persistence.dao;
 
 /*
+ * Methods for accessing the Project table data
  * author mani kumar
  */
 import java.util.List;
@@ -8,14 +9,13 @@ import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.criterion.Projections;
+import org.hibernate.criterion.Restrictions;
+
 import com.qts.exception.ExceptionCodes;
 import com.qts.exception.ExceptionMessages;
 import com.qts.exception.ObjectNotFoundException;
 import com.qts.exception.ProjectException;
-import com.qts.model.BaseObject;
 import com.qts.model.Project;
-import com.qts.model.ProjectBean;
-import com.qts.model.User;
 
 public class ProjectDAOImpl extends BaseDAOHibernateImpl implements ProjectDAO {
 	private static ProjectDAO INSTANCE=null;
@@ -37,14 +37,14 @@ public class ProjectDAOImpl extends BaseDAOHibernateImpl implements ProjectDAO {
 		Session session=SessionFactoryUtil.getInstance().getNewSession();
 		session.beginTransaction();
 		try{
-			Criteria projectNameCriteria = session.createCriteria(Project.class);
-			projectNameCriteria.setProjection(
+			Criteria projectCriteria = session.createCriteria(Project.class);
+			projectCriteria.setProjection(
 					Projections.projectionList().
 							add(Projections.property("id")).
 							add(Projections.property("name"))	
 					);
 			
-			List<Project> list= projectNameCriteria.list();
+			List<Project> list= projectCriteria.list();
 			if(list.isEmpty())
 				throw new ProjectException(ExceptionCodes.NO_PROJECTS_AVAILABLE,ExceptionMessages.NO_PROJECTS_AVAILABLE);
 		return list;
@@ -58,7 +58,7 @@ public class ProjectDAOImpl extends BaseDAOHibernateImpl implements ProjectDAO {
 			throw e; 
 			
 		}finally{
-			//session.close();
+			session.close();
 		}
 	}
 	
@@ -72,7 +72,10 @@ public class ProjectDAOImpl extends BaseDAOHibernateImpl implements ProjectDAO {
 			session.getTransaction().commit();
 			return project;
 		}catch(Exception e){
+			e.printStackTrace();
 			throw  new ProjectException(ExceptionCodes.ADD_PROJECT_FAILED,ExceptionMessages.ADD_PROJECT_FAILED);
+		}finally{
+			session.close();
 		}
 		
 		
@@ -82,9 +85,11 @@ public class ProjectDAOImpl extends BaseDAOHibernateImpl implements ProjectDAO {
 	@Override 
 	public Project getObjectById(long id) throws ObjectNotFoundException{
 		Session session=SessionFactoryUtil.getInstance().getNewSession();
+		session.beginTransaction();
 		try{
-			session.beginTransaction();
-			List<Project> list = session.createQuery("from Project where id="+id).list();
+			Criteria projectCriteria = session.createCriteria(Project.class);
+			projectCriteria.add(Restrictions.eq("id", id));
+			List<Project> list = projectCriteria.list();//session.createQuery("from Project where id="+id).list();
 			if(list.isEmpty())
 				throw new ObjectNotFoundException(ExceptionCodes.PROJECT_ID_INVALID,ExceptionMessages.PROJECT_ID_INVALID);
 			return list.iterator().next();
@@ -92,9 +97,8 @@ public class ProjectDAOImpl extends BaseDAOHibernateImpl implements ProjectDAO {
 			e.printStackTrace();
 			throw e;
 		}finally{
-			//session.close();
+			session.close();
 		}
 			
 	}
-	
 }

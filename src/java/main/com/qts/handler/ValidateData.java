@@ -1,5 +1,6 @@
 package com.qts.handler;
 
+import java.text.ParseException;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
@@ -7,7 +8,10 @@ import com.qts.exception.ExceptionCodes;
 import com.qts.exception.ExceptionMessages;
 import com.qts.exception.InvalidTimeEntryDataException;
 import com.qts.exception.ObjectNotFoundException;
+import com.qts.exception.TimeEntryException;
+import com.qts.model.RoleBean;
 import com.qts.model.TimeEntriesForm;
+import com.qts.service.common.ServiceRequestContextHolder;
 
 public class ValidateData {
 
@@ -16,23 +20,25 @@ public class ValidateData {
 	}
 
 	public static boolean validateDate(String formdata)
-			throws InvalidTimeEntryDataException {
+			throws InvalidTimeEntryDataException, ParseException {
+		
+
 		if (formdata == null) {
 			throw new InvalidTimeEntryDataException(
-					ExceptionCodes.DATE_CANNOT_BE_NULL,
+				 ExceptionCodes.DATE_CANNOT_BE_NULL,
 					ExceptionMessages.DATE_CANNOT_BE_NULL);
 		} else {
-			if (formdata.length() != 10) {
+			if (formdata.length() > 10 || formdata.length() < 8) {
 				throw new InvalidTimeEntryDataException(
 						ExceptionCodes.DATE_LENGTH_MISMATCH,
 						ExceptionMessages.DATE_LENGTH_MISMATCH);
 			} else { // Exception for format
-				if (formdata.charAt(2) == '-'
-						|| formdata.charAt(5) == '-') {
-					throw new InvalidTimeEntryDataException(
-							ExceptionCodes.DATE_FORMAT_EXCEPTION,
-							ExceptionMessages.INVALID_DATE_PATTERN);
-				}
+//				if (formdata.charAt(2) == '-'
+//						|| formdata.charAt(5) == '-') {
+//					throw new InvalidTimeEntryDataException(
+//							ExceptionCodes.DATE_FORMAT_EXCEPTION,
+//							ExceptionMessages.INVALID_DATE_PATTERN);
+//				}
 				if (Integer.parseInt(formdata.substring(0, 2)) <= 12
 						&& Integer.parseInt(formdata.substring(0, 2)) != 0) {
 					if (!(Integer.parseInt(formdata.substring(0, 2)) >= (Calendar
@@ -118,6 +124,9 @@ public class ValidateData {
 	}
 
 	public static boolean validate(TimeEntriesForm entry) throws Exception {
+		RoleBean roleBean=new RoleBean();
+		roleBean.setProjectId(entry.getProjectId());
+		roleBean.setUserId(ServiceRequestContextHolder.getContext().getUserSessionToken().getUserId());
 		if (entry.getReleaseId() == 0 || entry.getActivityId() == 0
 				|| entry.getProjectId() == 0 || entry.getHours()==0)
 			throw new ObjectNotFoundException();
@@ -126,15 +135,19 @@ public class ValidateData {
 				|| ProjectHandler.getInstance().getObjectById(
 						entry.getProjectId()) == null
 				|| ActivityHandler.getInstance().getObjectById(
-						entry.getActivityId()) == null || entry.getTask()==null)
+						entry.getActivityId()) == null || entry.getTask()==null || entry.getUserRemarks().length()>4096)
 			throw new ObjectNotFoundException();
 		else if (ReleasesHandler.getInstance()
 				.getObjectById(entry.getReleaseId()).getProjectId() != entry
 				.getProjectId())
 			throw new ObjectNotFoundException();
-
+		else if(!(RoleHandler.getInstance().listUserRoles(roleBean).getRoleIds().contains(new Long(3)))){
+			throw new TimeEntryException(ExceptionCodes.TIMEENTRY_FILLING_IS_NOT_ALLOWED_FOR_APPROVER,ExceptionMessages.TIMEENTRY_FILLING_FOR_APPROVER);
+		}
 		return true;
+		
 	}
+	
 	
 	
 	

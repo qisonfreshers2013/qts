@@ -157,28 +157,39 @@ public interface ExceptionCodes {
 	public static final int AUTH_INPUT_NULL = 4007;
 	public static final int FB_USER_SETTING_INPUT_NULL = 4008;
 	public static final int FACEBOOK_ID_DOESNOT_EXIST = 4009;
-	
-	//Project Related Exceptions
+
+
+
+
+
+
+	//Project WebService related Exceptions
 	public static final int PROJECT_NAME_NOTNULL=5001;
-	 public static final int PROJECT_NAME_LENGTH_MORE=5002;
-	 public static final int TECHNOLOGIES_FIELD_LENGTH_MORE=5003;
-	 public static final int ADD_PROJECT_FAILED=5004;
-	 public static final int PROJECT_ID_INVALID=5005;
-	 public static final int PROJECT_ID_NOT_NULL=5006;
-	 public static final int ADD_USER_TO_PROJECT_FAILED=5007;
-	 public static final int PROJECT_OR_USER_ID_INVALID=5008;
-	 public static final int PROJECT_NAME_FORMAT=5009;
-	 public static final int TECHNOLOGIES_NAME_FORMAT=5010;
-	 public static final int NO_PROJECTS_AVAILABLE=5011;
-	 public static final int USER_PROJECT_ID_INVALID=5012;
-	 public static final int USER_ID_NOT_NULL=5013;
-	 public static final int USER_ID_INVALID=5014;
-	 public static final int DELETE_USER_FROM_PROJECT_FAILED=5015;
-	 public static final int USER_PROJECT_CONSTRAINT_FAILED=5016;
-	 public static final int REPORTING_USER_ID_NOT_NULL=5017;
+	public static final int PROJECT_NAME_LENGTH_MORE=5002;
+	public static final int TECHNOLOGIES_FIELD_LENGTH_MORE=5003;
+	public static final int ADD_PROJECT_FAILED=5004;
+	public static final int PROJECT_ID_INVALID=5005;
+	public static final int PROJECT_ID_NOT_NULL=5006;
+	public static final int ADD_USER_TO_PROJECT_FAILED=5007;
+	public static final int PROJECT_OR_USER_ID_INVALID=5008;
+	public static final int PROJECT_NAME_FORMAT=5009;
+	public static final int TECHNOLOGIES_NAME_FORMAT=5010;
+	public static final int NO_PROJECTS_AVAILABLE=5011;
+	public static final int USER_PROJECT_ID_INVALID=5012;
+	public static final int USER_ID_NOT_NULL=5013;
+	public static final int USER_ID_INVALID=5014;
+	public static final int DELETE_USER_FROM_PROJECT_FAILED=5015;
+	public static final int USER_PROJECT_CONSTRAINT_FAILED=5016;
+	public static final int REPORTING_USER_ID_NOT_NULL=5017;
 
 
-	//Time entries related exception
+
+
+
+
+
+
+	//Time Sheet entry
 	public static final int DATE_CANNOT_BE_NULL = 6001;
 	public static final int DATE_LENGTH_MISMATCH = 6002;
 	public static final int DATE_FORMAT_EXCEPTION = 6003;
@@ -200,16 +211,63 @@ public interface ExceptionCodes {
 	public static final int TIMEENTRY_REJECT_FAILED=6019;
 	public static final int TIMEENTRY_APPROVE_FAILED=6020;
 	public static final int TIMEENTRY_SEARCH_FAILED=6021;
+	public static final int TIMEENTRY_FILLING_IS_NOT_ALLOWED_FOR_APPROVER=6022;
+
+	//user codes
+	public static final int USER_ID_NOT_NUMBER = 7001;
+	 public static final int USER_NAME_FORMAT = 7002;
+	 public static final int USER_EMAIL_FORMAT = 7003;
+	 public static final int EMPLOYEE_ID_INVALID_FORMAT = 7004;
+	 public static final int DESIGNATION_PATTERN_INVALID = 7005;
+	 //public static final String DESIGNATION_FORMAT = null;
+	 public static final int USER_ID_FORMAT = 7006;
+	 public static final int PASSWORD_FORMAT = 7007;
+	 public static final int USER_ID_AND_PASSWORD_NULL = 7008;
+	 public static final int USER_DETAILS_NULL = 7009;
+	 public static final int CONFIRM_PASSWORD_NULL = 7010;
+	 public static final int CONFIRM_PASSWORD_NOT_EQUAL = 7011;
+	 public static final int FIRST_NAME_SHOULD_NOT_NULL = 7012;
+	 public static final int FIRST_NAME_INVALID = 7013;
+	 public static final int LAST_NAME_SHOULD_NOT_NULL = 7014;
+	 public static final int LAST_NAME_INVALID = 7015;
+	 public static final int NICKNAME_INVALID = 7016;
+	 public static final int GENDER_NOT_NULL = 7017;
+	 public static final int GENDER_INVALID = 7018;
+	 public static final int EMAIL_FORMAT = 7019;
+	 public static final int EMPLOYEE_ID_NULL = 7020;
+	 public static final int EMPLOYEE_ID_INVALID = 7021;
+	 public static final int USER_ID_NULL = 7022;
+	 public static final int USER_ID_AND_PASSWORD_INVALID = 7023;
+	 public static final int PASSWORD_NULL = 7024;
+	 public static final int USER_CAN_NOT_ADDED = 7025;
+	    public static final int LOCATION_INVALID = 7026;
+	 public static final int DELETE_INVALID = 7027;
+	 public static final int UPDATE_NOT_EXIST_INVALID = 7028;
+	 public static final int DELETED_ALREADY = 7029;
+	 public static final int SEND_MAIL_FAILED = 7030;
+	 public static final int DELETE_ID_ZERO = 7031;
+	 public static final int SEARCH_RESULTS_NO_MATCH = 7032;
+	 public static final int UPDATE_HANDLAER_EXCEPTION = 7035;
+	 public static final int OLD_PASSWORD_INVALID = 7036; 
+	 public static final int DUPLICATE_ENTRY_EMAIL = 7037;//not used
+	 public static final int DUPLICATE_ENTRY_EMPLOYEE_ID = 7038;//not used
+	 public static final int DUPLICATE_ENTRY = 7039;
+	 public static final int DESIGNATION_NULL = 7040;
+	 public static final int EMAIL_USERID_NOT_EQUAL = 7041;
+	 public static final int EMAIL_NOT_EXISTS = 7042;
 
 	//roles related exception
-	public static final int ROLES_EMPTY_EXCEPTION=7000;
-	public static final int ROLES_LIST_EMPTY_EXCEPTION=7001;
-	public static final int PARAMETERS_EMPTY_EXCEPTION =7002;
-	public static final int NO_ROLES_FOR_THIS_USERPROJECT_ID = 7003;
-	public static final int INVALID_ROLE_ID = 7004;
-	public static final int ROLE_ID_EXISTS = 7005;
-	public static final int ONLY_ONE_APPROVER = 7006;
-	public static final int PARAMETERS_ZERO_EXCEPTION = 7007;
+	public static final int ROLES_EMPTY_EXCEPTION=8000;
+	public static final int ROLES_LIST_EMPTY_EXCEPTION=8001;
+	public static final int PARAMETERS_EMPTY_EXCEPTION =8002;
+	public static final int NO_ROLES_FOR_THIS_USERPROJECT_ID = 8003;
+	public static final int INVALID_ROLE_ID = 8004;
+	public static final int ROLE_ID_EXISTS = 8005;
+	public static final int ONLY_ONE_APPROVER = 8006;
+	public static final int PARAMETERS_ZERO_EXCEPTION = 8007;
+	public static final int ROLE_ID_DOESNOT_EXISTS =8008;
+	public static final int NULL_POINTER_EXCEPTION = 8009;
+
 
 	//Releases related Exceptions Codes
 	public static final int RELEASES_NAME_NULL = 9001;
@@ -221,41 +279,5 @@ public interface ExceptionCodes {
 	public static final int RELEASES_CANNOT_BE_ADDED = 9007;
 	public static final int TIME_ENTRY_PRESENT = 9008;
 	public static final int RELEASE_ID_NULL = 9009;
-
-	//user web services releted exceptions
-	public static final int USER_ID_NOT_NUMBER = 7001;
-	public static final int USER_NAME_FORMAT = 7002;
-	public static final int USER_EMAIL_FORMAT = 7003;
-	public static final int EMP_ID_FORMAT = 7004;
-	public static final int INVALID_DESIGNATION_PATTERN = 7005;
-	//public static final String DESIGNATION_FORMAT = null;
-	public static final int USER_ID_FORMAT = 7006;
-	public static final int PASSWORD_FORMAT = 7007;
-	public static final int USER_ID_AND_PASSWORD_NULL = 7008;
-	public static final int USER_DETAILS_NULL = 7009;
-	public static final int CONFIRM_PASSWORD_NULL = 7010;
-	public static final int CONFIRM_PASSWORD_NOT_EQUAL = 7011;
-	public static final int FIRST_NAME_SHOULD_NOT_NULL = 7012;
-	public static final int FIRST_NAME_INVALID = 7013;
-	public static final int LAST_NAME_SHOULD_NOT_NULL = 7014;
-	public static final int LAST_NAME_INVALID = 7015;
-	public static final int NICKNAME_INVALID = 7016;
-	public static final int GENDER_NOT_NULL = 7017;
-	public static final int GENDER_INVALID = 7018;
-	public static final int EMAIL_FORMAT = 7019;
-	public static final int EMPLOYEE_ID_NULL = 7020;
-	public static final int EMPLOYEE_ID_INVALID = 7021;
-	public static final int USER_ID_NULL = 7022;
-	public static final int USER_ID_AND_PASSWORD_INVALID = 7023;
-	public static final int PASSWORD_NULL = 7024;
-	public static final int USER_CAN_NOT_ADDED = 7025;
-	public static final int LOCATION_INVALID = 7026;
-	public static final int DELETE_INVALID = 7027;
-	public static final int UPDATE_NOT_EXIST_INVALID = 7028;
-	public static final int DELETED_ALREADY = 7029;
-	public static final int SEND_MAIL_FAILED = 7030;
-	public static final int DELETE_ID_ZERO = 7031;
-	
-
 
 }

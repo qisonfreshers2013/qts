@@ -8,7 +8,7 @@ public class SearchUserRecord {
 	private String email;
 	private String employeeId;
 	private String designation;
-	private List<Project> projects;		
+	private List<String> projects;		
 	
 	public SearchUserRecord(User user) {
 		this.email = user.getEmail();
@@ -40,10 +40,10 @@ public class SearchUserRecord {
 	public void setDesignation(String designation) {
 		this.designation = designation;
 	}
-	public List<Project> getProjects() {
+	public List<String> getProjects() {
 		return projects;
 	}
-	public void setProjects(List<Project> projects) {
+	public void setProjects(List<String> projects) {
 		this.projects = projects;
 	}
 

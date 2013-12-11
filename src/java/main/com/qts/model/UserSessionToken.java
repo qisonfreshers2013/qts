@@ -18,8 +18,23 @@ public class UserSessionToken implements Serializable {
     protected String userSessionId;
     protected String userEmail;
     protected long userId;
+    protected String nickName; //anil
 
-    public UserSessionToken() {
+    /**
+	 * @return the nickName
+	 */
+	public String getNickName() {
+		return nickName;
+	}
+
+	/**
+	 * @param nickName the nickName to set
+	 */
+	public void setNickName(String nickName) {
+		this.nickName = nickName;
+	}
+
+	public UserSessionToken() {
     }
 
     @JsonProperty

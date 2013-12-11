@@ -40,14 +40,17 @@ public class TimeEntries extends AbstractObject {
 	private long modified_by;
     @Column(name="STATUS")
 	private int status;
-
-   
+    @Column(name="APPROVED_COMMENTS")
+    private String approvedComments;
+    @Column(name="REJECTED_COMMENTS")
+   private String rejectedComments;
     public TimeEntries()
     {
     	super();
     }
-   public TimeEntries(long userId,long date,int hours,long projectId,long activityId,long releaseId,String task,String remarks,long cts,long mts,
-	long createdBy,long modifiedBy)
+  
+public TimeEntries(long userId,long date,int hours,long projectId,long activityId,long releaseId,String task,String remarks,long cts,long mts,
+	long createdBy,long modifiedBy,String approvedComments,String rejectedComments)
    {
 	   this.userId=userId;
 	   this.date=date;
@@ -61,6 +64,8 @@ public class TimeEntries extends AbstractObject {
 	   this.mts=mts;
 	   this.created_by=createdBy;
 	   this.modified_by=modifiedBy;
+	   this.approvedComments=approvedComments;
+	   this.rejectedComments=rejectedComments;
    }
  
 public long getReleaseId() {
@@ -149,10 +154,23 @@ public void setProjectId(long projectId) {
 	public void setStatus(int status) {
 		this.status = status;
 	}
-	@Override
+
+	 public String getApprovedComments() {
+			return approvedComments;
+		}
+	public void setApprovedComments(String approvedComments) {
+			this.approvedComments = approvedComments;
+		}
+	public String getRejectedComments() {
+			return rejectedComments;
+		}
+	public void setRejectedComments(String rejectedComments) {
+			this.rejectedComments = rejectedComments;
+		}
+		@Override
 	public int getObjectType() {
-		return ObjectTypes.TIME_ENTRIES;
-	}
+			return ObjectTypes.TIME_ENTRIES;
+		}
 }
 
 
