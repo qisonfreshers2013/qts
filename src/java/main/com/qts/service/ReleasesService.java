@@ -17,8 +17,8 @@ import com.qts.model.Releases;
 import com.qts.model.ReleasesInput;
 import com.qts.service.annotations.RestService;
 import com.qts.service.annotations.ServiceStatus;
-import com.qts.service.annotations.UnSecure;
 import com.qts.service.common.WebserviceRequest;
+import com.qts.service.descriptors.ReleaseListOutputDescriptor;
 import com.qts.service.descriptors.ReleaseOutputDescriptor;
 
 /**
@@ -57,7 +57,7 @@ public class ReleasesService extends BaseService {
 	@ServiceStatus(value = "complete")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	@Path("/addReleases")
+	@Path("/save")
 //	@UnSecure
 	public String addReleases(@Context HttpHeaders headers,@Context UriInfo uriInfo, WebserviceRequest request)throws Exception {
 

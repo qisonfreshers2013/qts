@@ -98,6 +98,7 @@ public class JsonUtil {
 		try {
 			return objMapper.convertValue(source, targetType);
 		} catch (Exception ex) {
+			//System.out.println("nullpointer exception");
 			throw new RuntimeException(ex);
 		}
 	}

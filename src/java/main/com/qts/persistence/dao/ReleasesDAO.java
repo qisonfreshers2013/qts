@@ -16,12 +16,9 @@ import com.qts.model.ReleasesInput;
  * 
  */
 public interface ReleasesDAO extends BaseDAO {
+	
 	public List<Releases> listReleases(ReleasesInput releasesBean) throws ReleasesException,ObjectNotFoundException;
 
-	public Releases addReleases(Releases releases) throws ReleasesException;
-
 	public Releases deleteReleases(Releases releases)throws Exception;
-
-
 
 }

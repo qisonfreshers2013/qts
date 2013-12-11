@@ -17,7 +17,7 @@ public class UserSessionToken implements Serializable {
     private static final long serialVersionUID = -8723630138842849229L;
     protected String userSessionId;
     protected String userEmail;
-    protected long userId;
+    protected long userId;  
     protected String nickName; //anil
 
     /**

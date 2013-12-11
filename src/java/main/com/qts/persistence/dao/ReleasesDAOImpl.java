@@ -40,8 +40,12 @@ public class ReleasesDAOImpl extends BaseDAOImpl implements ReleasesDAO {
 	@Override
 	public List<Releases> listReleases(ReleasesInput releasesBean)throws ReleasesException,ObjectNotFoundException {
 		
+<<<<<<< HEAD
 		
 		Session session= getSession();
+=======
+		Session session= SessionFactoryUtil.getInstance().getNewSession();
+>>>>>>> 1d587748b60786fcc68b6d96e67c4674b59bea17
 		try{
 		Criteria releasesCriteria = session.createCriteria(Releases.class);
 		releasesCriteria.setProjection(Projections.projectionList()
@@ -53,6 +57,7 @@ public class ReleasesDAOImpl extends BaseDAOImpl implements ReleasesDAO {
 			throw new ReleasesException(ExceptionCodes.RELEASES_EMPTY,ExceptionMessages.RELEASES_EMPTY_FOR_THE_PROJECT);
 		}
 		return releasesList;
+<<<<<<< HEAD
 		}finally{
 			session.close();
 		}
@@ -69,21 +74,36 @@ public class ReleasesDAOImpl extends BaseDAOImpl implements ReleasesDAO {
 			return releases;
 		} catch (Exception e) {
 			throw new ReleasesException(ExceptionCodes.RELEASES_CANNOT_BE_ADDED,ExceptionMessages.RELEASES_CANNOT_BE_ADDED_FOR_THE_PROJECT);
+=======
+>>>>>>> 1d587748b60786fcc68b6d96e67c4674b59bea17
 		}
+		finally{
+			session.close();
+		}
+		
 
 	}
 
 	@Override
 	public Releases deleteReleases(Releases releases) throws Exception {
 		
+<<<<<<< HEAD
 		
 		try{
 			Session session=getSession();
+=======
+		Session session=SessionFactoryUtil.getInstance().getNewSession();
+		try{		
+			Transaction txn=session.beginTransaction();
+>>>>>>> 1d587748b60786fcc68b6d96e67c4674b59bea17
 			session.delete(releases);
 			return releases;
 		}
 		catch(Exception e){
 			throw e;
+		}
+		finally{
+			session.close();
 		}
 
 	}
@@ -91,18 +111,32 @@ public class ReleasesDAOImpl extends BaseDAOImpl implements ReleasesDAO {
 	@SuppressWarnings("unchecked")
 	public Releases getObjectById(long releaseId)throws ObjectNotFoundException {
 		
-		
+		Session session = SessionFactoryUtil.getInstance().getNewSession();
 		List<Releases> releasesList;
+<<<<<<< HEAD
 		try {
 			Session session = getSession();
+=======
+		try {		
+			session.beginTransaction();
+>>>>>>> 1d587748b60786fcc68b6d96e67c4674b59bea17
 			releasesList = session.createQuery("from Releases where id=" + releaseId).list();
 			if (releasesList.isEmpty()) {
 				throw new ObjectNotFoundException(ExceptionCodes.RELEASES_ID_DOES_NOT_EXISTS,ExceptionMessages.RELEASES_ID_INVALID);
 			}
+			return (Releases) releasesList.get(0);
 		} catch (ObjectNotFoundException e) {
 			throw e;
 		}
+<<<<<<< HEAD
 		return (Releases) releasesList.get(0);
+=======
+		finally{
+			session.close();
+		}
+
+		
+>>>>>>> 1d587748b60786fcc68b6d96e67c4674b59bea17
 
 	}
 

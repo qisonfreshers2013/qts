@@ -2,7 +2,6 @@ package com.qts.model.user;
 
 import com.qts.model.User;
 
-//import com.qts.model.UserExt;
 
 public class DefaultAuthenticationInput implements AuthenticationInput {
 
@@ -20,6 +19,16 @@ public class DefaultAuthenticationInput implements AuthenticationInput {
   return password;
  }
 
+<<<<<<< HEAD
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+	
+	public String getAuthType() {
+		return User.AUTH_TYPE_REGULAR;
+	}
+=======
  public void setPassword(String password) {
   this.password = password;
  }
@@ -27,5 +36,6 @@ public class DefaultAuthenticationInput implements AuthenticationInput {
  public String getAuthType() {
   return User.AUTH_TYPE_REGULAR;
  }
+>>>>>>> aa6fb43f09ad3c0280514b8e976f1af9f568cf71
 
 }

@@ -46,8 +46,14 @@ public class TimeEntryDAOImpl extends BaseDAOImpl implements TimeEntryDAO {
 	public long parseDateToLong(String date) {
 
 		try {
+<<<<<<< HEAD
 			Date dateObj=DateUtils.parseDate(date,"MM/dd/yyyy","MM-dd-yyyy");
 	          return dateObj.getTime();
+=======
+			Date dateObj = DateUtils
+					.parseDate(date, "MM/dd/yyyy", "MM-dd-yyyy");
+			return dateObj.getTime();
+>>>>>>> 1d587748b60786fcc68b6d96e67c4674b59bea17
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println("Exception in TimeEntryDAOImpl.getDate");
@@ -99,25 +105,40 @@ public class TimeEntryDAOImpl extends BaseDAOImpl implements TimeEntryDAO {
 	 * @see com.qts.persistence.dao.TimeEntryDAO#rejectTimeEntry(com.qts.model.
 	 * TimeEntriesForm) Method Used by Approver to REJECT Submitted TimeEntry
 	 */
+<<<<<<< HEAD
 	public TimeEntries rejectTimeEntry(TimeEntriesForm timeEntry) {
 		Session session = getSession();
+=======
+	public boolean rejectTimeEntry(TimeEntriesForm timeEntry) {
+		Session session = SessionFactoryUtil.getInstance().getNewSession();
+>>>>>>> 1d587748b60786fcc68b6d96e67c4674b59bea17
 		try {
 			
 			Query query = session
 					.createQuery("Update TimeEntries set status=:status,rejectedComments=:rejectedComments where id="
-							+ timeEntry.getId()+"and porjectId="+timeEntry.getProjectId());
+							+ timeEntry.getId()
+							+ "and porjectId="
+							+ timeEntry.getProjectId());
 			query.setInteger("status", 3);
 			query.setString("rejectedComments", timeEntry.getRejectedComments());
+<<<<<<< HEAD
 			query.executeUpdate();
 			List<TimeEntries> rejectedTimeEntry=session.createQuery("from TimeEntries where id="+timeEntry.getId()).list();
 			
 			return rejectedTimeEntry.get(0);
 
+=======
+			int rejectedCount=query.executeUpdate();
+			session.getTransaction().commit();
+			if(rejectedCount!=0)
+			return true;
+>>>>>>> 1d587748b60786fcc68b6d96e67c4674b59bea17
 		} catch (Exception e) {
 			e.printStackTrace();
+		} finally {
+			session.close();
 		}
-
-		return null;
+		return false;
 	}
 
 	@Override
@@ -133,15 +154,19 @@ public class TimeEntryDAOImpl extends BaseDAOImpl implements TimeEntryDAO {
 			
 			Query query = session
 					.createQuery("Update TimeEntries set status=:status,approvedComments=:approvedComments where id="
-							+ timeEntry.getId()+"projectId"+timeEntry.getProjectId());
+							+ timeEntry.getId()
+							+ "projectId"
+							+ timeEntry.getProjectId());
 			query.setInteger("status", 2);
-			query.setString("approvedComments",timeEntry.getApprovedComments());
+			query.setString("approvedComments", timeEntry.getApprovedComments());
 			query.executeUpdate();
 			
 			return true;
 
 		} catch (Exception e) {
 			e.printStackTrace();
+		} finally {
+			session.close();
 		}
 
 		return false;
@@ -159,13 +184,20 @@ public class TimeEntryDAOImpl extends BaseDAOImpl implements TimeEntryDAO {
 		try {
 			
 			Query query = session.createQuery("Delete TimeEntries where id="
+<<<<<<< HEAD
 					+ deleteEntry.getId()+"and userId="+deleteEntry.getUserId()+"and status="+0);
+=======
+					+ deleteEntry.getId() + "and userId="
+					+ deleteEntry.getUserId() + "and status=" + 0);
+>>>>>>> 1d587748b60786fcc68b6d96e67c4674b59bea17
 			query.executeUpdate();
 			
 			return true;
 
 		} catch (Exception e) {
 			e.printStackTrace();
+		} finally {
+			session.close();
 		}
 
 		return false;
@@ -182,11 +214,18 @@ public class TimeEntryDAOImpl extends BaseDAOImpl implements TimeEntryDAO {
 	public boolean updateTimeEntry(TimeEntriesForm updateWithData) {
 		Session session = getSession();
 		try {
+<<<<<<< HEAD
              
 			
+=======
+
+			session.beginTransaction();
+>>>>>>> 1d587748b60786fcc68b6d96e67c4674b59bea17
 			Query query = session
 					.createQuery("Update TimeEntries set hours=:hours,projectId=:projectId,releaseId=:releaseId,task=:task,activityId=:activityId,remarks=:remarks,date=:date where id="
-							+ updateWithData.getId()+"and userId="+updateWithData.getUserId()+"and status="+0);
+							+ updateWithData.getId()
+							+ "and userId="
+							+ updateWithData.getUserId() + "and status=" + 0);
 			query.setInteger("hours", updateWithData.getHours());
 			query.setLong("projectId", updateWithData.getProjectId());
 			query.setLong("releaseId", updateWithData.getReleaseId());
@@ -194,14 +233,21 @@ public class TimeEntryDAOImpl extends BaseDAOImpl implements TimeEntryDAO {
 			query.setLong("activityId", updateWithData.getActivityId());
 			query.setString("remarks", updateWithData.getUserRemarks());
 			query.setLong("date", parseDateToLong(updateWithData.getDate()));
+<<<<<<< HEAD
 			int updated=query.executeUpdate();
 			
+=======
+			int updated = query.executeUpdate();
+			session.getTransaction().commit();
+>>>>>>> 1d587748b60786fcc68b6d96e67c4674b59bea17
 			if (updated != 0) {
 				return true;
 			}
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
+		} finally {
+			session.close();
 		}
 		return false;
 	}
@@ -257,9 +303,16 @@ public class TimeEntryDAOImpl extends BaseDAOImpl implements TimeEntryDAO {
 	public boolean getTimeEntryObjectById(long id) {
 		Session session = getSession();
 		try {
+<<<<<<< HEAD
 			
 
 			List<TimeEntries> mapped = session.createQuery("from TimeEntries where release_Id=" + id).list();
+=======
+			session.beginTransaction();
+
+			List<TimeEntries> mapped = session.createQuery(
+					"from TimeEntries where release_Id=" + id).list();
+>>>>>>> 1d587748b60786fcc68b6d96e67c4674b59bea17
 
 			if (mapped.size() != 0) {
 				return true;
@@ -267,6 +320,8 @@ public class TimeEntryDAOImpl extends BaseDAOImpl implements TimeEntryDAO {
 
 		} catch (Exception e) {
 			e.printStackTrace();
+		} finally {
+			session.close();
 		}
 		return false;
 	}
@@ -291,24 +346,39 @@ public class TimeEntryDAOImpl extends BaseDAOImpl implements TimeEntryDAO {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
+		} finally {
+			session.close();
 		}
 
 		return true;
 	}
+<<<<<<< HEAD
 	
 	public long getPreviousWorkingDay(){
 		Session session=getSession();
 		try{
 			Query query=session.createQuery("from TimeEntries order by date desc");
+=======
+
+	public long getPreviousWorkingDay() {
+		Session session = SessionFactoryUtil.getInstance().getNewSession();
+		try {
+			Query query = session
+					.createQuery("from TimeEntries order by date desc");
+>>>>>>> 1d587748b60786fcc68b6d96e67c4674b59bea17
 			query.setMaxResults(1);
 			return ((TimeEntries) query.list().get(0)).getDate();
-		}catch(Exception e){
+		} catch (Exception e) {
 			e.printStackTrace();
+		} finally {
+			session.close();
 		}
 		return 0;
 	}
+
 	@SuppressWarnings("unchecked")
 	@Override
+<<<<<<< HEAD
 	public List<TimeEntries> listUserEntries(TimeEntriesForm timeEntry){
 		Session session=getSession();
 		try{
@@ -341,14 +411,58 @@ public class TimeEntryDAOImpl extends BaseDAOImpl implements TimeEntryDAO {
 		  return submittedData;
 		  
 		}catch(Exception e){
+=======
+	public List<TimeEntries> listUserEntries(TimeEntriesForm timeEntry) {
+		Session session = SessionFactoryUtil.getInstance().getNewSession();
+		try {
+			session.beginTransaction();
+			Criteria searchUserCriteria = session
+					.createCriteria(TimeEntries.class);
+			searchUserCriteria.setProjection(Projections.projectionList()
+					.add(Projections.property("id"))
+					.add(Projections.property("date"))
+					.add(Projections.property("projectId"))
+					.add(Projections.property("releaseId"))
+					.add(Projections.property("task"))
+					.add(Projections.property("activityId"))
+					.add(Projections.property("hours"))
+					.add(Projections.property("status"))
+					.add(Projections.property("remarks")));
+			if (timeEntry.getDate() == null && timeEntry.getProjectId() == null)
+				searchUserCriteria.add(Restrictions.eq("date",
+						getPreviousWorkingDay()));
+			else if (timeEntry.getDate() != null
+					&& timeEntry.getProjectId() != null)
+				searchUserCriteria.add(Restrictions.eq("date",
+						parseDateToLong(timeEntry.getDate())));
+			else if (timeEntry.getDate() == null
+					&& timeEntry.getProjectId() != null)
+				searchUserCriteria.add(Restrictions.eq("projectId",
+						timeEntry.getProjectId()));
+			else if (timeEntry.getDate() != null
+					&& timeEntry.getProjectId() != null) {
+				searchUserCriteria.add(Restrictions.eq("date",
+						parseDateToLong(timeEntry.getDate())));
+				searchUserCriteria.add(Restrictions.eq("projectId",
+						timeEntry.getProjectId()));
+			}
+			List<TimeEntries> submittedData = searchUserCriteria.list();
+			session.getTransaction().commit();
+			return submittedData;
+
+		} catch (Exception e) {
+>>>>>>> 1d587748b60786fcc68b6d96e67c4674b59bea17
 			e.printStackTrace();
+		} finally {
+			session.close();
 		}
-		
+
 		return null;
-		}
-	
+	}
+
 	@SuppressWarnings("unchecked")
 	@Override
+<<<<<<< HEAD
 	public List<TimeEntries> listEntriesToApprove(TimeEntriesForm timeEntry){
 		Session session=getSession();
 		try{
@@ -398,12 +512,81 @@ public class TimeEntryDAOImpl extends BaseDAOImpl implements TimeEntryDAO {
 		 
 		  return submittedData;	
 		}catch(Exception e){
+=======
+	public List<TimeEntries> listEntriesToApprove(TimeEntriesForm timeEntry) {
+		Session session = SessionFactoryUtil.getInstance().getNewSession();
+		try {
+
+			Calendar getPreviousWeekDate = GregorianCalendar.getInstance();
+			getPreviousWeekDate.add(Calendar.DAY_OF_YEAR, -7);
+			getPreviousWeekDate.getTimeInMillis();
+
+			session.beginTransaction();
+			Criteria searchUserCriteria = session
+					.createCriteria(TimeEntries.class);
+			searchUserCriteria.setProjection(Projections.projectionList()
+					.add(Projections.property("id"))
+					.add(Projections.property("date"))
+					.add(Projections.property("userId"))
+					.add(Projections.property("projectId"))
+					.add(Projections.property("releaseId"))
+					.add(Projections.property("task"))
+					.add(Projections.property("activityId"))
+					.add(Projections.property("hours"))
+					.add(Projections.property("status"))
+					.add(Projections.property("remarks"))
+					.add(Projections.property("approvedComments"))
+					.add(Projections.property("rejectedComments")));
+			if (timeEntry.getFrom() == null && timeEntry.getProjectId() == null
+					&& timeEntry.getUserId() == null
+					&& timeEntry.getTo() == null
+					&& timeEntry.getStatus() == null) {
+				searchUserCriteria.add(Restrictions.between("date",
+						getPreviousWeekDate.getTimeInMillis(),
+						new Date().getTime()));
+				searchUserCriteria.add(Restrictions.eq("status", 1));
+			} else if (timeEntry.getFrom() != null && timeEntry.getTo() != null) {
+				searchUserCriteria.add(Restrictions
+						.conjunction()
+						.add(Restrictions.between("date",
+								parseDateToLong(timeEntry.getFrom()),
+								parseDateToLong(timeEntry.getTo())))
+						.add(Restrictions.eq("projectId",
+								timeEntry.getProjectId()))
+						.add(Restrictions.eq("userId", timeEntry.getUserId()))
+						.add(Restrictions.eq("status", timeEntry.getStatus())));
+
+				// searchUserCriteria.add(Restrictions.eq("projectId",timeEntry.getProjectId()));
+				// searchUserCriteria.add(Restrictions.eq("userId",timeEntry.getUserId()));
+				// searchUserCriteria.add(Restrictions.eq("status",timeEntry.getStatus()));
+				// searchUserCriteria.add(Restrictions.conjunction())
+
+			} else if (timeEntry.getFrom() != null && timeEntry.getTo() == null) {
+				searchUserCriteria.add(Restrictions
+						.conjunction()
+				        .add(Restrictions.eq("projectId",
+						timeEntry.getProjectId()))
+				        .add(Restrictions.eq("status",
+						timeEntry.getStatus()))
+				        .add(Restrictions.between("date",
+						parseDateToLong(timeEntry.getFrom()),
+						new Date().getTime()))
+				        .add(Restrictions.eq("userId",
+						timeEntry.getUserId())));
+
+			} else if (timeEntry.getFrom() == null && timeEntry.getTo() != null) {
+				return null;
+			}
+			List<TimeEntries> submittedData = searchUserCriteria.list();
+			session.getTransaction().commit();
+			return submittedData;
+		} catch (Exception e) {
+>>>>>>> 1d587748b60786fcc68b6d96e67c4674b59bea17
 			e.printStackTrace();
+		} finally {
+			session.close();
 		}
 		return null;
-		}
-	
-	
-	
-	
+	}
+
 }

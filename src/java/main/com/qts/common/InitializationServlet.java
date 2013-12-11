@@ -55,8 +55,7 @@ public class InitializationServlet extends HttpServlet {
 			
 			Object value = CacheManager.getInstance()
 			.getCache(CacheRegionType.USER_SESSION_CACHE)
-			.getValue(sessionToken);
-			
+			.getValue(sessionToken);			
 			
 		} catch (Throwable ex) {
 			ex.printStackTrace();

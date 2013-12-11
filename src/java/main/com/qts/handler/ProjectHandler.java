@@ -56,7 +56,11 @@ public class ProjectHandler extends AbstractHandler {
 				throw new UserException(ExceptionCodes.DELETED_ALREADY,ExceptionMessages.DELETED_ALREADY);
 			}
 			List<UserProject> list= UserProjectHandler.getInstance().getListOfUserProjectByUserId(userId);
+<<<<<<< HEAD
+			List<Project> projectList=new LinkedList();
+=======
 			List<Project> projectList=new LinkedList<Project>();
+>>>>>>> 7719fa5f39d1939b4b46fc46756ffa075dd00157
 			Iterator<UserProject> itr=list.iterator();
 			while(itr.hasNext()){
 				Project project =(Project)DAOFactory.getInstance().getProjectDAOImplInstance().getObjectById(itr.next().getProjectId());
@@ -85,7 +89,7 @@ public class ProjectHandler extends AbstractHandler {
 	public  Project addProject(Project project) throws Exception{
 		try{
 			if(validateProjectName(project.getName())&&validateProjectTechnologies(project.getTechnologies()))
-				return DAOFactory.getInstance().getProjectDAOImplInstance().addProject(project);
+				return (Project)DAOFactory.getInstance().getProjectDAOImplInstance().saveObject(project);
 			else 
 				return null;
 		}catch(Exception e){
@@ -101,12 +105,17 @@ public class ProjectHandler extends AbstractHandler {
 		try{
 			
 			List<UserProject> userProject=UserProjectHandler.getInstance().getListOfUserProjectByProjectId(project.getId());
+<<<<<<< HEAD
+			List<User> userList=new LinkedList();
+=======
 			List<User> userList=new LinkedList<User>();
+>>>>>>> 7719fa5f39d1939b4b46fc46756ffa075dd00157
 			if(userProject.isEmpty())
 				return userList;
 			Iterator<UserProject> iterator=userProject.iterator();
 			while(iterator.hasNext()){
 				User user = UserHandler.getInstance().getUserByUserId(iterator.next().getUserId());
+				if(user!=null)
 				userList.add(user);
 			}
 			return userList;
@@ -172,34 +181,23 @@ public class ProjectHandler extends AbstractHandler {
 		List<UserProject> userProjects=new LinkedList<UserProject>();
 		if(!userIds.isEmpty()){
 		for(Long userid:userIds){
+<<<<<<< HEAD
+<<<<<<< HEAD
+			long j=userid;
+=======
+>>>>>>> 7719fa5f39d1939b4b46fc46756ffa075dd00157
+=======
+			if(!UserHandler.getInstance().isUserDeleted(userid)){
+>>>>>>> aa6fb43f09ad3c0280514b8e976f1af9f568cf71
 			UserProject userProject=new UserProject();
 			userProject.setProjectId(projectId);
 			userProject.setUserId(userid);
 			userProjects.add(userProject);
+			}
 		}
 		UserProjectHandler.getInstance().addUserToProject(userProjects);
 		}
 		return null;
-//		try{
-//		while(iterator.hasNext()){
-//			userId=iterator.next();
-////			if(UserHandler.getInstance().isUserDeleted(userId))
-////				throw new UserException(ExceptionCodes.DELETED_ALREADY,ExceptionMessages.DELETED_ALREADY);
-//			UserProject userProject=new UserProject();
-//			userProject.setProjectId(projectId);
-//			userProject.setUserId(userId);
-//			userProjectList.add(userProject);
-//		}
-	
-//		return project;
-//		}catch(ProjectException e){
-//			e.printStackTrace();
-//			throw e;
-//		}
-//		catch(UserException e){
-//			e.printStackTrace();
-//			throw e;
-//		}
 	}
 	/*
 	 * Returns project Object by using projectId
@@ -239,6 +237,17 @@ public class ProjectHandler extends AbstractHandler {
 	}
 
 	
+<<<<<<< HEAD
+	public void nonMembersOfProject(Project project) throws Exception {
+		try{
+			List<UserProject> userProject=UserProjectHandler.getInstance().getListOfUserProjectByProjectId(project.getId());
+			List<User> userList=new LinkedList();
+			Iterator<UserProject> iterator=userProject.iterator();
+			List<Long> userIds=new LinkedList<Long>();
+			for(UserProject userProjects:userProject)
+				userIds.add(userProjects.getUserId());
+			
+=======
 	public List<User> nonMembersOfProject(Project project) throws Exception {
 		try{
 			List<UserProject> userProject=UserProjectHandler.getInstance().getListOfUserProjectByProjectId(project.getId());
@@ -246,6 +255,7 @@ public class ProjectHandler extends AbstractHandler {
 			for(UserProject userProjects:userProject)
 				userIds.add(userProjects.getUserId());
 			return UserHandler.getInstance().getUserById(userIds);
+>>>>>>> 7719fa5f39d1939b4b46fc46756ffa075dd00157
 		}catch(UserException e){
 			e.printStackTrace();
 			throw e;
@@ -285,7 +295,11 @@ public class ProjectHandler extends AbstractHandler {
 
 	}
 	public List<Long>  filter(List<Long> previous,List<Long> present){
+<<<<<<< HEAD
+		List<Long> onlyPrevious=new LinkedList();
+=======
 		List<Long> onlyPrevious=new LinkedList<Long>();
+>>>>>>> 7719fa5f39d1939b4b46fc46756ffa075dd00157
 		for(Long x:previous){
 			if(!present.contains(x))
 				onlyPrevious.add(x);

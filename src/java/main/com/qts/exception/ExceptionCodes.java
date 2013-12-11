@@ -213,8 +213,8 @@ public interface ExceptionCodes {
 	public static final int TIMEENTRY_SEARCH_FAILED=6021;
 	public static final int TIMEENTRY_FILLING_IS_NOT_ALLOWED_FOR_APPROVER=6022;
 
-	//user codes
-	public static final int USER_ID_NOT_NUMBER = 7001;
+	 //user codes
+	 public static final int USER_ID_NOT_NUMBER = 7001;
 	 public static final int USER_NAME_FORMAT = 7002;
 	 public static final int USER_EMAIL_FORMAT = 7003;
 	 public static final int EMPLOYEE_ID_INVALID_FORMAT = 7004;
@@ -240,7 +240,7 @@ public interface ExceptionCodes {
 	 public static final int USER_ID_AND_PASSWORD_INVALID = 7023;
 	 public static final int PASSWORD_NULL = 7024;
 	 public static final int USER_CAN_NOT_ADDED = 7025;
-	    public static final int LOCATION_INVALID = 7026;
+	 public static final int LOCATION_INVALID = 7026;
 	 public static final int DELETE_INVALID = 7027;
 	 public static final int UPDATE_NOT_EXIST_INVALID = 7028;
 	 public static final int DELETED_ALREADY = 7029;
