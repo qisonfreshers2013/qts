@@ -54,12 +54,13 @@ public class ReleasesHandler extends AbstractHandler {
 			Releases releases = new Releases();
 			releases.setName(releasesInput.getReleaseName());
 			releases.setProjectId(releasesInput.getProjectId());
-			return DAOFactory.getInstance().getReleasesDAOImplInstance().addReleases(releases);
+			return (Releases)DAOFactory.getInstance().getReleasesDAOImplInstance().saveObject(releases);
 		}
 		return null;
 
 	}
-
+	
+	//delete Releases with the given id
 	public Releases deleteReleases(ReleasesInput releasesInput) throws Exception {
 
 		if(validateReleaseId(releasesInput)){
@@ -83,8 +84,8 @@ public class ReleasesHandler extends AbstractHandler {
 
 		if (releasesInput == null)
 			throw new ReleasesException(ExceptionCodes.RELEASESBEAN_NOT_NULL,ExceptionMessages.RELEASESBEAN_NOT_NULL);
-//		if(releasesInput.getProjectId()==0)
-//			throw new ReleasesException(ExceptionCodes.PROJECT_ID_NOT_NULL,ExceptionMessages.PROJECT_ID_NOT_NULL);
+		if(releasesInput.getProjectId()==0)
+			throw new ReleasesException(ExceptionCodes.PROJECT_ID_NOT_NULL,ExceptionMessages.PROJECT_ID_NOT_NULL);
 		try {
 			ProjectHandler.getInstance().getObjectById(releasesInput.getProjectId());
 		} catch (ObjectNotFoundException e) {
@@ -121,7 +122,7 @@ public class ReleasesHandler extends AbstractHandler {
 			throw new ReleasesException(ExceptionCodes.TIME_ENTRY_PRESENT,ExceptionMessages.TIME_ENTRY_PRESENT);
 		}
 		catch(ObjectNotFoundException e){
-			return false;
+			return true;
 		}
 		return true;
 
