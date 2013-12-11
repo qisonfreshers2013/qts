@@ -19,12 +19,11 @@ public class Roles extends AbstractObject
 	@GeneratedValue
 	@Column(name="ID")
 	private long id;
+	
 	@Column(name="NAME")
 	private String name;
+	
 	public Roles() {
-	}
-	public Roles(String name) {
-		this.name = name;
 	}
 	public long getId() {
 		return id;
@@ -38,7 +37,7 @@ public class Roles extends AbstractObject
 	public void setName(String name) {
 		this.name = name;
 	}
-
+	
 	@Override
 	public int getObjectType() {
 		return ObjectTypes.ROLES;

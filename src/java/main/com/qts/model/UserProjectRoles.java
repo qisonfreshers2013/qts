@@ -8,18 +8,19 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="user_projects_roles")
-public class UserProjectRoles extends AbstractObject {
+public class UserProjectRoles extends AbstractObject 
+{
 	@Id
 	@GeneratedValue
-	@Column(name="Id")
+	@Column(name="ID")
 	private long id;
-	@Column(name="user_project_id")
-	private long user_project_id;
-	@Column(name="role_id")
+	@Column(name="USER_PROJECT_ID")
+	private long userProjectId;
+	@Column(name="ROLE_ID")
 	private long roleId;
-	
+
 	public UserProjectRoles() {
-		super();
+		
 	}
 	public long getId() {
 		return id;
@@ -27,18 +28,20 @@ public class UserProjectRoles extends AbstractObject {
 	public void setId(long id) {
 		this.id = id;
 	}
-
-	public long getUser_project_id() {
-		return user_project_id;
+	public long getUserProjectId() {
+		return userProjectId;
 	}
-	public void setUser_project_id(long user_project_id) {
-		this.user_project_id = user_project_id;
+	public void setUserProjectId(long userProjectId) {
+		this.userProjectId = userProjectId;
 	}
 	public long getRoleId() {
 		return roleId;
 	}
-	public int getObjectType() {
-		return ObjectTypes.USER_PROJECT_ROLES;
+	public void setRoleId(long roleId) {
+		this.roleId = roleId;
 	}
-
+	@Override
+	public int getObjectType() {
+		return ObjectTypes.USER_PROJECT;
+	}
 }

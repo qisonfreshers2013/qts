@@ -16,11 +16,11 @@ import com.qts.model.BaseObject;
  */
 public interface BaseDAO {
 
-	public BaseObject saveObject(BaseObject persistentObject);
+ public BaseObject saveObject(BaseObject persistentObject);
 
-	public BaseObject update(BaseObject persistentObject);
+ public BaseObject update(BaseObject persistentObject);
 
-	public List<BaseObject> save(List<BaseObject> persistentObjects);
+ public List<BaseObject> save(List<BaseObject> persistentObjects);
 
-	public BaseObject getObjectById(long id) throws ObjectNotFoundException;
+ public BaseObject getObjectById(long id) throws ObjectNotFoundException;
 }

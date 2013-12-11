@@ -2,7 +2,6 @@ package com.qts.persistence.dao;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.cfg.AnnotationConfiguration;
 
 
 public class DAOConnection {

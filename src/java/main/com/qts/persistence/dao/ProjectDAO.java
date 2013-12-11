@@ -1,10 +1,10 @@
 package com.qts.persistence.dao;
 
-import com.qts.exception.ObjectNotFoundException;
-import com.qts.model.BaseObject;
+import java.util.List;
+
+import com.qts.model.Project;
 
 public interface ProjectDAO extends BaseDAO{
-	//public List<BaseObject> getListObjects();
-	public BaseObject getObjectById(long id) throws ObjectNotFoundException;
-
+	public List<Project> getProjectList() throws Exception;
+	public Project addProject(Project project) throws Exception;
 }

@@ -1,15 +1,11 @@
 package com.qts.model;
 
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
-
-
-
-
-
 
 @Entity
 @Table(name="TIME_ENTRIES")
@@ -17,13 +13,13 @@ public class TimeEntries extends AbstractObject {
     @Id
     @Column(name="ID")
     @GeneratedValue
-	private long id;
-    @Column(name="user_id")
-    private long userId;
+    private long id;
+    @Column(name="USER_ID")
+	private long userId;
     @Column(name="DATE")
-	private long date;
+    private long date;
     @Column(name="HOURS")
-	private int hours;
+    private int hours;
     @Column(name="project_id")
     private long projectId;
     @Column(name="release_id")
@@ -31,25 +27,67 @@ public class TimeEntries extends AbstractObject {
     @Column(name="activity_id")
     private long activityId;
     @Column(name="TASK")
-	private String task;
+    private String task;
     @Column(name="REMARKS")
-	private String remarks;
+    private String remarks;
     @Column(name="CTS")
-	private long cts;
+    private long cts;
     @Column(name="MTS")
-	private long mts;
+    private long mts;
     @Column(name="CREATED_BY")
-	private String created_by;
+    private long created_by;
     @Column(name="MODIFIED_BY")
-	private String modified_by;
+	private long modified_by;
     @Column(name="STATUS")
 	private int status;
+
+   
+    public TimeEntries()
+    {
+    	super();
+    }
+   public TimeEntries(long userId,long date,int hours,long projectId,long activityId,long releaseId,String task,String remarks,long cts,long mts,
+	long createdBy,long modifiedBy)
+   {
+	   this.userId=userId;
+	   this.date=date;
+	   this.hours=hours;
+	   this.projectId=projectId;
+	   this.activityId=activityId;
+	   this.releaseId=releaseId;
+	   this.task=task;
+	   this.remarks=remarks;
+	   this.cts=cts;
+	   this.mts=mts;
+	   this.created_by=createdBy;
+	   this.modified_by=modifiedBy;
+   }
+ 
+public long getReleaseId() {
+	return releaseId;
+}
+public void setReleaseId(long releaseId) {
+	this.releaseId = releaseId;
+}
+public long getActivityId() {
+	return activityId;
+}
+public void setActivityId(long activityId) {
+	this.activityId = activityId;
+}
+public long getProjectId() {
+	return projectId;
+}
+public void setProjectId(long projectId) {
+	this.projectId = projectId;
+}
 	public long getId() {
 		return id;
 	}
 	public void setId(long id) {
 		this.id = id;
 	}
+
 	public long getUserId() {
 		return userId;
 	}
@@ -93,46 +131,28 @@ public class TimeEntries extends AbstractObject {
 	public void setMts(long mts) {
 		this.mts = mts;
 	}
-	public String getCreated_by() {
+	public long getCreated_by() {
 		return created_by;
 	}
-	public void setCreated_by(String created_by) {
+	public void setCreated_by(long created_by) {
 		this.created_by = created_by;
 	}
-	public String getModified_by() {
+	public long getModified_by() {
 		return modified_by;
 	}
-	public void setModified_by(String modified_by) {
+	public void setModified_by(long modified_by) {
 		this.modified_by = modified_by;
 	}
-	public int getStatus() {
+	public Integer getStatus() {
 		return status;
 	}
 	public void setStatus(int status) {
 		this.status = status;
 	}
-	
-	public long getProjectId() {
-		return projectId;
-	}
-	public void setProjectId(long projectId) {
-		this.projectId = projectId;
-	}
-	public long getReleaseId() {
-		return releaseId;
-	}
-	public void setReleaseId(long releaseId) {
-		this.releaseId = releaseId;
-	}
-	public long getActivityId() {
-		return activityId;
-	}
-	public void setActivityId(long activityId) {
-		this.activityId = activityId;
-	}
 	@Override
 	public int getObjectType() {
-		// TODO Auto-generated method stub
 		return ObjectTypes.TIME_ENTRIES;
 	}
 }
+
+

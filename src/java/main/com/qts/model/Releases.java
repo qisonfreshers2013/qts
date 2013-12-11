@@ -18,9 +18,9 @@ import javax.persistence.UniqueConstraint;
  */
 
 @Entity
-@Table(name = "releases", uniqueConstraints = { @UniqueConstraint(columnNames = {
-		"name", "project_id" }) })
+@Table(name = "releases", uniqueConstraints = { @UniqueConstraint(columnNames = {"name", "project_id" }) })
 public class Releases extends AbstractObject {
+
 	@Id
 	@GeneratedValue
 	@Column(name = "id")
@@ -33,11 +33,6 @@ public class Releases extends AbstractObject {
 	/**
 	 * No Args Constructor
 	 */
-//	@ManyToOne(fetch=FetchType.EAGER)
-//	@JoinColumn(name = "project_id")
-//	private Project project;
-//	@OneToMany(mappedBy="releases")
-//	private Set<TimeEntries> timeEntries=new HashSet<TimeEntries>();
 	public Releases() {
 		super();
 	}
@@ -59,20 +54,20 @@ public class Releases extends AbstractObject {
 	public String getName() {
 		return name;
 	}
-	
+
 	public long getProjectId() {
 		return projectId;
-	}	
+	} 
 
 
 	// setter Methods
 	public void setId(long id) {
 		this.id = id;
 	}
-	
+
 	public void setName(String name) {
 		this.name = name;
-	}	
+	} 
 
 	public void setProjectId(long projectId) {
 		this.projectId = projectId;
@@ -81,7 +76,5 @@ public class Releases extends AbstractObject {
 	public int getObjectType() {
 		return ObjectTypes.RELEASES;
 	}
-	
-	
 
 }

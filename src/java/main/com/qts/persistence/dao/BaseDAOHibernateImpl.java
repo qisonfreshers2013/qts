@@ -11,47 +11,47 @@ import com.qts.model.BaseObject;
 
 public abstract class BaseDAOHibernateImpl implements BaseDAO {
 
-	/**
-	 * Individual hibernate DAO Impls must implement this method to return right
-	 * type of object with the specified id
-	 */
-	@Override
-	public abstract BaseObject getObjectById(long id)
-			throws ObjectNotFoundException;
+ /**
+  * Individual hibernate DAO Impls must implement this method to return right
+  * type of object with the specified id
+  */
+ @Override
+ public abstract BaseObject getObjectById(long id)
+   throws ObjectNotFoundException;
 
-	@Override
-	public BaseObject saveObject(BaseObject persistentObject) {
-		Session session = SessionFactoryUtil.getInstance().getCurrentSession();
-		session.save(persistentObject);
-		session.getTransaction().commit();
-		return persistentObject;
-	}
+ @Override
+ public BaseObject saveObject(BaseObject persistentObject) {
+  Session session = SessionFactoryUtil.getInstance().getNewSession();
+  session.save(persistentObject);
+  session.getTransaction().commit();
+  return persistentObject;
+ }
 
-	@Override
-	public BaseObject update(BaseObject persistentObject) {
-		Session session = SessionFactoryUtil.getInstance().getCurrentSession();
+ @Override
+ public BaseObject update(BaseObject persistentObject) {
+  Session session = SessionFactoryUtil.getInstance().getNewSession();
 
-		session.update(persistentObject);
-		session.getTransaction().commit();
-		return persistentObject;
-	}
+  session.update(persistentObject);
+  session.getTransaction().commit();
+  return persistentObject;
+ }
 
-	@Override
-	public List<BaseObject> save(List<BaseObject> objectList) {
-		Session session = SessionFactoryUtil.getInstance().getCurrentSession();
-		if (null != objectList && objectList.size() > 0) {
-			short count = 0;
-			for (BaseObject object : objectList) {
-				session.save(object);
-				count++;
-				if (count == 1000) {// batch update for each 30 records
-					session.flush();
-					session.clear();
-					count = 0;
-				}
-			}
-			session.getTransaction().commit();
-		}
-		return objectList;
-	}
+ @Override
+ public List<BaseObject> save(List<BaseObject> objectList) {
+  Session session = SessionFactoryUtil.getInstance().getNewSession();
+  if (null != objectList && objectList.size() > 0) {
+   short count = 0;
+   for (BaseObject object : objectList) {
+    session.save(object);
+    count++;
+    if (count == 1000) {// batch update for each 30 records
+     session.flush();
+     session.clear();
+     count = 0;
+    }
+   }
+   session.getTransaction().commit();
+  }
+  return objectList;
+ }
 }

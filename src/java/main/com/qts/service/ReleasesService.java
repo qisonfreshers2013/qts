@@ -43,15 +43,12 @@ public class ReleasesService extends BaseService {
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("/listReleases")
 //	@UnSecure
-	public String listReleases(@Context HttpHeaders headers,
-			@Context UriInfo uriInfo, WebserviceRequest request)
-			throws Exception {
-		ReleasesInput releasesInput = (ReleasesInput) JsonUtil.getObject(
-				request.getPayload(), ReleasesInput.class);
-		List<Releases> releasesList = ReleasesHandler.getInstance()
-				.listReleases(releasesInput);
-		return JsonUtil.getJsonForListBasedOnDescriptor(releasesList,
-				Releases.class, ReleaseOutputDescriptor.class);
+	public String listReleases(@Context HttpHeaders headers,@Context UriInfo uriInfo, WebserviceRequest request)throws Exception {
+
+		ReleasesInput releasesInput = (ReleasesInput) JsonUtil.getObject(request.getPayload(), ReleasesInput.class);
+		List<Releases> releasesList = ReleasesHandler.getInstance().listReleases(releasesInput);
+		return JsonUtil.getJsonForListBasedOnDescriptor(releasesList,Releases.class, ReleaseOutputDescriptor.class);
+
 	}
 
 	// Service to add Releases for a Project
@@ -62,17 +59,15 @@ public class ReleasesService extends BaseService {
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("/addReleases")
 //	@UnSecure
-	public String addReleases(@Context HttpHeaders headers,
-			@Context UriInfo uriInfo, WebserviceRequest request)
-			throws Exception {
+	public String addReleases(@Context HttpHeaders headers,@Context UriInfo uriInfo, WebserviceRequest request)throws Exception {
 
-		ReleasesInput releasesInput = (ReleasesInput) JsonUtil.getObject(
-				request.getPayload(), ReleasesInput.class);
-		Releases releases = ReleasesHandler.getInstance().addReleases(
-				releasesInput);
-		return JsonUtil.getJsonForListBasedOnDescriptor(releases,
-				Releases.class, ReleaseOutputDescriptor.class);
+		ReleasesInput releasesInput = (ReleasesInput) JsonUtil.getObject(request.getPayload(), ReleasesInput.class);
+		Releases releases = ReleasesHandler.getInstance().addReleases(releasesInput);
+		return JsonUtil.getJsonForListBasedOnDescriptor(releases,Releases.class, ReleaseOutputDescriptor.class);
+
 	}
+
+	//Service to Delete Releases based On the ID
 	@POST
 	@RestService(input = String.class, output = Boolean.class)
 	@ServiceStatus(value = "complete")
@@ -80,13 +75,12 @@ public class ReleasesService extends BaseService {
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("/deleteReleases")
 //	@UnSecure
-	public String deleteReleases(@Context HttpHeaders headers,
-			@Context UriInfo uriInfo, WebserviceRequest request)
-			throws Exception {
+	public String deleteReleases(@Context HttpHeaders headers,@Context UriInfo uriInfo, WebserviceRequest request)throws Exception {
+
 		ReleasesInput releasesInput = (ReleasesInput) JsonUtil.getObject(request.getPayload(), ReleasesInput.class);
 		Releases releases=ReleasesHandler.getInstance().deleteReleases(releasesInput);
-		return JsonUtil.getJsonForListBasedOnDescriptor(releases,
-				Releases.class, ReleaseOutputDescriptor.class);
-		
+		return JsonUtil.getJsonForListBasedOnDescriptor(releases,Releases.class, ReleaseOutputDescriptor.class);
+
 	}
+
 }
