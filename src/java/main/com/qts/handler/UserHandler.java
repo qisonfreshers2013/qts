@@ -137,18 +137,23 @@ public class UserHandler extends AbstractHandler {
 					bean.getEmployeeId(), bean.getFirstName(),
 					bean.getLastName(), bean.getNickName(), bean.getLocation(),
 					gender, bean.getDesignation(), cts, mts, createdBy,
-					modifiedBy, isDeleted, bean.getUserId(), photoFileId);
-
-			
-				id = userDAOImpl.addUser(user);
-			
-			
-		}
+					modifiedBy, isDeleted, bean.getUserId(), photoFileId);			
+				    id = userDAOImpl.addUser(user);
+				    }
 		return id;
 	}
 
-	public boolean deleteUser(UserBean bean) throws UserException {
+	public boolean deleteUser(UserBean bean) throws UserException,Exception {//exception thrown by userProject
 		boolean isDeleted = false;
+		UserProjectHandler userProjectHandler = UserProjectHandler.getInstance();
+		List<UserProject> userProjectList = userProjectHandler.getListOfUserProjectByUserId(bean.getId());
+		if(!(userProjectList.isEmpty())){
+			for(UserProject userProject: userProjectList){
+				boolean isRoleDeleted = UserProjectsRolesHandler.getInstance().deletUserProjectRoleByUserProjectId(userProject);
+				boolean isProjectDeallocated = userProjectHandler.deAllocateUsersFromProject(userProject.getProjectId(),userProject.getUserId());		
+			}
+		}
+		
 		UserDAO userDAOImpl = DAOFactory.getInstance().getUserDAO();
 		if (bean == null || bean.toString().trim().isEmpty()) {
 			throw new UserException(ExceptionCodes.DELETE_ID_ZERO,
@@ -159,7 +164,6 @@ public class UserHandler extends AbstractHandler {
 					ExceptionMessages.DELETE_ID_ZERO);
 		}
 		isDeleted = userDAOImpl.deleteUser(bean.getId());
-
 		return isDeleted;
 	}
 
@@ -209,6 +213,10 @@ public class UserHandler extends AbstractHandler {
 
 	public User updateUser(UserBean bean) throws UserException {
 		User user = null;
+		if(bean == null || bean.toString().trim().isEmpty())
+		{
+			throw new UserException(ExceptionCodes.USER_DETAILS_NULL,ExceptionMessages.USER_DETAILS_NULL);
+		}
 		if (isUpdateUserIsValidated(bean)) {
 			UserDAO userDAOImpl = DAOFactory.getInstance().getUserDAO();
 			user = userDAOImpl.updateUser(bean);
