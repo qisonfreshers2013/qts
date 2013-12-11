@@ -46,9 +46,9 @@ public class TimeEntryDAOImpl extends BaseDAOImpl implements TimeEntryDAO {
 	public long parseDateToLong(String date) {
 
 		try {
-			Date dateObj = DateUtils
-					.parseDate(date, "MM/dd/yyyy", "MM-dd-yyyy");
-			return dateObj.getTime();
+
+			Date dateObj=DateUtils.parseDate(date,"MM/dd/yyyy","MM-dd-yyyy");
+	          return dateObj.getTime();
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println("Exception in TimeEntryDAOImpl.getDate");
@@ -100,10 +100,11 @@ public class TimeEntryDAOImpl extends BaseDAOImpl implements TimeEntryDAO {
 	 * @see com.qts.persistence.dao.TimeEntryDAO#rejectTimeEntry(com.qts.model.
 	 * TimeEntriesForm) Method Used by Approver to REJECT Submitted TimeEntry
 	 */
+
 	public boolean rejectTimeEntry(TimeEntriesForm timeEntry) {
-		Session session = SessionFactoryUtil.getInstance().getNewSession();
+		Session session = getSession();
 		try {
-			session.beginTransaction();
+			
 			Query query = session
 					.createQuery("Update TimeEntries set status=:status,rejectedComments=:rejectedComments where id="
 							+ timeEntry.getId()
@@ -117,9 +118,7 @@ public class TimeEntryDAOImpl extends BaseDAOImpl implements TimeEntryDAO {
 			return true;
 		} catch (Exception e) {
 			e.printStackTrace();
-		} finally {
-			session.close();
-		}
+		} 
 		return false;
 	}
 
@@ -131,9 +130,9 @@ public class TimeEntryDAOImpl extends BaseDAOImpl implements TimeEntryDAO {
 	 * TimeEntriesForm) Method Used by Approver to Approve An TimeEntry
 	 */
 	public boolean approveTimeEntry(TimeEntriesForm timeEntry) {
-		Session session = SessionFactoryUtil.getInstance().getNewSession();
+		Session session = getSession();
 		try {
-			session.beginTransaction();
+			
 			Query query = session
 					.createQuery("Update TimeEntries set status=:status,approvedComments=:approvedComments where id="
 							+ timeEntry.getId()
@@ -142,14 +141,12 @@ public class TimeEntryDAOImpl extends BaseDAOImpl implements TimeEntryDAO {
 			query.setInteger("status", 2);
 			query.setString("approvedComments", timeEntry.getApprovedComments());
 			query.executeUpdate();
-			session.getTransaction().commit();
+			
 			return true;
 
 		} catch (Exception e) {
 			e.printStackTrace();
-		} finally {
-			session.close();
-		}
+		} 
 
 		return false;
 	}
@@ -162,21 +159,20 @@ public class TimeEntryDAOImpl extends BaseDAOImpl implements TimeEntryDAO {
 	 * TimeEntriesForm)Method Used to Delete TimeEntry from DataBase
 	 */
 	public boolean deleteTimeEntry(TimeEntriesForm deleteEntry) {
-		Session session = SessionFactoryUtil.getInstance().getNewSession();
+		Session session = getSession();
 		try {
-			session.beginTransaction();
+			
 			Query query = session.createQuery("Delete TimeEntries where id="
 					+ deleteEntry.getId() + "and userId="
 					+ deleteEntry.getUserId() + "and status=" + 0);
+
 			query.executeUpdate();
-			session.getTransaction().commit();
+			
 			return true;
 
 		} catch (Exception e) {
 			e.printStackTrace();
-		} finally {
-			session.close();
-		}
+		} 
 
 		return false;
 
@@ -190,10 +186,8 @@ public class TimeEntryDAOImpl extends BaseDAOImpl implements TimeEntryDAO {
 	 * TimeEntriesForm) Method To update An TimeEntry
 	 */
 	public boolean updateTimeEntry(TimeEntriesForm updateWithData) {
-		Session session = SessionFactoryUtil.getInstance().getNewSession();
+		Session session = getSession();
 		try {
-
-			session.beginTransaction();
 			Query query = session
 					.createQuery("Update TimeEntries set hours=:hours,projectId=:projectId,releaseId=:releaseId,task=:task,activityId=:activityId,remarks=:remarks,date=:date where id="
 							+ updateWithData.getId()
@@ -207,16 +201,13 @@ public class TimeEntryDAOImpl extends BaseDAOImpl implements TimeEntryDAO {
 			query.setString("remarks", updateWithData.getUserRemarks());
 			query.setLong("date", parseDateToLong(updateWithData.getDate()));
 			int updated = query.executeUpdate();
-			session.getTransaction().commit();
 			if (updated != 0) {
 				return true;
 			}
 
 		} catch (Exception e) {
 			e.printStackTrace();
-		} finally {
-			session.close();
-		}
+		} 
 		return false;
 	}
 
@@ -269,13 +260,11 @@ public class TimeEntryDAOImpl extends BaseDAOImpl implements TimeEntryDAO {
 	@SuppressWarnings("unchecked")
 	@Override
 	public boolean getTimeEntryObjectById(long id) {
-		Session session = SessionFactoryUtil.getInstance().getNewSession();
+		Session session = getSession();
 		try {
-			session.beginTransaction();
 
 			List<TimeEntries> mapped = session.createQuery(
 					"from TimeEntries where release_Id=" + id).list();
-
 			if (mapped.size() != 0) {
 				return true;
 			}
@@ -291,9 +280,9 @@ public class TimeEntryDAOImpl extends BaseDAOImpl implements TimeEntryDAO {
 	@Override
 	public boolean submitTimeEntries(TimeEntriesForm submitData) {
 
-		Session session = SessionFactoryUtil.getInstance().getNewSession();
+		Session session = getSession();
 		try {
-			session.beginTransaction();
+			
 			Query query = session
 					.createQuery("Update TimeEntries set status=:newStatus where id="
 							+ submitData.getId()
@@ -302,40 +291,37 @@ public class TimeEntryDAOImpl extends BaseDAOImpl implements TimeEntryDAO {
 									.getUserSessionToken().getUserId());
 			query.setInteger("newStatus", 1);
 			int submitted = query.executeUpdate();
-			session.getTransaction().commit();
+			
 			if (submitted == 0) {
 				return false;
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-		} finally {
-			session.close();
-		}
+		} 
 
 		return true;
 	}
 
-	public long getPreviousWorkingDay() {
-		Session session = SessionFactoryUtil.getInstance().getNewSession();
-		try {
-			Query query = session
-					.createQuery("from TimeEntries order by date desc");
+	
+	public long getPreviousWorkingDay(){
+		Session session=getSession();
+		try{
+			Query query=session.createQuery("from TimeEntries order by date desc");
 			query.setMaxResults(1);
 			return ((TimeEntries) query.list().get(0)).getDate();
 		} catch (Exception e) {
 			e.printStackTrace();
-		} finally {
-			session.close();
-		}
+		} 
 		return 0;
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
+	
+
 	public List<TimeEntries> listUserEntries(TimeEntriesForm timeEntry) {
-		Session session = SessionFactoryUtil.getInstance().getNewSession();
+		Session session=getSession();
 		try {
-			session.beginTransaction();
 			Criteria searchUserCriteria = session
 					.createCriteria(TimeEntries.class);
 			searchUserCriteria.setProjection(Projections.projectionList()
@@ -371,18 +357,18 @@ public class TimeEntryDAOImpl extends BaseDAOImpl implements TimeEntryDAO {
 			return submittedData;
 
 		} catch (Exception e) {
+
 			e.printStackTrace();
-		} finally {
-			session.close();
-		}
+		} 
 
 		return null;
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
+
 	public List<TimeEntries> listEntriesToApprove(TimeEntriesForm timeEntry) {
-		Session session = SessionFactoryUtil.getInstance().getNewSession();
+		Session session = getSession();
 		try {
 
 			Calendar getPreviousWeekDate = GregorianCalendar.getInstance();
@@ -450,9 +436,7 @@ public class TimeEntryDAOImpl extends BaseDAOImpl implements TimeEntryDAO {
 			return submittedData;
 		} catch (Exception e) {
 			e.printStackTrace();
-		} finally {
-			session.close();
-		}
+		} 
 		return null;
 	}
 

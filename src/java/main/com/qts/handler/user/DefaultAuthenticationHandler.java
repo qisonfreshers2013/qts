@@ -53,8 +53,9 @@ public class DefaultAuthenticationHandler implements AuthenticationHandler {
 
 		if (!userValidity) {
 			throw new BusinessException(ExceptionCodes.INVALID_PASSWORD,
-					ExceptionMessages.INVALID_PASSWORD);//anil
-		}
+
+					ExceptionMessages.INVALID_PASSWORD);
+		}//anil
 
 		authStatus = User.AUTH_STATUS_EXISTING;
 
