@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.hibernate.Session;
+
 import com.qts.exception.EncryptionException;
 import com.qts.exception.BusinessException;
 import com.qts.exception.ExceptionCodes;
@@ -13,7 +15,7 @@ import com.qts.service.common.ServiceRequestContextHolder;
 /**
  * @author RAMMOHAN
  */
-public class Utils {
+public final class Utils {
 
     public static final String EMAIL_PATTERN = "^[_A-Za-z]+[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
     public static final String NAME_PATTERN = "^[A-Za-z0-9\\s]*$";
@@ -175,5 +177,14 @@ public class Utils {
     		object=null;
     	}
     }
+    
+    public static Session getDBSession(){
+    	return ServiceRequestContextHolder.getContext().getSession();
+    		
+    	}
+    	
+    	
+    	
+
 
 }

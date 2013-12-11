@@ -14,8 +14,14 @@ import com.qts.model.BaseObject;
 import com.qts.model.Roles;
 import com.qts.model.UserProject;
 import com.qts.model.UserProjectRoles;
+/**
+ * 
+ * @author Jagadish
+ *
+ */
 
-public class UserProjectsRolesDAOImpl extends BaseDAOHibernateImpl implements UserProjectsRolesDAO {
+public class UserProjectsRolesDAOImpl extends BaseDAOImpl implements
+		UserProjectsRolesDAO {
 	private static UserProjectsRolesDAO userProjectsRolesDAO = null;
 	private static Session session = null;
 
@@ -29,57 +35,31 @@ public class UserProjectsRolesDAOImpl extends BaseDAOHibernateImpl implements Us
 	@SuppressWarnings("unchecked")
 	public UserProjectRoles getUserProjectRoleByIds(long userProjectId,
 			long roleId) throws RolesException {
-		try {
-			session = SessionFactoryUtil.getInstance().getNewSession();
-			session.beginTransaction();
-//			session = SessionFactoryUtil.getInstance().getNewSession();
-//			SessionFactoryUtil.getNewTransaction(transaction);
-			// Criteria
-			// criteria=session.createCriteria(UserProjectRoles.class)
-			// .add(Restrictions.eq("userProjectId", userProjectId))
-			// .add(Restrictions.eq("roleId", roleId))
-			// ;
-			List<UserProjectRoles> listUserProjectRoles = session
-					.createQuery(
-							"from UserProjectRoles where user_project_Id="
-									+ userProjectId + " and role_id=" + roleId)
-					.list();
-			if (listUserProjectRoles.isEmpty())
-				return null;
-			return (UserProjectRoles) listUserProjectRoles.listIterator()
-					.next();
-		} finally {
-			session.close();
-		}
+		session = getSession();
+		List<UserProjectRoles> listUserProjectRoles = session.createQuery(
+				"from UserProjectRoles where user_project_Id=" + userProjectId
+						+ " and role_id=" + roleId).list();
+		return (UserProjectRoles) listUserProjectRoles.listIterator().next();
 	}
 
 	@SuppressWarnings("unchecked")
 	public List<UserProjectRoles> getUserProjectRolesByUserProjectId(
 			long userProjectId) throws Exception {
-		try {
-			session = SessionFactoryUtil.getInstance().getNewSession();
-			session.beginTransaction();
-//			session = SessionFactoryUtil.getNewSession();
-//			SessionFactoryUtil.getNewTransaction(transaction);
-			Criteria criteria = session.createCriteria(UserProjectRoles.class)
-					.add(Restrictions.eq("userProjectId", userProjectId));
-			if (criteria.list().isEmpty())
-				throw new RolesException(
-						ExceptionCodes.NO_ROLES_FOR_THIS_USERPROJECT_ID,
-						ExceptionMessages.NO_ROLES_FOR_THIS_USERPROJECT_ID);
-			return criteria.list();
-		} finally {
-			session.close();
-		}
+		session = getSession();
+		Criteria criteria = session.createCriteria(UserProjectRoles.class).add(
+				Restrictions.eq("userProjectId", userProjectId));
+		if (criteria.list().isEmpty())
+			throw new RolesException(
+					ExceptionCodes.NO_ROLES_FOR_THIS_USERPROJECT_ID,
+					ExceptionMessages.NO_ROLES_FOR_THIS_USERPROJECT_ID);
+		return criteria.list();
+
 	}
 
 	public boolean deletUserProjectRoleByUserProjectId(UserProject userProject)
 			throws Exception {
-		session = SessionFactoryUtil.getInstance().getNewSession();
-		session.beginTransaction();
-//		session = SessionFactoryUtil.getNewSession();
+		session = getSession();
 		try {
-			//SessionFactoryUtil.getNewTransaction(transaction);
 			UserProjectRoles userProjectRoles = (UserProjectRoles) session
 					.createCriteria(UserProjectRoles.class)
 					.add(Restrictions.eq("userProjectId", userProject.getId()))
@@ -87,21 +67,20 @@ public class UserProjectsRolesDAOImpl extends BaseDAOHibernateImpl implements Us
 			session.delete(userProjectRoles);
 			return true;
 		} catch (IllegalArgumentException e) {
-			return true;
-		}finally{
-			session.getTransaction().commit();
 		}
+		return false;
 	}
 
 	@Override
 	public BaseObject getObjectById(long id) throws ObjectNotFoundException {
-		session = SessionFactoryUtil.getInstance().getNewSession();
-		//SessionFactoryUtil.getNewTransaction();
+
+		session = getSession();
 		if (session.createQuery("from UserProjectRoles where id=" + id).list()
 				.isEmpty())
-			throw new ObjectNotFoundException(
-					ExceptionCodes.OBJECT_NOT_FOUND, "Invalid role id");
-		return (Roles) session.createQuery("from UserProjectRoles where id=" + id)
-				.list().iterator().next();
+			throw new ObjectNotFoundException(ExceptionCodes.OBJECT_NOT_FOUND,
+					"Invalid role id");
+		return (Roles) session
+				.createQuery("from UserProjectRoles where id=" + id).list()
+				.iterator().next();
 	}
 }

@@ -17,7 +17,7 @@ import com.qts.exception.ObjectNotFoundException;
 import com.qts.exception.ProjectException;
 import com.qts.model.Project;
 
-public class ProjectDAOImpl extends BaseDAOHibernateImpl implements ProjectDAO {
+public class ProjectDAOImpl extends BaseDAOImpl implements ProjectDAO {
 	private static ProjectDAO INSTANCE=null;
 	private ProjectDAOImpl(){
 		
@@ -34,8 +34,7 @@ public class ProjectDAOImpl extends BaseDAOHibernateImpl implements ProjectDAO {
 	//list of projects
 	@Override
 	public List<Project> getProjectList() throws Exception,ProjectException{
-		Session session=SessionFactoryUtil.getInstance().getNewSession();
-		session.beginTransaction();
+		Session session=getSession();
 		try{
 			Criteria projectCriteria = session.createCriteria(Project.class);
 			projectCriteria.setProjection(
@@ -57,35 +56,26 @@ public class ProjectDAOImpl extends BaseDAOHibernateImpl implements ProjectDAO {
 			e.printStackTrace();
 			throw e; 
 			
-		}finally{
-			session.close();
 		}
 	}
 	
 	//List of projects Using userId
 	@Override
 	public Project addProject(Project project) throws Exception{
-		Session session=SessionFactoryUtil.getInstance().getNewSession();
+		Session session=getSession();
 		try{
-			session.beginTransaction();
 			session.save(project);
-			session.getTransaction().commit();
 			return project;
 		}catch(Exception e){
 			e.printStackTrace();
 			throw  new ProjectException(ExceptionCodes.ADD_PROJECT_FAILED,ExceptionMessages.ADD_PROJECT_FAILED);
-		}finally{
-			session.close();
 		}
-		
-		
 	}
 	
 	//returns Project object by using corresponding project Id
 	@Override 
 	public Project getObjectById(long id) throws ObjectNotFoundException{
-		Session session=SessionFactoryUtil.getInstance().getNewSession();
-		session.beginTransaction();
+		Session session=getSession();
 		try{
 			Criteria projectCriteria = session.createCriteria(Project.class);
 			projectCriteria.add(Restrictions.eq("id", id));
@@ -96,9 +86,6 @@ public class ProjectDAOImpl extends BaseDAOHibernateImpl implements ProjectDAO {
 		}catch(ObjectNotFoundException e){
 			e.printStackTrace();
 			throw e;
-		}finally{
-			session.close();
 		}
-			
 	}
 }

@@ -20,7 +20,7 @@ import com.qts.model.ReleasesInput;
  * @author Shiva
  * 
  */
-public class ReleasesDAOImpl extends BaseDAOHibernateImpl implements ReleasesDAO {
+public class ReleasesDAOImpl extends BaseDAOImpl implements ReleasesDAO {
 	
 	private static ReleasesDAO RELEASES_INSTANCE = null;
 
@@ -41,7 +41,8 @@ public class ReleasesDAOImpl extends BaseDAOHibernateImpl implements ReleasesDAO
 	public List<Releases> listReleases(ReleasesInput releasesBean)throws ReleasesException,ObjectNotFoundException {
 		
 		
-		Session session= SessionFactoryUtil.getInstance().getNewSession();
+		Session session= getSession();
+		try{
 		Criteria releasesCriteria = session.createCriteria(Releases.class);
 		releasesCriteria.setProjection(Projections.projectionList()
 				.add(Projections.property("id"))
@@ -52,6 +53,9 @@ public class ReleasesDAOImpl extends BaseDAOHibernateImpl implements ReleasesDAO
 			throw new ReleasesException(ExceptionCodes.RELEASES_EMPTY,ExceptionMessages.RELEASES_EMPTY_FOR_THE_PROJECT);
 		}
 		return releasesList;
+		}finally{
+			session.close();
+		}
 
 	}
 
@@ -60,10 +64,8 @@ public class ReleasesDAOImpl extends BaseDAOHibernateImpl implements ReleasesDAO
 	public Releases addReleases(Releases releases) throws ReleasesException {
 		
 		try {
-			Session session = SessionFactoryUtil.getInstance().getNewSession();
-			Transaction txn=session.beginTransaction();
+			Session session = getSession();
 			session.save(releases);
-			txn.commit();
 			return releases;
 		} catch (Exception e) {
 			throw new ReleasesException(ExceptionCodes.RELEASES_CANNOT_BE_ADDED,ExceptionMessages.RELEASES_CANNOT_BE_ADDED_FOR_THE_PROJECT);
@@ -76,10 +78,8 @@ public class ReleasesDAOImpl extends BaseDAOHibernateImpl implements ReleasesDAO
 		
 		
 		try{
-			Session session=SessionFactoryUtil.getInstance().getNewSession();
-			Transaction txn=session.beginTransaction();
+			Session session=getSession();
 			session.delete(releases);
-			txn.commit();
 			return releases;
 		}
 		catch(Exception e){
@@ -94,8 +94,7 @@ public class ReleasesDAOImpl extends BaseDAOHibernateImpl implements ReleasesDAO
 		
 		List<Releases> releasesList;
 		try {
-			Session session = SessionFactoryUtil.getInstance().getNewSession();
-			session.beginTransaction();
+			Session session = getSession();
 			releasesList = session.createQuery("from Releases where id=" + releaseId).list();
 			if (releasesList.isEmpty()) {
 				throw new ObjectNotFoundException(ExceptionCodes.RELEASES_ID_DOES_NOT_EXISTS,ExceptionMessages.RELEASES_ID_INVALID);
@@ -103,7 +102,6 @@ public class ReleasesDAOImpl extends BaseDAOHibernateImpl implements ReleasesDAO
 		} catch (ObjectNotFoundException e) {
 			throw e;
 		}
-
 		return (Releases) releasesList.get(0);
 
 	}

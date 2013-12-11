@@ -25,10 +25,8 @@ public interface RoleDAO {
 	 RoleBean listUserRoles(RoleBean roleBean,List<UserProjectRoles> listUserProjectRoles) throws Exception;
 	 //allocates user to specified set of roles
 	 RoleBean allocateRole(RoleBean roleBean,UserProject userProject) throws Exception;
-	 	//remove's all the current available roles of the user 
-	 	//boolean deleteUserRole(UserProject userProject) throws Exception;
 	 //remove's particular role of a user
 	 RoleBean deallocateRole(RoleBean rolebean,UserProject userProject) throws Exception;
+	 //validate's the roles with the available roles.If available returns true.
 	 boolean validateRoleId(Set<Long> roleIds) throws Exception;
-	// RoleBean passUserIdProjectId(RoleBean roleBean);
 }

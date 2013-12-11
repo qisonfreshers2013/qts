@@ -5,7 +5,9 @@ package com.qts.persistence.dao;
  * @author Ajay
  */
 import java.sql.Timestamp;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import org.apache.commons.lang3.time.DateUtils;
@@ -45,10 +47,6 @@ public class TimeEntryDAOImpl extends BaseDAOImpl implements TimeEntryDAO {
 
 		try {
 			Date dateObj=DateUtils.parseDate(date,"MM/dd/yyyy","MM-dd-yyyy");
-//			SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
-//			Calendar calendar = new GregorianCalendar();
-//			calendar.setTime(sdf.parse(date));
-			//return calendar.getTimeInMillis();
 	          return dateObj.getTime();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -102,9 +100,9 @@ public class TimeEntryDAOImpl extends BaseDAOImpl implements TimeEntryDAO {
 	 * TimeEntriesForm) Method Used by Approver to REJECT Submitted TimeEntry
 	 */
 	public TimeEntries rejectTimeEntry(TimeEntriesForm timeEntry) {
-		Session session = SessionFactoryUtil.getInstance().getNewSession();
+		Session session = getSession();
 		try {
-			session.beginTransaction();
+			
 			Query query = session
 					.createQuery("Update TimeEntries set status=:status,rejectedComments=:rejectedComments where id="
 							+ timeEntry.getId()+"and porjectId="+timeEntry.getProjectId());
@@ -112,7 +110,7 @@ public class TimeEntryDAOImpl extends BaseDAOImpl implements TimeEntryDAO {
 			query.setString("rejectedComments", timeEntry.getRejectedComments());
 			query.executeUpdate();
 			List<TimeEntries> rejectedTimeEntry=session.createQuery("from TimeEntries where id="+timeEntry.getId()).list();
-			session.getTransaction().commit();
+			
 			return rejectedTimeEntry.get(0);
 
 		} catch (Exception e) {
@@ -130,16 +128,16 @@ public class TimeEntryDAOImpl extends BaseDAOImpl implements TimeEntryDAO {
 	 * TimeEntriesForm) Method Used by Approver to Approve An TimeEntry
 	 */
 	public boolean approveTimeEntry(TimeEntriesForm timeEntry) {
-		Session session = SessionFactoryUtil.getInstance().getNewSession();
+		Session session = getSession();
 		try {
-			session.beginTransaction();
+			
 			Query query = session
 					.createQuery("Update TimeEntries set status=:status,approvedComments=:approvedComments where id="
 							+ timeEntry.getId()+"projectId"+timeEntry.getProjectId());
 			query.setInteger("status", 2);
 			query.setString("approvedComments",timeEntry.getApprovedComments());
 			query.executeUpdate();
-			session.getTransaction().commit();
+			
 			return true;
 
 		} catch (Exception e) {
@@ -157,13 +155,13 @@ public class TimeEntryDAOImpl extends BaseDAOImpl implements TimeEntryDAO {
 	 * TimeEntriesForm)Method Used to Delete TimeEntry from DataBase
 	 */
 	public boolean deleteTimeEntry(TimeEntriesForm deleteEntry) {
-		Session session = SessionFactoryUtil.getInstance().getNewSession();
+		Session session = getSession();
 		try {
-			session.beginTransaction();
+			
 			Query query = session.createQuery("Delete TimeEntries where id="
-					+ deleteEntry.getId());
+					+ deleteEntry.getId()+"and userId="+deleteEntry.getUserId()+"and status="+0);
 			query.executeUpdate();
-			session.getTransaction().commit();
+			
 			return true;
 
 		} catch (Exception e) {
@@ -182,10 +180,10 @@ public class TimeEntryDAOImpl extends BaseDAOImpl implements TimeEntryDAO {
 	 * TimeEntriesForm) Method To update An TimeEntry
 	 */
 	public boolean updateTimeEntry(TimeEntriesForm updateWithData) {
-		Session session = SessionFactoryUtil.getInstance().getNewSession();
+		Session session = getSession();
 		try {
              
-			session.beginTransaction();
+			
 			Query query = session
 					.createQuery("Update TimeEntries set hours=:hours,projectId=:projectId,releaseId=:releaseId,task=:task,activityId=:activityId,remarks=:remarks,date=:date where id="
 							+ updateWithData.getId()+"and userId="+updateWithData.getUserId()+"and status="+0);
@@ -197,7 +195,7 @@ public class TimeEntryDAOImpl extends BaseDAOImpl implements TimeEntryDAO {
 			query.setString("remarks", updateWithData.getUserRemarks());
 			query.setLong("date", parseDateToLong(updateWithData.getDate()));
 			int updated=query.executeUpdate();
-			session.getTransaction().commit();
+			
 			if (updated != 0) {
 				return true;
 			}
@@ -257,10 +255,12 @@ public class TimeEntryDAOImpl extends BaseDAOImpl implements TimeEntryDAO {
 	@SuppressWarnings("unchecked")
 	@Override
 	public boolean getTimeEntryObjectById(long id) {
-		Session session = SessionFactoryUtil.getInstance().getNewSession();
+		Session session = getSession();
 		try {
-			session.beginTransaction();
-			List<TimeEntries> mapped = session.createQuery("from TimeEntries where releaseId=" + id).list();
+			
+
+			List<TimeEntries> mapped = session.createQuery("from TimeEntries where release_Id=" + id).list();
+
 			if (mapped.size() != 0) {
 				return true;
 			}
@@ -274,9 +274,9 @@ public class TimeEntryDAOImpl extends BaseDAOImpl implements TimeEntryDAO {
 	@Override
 	public boolean submitTimeEntries(TimeEntriesForm submitData) {
 
-		Session session = SessionFactoryUtil.getInstance().getNewSession();
+		Session session = getSession();
 		try {
-			session.beginTransaction();
+			
 			Query query = session
 					.createQuery("Update TimeEntries set status=:newStatus where id="
 							+ submitData.getId()
@@ -285,7 +285,7 @@ public class TimeEntryDAOImpl extends BaseDAOImpl implements TimeEntryDAO {
 									.getUserSessionToken().getUserId());
 			query.setInteger("newStatus", 1);
 			int submitted = query.executeUpdate();
-			session.getTransaction().commit();
+			
 			if (submitted == 0) {
 				return false;
 			}
@@ -296,8 +296,8 @@ public class TimeEntryDAOImpl extends BaseDAOImpl implements TimeEntryDAO {
 		return true;
 	}
 	
-	public long getPreviousWorkingDay(Session session){
-		
+	public long getPreviousWorkingDay(){
+		Session session=getSession();
 		try{
 			Query query=session.createQuery("from TimeEntries order by date desc");
 			query.setMaxResults(1);
@@ -310,9 +310,9 @@ public class TimeEntryDAOImpl extends BaseDAOImpl implements TimeEntryDAO {
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<TimeEntries> listUserEntries(TimeEntriesForm timeEntry){
-		Session session=SessionFactoryUtil.getInstance().getNewSession();
+		Session session=getSession();
 		try{
-			session.beginTransaction();
+			
 			Criteria searchUserCriteria = session.createCriteria(TimeEntries.class);
 		  searchUserCriteria.setProjection(
 		         Projections.projectionList().
@@ -327,7 +327,7 @@ public class TimeEntryDAOImpl extends BaseDAOImpl implements TimeEntryDAO {
 		           add(Projections.property("remarks"))
 		           );
 		  if(timeEntry.getDate()==null && timeEntry.getProjectId()==null)
-		  searchUserCriteria.add(Restrictions.eq("date",getPreviousWorkingDay(session)));
+		  searchUserCriteria.add(Restrictions.eq("date",getPreviousWorkingDay()));
 		  else if(timeEntry.getDate()!=null && timeEntry.getProjectId()!=null)
 			  searchUserCriteria.add(Restrictions.eq("date",parseDateToLong(timeEntry.getDate())));
 		  else if(timeEntry.getDate()==null && timeEntry.getProjectId()!=null)
@@ -337,7 +337,7 @@ public class TimeEntryDAOImpl extends BaseDAOImpl implements TimeEntryDAO {
 			  searchUserCriteria.add(Restrictions.eq("projectId",timeEntry.getProjectId()));
 		  }
 		  List<TimeEntries> submittedData=searchUserCriteria.list();
-		  session.getTransaction().commit();
+		 
 		  return submittedData;
 		  
 		}catch(Exception e){
@@ -350,14 +350,20 @@ public class TimeEntryDAOImpl extends BaseDAOImpl implements TimeEntryDAO {
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<TimeEntries> listEntriesToApprove(TimeEntriesForm timeEntry){
-		Session session=SessionFactoryUtil.getInstance().getNewSession();
+		Session session=getSession();
 		try{
-			session.beginTransaction();
+
+			Calendar getPreviousWeekDate=GregorianCalendar.getInstance();
+			getPreviousWeekDate.add(Calendar.DAY_OF_YEAR,-7);
+			getPreviousWeekDate.getTimeInMillis();
+
+			
 			Criteria searchUserCriteria = session.createCriteria(TimeEntries.class);
 		  searchUserCriteria.setProjection(
 		         Projections.projectionList().
 		           add(Projections.property("id")).
 		           add(Projections.property("date")).
+                   add(Projections.property("userId")).
 		           add(Projections.property("projectId")).
 		           add(Projections.property("releaseId")).
 		           add(Projections.property("task")).
@@ -368,28 +374,28 @@ public class TimeEntryDAOImpl extends BaseDAOImpl implements TimeEntryDAO {
 		           add(Projections.property("approvedComments")).
 		           add(Projections.property("rejectedComments"))
 		           );
-		  if(timeEntry.getFrom()==null && timeEntry.getProjectId()!=null && timeEntry.getUserId()==null && timeEntry.getTo()==null && timeEntry.getStatus()==null){
-		  searchUserCriteria.add(Restrictions.eq("date",getPreviousWorkingDay(session)));
-		  searchUserCriteria.add(Restrictions.eq("status",1));
-		  searchUserCriteria.add(Restrictions.eq("projectId",timeEntry.getProjectId()));
+		  if(timeEntry.getFrom()==null && timeEntry.getProjectId()==null && timeEntry.getUserId()==null && timeEntry.getTo()==null && timeEntry.getStatus()==null){
+          searchUserCriteria.add(Restrictions.between("date",getPreviousWeekDate.getTimeInMillis(),new Date().getTime()));
+          searchUserCriteria.add(Restrictions.eq("status",1));
 		  }
 		  else if(timeEntry.getFrom()!=null && timeEntry.getTo()!=null){
 			  searchUserCriteria.add(Restrictions.between("date",parseDateToLong(timeEntry.getFrom()),parseDateToLong(timeEntry.getTo())));
 		      searchUserCriteria.add(Restrictions.eq("projectId",timeEntry.getProjectId()));
-		      searchUserCriteria.add(Restrictions.eq("UserId",timeEntry.getProjectId()));
+		      searchUserCriteria.add(Restrictions.eq("userId",timeEntry.getUserId()));
 		      searchUserCriteria.add(Restrictions.eq("status",timeEntry.getStatus()));
 		       }
 		  else if(timeEntry.getFrom()!=null && timeEntry.getTo()==null){
 			  searchUserCriteria.add(Restrictions.eq("projectId",timeEntry.getProjectId()));
 			  searchUserCriteria.add(Restrictions.eq("status",timeEntry.getStatus()));
 			  searchUserCriteria.add(Restrictions.between("date",parseDateToLong(timeEntry.getFrom()),new Date().getTime()));
-			  searchUserCriteria.add(Restrictions.eq("UserId",timeEntry.getProjectId()));
+			  searchUserCriteria.add(Restrictions.eq("userId",timeEntry.getUserId()));
+
 		  }
 		  else if(timeEntry.getFrom()==null && timeEntry.getTo()!=null){
 			  return null;
 		  }
 		  List<TimeEntries> submittedData=searchUserCriteria.list();
-		  session.getTransaction().commit();
+		 
 		  return submittedData;	
 		}catch(Exception e){
 			e.printStackTrace();
