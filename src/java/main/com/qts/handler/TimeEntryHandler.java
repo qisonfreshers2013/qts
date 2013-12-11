@@ -123,6 +123,10 @@ public class TimeEntryHandler {
 	 */
 	public boolean deleteEntry(TimeEntriesForm deletedata) throws Exception {
 
+                 deletedata.setUserId(ServiceRequestContextHolder.getContext().getUserSessionToken().getUserId());
+
+
+
 		if (deletedata.getId() != null) {
 			boolean deleted = DAOFactory.getInstance()
 					.getTimeEntryDAOInstance().deleteTimeEntry(deletedata);
@@ -208,8 +212,8 @@ public class TimeEntryHandler {
 	 * Handler method to Check whether ReleaseId Mapped or not
 	 */
 	public boolean isEntryMapped(long id) throws Exception {
-		if (!(DAOFactory.getInstance().getTimeEntryDAOInstance()
-				.getTimeEntryObjectById(id))) {
+		if (DAOFactory.getInstance().getTimeEntryDAOInstance()
+				.getTimeEntryObjectById(id) == false) {
 			throw new ObjectNotFoundException();
 		}
 

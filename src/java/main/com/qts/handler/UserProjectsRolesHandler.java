@@ -18,18 +18,13 @@ public class UserProjectsRolesHandler extends AbstractHandler {
 		return INSTANCE;
 	}
 	public UserProjectRoles getUserProjectRoleByIds(long userProjectId, long roleId) throws Exception{
-		try{
-		if(RoleHandler.getInstance().validateRoleId(roleId))
-			return DAOFactory.getInstance().getUserProjectsRolesDAOInstance().getUserProjectRoleByIds(userProjectId,roleId);
-		}catch(Exception e){
-			throw e; 
-		}
-		return null;
-	}
+		return DAOFactory.getInstance().getUserProjectsRolesDAOInstance().getUserProjectRoleByIds(userProjectId,roleId);
+	}	
 	public List<UserProjectRoles> getUserProjectRolesByUserProjectId(long userProjectId) throws Exception{
 		return DAOFactory.getInstance().getUserProjectsRolesDAOInstance().getUserProjectRolesByUserProjectId(userProjectId);
 	}
-	public boolean deletUserProjectRoleByUserProjectId(UserProject next) throws Exception {
-		  return DAOFactory.getInstance().getUserProjectsRolesDAOInstance().deletUserProjectRoleByUserProjectId(next);	  
-	}
+//	public boolean deletUserProjectRoleByUserProjectId(UserProject next) throws Exception {
+//		return DAOFactory.getInstance().getUserProjectsRolesDAOInstance().deletUserProjectRoleByUserProjectId(next);
+//		
+//	}
 }

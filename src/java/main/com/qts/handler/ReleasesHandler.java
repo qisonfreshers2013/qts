@@ -36,10 +36,15 @@ public class ReleasesHandler extends AbstractHandler {
 
 	// Request Comes from ReleasesService Class and calls Method
 	// ReleasesDAOImplClass
-	public List<Releases> listReleases(ReleasesInput releasesInput)throws Exception {
+	public List<Releases> listReleases(ReleasesInput releasesInput)throws ReleasesException, ObjectNotFoundException {
 
-		if (validateProjectId(releasesInput)) {
-			return DAOFactory.getInstance().getReleasesDAOImplInstance().listReleases(releasesInput);
+		try {
+			if (validateProjectId(releasesInput)) {
+				return DAOFactory.getInstance().getReleasesDAOImplInstance().listReleases(releasesInput);
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		return null;
 
@@ -116,13 +121,8 @@ public class ReleasesHandler extends AbstractHandler {
 			throw new ReleasesException(ExceptionCodes.RELEASESBEAN_NOT_NULL,ExceptionMessages.RELEASESBEAN_NOT_NULL);
 		if(releasesInput.getId()==0)
 			throw new ReleasesException(ExceptionCodes.RELEASE_ID_NULL, ExceptionMessages.RELEASE_ID_NULL);
-		try{
 		if(TimeEntryHandler.getInstance().isEntryMapped(releasesInput.getId()))
 			throw new ReleasesException(ExceptionCodes.TIME_ENTRY_PRESENT,ExceptionMessages.TIME_ENTRY_PRESENT);
-		}
-		catch(ObjectNotFoundException e){
-			return false;
-		}
 		return true;
 
 	}
