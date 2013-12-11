@@ -6,7 +6,7 @@ import org.hibernate.Session;
 
 import com.qts.model.Activities;
 
-public class ActivitiesDAOImpl {
+public class ActivitiesDAOImpl extends BaseDAOHibernateImpl implements ActivitiesDAO{
 
 	private static ActivitiesDAOImpl INSTANCE;
 	public ActivitiesDAOImpl() {
@@ -22,11 +22,7 @@ public class ActivitiesDAOImpl {
 	  @SuppressWarnings("unchecked")
 	public Activities getObjectById(long id)
 	{
-
 		Session session=SessionFactoryUtil.getInstance().getNewSession();
-
-		Session session=SessionFactoryUtil.getInstance().getCurrentSession();
-
 		try{
 	         session.beginTransaction();
 			List<Activities> activityobj=session.createQuery("from Activities where id="+id).list();

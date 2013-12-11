@@ -16,7 +16,7 @@ public interface TimeEntryDAO {
 
 	
     public boolean addTimeEntry(TimeEntriesForm timeEntry,Session session);
-    public TimeEntries rejectTimeEntry(TimeEntriesForm timeEntry);
+    public boolean rejectTimeEntry(TimeEntriesForm timeEntry);
     public boolean approveTimeEntry(TimeEntriesForm timeEntry);
     public boolean deleteTimeEntry(TimeEntriesForm deleteEntry);
     public boolean updateTimeEntry(TimeEntriesForm updateWithData);

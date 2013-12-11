@@ -64,5 +64,12 @@
 	<classpathentry kind="lib" path="lib/serializer-2.7.0.jar"/>
 	<classpathentry kind="lib" path="lib/servlet-api-3.0.jar"/>
 	<classpathentry kind="lib" path="lib/velocity-1.7.jar"/>
+	<classpathentry kind="lib" path="lib/c3p0-0.9.2.1.jar"/>
+	<classpathentry kind="lib" path="lib/hibernate-c3p0-4.2.7.Final.jar"/>
+	<classpathentry kind="lib" path="lib/hibernate-entitymanager-4.2.7.Final.jar"/>
+	<classpathentry kind="lib" path="lib/hibernate-envers-4.2.7.Final.jar"/>
+	<classpathentry kind="lib" path="lib/hibernate-osgi-4.2.7.Final.jar"/>
+	<classpathentry kind="lib" path="lib/mchange-commons-java-0.2.3.4.jar"/>
+	<classpathentry kind="lib" path="lib/org.osgi.core-4.3.1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
