@@ -371,17 +371,18 @@ public class User extends AbstractObject{
 //  return photoFile;
 // }
 //
-// /**
-//  * @param photoFile the photoFile to set
-//  */
-// public void setPhotoFile(File photoFile) {
-//  this.photoFile = photoFile;
-// }
-// 
- @Override
- public int getObjectType() {
-  
-  return ObjectTypes.PROJECT;
- }
+//	/**
+//	 * @param photoFile the photoFile to set
+//	 */
+//	public void setPhotoFile(File photoFile) {
+//		this.photoFile = photoFile;
+//	}
+//	
+	@Override
+	public int getObjectType() {
+		
+		return ObjectTypes.USER;
+	}
 
 }
+

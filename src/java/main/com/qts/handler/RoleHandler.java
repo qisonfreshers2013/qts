@@ -32,7 +32,7 @@ public class RoleHandler extends AbstractHandler {
 		return INSTANCE;
 	}
 	public List<Roles> listRoles() throws Exception {
-		return DAOFactory.getRoleDAOImplInstance().listRoles();
+		return DAOFactory.getInstance().getRoleDAOImplInstance().listRoles();
 	}
 
 	public RoleBean listUserRoles(RoleBean roleBean) throws Exception {
@@ -44,7 +44,7 @@ public class RoleHandler extends AbstractHandler {
 				List<UserProjectRoles> listUserProjectRoles = UserProjectsRolesHandler
 						.getInstance().getUserProjectRolesByUserProjectId(
 								userProject.getId());
-				return DAOFactory.getRoleDAOImplInstance().listUserRoles(
+				return DAOFactory.getInstance().getRoleDAOImplInstance().listUserRoles(
 						roleBean, listUserProjectRoles);
 			}
 		} catch (Exception e) {
@@ -64,7 +64,7 @@ public class RoleHandler extends AbstractHandler {
 			// throw new RolesException(ExceptionCodes.ROLES_EMPTY_EXCEPTION,
 			// ExceptionMessages.ROLES_EMPTY_EXCEPTION);
 			// }
-			myRoleBean = DAOFactory.getRoleDAOImplInstance().allocateRole(
+			myRoleBean = DAOFactory.getInstance().getRoleDAOImplInstance().allocateRole(
 					roleBean, userProject);
 			return myRoleBean;
 		} catch (Exception e) {
@@ -85,7 +85,7 @@ public class RoleHandler extends AbstractHandler {
 			// ExceptionCodes.ROLES_LIST_EMPTY_EXCEPTION,
 			// ExceptionMessages.ROLES_LIST_EMPTY_EXCEPTION);
 			// }
-			myRoleBean = DAOFactory.getRoleDAOImplInstance().deallocateRole(
+			myRoleBean = DAOFactory.getInstance().getRoleDAOImplInstance().deallocateRole(
 					roleBean, userProject);
 			return myRoleBean;
 		} catch (Exception e) {
@@ -111,7 +111,7 @@ public class RoleHandler extends AbstractHandler {
 		}
 		return true;
 	}
-	public void passUserIdProjectId(RoleBean roleBean) throws Exception {
-		UserProjectHandler.getInstance().updateReportingUserId(roleBean);
-	}
+//	public void passUserIdProjectId(RoleBean roleBean) throws Exception {
+//		UserProjectHandler.getInstance().updateReportingUserId(roleBean);
+//	}
 }

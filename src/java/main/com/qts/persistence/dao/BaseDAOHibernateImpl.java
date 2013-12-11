@@ -21,7 +21,7 @@ public abstract class BaseDAOHibernateImpl implements BaseDAO {
 
  @Override
  public BaseObject saveObject(BaseObject persistentObject) {
-  Session session = SessionFactoryUtil.getInstance().getCurrentSession();
+  Session session = SessionFactoryUtil.getInstance().getNewSession();
   session.save(persistentObject);
   session.getTransaction().commit();
   return persistentObject;
@@ -29,7 +29,7 @@ public abstract class BaseDAOHibernateImpl implements BaseDAO {
 
  @Override
  public BaseObject update(BaseObject persistentObject) {
-  Session session = SessionFactoryUtil.getInstance().getCurrentSession();
+  Session session = SessionFactoryUtil.getInstance().getNewSession();
 
   session.update(persistentObject);
   session.getTransaction().commit();
@@ -38,7 +38,7 @@ public abstract class BaseDAOHibernateImpl implements BaseDAO {
 
  @Override
  public List<BaseObject> save(List<BaseObject> objectList) {
-  Session session = SessionFactoryUtil.getInstance().getCurrentSession();
+  Session session = SessionFactoryUtil.getInstance().getNewSession();
   if (null != objectList && objectList.size() > 0) {
    short count = 0;
    for (BaseObject object : objectList) {

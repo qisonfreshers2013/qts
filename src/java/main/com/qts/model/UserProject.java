@@ -17,7 +17,25 @@ public class UserProject extends AbstractObject {
  private long userId;
  @Column(name="project_id")
  private long projectId;
- @Column(name="reporting_user_id")
+ public long getId() {
+	return id;
+}
+
+
+public void setId(long id) {
+	this.id = id;
+}
+
+
+public long getReportingUserId() {
+	return reportingUserId;
+}
+
+
+public void setReportingUserId(long reportingUserId) {
+	this.reportingUserId = reportingUserId;
+}
+@Column(name="reporting_user_id")
  private long reportingUserId;
  
  public UserProject(){

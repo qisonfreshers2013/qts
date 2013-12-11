@@ -26,7 +26,7 @@ public class UserProjectsRolesDAOImpl implements UserProjectsRolesDAO{
 //				.add(Restrictions.eq("userProjectId", userProjectId))
 //				.add(Restrictions.eq("roleId", roleId))
 //					;
-		List<UserProjectRoles> UPRList=SessionFactoryUtil.query("from UserProjectRoles where user_project_Id="+userProjectId+" and role_id="+roleId).list();
+		List<UserProjectRoles> UPRList=SessionFactoryUtil.getInstance().getNewSession().createQuery("from UserProjectRoles where user_project_Id="+userProjectId+" and role_id="+roleId).list();
 		if(UPRList.isEmpty())
 			return null;
 		return (UserProjectRoles)UPRList.listIterator().next();
@@ -36,14 +36,21 @@ public class UserProjectsRolesDAOImpl implements UserProjectsRolesDAO{
 	public List<UserProjectRoles> getUserProjectRolesByUserProjectId(long userProjectId) throws Exception{
 //		Connection.query(
 //				"from UserProjectRoles where user_Project_Id=" + userProjectId).list();
-		Criteria criteria=SessionFactoryUtil.getInstance().getCurrentSession().createCriteria(UserProjectRoles.class)
+		try{
+		 session = SessionFactoryUtil.getInstance().getNewSession();
+		   session.beginTransaction();
+		Criteria criteria=session.createCriteria(UserProjectRoles.class)
 				.add(Restrictions.eq("userProjectId", userProjectId));
 		if(criteria.list().isEmpty())
-			throw new RolesException(ExceptionCodes.NO_ROLES_FOR_THIS_USERPROJECT_ID, ExceptionMessages.NO_ROLES_FOR_THIS_USERPROJECT_ID);
+			return null;
+			//throw new RolesException(ExceptionCodes.NO_ROLES_FOR_THIS_USERPROJECT_ID, ExceptionMessages.NO_ROLES_FOR_THIS_USERPROJECT_ID);
 		return criteria.list();
+		}finally {
+			   session.close();
+		  }
 
 	}
 	private boolean checkRoleAlreadyExists(List<Long> userProjectId) {
-		return getU;
+		return true;
 	}
 }
