@@ -59,22 +59,8 @@ public class ProjectDAOImpl extends BaseDAOImpl implements ProjectDAO {
 		}
 	}
 	
-<<<<<<< HEAD
-	//List of projects Using userId
-	@Override
-	public Project addProject(Project project) throws Exception{
-		Session session=getSession();
-		try{
-			session.save(project);
-			return project;
-		}catch(Exception e){
-			e.printStackTrace();
-			throw  new ProjectException(ExceptionCodes.ADD_PROJECT_FAILED,ExceptionMessages.ADD_PROJECT_FAILED);
-		}
-	}
-=======
->>>>>>> 1d587748b60786fcc68b6d96e67c4674b59bea17
-	
+
+	//
 	//returns Project object by using corresponding project Id
 	@Override 
 	public Project getObjectById(long id) throws ObjectNotFoundException{

@@ -2,6 +2,7 @@ package com.qts.persistence.dao;
 
 import java.util.List;
 
+import com.qts.model.UserProject;
 import com.qts.model.UserProjectRoles;
 /**
  * 
@@ -13,9 +14,8 @@ public interface UserProjectsRolesDAO {
 	UserProjectRoles getUserProjectRoleByIds(long userProjectId, long roleId) throws Exception;	
 	//lists all the Objects with given userProjetId
 	List<UserProjectRoles> getUserProjectRolesByUserProjectId(long userProjectId) throws Exception;
-<<<<<<< HEAD
+
 	//deletes all the roles when user removed from the project
 	boolean deletUserProjectRoleByUserProjectId(UserProject next) throws Exception;
-=======
->>>>>>> 1d587748b60786fcc68b6d96e67c4674b59bea17
+	
 }

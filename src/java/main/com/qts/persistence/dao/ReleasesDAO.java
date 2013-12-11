@@ -21,4 +21,6 @@ public interface ReleasesDAO extends BaseDAO {
 
 	public Releases deleteReleases(Releases releases)throws Exception;
 
+	
+
 }

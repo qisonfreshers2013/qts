@@ -37,113 +37,41 @@ public class UserProjectDAOImpl extends BaseDAOImpl implements UserProjectDAO {
 		return INSTANCE;
 	}
 
-	public List<UserProject> getListOfUserProjectByUserId(long id)
-			throws ProjectException, Exception {
+	public List<UserProject> getListOfUserProjectByUserId(long id) throws ProjectException, Exception {
 		Session session = getSession();
-
-<<<<<<< HEAD
 		try {
 			Criteria userProjectCriteria = session
 					.createCriteria(UserProject.class);
 			userProjectCriteria.add(Restrictions.eq("userId", id));
 			List<UserProject> list = userProjectCriteria.list();
-			// if(list.isEmpty())
-			// throw new
-			// ProjectException(ExceptionCodes.USER_ID_INVALID,ExceptionMessages.USER_ID_INVALID);
 			return list;
-=======
-	public List<UserProject> getListOfUserProjectByUserId(long id) throws ProjectException,Exception{
-<<<<<<< HEAD
-		Session session=DAOConnection.openSession();
-	//	session.beginTransaction();
-=======
-		Session session=SessionFactoryUtil.getInstance().getNewSession();
-		session.beginTransaction();
->>>>>>> 7719fa5f39d1939b4b46fc46756ffa075dd00157
-		try{
-			Criteria userProjectCriteria = session.createCriteria(UserProject.class);
-			userProjectCriteria.add(Restrictions.eq("userId", id));
-			List<UserProject> list = userProjectCriteria.list();
-//			if(list.isEmpty())
-//				throw new ProjectException(ExceptionCodes.USER_ID_INVALID,ExceptionMessages.USER_ID_INVALID);
-		return list;
-//		}catch(ProjectException e){
-//			e.printStackTrace();
-//			throw e;
->>>>>>> 1d587748b60786fcc68b6d96e67c4674b59bea17
+
 		}
-		// }catch(ProjectException e){
-		// e.printStackTrace();
-		// throw e;
-		// }
 		catch (Exception e) {
 			e.printStackTrace();
 			throw e;
-<<<<<<< HEAD
+
 
 		}
-		// session=getSession();
-		//
-		// try{
-		// List<UserProject>
-		// list=session.createQuery("from UserProject where user_id="+id).list();
-		// if( list.size()==0)
-		// throw new
-		// ProjectException(ExceptionCodes.USER_ID_INVALID,ExceptionMessages.USER_ID_INVALID);
-		// return list;
-		// }
-		// catch(ProjectException e){
-		// e.printStackTrace();
-		// throw e;
-		// }
-		// catch(Exception e){
-		// e.printStackTrace();
-		// throw e;
-		// }finally{
-		// session.close();
-		// }
 
 	}
 
-	public List<UserProject> getListOfUserProjectByProjectId(long id)
-			throws ProjectException, Exception {
+	public List<UserProject> getListOfUserProjectByProjectId(long id) throws ProjectException, Exception {
 		session = getSession();
 
 		try {
 			List<UserProject> list = session.createQuery(
 					"from UserProject where project_id=" + id).list();
-			// if( list.size()==0)
-			// throw new
-			// ProjectException(ExceptionCodes.PROJECT_ID_INVALID,ExceptionMessages.PROJECT_ID_INVALID);
 			return list;
 		}
-		// catch(ProjectException e){
-		// e.printStackTrace();
-		// throw e;
-		// }
 		catch (Exception e) {
-=======
-		}finally{
-         if(session.isOpen())			
-			session.close();
 		}
+
+		return null;
 
 	}
 
-	public List<UserProject> getListOfUserProjectByProjectId(long id) throws ProjectException,Exception{
-		session=SessionFactoryUtil.getInstance().getNewSession();
-		session.beginTransaction();
-		try{
-			List<UserProject> list=session.createQuery("from UserProject where project_id="+id).list();
-			return list;
-		}
-		catch(Exception e){
->>>>>>> 1d587748b60786fcc68b6d96e67c4674b59bea17
-			e.printStackTrace();
-			throw e;
-		}
 
-	}
 
 	@Override
 	public UserProject getUserProjectByIds(long projectId, long userId)
@@ -176,7 +104,6 @@ public class UserProjectDAOImpl extends BaseDAOImpl implements UserProjectDAO {
 			Iterator<UserProject> iterator = userProject.iterator();
 			UserProject userProjectObject = new UserProject();
 			System.out.println(userProject);
-<<<<<<< HEAD
 			while (iterator.hasNext()) {
 				session = getSession();
 
@@ -184,15 +111,6 @@ public class UserProjectDAOImpl extends BaseDAOImpl implements UserProjectDAO {
 				long i = userProjectObject.getProjectId();
 				long j = userProjectObject.getUserId();
 				session.save(userProjectObject);
-				session.getTransaction().commit();
-=======
-			while(iterator.hasNext()){
-			session=SessionFactoryUtil.getInstance().getNewSession();
-			session.beginTransaction();
-			userProjectObject=iterator.next();	
-			session.save(userProjectObject);
-			session.getTransaction().commit();
->>>>>>> 1d587748b60786fcc68b6d96e67c4674b59bea17
 			}
 		} catch (ConstraintViolationException e) {
 			e.printStackTrace();
@@ -201,13 +119,8 @@ public class UserProjectDAOImpl extends BaseDAOImpl implements UserProjectDAO {
 					ExceptionMessages.USER_PROJECT_CONSTRAINT_FAILED);
 		} catch (Exception e) {
 			e.printStackTrace();
-<<<<<<< HEAD
-			throw new ProjectException(
-					ExceptionCodes.ADD_USER_TO_PROJECT_FAILED,
-					ExceptionMessages.ADD_USER_TO_PROJECT_FAILED);
-=======
+
 			throw  new ProjectException(ExceptionCodes.ADD_USER_TO_PROJECT_FAILED,ExceptionMessages.ADD_USER_TO_PROJECT_FAILED);
->>>>>>> 1d587748b60786fcc68b6d96e67c4674b59bea17
 		}
 	}
 
@@ -230,31 +143,6 @@ public class UserProjectDAOImpl extends BaseDAOImpl implements UserProjectDAO {
 		}
 
 	}
-<<<<<<< HEAD
-
-	// @Override
-	// public RoleBean updateReportingUserId(RoleBean roleBean) throws
-	// ProjectException,Exception {
-	//
-	// session=getSession();
-	// try{
-	// List<UserProject>
-	// listup=getListOfUserProjectByProjectId(roleBean.getProjectId());
-	// for(UserProject up:listup){
-	// if(up.getUserId()!=roleBean.getUserId()){
-	// up.setReportingUserId(roleBean.getUserId());
-	// session.update(up);
-	// }
-	// }
-	// return roleBean;
-	// }catch(Exception e){
-	// e.printStackTrace();
-	// throw new
-	// ProjectException(ExceptionCodes.PROJECT_OR_USER_ID_INVALID,ExceptionMessages.PROJECT_OR_USER_ID_INVALID);
-	// }
-	// }
-=======
->>>>>>> 1d587748b60786fcc68b6d96e67c4674b59bea17
 
 	@Override
 	public boolean deAllocateUsersFromProject(long projectId, Long userId)
@@ -297,38 +185,7 @@ public class UserProjectDAOImpl extends BaseDAOImpl implements UserProjectDAO {
 			return userProjectList;
 		} catch (Exception e) {
 			e.printStackTrace();
-<<<<<<< HEAD
-			throw new ProjectException(
-					ExceptionCodes.DELETE_USER_FROM_PROJECT_FAILED,
-					ExceptionMessages.DELETE_USER_FROM_PROJECT_FAILED);
-=======
 			throw new ProjectException(ExceptionCodes.PROJECT_OR_USER_ID_INVALID,ExceptionMessages.PROJECT_OR_USER_ID_INVALID);
-		}finally{
-			session.close();
-<<<<<<< HEAD
-		}
-	}
-
-	@Override
-	public List<UserProject> getListOfNonUserProjectByProjectId(long id)throws Exception {
-		session=SessionFactoryUtil.getInstance().getNewSession();
-		session.beginTransaction();
-		try{
-			Criteria userProjectCriteria=session.createCriteria(UserProject.class);
-			userProjectCriteria.add(Restrictions.ne("projectId",id));
-			List<UserProject> list=userProjectCriteria.list();
-			return list;
-		}
-		catch(Exception e){
-			e.printStackTrace();
-			throw e;
-		}finally{
-			session.close();
->>>>>>> 1d587748b60786fcc68b6d96e67c4674b59bea17
-		}
-	}
-<<<<<<< HEAD
-=======
 		}
 	}
 
@@ -348,55 +205,4 @@ public class UserProjectDAOImpl extends BaseDAOImpl implements UserProjectDAO {
 			throw e;
 		}
 	}
-<<<<<<< HEAD
-
-	// @Override
-	// public boolean updateUserProjectReportingId(UserProject userProject)
-	// throws Exception {
-	// session=getSession();
-	//
-	// try{
-	// Query
-	// query=session.createQuery("update UserProject set reporting_user_id =:reportingId where project_id =:projectId and userId= :userId");
-	// query.setParameter("reportingId",11);
-	// query.setParameter("projectId",userProject.getProjectId());
-	// query.setParameter("userId",userProject.getUserId());
-	// query.executeUpdate();
-	// session.getTransaction().commit();
-	// }
-	// catch(Exception e){
-	// e.printStackTrace();
-	// throw e;
-	// }finally{
-	// session.close();
-	// }
-	// return false;
-	// }
-=======
->>>>>>> 7719fa5f39d1939b4b46fc46756ffa075dd00157
-	
-//	@Override
-//	public boolean updateUserProjectReportingId(UserProject userProject)
-//			throws Exception {
-//		session=SessionFactoryUtil.getInstance().getNewSession();
-//		session.beginTransaction();
-//		try{
-//			Query query=session.createQuery("update UserProject set reporting_user_id =:reportingId where project_id =:projectId and userId= :userId");
-//			query.setParameter("reportingId",11);
-//			query.setParameter("projectId",userProject.getProjectId());
-//			query.setParameter("userId",userProject.getUserId());
-//			query.executeUpdate();
-//			session.getTransaction().commit();
-//		}
-//		catch(Exception e){
-//			e.printStackTrace();
-//			throw e;
-//		}finally{
-//			session.close();
-//		}
-//		return false;
-//	}
-=======
->>>>>>> aa6fb43f09ad3c0280514b8e976f1af9f568cf71
->>>>>>> 1d587748b60786fcc68b6d96e67c4674b59bea17
 }
