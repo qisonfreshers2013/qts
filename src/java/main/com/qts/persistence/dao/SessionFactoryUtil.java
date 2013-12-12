@@ -128,8 +128,4 @@ public class SessionFactoryUtil {
 
 	}
 
-	public Session getNewSession() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 }
