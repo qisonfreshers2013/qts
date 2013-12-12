@@ -271,6 +271,8 @@ public class TimeEntryDAOImpl extends BaseDAOImpl implements TimeEntryDAO {
 
 		} catch (Exception e) {
 			e.printStackTrace();
+		} finally {
+			session.close();
 		}
 		return false;
 	}
@@ -373,7 +375,7 @@ public class TimeEntryDAOImpl extends BaseDAOImpl implements TimeEntryDAO {
 			getPreviousWeekDate.add(Calendar.DAY_OF_YEAR, -7);
 			getPreviousWeekDate.getTimeInMillis();
 
-
+			session.beginTransaction();
 			Criteria searchUserCriteria = session
 					.createCriteria(TimeEntries.class);
 			searchUserCriteria.setProjection(Projections.projectionList()
@@ -430,6 +432,7 @@ public class TimeEntryDAOImpl extends BaseDAOImpl implements TimeEntryDAO {
 				return null;
 			}
 			List<TimeEntries> submittedData = searchUserCriteria.list();
+			session.getTransaction().commit();
 			return submittedData;
 		} catch (Exception e) {
 			e.printStackTrace();

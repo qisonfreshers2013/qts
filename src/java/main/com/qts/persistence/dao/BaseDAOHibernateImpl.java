@@ -1,4 +1,3 @@
-/*
 package com.qts.persistence.dao;
 
 import java.util.List;
@@ -6,20 +5,16 @@ import org.hibernate.Session;
 import com.qts.exception.ObjectNotFoundException;
 import com.qts.model.BaseObject;
 
-*/
 /**
  * @author vthandra
- *//*
-
+ */
 
 public abstract class BaseDAOHibernateImpl implements BaseDAO {
 
- */
-/**
+ /**
   * Individual hibernate DAO Impls must implement this method to return right
   * type of object with the specified id
-  *//*
-
+  */
  @Override
  public abstract BaseObject getObjectById(long id)
    throws ObjectNotFoundException;
@@ -59,4 +54,4 @@ public abstract class BaseDAOHibernateImpl implements BaseDAO {
   }
   return objectList;
  }
-}*/
+}
