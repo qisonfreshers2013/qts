@@ -119,7 +119,8 @@ public interface ExceptionMessages {
 	public static final String TIMEENTRY_USERSEARCH="COULD NOT FIND SEARCH RESULTS";
 	public static final String TIMEENTRY_FILLING_FOR_APPROVER="APPROVER CANNOT FILL TIMESHEET UNLESS HE IS A MEMBER";
 	public static final String TIMEENTRY_APPROVER_NOT_AUTHORIZED="APPROVER IS NOT AUTHORIZED FOR THIS PROJECT";
-	public static final String TIME_DATAFIELD_TO_NOT_PRESENT="FIELD TO IS NOT PRESENT";
+	public static final String FORMFIELD_TO_NOT_PRESENT="FIELD \"TO\" IS NOT PRESENT";
+	public static final String ILLEGAL_HOURS_ARGUMENT_PASSED="USER ALREADY SUBMITTED TIME SHEETS FOR 24 HOURS";
 	//roles exception
 	public static final String ROLES_EMPTY_EXCEPTION="Select atleast one role.";
 	public static final String ROLES_LIST_EMPTY_EXCEPTION="No Roles available add few.";

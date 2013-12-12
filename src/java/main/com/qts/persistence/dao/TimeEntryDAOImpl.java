@@ -14,11 +14,12 @@ import org.apache.commons.lang3.time.DateUtils;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 
 import com.qts.model.TimeEntries;
-import com.qts.model.TimeEntriesForm;
+import com.qts.model.TimeEntryBean;
 import com.qts.service.common.ServiceRequestContextHolder;
 
 public class TimeEntryDAOImpl extends BaseDAOImpl implements TimeEntryDAO {
@@ -64,7 +65,7 @@ public class TimeEntryDAOImpl extends BaseDAOImpl implements TimeEntryDAO {
 	 * TimeEntriesForm, org.hibernate.Session) Method to Add TimeEntry to
 	 * DATABASE TimeEntries Storage Table
 	 */
-	public boolean addTimeEntry(TimeEntriesForm timeEntry, Session session) {
+	public boolean add(TimeEntryBean timeEntry) {
 
 		TimeEntries addentry = new TimeEntries();
 
@@ -101,7 +102,7 @@ public class TimeEntryDAOImpl extends BaseDAOImpl implements TimeEntryDAO {
 	 * TimeEntriesForm) Method Used by Approver to REJECT Submitted TimeEntry
 	 */
 
-	public boolean rejectTimeEntry(TimeEntriesForm timeEntry) {
+	public boolean reject(TimeEntryBean timeEntry) {
 		Session session = getSession();
 		try {
 			
@@ -113,7 +114,7 @@ public class TimeEntryDAOImpl extends BaseDAOImpl implements TimeEntryDAO {
 			query.setInteger("status", 3);
 			query.setString("rejectedComments", timeEntry.getRejectedComments());
 			int rejectedCount=query.executeUpdate();
-			session.getTransaction().commit();
+			
 			if(rejectedCount!=0)
 			return true;
 		} catch (Exception e) {
@@ -129,7 +130,7 @@ public class TimeEntryDAOImpl extends BaseDAOImpl implements TimeEntryDAO {
 	 * @see com.qts.persistence.dao.TimeEntryDAO#approveTimeEntry(com.qts.model.
 	 * TimeEntriesForm) Method Used by Approver to Approve An TimeEntry
 	 */
-	public boolean approveTimeEntry(TimeEntriesForm timeEntry) {
+	public boolean approve(TimeEntryBean timeEntry) {
 		Session session = getSession();
 		try {
 			
@@ -158,7 +159,7 @@ public class TimeEntryDAOImpl extends BaseDAOImpl implements TimeEntryDAO {
 	 * @see com.qts.persistence.dao.TimeEntryDAO#deleteTimeEntry(com.qts.model.
 	 * TimeEntriesForm)Method Used to Delete TimeEntry from DataBase
 	 */
-	public boolean deleteTimeEntry(TimeEntriesForm deleteEntry) {
+	public boolean delete(TimeEntryBean deleteEntry) {
 		Session session = getSession();
 		try {
 			
@@ -185,7 +186,7 @@ public class TimeEntryDAOImpl extends BaseDAOImpl implements TimeEntryDAO {
 	 * @see com.qts.persistence.dao.TimeEntryDAO#updateTimeEntry(com.qts.model.
 	 * TimeEntriesForm) Method To update An TimeEntry
 	 */
-	public boolean updateTimeEntry(TimeEntriesForm updateWithData) {
+	public boolean update(TimeEntryBean updateWithData) {
 		Session session = getSession();
 		try {
 			Query query = session
@@ -278,7 +279,7 @@ public class TimeEntryDAOImpl extends BaseDAOImpl implements TimeEntryDAO {
 	}
 
 	@Override
-	public boolean submitTimeEntries(TimeEntriesForm submitData) {
+	public boolean submit(TimeEntryBean submitData) {
 
 		Session session = getSession();
 		try {
@@ -305,21 +306,21 @@ public class TimeEntryDAOImpl extends BaseDAOImpl implements TimeEntryDAO {
 	
 	public long getPreviousWorkingDay(){
 		Session session=getSession();
-		try{
-			Query query=session.createQuery("from TimeEntries order by date desc");
-			query.setMaxResults(1);
-			return ((TimeEntries) query.list().get(0)).getDate();
-		} catch (Exception e) {
-			e.printStackTrace();
-		} 
-		return 0;
+	Criteria sortingByDateForUser=session.createCriteria(TimeEntries.class);
+	sortingByDateForUser.setProjection(Projections.projectionList()
+			.add(Projections.property("date")));
+	        sortingByDateForUser.addOrder(Order.desc("date"));
+	        sortingByDateForUser.add(Restrictions.eq("UserId", ServiceRequestContextHolder.getContext().getUserSessionToken().getUserId()));
+	        sortingByDateForUser.setMaxResults(1);
+			List<Long> previousWorkingDayForUser=sortingByDateForUser.list();
+		return previousWorkingDayForUser.get(0);
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
 	
 
-	public List<TimeEntries> listUserEntries(TimeEntriesForm timeEntry) {
+	public List<TimeEntries> listUserEntries(TimeEntryBean timeEntry) {
 		Session session=getSession();
 		try {
 			Criteria searchUserCriteria = session
@@ -334,26 +335,43 @@ public class TimeEntryDAOImpl extends BaseDAOImpl implements TimeEntryDAO {
 					.add(Projections.property("hours"))
 					.add(Projections.property("status"))
 					.add(Projections.property("remarks")));
-			if (timeEntry.getDate() == null && timeEntry.getProjectId() == null)
-				searchUserCriteria.add(Restrictions.eq("date",
-						getPreviousWorkingDay()));
+			if (timeEntry.getDate() == null && timeEntry.getProjectId() == null){
+				searchUserCriteria.add(Restrictions
+						.conjunction()
+						.add(Restrictions.eq("date",
+								getPreviousWorkingDay()))
+						.add(Restrictions.eq("userId",
+								timeEntry.getUserId())));}
+						
 			else if (timeEntry.getDate() != null
 					&& timeEntry.getProjectId() != null)
-				searchUserCriteria.add(Restrictions.eq("date",
-						parseDateToLong(timeEntry.getDate())));
+				searchUserCriteria.add(Restrictions
+						.conjunction()
+						.add(Restrictions.eq("date",
+								parseDateToLong(timeEntry.getDate())))
+						.add(Restrictions.eq("userId",
+								timeEntry.getUserId())));
 			else if (timeEntry.getDate() == null
 					&& timeEntry.getProjectId() != null)
-				searchUserCriteria.add(Restrictions.eq("projectId",
-						timeEntry.getProjectId()));
+				searchUserCriteria.add(Restrictions
+						.conjunction()
+						.add(Restrictions.eq("projectId",
+								timeEntry.getProjectId()))
+						.add(Restrictions.eq("userId",
+								timeEntry.getUserId())));
 			else if (timeEntry.getDate() != null
 					&& timeEntry.getProjectId() != null) {
-				searchUserCriteria.add(Restrictions.eq("date",
-						parseDateToLong(timeEntry.getDate())));
-				searchUserCriteria.add(Restrictions.eq("projectId",
-						timeEntry.getProjectId()));
+				searchUserCriteria.add(Restrictions
+						.conjunction()
+						.add(Restrictions.eq("projectId",
+								timeEntry.getProjectId()))
+						.add(Restrictions.eq("date",
+								parseDateToLong(timeEntry.getDate())))
+						.add(Restrictions.eq("userId",
+								timeEntry.getUserId())));
 			}
 			List<TimeEntries> submittedData = searchUserCriteria.list();
-			session.getTransaction().commit();
+			
 			return submittedData;
 
 		} catch (Exception e) {
@@ -367,7 +385,7 @@ public class TimeEntryDAOImpl extends BaseDAOImpl implements TimeEntryDAO {
 	@SuppressWarnings("unchecked")
 	@Override
 
-	public List<TimeEntries> listEntriesToApprove(TimeEntriesForm timeEntry) {
+	public List<TimeEntries> listEntriesToApprove(TimeEntryBean timeEntry) {
 		Session session = getSession();
 		try {
 
@@ -410,11 +428,6 @@ public class TimeEntryDAOImpl extends BaseDAOImpl implements TimeEntryDAO {
 						.add(Restrictions.eq("userId", timeEntry.getUserId()))
 						.add(Restrictions.eq("status", timeEntry.getStatus())));
 
-				// searchUserCriteria.add(Restrictions.eq("projectId",timeEntry.getProjectId()));
-				// searchUserCriteria.add(Restrictions.eq("userId",timeEntry.getUserId()));
-				// searchUserCriteria.add(Restrictions.eq("status",timeEntry.getStatus()));
-				// searchUserCriteria.add(Restrictions.conjunction())
-
 			} else if (timeEntry.getFrom() != null && timeEntry.getTo() == null) {
 				searchUserCriteria.add(Restrictions
 						.conjunction()
@@ -432,12 +445,39 @@ public class TimeEntryDAOImpl extends BaseDAOImpl implements TimeEntryDAO {
 				return null;
 			}
 			List<TimeEntries> submittedData = searchUserCriteria.list();
-			session.getTransaction().commit();
+			
 			return submittedData;
 		} catch (Exception e) {
 			e.printStackTrace();
 		} 
 		return null;
+	}
+
+	@Override
+	public int getUserWorkingHoursperDay(String date) {
+		Session session = getSession();
+		int sum=0;
+		try{
+		Criteria getHours = session.createCriteria(TimeEntries.class);
+		getHours.setProjection(Projections.projectionList().add(Projections.property("hours")));
+		getHours.add(Restrictions
+				.conjunction()
+		        .add(Restrictions.eq("date",
+				parseDateToLong(date)))
+		        .add(Restrictions.eq("UserId",
+				ServiceRequestContextHolder.getContext().getUserSessionToken().getUserId())));
+		List<Integer> userWorkingHoursPerDay=getHours.list();
+		if(userWorkingHoursPerDay!=null){
+			for(Integer value:userWorkingHoursPerDay){
+				sum=sum+value;
+			}
+		}else {return -1;}
+		}
+		catch(Exception ex){
+					ex.printStackTrace();
+				}
+		return sum;
+		
 	}
 
 }

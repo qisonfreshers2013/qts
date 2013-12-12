@@ -10,21 +10,22 @@ import java.util.Set;
 import org.hibernate.Session;
 
 import com.qts.model.TimeEntries;
-import com.qts.model.TimeEntriesForm;
+import com.qts.model.TimeEntryBean;
 
 public interface TimeEntryDAO {
 
 	
-    public boolean addTimeEntry(TimeEntriesForm timeEntry,Session session);
-    public boolean rejectTimeEntry(TimeEntriesForm timeEntry);
-    public boolean approveTimeEntry(TimeEntriesForm timeEntry);
-    public boolean deleteTimeEntry(TimeEntriesForm deleteEntry);
-    public boolean updateTimeEntry(TimeEntriesForm updateWithData);
+    public boolean add(TimeEntryBean timeEntry);
+    public boolean reject(TimeEntryBean timeEntry);
+    public boolean approve(TimeEntryBean timeEntry);
+    public boolean delete(TimeEntryBean deleteEntry);
+    public boolean update(TimeEntryBean updateWithData);
 	public long parseDateToLong(String date);
 	public Session deleteTimeEntryById(int id,Session session);
 	public String getDateInString(long timeinMilliSeconds);
 	public boolean getTimeEntryObjectById(long id);
-	public boolean submitTimeEntries(TimeEntriesForm submitData);
-	public List<TimeEntries> listUserEntries(TimeEntriesForm timeEntry);
-	public List<TimeEntries> listEntriesToApprove(TimeEntriesForm timeEntry);
+	public boolean submit(TimeEntryBean submitData);
+	public List<TimeEntries> listUserEntries(TimeEntryBean timeEntry);
+	public List<TimeEntries> listEntriesToApprove(TimeEntryBean timeEntry);
+	public int getUserWorkingHoursperDay(String date);
 }

@@ -212,7 +212,7 @@ public interface ExceptionCodes {
 	public static final int TIMEENTRY_APPROVE_FAILED=6020;
 	public static final int TIMEENTRY_SEARCH_FAILED=6021;
 	public static final int TIMEENTRY_FILLING_IS_NOT_ALLOWED_FOR_APPROVER=6022;
-
+    public static final int ILLEGAL_ARGUMENT_HOURS_FIELD=6023;
 	 //user codes
 	 public static final int USER_ID_NOT_NUMBER = 7001;
 	 public static final int USER_NAME_FORMAT = 7002;
