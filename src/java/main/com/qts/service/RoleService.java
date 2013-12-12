@@ -20,60 +20,71 @@ import com.qts.service.annotations.ServiceStatus;
 import com.qts.service.common.WebserviceRequest;
 import com.qts.service.descriptors.OptionOutputDescriptor;
 
-@Path("/roleservice")
-public class RoleService extends BaseService{
+@Path("/roleService/v1")
+public class RoleService extends BaseService {
 
 	@POST
-	@RestService(input=String.class,output=String.class)
-	@ServiceStatus(value="complete")
+	@RestService(input = String.class, output = String.class)
+	@ServiceStatus(value = "complete")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	@Path("/listroles")
-	public String listRoles(@Context HttpHeaders headers,@Context UriInfo info,
-			WebserviceRequest request) throws Exception {
-		List<Roles> listRoles=RoleHandler.getInstance().listRoles();
-		String output=JsonUtil.getJsonForListBasedOnDescriptor(listRoles, Roles.class, OptionOutputDescriptor.class);
+	@Path("/listRoles")
+	public String listRoles(@Context HttpHeaders headers,
+			@Context UriInfo info, WebserviceRequest request) throws Exception {
+		List<Roles> listRoles = RoleHandler.getInstance().listRoles();
+		String output = JsonUtil.getJsonForListBasedOnDescriptor(listRoles,
+				Roles.class, OptionOutputDescriptor.class);
 		return output;
 	}
+
 	@POST
-	@RestService(input=String.class,output=String.class)
-	@ServiceStatus(value="complete")
+	@RestService(input = String.class, output = String.class)
+	@ServiceStatus(value = "complete")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	@Path("/listuserroles")
-	public String listUserRoles(@Context HttpHeaders headers,@Context UriInfo info,
-			WebserviceRequest request) throws Exception {
-		RoleBean roleBeanInput=(RoleBean)JsonUtil.getObject(request.getPayload(), RoleBean.class);
-		RoleBean rolBeanOutput=RoleHandler.getInstance().listUserRoles(roleBeanInput);
-		String output=JsonUtil.getJsonBasedOnDescriptor(rolBeanOutput, RoleBean.class);
+	@Path("/listUserRoles")
+	public String listUserRoles(@Context HttpHeaders headers,
+			@Context UriInfo info, WebserviceRequest request) throws Exception {
+		RoleBean roleBeanInput = (RoleBean) JsonUtil.getObject(
+				request.getPayload(), RoleBean.class);
+		RoleBean rolBeanOutput = RoleHandler.getInstance().listUserRoles(
+				roleBeanInput);
+		String output = JsonUtil.getJsonBasedOnDescriptor(rolBeanOutput,
+				RoleBean.class);
 		return output;
 	}
+
 	@POST
-	@RestService(input=String.class,output=String.class)
-	@ServiceStatus(value="complete")
+	@RestService(input = String.class, output = String.class)
+	@ServiceStatus(value = "complete")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.TEXT_PLAIN)
-	@Path("/allocaterole")
-	public String allocateRole(@Context HttpHeaders headers,@Context UriInfo info,
-			WebserviceRequest request) throws Exception 
-	{
-		RoleBean roleBeanInput=(RoleBean)JsonUtil.getObject(request.getPayload(),RoleBean.class);
-		RoleBean roleBeanOutput=RoleHandler.getInstance().allocateRole(roleBeanInput);
-		String output=JsonUtil.getJsonBasedOnDescriptor(roleBeanOutput, Roles.class);
+	@Path("/allocateRoles")
+	public String allocateRole(@Context HttpHeaders headers,
+			@Context UriInfo info, WebserviceRequest request) throws Exception {
+		RoleBean roleBeanInput = (RoleBean) JsonUtil.getObject(
+				request.getPayload(), RoleBean.class);
+		RoleBean roleBeanOutput = RoleHandler.getInstance().allocateRole(
+				roleBeanInput);
+		String output = JsonUtil.getJsonBasedOnDescriptor(roleBeanOutput,
+				Roles.class);
 		return output;
 	}
+
 	@POST
-	@RestService(input=String.class,output=String.class)
-	@ServiceStatus(value="complete")
+	@RestService(input = String.class, output = String.class)
+	@ServiceStatus(value = "complete")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	@Path("/deallocaterole")
-	public String deallocateRole(@Context HttpHeaders headers,@Context UriInfo info,
-			WebserviceRequest request) throws Exception 
-	{
-		RoleBean roleBeanInput=(RoleBean)JsonUtil.getObject(request.getPayload(),RoleBean.class);
-		RoleBean roleBeanOutput=RoleHandler.getInstance().deallocateRole(roleBeanInput);
-		String output=JsonUtil.getJsonBasedOnDescriptor(roleBeanOutput, Roles.class);
+	@Path("/deallocateRoles")
+	public String deallocateRole(@Context HttpHeaders headers,
+			@Context UriInfo info, WebserviceRequest request) throws Exception {
+		RoleBean roleBeanInput = (RoleBean) JsonUtil.getObject(
+				request.getPayload(), RoleBean.class);
+		RoleBean roleBeanOutput = RoleHandler.getInstance().deallocateRole(
+				roleBeanInput);
+		String output = JsonUtil.getJsonBasedOnDescriptor(roleBeanOutput,
+				Roles.class);
 		return output;
 	}
 }
