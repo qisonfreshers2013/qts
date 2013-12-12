@@ -4,13 +4,14 @@ import java.util.List;
 
 import org.codehaus.jackson.annotate.JsonProperty;
 
-import com.qts.model.Releases;
+import com.qts.model.Release;
 import com.qts.service.annotations.SerializationDescriptor;
 
-public interface ReleaseListOutputDescriptor extends JSONSerializationDescriptor {
-	
+public interface ReleaseListOutputDescriptor extends
+		JSONSerializationDescriptor {
+
 	@JsonProperty
 	@SerializationDescriptor(value = ReleaseOutputDescriptor.class)
-	public List<Releases> getReleasesData();
-	
+	public List<Release> getReleasesData();
+
 }

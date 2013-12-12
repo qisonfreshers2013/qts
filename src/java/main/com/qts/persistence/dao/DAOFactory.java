@@ -33,8 +33,8 @@ public class DAOFactory {
 		return ROLEDAO_INSTANCE;
 	}
 
-	public ReleasesDAO getReleasesDAOImplInstance() {
-		return ReleasesDAOImpl.getInstance();
+	public ReleaseDAO getReleaseDAOImplInstance() {
+		return ReleaseDAOImpl.getInstance();
 	}
 
 	public ProjectDAO getProjectDAOImplInstance() {

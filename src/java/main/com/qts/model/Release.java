@@ -19,7 +19,7 @@ import javax.persistence.UniqueConstraint;
 
 @Entity
 @Table(name = "releases", uniqueConstraints = { @UniqueConstraint(columnNames = {"name", "project_id" }) })
-public class Releases extends AbstractObject {
+public class Release extends AbstractObject {
 
 	@Id
 	@GeneratedValue
@@ -33,7 +33,7 @@ public class Releases extends AbstractObject {
 	/**
 	 * No Args Constructor
 	 */
-	public Releases() {
+	public Release() {
 		super();
 	}
 
@@ -41,7 +41,7 @@ public class Releases extends AbstractObject {
 	 * 
 	 * @param name
 	 */
-	public Releases(String name) {
+	public Release(String name) {
 		super();
 		this.name = name;
 	}
