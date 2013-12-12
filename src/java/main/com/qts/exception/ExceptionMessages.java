@@ -40,6 +40,7 @@ public interface ExceptionMessages {
 	public static final String DELETE_USER_FROM_PROJECT_FAILED="Deallocating users fro project failed.Invalid user and project id combination . Please try again.";
 	public static final String REPORTING_USER_ID_NOT_NULL="Reporting user id can not be null";
 	public static final String USER_PROJECT_CONSTRAINT_FAILED="User already a member of the project";
+	public static final String DUPLICATE_PROJECT_ENTRY="Duplicate Entry For Project Name ";
 
 	
 	//Releases Exception Messages

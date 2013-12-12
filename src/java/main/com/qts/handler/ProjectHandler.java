@@ -9,6 +9,8 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.hibernate.exception.ConstraintViolationException;
+
 import com.qts.exception.ExceptionCodes;
 import com.qts.exception.ExceptionMessages;
 import com.qts.exception.ProjectException;
@@ -43,13 +45,14 @@ public class ProjectHandler extends AbstractHandler {
 			return DAOFactory.getInstance().getProjectDAOImplInstance()
 					.getProjectList();
 		}
-		try {
-			userId = projectBean.getUserId();
-		} catch (NullPointerException e) {
-			e.printStackTrace();
-			throw new UserException(ExceptionCodes.USER_ID_NOT_NULL,
-					ExceptionMessages.USER_ID_NOT_NULL);
-		}
+//		try {
+//			userId = projectBean.getUserId();
+//		} catch (NullPointerException e) {
+//			e.printStackTrace();
+//			throw new UserException(ExceptionCodes.USER_ID_NOT_NULL,
+//					ExceptionMessages.USER_ID_NOT_NULL);
+//		}
+		userId = projectBean.getUserId();
 		try {
 			if (UserHandler.getInstance().isUserDeleted(userId)) {
 				throw new UserException(ExceptionCodes.DELETED_ALREADY,
@@ -81,7 +84,7 @@ public class ProjectHandler extends AbstractHandler {
 	/*
 	 * Adding New Project
 	 */
-	public Project addProject(Project project) throws Exception {
+	public Project addProject(Project project) throws ProjectException,Exception{
 		try {
 			if (validateProjectName(project.getName())
 					&& validateProjectTechnologies(project.getTechnologies()))
@@ -89,8 +92,11 @@ public class ProjectHandler extends AbstractHandler {
 						.getProjectDAOImplInstance().saveObject(project);
 			else
 				return null;
-		} catch (Exception e) {
+		}catch(ProjectException e){
 			throw e;
+		}
+		catch(ConstraintViolationException e){
+			throw new ProjectException(ExceptionCodes.DUPLICATE_PROJECT_ENTRY,ExceptionMessages.DUPLICATE_PROJECT_ENTRY);
 		}
 	}
 

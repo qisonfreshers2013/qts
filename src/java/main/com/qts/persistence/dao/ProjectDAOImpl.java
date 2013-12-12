@@ -71,7 +71,7 @@ public class ProjectDAOImpl extends BaseDAOImpl implements ProjectDAO {
 			List<Project> list = projectCriteria.list();//session.createQuery("from Project where id="+id).list();
 			if(list.isEmpty())
 				throw new ObjectNotFoundException(ExceptionCodes.PROJECT_ID_INVALID,ExceptionMessages.PROJECT_ID_INVALID);
-			return list.iterator().next();
+			return list.get(0);
 		}catch(ObjectNotFoundException e){
 			e.printStackTrace();
 			throw e;

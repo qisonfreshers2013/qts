@@ -67,9 +67,9 @@ public class ProjectService {
 	throws Exception {
 		Project project = (Project) JsonUtil.getObject(request.getPayload(),
 				Project.class);
-		BaseObject baseObject = ProjectHandler.getInstance().addProject(project);
+		Project projectOutput = ProjectHandler.getInstance().addProject(project);
 		String jsonForListBasedOnDescriptor = JsonUtil
-		.getJsonBasedOnDescriptor( baseObject,
+		.getJsonBasedOnDescriptor( projectOutput,
 				ProjectOutputDescriptor.class);
 		return jsonForListBasedOnDescriptor;
 
@@ -116,20 +116,20 @@ public class ProjectService {
 	
 	
 
-	@POST
-	@RestService(input = String.class, output = String.class)
-	@ServiceStatus(value = "complete")
-	@Consumes(MediaType.APPLICATION_JSON)
-	@Produces(MediaType.APPLICATION_JSON)
-	@Path("/deAllocateUserFromProject")
-	public String deAllocateUsersFromProject(@Context HttpHeaders headers,
-			@Context UriInfo uriInfo, WebserviceRequest request) throws Exception{
-		ProjectBean projectBean = (ProjectBean) JsonUtil.getObject(request.getPayload(),
-				ProjectBean.class);
-		projectBean=ProjectHandler.getInstance()
-		.deAllocateUsersFromProject(projectBean);
-		return "success";
-	}
+//	@POST
+//	@RestService(input = String.class, output = String.class)
+//	@ServiceStatus(value = "complete")
+//	@Consumes(MediaType.APPLICATION_JSON)
+//	@Produces(MediaType.APPLICATION_JSON)
+//	@Path("/deAllocateUserFromProject")
+//	public String deAllocateUsersFromProject(@Context HttpHeaders headers,
+//			@Context UriInfo uriInfo, WebserviceRequest request) throws Exception{
+//		ProjectBean projectBean = (ProjectBean) JsonUtil.getObject(request.getPayload(),
+//				ProjectBean.class);
+//		projectBean=ProjectHandler.getInstance()
+//		.deAllocateUsersFromProject(projectBean);
+//		return "success";
+//	}
 	
 	
 	@POST

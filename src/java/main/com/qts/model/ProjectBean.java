@@ -12,7 +12,6 @@ public class ProjectBean {
 	private String technologies;
 	private List<Long> userIds=new LinkedList();
 	private long userId;
-	private long reportingUserId;
 	private List<User> users =new LinkedList(); 
 	
 	public ProjectBean() {
@@ -62,15 +61,6 @@ public class ProjectBean {
 	public void setUserId(long userId) {
 		this.userId = userId;
 	}
-
-	public long getReportingUserId() {
-		return reportingUserId;
-	}
-
-	public void setReportingUserId(long reportingUserId) {
-		this.reportingUserId = reportingUserId;
-	}
-
 
 	public List<User> getUsers() {
 		return users;

@@ -37,15 +37,14 @@ public class UserProjectDAOImpl extends BaseDAOImpl implements UserProjectDAO {
 		return INSTANCE;
 	}
 
-	public List<UserProject> getListOfUserProjectByUserId(long id) throws ProjectException, Exception {
-		Session session = getSession();
+	public List<UserProject> getListOfUserProjectByUserId(long id) throws  Exception {
+		 session = getSession();
 		try {
 			Criteria userProjectCriteria = session
 					.createCriteria(UserProject.class);
 			userProjectCriteria.add(Restrictions.eq("userId", id));
 			List<UserProject> list = userProjectCriteria.list();
 			return list;
-
 		}
 		catch (Exception e) {
 			e.printStackTrace();
@@ -56,13 +55,15 @@ public class UserProjectDAOImpl extends BaseDAOImpl implements UserProjectDAO {
 
 	}
 
-	public List<UserProject> getListOfUserProjectByProjectId(long id) throws ProjectException, Exception {
+	public List<UserProject> getListOfUserProjectByProjectId(long projectId) throws ProjectException, Exception {
 		session = getSession();
-
 		try {
-			List<UserProject> list = session.createQuery(
-					"from UserProject where project_id=" + id).list();
-			return list;
+			Criteria userProjectCriteria =session.createCriteria(UserProject.class);
+			userProjectCriteria.add(Restrictions.eq("projectId",projectId));
+			return userProjectCriteria.list();
+//			List<UserProject> list = session.createQuery(
+//					"from UserProject where project_id=" + id).list();
+//			return list;
 		}
 		catch (Exception e) {
 		}
@@ -78,15 +79,19 @@ public class UserProjectDAOImpl extends BaseDAOImpl implements UserProjectDAO {
 			throws ProjectException, Exception {
 		session = getSession();
 		try {
-
-			List<UserProject> list = session.createQuery(
-					"from UserProject where project_id=" + projectId
-							+ "and user_id=" + userId).list();
-			if (list.size() == 0)
+			Criteria userProjectCriteria =session.createCriteria(UserProject.class);
+			userProjectCriteria.add(Restrictions.eq("projectId",projectId)).
+								add(Restrictions.eq("userId",userId));
+			List<UserProject> userProjectList  =userProjectCriteria.list();
+			
+//			List<UserProject> list = session.createQuery(
+//					"from UserProject where project_id=" + projectId
+//							+ "and user_id=" + userId).list();
+			if (userProjectList.isEmpty())
 				throw new ProjectException(
 						ExceptionCodes.PROJECT_OR_USER_ID_INVALID,
 						ExceptionMessages.PROJECT_OR_USER_ID_INVALID);
-			return list.iterator().next();
+			return userProjectList.get(0);
 		} catch (ProjectException e) {
 			e.printStackTrace();
 			throw e;
@@ -106,7 +111,6 @@ public class UserProjectDAOImpl extends BaseDAOImpl implements UserProjectDAO {
 			System.out.println(userProject);
 			while (iterator.hasNext()) {
 				session = getSession();
-
 				userProjectObject = iterator.next();
 				long i = userProjectObject.getProjectId();
 				long j = userProjectObject.getUserId();
@@ -130,9 +134,12 @@ public class UserProjectDAOImpl extends BaseDAOImpl implements UserProjectDAO {
 		session = getSession();
 
 		try {
-			List<UserProject> list = session.createQuery(
-					"from UserProject where id=" + id).list();
-			if (list.size() == 0)
+			Criteria userProjectCriteria =session.createCriteria(UserProject.class);
+			userProjectCriteria.add(Restrictions.eq("id",id));
+//			List<UserProject> list = session.createQuery(
+//					"from UserProject where id=" + id).list();
+			List<UserProject> list=userProjectCriteria.list();
+			if (list.isEmpty())
 				throw new ObjectNotFoundException(
 						ExceptionCodes.USER_PROJECT_ID_INVALID,
 						ExceptionMessages.USER_PROJECT_ID_INVALID);
@@ -155,7 +162,6 @@ public class UserProjectDAOImpl extends BaseDAOImpl implements UserProjectDAO {
 					.add(Restrictions.eq("projectId", projectId))
 					.add(Restrictions.eq("userId", userId)).uniqueResult();
 			session.delete(userProject);
-			session.getTransaction().commit();
 			return true;
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -181,6 +181,7 @@ public interface ExceptionCodes {
 	public static final int DELETE_USER_FROM_PROJECT_FAILED=5015;
 	public static final int USER_PROJECT_CONSTRAINT_FAILED=5016;
 	public static final int REPORTING_USER_ID_NOT_NULL=5017;
+	public static final int DUPLICATE_PROJECT_ENTRY=5018;
 
 
 
