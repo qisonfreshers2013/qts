@@ -61,7 +61,7 @@ public class ReleasesHandler extends AbstractHandler {
 	}
 	
 	//delete Releases with the given id
-	public Releases deleteReleases(ReleasesInput releasesInput) throws Exception {
+	public Releases deleteReleases(ReleasesInput releasesInput) throws ReleasesException, ObjectNotFoundException,Exception {
 
 		if(validateReleaseId(releasesInput)){
 			Releases releases=ReleasesHandler.getInstance().getObjectById(releasesInput.getId());
@@ -80,7 +80,7 @@ public class ReleasesHandler extends AbstractHandler {
 
 
 	// validations before listing Releases of a project
-	private boolean validateProjectId(ReleasesInput releasesInput)throws Exception {
+	private boolean validateProjectId(ReleasesInput releasesInput)throws ReleasesException,ObjectNotFoundException {
 
 		if (releasesInput == null)
 			throw new ReleasesException(ExceptionCodes.RELEASESBEAN_NOT_NULL,ExceptionMessages.RELEASESBEAN_NOT_NULL);
@@ -96,7 +96,7 @@ public class ReleasesHandler extends AbstractHandler {
 	}
 
 	// Validations Before adding Releases to a project
-	private boolean validateReleaseName(ReleasesInput releasesInput)throws Exception {
+	private boolean validateReleaseName(ReleasesInput releasesInput)throws ReleasesException, ObjectNotFoundException {
 
 		if (releasesInput.getReleaseName() == null || releasesInput.getReleaseName().equals(""))
 			throw new ReleasesException(ExceptionCodes.RELEASES_NAME_NULL,ExceptionMessages.RELEASES_NAME_CANNOT_BE_EMPTY);
@@ -111,19 +111,23 @@ public class ReleasesHandler extends AbstractHandler {
 	}
 
 	//Validations Before Deleting Releases
-	private boolean validateReleaseId(ReleasesInput releasesInput) throws Exception {
+	private boolean validateReleaseId(ReleasesInput releasesInput) throws ReleasesException {
 
 		if (releasesInput == null)
 			throw new ReleasesException(ExceptionCodes.RELEASESBEAN_NOT_NULL,ExceptionMessages.RELEASESBEAN_NOT_NULL);
 		if(releasesInput.getId()==0)
 			throw new ReleasesException(ExceptionCodes.RELEASE_ID_NULL, ExceptionMessages.RELEASE_ID_NULL);
-		try{
-		if(TimeEntryHandler.getInstance().isEntryMapped(releasesInput.getId()))
-			throw new ReleasesException(ExceptionCodes.TIME_ENTRY_PRESENT,ExceptionMessages.TIME_ENTRY_PRESENT);
-		}
+		try {
+			if(TimeEntryHandler.getInstance().isEntryMapped(releasesInput.getId()))
+				throw new ReleasesException(ExceptionCodes.TIME_ENTRY_PRESENT,ExceptionMessages.TIME_ENTRY_PRESENT);
+		} 
 		catch(ObjectNotFoundException e){
 			return true;
+		}catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
+		
 		return true;
 
 	}

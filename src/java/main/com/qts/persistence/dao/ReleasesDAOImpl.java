@@ -58,7 +58,7 @@ public class ReleasesDAOImpl extends BaseDAOImpl implements ReleasesDAO {
 	}
 
 	@Override
-	public Releases deleteReleases(Releases releases) throws Exception {
+	public Releases deleteReleases(Releases releases)throws Exception {
 		try{
 			Session session=getSession();
 			session.delete(releases);
@@ -66,6 +66,23 @@ public class ReleasesDAOImpl extends BaseDAOImpl implements ReleasesDAO {
 		}
 		catch(Exception e){
 			throw e;
+		}
+
+	}
+	
+	@Override
+	public Releases addReleases(Releases releases) throws ReleasesException {
+		
+		try {
+//			Session session = SessionFactoryUtil.getInstance().getNewSession();
+//			Transaction txn=session.beginTransaction();
+//			session.save(releases);
+//			txn.commit();
+//			return releases;
+			saveObject(releases);
+			return releases;
+		} catch (Exception e) {
+			throw new ReleasesException(ExceptionCodes.RELEASES_CANNOT_BE_ADDED,ExceptionMessages.RELEASES_CANNOT_BE_ADDED_FOR_THE_PROJECT);
 		}
 
 	}
@@ -85,5 +102,7 @@ public class ReleasesDAOImpl extends BaseDAOImpl implements ReleasesDAO {
 			throw e;
 		}
 	}
+
+
 
 }
