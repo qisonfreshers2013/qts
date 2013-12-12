@@ -55,7 +55,7 @@ public interface ExceptionMessages {
 
 
 	//user web services releted exceptions
-	public static final String USER_ID_NOT_NUMBER = "Id of user must be long";
+	 public static final String USER_ID_NOT_NUMBER = "Id of user must be long";
 	 public static final String USER_NAME_FORMAT = "name cannot be null";
 	 public static final String USER_EMAIL_FORMAT = "email is invalid";
 	 public static final String EMPLOYEE_ID_INVALID_FORMAT = "employee id is invalid";
@@ -97,7 +97,6 @@ public interface ExceptionMessages {
 	 public static final String EMAIL_NOT_EXISTS = "Email is not existing";
 	 public static final String USER_NOT_AUTHENTICATED = "Please login.";
 	 public static final String SEARCH_RESULTS_NO_MATCH = "no matchs found";
-	//Time Entry Exception messages
 	public static final String DATE_CANNOT_BE_NULL= "DATE CANNOT BE NULL";
 	public static final String DATE_LENGTH_MISMATCH= "DATE LENGTH SHOULD BE 10 AND DATE PATTERN IS MM/DD/YYYY";
 	public static final String DATE_MONTH_EXCEPTION="MONTH LIES BETWEEN 1 AND 12 AND DATE PATTERN IS MM/DD/YYYY"; 
@@ -129,6 +128,7 @@ public interface ExceptionMessages {
 	public static final String ROLE_ID_EXISTS = "This role already exists for this user";
 	public static final String ONLY_ONE_APPROVER = "only one approver allowed for one project";
 	public static final String ROLE_ID_DOESNOT_EXISTS = "This role id doesnot exists for this user.";
+	public static final String NUMBER_INVALID = "enter a ";
 	
 
 }

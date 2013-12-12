@@ -27,6 +27,8 @@ public final class Utils {
     public static final int ARTICLE_BRIEF_DESCRIPTION_LENGTH = 190;
     public static final int BRIEF_DESCRIPTION_START_INDEX = 0;
 	public static final String LOCATION_PATTERN = "^[A-Za-z\\s]*$";//-----
+	public static final String NUMBER_PATTERN = "[0-9]+$";
+	
     public static void validateEmail(String email)
             throws BusinessException {
         if (email == null || email.isEmpty() || email.trim().isEmpty()) {

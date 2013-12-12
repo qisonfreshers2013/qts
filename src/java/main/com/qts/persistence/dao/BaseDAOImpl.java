@@ -17,11 +17,8 @@ public class BaseDAOImpl implements BaseDAO{
 
 	@Override
 	public BaseObject saveObject(BaseObject persistentObject) {
-		Session session = getSession();
-	    Transaction transaction = session.beginTransaction();
-	    session.save(persistentObject);
-	    transaction.commit();
-	   // DAOConnection.closeSession(session);
+		Session session = getSession();	  
+	    session.save(persistentObject);  
 		return persistentObject;
 	}
 	@Override

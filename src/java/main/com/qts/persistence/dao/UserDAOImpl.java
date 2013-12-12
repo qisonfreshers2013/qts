@@ -8,6 +8,7 @@ import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.exception.ConstraintViolationException;
 
@@ -24,8 +25,7 @@ public class UserDAOImpl extends BaseDAOImpl implements UserDAO {
 
 	private static UserDAO INSTANCE = null;
 
-	private UserDAOImpl() {
-
+	private UserDAOImpl(){
 	}
 
 	public static UserDAO getInstance() {
@@ -37,47 +37,36 @@ public class UserDAOImpl extends BaseDAOImpl implements UserDAO {
 
 	// @SuppressWarnings("unchecked")
 	// public List<User> getListOfUsersObjects() {
-// Session session =SessionFactoryUtil.getInstance().getNewSession();
 	// List<User> list = session.createQuery("from User").list();
 	// DAOConnection.closeSession(session);
 	// return list;
 	// }
 
-	/* -- addUser -- */
+	/** -- addUser -- */
 	public long addUser(User user) throws UserException {
 		Session session = null;
-		Transaction transaction = null;
+		
 		try{
-		session =SessionFactoryUtil.getInstance().getNewSession();
-		transaction = session.beginTransaction();
-		session.save(user);	
-		transaction.commit();
+		session =getSession();		
+		saveObject(user);			
 		}catch(ConstraintViolationException  cve){
 			 cve.printStackTrace();
 			 	   	 throw new UserException (ExceptionCodes.DUPLICATE_ENTRY,ExceptionMessages.DUPLICATE_ENTRY);		
 		}
 		catch (HibernateException he) {
-			he.printStackTrace();
-			//throw he;
+			he.printStackTrace();			
 			throw new UserException(ExceptionCodes.USER_CAN_NOT_ADDED,
 					ExceptionMessages.USER_CAN_NOT_ADDED);
-		}
-		finally{
-		session.close();
-		}
+		}		
 		return user.getId();
-
 	}
 
-
+	/** -- deleteUser -- */
 	public boolean deleteUser(long id) throws UserException {
 		boolean isDeleted = false;
 		Session session = null;
-		Transaction transaction = null;
-
 		try {
-			session =SessionFactoryUtil.getInstance().getNewSession();
-			transaction = session.beginTransaction();
+			session =getSession();			
 			Criteria createCriteria = session.createCriteria(User.class);
 			createCriteria.add(Restrictions.eq("id", id));
 			List listId = createCriteria.list();
@@ -89,29 +78,22 @@ public class UserDAOImpl extends BaseDAOImpl implements UserDAO {
 			if (list.size() == 0)
 				throw new UserException(ExceptionCodes.DELETED_ALREADY,
 						ExceptionMessages.DELETED_ALREADY);
-			User user = (User) list.get(0);
-			
+			User user = (User) list.get(0);			
 			user.setIsDeleted(true);
-			session.update(user);
-			transaction.commit();
+			session.update(user);			
 			isDeleted = true;
 		} catch (HibernateException he) {
-			isDeleted = false;
-			if (transaction != null) {
-				transaction.rollback();
-			}
+			isDeleted = false;			
 			he.printStackTrace();
 			throw new UserException(ExceptionCodes.DELETE_INVALID,
 					ExceptionMessages.DELETE_INVALID);
-		} finally {
-			session.close();
 		}
 		return isDeleted;
 	}
-
+	/** -- getUserName -- */
 	public String getUserName(long id) {
 		Session session = null;
-		session =SessionFactoryUtil.getInstance().getNewSession();
+		session =getSession();
 		Criteria searchUserCriteria = session.createCriteria(User.class);
 		searchUserCriteria.add(Restrictions.eq("id", id));
 		List<User> list = searchUserCriteria.list();	
@@ -121,7 +103,7 @@ public class UserDAOImpl extends BaseDAOImpl implements UserDAO {
 
 	@SuppressWarnings("unchecked")
 	public List<User> searchUser(UserBean bean) throws UserException {
-		Session session =SessionFactoryUtil.getInstance().getNewSession();
+		Session session =getSession();		
 		Criteria searchUserCriteria = session.createCriteria(User.class);
 		List<User> list = null;
 		if (null != bean) {
@@ -129,10 +111,10 @@ public class UserDAOImpl extends BaseDAOImpl implements UserDAO {
 			String email = bean.getEmail();
 			String employeeId = bean.getEmployeeId();
 			String designation = bean.getDesignation();
-			//searchUserCriteria.add(Restrictions.like("isDeleted",false));
+			
 			list = searchUserCriteria.list();
 			if (nickName != null && nickName.trim().length() > 0) {
-				searchUserCriteria.add(Restrictions.like("nickName", nickName));
+				searchUserCriteria.add(Restrictions.like("nickName",nickName,MatchMode.ANYWHERE));
 			}
 			if (email != null && email.trim().length() > 0) {
 				searchUserCriteria.add(Restrictions.eq("email", email));
@@ -145,43 +127,19 @@ public class UserDAOImpl extends BaseDAOImpl implements UserDAO {
 				searchUserCriteria.add(Restrictions
 						.eq("employeeId", employeeId));
 			}
-		}
 		searchUserCriteria.add(Restrictions.like("isDeleted",false));
 		list = searchUserCriteria.list();
-		if(list.size() == 0){
-			session.close();
+		if(list.size() == 0){			
 			throw new UserException(ExceptionCodes.SEARCH_RESULTS_NO_MATCH,ExceptionMessages.SEARCH_RESULTS_NO_MATCH);
-		}
-		session.close();
+		}		
 		return list;
-		// Set<User> set = new HashSet<User>();
-		// List<User> list = new ArrayList<User>();
-		//
-		// List<User> listNickName = session.createQuery(
-		// "from User where nickName = " + bean.getNickName()).list();
-		//
-		// set.addAll(listNickName);
-		// List<User> listEmail = session.createQuery(
-		// "from User where email = " + bean.getEmail()).list();
-		// set.addAll(listEmail);
-		// List<User> listEmployeeId = session.createQuery(
-		// "from User where employeeId = " + bean.getEmployeeId()).list();
-		// set.addAll(listEmployeeId);
-		// List<User> listDesignation = session.createQuery(
-		// "from User where designation = " + bean.getDesignation())
-		// .list();
-		// set.addAll(listDesignation);
-		// DAOConnection.closeSession(session);
-		// list.addAll(set);
-		// return list;
-
+		}		
+		return list;
 	}
 
 	@Override
 	public User getUserLogin(LoginBean bean) throws UserException {
-		Session session = null;
-		try{
-		session =SessionFactoryUtil.getInstance().getNewSession();
+		Session session =getSession();
 		Criteria searchUserCriteria = session.createCriteria(User.class);
 		String email = bean.getEmail();
 		String password = bean.getPassword();
@@ -194,22 +152,14 @@ public class UserDAOImpl extends BaseDAOImpl implements UserDAO {
 					ExceptionCodes.USER_ID_AND_PASSWORD_INVALID,
 					ExceptionMessages.USER_ID_AND_PASSWORD_INVALID);
 		return list.get(0);
-	
-	}finally{
-		session.close();
-	}
-	}
+		}
 
 	@Override
 	public User updateUser(UserBean bean) throws UserException {
-		// boolean isUpdated = false;
-		// Query query = null;
-		Session session = null;
-		Transaction transaction = null;
+		Session session = null;		
 		User user = null;
 		try {
-			session =SessionFactoryUtil.getInstance().getNewSession();
-			transaction = session.beginTransaction();
+			session =getSession();			
 			Criteria createCriteria = session.createCriteria(User.class);
 			createCriteria.add(Restrictions.eq("id", bean.getId()));
 			 List listUserById = createCriteria.list();
@@ -255,39 +205,29 @@ public class UserDAOImpl extends BaseDAOImpl implements UserDAO {
 				user.setUserId(bean.getUserId());
 			}
 				
-			// isUpdated = true;
+			
 
 			user.setMts(new Date().getTime());// ---updating mts
 			//user.setModifiedBy(ServiceRequestContextHolder.getContext().getUserSessionToken().getNickName());//ServiceRequestContextHolder.getContext().getUserSessionToken().getnickName()
 			ServiceRequestContextHolder.getContext().getUserSessionToken().getUserId();
 			user.setModifiedBy(getUserName(ServiceRequestContextHolder.getContext().getUserSessionToken().getUserId()));
-			session.update(user);
-			transaction.commit();
-		} catch (HibernateException he) {
-			// isUpdated = false;
-			if (transaction != null) {
-				transaction.rollback();
-			}
+			session.update(user);			
+		} catch (HibernateException he) {			
 			he.printStackTrace();
-			 throw new UserException (ExceptionCodes.DUPLICATE_ENTRY,ExceptionMessages.DUPLICATE_ENTRY);		
-		
-		} finally {
-			session.close();
-		}
+			throw new UserException (ExceptionCodes.DUPLICATE_ENTRY,ExceptionMessages.DUPLICATE_ENTRY);		
+			}  
 		return user;
 	}
 
 	@Override
 	public boolean changePassword(ChangePasswordBean bean)
 			throws UserException {
-
 		boolean isChanged = false;
-		Session session = null;
-		Transaction transaction = null;
+		Session session = null;	
 
 		try {
-			session =SessionFactoryUtil.getInstance().getNewSession();
-			transaction = session.beginTransaction();
+			session =getSession();
+			
 			Criteria createCriteria = session.createCriteria(User.class);
 			createCriteria.add(Restrictions.eq("id", ServiceRequestContextHolder.getContext().getUserSessionToken()
 					.getUserId()));
@@ -310,61 +250,69 @@ public class UserDAOImpl extends BaseDAOImpl implements UserDAO {
 			
 			user.setPassword(bean.getPassword());
 			session.update(user);
-			transaction.commit();
+			
 			isChanged = true;
 		} catch (HibernateException he) {
 			isChanged = false;
-			if (transaction != null) {
-				transaction.rollback();
-			}
 			he.printStackTrace();
-		} finally {
-			session.close();
-		}
+		}  
 		return isChanged;
 	}
 	
 
-	public User getUserByUserId(long id) throws UserException {
-		if (id == 0)
-			throw new UserException(ExceptionCodes.USER_DOESNOT_EXIST,
-					ExceptionMessages.USER_DOESNOT_EXIST);
-		Session session =SessionFactoryUtil.getInstance().getNewSession();
+	public User getUserById(long id) throws UserException {
+		Session session =getSession();
 		Criteria createCriteria = session.createCriteria(User.class);
-
 		createCriteria.add(Restrictions.eq("id", id));		
 		 createCriteria.add(Restrictions.eq("isDeleted",false));
 		 List<User> list = createCriteria.list();
 		 if (list.size() == 0) {
 			 return null;
 			}
-		 session.close();
-
 		return list.get(0);
 	}
 
-	// -----
+	
 	public User getUserByEmail(String email) throws UserException {
 		Session session = null;
 		List<User> list = null;
+		Transaction tx = null;
+		
 		try{
-		session =SessionFactoryUtil.getInstance().getNewSession();
+		session =getSession();
+		if(null==session){
+			session = SessionFactoryUtil.getInstance().getCurrentSession();
+			tx = SessionFactoryUtil.getInstance().beginTransaction(session);
+		}
+			
 		Criteria createCriteria = session.createCriteria(User.class);
-		createCriteria.add(Restrictions.eq("email", email));		
-		createCriteria.add(Restrictions.eq("isDeleted", false));
+		createCriteria.add(Restrictions.eq("email", email));
+   	    createCriteria.add(Restrictions.eq("isDeleted", false));
 		list = createCriteria.list();
-		if (list.size() == 0) {			
-			throw new UserException(ExceptionCodes.EMAIL_NOT_EXISTS,
-					ExceptionMessages.EMAIL_NOT_EXISTS);
-		}		
+		if (list.size() == 0) {		
+			throw new UserException(ExceptionCodes.DELETED_ALREADY,
+					ExceptionMessages.DELETED_ALREADY);
+		}
+		
 		}finally{
-			session.close();
-		}	
-		return list.iterator().next();		
+			
+			try {
+				if(tx!=null){
+					tx.commit();
+				if(session.isConnected())	
+					session.close();
+				}
+			} catch (HibernateException e) {
+				
+				e.printStackTrace();
+			}
+		}
+		return list.iterator().next();
+		
 	}
 
 	public boolean isUserDeleted(long id) throws Exception {
-		  Session session=DAOConnection.openSession();
+		  Session session=getSession();
 		  session.beginTransaction();
 		  try{
 		   Criteria userCriteria=session.createCriteria(User.class);
@@ -380,8 +328,8 @@ public class UserDAOImpl extends BaseDAOImpl implements UserDAO {
 		   throw e;
 		  }		  
 		 }
-	 public List<User> getUserById(List<Long> userIds) {
-		  Session session=SessionFactoryUtil.getInstance().getNewSession();
+	 public List<User> getUserByIds(List<Long> userIds) {
+		  Session session=getSession();
 		  try{
 		   session.beginTransaction();
 		   Iterator<Long> iterator=userIds.listIterator();
@@ -394,11 +342,10 @@ public class UserDAOImpl extends BaseDAOImpl implements UserDAO {
 		   return userCriteria.list();
 		  }catch(Exception e){
 		   e.printStackTrace();
-		  }finally{
-		   session.close();
 		  }
 		  return null;
 		 }
+	 
 
 }
 
@@ -409,8 +356,8 @@ public class UserDAOImpl extends BaseDAOImpl implements UserDAO {
 // long photoFileId) {
 // long userId = 0;
 // boolean gender = bean.getGender().equals("male")?true:false;
-// Session session =SessionFactoryUtil.getInstance().getNewSession();
-// Transaction transaction = session.beginTransaction();
+// Session session =getSession();
+// Transaction 
 // User user = new User(bean.getEmail(),
 // bean.getPassword(),
 // bean.getEmployeeId(),
@@ -429,9 +376,31 @@ public class UserDAOImpl extends BaseDAOImpl implements UserDAO {
 // photoFileId);
 // userId = (Integer)session.save(user);
 // transaction.commit();
-// session.close();
+// 
 // return userId;
 //
 //
 // }
+
+/*searchUser*/
+//Set<User> set = new HashSet<User>();
+// List<User> list = new ArrayList<User>();
+//
+// List<User> listNickName = session.createQuery(
+// "from User where nickName = " + bean.getNickName()).list();
+//
+// set.addAll(listNickName);
+// List<User> listEmail = session.createQuery(
+// "from User where email = " + bean.getEmail()).list();
+// set.addAll(listEmail);
+// List<User> listEmployeeId = session.createQuery(
+// "from User where employeeId = " + bean.getEmployeeId()).list();
+// set.addAll(listEmployeeId);
+// List<User> listDesignation = session.createQuery(
+// "from User where designation = " + bean.getDesignation())
+// .list();
+// set.addAll(listDesignation);
+// DAOConnection.closeSession(session);
+// list.addAll(set);
+// return list;
 

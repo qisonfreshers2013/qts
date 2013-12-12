@@ -247,7 +247,7 @@ public class UserHandler extends AbstractHandler {
 	public User getUserByUserId(long userId) throws UserException {
 		User user = null;
 		UserDAO userDAOImpl = DAOFactory.getInstance().getUserDAO();
-		user = userDAOImpl.getUserByUserId(userId);
+		user = userDAOImpl.getUserById(userId);
 		return user;
 	}
 
@@ -895,7 +895,21 @@ public class UserHandler extends AbstractHandler {
 //} 
 
 
-public List<User> getUserById(List<Long> userIds){
-	 return DAOFactory.getInstance().getUserDAO().getUserById(userIds);//mani
+public List<User> getUserByIds(List<Long> userIds){
+	 return DAOFactory.getInstance().getUserDAO().getUserByIds(userIds);//mani
 	}
+
+public User getUserById(Long id) throws UserException {
+	if(id == null || !(Pattern.compile(Utils.NUMBER_PATTERN).matcher(id.toString()).matches())){
+		throw new UserException(ExceptionCodes.USER_ID_INVALID,ExceptionMessages.USER_ID_INVALID);
+	}
+	User user = DAOFactory.getInstance().getUserDAO().getUserById(id);
+	if(user == null)
+		throw new UserException(ExceptionCodes.USER_DOESNOT_EXIST,ExceptionMessages.USER_DOESNOT_EXIST);
+	return user;
+	
+		
+	
+	
+}
 }
