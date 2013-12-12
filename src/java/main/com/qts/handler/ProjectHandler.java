@@ -234,7 +234,7 @@ public class ProjectHandler extends AbstractHandler {
 			List<Long> userIds = new LinkedList<Long>();
 			for (UserProject userProjects : userProject)
 				userIds.add(userProjects.getUserId());
-			return UserHandler.getInstance().getUserById(userIds);
+			return UserHandler.getInstance().getUserByIds(userIds);
 		} catch (UserException e) {
 			e.printStackTrace();
 			throw e;
