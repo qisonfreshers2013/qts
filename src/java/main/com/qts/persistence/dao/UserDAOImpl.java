@@ -112,7 +112,6 @@ public class UserDAOImpl extends BaseDAOImpl implements UserDAO {
 		Criteria searchUserCriteria = session.createCriteria(User.class);
 		searchUserCriteria.add(Restrictions.eq("id", id));
 		List<User> list = searchUserCriteria.list();	
-		session.close();
 		return list.iterator().next().getNickName();
 	}
 
@@ -146,10 +145,8 @@ public class UserDAOImpl extends BaseDAOImpl implements UserDAO {
 		searchUserCriteria.add(Restrictions.like("isDeleted",false));
 		list = searchUserCriteria.list();
 		if(list.size() == 0){
-			session.close();
 			throw new UserException(ExceptionCodes.SEARCH_RESULTS_NO_MATCH,ExceptionMessages.SEARCH_RESULTS_NO_MATCH);
 		}
-		session.close();
 		return list;
 		}
 		// Set<User> set = new HashSet<User>();
@@ -376,7 +373,6 @@ public class UserDAOImpl extends BaseDAOImpl implements UserDAO {
 
 	public boolean isUserDeleted(long id) throws Exception {
 		  Session session=getSession();
-		  session.beginTransaction();
 		  try{
 		   Criteria userCriteria=session.createCriteria(User.class);
 		   userCriteria.add(Restrictions.eq("id",id)).
@@ -386,7 +382,6 @@ public class UserDAOImpl extends BaseDAOImpl implements UserDAO {
 		    return false;
 		   return true;
 		  }catch(Exception e){
-			  session.close();
 		   e.printStackTrace();
 		   throw e;
 		  }		  

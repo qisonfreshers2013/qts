@@ -131,9 +131,7 @@ public class RoleDAOImpl extends BaseDAOImpl implements RoleDAO {
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw e;
-		}finally{
-			session.close();
-		 }
+		}
 	}
 
 	@Override

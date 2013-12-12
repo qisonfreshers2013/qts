@@ -18,9 +18,9 @@ public class BaseDAOImpl implements BaseDAO{
 	@Override
 	public BaseObject saveObject(BaseObject persistentObject) {
 		Session session = getSession();
-	    Transaction transaction = session.beginTransaction();
+	    //Transaction transaction = session.beginTransaction();
 	    session.save(persistentObject);
-	    transaction.commit();
+	    //transaction.commit();
 	   // DAOConnection.closeSession(session);
 		return persistentObject;
 	}
@@ -43,16 +43,15 @@ public class BaseDAOImpl implements BaseDAO{
 	 @Override
 	 public BaseObject update(BaseObject persistentObject) {
 		 Session session = getSession();
-			session.beginTransaction();
+			//session.beginTransaction();
 	  session.update(persistentObject);
-	  session.getTransaction().commit();
+	  //session.getTransaction().commit();
 	  return persistentObject;
 	 }
 
 	 @Override
 	 public List<BaseObject> save(List<BaseObject> objectList) {
 		Session  session = getSession();
-		session.beginTransaction();
 	  if (null != objectList && objectList.size() > 0) {
 	   short count = 0;
 	   for (BaseObject object : objectList) {
@@ -64,7 +63,6 @@ public class BaseDAOImpl implements BaseDAO{
 	     count = 0;
 	    }
 	   }
-	   session.getTransaction().commit();
 	  }
 	  return objectList;
 	 }
