@@ -1,24 +1,15 @@
 package com.qts.model;
 
-//import java.sql.Timestamp;
-import java.util.HashSet;
-import java.util.Set;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
+
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.PrimaryKeyJoinColumn;
+
 import javax.persistence.Table;
 
 /**
- * @author 
+ * @author Anil Ram
  *
  */
 @Entity
@@ -65,9 +56,7 @@ public class User extends AbstractObject{
  private Boolean isDeleted;
  @Column(name = "USER_ID")
  private String userId; 
- //@OneToOne
- //@PrimaryKeyJoinColumn 
- //private File photoFile;
+
  @Column(name = "PHOTO_FILE_ID",columnDefinition= "BIGINT")
  private long photoFileId;
  public User() {
@@ -105,11 +94,9 @@ public class User extends AbstractObject{
    String nickName, String location, boolean gender, String designation,
    long cts, long mts, String createdBy, String modifiedBy,
    Boolean isDeleted, String userId,long photoFileId) {
-  super();
   this.email = email;
   this.password = password;
   this.employeeId = employeeId;
-  //this.photoFileId = photoFileId;
   this.firstName = firstName;
   this.lastName = lastName;
   this.nickName = nickName;

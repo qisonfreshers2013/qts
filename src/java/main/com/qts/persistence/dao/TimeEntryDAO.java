@@ -10,21 +10,20 @@ import java.util.Set;
 import org.hibernate.Session;
 
 import com.qts.model.TimeEntries;
-import com.qts.model.TimeEntriesForm;
+import com.qts.model.TimeEntryBean;
 
 public interface TimeEntryDAO {
 
 	
-    public boolean addTimeEntry(TimeEntriesForm timeEntry,Session session);
-    public boolean rejectTimeEntry(TimeEntriesForm timeEntry);
-    public boolean approveTimeEntry(TimeEntriesForm timeEntry);
-    public boolean deleteTimeEntry(TimeEntriesForm deleteEntry);
-    public boolean updateTimeEntry(TimeEntriesForm updateWithData);
-	public long parseDateToLong(String date);
-	public Session deleteTimeEntryById(int id,Session session);
-	public String getDateInString(long timeinMilliSeconds);
-	public boolean getTimeEntryObjectById(long id);
-	public boolean submitTimeEntries(TimeEntriesForm submitData);
-	public List<TimeEntries> listUserEntries(TimeEntriesForm timeEntry);
-	public List<TimeEntries> listEntriesToApprove(TimeEntriesForm timeEntry);
+    public boolean add(TimeEntryBean timeEntry) throws Exception;
+    public boolean reject(TimeEntryBean timeEntry) throws Exception;
+    public boolean approve(TimeEntryBean timeEntry) throws Exception;
+    public boolean delete(TimeEntryBean deleteEntry) throws Exception;
+    public boolean update(TimeEntryBean updateWithData) throws Exception;
+	public Session deleteTimeEntryById(int id,Session session) throws Exception;
+	public boolean getTimeEntryObjectById(long id) throws Exception;
+	public boolean submit(TimeEntryBean submitData) throws Exception;
+	public List<TimeEntries> getUserTimeEntries(TimeEntryBean timeEntry) throws Exception;
+	public List<TimeEntries> getTimeEntriesForApprover(TimeEntryBean timeEntry) throws Exception;
+	public int getUserWorkingHoursperDay(String date) throws Exception;
 }

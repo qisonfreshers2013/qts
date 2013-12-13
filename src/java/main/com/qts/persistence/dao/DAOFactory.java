@@ -29,8 +29,8 @@ public class DAOFactory {
 	}
 
 	
-	public ReleasesDAO getReleasesDAOImplInstance() {
-		return ReleasesDAOImpl.getInstance();
+	public ReleaseDAO getReleaseDAOImplInstance() {
+		return ReleaseDAOImpl.getInstance();
 	}
 
 	

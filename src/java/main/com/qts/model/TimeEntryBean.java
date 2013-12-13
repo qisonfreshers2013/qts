@@ -3,7 +3,7 @@ package com.qts.model;
  * Pojo Class Used To Create Object for Supplied JSON
  * @author Ajay
  */
-public class TimeEntriesForm {
+public class TimeEntryBean {
     
 	private Integer id;
     private Long userId;
@@ -19,10 +19,10 @@ public class TimeEntriesForm {
 	private Integer status;
     private String approvedComments;
     private String rejectedComments;
-	public TimeEntriesForm() {
+	public TimeEntryBean() {
 	}
 
-	public TimeEntriesForm(long userId, String date, long projectID,
+	public TimeEntryBean(long userId, String date, long projectID,
 			long releaseId, String task, long activityId, int hours,
 			String remarks,String from,String to) {
 		this.date = date;
