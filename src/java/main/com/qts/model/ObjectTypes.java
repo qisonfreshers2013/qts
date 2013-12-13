@@ -41,7 +41,7 @@ public interface ObjectTypes {
  public static final int ROLES = 131;
  public static final int RELEASES = 132;
  public static final int USER_PROJECT = 133;
- public static final int USER_PROJECT_ROLES = 134;
+ public static final int USER_PROJECTS_ROLES = 134;
  public static final int ACTIVITIES = 135;
 
 }

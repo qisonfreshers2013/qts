@@ -8,6 +8,7 @@ import java.util.List;
 
 import org.hibernate.Criteria;
 import org.hibernate.Session;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 
@@ -33,8 +34,10 @@ public class ProjectDAOImpl extends BaseDAOImpl implements ProjectDAO {
 
 	//list of projects
 	@Override
-	public List<Project> getProjectList() throws Exception,ProjectException{
+	public List<Project> getProjects() throws ProjectException{
 		Session session=getSession();
+		List<Project> projectList=null;
+		
 		try{
 			Criteria projectCriteria = session.createCriteria(Project.class);
 			projectCriteria.setProjection(
@@ -42,39 +45,34 @@ public class ProjectDAOImpl extends BaseDAOImpl implements ProjectDAO {
 							add(Projections.property("id")).
 							add(Projections.property("name"))	
 					);
-			
-			List<Project> list= projectCriteria.list();
-			if(list.isEmpty())
+			projectCriteria.addOrder(Order.asc("name"));
+			projectList=projectCriteria.list();
+			if(projectList.isEmpty())
 				throw new ProjectException(ExceptionCodes.NO_PROJECTS_AVAILABLE,ExceptionMessages.NO_PROJECTS_AVAILABLE);
-		return list;
-		
 		}catch(ProjectException e){
-			e.printStackTrace();
 			throw e;
 		}
-		catch(Exception e){
-			e.printStackTrace();
-			throw e; 
-			
-		}
+		
+		return projectList;
 	}
 	
 
-	//
 	//returns Project object by using corresponding project Id
 	@Override 
 	public Project getObjectById(long id) throws ObjectNotFoundException{
 		Session session=getSession();
+		Project project=null;
 		try{
 			Criteria projectCriteria = session.createCriteria(Project.class);
 			projectCriteria.add(Restrictions.eq("id", id));
-			List<Project> list = projectCriteria.list();//session.createQuery("from Project where id="+id).list();
+			List<Project> list = projectCriteria.list();
 			if(list.isEmpty())
 				throw new ObjectNotFoundException(ExceptionCodes.PROJECT_ID_INVALID,ExceptionMessages.PROJECT_ID_INVALID);
-			return list.iterator().next();
+			project=list.get(0);
 		}catch(ObjectNotFoundException e){
-			e.printStackTrace();
 			throw e;
 		}
+		
+		return project;
 	}
 }
