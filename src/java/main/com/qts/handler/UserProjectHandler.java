@@ -35,23 +35,31 @@ public class UserProjectHandler extends AbstractHandler{
 
 	public  Set<Long> reportingIds=new HashSet<Long>();
 
-	public List<UserProject> getListOfUserProjectByUserId(long id) throws Exception{
-		return DAOFactory.getInstance().getUserProjectDAOImplInstance().getListOfUserProjectByUserId(id);
+	public List<UserProject> getUserProjectsByUserId(long id) throws ProjectException{
+		
+		return	DAOFactory.getInstance().getUserProjectDAOImplInstance().getUserProjectsByUserId(id);
+	
+		
+	}
+		
+	
+	
+	public List<UserProject> getUserProjectsByProjectId(long id) {
+		
+			return DAOFactory.getInstance().getUserProjectDAOImplInstance().getUserProjectsByProjectId(id);
+		
 	}
 	
 	
-	public List<UserProject> getListOfUserProjectByProjectId(long id) throws Exception{
-		return DAOFactory.getInstance().getUserProjectDAOImplInstance().getListOfUserProjectByProjectId(id);
-	}
-	
-	
-	public void addUserToProject(List<UserProject> userProject) throws ProjectException,Exception{
+	public void addUserToProject(List<UserProject> userProject) throws ProjectException{
 		 DAOFactory.getInstance().getUserProjectDAOImplInstance().addUserToProject(userProject);
 	}
 	
 	
 	public UserProject getUserProjectByIds(long projectId,long userId) throws ProjectException, Exception{
+		
 		return DAOFactory.getInstance().getUserProjectDAOImplInstance().getUserProjectByIds(projectId, userId);
+		
 	}
 	
 	
@@ -62,33 +70,15 @@ public class UserProjectHandler extends AbstractHandler{
 
 
 
-	public boolean deAllocateUsersFromProject(long projectId,Long userId) throws Exception {
-		 return DAOFactory.getInstance().getUserProjectDAOImplInstance().deAllocateUsersFromProject(projectId,userId);
+	public boolean deAllocateUsersFromProject(UserProject userProject){
+		 return DAOFactory.getInstance().getUserProjectDAOImplInstance().deAllocateUsersFromProject(userProject);
 	}
 
 
 
-	public List<UserProject> getUserProjectListByIds(long projectId, List<Long> userIdsList) throws ProjectException {
-		return DAOFactory.getInstance().getUserProjectDAOImplInstance().getUserProjectListByIds(projectId, userIdsList);
+	public List<UserProject> getUserProjectsByIds(long projectId, List<Long> userIdsList){
+		return DAOFactory.getInstance().getUserProjectDAOImplInstance().getUserProjectsByIds(projectId, userIdsList);
 	}
 
-
-
-	public List<UserProject> getListOfNonUserProjectByProjectId(long id) throws Exception {
-		return DAOFactory.getInstance().getUserProjectDAOImplInstance().getListOfNonUserProjectByProjectId(id);
-	}
 	
-//	public boolean updateUserProjectReportingId(UserProject userProject) throws Exception {
-//		return DAOFactory.getInstance().getUserProjectDAOImplInstance().updateUserProjectReportingId(userProject);
-//		
-//	}
-	
-//	public Set<Long> getApproversListByProjectId(long projectId) throws Exception{
-//		List<UserProject> userProjects=UserProjectHandler.getInstance().getListOfUserProjectByProjectId(projectId);
-//		Iterator<UserProject> iterator=userProjects.iterator();
-//		while(iterator.hasNext()){
-//			reportingIds.add(iterator.next().getReportingUserId());
-//		}
-//		return reportingIds;
-//	}
 }

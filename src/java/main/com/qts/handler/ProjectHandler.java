@@ -9,8 +9,11 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.hibernate.exception.ConstraintViolationException;
+
 import com.qts.exception.ExceptionCodes;
 import com.qts.exception.ExceptionMessages;
+import com.qts.exception.ObjectNotFoundException;
 import com.qts.exception.ProjectException;
 import com.qts.exception.UserException;
 import com.qts.model.Project;
@@ -18,6 +21,7 @@ import com.qts.model.ProjectBean;
 import com.qts.model.User;
 import com.qts.model.UserProject;
 import com.qts.persistence.dao.DAOFactory;
+import com.qts.service.common.ServiceRequestContextHolder;
 
 public class ProjectHandler extends AbstractHandler {
 
@@ -36,250 +40,288 @@ public class ProjectHandler extends AbstractHandler {
 	/*
 	 * Fetching List of Projects
 	 */
-	public List<Project> getProjectList(ProjectBean projectBean)
-			throws Exception {
-		long userId;
-		if (projectBean == null) {
-			return DAOFactory.getInstance().getProjectDAOImplInstance()
-					.getProjectList();
+	public List<Project> getProjects()
+			throws ProjectException {
+		List<Project> projects=null;
+		try{
+			projects= DAOFactory.getInstance().getProjectDAOImplInstance()
+					.getProjects();
+		}catch(ProjectException e){
+			throw e;
 		}
-		try {
-			userId = projectBean.getUserId();
-		} catch (NullPointerException e) {
-			e.printStackTrace();
-			throw new UserException(ExceptionCodes.USER_ID_NOT_NULL,
-					ExceptionMessages.USER_ID_NOT_NULL);
-		}
-		try {
-			if (UserHandler.getInstance().isUserDeleted(userId)) {
-				throw new UserException(ExceptionCodes.DELETED_ALREADY,
-						ExceptionMessages.DELETED_ALREADY);
-			}
+		return projects;
+	}
+	
+	
+	/*
+	 * Fetching List of Projects for a particular User
+	 */
+	public List<Project> getProjectsForUser() throws ProjectException,ObjectNotFoundException{
+
+		long userId=ServiceRequestContextHolder.getContext().getUserSessionToken().getUserId();
+		List<Project> projectList= new LinkedList<Project>();;
+		try{
+			
+			//fetching userProject records using userId
 			List<UserProject> list = UserProjectHandler.getInstance()
-					.getListOfUserProjectByUserId(userId);
-			List<Project> projectList = new LinkedList<Project>();
+					.getUserProjectsByUserId(userId);
 			Iterator<UserProject> itr = list.iterator();
 			while (itr.hasNext()) {
-				Project project = (Project) DAOFactory.getInstance()
-						.getProjectDAOImplInstance()
-						.getObjectById(itr.next().getProjectId());
-				projectList.add(project);
+
+				try{
+					Project project = (Project) DAOFactory.getInstance()
+							.getProjectDAOImplInstance()
+							.getObjectById(itr.next().getProjectId());
+					projectList.add(project);
+				}catch(ObjectNotFoundException e){
+					throw e;
+				}
+
 			}
-			return projectList;
-		} catch (UserException e) {
-			e.printStackTrace();
-			throw e;
-		} catch (ProjectException e) {
-			e.printStackTrace();
-			throw e;
-		} catch (Exception e) {
-			e.printStackTrace();
+		}catch(ProjectException|ObjectNotFoundException e){
 			throw e;
 		}
+		return projectList;
 	}
+
 
 	/*
 	 * Adding New Project
 	 */
-	public Project addProject(Project project) throws Exception {
-		try {
-			if (validateProjectName(project.getName())
-					&& validateProjectTechnologies(project.getTechnologies()))
+	public Project addProject(Project project) throws ProjectException{
+
+		String name=project.getName();
+		String technologies=project.getTechnologies();
+
+		try{
+			//Validations of ProjectName
+			if (name == null)
+				throw new ProjectException(ExceptionCodes.PROJECT_NAME_NOTNULL,
+						ExceptionMessages.PROJECT_NAME_NOT_NULL);
+			else if (name.length() > 128)
+				throw new ProjectException(ExceptionCodes.PROJECT_NAME_LENGTH_MORE,
+						ExceptionMessages.PROJECT_NAME_LENGTH_MORE);
+			else if (!name.matches("^[a-zA-Z0-9]+([ {1}][\\._-a-zA-Z0-9]+)*\\w$"))
+				throw new ProjectException(ExceptionCodes.PROJECT_NAME_FORMAT,
+						ExceptionMessages.PROJECT_NAME_FORMAT);
+
+
+			//Validations of Project Technology names
+			if (technologies != null && technologies.length() > 512) {
+				throw new ProjectException(
+						ExceptionCodes.TECHNOLOGIES_FIELD_LENGTH_MORE,
+						ExceptionMessages.TECHNOLOGIES_FIELD_LENGTH_MORE);
+			}
+			
+			//saving project
+			try{
 				return (Project) DAOFactory.getInstance()
 						.getProjectDAOImplInstance().saveObject(project);
-			else
-				return null;
-		} catch (Exception e) {
+			}catch(ConstraintViolationException e){
+				throw new ProjectException(ExceptionCodes.DUPLICATE_PROJECT_ENTRY,ExceptionMessages.DUPLICATE_PROJECT_ENTRY);
+			}
+		}catch(ProjectException e){
 			throw e;
 		}
 	}
 
+	
+	
 	/*
 	 * Fetching All Members Of Project
 	 */
-	public List<User> listOfProjectUsers(Project project) throws Exception {
+	public List<User> getProjectUsers(Project project) throws ProjectException,UserException,NullPointerException {
+		
+		List<UserProject> userProject=null;
+		long projectId;
 		try {
-
-			List<UserProject> userProject = UserProjectHandler.getInstance()
-					.getListOfUserProjectByProjectId(project.getId());
+			//validating projectId
+			try{
+				projectId=project.getId();
+			}catch(NullPointerException e){
+				throw new ProjectException(ExceptionCodes.PROJECT_ID_NOT_NULL,
+						ExceptionMessages.PROJECT_ID_NOT_NULL);
+			}
+			
+			//validating whether project is existing or not
+			try{
+				getObjectById(projectId);
+			}catch(ObjectNotFoundException e){
+				throw new ProjectException(ExceptionCodes.PROJECT_ID_INVALID,
+						ExceptionMessages.PROJECT_ID_INVALID);
+			}
+			
+			//fetching userProject records using projectId
+			userProject = UserProjectHandler.getInstance()
+					.getUserProjectsByProjectId(project.getId());
+			
 			List<User> userList = new LinkedList<User>();
 			if (userProject.isEmpty())
 				return userList;
 			Iterator<UserProject> iterator = userProject.iterator();
+			
+			//fetching userObjects
 			while (iterator.hasNext()) {
-				User user = UserHandler.getInstance().getUserByUserId(
+				User user = UserHandler.getInstance().getUserById(
 						iterator.next().getUserId());
 				if (user != null)
 					userList.add(user);
 			}
 			return userList;
 
-		} catch (UserException e) {
-			e.printStackTrace();
-			throw e;
-		} catch (ProjectException e) {
-			e.printStackTrace();
-			throw e;
-		} catch (NullPointerException e) {
-			e.printStackTrace();
-			throw new ProjectException(ExceptionCodes.PROJECT_ID_NOT_NULL,
-					ExceptionMessages.PROJECT_ID_NOT_NULL);
-		} catch (Exception e) {
+		} catch (UserException|ProjectException|NullPointerException e) {
 			e.printStackTrace();
 			throw e;
 		}
 	}
 
 	/*
-	 * ASSIGNING MEMBERS TO A PROJECT
+	 * ASSIGNING USERS TO A PROJECT
 	 */
-	public ProjectBean allocateUserToProject(ProjectBean projectBean)
+	public List<UserProject> allocateUsersToProject(ProjectBean projectBean)
 			throws Exception {
 		List<Long> userIdsList;
 		long projectId;
-		try {
+		try{
+			//validating userIds
 			userIdsList = projectBean.getUserIds();
-			if (userIdsList.isEmpty())
-				throw new NullPointerException();
-		} catch (NullPointerException e) {
-			e.printStackTrace();
-			throw new UserException(ExceptionCodes.USER_ID_NOT_NULL,
-					ExceptionMessages.USER_ID_NOT_NULL);
-		}
-		try {
-			projectId = projectBean.getId();
-			if (projectId == 0)
-				throw new NullPointerException();
-		} catch (NullPointerException e) {
-			e.printStackTrace();
-			throw new ProjectException(ExceptionCodes.PROJECT_ID_NOT_NULL,
-					ExceptionMessages.PROJECT_ID_NOT_NULL);
-		}
-
+			if (userIdsList.isEmpty()){
+				throw new  UserException(ExceptionCodes.USER_ID_NOT_NULL,
+						ExceptionMessages.USER_ID_NOT_NULL);		
+				} 
+			
+			//validating projectId
+			projectId = projectBean.getProjectId();
+			if (projectId == 0){
+				throw  new ProjectException(ExceptionCodes.PROJECT_ID_NOT_NULL,
+						ExceptionMessages.PROJECT_ID_NOT_NULL);
+			}
+			
 		Project project = new Project();
 		project.setId(projectId);
-		List<User> userList = listOfProjectUsers(project);
+		List<User> userList=null;
+		
+		//fetching users of project
+		userList= getProjectUsers(project);
 		List<Long> previous = new LinkedList<Long>();
 		for (User user : userList) {
 			previous.add(user.getId());
 		}
-
-		ProjectBean projectBeanDeAllocate = new ProjectBean();
-		projectBeanDeAllocate.setId(projectId);
-		projectBeanDeAllocate.setUserIds(filter(previous, userIdsList));
-
-		deAllocateUsersFromProject(projectBeanDeAllocate);
+		
+		//filtering new users and previous users 
 		List<Long> userIds = filter(userIdsList, previous);
+		
 		List<UserProject> userProjects = new LinkedList<UserProject>();
 		if (!userIds.isEmpty()) {
-			for (Long userid : userIds) {
-				if (!UserHandler.getInstance().isUserDeleted(userid)) {
+			for (Long userId : userIds) {
+				//validating whether user is valid or not
+				if ((!UserHandler.getInstance().isUserDeleted(userId))&&(UserHandler.getInstance().getUserByUserId(userId)!=null)) {
 					UserProject userProject = new UserProject();
 					userProject.setProjectId(projectId);
-					userProject.setUserId(userid);
+					userProject.setUserId(userId);
 					userProjects.add(userProject);
 				}
 			}
+			
+			//allocating user to project
 			UserProjectHandler.getInstance().addUserToProject(userProjects);
 		}
-		return null;
+		return UserProjectHandler.getInstance().getUserProjectsByProjectId(projectId);
+	}catch(Exception e){
+		throw e;
 	}
+}
+
+	
 
 	/*
 	 * Returns project Object by using projectId
 	 */
 
-	public Project getObjectById(long id) throws Exception {
-		return (Project) DAOFactory.getInstance().getProjectDAOImplInstance()
+	public Project getObjectById(long id) throws ObjectNotFoundException {
+		
+		Project project=null;
+		try{
+		project= (Project) DAOFactory.getInstance().getProjectDAOImplInstance()
 				.getObjectById(id);
+		}catch(ObjectNotFoundException e){
+			throw e;
+		}
+		return project;
 	}
-
-	public ProjectBean deAllocateUsersFromProject(ProjectBean projectBean)
-			throws Exception, NullPointerException {
+	
+	
+	
+	/*
+	 * Removing users from project
+	 */
+	public List<UserProject> deAllocateUsersFromProject(ProjectBean projectBean)
+			throws ProjectException, NullPointerException {
+		
 		List<Long> userIdsList;
 		long projectId;
+		
+		//validation for userIds
 		try {
 			userIdsList = projectBean.getUserIds();
 		} catch (NullPointerException e) {
 			e.printStackTrace();
 			throw new NullPointerException(ExceptionMessages.USER_ID_NOT_NULL);
 		}
-		try {
-			projectId = projectBean.getId();
-		} catch (NullPointerException e) {
-			e.printStackTrace();
+
+		//validations for projectId
+		projectId = projectBean.getProjectId();
+		if(projectId==0){
 			throw new NullPointerException(
 					ExceptionMessages.PROJECT_ID_NOT_NULL);
 		}
+
 		List<UserProject> userProjectList = UserProjectHandler.getInstance()
-				.getUserProjectListByIds(projectId, userIdsList);
+				.getUserProjectsByIds(projectId, userIdsList);
+		
 		Iterator<UserProject> iterator = userProjectList.iterator();
 		Iterator<Long> userId = userIdsList.iterator();
 		UserProject userProject = null;
-		while (userId.hasNext()) {
+		
+		while (iterator.hasNext()) {
 			userProject = iterator.next();
-			if (UserProjectsRolesHandler.getInstance()
-					.deletUserProjectRoleByUserProjectId(userProject))
-				UserProjectHandler.getInstance().deAllocateUsersFromProject(
-						projectId, userId.next());
+			
+			//deAllocating roles of user
+			UserProjectsRolesHandler.getInstance()
+			.deleteUserProjectRoleByUserProjectId(userProject);
+			
+			//deAllocating user from project
+			UserProjectHandler.getInstance().deAllocateUsersFromProject(userProject);
 		}
-		return projectBean;
+
+		return UserProjectHandler.getInstance().getUserProjectsByProjectId(projectId);
 
 	}
 
-	public List<User> nonMembersOfProject(Project project) throws Exception {
+	/*
+	 * list of users not associated with a particular project
+	 */
+	public List<User> nonUsersOfProject(Project project) throws ProjectException {
 		try {
+			
 			List<UserProject> userProject = UserProjectHandler.getInstance()
-					.getListOfUserProjectByProjectId(project.getId());
+					.getUserProjectsByProjectId(project.getId());
+			
 			List<Long> userIds = new LinkedList<Long>();
 			for (UserProject userProjects : userProject)
 				userIds.add(userProjects.getUserId());
-			return UserHandler.getInstance().getUserById(userIds);
-		} catch (UserException e) {
-			e.printStackTrace();
-			throw e;
-		} catch (NullPointerException e) {
+			return UserHandler.getInstance().getUserByIds(userIds);
+			
+		}catch (NullPointerException e) {
 			e.printStackTrace();
 			throw new ProjectException(ExceptionCodes.PROJECT_ID_NOT_NULL,
 					ExceptionMessages.PROJECT_ID_NOT_NULL);
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw e;
 		}
 	}
 
-	/*
-	 * Validations of ProjectName
-	 */
 
-	public boolean validateProjectName(String name) throws Exception {
-		if (name == null)
-			throw new ProjectException(ExceptionCodes.PROJECT_NAME_NOTNULL,
-					ExceptionMessages.PROJECT_NAME_NOT_NULL);
-		else if (name.length() > 128)
-			throw new ProjectException(ExceptionCodes.PROJECT_NAME_LENGTH_MORE,
-					ExceptionMessages.PROJECT_NAME_LENGTH_MORE);
-		else if (!name.matches("^[a-zA-Z0-9]+([ {1}][\\._-a-zA-Z0-9]+)*\\w$"))
-			throw new ProjectException(ExceptionCodes.PROJECT_NAME_FORMAT,
-					ExceptionMessages.PROJECT_NAME_FORMAT);
-		return true;
-	}
-
-	/*
-	 * Validations of Project Technology Names
-	 */
-	public boolean validateProjectTechnologies(String technologies)
-			throws Exception {
-		if (technologies != null && technologies.length() > 512) {
-			throw new ProjectException(
-					ExceptionCodes.TECHNOLOGIES_FIELD_LENGTH_MORE,
-					ExceptionMessages.TECHNOLOGIES_FIELD_LENGTH_MORE);
-		}
-		return true;
-
-	}
-
-	public List<Long> filter(List<Long> previous, List<Long> present) {
+	
+	private List<Long> filter(List<Long> previous, List<Long> present) {
 		List<Long> onlyPrevious = new LinkedList<Long>();
 		for (Long x : previous) {
 			if (!present.contains(x))
@@ -287,12 +329,5 @@ public class ProjectHandler extends AbstractHandler {
 		}
 		return onlyPrevious;
 	}
-	// public List<Long> getOnlyPresent(List<Long> previous,List<Long> present){
-	// List<Long> onlyPresent=new LinkedList();
-	// for(Long x:present){
-	// if(!previous.contains(x))
-	// onlyPresent.add(x);
-	// }
-	// return onlyPresent;
-	// }
+	
 }

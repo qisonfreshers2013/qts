@@ -12,9 +12,6 @@ import org.hibernate.SessionFactory;
  */
 public class DAOFactory {
 	private static DAOFactory INSTANCE = null;
-	private static RoleDAO ROLEDAO_INSTANCE = null;
-	private static UserProjectDAO USERPROJECTDAO_INSTANCE = null;
-	private static UserProjectsRolesDAO USER_PROJECT_ROLESDAO_INSTANCE = null;
 
 	private DAOFactory() {
 	}
@@ -27,46 +24,38 @@ public class DAOFactory {
 	}
 
 	public  RoleDAO getRoleDAOImplInstance() {
-		if (ROLEDAO_INSTANCE == null) {
-			ROLEDAO_INSTANCE = RoleDAOImpl.getInstance();
-		}
-		return ROLEDAO_INSTANCE;
+		return 	RoleDAOImpl.getInstance();
+		
 	}
 
+	
 	public ReleasesDAO getReleasesDAOImplInstance() {
 		return ReleasesDAOImpl.getInstance();
 	}
 
+	
 	public ProjectDAO getProjectDAOImplInstance() {
 		return ProjectDAOImpl.getInstance();
 	}
 
-	// Implement all the factory methods, after this line.
+	
 	public UserDAO getUserDAO() {
 		return UserDAOImpl.getInstance();
 	}
 
-	public static UserProjectDAO getUserProjectDAOImplInstance() {
-		if (USERPROJECTDAO_INSTANCE == null) {
-			USERPROJECTDAO_INSTANCE = UserProjectDAOImpl.getInstance();
-		}
-		return USERPROJECTDAO_INSTANCE;
+	
+	public  UserProjectDAO getUserProjectDAOImplInstance() {
+		return  UserProjectDAOImpl.getInstance();
 	}
 
-
     
-	public TimeEntryDAO getTimeEntryDAOInstance()
-	{
+	public TimeEntryDAO getTimeEntryDAOInstance(){
 		return TimeEntryDAOImpl.getTimeEntryDAOInstance();
 	}
 	
 
 	public  UserProjectsRolesDAO getUserProjectsRolesDAOInstance() {
-		if (USER_PROJECT_ROLESDAO_INSTANCE == null) {
-			USER_PROJECT_ROLESDAO_INSTANCE = UserProjectsRolesDAOImpl
-					.getInstance();
-		}
-		return USER_PROJECT_ROLESDAO_INSTANCE;
+		return UserProjectsRolesDAOImpl.getInstance(); 
 	}
 }
 

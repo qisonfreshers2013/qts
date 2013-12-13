@@ -8,18 +8,17 @@ import com.qts.model.UserProject;
 
 public interface UserProjectDAO extends BaseDAO {
 	
-	public List<UserProject> getListOfUserProjectByUserId(long id) throws Exception;
+	public List<UserProject> getUserProjectsByUserId(long id) throws ProjectException;
 	
-	public List<UserProject> getListOfUserProjectByProjectId(long id) throws Exception;
+	public List<UserProject> getUserProjectsByProjectId(long id);
 	
-	public void addUserToProject(List<UserProject> userProject) throws ProjectException,Exception;
+	public void addUserToProject(List<UserProject> userProject) throws ProjectException;
 	
-	public UserProject getUserProjectByIds(long projectId,long userId) throws ProjectException, Exception;
+	public UserProject getUserProjectByIds(long projectId,long userId) throws ProjectException;
 	
-	public boolean deAllocateUsersFromProject(long projectId,Long userId) throws Exception;
+	public boolean deAllocateUsersFromProject(UserProject userProject);
 	
-	public List<UserProject> getUserProjectListByIds(long projectId,List<Long> userIdsList) throws ProjectException;
+	public List<UserProject> getUserProjectsByIds(long projectId,List<Long> userIdsList);
 	
-	public List<UserProject> getListOfNonUserProjectByProjectId(long id) throws Exception;
 	
 }
