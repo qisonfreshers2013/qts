@@ -19,17 +19,18 @@ import javax.ws.rs.core.UriInfo;
 
 import com.qts.common.json.JsonUtil;
 import com.qts.handler.ProjectHandler;
-import com.qts.model.BaseObject;
 import com.qts.model.Project;
 import com.qts.model.ProjectBean;
 import com.qts.model.User;
+import com.qts.model.UserProject;
 import com.qts.service.annotations.RestService;
 import com.qts.service.annotations.ServiceStatus;
-import com.qts.service.annotations.UnSecure;
 import com.qts.service.common.WebserviceRequest;
 import com.qts.service.descriptors.ProjectBeanDescriptor;
 import com.qts.service.descriptors.ProjectOutputDescriptor;
 import com.qts.service.descriptors.UserListOutputDescriptor;
+import com.qts.service.descriptors.UserOutputDescriptor;
+import com.qts.service.descriptors.UserProjectOutputDescriptor;
 
 @Path("/v1/project")
 public class ProjectService {
@@ -39,15 +40,13 @@ public class ProjectService {
 	@ServiceStatus(value = "complete")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	@Path("/listProjects")
-	public String listOfProjects(@Context HttpHeaders headers,
+	@Path("/getProjects")
+	public String getProject(@Context HttpHeaders headers,
 			@Context UriInfo uriInfo, WebserviceRequest request)
 	throws Exception {
-		ProjectBean projectBean = (ProjectBean) JsonUtil.getObject(request.getPayload(),
-				ProjectBean.class);
 
 		List<Project> projectList = ProjectHandler.getInstance()
-		.getProjectList(projectBean);
+		.getProjects();
 
 		String jsonForListBasedOnDescriptor = JsonUtil
 		.getJsonForListBasedOnDescriptor(projectList, Project.class,
@@ -56,21 +55,47 @@ public class ProjectService {
 		return jsonForListBasedOnDescriptor;
 	}
 
+	
+	
 	@POST
 	@RestService(input = String.class, output = String.class)
 	@ServiceStatus(value = "complete")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	@Path("/addProject")
+	@Path("/getProjectsForUser")
+	public String getProjectsForUser(@Context HttpHeaders headers,
+			@Context UriInfo uriInfo, WebserviceRequest request)
+	throws Exception {
+
+		List<Project> projectList = ProjectHandler.getInstance()
+		.getProjectsForUser();
+
+		String jsonForListBasedOnDescriptor = JsonUtil
+		.getJsonForListBasedOnDescriptor(projectList, Project.class,
+				ProjectOutputDescriptor.class);
+
+		return jsonForListBasedOnDescriptor;
+	}
+	
+	
+	@POST
+	@RestService(input = String.class, output = String.class)
+	@ServiceStatus(value = "complete")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	@Path("/add")
 	public String addProject(@Context HttpHeaders headers,
 			@Context UriInfo uriInfo, WebserviceRequest request)
 	throws Exception {
+		
 		Project project = (Project) JsonUtil.getObject(request.getPayload(),
 				Project.class);
+		
 		Project projectOutput = ProjectHandler.getInstance().addProject(project);
 		String jsonForListBasedOnDescriptor = JsonUtil
 		.getJsonBasedOnDescriptor( projectOutput,
 				ProjectOutputDescriptor.class);
+		
 		return jsonForListBasedOnDescriptor;
 
 	}
@@ -80,14 +105,14 @@ public class ProjectService {
 	@ServiceStatus(value = "complete")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	@Path("/listProjectUsers")
-	public String listProjectUsers(@Context HttpHeaders headers,
+	@Path("/getProjectUsers")
+	public String getProjectUsers(@Context HttpHeaders headers,
 			@Context UriInfo uriInfo, WebserviceRequest request)
 	throws Exception {
 		Project project = (Project) JsonUtil.getObject(request.getPayload(),
 				Project.class);
 		List<User> userList = ProjectHandler.getInstance()
-		.listOfProjectUsers(project);
+		.getProjectUsers(project);
 		String jsonForListBasedOnDescriptor = JsonUtil
 		.getJsonForListBasedOnDescriptor(userList, User.class,
 				UserListOutputDescriptor.class);
@@ -101,52 +126,60 @@ public class ProjectService {
 	@ServiceStatus(value = "complete")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	@Path("/allocateUserToProject")
-	public String allocateUserToProject(@Context HttpHeaders headers,
+	@Path("/allocateUsersToProject")
+	public String allocateUsersToProject(@Context HttpHeaders headers,
 			@Context UriInfo uriInfo, WebserviceRequest request) throws Exception {
 		ProjectBean projectBean = (ProjectBean) JsonUtil.getObject(request.getPayload(),
 				ProjectBean.class);
-		projectBean=ProjectHandler.getInstance()
-		.allocateUserToProject(projectBean);
+		List<UserProject> userProject=ProjectHandler.getInstance()
+		.allocateUsersToProject(projectBean);
 		String jsonForListBasedOnDescriptor = JsonUtil
-		.getJsonBasedOnDescriptor(projectBean,
-				ProjectBeanDescriptor.class);
+		.getJsonForListBasedOnDescriptor(userProject,UserProject.class,
+				UserProjectOutputDescriptor.class);
 		return jsonForListBasedOnDescriptor;
 	}
 	
 	
-
-//	@POST
-//	@RestService(input = String.class, output = String.class)
-//	@ServiceStatus(value = "complete")
-//	@Consumes(MediaType.APPLICATION_JSON)
-//	@Produces(MediaType.APPLICATION_JSON)
-//	@Path("/deAllocateUserFromProject")
-//	public String deAllocateUsersFromProject(@Context HttpHeaders headers,
-//			@Context UriInfo uriInfo, WebserviceRequest request) throws Exception{
-//		ProjectBean projectBean = (ProjectBean) JsonUtil.getObject(request.getPayload(),
-//				ProjectBean.class);
-//		projectBean=ProjectHandler.getInstance()
-//		.deAllocateUsersFromProject(projectBean);
-//		return "success";
-//	}
+	 @POST
+	 @RestService(input = String.class, output = String.class)
+	 @ServiceStatus(value = "complete")
+	 @Consumes(MediaType.APPLICATION_JSON)
+	 @Produces(MediaType.APPLICATION_JSON)
+	 @Path("/deAllocateUsersFromProject")
+	 public String deAllocateUsersFromProject(@Context HttpHeaders headers,
+	   @Context UriInfo uriInfo, WebserviceRequest request) throws Exception{
+		 
+	  ProjectBean projectBean = (ProjectBean) JsonUtil.getObject(request.getPayload(),
+	    ProjectBean.class);
+	  
+	  List<UserProject> userProject=ProjectHandler.getInstance()
+	  .deAllocateUsersFromProject(projectBean);
+	  
+	  String jsonForListBasedOnDescriptor = JsonUtil
+				.getJsonForListBasedOnDescriptor(userProject,UserProject.class,
+						UserProjectOutputDescriptor.class);
+				return jsonForListBasedOnDescriptor;
+	 }
 	
-	
+	 
 	@POST
 	@RestService(input = String.class, output = String.class)
 	@ServiceStatus(value = "complete")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	@Path("/nonMembersOfProject")
-	public String nonMembersOfProject(@Context HttpHeaders headers,
+	@Path("/nonUsersOfProject")
+	public String nonUsersOfProject(@Context HttpHeaders headers,
 			@Context UriInfo uriInfo, WebserviceRequest request) throws Exception{
+		
 		Project project = (Project) JsonUtil.getObject(request.getPayload(),
 				Project.class);
+		
 		List<User> usersList=ProjectHandler.getInstance()
-		.nonMembersOfProject(project);
+		.nonUsersOfProject(project);
+		
 		String jsonForListBasedOnDescriptor = JsonUtil
 		.getJsonForListBasedOnDescriptor(usersList, User.class,
-				UserListOutputDescriptor.class);
+				UserOutputDescriptor.class);
 
 		return jsonForListBasedOnDescriptor;
 	}

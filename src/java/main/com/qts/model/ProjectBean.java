@@ -7,7 +7,7 @@ import java.util.Set;
 
 public class ProjectBean {
 	
-	private long id;
+	private long projectId;
 	private String name;
 	private String technologies;
 	private List<Long> userIds=new LinkedList();
@@ -19,12 +19,12 @@ public class ProjectBean {
 	}
 
 
-	public long getId() {
-		return id;
+	public long getProjectId() {
+		return projectId;
 	}
 
-	public void setId(long id) {
-		this.id = id;
+	public void setProjectId(long projectId) {
+		this.projectId = projectId;
 	}
 
 	public String getName() {

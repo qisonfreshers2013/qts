@@ -36,75 +36,73 @@ public class UserProjectDAOImpl extends BaseDAOImpl implements UserProjectDAO {
 		}
 		return INSTANCE;
 	}
-
-	public List<UserProject> getListOfUserProjectByUserId(long id) throws  Exception {
+	
+	/*
+	 * fetches all userProject records based on userId
+	 */
+	public List<UserProject> getUserProjectsByUserId(long id) throws ProjectException{
 		 session = getSession();
-		try {
+		 List<UserProject> userProjectList=null;
+		 try{
 			Criteria userProjectCriteria = session
 					.createCriteria(UserProject.class);
 			userProjectCriteria.add(Restrictions.eq("userId", id));
-			List<UserProject> list = userProjectCriteria.list();
-			return list;
-		}
-		catch (Exception e) {
-			e.printStackTrace();
-			throw e;
-
-
-		}
-
+			userProjectList = userProjectCriteria.list();
+			if(userProjectList.isEmpty()){
+				throw new  ProjectException(ExceptionCodes.USER_NOT_PART_OF_ANY_PROJECT,ExceptionMessages.USER_NOT_PART_OF_ANY_PROJECT);
+			}
+		 }catch(ProjectException e){
+			 throw e;
+		 }
+			return userProjectList;
 	}
 
-	public List<UserProject> getListOfUserProjectByProjectId(long projectId) throws ProjectException, Exception {
+	/*
+	 * fetches all userProject records based on projectId
+	 */
+	@Override
+	public List<UserProject> getUserProjectsByProjectId(long projectId) {
 		session = getSession();
-		try {
+		List<UserProject> userProjects=null;
 			Criteria userProjectCriteria =session.createCriteria(UserProject.class);
 			userProjectCriteria.add(Restrictions.eq("projectId",projectId));
-			return userProjectCriteria.list();
-//			List<UserProject> list = session.createQuery(
-//					"from UserProject where project_id=" + id).list();
-//			return list;
-		}
-		catch (Exception e) {
-		}
-
-		return null;
+			userProjects= userProjectCriteria.list();
+		return userProjects;
 
 	}
 
 
-
+	/*
+	 * fetches unique userProject record based on userId and projectId
+	 */
 	@Override
 	public UserProject getUserProjectByIds(long projectId, long userId)
-			throws ProjectException, Exception {
+			throws ProjectException {
 		session = getSession();
+		UserProject userProject;
 		try {
 			Criteria userProjectCriteria =session.createCriteria(UserProject.class);
 			userProjectCriteria.add(Restrictions.eq("projectId",projectId)).
 								add(Restrictions.eq("userId",userId));
 			List<UserProject> userProjectList  =userProjectCriteria.list();
-			
-//			List<UserProject> list = session.createQuery(
-//					"from UserProject where project_id=" + projectId
-//							+ "and user_id=" + userId).list();
 			if (userProjectList.isEmpty())
 				throw new ProjectException(
 						ExceptionCodes.PROJECT_OR_USER_ID_INVALID,
 						ExceptionMessages.PROJECT_OR_USER_ID_INVALID);
-			return userProjectList.get(0);
+			userProject= userProjectList.get(0);
 		} catch (ProjectException e) {
-			e.printStackTrace();
-			throw e;
-		} catch (Exception e) {
-			e.printStackTrace();
 			throw e;
 		} 
+		return userProject;
 
 	}
 
+	/*
+	 * inserts new userProject records into userProject Table
+	 */
 	@Override
 	public void addUserToProject(List<UserProject> userProject)
-			throws ProjectException, Exception {
+			throws ProjectException {
 		try {
 			Iterator<UserProject> iterator = userProject.iterator();
 			UserProject userProjectObject = new UserProject();
@@ -112,8 +110,6 @@ public class UserProjectDAOImpl extends BaseDAOImpl implements UserProjectDAO {
 			while (iterator.hasNext()) {
 				session = getSession();
 				userProjectObject = iterator.next();
-				long i = userProjectObject.getProjectId();
-				long j = userProjectObject.getUserId();
 				session.save(userProjectObject);
 			}
 		} catch (ConstraintViolationException e) {
@@ -121,63 +117,58 @@ public class UserProjectDAOImpl extends BaseDAOImpl implements UserProjectDAO {
 			throw new ProjectException(
 					ExceptionCodes.USER_PROJECT_CONSTRAINT_FAILED,
 					ExceptionMessages.USER_PROJECT_CONSTRAINT_FAILED);
-		} catch (Exception e) {
-			e.printStackTrace();
-
-			throw  new ProjectException(ExceptionCodes.ADD_USER_TO_PROJECT_FAILED,ExceptionMessages.ADD_USER_TO_PROJECT_FAILED);
-		}
+		} 
 	}
 
+	/*
+	 * fetches unique userProject record based on primary key(id)
+	 */
 	@Override
 	public BaseObject getObjectById(long id) throws ObjectNotFoundException {
 
 		session = getSession();
-
+		BaseObject baseObject=null;
 		try {
 			Criteria userProjectCriteria =session.createCriteria(UserProject.class);
 			userProjectCriteria.add(Restrictions.eq("id",id));
-//			List<UserProject> list = session.createQuery(
-//					"from UserProject where id=" + id).list();
 			List<UserProject> list=userProjectCriteria.list();
 			if (list.isEmpty())
 				throw new ObjectNotFoundException(
 						ExceptionCodes.USER_PROJECT_ID_INVALID,
 						ExceptionMessages.USER_PROJECT_ID_INVALID);
-			return list.get(0);
+			baseObject= list.get(0);
 		} catch (ObjectNotFoundException e) {
-			e.printStackTrace();
 			throw e;
 		}
+		return baseObject;
 
 	}
 
+	/*
+	 * removes userProject record 
+	 */
 	@Override
-	public boolean deAllocateUsersFromProject(long projectId, Long userId)
-			throws Exception {
+	public boolean deAllocateUsersFromProject(UserProject userProject){
 		session = getSession();
-		try {
-
-			UserProject userProject = (UserProject) session
-					.createCriteria(UserProject.class)
-					.add(Restrictions.eq("projectId", projectId))
-					.add(Restrictions.eq("userId", userId)).uniqueResult();
-			session.delete(userProject);
-			return true;
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw new ProjectException(
-					ExceptionCodes.DELETE_USER_FROM_PROJECT_FAILED,
-					ExceptionMessages.DELETE_USER_FROM_PROJECT_FAILED);
+		boolean flag=false;
+		Query query=session.createQuery("delete UserProject where id =:id");
+		query.setParameter("id", userProject.getId());
+		int count=query.executeUpdate();
+		if(count>0){
+			flag=true;
 		}
+		return flag;
 	}
 
+	/*
+	 * fetches  userProject records based on userIds and projectid
+	 */
 	@Override
-	public List<UserProject> getUserProjectListByIds(long projectId,
-			List<Long> userIdsList) throws ProjectException {
+	public List<UserProject> getUserProjectsByIds(long projectId,
+			List<Long> userIdsList)  {
 		session = getSession();
 		long userId;
-		List<UserProject> userProjectList = new LinkedList();
-		try {
+		List<UserProject> userProjectList = new LinkedList<UserProject>();
 
 			Iterator<Long> iterator = userIdsList.iterator();
 			while (iterator.hasNext()) {
@@ -186,29 +177,11 @@ public class UserProjectDAOImpl extends BaseDAOImpl implements UserProjectDAO {
 				userProjectCriteria
 						.add(Restrictions.eq("projectId", projectId)).add(
 								Restrictions.eq("userId", iterator.next()));
-				userProjectList.addAll(userProjectCriteria.list());
+				List<UserProject> userProjects=userProjectCriteria.list();
+				if(!userProjects.isEmpty())
+				userProjectList.addAll(userProjects);
 			}
 			return userProjectList;
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw new ProjectException(ExceptionCodes.PROJECT_OR_USER_ID_INVALID,ExceptionMessages.PROJECT_OR_USER_ID_INVALID);
-		}
 	}
 
-	@Override
-	public List<UserProject> getListOfNonUserProjectByProjectId(long id)
-			throws Exception {
-		session = getSession();
-
-		try {
-			Criteria userProjectCriteria = session
-					.createCriteria(UserProject.class);
-			userProjectCriteria.add(Restrictions.ne("projectId", id));
-			List<UserProject> list = userProjectCriteria.list();
-			return list;
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw e;
-		}
-	}
 }

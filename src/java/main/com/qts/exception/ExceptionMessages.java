@@ -37,11 +37,12 @@ public interface ExceptionMessages {
 	public static final String USER_PROJECT_ID_INVALID="User Project Id invalid";
 	public static final String USER_ID_NOT_NULL="User id can not be null";
 	public static final String USER_ID_INVALID="User id is invalid";
-	public static final String DELETE_USER_FROM_PROJECT_FAILED="Deallocating users fro project failed.Invalid user and project id combination . Please try again.";
+	public static final String DELETE_USER_FROM_PROJECT_FAILED="User already removed from project";
 	public static final String REPORTING_USER_ID_NOT_NULL="Reporting user id can not be null";
 	public static final String USER_PROJECT_CONSTRAINT_FAILED="User already a member of the project";
 	public static final String DUPLICATE_PROJECT_ENTRY="Duplicate Entry For Project Name ";
-
+	public static final String USER_NOT_PART_OF_ANY_PROJECT = "user not associated with any project";
+	public static final String NO_USER_ASSOCIATED_WITH_PROJECT ="No User is associated with this project";
 	
 	//Releases Exception Messages
 	public static final String RELEASES_NAME_CANNOT_BE_EMPTY = "Releases Name Cannot Be Empty.";
@@ -130,6 +131,8 @@ public interface ExceptionMessages {
 	public static final String ROLE_ID_EXISTS = "This role already exists for this user";
 	public static final String ONLY_ONE_APPROVER = "only one approver allowed for one project";
 	public static final String ROLE_ID_DOESNOT_EXISTS = "This role id doesnot exists for this user.";
+
+	
 	
 
 }
