@@ -8,6 +8,10 @@ import javax.persistence.Table;
 
 //import org.hibernate.annotations.Cascade;
 
+/**
+ * @author AnilRam
+ *
+ */
 @Entity
 @Table(name="FILE")
 public class File extends AbstractObject{
