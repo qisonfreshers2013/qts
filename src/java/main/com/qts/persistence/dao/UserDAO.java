@@ -15,30 +15,17 @@ import com.qts.model.UserBean;
  * AnilRam
  * 
  */
-public interface UserDAO {
+public interface UserDAO extends BaseDAO{
 	public boolean deleteUser(long id) throws UserException; // deleteUser
-
 	public User getUserById(long userId) throws UserException;
-
-	public List<User> searchUser(UserBean bean) throws UserException; // search User																		
-
-	public User getUserLogin(LoginBean bean) throws UserException;// login
-
+	public List<User> searchUser(UserBean bean) throws UserException; // search User								
 	public User getUserByEmail(String email) throws UserException;
-
 	public String getUserName(long id);
-
 	public long addUser(User user) throws UserException;// addUser
-
 	public User updateUser(UserBean bean) throws UserException;
-
-	boolean changePassword(ChangePasswordBean bean) throws UserException;
-
-	public boolean isUserDeleted(long id) throws Exception;
-
-	public List<User> getUserByIds(List<Long> userIds);// tell to mani
-	// public long addUser(UserBean bean, long id, long cts, long mts,
-	// String createdBy, String modifiedBy, boolean isDeleted, long
-	// photoFileId);
-	// public boolean changePassword(String password);
+	public boolean changePassword(ChangePasswordBean bean) throws UserException;
+	public boolean isUserDeleted(long id) ;
+	public List<User> getUsersOtherThanTheseIds(List<Long> userIds);
+	public User updateLoginUser(UserBean bean) throws UserException;
+	public User getLoginUser(LoginBean bean) throws UserException;
 }

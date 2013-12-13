@@ -73,20 +73,20 @@ public interface ExceptionMessages {
 	 public static final String NICKNAME_INVALID = "Nickname is invalid";
 	 public static final String GENDER_NOT_NULL = "Gender Field is null";
 	 public static final String GENDER_INVALID = "Gender entered is invalid";
-	 public static final String EMAIL_FORMAT = "invalid Email";
+	 public static final String EMAIL_FORMAT = "Invalid Email";
 	 public static final String EMPLOYEE_ID_NULL = "Employee id is null";
 	 public static final String EMPLOYEE_ID_INVALID = "Employee id is Invalid";
 	 public static final String USER_ID_NULL = "User Id can not be null";
 	 public static final String USER_ID_AND_PASSWORD_INVALID = "User id/password does not exist";
 	 public static final String PASSWORD_NULL = "password can not be null";
-	 public static final String USER_DOESNOT_EXIST = "user not existing with this id";
+	 public static final String USER_DOESNOT_EXIST = "user not existing";
 	 public static final String USER_CAN_NOT_ADDED = "user can not be added";
 	 public static final String LOCATION_INVALID = "Invalid location";
 	 public static final String DELETE_INVALID = "User not existing";
-	 public static final String UPDATE_NOT_EXIST_INVALID = "invalid user id,Action can not be performed";
+	 public static final String UPDATE_NOT_EXIST_USER = "invalid user id,Action can not be performed";
 	 public static final String DELETED_ALREADY = "User already deleted";
-	 public static final String SEND_MAIL_FAILED = "An Error occured.Try Again";
-	 public static final String DELETE_ID_ZERO = "Choose id from one to perform delete operation";
+	 public static final String SEND_MAIL_FAILED = "An error occured in sending mail.Try Again";
+	 public static final String DELETE_ID_ZERO = "Choose id from one to perform  operation";
 	 public static final String OLD_PASSWORD_INVALID = "old password is invalid";
 	 public static final String DUPLICATE_ENTRY_EMAIL = "Duplicate entry for Email";
 	 public static final String DUPLICATE_ENTRY_EMPLOYEE_ID = "Duplicate entry for Employee Id";
@@ -97,6 +97,7 @@ public interface ExceptionMessages {
 	 public static final String EMAIL_NOT_EXISTS = "Email is not existing";
 	 public static final String USER_NOT_AUTHENTICATED = "Please login.";
 	 public static final String SEARCH_RESULTS_NO_MATCH = "no matchs found";
+	//time entries
 	public static final String DATE_CANNOT_BE_NULL= "DATE CANNOT BE NULL";
 	public static final String DATE_LENGTH_MISMATCH= "DATE LENGTH SHOULD BE 10 AND DATE PATTERN IS MM/DD/YYYY";
 	public static final String DATE_MONTH_EXCEPTION="MONTH LIES BETWEEN 1 AND 12 AND DATE PATTERN IS MM/DD/YYYY"; 
@@ -129,6 +130,7 @@ public interface ExceptionMessages {
 	public static final String ONLY_ONE_APPROVER = "only one approver allowed for one project";
 	public static final String ROLE_ID_DOESNOT_EXISTS = "This role id doesnot exists for this user.";
 	public static final String NUMBER_INVALID = "enter a ";
+	public static final String DUPLICATE_PROJECT_ENTRY = "anil";
 	
 
 }

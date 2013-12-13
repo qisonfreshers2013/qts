@@ -17,7 +17,7 @@ import com.qts.service.annotations.SerializationDescriptor;
 public interface UserListOutputDescriptor {
 
 	@JsonProperty
-	 @SerializationDescriptor(value = OptionOutputDescriptor.class)
+	 @SerializationDescriptor(value = UserOutputDescriptor.class)
 	 public List<User> getData();
 	
 }

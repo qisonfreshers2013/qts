@@ -1,7 +1,4 @@
 package com.qts.service;
-
-//import java.io.StringWriter;
-
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -31,19 +28,15 @@ import com.qts.service.annotations.RestService;
 import com.qts.service.annotations.ServiceStatus;
 import com.qts.service.annotations.UnSecure;
 import com.qts.service.common.WebserviceRequest;
-import com.qts.service.descriptors.BooleanOutputDescriptor;
-import com.qts.service.descriptors.DeleteUserOutputDescriptor;
-import com.qts.service.descriptors.OptionOutputDescriptor;
+
 
 /**
  * @author AnilRam
  *
  */
 
-@Path("/v1/userService/")
-public class UserService extends BaseService {
-	
-	
+@Path("/v1/user/")
+public class UserService extends BaseService {		
 	
 	/**
 	 * @param headers
@@ -65,13 +58,12 @@ public class UserService extends BaseService {
 		LoginBean loginBean = (LoginBean) JsonUtil.getObject(
 				request.getPayload(), LoginBean.class);
 		
-		User userInfo = UserHandler.getInstance().login(loginBean);
+		User userInfo = UserHandler.getInstance().getLoginUser(loginBean);
 		
-		return JsonUtil.getJsonForListBasedOnDescriptor(userInfo, User.class,
-				OptionOutputDescriptor.class);// ----
+		return JsonUtil.getJsonBasedOnDescriptor(userInfo, User.class);
 	}
 
-	// {"payload":{"email":"ANILRAM.LAXMISETTY@QISON.COM","password":"ANIL@123"}}
+	
 
 	/**
 	 * @param headers
@@ -86,8 +78,8 @@ public class UserService extends BaseService {
 	@ServiceStatus(value = "complete")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	@Path("/searchUser")
-	public String searchUsers(@Context HttpHeaders headers,
+	@Path("/search")
+	public String search(@Context HttpHeaders headers,
 			@Context UriInfo uriInfo, WebserviceRequest request)
 			throws UserException, Exception {
 		
@@ -97,18 +89,18 @@ public class UserService extends BaseService {
 		SearchUserRecords userInfo = UserHandler.getInstance().searchUsers(
 				searchUserBean);
 		
-		return JsonUtil.getJsonForListBasedOnDescriptor(userInfo,
-				SearchUserRecords.class, OptionOutputDescriptor.class);
+		return JsonUtil.getJsonBasedOnDescriptor(userInfo,
+				SearchUserRecords.class);
 	}
 
-	// {"payload":{"nickName":"anil","email":"anilram.laxmisetty@qison.com","employeeId":"68","designation":"APM"}}
+	
 
 	
 	/**
 	 * @param headers
 	 * @param uriInfo
 	 * @param request
-	 * @return
+	 * @return String
 	 * @throws ObjectNotFoundException
 	 * @throws BusinessException
 	 * @throws EncryptionException
@@ -124,7 +116,7 @@ public class UserService extends BaseService {
 			@Context UriInfo uriInfo, WebserviceRequest request)
 			throws ObjectNotFoundException, BusinessException,
 			EncryptionException {
-
+		
 		AuthenticationInput input = (AuthenticationInput) JsonUtil.getObject(
 				request.getPayload(), AuthenticationInput.class);
 
@@ -140,46 +132,46 @@ public class UserService extends BaseService {
 	 * @param headers
 	 * @param uriInfo
 	 * @param request
-	 * @return
+	 * @return String
 	 * @throws Exception
+	 * this service work only for admin
 	 */
 	@POST
 	@RestService(input = String.class, output = String.class)
 	@ServiceStatus(value = "complete")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	@Path("/addUser")
-	public String addUser(@Context HttpHeaders headers,
+	@Path("/add")
+	public String add(@Context HttpHeaders headers,
 			@Context UriInfo uriInfo, WebserviceRequest request)
-			throws Exception {
+			throws UserException {
 		
 		UserBean user = (UserBean) JsonUtil.getObject(request.getPayload(),
 				UserBean.class);
 		
 		long primaryUserId = UserHandler.getInstance().addUser(user);
 		
-		return JsonUtil.getJsonForListBasedOnDescriptor(primaryUserId,
-				User.class, OptionOutputDescriptor.class);
+		return JsonUtil.getJsonBasedOnDescriptor(primaryUserId,Long.class);
 	}
 
-	// {"payload":{"firstName":"Ramesh","lastName":"Pasupulati","nickName":"rammi","gender":"Male","email":"pasu@gmail.com","employeeId":"1234","designation":"APM","location":"hyd","userId":"pasu@gmail.com","password":"pas@123","confirmPassword":"pas@123"}}
 
 		
 	/**
 	 * @param headers
 	 * @param uriInfo
 	 * @param request
-	 * @return
+	 * @return String
 	 * @throws UserException
 	 * @throws Exception
+	 * this service work only for admin
 	 */
 	@POST
 	@RestService(input = String.class, output = String.class)
 	@ServiceStatus(value = "complete")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	@Path("/deleteUser")
-	public String deleteUser(@Context HttpHeaders headers,
+	@Path("/delete")
+	public String delete(@Context HttpHeaders headers,
 			@Context UriInfo uriInfo, WebserviceRequest request)
 			throws UserException , Exception{
 		
@@ -188,8 +180,7 @@ public class UserService extends BaseService {
 		
 		boolean isDeleted = UserHandler.getInstance().deleteUser(bean);
 		
-		return JsonUtil.getJsonForListBasedOnDescriptor(isDeleted, User.class,
-				DeleteUserOutputDescriptor.class);
+		return JsonUtil.getJsonBasedOnDescriptor(isDeleted, Boolean.class);
 	}
 
 	// Update User
@@ -198,15 +189,16 @@ public class UserService extends BaseService {
 	 * @param headers
 	 * @param uriInfo
 	 * @param request
-	 * @return
+	 * @return String
 	 * @throws UserException
+	 * this service work only for admin
 	 */
 	@POST
 	@RestService(input = String.class, output = String.class)
 	@ServiceStatus(value = "complete")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	@Path("/updateUser")
+	@Path("/updateUserDetails")
 	public String updateUser(@Context HttpHeaders headers,
 			@Context UriInfo uriInfo, WebserviceRequest request)
 			throws UserException {
@@ -216,15 +208,14 @@ public class UserService extends BaseService {
 		
 		User userInfo = UserHandler.getInstance().updateUser(userBean);
 		
-		return JsonUtil.getJsonForListBasedOnDescriptor(userInfo, User.class,
-				OptionOutputDescriptor.class);
+		return JsonUtil.getJsonBasedOnDescriptor(userInfo, User.class);
 	}
 	
 	/**
 	 * @param headers
 	 * @param uriInfo
 	 * @param request
-	 * @return
+	 * @return String
 	 * @throws UserException
 	 */
 	@POST
@@ -242,18 +233,17 @@ public class UserService extends BaseService {
 		
 		boolean isChanged = UserHandler.getInstance().changePassword(userBean);
 		
-		return JsonUtil.getJsonForListBasedOnDescriptor(isChanged,
-				Boolean.class, BooleanOutputDescriptor.class);
+		return JsonUtil.getJsonBasedOnDescriptor(isChanged,Boolean.class);
 	}
 
-	// {"payload":{"oldPassword":"MANIG@123","password":"MANI@123","confirmPassword":"MANI@123"}}
-
+	
 	/**
 	 * @param headers
 	 * @param uriInfo
 	 * @param request
-	 * @return
+	 * @return String
 	 * @throws UserException
+	 * 
 	 */
 	@POST
 	@RestService(input = String.class, output = String.class)
@@ -271,8 +261,7 @@ public class UserService extends BaseService {
 		
 		boolean isSend = UserHandler.getInstance().forgotPassword(bean);
 		
-		return JsonUtil.getJsonForListBasedOnDescriptor(isSend, Boolean.class,
-				BooleanOutputDescriptor.class);
+		return JsonUtil.getJsonBasedOnDescriptor(isSend, Boolean.class);
 	}
 	
 	
@@ -280,7 +269,7 @@ public class UserService extends BaseService {
 	 * @param headers
 	 * @param uriInfo
 	 * @param request
-	 * @return
+	 * @return String
 	 */
 	@POST
 	@RestService(input = String.class, output = String.class)
@@ -290,11 +279,30 @@ public class UserService extends BaseService {
 	@Path("/logout")
 	public String logout(@Context HttpHeaders headers,
 			@Context UriInfo uriInfo, WebserviceRequest request) {
-		// UserBean bean =
-		// (UserBean)JsonUtil.getObject(request.getPayload(),UserBean.class);
-		boolean isLogout = UserHandler.getInstance().logout();		
-		return JsonUtil.getJsonForListBasedOnDescriptor(isLogout,
-				Boolean.class, BooleanOutputDescriptor.class);
+			boolean isLogout = UserHandler.getInstance().logout();		
+		return JsonUtil.getJsonBasedOnDescriptor(isLogout,Boolean.class);
+	}
+	
+	/**
+	 * @param headers
+	 * @param info
+	 * @param request
+	 * @return String
+	 * @throws UserException
+	 * this service work only for admin
+	 */
+	@POST
+	@RestService(input = String.class, output = String.class)
+	@ServiceStatus(value = "complete")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	@Path("/getUserDetails")
+	
+	public String getUserDetails(@Context HttpHeaders headers,@Context UriInfo info,WebserviceRequest request) throws UserException{
+		UserBean bean = (UserBean) JsonUtil.getObject(request.getPayload(),
+				UserBean.class);
+		User user = UserHandler.getInstance().getUserById(bean.getId());
+		return JsonUtil.getJsonBasedOnDescriptor(user, User.class);		
 	}
 	
 	/**
@@ -309,15 +317,36 @@ public class UserService extends BaseService {
 	@ServiceStatus(value = "complete")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	@Path("/getUserDetails")
-	public String getUserDetails(@Context HttpHeaders headers,@Context UriInfo info,WebserviceRequest request) throws UserException{
-		UserBean bean = (UserBean) JsonUtil.getObject(request.getPayload(),
-				UserBean.class);
-		User user = UserHandler.getInstance().getUserById(bean.getId());
-		return JsonUtil.getJsonForListBasedOnDescriptor(user, User.class, OptionOutputDescriptor.class);
+	@Path("/getLoginUserDetails")
+	public String getLoginUserDetails(@Context HttpHeaders headers,@Context UriInfo info,WebserviceRequest request) throws UserException{
+
+		User user = UserHandler.getInstance().getLoginUserDetails();
 		
-		
-		
+		return JsonUtil.getJsonBasedOnDescriptor(user, User.class);		
 	}
 	
+	/**
+	 * @param headers
+	 * @param uriInfo
+	 * @param request
+	 * @return String
+	 * @throws UserException
+	 */
+	@POST
+	@RestService(input = String.class, output = String.class)
+	@ServiceStatus(value = "complete")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	@Path("/updateLoginUserDetails")
+	public String updateLoginUser(@Context HttpHeaders headers,
+			@Context UriInfo uriInfo, WebserviceRequest request)
+			throws UserException {
+		
+		UserBean userBean = (UserBean) JsonUtil.getObject(request.getPayload(),
+				UserBean.class);
+		
+		User userInfo = UserHandler.getInstance().updateLoginUser(userBean);
+		
+		return JsonUtil.getJsonBasedOnDescriptor(userInfo, User.class);
+	}	
 }

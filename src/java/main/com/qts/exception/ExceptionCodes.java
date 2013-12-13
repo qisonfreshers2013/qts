@@ -219,7 +219,7 @@ public interface ExceptionCodes {
 	 public static final int USER_EMAIL_FORMAT = 7003;
 	 public static final int EMPLOYEE_ID_INVALID_FORMAT = 7004;
 	 public static final int DESIGNATION_PATTERN_INVALID = 7005;
-	 //public static final String DESIGNATION_FORMAT = null;
+	
 	 public static final int USER_ID_FORMAT = 7006;
 	 public static final int PASSWORD_FORMAT = 7007;
 	 public static final int USER_ID_AND_PASSWORD_NULL = 7008;
@@ -242,15 +242,15 @@ public interface ExceptionCodes {
 	 public static final int USER_CAN_NOT_ADDED = 7025;
 	 public static final int LOCATION_INVALID = 7026;
 	 public static final int DELETE_INVALID = 7027;
-	 public static final int UPDATE_NOT_EXIST_INVALID = 7028;
+	 public static final int UPDATE_NOT_EXIST_USER = 7028;
 	 public static final int DELETED_ALREADY = 7029;
 	 public static final int SEND_MAIL_FAILED = 7030;
 	 public static final int DELETE_ID_ZERO = 7031;
 	 public static final int SEARCH_RESULTS_NO_MATCH = 7032;
 	 public static final int UPDATE_HANDLAER_EXCEPTION = 7035;
 	 public static final int OLD_PASSWORD_INVALID = 7036; 
-	 public static final int DUPLICATE_ENTRY_EMAIL = 7037;//not used
-	 public static final int DUPLICATE_ENTRY_EMPLOYEE_ID = 7038;//not used
+	 public static final int DUPLICATE_ENTRY_EMAIL = 7037;
+	 public static final int DUPLICATE_ENTRY_EMPLOYEE_ID = 7038;
 	 public static final int DUPLICATE_ENTRY = 7039;
 	 public static final int DESIGNATION_NULL = 7040;
 	 public static final int EMAIL_USERID_NOT_EQUAL = 7041;
@@ -280,5 +280,6 @@ public interface ExceptionCodes {
 	public static final int TIME_ENTRY_PRESENT = 9008;
 	public static final int RELEASE_ID_NULL = 9009;
 	public static final int DB_EXCEPTION = 9010;
+	public static final int DUPLICATE_PROJECT_ENTRY = 0;
 
 }
