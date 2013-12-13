@@ -49,20 +49,24 @@ public class TimeEntryDAOImpl extends BaseDAOImpl implements TimeEntryDAO {
 	 * TimeEntriesForm, org.hibernate.Session) Method to Add TimeEntry to
 	 * DATABASE TimeEntries Storage Table
 	 */
-	public boolean add(TimeEntryBean timeEntry) throws Exception {
+	public boolean add(TimeEntryBean timeEntry){
    
 		TimeEntries addentry = new TimeEntries();
 
 		addentry.setUserId(timeEntry.getUserId());
-		addentry.setDate(Utils.parseDateToLong(timeEntry.getDate()));
+		try {
+			addentry.setCts(Utils.parseDateToLong((timeEntry.getDate())));
+			addentry.setDate(Utils.parseDateToLong(timeEntry.getDate()));
+			addentry.setMts(Utils.parseDateToLong((timeEntry.getDate())));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		addentry.setHours(timeEntry.getHours());
 		addentry.setProjectId(timeEntry.getProjectId());
 		addentry.setActivityId(timeEntry.getActivityId());
 		addentry.setReleaseId(timeEntry.getReleaseId());
 		addentry.setTask(timeEntry.getTask());
 		addentry.setRemarks(timeEntry.getUserRemarks());
-		addentry.setCts(Utils.parseDateToLong((timeEntry.getDate())));
-		addentry.setMts(Utils.parseDateToLong((timeEntry.getDate())));
 		addentry.setCreated_by(timeEntry.getUserId());
 		addentry.setModified_by(timeEntry.getUserId());
 		addentry.setStatus(0);
@@ -84,7 +88,7 @@ public class TimeEntryDAOImpl extends BaseDAOImpl implements TimeEntryDAO {
 	 * TimeEntriesForm) Method Used by Approver to REJECT Submitted TimeEntry
 	 */
 
-	public boolean reject(TimeEntryBean timeEntry) throws Exception {
+	public boolean reject(TimeEntryBean timeEntry) throws ObjectNotFoundException {
 		Session session = getSession();
 		try {
 			Query query = session

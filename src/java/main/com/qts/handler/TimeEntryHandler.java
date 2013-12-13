@@ -13,14 +13,14 @@ import com.qts.exception.ExceptionMessages;
 import com.qts.exception.InvalidTimeEntryDataException;
 import com.qts.exception.ObjectNotFoundException;
 import com.qts.exception.ProjectException;
-import com.qts.exception.ReleasesException;
+import com.qts.exception.ReleaseException;
 import com.qts.exception.RolesException;
 import com.qts.exception.TimeEntryException;
 import com.qts.model.RoleBean;
 import com.qts.model.TimeEntries;
 import com.qts.model.TimeEntryBean;
 import com.qts.model.UserProject;
-import com.qts.model.UserProjectRoles;
+import com.qts.model.UserProjectsRoles;
 import com.qts.persistence.dao.DAOFactory;
 import com.qts.service.common.ServiceRequestContextHolder;
 
@@ -78,7 +78,7 @@ public class TimeEntryHandler {
 				.getProjectId())
 			throw new InvalidTimeEntryDataException(ExceptionCodes.MANDATORY_FIELDS_MISMATCH,ExceptionMessages.PASSED_DATA_IS_NOT_RELATED);
        
-		else if (!(RoleHandler.getInstance().listUserRoles(roleBean)
+		else if (!(RoleHandler.getInstance().getUserRoles(roleBean)
 				.getRoleIds().contains(new Long(3))))
 			throw new TimeEntryException(
 					ExceptionCodes.TIMEENTRY_FILLING_IS_NOT_ALLOWED_FOR_APPROVER,
@@ -95,7 +95,7 @@ public class TimeEntryHandler {
 		catch(ProjectException projectNotFound){
 			throw new InvalidTimeEntryDataException(ExceptionCodes.MANDATORY_FIELDS_MISMATCH,ExceptionMessages.PASSED_DATA_IS_NOT_RELATED);
 		}
-		catch(ReleasesException exceptionByReleasesHandler){
+		catch(ReleaseException exceptionByReleasesHandler){
 			throw new InvalidTimeEntryDataException(ExceptionCodes.MANDATORY_FIELDS_MISMATCH,ExceptionMessages.PASSED_DATA_IS_NOT_RELATED);
 		}
 		return true;
@@ -383,10 +383,14 @@ public class TimeEntryHandler {
 	 */
 	
 	
-	public boolean isEntryMapped(long id) throws Exception {
-		if (!(DAOFactory.getInstance().getTimeEntryDAOInstance()
-				.getTimeEntryObjectById(id))) {
-			throw new ObjectNotFoundException();
+	public boolean isEntryMapped(long id) throws ObjectNotFoundException {
+		try {
+			if (!(DAOFactory.getInstance().getTimeEntryDAOInstance()
+					.getTimeEntryObjectById(id))) {
+				throw new ObjectNotFoundException();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 		return true;
 	}
@@ -420,20 +424,20 @@ public class TimeEntryHandler {
 	
 	
 	public List<Long> getApproversByProject(long projectId) throws Exception {
+		//Method To obtain ListOfApprovers including Default Approvers 
 		
-		List<UserProject> listUserProjects = UserProjectHandler.getInstance()
-				.getListOfUserProjectByProjectId(projectId);
-		List<UserProjectRoles> listUserProjectRoles = new ArrayList<UserProjectRoles>();
+		List<UserProject> listUserProjects = UserProjectHandler.getInstance().getUserProjectsByProjectId(projectId);
+		List<UserProjectsRoles> listUserProjectRoles = new ArrayList<UserProjectsRoles>();
 		for (UserProject userProject : listUserProjects) {
 			if (UserProjectsRolesHandler.getInstance()
-					.getUserProjectRolesByUserProjectId(userProject.getId()) != null) {
+					.getUserProjectsRolesByUserProject(userProject.getId()) != null) {
 				listUserProjectRoles.addAll(UserProjectsRolesHandler
-						.getInstance().getUserProjectRolesByUserProjectId(
+						.getInstance().getUserProjectsRolesByUserProject(
 								userProject.getId()));
 			}
 		}
 		long id;
-		for (UserProjectRoles userProjectRoles : listUserProjectRoles) {
+		for (UserProjectsRoles userProjectRoles : listUserProjectRoles) {
 			id = userProjectRoles.getRoleId();
 			if (id == 2) {
 				UserProject userProjectObj = (UserProject) UserProjectHandler
@@ -453,20 +457,19 @@ public class TimeEntryHandler {
 			throws Exception {
 		int isApprover=0;
 		//validating The SeaarchCriteria 
-		if(validateSearchCriteria(searchCriteria)){	
+		if(validateSearchCriteria(searchCriteria)){
+			
      	List<TimeEntries> getTimeEntriesForApporver = new ArrayList<TimeEntries>();
-		List<UserProject> associatedProjectList = UserProjectHandler.getInstance().getListOfUserProjectByUserId(ServiceRequestContextHolder.getContext().getUserSessionToken().getUserId());		
+		List<UserProject> associatedProjectList = UserProjectHandler.getInstance().getUserProjectsByUserId(ServiceRequestContextHolder.getContext().getUserSessionToken().getUserId());		
 		for (UserProject associatedProject : associatedProjectList) {
 			RoleBean roleBeanInput=new RoleBean(ServiceRequestContextHolder.getContext().getUserSessionToken().getUserId(),associatedProject.getProjectId());
-			RoleBean roleBeanOutput=null;
-			try{
-				roleBeanOutput=RoleHandler.getInstance().listUserRoles(roleBeanInput);
-				}catch(RolesException rolenotfound){
-					roleBeanOutput.setRoleIds(null);
-				}
+			RoleBean roleBeanOutput=RoleHandler.getInstance().getUserRoles(roleBeanInput);
+			
 			
 		if((roleBeanOutput.getRoleIds()!=null && roleBeanOutput.getRoleIds().contains(new Long(2)))||listOfApprovers.contains(ServiceRequestContextHolder.getContext().getUserSessionToken().getUserId()))
-			{
+			{      
+			if(!listOfApprovers.contains(ServiceRequestContextHolder.getContext().getUserSessionToken().getUserId())){
+			searchCriteria.setProjectId(associatedProject.getProjectId());}
 				List<TimeEntries> responseList = DAOFactory.getInstance()
 						.getTimeEntryDAOInstance()
 						.getTimeEntriesForApprover(searchCriteria);

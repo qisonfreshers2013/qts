@@ -16,7 +16,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.UriInfo;
 import com.qts.common.json.JsonUtil;
 import com.qts.handler.TimeEntryHandler;
-import com.qts.model.GetTimeEntriesBean;
+import com.qts.model.GetListOfTimeEntryBeans;
 import com.qts.model.TimeEntries;
 import com.qts.model.TimeEntryBean;
 import com.qts.service.annotations.RestService;
@@ -153,7 +153,7 @@ public class TimeEntryService {
 	@ServiceStatus(value = "complete")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	@Path("/searchTimeEntrieByApprover")
+	@Path("/searchTimeEntriesByApprover")
 	public String searchTimeEntriesByApprover(@Context HttpHeaders headers,
 			@Context UriInfo uriInfo, WebserviceRequest request)
 			throws Exception {
@@ -178,10 +178,10 @@ public class TimeEntryService {
 			@Context UriInfo uriInfo, WebserviceRequest request)
 			throws Exception {
 		
-		GetTimeEntriesBean getTimeEntriesToSubmit = (GetTimeEntriesBean) JsonUtil
-				.getObject(request.getPayload(), GetTimeEntriesBean.class);
+		GetListOfTimeEntryBeans getTimeEntriesToSubmit = (GetListOfTimeEntryBeans) JsonUtil
+				.getObject(request.getPayload(), GetListOfTimeEntryBeans.class);
 		
-		boolean isSubmitted=TimeEntryHandler.getInstance().submit(getTimeEntriesToSubmit.getTimeEntriesform());
+		boolean isSubmitted=TimeEntryHandler.getInstance().submit(getTimeEntriesToSubmit.getListOfTimeEntryBeans());
 		
 	     return JsonUtil.getJsonBasedOnDescriptor(isSubmitted, Boolean.class);
 	}

@@ -128,7 +128,7 @@ public class ReleaseHandler extends AbstractHandler {
 
 	// delete Releases with the given id
 	public Release deleteRelease(ReleaseBean releaseBean)
-			throws ReleaseException, ObjectNotFoundException {
+			throws Exception {
 
 		Release release = null;
 

@@ -1,18 +1,20 @@
 package com.qts.model;
 
-import java.util.HashSet;
+/*
+ * author mani kumar
+ */
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Set;
+
 
 public class ProjectBean {
 	
 	private long projectId;
 	private String name;
 	private String technologies;
-	private List<Long> userIds=new LinkedList();
+	private List<Long> userIds=new LinkedList<Long>();
 	private long userId;
-	private List<User> users =new LinkedList(); 
+	private List<User> users =new LinkedList<User>(); 
 	
 	public ProjectBean() {
 		super();
@@ -70,11 +72,4 @@ public class ProjectBean {
 	public void setUsers(List<User> users) {
 		this.users = users;
 	}
-
-
-	
-	
-	
-	
-
 }

@@ -1,7 +1,7 @@
 package com.qts.handler;
 
 
-import java.sql.SQLException;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedList;
@@ -22,9 +22,10 @@ import org.hibernate.HibernateException;
 import com.qts.common.Utils;
 import com.qts.common.cache.CacheManager;
 import com.qts.common.cache.CacheRegionType;
-import com.qts.exception.BusinessException;
 import com.qts.exception.ExceptionCodes;
 import com.qts.exception.ExceptionMessages;
+import com.qts.exception.ObjectNotFoundException;
+import com.qts.exception.ProjectException;
 import com.qts.exception.UserException;
 import com.qts.model.ChangePasswordBean;
 import com.qts.model.LoginBean;
@@ -38,12 +39,20 @@ import com.qts.persistence.dao.DAOFactory;
 import com.qts.persistence.dao.UserDAO;
 import com.qts.service.common.ServiceRequestContextHolder;
 
+/**
+ * @author AnilRam
+ *
+ */
+
 public class UserHandler extends AbstractHandler {
 	private static UserHandler INSTANCE = null;
 
 	private UserHandler() {
 	}
 
+	/**
+	 * @return instance of UserHandler
+	 */
 	public static UserHandler getInstance() {
 		if (INSTANCE == null)
 			INSTANCE = new UserHandler();
@@ -52,75 +61,73 @@ public class UserHandler extends AbstractHandler {
 
 	// search user
 
-	public SearchUserRecords searchUsers(UserBean bean) throws Exception ,UserException{
+	/**
+	 * @param bean
+	 * @return SearchUserRecords contains Photofile Id,Email,EmployeeId,Designation
+	 * @throws Exception
+	 * @throws UserException
+	 */
+	public SearchUserRecords searchUsers(UserBean bean) throws ProjectException ,UserException{
 
 		List<User> list = null;
 		SearchUserRecords searchUserRecords = null;
-		// validations of the input provided // saperate method // should return
-		// true or false
+		 List<UserProject> userProjects = null;
+		 Project project = new Project();
+		 List<String> projectNames =  new ArrayList<String>();;
+		 SearchUserRecord searchUserRecord = null;
+		
+		// validations of the input provided  separate method  which return true or false
 		List<SearchUserRecord> records = null;
 		if (bean == null || searchUserValidations(bean) || bean.toString().trim().isEmpty()) {
 			try {
+				// for list of users			
+				list = DAOFactory.getInstance().getUserDAO().searchUser(bean);	
+				// for storing all User Records of needed fields
+				records = new LinkedList<SearchUserRecord>(); 
+				for (User user : list) {	
+					searchUserRecord = new SearchUserRecord(user);
+					//get project Names associated with particular Users Id
+					userProjects = 
+						UserProjectHandler.getInstance().getUserProjectsByUserId(user.getId());
+					if(!userProjects.isEmpty()){	
+						for(UserProject userProject : userProjects){
+							long projectId= userProject.getProjectId();
+							try{					
+								project = ProjectHandler.getInstance().getObjectById(projectId); 
+							}catch(ObjectNotFoundException onf)	{
+								onf.printStackTrace();
+							}					
+							projectNames.add(project.getName());						
 
-				// if (bean.getNickName() == null) {
-				// bean.setNickName("Not");
-				// }
-				// if (bean.getEmail() == null) {
-				// bean.setEmail("Not");
-				// }
-				// if (bean.getEmployeeId() == null) {
-				// bean.setEmployeeId("Not");
-				// }
-				// if (bean.getDesignation() == null) {
-				// bean.setDesignation("Not");
-				// }
-
-				list = DAOFactory.getInstance().getUserDAO().searchUser(bean);
+						}
+					}
+					else 
+						projectNames.add(" ");
 				
-				records = new LinkedList<SearchUserRecord>();
-				for (User user : list) {
+				
 					
-					SearchUserRecord searchUserRecord = new SearchUserRecord(user);
-
-					//List<String> projects = new ArrayList<String>();
-					 List<UserProject> userProjects =
-					 UserProjectHandler.getInstance().getListOfUserProjectByUserId(user.getId());
-					 List<String> projectNames = new ArrayList<String>();
-					 for(UserProject userProject : userProjects){
-					 long projectId= userProject.getProjectId();
-					 Project project = ProjectHandler.getInstance().getObjectById(projectId);
-					 projectNames.add(project.getName());
-				      }
-					
-					//
 					searchUserRecord.setProjects(projectNames);
 					// after that insert into List of records
 					records.add(searchUserRecord);
-
 				}
+				
 				searchUserRecords = new SearchUserRecords();
+				//saving list Of records 
 				searchUserRecords.setRecords(records);
-
 			} catch (HibernateException he) {
 				he.printStackTrace();
 				throw he;
 			}
 		}
-
 		return searchUserRecords;
+		}
 
-		// pass tUserBean to DAOImpl
-
-		// pass tUserBean to DAOImpl
-		// get the data , return the data using Output Descriptor
-
-	}
-
-	public long addUser(UserBean bean) throws UserException, SQLException {
-		String userId = null;
+	public long addUser(UserBean bean) throws UserException {		
 		long id = 0;
-		if (isaddUserIsValidated(bean)) {
-			UserDAO userDAOImpl = DAOFactory.getInstance().getUserDAO();
+		long newId = 0;
+		User user = null;
+		if (isaddUserIsValidated(bean)) {			
+			UserDAO userDAOImpl = DAOFactory.getInstance().getUserDAO();			
 			id = ServiceRequestContextHolder.getContext().getUserSessionToken()
 					.getUserId();// id of admin
 			Date date = new Date();
@@ -129,32 +136,26 @@ public class UserHandler extends AbstractHandler {
 			boolean isDeleted = false;
 			long photoFileId = 7;// default value
 			String createdBy = userDAOImpl.getUserName(id);
-			String modifiedBy = createdBy;
+			String modifiedBy = createdBy;// default modified By = created By 
+			//storing gender by converting String to Boolean
 			boolean gender = bean.getGender().equalsIgnoreCase("male") ? true
-					: false;
-			User user = null;
+					: false;			
 			user = new User(bean.getEmail(), bean.getPassword(),
 					bean.getEmployeeId(), bean.getFirstName(),
 					bean.getLastName(), bean.getNickName(), bean.getLocation(),
 					gender, bean.getDesignation(), cts, mts, createdBy,
 					modifiedBy, isDeleted, bean.getUserId(), photoFileId);			
-				    id = userDAOImpl.addUser(user);
-				    }
-		return id;
-	}
-
-	public boolean deleteUser(UserBean bean) throws UserException,Exception {//exception thrown by userProject
-		boolean isDeleted = false;
-		UserProjectHandler userProjectHandler = UserProjectHandler.getInstance();
-		List<UserProject> userProjectList = userProjectHandler.getListOfUserProjectByUserId(bean.getId());
-		if(!(userProjectList.isEmpty())){
-			for(UserProject userProject: userProjectList){
-				boolean isRoleDeleted = UserProjectsRolesHandler.getInstance().deletUserProjectRoleByUserProjectId(userProject);
-				boolean isProjectDeallocated = userProjectHandler.deAllocateUsersFromProject(userProject.getProjectId(),userProject.getUserId());		
-			}
-		}
+			newId = userDAOImpl.addUser(user);
 		
-		UserDAO userDAOImpl = DAOFactory.getInstance().getUserDAO();
+		 }
+	   return newId;
+		
+	}
+/*
+ * delete User 
+ */
+	public boolean deleteUser(UserBean bean) throws UserException,ProjectException {   //exception thrown by userProject
+		boolean isDeleted = false;
 		if (bean == null || bean.toString().trim().isEmpty()) {
 			throw new UserException(ExceptionCodes.DELETE_ID_ZERO,
 					ExceptionMessages.DELETE_ID_ZERO);
@@ -163,6 +164,20 @@ public class UserHandler extends AbstractHandler {
 			throw new UserException(ExceptionCodes.DELETE_ID_ZERO,
 					ExceptionMessages.DELETE_ID_ZERO);
 		}
+		UserProjectHandler userProjectHandler = UserProjectHandler.getInstance();
+		List<UserProject> userProjectList = userProjectHandler.getUserProjectsByUserId(bean.getId());//get user project list for Specified users Id
+		//if user is associated with projects 
+		if(!(userProjectList.isEmpty())){
+			for(UserProject userProject: userProjectList){
+				//first delete role of user associated with specified project
+				boolean isRoleDeleted = UserProjectsRolesHandler.getInstance().deleteUserProjectsRolesByUserProject(userProject);
+				//next deallocate the project for the user
+				boolean isProjectDeallocated = userProjectHandler.deAllocateUsersFromProject(userProject);		
+			}
+		}
+		//if user not associated with projects delete user logically
+		UserDAO userDAOImpl = DAOFactory.getInstance().getUserDAO();
+		
 		isDeleted = userDAOImpl.deleteUser(bean.getId());
 		return isDeleted;
 	}
@@ -173,14 +188,6 @@ public class UserHandler extends AbstractHandler {
 		isPasswordChanged = validatePassword(bean.getPassword());
 		isPasswordChanged = validateConfirmPassword(bean.getPassword(),
 				bean.getConfirmPassword());
-		// if(bean.getConfirmPassword()==null){
-		// throw new UserException(ExceptionCodes.CONFIRM_PASSWORD_NOT_EQUAL,
-		// ExceptionMessages.CONFIRM_PASSWORD_NOT_EQUAL);
-		// }
-		// if(!bean.getPassword().equals(bean.getConfirmPassword())){
-		// throw new UserException(ExceptionCodes.CONFIRM_PASSWORD_NOT_EQUAL,
-		// ExceptionMessages.CONFIRM_PASSWORD_NOT_EQUAL);
-		// }
 		UserDAO userDAOImpl = DAOFactory.getInstance().getUserDAO();
 		isPasswordChanged = userDAOImpl.changePassword(bean);
 		return isPasswordChanged;
@@ -194,16 +201,20 @@ public class UserHandler extends AbstractHandler {
 		isValidated = validateEmail(bean.getEmail());
 		User user = DAOFactory.getInstance().getUserDAO()
 				.getUserByEmail(bean.getEmail());
+	    if(user == null)
+	    	throw new UserException(ExceptionCodes.DELETED_ALREADY,
+					ExceptionMessages.DELETED_ALREADY);
+	    //if user email is validated sentMail  
 		sentMail(user);
 		return isValidated;
 	}
 
 	// SearchUserRecords
-	public User login(LoginBean bean) throws UserException {
+	public User getLoginUser(LoginBean bean) throws UserException {
 		User user = null;
 		if (isLoginValidated(bean)) {
 			try {
-				user = DAOFactory.getInstance().getUserDAO().getUserLogin(bean);
+				user = DAOFactory.getInstance().getUserDAO().getLoginUser(bean);
 			} catch (HibernateException he) {
 				he.printStackTrace();
 			}
@@ -219,6 +230,7 @@ public class UserHandler extends AbstractHandler {
 		}
 		if (isUpdateUserIsValidated(bean)) {
 			UserDAO userDAOImpl = DAOFactory.getInstance().getUserDAO();
+			
 			user = userDAOImpl.updateUser(bean);
 		}
 		if(user == null)
@@ -232,13 +244,7 @@ public class UserHandler extends AbstractHandler {
 		boolean isLogout = false;
 		String userSessionId = ServiceRequestContextHolder.getContext()
 				.getUserSessionToken().getUserSessionId();
-		// check if session is valid or not
-		// System.out.println("Cached : " + cache.getValue(userSessionId));
-		// Cache cache = CacheManager.getInstance().getCache(
-		// CacheRegionType.USER_SESSION_CACHE);
-        //  Object value = CacheManager.getInstance()
-		//				.getCache(CacheRegionType.USER_SESSION_CACHE)
-		//				.getValue(userSessionId);
+		
 		isLogout = CacheManager.getInstance()
 				.getCache(CacheRegionType.USER_SESSION_CACHE).remove(userSessionId);
 		return isLogout;
@@ -247,7 +253,7 @@ public class UserHandler extends AbstractHandler {
 	public User getUserByUserId(long userId) throws UserException {
 		User user = null;
 		UserDAO userDAOImpl = DAOFactory.getInstance().getUserDAO();
-		user = userDAOImpl.getUserByUserId(userId);
+		user = userDAOImpl.getUserById(userId);
 		return user;
 	}
 
@@ -305,21 +311,17 @@ public class UserHandler extends AbstractHandler {
 		return isSent;
 	}
 
-	// validations
+	/*
+	 * searchUser  Validations 
+	 */
 
 	private boolean searchUserValidations(UserBean bean) throws UserException {
 		boolean isValidated = false;
-
-		// String name = bean.getNickName();
-		// String designation = bean.getDesignation();
-		if (bean.getNickName() != null) {
-			try {
-				Utils.validateName(bean.getNickName());
-				isValidated = true;
-			} catch (BusinessException be) {
+		if (bean.getNickName() != null) {		
+			boolean isNickNameValidated = Pattern.compile(Utils.USER_NAME_PATTERN).matcher(bean.getNickName()).matches(); 
+		     if(!isNickNameValidated)
 				throw new UserException(ExceptionCodes.NICKNAME_INVALID,
-						ExceptionMessages.NICKNAME_INVALID);
-			}
+						ExceptionMessages.NICKNAME_INVALID);			
 		}
 		if (bean.getEmail() != null) {
 			
@@ -327,11 +329,9 @@ public class UserHandler extends AbstractHandler {
 					.matcher(bean.getEmail()).matches();
 			if (!isEmailPatternValid) {
 				throw new UserException(ExceptionCodes.USER_EMAIL_FORMAT,
-						ExceptionMessages.USER_EMAIL_FORMAT);
-				
+						ExceptionMessages.USER_EMAIL_FORMAT);				
 			}
-			isValidated = true;
-			
+			isValidated = true;			
 		}
 		
 			if (bean.getEmployeeId() != null) {
@@ -343,12 +343,12 @@ public class UserHandler extends AbstractHandler {
 			}
 		}
 		if (bean.getDesignation() != null) {
-			// try {
+		
 			boolean isDesignationPatternValid = Pattern
 					.compile(Utils.DESIGNATION).matcher(bean.getDesignation())
 					.matches();
 			if (!isDesignationPatternValid) {
-				// throw new BusinessException();
+				
 				throw new UserException(
 						ExceptionCodes.DESIGNATION_PATTERN_INVALID,
 						ExceptionMessages.DESIGNATION_PATTERN_INVALID);
@@ -360,44 +360,18 @@ public class UserHandler extends AbstractHandler {
 		return isValidated;
 	}
 
-	//
-	//
-	// public List<User> getListOfUsers() {
-	//
-	// //StringWriter userInfo = new StringWriter();
-	//
-	// // DAOFactory daoFactory = DAOFactory.getInstance();
-	// UserDAOImpl userDAOImpl = DAOFactory.getUserDAOImpl();
-	// List<User> list = userDAOImpl.getListOfUsersObjects();
-	// // Iterator<User1> itr = list.iterator();
-	//
-	// // for (User user : list) {
-	// // try {
-	// // userInfo.append(user.getPhotoFile().getPath() + "\t");
-	// // } catch (NullPointerException n) {
-	// // userInfo.append(null);
-	// // }
-	// // userInfo.append(user.getEmail() + "\t" + user.getEmployeeId()
-	// // + "\t" + user.getDesignation() + "\t");
-	// // Set<Project> set = user.getProject();
-	// // for (Project project : set) {
-	// //
-	// // userInfo.append(project.getName() + "\n");
-	// // }
-	// // }
-	//
-	// return list;
-	// }
+	
 
-	// addUserValidations
+	/*
+	 *  addUserValidations
+	 */
 
 	private boolean isaddUserIsValidated(UserBean bean) throws UserException {
 		boolean isValidated = false;
 		if (null == bean || bean.toString().trim().length() == 0) {
 			throw new UserException(ExceptionCodes.USER_DETAILS_NULL,
 					ExceptionMessages.USER_DETAILS_NULL);
-		}
-		
+		}		
 		isValidated = validateEmail(bean.getEmail());
 		isValidated = validatePassword(bean.getPassword());
 		isValidated = validateConfirmPassword(bean.getPassword(),
@@ -428,43 +402,13 @@ public class UserHandler extends AbstractHandler {
 	// login validations
 
 	private boolean isLoginValidated(LoginBean bean) throws UserException {
-		boolean isValidated = false;
-		// String email = null;
-		// String password = null;
-		// boolean isValidated;
+		boolean isValidated = false;		
 		if (null == bean) {
 			throw new UserException(ExceptionCodes.USER_ID_AND_PASSWORD_NULL,
 					ExceptionMessages.USER_ID_AND_PASSWORD_NULL);
 		}
 		isValidated = validateEmail(bean.getEmail());
-		isValidated = validatePassword(bean.getPassword());
-		// try {
-		// Utils.validatePassword(bean.getPassword());
-		// isValidated = true;
-		// } catch (Exception be) {
-		// isValidated = false;
-		// throw new UserException(ExceptionCodes.PASSWORD_FORMAT,
-		// ExceptionMessages.PASSWORD_FORMAT);
-		// }
-
-		// try {
-		// Utils.validateEmail(bean.getEmail());
-		// isValidated = true;
-		// } catch (Exception e) {
-		// isValidated = false;
-		// throw new UserException(ExceptionCodes.USER_ID_FORMAT,
-		// ExceptionMessages.USER_ID_FORMAT);
-		//
-		// }
-		// try {
-		// Utils.validatePassword(bean.getPassword());
-		// isValidated = true;
-		// } catch (Exception be) {
-		// isValidated = false;
-		// throw new UserException(ExceptionCodes.PASSWORD_FORMAT,
-		// ExceptionMessages.PASSWORD_FORMAT);
-		// }
-		//
+		isValidated = validatePassword(bean.getPassword());		
 		return isValidated;
 
 	}
@@ -679,6 +623,7 @@ public class UserHandler extends AbstractHandler {
 			throw new UserException(ExceptionCodes.EMAIL_FORMAT,
 					ExceptionMessages.EMAIL_FORMAT);
 		}
+		
 		return isValidated;
 	}
 
@@ -701,201 +646,46 @@ public class UserHandler extends AbstractHandler {
 	}
 
 
-//try{
-//user.setEmail(bean.getEmail());
-//}catch(ConstraintViolationException  cve){
-//	 cve.printStackTrace();
-//	 System.out.println(cve.getSQL());
-//     System.out.println(cve.getSQLState());
-//     System.out.println(cve.getConstraintName());
-//     System.out.println(cve.getLocalizedMessage());
-//     System.out.println(cve.getMessage());
-//   	 throw new UserException (ExceptionCodes.DUPLICATE_ENTRY_EMAIL,ExceptionMessages.DUPLICATE_ENTRY_EMAIL);		
-//}
-//user.setPassword(bean.getPassword());
-//try{
-//user.setEmployeeId(bean.getEmployeeId());
-//}catch(ConstraintViolationException  cve){
-//	 cve.printStackTrace();
-//	 System.out.println(cve.getSQL());
-//     System.out.println(cve.getSQLState());
-//     System.out.println(cve.getConstraintName());
-//     System.out.println(cve.getLocalizedMessage());
-//     System.out.println(cve.getMessage());
-//   	 throw new UserException (ExceptionCodes.DUPLICATE_ENTRY_EMPLOYEE_ID,ExceptionMessages.DUPLICATE_ENTRY_EMPLOYEE_ID);		
-//}
-//user.setFirstName(bean.getFirstName());
-//user.setLastName(bean.getLastName());
-//user.setNickName(bean.getNickName());
-//user.setLocation(bean.getLocation());
-//user.setGender(gender);
-//user.setDesignation(bean.getDesignation());
-//user.setCts(cts);
-//user.setMts(mts);
-//user.setCreatedBy(createdBy);
-//
-//user.setModifiedBy(modifiedBy);
-//user.setIsDeleted(isDeleted);
-//user.setUserId(bean.getUserId());
-//user.setPhotoFileId(photoFileId);
 
 
+public List<User> getUsersOtherThanTheseIds(List<Long> userIds){
+	 return DAOFactory.getInstance().getUserDAO().getUsersOtherThanTheseIds(userIds);
+	}
 
+public User getUserById(Long id) throws UserException {
+	if(id == null) {       
+		throw new UserException(ExceptionCodes.USER_ID_INVALID,ExceptionMessages.USER_ID_INVALID);
+	}
+	User user = DAOFactory.getInstance().getUserDAO().getUserById(id);
+	if(user == null)
+		throw new UserException(ExceptionCodes.USER_DOESNOT_EXIST,ExceptionMessages.USER_DOESNOT_EXIST);
+	return user;
+}
 
-// if(bean.getConfirmPassword()==null){
-// isValidated = false;
-// throw new
-// UserException(ExceptionCodes.CONFIRM_PASSWORD_NULL,ExceptionMessages.CONFIRM_PASSWORD_NULL
-// );
-//
-// }
-// if(!bean.getPassword().equals(bean.getConfirmPassword())){
-// isValidated = false;
-// throw new
-// UserException(ExceptionCodes.CONFIRM_PASSWORD_NOT_EQUAL,ExceptionMessages.CONFIRM_PASSWORD_NOT_EQUAL);
-// }
+	public User getLoginUserDetails() throws UserException {
+		User user = DAOFactory
+				.getInstance()
+				.getUserDAO()
+				.getUserById(
+						ServiceRequestContextHolder.getContext()
+								.getUserSessionToken().getUserId());
+		return user;
+	}
 
-// if(bean.getFirstName()==null||bean.getFirstName().trim().length()==0){
-// isValidated = false;
-// throw new
-// UserException(ExceptionCodes.FIRST_NAME_SHOULD_NOT_NULL,ExceptionMessages.FIRST_NAME_SHOULD_NOT_NULL);
-// }
-// else{
-// boolean isNamePatternValid = Pattern.compile(Utils.USER_NAME_PATTERN)
-// .matcher(bean.getFirstName()).matches();
-// isValidated = true;
-// if (!isNamePatternValid) {
-// isValidated = false;
-// throw new UserException(ExceptionCodes.FIRST_NAME_INVALID,
-// ExceptionMessages.FIRST_NAME_INVALID);
-// }
-// }
-// if(bean.getLastName()==null||bean.getLastName().trim().length()==0){
-// isValidated = false;
-// throw new
-// UserException(ExceptionCodes.LAST_NAME_SHOULD_NOT_NULL,ExceptionMessages.LAST_NAME_SHOULD_NOT_NULL);
-// }
-// else{
-// boolean isNamePatternValid = Pattern.compile(Utils.USER_NAME_PATTERN)
-// .matcher(bean.getLastName()).matches();
-// isValidated = true;
-// if (!isNamePatternValid) {
-// isValidated = false;
-// throw new UserException(ExceptionCodes.LAST_NAME_INVALID,
-// ExceptionMessages.LAST_NAME_INVALID);
-// }
-// }
-
-
-//addvalidations
-//if(bean.getPassword()==null){
-// isValidated = false;
-// throw new
-// UserException(ExceptionCodes.PASSWORD_NULL,ExceptionMessages.PASSWORD_NULL
-// );
-// }
-// try {
-// Utils.validatePassword(bean.getPassword());
-// isValidated = true;
-// } catch (Exception be) {
-// isValidated = false;
-// throw new UserException(ExceptionCodes.PASSWORD_FORMAT,
-// ExceptionMessages.PASSWORD_FORMAT);
-// }
-// if(bean.getNickName() != null){
-// isValidated = false;
-// boolean isNamePatternValid = Pattern.compile(Utils.USER_NAME_PATTERN)
-// .matcher(bean.getNickName()).matches();
-// isValidated = true;
-// if (!isNamePatternValid) {
-// isValidated = false;
-// throw new UserException(ExceptionCodes.NICKNAME_INVALID,
-// ExceptionMessages.NICKNAME_INVALID);
-// }
-// }
-//if (bean.getGender() == null || bean.getGender().trim().length() == 0) {
-//	isValidated = false;
-//	throw new UserException(ExceptionCodes.GENDER_NOT_NULL,
-//			ExceptionMessages.GENDER_NOT_NULL);
-//} else {
-//	boolean isGenderPatternValid = Pattern.compile(Utils.GENDER)
-//			.matcher(bean.getGender()).matches();
-//	isValidated = true;
-//	if (!isGenderPatternValid) {
-//		isValidated = false;
-//		throw new UserException(ExceptionCodes.GENDER_INVALID,
-//				ExceptionMessages.GENDER_INVALID);
-//	}
-//}
-// if(bean.getEmail() == null || bean.getEmail().trim().length() == 0)
-// {
-// throw new
-// UserException(ExceptionCodes.EMAIL_CANNOT_BE_EMPTY,ExceptionMessages.EMAIL_CANNOT_BE_EMPTY);
-// }
-// try {
-// Utils.validateEmail(bean.getEmail());
-// isValidated = true;
-// } catch (Exception e) {
-// isValidated = false;
-// throw new UserException(ExceptionCodes.EMAIL_FORMAT,
-// ExceptionMessages.EMAIL_FORMAT);
-//
-// }
-//if (bean.getEmployeeId() == null
-//		|| bean.getEmployeeId().trim().length() == 0) {
-//	isValidated = false;
-//	throw new UserException(ExceptionCodes.EMPLOYEE_ID_NULL,
-//			ExceptionMessages.EMPLOYEE_ID_NULL);
-//} else {
-//	boolean isEmployeeIdValid = Pattern
-//			.compile(Utils.EMPLOYEE_ID_PATTERN)
-//			.matcher(bean.getEmployeeId()).matches();
-//	isValidated = true;
-//
-//	if (!isEmployeeIdValid) {
-//		isValidated = false;
-//		throw new UserException(ExceptionCodes.EMPLOYEE_ID_INVALID,
-//				ExceptionMessages.EMPLOYEE_ID_INVALID);
-//	}
-//}
-//if (bean.getDesignation() == null || bean.getDesignation().trim().isEmpty()) {
-//	isValidated = false;
-//	throw new UserException(ExceptionCodes.DESIGNATION_NULL,ExceptionMessages.DESIGNATION_NULL);
-//	
-//}
-//	boolean isDesignationPatternValid = Pattern
-//			.compile(Utils.DESIGNATION).matcher(bean.getDesignation())
-//			.matches();
-//	isValidated = true;
-//	if (!isDesignationPatternValid) {
-//		isValidated = false;
-//		throw new UserException(
-//				ExceptionCodes.DESIGNATION_PATTERN_INVALID,
-//				ExceptionMessages.DESIGNATION_PATTERN_INVALID);
-//	}
-
- // ---
-//if (bean.getLocation() != null) {
-//	boolean isLocationPatternValid = Pattern
-//			.compile(Utils.USER_NAME_PATTERN)
-//			.matcher(bean.getLocation()).matches();
-//	isValidated = true;
-//	if (!isDesignationPatternValid) {
-//		isValidated = false;
-//		throw new UserException(
-//				ExceptionCodes.DESIGNATION_PATTERN,
-//				ExceptionMessages.INVALID_DESIGNATION_PATTERN);
-//	}
-//}
-
-//if (bean.getUserId() == null || bean.getUserId().trim().length() == 0 ) { // changes
-//	isValidated = false;
-//	throw new UserException(ExceptionCodes.USER_ID_NULL,
-//			ExceptionMessages.USER_ID_NULL);
-//} 
-
-
-public List<User> getUserById(List<Long> userIds){
-	 return DAOFactory.getInstance().getUserDAO().getUserById(userIds);//mani
+	public User updateLoginUser(UserBean bean) throws UserException {
+		User user =  null;
+		if(bean == null || bean.toString().trim().isEmpty()){
+			throw new UserException(ExceptionCodes.USER_DETAILS_NULL,ExceptionMessages.USER_DETAILS_NULL);
+		}		
+		validateFirstName(bean.getFirstName());
+		validateLastName(bean.getLastName());
+		validateNickName(bean.getNickName());
+		if (bean.getNickName() == null) {
+			bean.setNickName(bean.getLastName());
+		}
+		validateLocation(bean.getLocation());		
+		UserDAO userDAOImpl = DAOFactory.getInstance().getUserDAO();
+		user = userDAOImpl.updateLoginUser(bean);	
+		return user;
 	}
 }

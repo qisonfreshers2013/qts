@@ -109,10 +109,10 @@ public class ProjectService {
 	public String getProjectUsers(@Context HttpHeaders headers,
 			@Context UriInfo uriInfo, WebserviceRequest request)
 	throws Exception {
-		Project project = (Project) JsonUtil.getObject(request.getPayload(),
-				Project.class);
+		ProjectBean projectBean = (ProjectBean) JsonUtil.getObject(request.getPayload(),
+				ProjectBean.class);
 		List<User> userList = ProjectHandler.getInstance()
-		.getProjectUsers(project);
+		.getProjectUsers(projectBean);
 		String jsonForListBasedOnDescriptor = JsonUtil
 		.getJsonForListBasedOnDescriptor(userList, User.class,
 				UserListOutputDescriptor.class);

@@ -54,7 +54,7 @@ public class RoleHandler extends AbstractHandler {
 						roleBean, listUserProjectRoles);
 			}
 		} catch (ProjectException | RolesException e) {
-			throw e;
+			
 		}
 		return roleBean;
 	}
@@ -80,8 +80,7 @@ public class RoleHandler extends AbstractHandler {
 
 				}
 			}
-			if (availableRoles.containsAll(roleBean.getRoleIds()))
-				return roleBean;
+
 			roleBean.getRoleIds().removeAll(availableRoles);
 			myRoleBean = UserProjectsRolesHandler.getInstance().allocateRoles(
 					roleBean, userProject);
