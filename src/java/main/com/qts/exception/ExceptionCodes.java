@@ -181,8 +181,9 @@ public interface ExceptionCodes {
 	public static final int DELETE_USER_FROM_PROJECT_FAILED=5015;
 	public static final int USER_PROJECT_CONSTRAINT_FAILED=5016;
 	public static final int REPORTING_USER_ID_NOT_NULL=5017;
-
-
+	public static final int DUPLICATE_PROJECT_ENTRY=5018;
+	public static final int USER_NOT_PART_OF_ANY_PROJECT = 5019;
+	public static final int NO_USER_ASSOCIATED_WITH_PROJECT =5020;
 
 
 
@@ -282,5 +283,6 @@ public interface ExceptionCodes {
 	public static final int TIME_ENTRY_PRESENT = 9008;
 	public static final int RELEASE_ID_NULL = 9009;
 	public static final int DB_EXCEPTION = 9010;
+	
 
 }

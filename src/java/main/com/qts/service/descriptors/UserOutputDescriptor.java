@@ -9,5 +9,8 @@ import com.qts.model.SearchUserRecord;
 public interface UserOutputDescriptor {
 
 	@JsonProperty
-	public List<SearchUserRecord> getRecords();
+	public Long getId();
+	
+	@JsonProperty
+	public String getName();
 }

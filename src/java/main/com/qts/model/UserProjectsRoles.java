@@ -8,7 +8,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="user_projects_roles")
-public class UserProjectRoles extends AbstractObject 
+public class UserProjectsRoles extends AbstractObject 
 {
 	@Id
 	@GeneratedValue
@@ -19,7 +19,7 @@ public class UserProjectRoles extends AbstractObject
 	@Column(name="ROLE_ID")
 	private long roleId;
 
-	public UserProjectRoles() {
+	public UserProjectsRoles() {
 		
 	}
 	public long getId() {
@@ -42,6 +42,6 @@ public class UserProjectRoles extends AbstractObject
 	}
 	@Override
 	public int getObjectType() {
-		return ObjectTypes.USER_PROJECT;
+		return ObjectTypes.USER_PROJECTS_ROLES;
 	}
 }

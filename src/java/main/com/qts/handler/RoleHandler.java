@@ -7,13 +7,13 @@ import java.util.Set;
 import com.qts.exception.ExceptionCodes;
 import com.qts.exception.ExceptionMessages;
 import com.qts.exception.ObjectNotFoundException;
+import com.qts.exception.ProjectException;
 import com.qts.exception.RolesException;
 import com.qts.model.RoleBean;
 import com.qts.model.Roles;
 import com.qts.model.UserProject;
-import com.qts.model.UserProjectRoles;
+import com.qts.model.UserProjectsRoles;
 import com.qts.persistence.dao.DAOFactory;
-import com.qts.persistence.dao.SessionFactoryUtil;
 
 /**
  * 
@@ -33,67 +33,95 @@ public class RoleHandler extends AbstractHandler {
 			INSTANCE = new RoleHandler();
 		return INSTANCE;
 	}
-	public List<Roles> listRoles() throws Exception {
-		return DAOFactory.getInstance().getRoleDAOImplInstance().listRoles();
+
+	public List<Roles> getRoles() throws Exception {
+		return DAOFactory.getInstance().getRoleDAOImplInstance().getRoles();
 	}
 
-	public RoleBean listUserRoles(RoleBean roleBean) throws Exception {
+	public RoleBean getUserRoles(RoleBean roleBean) throws Exception {
 		try {
-			if (validateBean(roleBean)) {
+			// validating the input whether both userid and projectid is
+			// given,roleid should be intially null
+			if (validateBean(roleBean) && roleBean.getRoleIds() == null) {
+
 				UserProject userProject = UserProjectHandler.getInstance()
 						.getUserProjectByIds(roleBean.getProjectId(),
 								roleBean.getUserId());
-				List<UserProjectRoles> listUserProjectRoles = UserProjectsRolesHandler
-						.getInstance().getUserProjectRolesByUserProjectId(
+				List<UserProjectsRoles> listUserProjectRoles = UserProjectsRolesHandler
+						.getInstance().getUserProjectsRolesByUserProject(
 								userProject.getId());
-				return DAOFactory.getInstance().getRoleDAOImplInstance().listUserRoles(
+				return UserProjectsRolesHandler.getInstance().getUserRoles(
 						roleBean, listUserProjectRoles);
 			}
-		} catch (Exception e) {
+		} catch (ProjectException | RolesException e) {
 			throw e;
 		}
 		return roleBean;
 	}
 
-	public RoleBean allocateRole(RoleBean roleBean) throws Exception {
+	public RoleBean allocateRoles(RoleBean roleBean) throws Exception {
 		RoleBean myRoleBean;
 		UserProject userProject = UserProjectHandler.getInstance()
 				.getUserProjectByIds(roleBean.getProjectId(),
 						roleBean.getUserId());
+		Set<Long> availableRoles = new HashSet<Long>();
 		try {
 			validateBean(roleBean);
-			// if (roleBean.getRoleIds().isEmpty()) {
-			// throw new RolesException(ExceptionCodes.ROLES_EMPTY_EXCEPTION,
-			// ExceptionMessages.ROLES_EMPTY_EXCEPTION);
-			// }
-			myRoleBean = DAOFactory.getInstance().getRoleDAOImplInstance().allocateRole(
-					roleBean, userProject);
-			return myRoleBean;
-		} catch (Exception e) {
-			throw e;
-		}
-	}
-	public RoleBean deallocateRole(RoleBean roleBean) throws Exception {
-		RoleBean myRoleBean;
-		try {
-			validateBean(roleBean);
-			// if (roleBean.getRoleIds().isEmpty())
+			if (roleBean.getRoleIds() == null
+					|| roleBean.getRoleIds().isEmpty())
+				throw new RolesException(ExceptionCodes.ROLES_EMPTY_EXCEPTION,
+						ExceptionMessages.ROLES_EMPTY_EXCEPTION);
+			for (long id : roleBean.getRoleIds()) {
+				try {
+					if (checkRoleAlreadyExists(userProject.getId(), id)) {
+						availableRoles.add(id);
+					}
+				} catch (RolesException e) {
 
-			UserProject userProject = DAOFactory
-					.getUserProjectDAOImplInstance().getUserProjectByIds(
-							roleBean.getProjectId(), roleBean.getUserId());
-			// if (roleBean.getRoleIds().isEmpty()) {
-			// throw new RolesException(
-			// ExceptionCodes.ROLES_LIST_EMPTY_EXCEPTION,
-			// ExceptionMessages.ROLES_LIST_EMPTY_EXCEPTION);
-			// }
-			myRoleBean = DAOFactory.getInstance().getRoleDAOImplInstance().deallocateRole(
+				}
+			}
+			if (availableRoles.containsAll(roleBean.getRoleIds()))
+				return roleBean;
+			roleBean.getRoleIds().removeAll(availableRoles);
+			myRoleBean = UserProjectsRolesHandler.getInstance().allocateRoles(
 					roleBean, userProject);
 			return myRoleBean;
-		} catch (Exception e) {
+		} catch (RolesException e) {
 			throw e;
 		}
 	}
+
+	public RoleBean deallocateRoles(RoleBean roleBean) throws Exception {
+		UserProject userProject = UserProjectHandler.getInstance()
+				.getUserProjectByIds(roleBean.getProjectId(),
+						roleBean.getUserId());
+		Set<Long> nonAvailableRoles = new HashSet<Long>();
+		validateBean(roleBean);
+		try {
+			if (roleBean.getRoleIds() == null
+					|| roleBean.getRoleIds().isEmpty())
+				throw new RolesException(ExceptionCodes.ROLES_EMPTY_EXCEPTION,
+						ExceptionMessages.ROLES_EMPTY_EXCEPTION);
+			for (long id : roleBean.getRoleIds()) {
+				try {
+					if (!checkRoleAlreadyExists(userProject.getId(), id)) {
+						nonAvailableRoles.add(id);
+					}
+
+				} catch (ProjectException | RolesException e) {
+
+				}
+			}
+			if (!nonAvailableRoles.containsAll(roleBean.getRoleIds())) {
+				roleBean = UserProjectsRolesHandler.getInstance()
+						.deallocateRoles(roleBean, userProject);
+			}
+		} catch (RolesException e) {
+			throw e;
+		}
+		return roleBean;
+	}
+
 	public boolean validateBean(RoleBean roleBean) throws Exception {
 		try {
 			if (roleBean == null)
@@ -102,34 +130,24 @@ public class RoleHandler extends AbstractHandler {
 			else if (roleBean.getUserId() == 0 || roleBean.getProjectId() == 0)
 				throw new RolesException(ExceptionCodes.USER_DOESNOT_EXIST,
 						"Both userid and projectid should be given");
-			else if (roleBean.getRoleIds() == null)// &&
-													// roleBean.getRoleIds().isEmpty())
-				throw new RolesException(ExceptionCodes.ROLES_EMPTY_EXCEPTION,
-						ExceptionMessages.ROLES_EMPTY_EXCEPTION);
-			// else if(roleBean.getRoleIds().contains(new Long(1)))
-			// throw new RolesException(ExceptionCodes.);
-		} catch (Exception e) {
+		} catch (RolesException e) {
 			throw e;
 		}
 		return true;
 	}
 
 	public boolean validateRoleId(long roleId) throws Exception {
-		Set<Long> roleIds=new HashSet<Long>();
-		roleIds.add(roleId);
-		return DAOFactory.getInstance().getRoleDAOImplInstance().validateRoleId(roleIds);
+
+		return DAOFactory.getInstance().getRoleDAOImplInstance()
+				.validateRoleId(roleId);
 	}
+
 	private boolean checkRoleAlreadyExists(long id, long roleId)
 			throws Exception {
-//		try {
-			if (UserProjectsRolesHandler.getInstance().getUserProjectRoleByIds(
-					id, roleId) != null)
-				return false;
-			return true;
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//			throw e;
-//		}
-
+		boolean exists = false;
+		if (UserProjectsRolesHandler.getInstance()
+				.getUserProjectsRolesByUserProjectAndRole(id, roleId) != null)
+			exists = true;
+		return exists;
 	}
 }
