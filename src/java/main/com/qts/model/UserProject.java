@@ -1,4 +1,8 @@
 package com.qts.model;
+/*
+ * author mani kumar
+ */
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -45,7 +49,6 @@ public void setId(long id) {
  }
  @Override
  public int getObjectType() {
-  // TODO Auto-generated method stub
   return ObjectTypes.USER_PROJECT;
  }
 }

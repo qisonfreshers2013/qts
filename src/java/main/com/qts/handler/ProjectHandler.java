@@ -59,7 +59,7 @@ public class ProjectHandler extends AbstractHandler {
 	public List<Project> getProjectsForUser() throws ProjectException,ObjectNotFoundException{
 
 		long userId=ServiceRequestContextHolder.getContext().getUserSessionToken().getUserId();
-		List<Project> projectList= new LinkedList<Project>();;
+		List<Project> projectList= new LinkedList<Project>();
 		try{
 			
 			//fetching userProject records using userId
@@ -215,7 +215,7 @@ public class ProjectHandler extends AbstractHandler {
 		if (!userIds.isEmpty()) {
 			for (Long userId : userIds) {
 				//validating whether user is valid or not
-				if ((!UserHandler.getInstance().isUserDeleted(userId))&&(UserHandler.getInstance().getUserByUserId(userId)!=null)) {
+				if ((!UserHandler.getInstance().isUserDeleted(userId))&&(UserHandler.getInstance().getUserById(userId)!=null)) {
 					UserProject userProject = new UserProject();
 					userProject.setProjectId(projectId);
 					userProject.setUserId(userId);
@@ -288,7 +288,7 @@ public class ProjectHandler extends AbstractHandler {
 			
 			//deAllocating roles of user
 			UserProjectsRolesHandler.getInstance()
-			.deleteUserProjectRoleByUserProjectId(userProject);
+			.deleteUserProjectsRolesByUserProject(userProject);
 			
 			//deAllocating user from project
 			UserProjectHandler.getInstance().deAllocateUsersFromProject(userProject);
@@ -310,7 +310,7 @@ public class ProjectHandler extends AbstractHandler {
 			List<Long> userIds = new LinkedList<Long>();
 			for (UserProject userProjects : userProject)
 				userIds.add(userProjects.getUserId());
-			return UserHandler.getInstance().getUserByIds(userIds);
+			return UserHandler.getInstance().getUsersOtherThanTheseIds(userIds);
 			
 		}catch (NullPointerException e) {
 			e.printStackTrace();
