@@ -15,17 +15,15 @@ import com.qts.model.TimeEntryBean;
 public interface TimeEntryDAO {
 
 	
-    public boolean add(TimeEntryBean timeEntry);
-    public boolean reject(TimeEntryBean timeEntry);
-    public boolean approve(TimeEntryBean timeEntry);
-    public boolean delete(TimeEntryBean deleteEntry);
-    public boolean update(TimeEntryBean updateWithData);
-	public long parseDateToLong(String date);
-	public Session deleteTimeEntryById(int id,Session session);
-	public String getDateInString(long timeinMilliSeconds);
-	public boolean getTimeEntryObjectById(long id);
-	public boolean submit(TimeEntryBean submitData);
-	public List<TimeEntries> listUserEntries(TimeEntryBean timeEntry);
-	public List<TimeEntries> listEntriesToApprove(TimeEntryBean timeEntry);
-	public int getUserWorkingHoursperDay(String date);
+    public boolean add(TimeEntryBean timeEntry) throws Exception;
+    public boolean reject(TimeEntryBean timeEntry) throws Exception;
+    public boolean approve(TimeEntryBean timeEntry) throws Exception;
+    public boolean delete(TimeEntryBean deleteEntry) throws Exception;
+    public boolean update(TimeEntryBean updateWithData) throws Exception;
+	public Session deleteTimeEntryById(int id,Session session) throws Exception;
+	public boolean getTimeEntryObjectById(long id) throws Exception;
+	public boolean submit(TimeEntryBean submitData) throws Exception;
+	public List<TimeEntries> getUserTimeEntries(TimeEntryBean timeEntry) throws Exception;
+	public List<TimeEntries> getTimeEntriesForApprover(TimeEntryBean timeEntry) throws Exception;
+	public int getUserWorkingHoursperDay(String date) throws Exception;
 }

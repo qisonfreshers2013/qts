@@ -204,15 +204,17 @@ public interface ExceptionCodes {
 	public static final int HOURS_CANNOT_BE_NULL = 6012;
 	public static final int HOURS_EXCEEDS_SIZE = 6013;
 	public static final int REMARK_EXCEEDS_SIZE = 6014;
-	public static final int TIMEENTRYSUBMISSIONFAILED=6015;
-	public static final int TIMEENTRYUPDATEFAILED=6016;
-	public static final int TIMEENTRYDELETIONFAILED=6017;
+	public static final int TIMEENTRY_SUBMISSION_FAILED=6015;
+	public static final int TIMEENTRY_UPDATE_FAILED=6016;
+	public static final int TIMEENTRY_DELETION_FAILED=6017;
 	public static final int TIMEENTRY_ADDITION_FAILED=6018;
 	public static final int TIMEENTRY_REJECT_FAILED=6019;
 	public static final int TIMEENTRY_APPROVE_FAILED=6020;
-	public static final int TIMEENTRY_SEARCH_FAILED=6021;
+	public static final int TIMEENTRY_SEARCH_STATUS=6021;
 	public static final int TIMEENTRY_FILLING_IS_NOT_ALLOWED_FOR_APPROVER=6022;
     public static final int ILLEGAL_ARGUMENT_HOURS_FIELD=6023;
+    public static final int MANDATORY_FIELDS_MISMATCH=6024;
+    public static final int SEARCH_NOT_ALLOWED=6025;
 	 //user codes
 	 public static final int USER_ID_NOT_NUMBER = 7001;
 	 public static final int USER_NAME_FORMAT = 7002;

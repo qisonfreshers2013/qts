@@ -1,15 +1,21 @@
 package com.qts.common;
 
+import java.sql.Timestamp;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.apache.commons.lang3.time.DateUtils;
 import org.hibernate.Session;
 
 import com.qts.exception.EncryptionException;
 import com.qts.exception.BusinessException;
 import com.qts.exception.ExceptionCodes;
 import com.qts.exception.ExceptionMessages;
+import com.qts.exception.InvalidTimeEntryDataException;
 import com.qts.service.common.ServiceRequestContextHolder;
 
 /**
@@ -27,6 +33,7 @@ public final class Utils {
     public static final int ARTICLE_BRIEF_DESCRIPTION_LENGTH = 190;
     public static final int BRIEF_DESCRIPTION_START_INDEX = 0;
 	public static final String LOCATION_PATTERN = "^[A-Za-z\\s]*$";//-----
+	public static final String DATE_PATTTERN="^(0[1-9]|1[012])([-/])(0[1-9]|[12][0-9]|3[01])\\2([23]0)\\d\\d$";
     public static void validateEmail(String email)
             throws BusinessException {
         if (email == null || email.isEmpty() || email.trim().isEmpty()) {
@@ -181,8 +188,97 @@ public final class Utils {
     		
     	}
     	
+    	//parsing string to date object of format MM-DD-YYYY or MM/DD/YYYY  and getting date in Milliseconds
     	
-    	
+	public static long parseDateToLong(String date) throws Exception {
 
+		try {
+
+			Date dateObj=DateUtils.parseDate(date,"MM/dd/yyyy","MM-dd-yyyy");
+	          return dateObj.getTime();
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			throw ex;
+		}
+		
+	}
+	
+	//method to convert timeinMilliseconds to Timestamp object and then getting it as string of format DDMMYYYY 
+	
+	public static String getDateInString(long timeinMilliSeconds) {
+		try {
+			Timestamp date = new Timestamp(timeinMilliSeconds);
+			String dateInString = "";
+			dateInString = dateInString
+					.concat(date.toString().substring(8, 10))
+					.concat(date.toString().substring(5, 7))
+					.concat(date.toString().substring(0, 4));
+			return dateInString;
+		} catch (Exception e) {
+			e.printStackTrace();
+
+		}
+		return null;
+	}
+	
+	//General validations For DATE STRING
+	
+	public static boolean generalValidationsForDate(String date)
+			throws InvalidTimeEntryDataException {
+
+		if (date.length() != 10)
+			throw new InvalidTimeEntryDataException(
+					ExceptionCodes.DATE_LENGTH_MISMATCH,
+					ExceptionMessages.DATE_LENGTH_MISMATCH);
+		else if (!(date.matches(Utils.DATE_PATTTERN)))
+			throw new InvalidTimeEntryDataException(
+					ExceptionCodes.DATE_FORMAT_EXCEPTION,
+					ExceptionMessages.INVALID_ARGUMENTS_FOR_DATE);
+		else if (Integer.parseInt(date.substring(0, 2)) == 1
+				|| Integer.parseInt(date.substring(0, 2)) == 3
+				|| Integer.parseInt(date.substring(0, 2)) == 5
+				|| Integer.parseInt(date.substring(0, 2)) == 7
+				|| Integer.parseInt(date.substring(0, 2)) == 8
+				|| Integer.parseInt(date.substring(0, 2)) == 10
+				|| Integer.parseInt(date.substring(0, 2)) == 12){
+			if (Integer.parseInt(date.substring(3, 5)) > 31)
+				throw new InvalidTimeEntryDataException(
+						ExceptionCodes.DATE_FORMAT_EXCEPTION,
+						ExceptionMessages.DATE_EXCEPTION);
+			}
+		 else if (Integer.parseInt(date.substring(0, 2)) == 2) {
+			if (new GregorianCalendar().isLeapYear(Calendar.getInstance().get(
+					Calendar.YEAR))
+					&& Integer.parseInt(date.substring(3, 5)) > 29) {
+				throw new InvalidTimeEntryDataException(
+						ExceptionCodes.DATE_FORMAT_EXCEPTION,
+						ExceptionMessages.DATE_EXCEPTION);
+			} else {
+				if (Integer.parseInt(date.substring(3, 5)) > 28) {
+					throw new InvalidTimeEntryDataException(
+							ExceptionCodes.DATE_FORMAT_EXCEPTION,
+							ExceptionMessages.DATE_EXCEPTION);
+				}
+			}
+		 }
+		 else if (Integer.parseInt(date.substring(0, 2)) == 4
+					|| Integer.parseInt(date.substring(0, 2)) == 6
+					|| Integer.parseInt(date.substring(0, 2)) == 9
+					|| Integer.parseInt(date.substring(0, 2)) == 11){ 
+			 if(Integer.parseInt(date.substring(3, 5)) > 30) {
+			
+				throw new InvalidTimeEntryDataException(
+						ExceptionCodes.DATE_FORMAT_EXCEPTION,
+						ExceptionMessages.DATE_EXCEPTION);
+			}
+			}
+		if(Integer.parseInt(date.substring(3, 5))>Calendar.getInstance().get(Calendar.DATE) && Integer.parseInt(date.substring(0,2))==(Calendar.getInstance().get(Calendar.MONTH)+1)){
+			throw new InvalidTimeEntryDataException(ExceptionCodes.DATE_FORMAT_EXCEPTION,ExceptionMessages.SEARCH_FUTURE_SHEETS);
+		}
+		 if(Integer.parseInt(date.substring(6))>Calendar.getInstance().get(Calendar.YEAR)){
+			throw new InvalidTimeEntryDataException(ExceptionCodes.DATE_FORMAT_EXCEPTION,ExceptionMessages.SEARCH_FUTURE_SHEETS);
+		}
+		return true;
+	}
 
 }
