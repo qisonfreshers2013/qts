@@ -26,23 +26,10 @@ public class BaseDAOImpl implements BaseDAO{
 	   throws ObjectNotFoundException{
 		return null;
 	}
-
-//	 @Override
-//	 public BaseObject saveObject(BaseObject persistentObject) {
-//		 
-//		 
-//		 
-//	  session = getSession();
-//	  session.save(persistentObject);
-//	  return persistentObject;
-//	 }
-
 	 @Override
 	 public BaseObject update(BaseObject persistentObject) {
 		 Session session = getSession();
-			//session.beginTransaction();
 	  session.update(persistentObject);
-	  //session.getTransaction().commit();
 	  return persistentObject;
 	 }
 

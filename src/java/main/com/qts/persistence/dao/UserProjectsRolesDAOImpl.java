@@ -35,6 +35,8 @@ public class UserProjectsRolesDAOImpl extends BaseDAOImpl implements UserProject
 							"from UserProjectRoles where user_project_Id="
 									+ userProjectId + " and role_id=" + roleId)
 					.list();
+			if(listUserProjectRoles.isEmpty())
+				return null;
 			return (UserProjectRoles) listUserProjectRoles.listIterator()
 					.next();
 	}
@@ -72,7 +74,6 @@ public class UserProjectsRolesDAOImpl extends BaseDAOImpl implements UserProject
 	public BaseObject getObjectById(long id) throws ObjectNotFoundException {
 
 		session = getSession();
-		//SessionFactoryUtil.getNewTransaction();
 		if (session.createQuery("from UserProjectRoles where id=" + id).list()
 				.isEmpty())
 			throw new ObjectNotFoundException(

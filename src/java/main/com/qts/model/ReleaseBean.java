@@ -10,19 +10,13 @@ package com.qts.model;
  * Bean Class for Converting Input JSON into Java Object
  */
 
-public class ReleasesInput {
+public class ReleaseBean {
 
-	private long id;
+	private long releaseId;
 	private String releaseName;
 	private long projectId;
 
-//	public ReleasesInput(long id,String releaseName, long projectId) {
-//		this.id=id;
-//		this.releaseName = releaseName;
-//		this.projectId = projectId;
-//	}
-
-	public ReleasesInput() {
+	public ReleaseBean() {
 
 	}
 
@@ -42,12 +36,12 @@ public class ReleasesInput {
 		this.projectId = projectId;
 	}
 
-	public long getId() {
-		return id;
+	public long getReleaseId() {
+		return releaseId;
 	}
 
-	public void setId(long id) {
-		this.id = id;
+	public void setReleaseId(long releaseId) {
+		this.releaseId = releaseId;
 	}
 
 
