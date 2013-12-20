@@ -296,16 +296,26 @@ public class ProjectHandler extends AbstractHandler {
 	/*
 	 * list of users not associated with a particular project
 	 */
-	public List<User> nonUsersOfProject(Project project) throws ProjectException {
+	public List<User> nonUsersOfProject(ProjectBean project) throws ProjectException {
 		try {
+			long projectId=project.getProjectId();
 			
+			
+			//validating whether project is existing or not
+			try{
+				getObjectById(projectId);
+			}catch(ObjectNotFoundException e){
+				throw new ProjectException(ExceptionCodes.PROJECT_ID_INVALID,
+						ExceptionMessages.PROJECT_ID_INVALID);
+			}
 			List<UserProject> userProject = UserProjectHandler.getInstance()
-					.getUserProjectsByProjectId(project.getId());
+					.getUserProjectsByProjectId(projectId);
 			
 			List<Long> userIds = new LinkedList<Long>();
 			for (UserProject userProjects : userProject)
 				userIds.add(userProjects.getUserId());
-			return UserHandler.getInstance().getUsersOtherThanTheseIds(userIds);
+			List<User> users= UserHandler.getInstance().getUsersOtherThanTheseIds(userIds);
+			return users;
 			
 		}catch (NullPointerException e) {
 			e.printStackTrace();

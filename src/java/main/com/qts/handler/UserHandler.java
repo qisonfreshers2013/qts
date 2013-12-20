@@ -61,67 +61,49 @@ public class UserHandler extends AbstractHandler {
 
 	// search user
 
-	/**
-	 * @param bean
-	 * @return SearchUserRecords contains Photofile Id,Email,EmployeeId,Designation
-	 * @throws Exception
-	 * @throws UserException
-	 */
-	public SearchUserRecords searchUsers(UserBean bean) throws ProjectException ,UserException{
+		/**
+		 * @param bean
+		 * @return SearchUserRecords contains Photofile Id,Email,EmployeeId,Designation
+		 * @throws Exception
+		 * @throws UserException
+		 */
+		public SearchUserRecords searchUsers(UserBean bean) throws Exception ,UserException,ObjectNotFoundException{
 
-		List<User> list = null;
-		SearchUserRecords searchUserRecords = null;
-		 List<UserProject> userProjects = null;
-		 Project project = new Project();
-		 List<String> projectNames =  new ArrayList<String>();;
-		 SearchUserRecord searchUserRecord = null;
-		
-		// validations of the input provided  separate method  which return true or false
-		List<SearchUserRecord> records = null;
-		if (bean == null || searchUserValidations(bean) || bean.toString().trim().isEmpty()) {
-			try {
-				// for list of users			
-				list = DAOFactory.getInstance().getUserDAO().searchUser(bean);	
-				// for storing all User Records of needed fields
-				records = new LinkedList<SearchUserRecord>(); 
-				for (User user : list) {	
-					searchUserRecord = new SearchUserRecord(user);
-					//get project Names associated with particular Users Id
-					userProjects = 
-						UserProjectHandler.getInstance().getUserProjectsByUserId(user.getId());
-					if(!userProjects.isEmpty()){	
-						for(UserProject userProject : userProjects){
-							long projectId= userProject.getProjectId();
-							try{					
-								project = ProjectHandler.getInstance().getObjectById(projectId); 
-							}catch(ObjectNotFoundException onf)	{
-								onf.printStackTrace();
-							}					
-							projectNames.add(project.getName());						
-
-						}
-					}
-					else 
-						projectNames.add(" ");
-				
-				
+			List<User> list = null;
+			SearchUserRecords searchUserRecords = null;
+			// validations of the input provided  separate method  which return true or false
+			List<SearchUserRecord> records = null;
+			if (bean == null || searchUserValidations(bean) || bean.toString().trim().isEmpty()) {
+				try {
 					
-					searchUserRecord.setProjects(projectNames);
-					// after that insert into List of records
-					records.add(searchUserRecord);
-				}
-				
-				searchUserRecords = new SearchUserRecords();
-				//saving list Of records 
-				searchUserRecords.setRecords(records);
-			} catch (HibernateException he) {
-				he.printStackTrace();
-				throw he;
-			}
-		}
-		return searchUserRecords;
-		}
+					list = DAOFactory.getInstance().getUserDAO().searchUser(bean);	// for list of users			
+					records = new LinkedList<SearchUserRecord>(); // for storing all User Records of needed fields
+					for (User user : list) {	
+						 SearchUserRecord searchUserRecord = new SearchUserRecord(user);
 
+						//get project Names associated with particular Users Id
+						 List<UserProject> userProjects =
+						 UserProjectHandler.getInstance().getUserProjectsByUserId(user.getId());//for getting all userProject Ids
+						 List<String> projectNames = new ArrayList<String>();
+						 for(UserProject userProject : userProjects){
+						 long projectId= userProject.getProjectId();
+						 Project project = ProjectHandler.getInstance().getObjectById(projectId); //Getting project by project Id
+						 projectNames.add(project.getName());//adding names to project Names list
+					      }					
+						
+						searchUserRecord.setProjects(projectNames);
+						// after that insert into List of records
+						records.add(searchUserRecord);
+					}
+					searchUserRecords = new SearchUserRecords();
+					searchUserRecords.setRecords(records);//saving list Of records 
+				} catch (HibernateException he) {
+					he.printStackTrace();
+					throw he;
+				}
+			}
+			return searchUserRecords;
+			}
 	public long addUser(UserBean bean) throws UserException {		
 		long id = 0;
 		long newId = 0;

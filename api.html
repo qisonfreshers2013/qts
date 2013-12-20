@@ -125,7 +125,7 @@
 			<ul>
 				<li><span class="folder api">update Login User Details</span>
 					<ul id="folder1_5">
-						<li><span class="file url">http://localhost:8080/services/v1/user/updateLoginUser</span></li>
+						<li><span class="file url">http://localhost:8080/services/v1/user/updateLoginUserDetails</span></li>
 						<li><span class="file input">input :
 								{"payload":{"firstName":"Naminder","lastName":"dhir","nickName":"Naminder","location":"Madhapur"}}
 						</span></li>
@@ -139,7 +139,7 @@
 			<ul>
 				<li><span class="folder api">get Login User Details</span>
 					<ul id="folder1_6">
-						<li><span class="file url">http://localhost:8080/services/v1/user/getLoginUser</span></li>
+						<li><span class="file url">http://localhost:8080/services/v1/user/getLoginUserDetails</span></li>
 						<li><span class="file input">input :{} or
 								{"payload":{"":""}} </span></li>
 						<li><span class="file output">output
@@ -357,7 +357,7 @@
 	 					<li><span class="file url">URL : http://localhost:8080/services/v1/timeEntry/update</span></li>
 						<li>
 							<span class="file input">
-								input : { "payload": {"payload":{"id":40,"projectId":"3","releaseId":"6","activityId":"2","date":"12/13/2013","task":"fixing bug","hours":"3","userRemarks":"testing"} }
+								input : { "payload":{"id":"40","projectId":"3","releaseId":"6","activityId":"2","date":"12/13/2013","task":"fixing bug","hours":"3","userRemarks":"testing"} }
 							</span>
 						</li>
 						<li>
@@ -442,7 +442,6 @@
 						<li>
 							<span class="file input">
 								input : { "payload": {} }
-								input :{"payload":{"date":"12-13-2013","projectId":"3"}}
 							</span>
 						</li>
 						<li>
@@ -520,19 +519,35 @@
 						</li>
 									<li>
 							<span class="file input">
-								input : { "projectId":"1","status":"1","userId":6,"from":"12-05-2013" }
+								input :{ "payload": { "projectId":"1","status":"1","userId":6,"from":"12-05-2013" } }
 							</span>
 						</li>
 						<li>
 							<span class="file output">output :{"status":"SUCCESS","payload":[[37,1386613800000,6,1,16,"UpdateEntryServiceTesting",2,1,1,"done with Uservice",null,null]]}
 						</li>
-									<li>
+						<li>
 							<span class="file input">
-								input : { "projectId":"1","status":"1","userId":6,"from":"12-05-2013","to":"12-13-2013" }
+								input :{ "payload":  { "projectId":"1","status":"1","userId":6,"from":"12-05-2013","to":"12-13-2013" }}
 							</span>
 						</li>
 						<li>
 							<span class="file output">output :{"status":"SUCCESS","payload":[[37,1386613800000,6,1,16,"UpdateEntryServiceTesting",2,1,1,"done with Uservice",null,null]]}
+						</li>
+						<li>
+						<span class="file input">
+								input :{ "payload":  {"status":"1","from":"12-05-2013","to":"12-13-2013" }}
+							</span>
+						</li>
+						<li>
+							<span class="file output">output :{"status":"SUCCESS","payload":[[37,1386613800000,6,1,16,"UpdateEntryServiceTesting",2,1,1,"done with Uservice",null,null],[38,1386786600000,10,2,5,"developing",2,2,1,"following naming convention",null,null]]}
+						</li>
+						<li>
+						<span class="file input">
+								input :{ "payload":  {"status":"1"}}
+							</span>
+						</li>
+						<li>
+							<span class="file output">output :{"status":"SUCCESS","payload":[[2,2013,1,1,2,"coding",2,5,1,"successful",null,null],[7,2013,5,1,1,"developing algorithm",3,4,1,null,null,null],[8,2013,5,1,1,"drawing flowcharts",3,5,1,null,null,null],[9,2013,6,1,1,"creating user cases",2,10,1,"some user cases are pending",null,null],[10,2013,7,1,1,"functional testing",3,4,1,null,null,null],[11,2013,7,2,2,"regression testing",3,4,1,null,null,null],[12,2013,8,2,1,"retriving bug 999f",3,7,1,null,null,null],[13,2013,9,2,1,"study manual",2,4,1,null,null,null],[19,1386095400000,1,6,15,"Guiding freshers",4,8,1,"nothing",null,null],[37,1386613800000,6,1,16,"UpdateEntryServiceTesting",2,1,1,"done with Uservice",null,null],[38,1386786600000,10,2,5,"developing",2,2,1,"following naming convention",null,null],[45,1387045800000,3,3,16,"coding",2,3,1,"almost done",null,null]]}
 						</li>	
 						<li>
 							<span class="file reqtype">method :	POST</span>

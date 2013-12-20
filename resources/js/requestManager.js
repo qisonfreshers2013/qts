@@ -44,7 +44,9 @@ RequestManager.prototype.sendToServer = function (api, data, callback, options) 
     }
 
 }
-
+RequestManager.prototype.authenticate=function(data,callback){
+	 this.sendToServer("user/authenticate", data, callback);
+	 }
 RequestManager.prototype.testService = function(data, callback) {
 	this.sendToServer('demo/testService', data, callback);
 }
@@ -52,5 +54,25 @@ RequestManager.prototype.testService = function(data, callback) {
 RequestManager.prototype.testHandler = function(data, callback) {
 	this.sendToServer('demo/testHandler', data, callback);
 }
-
+RequestManager.prototype.addTimeEntry = function(data, callback) {
+	this.sendToServer('timeEntry/add', data, callback);
+}
+RequestManager.prototype.updateTimeEntry = function(data, callback) {
+	this.sendToServer('timeEntry/update', data, callback);
+}
+RequestManager.prototype.approve = function(data, callback) {
+	this.sendToServer('timeEntry/approveTimeEntry', data, callback);
+}
+RequestManager.prototype.reject = function(data, callback) {
+	this.sendToServer('timeEntry/rejectTimeEntry', data, callback);
+}
+RequestManager.prototype.deleteTimeEntry = function(data, callback) {
+	this.sendToServer('timeEntry/delete', data, callback);
+}
+RequestManager.prototype.searchTimeEntriesByUser = function(data, callback) {
+	this.sendToServer('timeEntry/searchTimeEntriesByUser', data, callback);
+}
+RequestManager.prototype.searchTimeEntriesByApprover = function(data, callback) {
+	this.sendToServer('timeEntry/searchTimeEntriesByApprover', data, callback);
+}
 var RequestManager = new RequestManager();
