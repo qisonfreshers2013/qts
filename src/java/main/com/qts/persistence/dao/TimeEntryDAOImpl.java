@@ -19,6 +19,7 @@ import org.hibernate.criterion.Restrictions;
 import com.qts.common.Utils;
 import com.qts.exception.ExceptionCodes;
 import com.qts.exception.ObjectNotFoundException;
+import com.qts.exception.TimeEntryException;
 import com.qts.model.TimeEntries;
 import com.qts.model.TimeEntryBean;
 import com.qts.service.common.ServiceRequestContextHolder;
@@ -231,7 +232,7 @@ public class TimeEntryDAOImpl extends BaseDAOImpl implements TimeEntryDAO {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public boolean getTimeEntryObjectById(long id) throws ObjectNotFoundException {
+	public boolean isTimeEntryMappedToReleaseId(long id) throws ObjectNotFoundException {
 		Session session = getSession();
 		try {
 
@@ -249,12 +250,24 @@ public class TimeEntryDAOImpl extends BaseDAOImpl implements TimeEntryDAO {
 		}
 	}
 
+	
+	public TimeEntries getTimeEntryObjectById(long id){
+		Session session = getSession();
+      List<TimeEntries> mapped = session.createQuery(
+					"from TimeEntries where id=" + id).list();
+			if (!mapped.isEmpty()) {
+				return mapped.get(0);
+				}
+			else
+				return null;
+
+		} 
+	
 	@Override
 	public boolean submit(TimeEntryBean submitTimeEntry) {
-
+       
 		Session session = getSession();
 		try {
-			
 			Query query = session
 					.createQuery("Update TimeEntries set status=:newStatus where id="
 							+ submitTimeEntry.getId()

@@ -33,8 +33,8 @@ import com.qts.service.descriptors.UserOutputDescriptor;
 import com.qts.service.descriptors.UserProjectOutputDescriptor;
 
 @Path("/v1/project/")
-public class ProjectService {
-
+public class ProjectService extends BaseService {
+	
 	@POST
 	@RestService(input = String.class, output = String.class)
 	@ServiceStatus(value = "complete")
@@ -111,10 +111,10 @@ public class ProjectService {
 	throws Exception {
 		ProjectBean projectBean = (ProjectBean) JsonUtil.getObject(request.getPayload(),
 				ProjectBean.class);
-		List<User> userList = ProjectHandler.getInstance()
+		List<User> usersList = ProjectHandler.getInstance()
 		.getProjectUsers(projectBean);
 		String jsonForListBasedOnDescriptor = JsonUtil
-		.getJsonForListBasedOnDescriptor(userList, User.class,
+		.getJsonForListBasedOnDescriptor(usersList, User.class,
 				UserListOutputDescriptor.class);
 
 		return jsonForListBasedOnDescriptor;
@@ -131,11 +131,11 @@ public class ProjectService {
 			@Context UriInfo uriInfo, WebserviceRequest request) throws Exception {
 		ProjectBean projectBean = (ProjectBean) JsonUtil.getObject(request.getPayload(),
 				ProjectBean.class);
-		List<UserProject> userProject=ProjectHandler.getInstance()
+		List<User> usersList=ProjectHandler.getInstance()
 		.allocateUsersToProject(projectBean);
 		String jsonForListBasedOnDescriptor = JsonUtil
-		.getJsonForListBasedOnDescriptor(userProject,UserProject.class,
-				UserProjectOutputDescriptor.class);
+		.getJsonForListBasedOnDescriptor(usersList, User.class,
+				UserListOutputDescriptor.class);
 		return jsonForListBasedOnDescriptor;
 	}
 	
@@ -152,13 +152,13 @@ public class ProjectService {
 	  ProjectBean projectBean = (ProjectBean) JsonUtil.getObject(request.getPayload(),
 	    ProjectBean.class);
 	  
-	  List<UserProject> userProject=ProjectHandler.getInstance()
+	  List<User> usersList=ProjectHandler.getInstance()
 	  .deAllocateUsersFromProject(projectBean);
 	  
 	  String jsonForListBasedOnDescriptor = JsonUtil
-				.getJsonForListBasedOnDescriptor(userProject,UserProject.class,
-						UserProjectOutputDescriptor.class);
-				return jsonForListBasedOnDescriptor;
+		.getJsonForListBasedOnDescriptor(usersList, User.class,
+				UserListOutputDescriptor.class);
+		return jsonForListBasedOnDescriptor;
 	 }
 	
 	 

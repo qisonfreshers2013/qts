@@ -173,7 +173,7 @@ public class ProjectHandler extends AbstractHandler {
 	/*
 	 * ASSIGNING USERS TO A PROJECT
 	 */
-	public List<UserProject> allocateUsersToProject(ProjectBean projectBean)
+	public List<User> allocateUsersToProject(ProjectBean projectBean)
 			throws Exception {
 		List<Long> userIdsList;
 		long projectId;
@@ -221,7 +221,7 @@ public class ProjectHandler extends AbstractHandler {
 			//allocating user to project
 			UserProjectHandler.getInstance().addUserToProject(userProjects);
 		}
-		return UserProjectHandler.getInstance().getUserProjectsByProjectId(projectId);
+		return getProjectUsers(projectBean);
 	}catch(Exception e){
 		throw e;
 	}
@@ -250,10 +250,11 @@ public class ProjectHandler extends AbstractHandler {
 	/*
 	 * Removing users from project
 	 */
-	public List<UserProject> deAllocateUsersFromProject(ProjectBean projectBean)
-			throws ProjectException, NullPointerException {
+	public List<User> deAllocateUsersFromProject(ProjectBean projectBean)
+			throws ProjectException, NullPointerException,Exception {
 		
 		List<Long> userIdsList;
+		List<User> users=null;
 		long projectId;
 		
 		//validation for userIds
@@ -288,8 +289,12 @@ public class ProjectHandler extends AbstractHandler {
 			//deAllocating user from project
 			UserProjectHandler.getInstance().deAllocateUsersFromProject(userProject);
 		}
-
-		return UserProjectHandler.getInstance().getUserProjectsByProjectId(projectId);
+		try{
+			users=getProjectUsers(projectBean);
+		}catch(Exception e){
+			throw e;
+		}
+		return users;
 
 	}
 

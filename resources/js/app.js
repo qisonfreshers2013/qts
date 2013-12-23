@@ -11,12 +11,9 @@ function App() {
     this.handleShow();
 }
 App.prototype.handleShow = function () {
-    $('.contentBody').css('background-color', '#FFF')
+    $('.contentBody').css('background-color', 'white')
     this.loadLogin();
     this.loadPhoto();
-//    //this.loadApproverTimeSheetSearch();
-//    this.loadDefaultTimeSheetPage();
-//   // this.loadDefaultApproverPage();
 }
 
 App.prototype.loadSampleContent = function () {

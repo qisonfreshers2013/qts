@@ -395,7 +395,7 @@ public class TimeEntryHandler {
 	public boolean isEntryMapped(long id) throws ObjectNotFoundException {
 		try {
 			if (!(DAOFactory.getInstance().getTimeEntryDAOInstance()
-					.getTimeEntryObjectById(id))) {
+					.isTimeEntryMappedToReleaseId(id))) {
 				throw new ObjectNotFoundException();
 			}
 		} catch (ObjectNotFoundException e) {
@@ -416,9 +416,15 @@ public class TimeEntryHandler {
 		for (TimeEntryBean timeEntry : getTimeEntriesToSubmit) {
 			timeEntry.setUserId(ServiceRequestContextHolder.getContext()
 					.getUserSessionToken().getUserId());
+			if(DAOFactory.getInstance()
+					.getTimeEntryDAOInstance().getTimeEntryObjectById(timeEntry.getId())!=null && DAOFactory.getInstance()
+							.getTimeEntryDAOInstance().getTimeEntryObjectById(timeEntry.getId()).getStatus()==0 ){
 			boolean submitted = DAOFactory.getInstance()
 					.getTimeEntryDAOInstance().submit(timeEntry);
 			if (!submitted) {
+				notSubmittedEntriesList.add(timeEntry);
+			}
+			}else{
 				notSubmittedEntriesList.add(timeEntry);
 			}
 		}
