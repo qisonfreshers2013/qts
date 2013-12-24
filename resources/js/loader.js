@@ -5,13 +5,57 @@ function Loader() {
 Loader.prototype.handleShow = function () {
 }
 
-Loader.prototype.loadHeader = function (cb) {
-    LazyLoad.js('header/header.js', cb);
-    LazyLoad.css('header/header.css');
+Loader.prototype.loadPhoto=function(cb){
+	LazyLoad.js('resources/js/Photo.js',cb);
+	LazyLoad.css('resources/css/Photo.css',cb);
+}
+Loader.prototype.loadLogin=function(cb){
+	LazyLoad.js('resources/js/Login.js',cb);
+	LazyLoad.css('resources/css/Login.css',cb);
 }
 
-Loader.prototype.loadTestingSample = function (cb) {
-	LazyLoad.js('sample.js', cb);
+Loader.prototype.loadWelcome=function(cb){
+	LazyLoad.css('resources/css/Welcome.css');
+	LazyLoad.js('resources/js/Welcome.js',cb);
+	
+}
+
+Loader.prototype.loadOptions=function(cb){
+	LazyLoad.css('resources/css/Options.css');
+	LazyLoad.js('resources/js/Options.js',cb);
+}
+
+
+Loader.prototype.loadMenu=function(cb){
+	LazyLoad.css('resources/css/Menu.css');
+	LazyLoad.js('resources/js/Menu.js',cb);
+	
+}
+
+
+Loader.prototype.loadAddProject=function(cb){
+	LazyLoad.css('resources/css/AddProject.css');
+	LazyLoad.js('resources/js/AddProject.js',cb);
+
+}
+
+
+Loader.prototype.loadAllocateUsersToProject=function(cb){
+	LazyLoad.css('resources/css/AllocateUsersToProject.css');
+	LazyLoad.js('resources/js/AllocateUsersToProject.js',cb);
+	
+}
+
+Loader.prototype.loadSearchProject=function(cb){
+	LazyLoad.css('resources/css/SearchProject.css');
+	LazyLoad.js('resources/js/SearchProject.js',cb);
+	
+}
+
+Loader.prototype.loadSearchProjectResults=function(cb){
+	LazyLoad.css('resources/css/SearchProjectResults.css');
+	LazyLoad.js('resources/js/SearchProjectResults.js',cb);
+	
 }
 
 Loader.prototype.loadHTML = function(container, filePath, empty, callback) {

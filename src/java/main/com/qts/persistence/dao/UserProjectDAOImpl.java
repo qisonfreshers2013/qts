@@ -41,21 +41,14 @@ public class UserProjectDAOImpl extends BaseDAOImpl implements UserProjectDAO {
 	/*
 	 * fetches all userProject records based on userId
 	 */
-	public List<UserProject> getUserProjectsByUserId(long id) throws ProjectException{
+	public List<UserProject> getUserProjectsByUserId(long id){
 		 session = getSession();
 		 List<UserProject> userProjectList=null;
-		 try{
 			Criteria userProjectCriteria = session
 					.createCriteria(UserProject.class);
 			userProjectCriteria.add(Restrictions.eq("userId", id));
 			userProjectCriteria.addOrder(Order.asc("userId"));
 			userProjectList = userProjectCriteria.list();
-			if(userProjectList.isEmpty()){
-				throw new  ProjectException(ExceptionCodes.USER_NOT_PART_OF_ANY_PROJECT,ExceptionMessages.USER_NOT_PART_OF_ANY_PROJECT);
-			}
-		 }catch(ProjectException e){
-			 throw e;
-		 }
 			return userProjectList;
 	}
 

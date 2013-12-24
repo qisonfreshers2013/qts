@@ -1,0 +1,46 @@
+
+body {
+    background-color: #FFFFFF;
+    color: #000000;
+    font-family: serif,sans-serif,cursive,Arial;
+    width: 100%;
+}
+.qisonLogoDiv {
+    left: 14%;
+    margin: 1%;
+    position: absolute;
+}
+.welcome {
+    left: 80%;
+    margin: 1%;
+    position: absolute;
+}
+.qisonLogoImg {
+    height: 90%;
+    width: 60%;
+}
+.header {
+    border-bottom: 2px solid #000000;
+    height: 95px;
+}
+.footer {
+    clear: both;
+    margin-top: 10%;
+}
+.container {
+    position: relative;
+    box-shadow: none;
+}
+.leftContainer {
+    float: left;
+    position: relative;
+}
+.rightContainer {
+    float: right;
+    position: relative;
+    width: 45%;
+}
+
+.footer p {
+    text-align: center;
+}

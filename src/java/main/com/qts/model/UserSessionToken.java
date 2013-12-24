@@ -1,6 +1,8 @@
 package com.qts.model;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 import org.codehaus.jackson.annotate.JsonAutoDetect;
 import org.codehaus.jackson.annotate.JsonMethod;
@@ -19,8 +21,20 @@ public class UserSessionToken implements Serializable {
     protected String userEmail;
     protected long userId;  
     protected String nickName; //anil
+    
+    
+    ///////////////////////////////
+    protected Set<Long> roleIds=new HashSet<>();
 
-    /**
+    public Set<Long> getRoleIds() {
+		return roleIds;
+	}
+
+	public void setRoleIds(Set<Long> roleIds) {
+		this.roleIds = roleIds;
+	}
+	//////////////////////////////////////////////
+	/**
 	 * @return the nickName
 	 */
 	public String getNickName() {

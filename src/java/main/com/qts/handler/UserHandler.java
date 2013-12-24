@@ -20,18 +20,22 @@ import javax.mail.internet.MimeMessage;
 import org.hibernate.HibernateException;
 
 
+
+
+
 import com.qts.common.Utils;
 import com.qts.common.cache.CacheManager;
 import com.qts.common.cache.CacheRegionType;
-
 import com.qts.exception.ExceptionCodes;
 import com.qts.exception.ExceptionMessages;
 import com.qts.exception.ProjectException;
 import com.qts.exception.UserException;
-
+import com.qts.handler.annotations.AuthorizeCategory;
+import com.qts.handler.annotations.AuthorizeEntity;
 import com.qts.model.ChangePasswordBean;
 import com.qts.model.LoginBean;
 import com.qts.model.Project;
+import com.qts.model.Roles;
 import com.qts.model.SearchUserRecord;
 import com.qts.model.SearchUserRecords;
 import com.qts.model.User;
@@ -107,14 +111,14 @@ public class UserHandler extends AbstractHandler {
 		return searchUserRecords;
 		}
 
-	public long addUser(UserBean bean) throws UserException {		
+	@AuthorizeEntity(roles = {Roles.ROLE_ADMIN}, entity = "User.java")
+	public long addUserAOP(UserBean bean) throws UserException {		
 		long id = 0;
 		long newId = 0;
 		User user = null;
 		if (isaddUserIsValidated(bean)) {			
 			UserDAO userDAOImpl = DAOFactory.getInstance().getUserDAO();			
-			id = ServiceRequestContextHolder.getContext().getUserSessionToken()
-					.getUserId();// id of admin
+			id = Utils.getUserId();// id of admin
 			Date date = new Date();
 			long cts = date.getTime();
 			long mts = cts;// default cts = mts
@@ -155,7 +159,7 @@ public class UserHandler extends AbstractHandler {
 		if(!(userProjectList.isEmpty())){
 			for(UserProject userProject: userProjectList){
 				//first delete role of user associated with specified project
-				boolean isRoleDeleted = UserProjectsRolesHandler.getInstance().deletUserProjectRoleByUserProjectId(userProject);
+				boolean isRoleDeleted = UserProjectsRolesHandler.getInstance().deleteUserProjectsRolesByUserProject(userProject);
 				//next deallocate the project for the user
 				boolean isProjectDeallocated = userProjectHandler.deAllocateUsersFromProject(userProject);		
 			}

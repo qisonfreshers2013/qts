@@ -35,7 +35,7 @@ public class UserProjectHandler extends AbstractHandler{
 
 	public  Set<Long> reportingIds=new HashSet<Long>();
 
-	public List<UserProject> getUserProjectsByUserId(long id) throws ProjectException{
+	public List<UserProject> getUserProjectsByUserId(long id){
 		
 		return	DAOFactory.getInstance().getUserProjectDAOImplInstance().getUserProjectsByUserId(id);
 	

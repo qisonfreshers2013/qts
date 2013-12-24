@@ -28,7 +28,7 @@
 		<mapping class="com.qts.model.User" />
 		<mapping class="com.qts.model.File" />
 		<mapping class="com.qts.model.UserProject" />
-		<mapping class="com.qts.model.UserProjectRoles" />
+		<mapping class="com.qts.model.UserProjectsRoles" />
 		<mapping class="com.qts.model.Roles" />
 		<mapping class="com.qts.model.Activities" />
 	</session-factory>
