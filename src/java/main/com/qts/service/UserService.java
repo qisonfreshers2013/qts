@@ -1,4 +1,6 @@
 package com.qts.service;
+import java.util.List;
+
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -14,10 +16,12 @@ import com.qts.exception.BusinessException;
 import com.qts.exception.EncryptionException;
 import com.qts.exception.ObjectNotFoundException;
 import com.qts.exception.UserException;
+import com.qts.handler.RoleHandler;
 import com.qts.handler.UserHandler;
 import com.qts.handler.user.AuthenticationHandlerFactory;
 import com.qts.model.ChangePasswordBean;
 import com.qts.model.LoginBean;
+import com.qts.model.Roles;
 import com.qts.model.SearchUserRecords;
 import com.qts.model.User;
 import com.qts.model.UserBean;
@@ -28,6 +32,7 @@ import com.qts.service.annotations.RestService;
 import com.qts.service.annotations.ServiceStatus;
 import com.qts.service.annotations.UnSecure;
 import com.qts.service.common.WebserviceRequest;
+import com.qts.service.descriptors.OptionOutputDescriptor;
 
 
 /**
@@ -149,7 +154,7 @@ public class UserService extends BaseService {
 		UserBean user = (UserBean) JsonUtil.getObject(request.getPayload(),
 				UserBean.class);
 		
-		long primaryUserId = UserHandler.getInstance().addUser(user);
+		long primaryUserId = UserHandler.getInstance().addUserAOP(user);
 		
 		return JsonUtil.getJsonBasedOnDescriptor(primaryUserId,Long.class);
 	}
@@ -170,7 +175,7 @@ public class UserService extends BaseService {
 	@ServiceStatus(value = "complete")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	@Path("/delete")
+	@Path("/delete")	
 	public String delete(@Context HttpHeaders headers,
 			@Context UriInfo uriInfo, WebserviceRequest request)
 			throws UserException , Exception{
@@ -178,7 +183,7 @@ public class UserService extends BaseService {
 		UserBean bean = (UserBean) JsonUtil.getObject(request.getPayload(),
 				UserBean.class);
 		
-		boolean isDeleted = UserHandler.getInstance().deleteUser(bean);
+		boolean isDeleted = UserHandler.getInstance().deleteUserAOP(bean);
 		
 		return JsonUtil.getJsonBasedOnDescriptor(isDeleted, Boolean.class);
 	}
@@ -206,7 +211,7 @@ public class UserService extends BaseService {
 		UserBean userBean = (UserBean) JsonUtil.getObject(request.getPayload(),
 				UserBean.class);
 		
-		User userInfo = UserHandler.getInstance().updateUser(userBean);
+		User userInfo = UserHandler.getInstance().updateUserAOP(userBean);
 		
 		return JsonUtil.getJsonBasedOnDescriptor(userInfo, User.class);
 	}
@@ -223,7 +228,7 @@ public class UserService extends BaseService {
 	@ServiceStatus(value = "complete")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	@Path("/changePassword")
+	@Path("/changePassword")	
 	public String changePassword(@Context HttpHeaders headers,
 			@Context UriInfo uriInfo, WebserviceRequest request)
 			throws UserException {
@@ -296,8 +301,7 @@ public class UserService extends BaseService {
 	@ServiceStatus(value = "complete")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	@Path("/getUserDetails")
-	
+	@Path("/getUserDetails")	
 	public String getUserDetails(@Context HttpHeaders headers,@Context UriInfo info,WebserviceRequest request) throws UserException{
 		UserBean bean = (UserBean) JsonUtil.getObject(request.getPayload(),
 				UserBean.class);
@@ -324,6 +328,7 @@ public class UserService extends BaseService {
 		
 		return JsonUtil.getJsonBasedOnDescriptor(user, User.class);		
 	}
+
 	
 	/**
 	 * @param headers
@@ -348,5 +353,19 @@ public class UserService extends BaseService {
 		User userInfo = UserHandler.getInstance().updateLoginUser(userBean);
 		
 		return JsonUtil.getJsonBasedOnDescriptor(userInfo, User.class);
-	}	
+	}
+	
+	@POST
+	@RestService(input = String.class, output = String.class)
+	@ServiceStatus(value = "complete")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	@Path("/getEmployeeIds")
+	public String getEmployeeIds(@Context HttpHeaders headers,
+			@Context UriInfo info, WebserviceRequest request) throws Exception {
+		List<String> listEmployeeIds = UserHandler.getInstance().getEmployeeIds();
+		String employeeeIds = JsonUtil.getJsonForListBasedOnDescriptor(listEmployeeIds,
+				User.class, OptionOutputDescriptor.class);
+		return employeeeIds;
+	}
 }

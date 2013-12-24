@@ -9,6 +9,7 @@ import com.qts.exception.ExceptionMessages;
 import com.qts.exception.ObjectNotFoundException;
 import com.qts.exception.ProjectException;
 import com.qts.exception.RolesException;
+import com.qts.handler.annotations.AuthorizeEntity;
 import com.qts.model.RoleBean;
 import com.qts.model.Roles;
 import com.qts.model.UserProject;
@@ -33,11 +34,12 @@ public class RoleHandler extends AbstractHandler {
 			INSTANCE = new RoleHandler();
 		return INSTANCE;
 	}
-
-	public List<Roles> getRoles() throws Exception {
+	
+	@AuthorizeEntity(roles = {Roles.ROLE_ADMIN}, entity = "RoleBean.java")
+	public List<Roles> getRolesAOP() throws Exception {
 		return DAOFactory.getInstance().getRoleDAOImplInstance().getRoles();
 	}
-
+	@AuthorizeEntity(roles = {Roles.ROLE_ADMIN}, entity = "RoleBean.java")
 	public RoleBean getUserRoles(RoleBean roleBean) throws Exception {
 		try {
 			// validating the input whether both userid and projectid is
@@ -58,8 +60,8 @@ public class RoleHandler extends AbstractHandler {
 		}
 		return roleBean;
 	}
-
-	public RoleBean allocateRoles(RoleBean roleBean) throws Exception {
+	@AuthorizeEntity(roles = {Roles.ROLE_ADMIN}, entity = "RoleBean.java")
+	public RoleBean allocateRolesAOP(RoleBean roleBean) throws Exception {
 		RoleBean myRoleBean;
 		UserProject userProject = UserProjectHandler.getInstance()
 				.getUserProjectByIds(roleBean.getProjectId(),
@@ -90,8 +92,8 @@ public class RoleHandler extends AbstractHandler {
 			throw e;
 		}
 	}
-
-	public RoleBean deallocateRoles(RoleBean roleBean) throws Exception {
+	@AuthorizeEntity(roles = {Roles.ROLE_ADMIN}, entity = "RoleBean.java")
+	public RoleBean deallocateRolesAOP(RoleBean roleBean) throws Exception {
 		UserProject userProject = UserProjectHandler.getInstance()
 				.getUserProjectByIds(roleBean.getProjectId(),
 						roleBean.getUserId());

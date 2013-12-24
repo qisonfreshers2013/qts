@@ -31,7 +31,7 @@ public class RoleService extends BaseService {
 	@Path("/get")
 	public String get(@Context HttpHeaders headers,
 			@Context UriInfo info, WebserviceRequest request) throws Exception {
-		List<Roles> listRoles = RoleHandler.getInstance().getRoles();
+		List<Roles> listRoles = RoleHandler.getInstance().getRolesAOP();
 		String output = JsonUtil.getJsonForListBasedOnDescriptor(listRoles,
 				Roles.class, OptionOutputDescriptor.class);
 		return output;
@@ -64,7 +64,7 @@ public class RoleService extends BaseService {
 			@Context UriInfo info, WebserviceRequest request) throws Exception {
 		RoleBean roleBeanInput = (RoleBean) JsonUtil.getObject(
 				request.getPayload(), RoleBean.class);
-		RoleBean roleBeanOutput = RoleHandler.getInstance().allocateRoles(
+		RoleBean roleBeanOutput = RoleHandler.getInstance().allocateRolesAOP(
 				roleBeanInput);
 		String output = JsonUtil.getJsonBasedOnDescriptor(roleBeanOutput,
 				Roles.class);
@@ -81,7 +81,7 @@ public class RoleService extends BaseService {
 			@Context UriInfo info, WebserviceRequest request) throws Exception {
 		RoleBean roleBeanInput = (RoleBean) JsonUtil.getObject(
 				request.getPayload(), RoleBean.class);
-		RoleBean roleBeanOutput = RoleHandler.getInstance().deallocateRoles(
+		RoleBean roleBeanOutput = RoleHandler.getInstance().deallocateRolesAOP(
 				roleBeanInput);
 		String output = JsonUtil.getJsonBasedOnDescriptor(roleBeanOutput,
 				Roles.class);

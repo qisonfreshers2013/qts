@@ -217,7 +217,7 @@ public class TimeEntryHandler {
 	private boolean validateSearchCriteria(TimeEntryBean searchCriteria) throws Exception{
 		if(searchCriteria.getStatus()!=null){
 		if(!(searchCriteria.getStatus()==1 || searchCriteria.getStatus()==2 || searchCriteria.getStatus()==3)){
-		throw new TimeEntryException(ExceptionCodes.SEARCH_NOT_ALLOWED,ExceptionMessages.INVALID_STATUS);	
+		throw new TimeEntryException();	
 		}}
 		if(searchCriteria.getFrom()!=null)
 		{
@@ -408,7 +408,7 @@ public class TimeEntryHandler {
 	
 	
 	
-	public boolean submit(List<TimeEntryBean> getTimeEntriesToSubmit){
+	public boolean submit(List<TimeEntryBean> getTimeEntriesToSubmit) throws ObjectNotFoundException{
 		
 		//Here validations is not necessary because TimeEntries which are in saved mode are already validated for the corresponding user
 		List<TimeEntryBean> notSubmittedEntriesList=new ArrayList<TimeEntryBean>();

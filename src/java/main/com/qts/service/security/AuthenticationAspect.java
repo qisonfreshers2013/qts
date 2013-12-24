@@ -53,10 +53,10 @@ public class AuthenticationAspect {
 		// Object key = null;
 		Transaction tx = null;
 		try {
-			// String url = getHttpHeaderValues(thisJoinPoint);
+			String url = getHttpHeaderValues(thisJoinPoint);
 			// uncomment below line and comment above line for testing through
 			// poster
-			String url = getHostUrl(thisJoinPoint);
+			//String url = getHostUrl(thisJoinPoint);
 			// No Public Annotation
 			if (!isPublic(thisJoinPoint)) {
 				// If Affinity is public then Check for @Unsecure Annotation
@@ -88,6 +88,7 @@ public class AuthenticationAspect {
 			return ob;
 		} catch (Throwable ex) {
 			logger.error(ex.toString(), ex);
+			ex.printStackTrace();
 			try {
 				if (null != tx) {
 					tx.rollback();

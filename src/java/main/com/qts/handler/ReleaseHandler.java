@@ -6,8 +6,10 @@ import com.qts.exception.ExceptionCodes;
 import com.qts.exception.ExceptionMessages;
 import com.qts.exception.ObjectNotFoundException;
 import com.qts.exception.ReleaseException;
+import com.qts.handler.annotations.AuthorizeEntity;
 import com.qts.model.Release;
 import com.qts.model.ReleaseBean;
+import com.qts.model.Roles;
 import com.qts.persistence.dao.DAOFactory;
 
 /**
@@ -72,7 +74,8 @@ public class ReleaseHandler extends AbstractHandler {
 	// Request Comes from ReleasesService Class and calls Method of
 	// ReleasesDAOImplClass
 	// Creating Releases Object from ReleasesBean Object
-	public Release addRelease(ReleaseBean releaseBean) throws ReleaseException,
+	@AuthorizeEntity(roles = {Roles.ROLE_ADMIN}, entity = "Release.java")
+	public Release addReleaseAOP(ReleaseBean releaseBean) throws ReleaseException,
 			ObjectNotFoundException {
 
 		Release release = null;
@@ -127,7 +130,8 @@ public class ReleaseHandler extends AbstractHandler {
 	}
 
 	// delete Releases with the given id
-	public Release deleteRelease(ReleaseBean releaseBean)
+	@AuthorizeEntity(roles = {Roles.ROLE_ADMIN}, entity = "Release.java")
+	public Release deleteReleaseAOP(ReleaseBean releaseBean)
 			throws ReleaseException, ObjectNotFoundException {
 
 		Release release = null;

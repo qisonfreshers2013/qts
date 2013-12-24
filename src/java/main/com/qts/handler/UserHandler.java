@@ -19,19 +19,19 @@ import javax.mail.internet.MimeMessage;
 
 import org.hibernate.HibernateException;
 
-
 import com.qts.common.Utils;
 import com.qts.common.cache.CacheManager;
 import com.qts.common.cache.CacheRegionType;
-
 import com.qts.exception.ExceptionCodes;
 import com.qts.exception.ExceptionMessages;
+import com.qts.exception.ObjectNotFoundException;
 import com.qts.exception.ProjectException;
 import com.qts.exception.UserException;
-
+import com.qts.handler.annotations.AuthorizeEntity;
 import com.qts.model.ChangePasswordBean;
 import com.qts.model.LoginBean;
 import com.qts.model.Project;
+import com.qts.model.Roles;
 import com.qts.model.SearchUserRecord;
 import com.qts.model.SearchUserRecords;
 import com.qts.model.User;
@@ -69,7 +69,7 @@ public class UserHandler extends AbstractHandler {
 	 * @throws Exception
 	 * @throws UserException
 	 */
-	public SearchUserRecords searchUsers(UserBean bean) throws Exception ,UserException{
+	public SearchUserRecords searchUsers(UserBean bean) throws Exception ,UserException,ObjectNotFoundException{
 
 		List<User> list = null;
 		SearchUserRecords searchUserRecords = null;
@@ -91,8 +91,7 @@ public class UserHandler extends AbstractHandler {
 					 long projectId= userProject.getProjectId();
 					 Project project = ProjectHandler.getInstance().getObjectById(projectId); //Getting project by project Id
 					 projectNames.add(project.getName());//adding names to project Names list
-				      }					
-					
+				      }			
 					searchUserRecord.setProjects(projectNames);
 					// after that insert into List of records
 					records.add(searchUserRecord);
@@ -106,8 +105,8 @@ public class UserHandler extends AbstractHandler {
 		}
 		return searchUserRecords;
 		}
-
-	public long addUser(UserBean bean) throws UserException {		
+	@AuthorizeEntity(roles = {Roles.ROLE_ADMIN}, entity = "User.java")
+	public long addUserAOP(UserBean bean) throws UserException {		
 		long id = 0;
 		long newId = 0;
 		User user = null;
@@ -139,7 +138,8 @@ public class UserHandler extends AbstractHandler {
 /*
  * delete User 
  */
-	public boolean deleteUser(UserBean bean) throws UserException,ProjectException {   //exception thrown by userProject
+	@AuthorizeEntity(roles = {Roles.ROLE_ADMIN}, entity = "User.java")
+	public boolean deleteUserAOP(UserBean bean) throws UserException,ProjectException {   //exception thrown by userProject
 		boolean isDeleted = false;
 		if (bean == null || bean.toString().trim().isEmpty()) {
 			throw new UserException(ExceptionCodes.DELETE_ID_ZERO,
@@ -155,7 +155,7 @@ public class UserHandler extends AbstractHandler {
 		if(!(userProjectList.isEmpty())){
 			for(UserProject userProject: userProjectList){
 				//first delete role of user associated with specified project
-				boolean isRoleDeleted = UserProjectsRolesHandler.getInstance().deletUserProjectRoleByUserProjectId(userProject);
+				boolean isRoleDeleted = UserProjectsRolesHandler.getInstance().deleteUserProjectsRolesByUserProject(userProject);
 				//next deallocate the project for the user
 				boolean isProjectDeallocated = userProjectHandler.deAllocateUsersFromProject(userProject);		
 			}
@@ -173,7 +173,6 @@ public class UserHandler extends AbstractHandler {
 		isPasswordChanged = validatePassword(bean.getPassword());
 		isPasswordChanged = validateConfirmPassword(bean.getPassword(),
 				bean.getConfirmPassword());
-
 		UserDAO userDAOImpl = DAOFactory.getInstance().getUserDAO();
 		isPasswordChanged = userDAOImpl.changePassword(bean);
 		return isPasswordChanged;
@@ -207,8 +206,8 @@ public class UserHandler extends AbstractHandler {
 		}
 		return user;
 	}
-
-	public User updateUser(UserBean bean) throws UserException {
+	@AuthorizeEntity(roles = {Roles.ROLE_ADMIN}, entity = "User.java")
+	public User updateUserAOP(UserBean bean) throws UserException {
 		User user = null;
 		if(bean == null || bean.toString().trim().isEmpty())
 		{
@@ -297,11 +296,13 @@ public class UserHandler extends AbstractHandler {
 		return isSent;
 	}
 
-	//validations
+	/*
+	 * searchUser  Validations 
+	 */
 
 	private boolean searchUserValidations(UserBean bean) throws UserException {
 		boolean isValidated = false;
-		if (bean.getNickName() != null) {		
+		if (bean.getNickName() != null ) {		
 			boolean isNickNameValidated = Pattern.compile(Utils.USER_NAME_PATTERN).matcher(bean.getNickName()).matches(); 
 		     if(!isNickNameValidated)
 				throw new UserException(ExceptionCodes.NICKNAME_INVALID,
@@ -636,6 +637,7 @@ public List<User> getUsersOtherThanTheseIds(List<Long> userIds){
 	 return DAOFactory.getInstance().getUserDAO().getUsersOtherThanTheseIds(userIds);
 	}
 
+
 public User getUserById(Long id) throws UserException {
 	if(id == null) {       
 		throw new UserException(ExceptionCodes.USER_ID_INVALID,ExceptionMessages.USER_ID_INVALID);
@@ -671,5 +673,11 @@ public User getUserById(Long id) throws UserException {
 		UserDAO userDAOImpl = DAOFactory.getInstance().getUserDAO();
 		user = userDAOImpl.updateLoginUser(bean);	
 		return user;
+	}
+
+	public List<String> getEmployeeIds() {
+		UserDAO userDAOImpl = DAOFactory.getInstance().getUserDAO();
+		List<String> employeeIds = userDAOImpl.getEmployeeIds();
+		return employeeIds;
 	}
 }

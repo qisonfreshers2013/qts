@@ -15,6 +15,6 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface AuthorizeEntity {
 	String entity();
-	String[] roles();
-	String action();
+	long[] roles();
+	//String action();
 }

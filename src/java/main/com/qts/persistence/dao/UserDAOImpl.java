@@ -1,5 +1,6 @@
 package com.qts.persistence.dao;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
@@ -181,8 +182,8 @@ public class UserDAOImpl extends BaseDAOImpl implements UserDAO {
 			createCriteria.add(Restrictions.eq("id", bean.getId()));
 			List listUserById = createCriteria.list();
 			if (listUserById.size() == 0)
-				throw new UserException(ExceptionCodes.UPDATE_NOT_EXIST_USER,
-						ExceptionMessages.UPDATE_NOT_EXIST_USER);
+				throw new UserException(ExceptionCodes.USER_DOESNOT_EXIST,
+						ExceptionMessages.USER_DOESNOT_EXIST);
 			createCriteria.add(Restrictions.eq("isDeleted", false));
 			List list = createCriteria.list();
 			if (list.size() == 0)
@@ -244,9 +245,6 @@ public class UserDAOImpl extends BaseDAOImpl implements UserDAO {
 							.getUserSessionToken().getUserId()));
 			@SuppressWarnings("rawtypes")
 			List list = createCriteria.list();
-			if (list.size() == 0)
-				throw new UserException(ExceptionCodes.UPDATE_NOT_EXIST_USER,
-						ExceptionMessages.UPDATE_NOT_EXIST_USER);
 			createCriteria.add(Restrictions.eq("isDeleted", false));
 			list = createCriteria.list();
 			if (list.size() == 0)
@@ -267,7 +265,7 @@ public class UserDAOImpl extends BaseDAOImpl implements UserDAO {
 		return isChanged;
 	}
 
-	public User getUserById(long id) throws UserException {
+	public User getUserById(long id) {
 		Session session = getSession();
 		List<User> list = null;
 		Criteria createCriteria = session.createCriteria(User.class);
@@ -343,8 +341,8 @@ public class UserDAOImpl extends BaseDAOImpl implements UserDAO {
 		createCriteria.add(Restrictions.eq("id", id));
 		List listUserById = createCriteria.list();
 		if (listUserById.size() == 0)
-			throw new UserException(ExceptionCodes.UPDATE_NOT_EXIST_USER,
-					ExceptionMessages.UPDATE_NOT_EXIST_USER);
+			throw new UserException(ExceptionCodes.USER_DOESNOT_EXIST,
+					ExceptionMessages.USER_DOESNOT_EXIST);
 
 		createCriteria.add(Restrictions.eq("isDeleted", false));
 		List list = createCriteria.list();
@@ -385,6 +383,20 @@ public class UserDAOImpl extends BaseDAOImpl implements UserDAO {
 		}
 		userCriteria.add(Restrictions.ne("isDeleted", true));
 		return userCriteria.list();
+	}
+
+	@Override
+	public List<String> getEmployeeIds() {
+		Session session = getSession();
+		List<User> list = null;
+		List<String> employeeIdList = new ArrayList<String>();
+		Criteria createCriteria = session.createCriteria(User.class).addOrder(Order.asc("employeeId"));		
+		createCriteria.add(Restrictions.eq("isDeleted",false));
+		list = createCriteria.list();
+		for(User user:list){
+			employeeIdList.add(user.getEmployeeId());
+		}
+		return employeeIdList;
 	}
 
 	

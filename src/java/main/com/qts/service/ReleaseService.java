@@ -70,7 +70,7 @@ public class ReleaseService extends BaseService {
 		ReleaseBean releaseBean = (ReleaseBean) JsonUtil.getObject(
 				request.getPayload(), ReleaseBean.class);
 
-		Release release = ReleaseHandler.getInstance().addRelease(releaseBean);
+		Release release = ReleaseHandler.getInstance().addReleaseAOP(releaseBean);
 
 		return JsonUtil.getJsonBasedOnDescriptor(release, Release.class);
 
@@ -90,7 +90,7 @@ public class ReleaseService extends BaseService {
 		ReleaseBean releaseBean = (ReleaseBean) JsonUtil.getObject(
 				request.getPayload(), ReleaseBean.class);
 
-		Release release = ReleaseHandler.getInstance().deleteRelease(
+		Release release = ReleaseHandler.getInstance().deleteReleaseAOP(
 				releaseBean);
 
 		return JsonUtil.getJsonBasedOnDescriptor(release, Release.class);

@@ -2,8 +2,8 @@
 
 .roles {
      height: 50%;
-     margin: 8% 0px 15% 10%;
-     width: 60%;
+     margin: 8% 0% 15% 0%;
+     width: 90%;
 }
 
 p {
@@ -24,22 +24,25 @@ p {
      float: left;
      width: 30%;
 }
-#projectList{
-	overflow: scroll;
+
+#projectList {
+     overflow: scroll;
 }
+
 #user {
      float: left;
-     width: 30%;
- 	margin-left:5%;
+     margin-left: 5%;
+     width: 40%;
 }
-#userList{
-	overflow: scroll;
-	overflow: 
+
+#userList {
+     overflow: hidden;
 }
+
 #role {
      float: right;
      margin-left: 5%;
-     width: 30%;
+     width: 20%;
 }
 
 #rolesList {
@@ -52,16 +55,19 @@ p {
 #rolesList td {
      border-bottom: 1px solid #000000;
      display: table-cell;
+     font-size: 16px;
      overflow: scroll;
      padding: 5%;
-     font-size: 16px;
 }
-select{
-width:100%;
+
+select {
+     width: -moz-available;
 }
+
 #buttons {
      float: left;
-     margin: 3% 0px 0px 70%;
+     height: inherit;
+     margin: 3% 0px 0px 80%;
      width: 35%;
 }
 
@@ -71,5 +77,5 @@ width:100%;
      color: #FFFFFF;
      font-weight: bold;
      text-align: center;
-     width: 42%;
+     width: 28%;
 }

@@ -50,10 +50,11 @@ RequestManager.listUsers({"payload":{"projectId":$("#projectList").val()}}, func
  if (success) {
 	 $("#userList").empty();//.append("<option>select</option>");
 $.each(data,function(key,value){
-	var fname=(value.firstName+" ").concat(value.lastName);
+	//var fname=(value.firstName+" ").concat(value.lastName);
+	var email=value.email;
 	$("#userList").append(
 			"<option value="+ value.id
-					+">"+fname+"</option>");
+					+">"+email+"</option>");
 });
 	this.listUserRoles(); 
 		}
