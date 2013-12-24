@@ -1,0 +1,113 @@
+
+.ProjectManagement {
+    background-color: #5EA620;
+    cursor: pointer;
+    height: 162px;
+    margin: 5% 1.5% 1.5%;
+    position: relative;
+    width: 30%;
+}
+
+.ProjectReleaseManagement {
+    background-color: #AE1A32;
+    cursor: pointer;
+    height: 162px;
+    left: 33%;
+    margin: -18.7% 2% 1.5% ;
+    position: relative;
+    width: 30%;
+}
+
+.SearchUser {
+    background-color: #137381;
+    cursor: pointer;
+    height: 162px;
+    left: 67%;
+    margin:  -18.8% 1.5% 1.5%;
+    position: relative;
+    width: 30%;
+}
+
+
+.pmImg{
+	position: relative;
+	top: 30%; 
+	left: 41%;"
+}
+.pmText{
+	 color: white; 
+	 position: relative; 
+	 top: 47%; 
+	 left: 4%;
+}
+.prmImg{
+	position: relative;
+	left: 36%; 
+	top: 30%;
+}
+.prmText{
+	 color: white; 
+	 position: relative; top: 48.5%; left: 4%;
+}
+
+.suImg{
+	position: relative; left: 37%; top: 27%;
+}
+.suText{
+	 color: white; position: relative; left: 4%; top: 40%;
+}
+
+.UserManagement {
+    background-color: #4638A7;
+    cursor: pointer;
+    height: 162px;
+    margin: 5% 1.5% 1.5%;
+    position: relative;
+    width: 30%;
+}
+
+.umImg{
+	position: relative; top: 25%; left: 37%;
+}
+.umText{
+	 color: white; position: relative; left: 4%; top: 40%;
+}
+
+.TimeSheetApproval {
+    background-color: #D24625;
+    cursor: pointer;
+    height: 162px;
+    left: 33%;
+    margin: -18.7% 2% 1.5% ;
+    position: relative;
+    width: 30%;
+}
+
+
+.tsaImg{
+	position: relative; left: 36%; top: 30%;
+}
+.tsaText{
+	color: white; position: relative; top: 39%;
+}
+
+.TimeSheetFilling {
+    background-color: #2871F2;
+    cursor: pointer;
+    height: 162px;
+    margin: 5% 1.5% 1.5%;
+    position: relative;
+    width: 30%;
+}
+
+.tsfImage{
+	position: relative;
+	 top: 36%;
+	 left: 40%;
+}
+.tsfText{
+	 color: white; 
+	 position: relative; 
+	 top: 55%;
+	 left:4%;
+}

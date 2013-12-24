@@ -1,0 +1,17 @@
+.image{
+	height : 100px;
+	width : 100px;
+	float : left;
+	}
+.data{
+	height : 50%;
+	width : 200%;
+	}
+.logout,.myAccount,.nickname {
+    color: #000000;
+    text-align: left;
+    cursor: pointer;
+}
+span:hover {
+    color: #008000;
+}

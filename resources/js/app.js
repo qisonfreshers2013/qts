@@ -5,44 +5,54 @@ function App() {
     this.termsAndConditions = '';
 
     $(document).ready(function () {
-       // $('.container').hide();
-        $('.loadingAnimation').show();
-    })
+        $('.container').show();
+    });
     this.handleShow();
+    
 }
 App.prototype.handleShow = function () {
-    $('.contentBody').css('background-color', 'white')
-    this.loadLogin();
     this.loadPhoto();
-}
-
-App.prototype.loadSampleContent = function () {
-	Loader.loadTestingSample();
-}
-App.prototype.loadTimeSheetFilling=function(){
-	Loader.loadTimeSheetFilling();
-}
-App.prototype.loadApproverTimeSheetSearch=function(){
-	Loader.loadApproverTimeSheetSearch();
-}
-App.prototype.loadDefaultTimeSheetPage=function(){
-	Loader.loadDefaultTimeSheetPage();
-}
-App.prototype.loadDefaultApproverPage=function(){
-	Loader.loadDefaultApproverPage();
-}
+    this.loadLogin();
 App.prototype.loadLogin=function(){
 	Loader.loadLogin();
 }
-App.prototype.loadPhoto=function(){
-	Loader.loadPhoto();
+App.prototype.loadAddProjectRelease=function(){
+	Loader.loadAddProjectRelease(function(){
+		new AddProjectRelease();
+	});
 }
-App.prototype.loadOptions=function(){
-	console.log("In loadOptions");
-	Loader.loadOptions();
+
+App.prototype.loadMenu=function(roles){
+	Loader.loadMenu(function(){
+		new Menu(roles);
+	});
 }
-App.prototype.loadWelcome=function(){
-	console.log("In welcome");
-	Loader.loadWelcome();
+
+App.prototype.loadSearchProjectRelease=function(roles){
+	Loader.loadSearchProjectRelease(function(){
+		new SearchProjectRelease(roles);
+	});
+}
+
+App.prototype.loadOptions=function(roles){
+	Loader.loadOptions(function(){
+		new Options(roles);
+	});
+}
+App.prototype.loadRoles = function () {
+	Loader.loadRoles(function() {
+		new Roles();
+	});
+}
+App.prototype.loadWelcome=function(cb){
+	Loader.loadWelcome(function(){
+		new Welcome();
+	});
+}
+
+App.prototype.loadReleaseResult=function(roles){
+	Loader.loadReleaseResult(function(){
+		new ReleaseResult(roles);
+	});
 }
 var App = new App();
