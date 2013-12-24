@@ -5,21 +5,21 @@ import java.util.List;
  * Pojo Class to get list of TimeEntriesForm Objects 
  * @author Ajay
  */
-public class GetListOfTimeEntryBean {
+public class GetListOfTimeEntryBeans {
    private List<TimeEntryBean> timeEntries;
    
-      public GetListOfTimeEntryBean(){
+      public GetListOfTimeEntryBeans(){
     	  
          }
- 
 
-	public List<TimeEntryBean> getTimeEntriesform() {
+	public List<TimeEntryBean> getTimeEntries() {
 		return timeEntries;
 	}
 
-	public void setTimeEntriesform(List<TimeEntryBean> timeEntryBean) {
+	public void setTimeEntries(List<TimeEntryBean> timeEntries) {
 		this.timeEntries = timeEntries;
 	}
+ 
       
       
     	 

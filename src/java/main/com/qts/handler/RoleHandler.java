@@ -38,11 +38,11 @@ public class RoleHandler extends AbstractHandler {
 		return DAOFactory.getInstance().getRoleDAOImplInstance().getRoles();
 	}
 
-	public RoleBean getUserRoles(RoleBean roleBean) throws Exception {
+	public RoleBean getUserRoles(RoleBean roleBean) throws Exception{
 		try {
 			// validating the input whether both userid and projectid is
 			// given,roleid should be intially null
-			if (validateBean(roleBean) && roleBean.getRoleIds() == null) {
+			if (validateBean(roleBean) && roleBean.getRoleIds().isEmpty()) {
 
 				UserProject userProject = UserProjectHandler.getInstance()
 						.getUserProjectByIds(roleBean.getProjectId(),
@@ -54,7 +54,7 @@ public class RoleHandler extends AbstractHandler {
 						roleBean, listUserProjectRoles);
 			}
 		} catch (ProjectException | RolesException e) {
-			throw e;
+			
 		}
 		return roleBean;
 	}
@@ -80,8 +80,7 @@ public class RoleHandler extends AbstractHandler {
 
 				}
 			}
-			if (availableRoles.containsAll(roleBean.getRoleIds()))
-				return roleBean;
+
 			roleBean.getRoleIds().removeAll(availableRoles);
 			myRoleBean = UserProjectsRolesHandler.getInstance().allocateRoles(
 					roleBean, userProject);

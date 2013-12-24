@@ -19,23 +19,17 @@ import javax.mail.internet.MimeMessage;
 
 import org.hibernate.HibernateException;
 
-
-
-
-
 import com.qts.common.Utils;
 import com.qts.common.cache.CacheManager;
 import com.qts.common.cache.CacheRegionType;
 import com.qts.exception.ExceptionCodes;
 import com.qts.exception.ExceptionMessages;
+import com.qts.exception.ObjectNotFoundException;
 import com.qts.exception.ProjectException;
 import com.qts.exception.UserException;
-import com.qts.handler.annotations.AuthorizeCategory;
-import com.qts.handler.annotations.AuthorizeEntity;
 import com.qts.model.ChangePasswordBean;
 import com.qts.model.LoginBean;
 import com.qts.model.Project;
-import com.qts.model.Roles;
 import com.qts.model.SearchUserRecord;
 import com.qts.model.SearchUserRecords;
 import com.qts.model.User;
@@ -67,58 +61,57 @@ public class UserHandler extends AbstractHandler {
 
 	// search user
 
-	/**
-	 * @param bean
-	 * @return SearchUserRecords contains Photofile Id,Email,EmployeeId,Designation
-	 * @throws Exception
-	 * @throws UserException
-	 */
-	public SearchUserRecords searchUsers(UserBean bean) throws Exception ,UserException{
+		/**
+		 * @param bean
+		 * @return SearchUserRecords contains Photofile Id,Email,EmployeeId,Designation
+		 * @throws Exception
+		 * @throws UserException
+		 */
+		public SearchUserRecords searchUsers(UserBean bean) throws Exception ,UserException,ObjectNotFoundException{
 
-		List<User> list = null;
-		SearchUserRecords searchUserRecords = null;
-		// validations of the input provided  separate method  which return true or false
-		List<SearchUserRecord> records = null;
-		if (bean == null || searchUserValidations(bean) || bean.toString().trim().isEmpty()) {
-			try {
-				
-				list = DAOFactory.getInstance().getUserDAO().searchUser(bean);	// for list of users			
-				records = new LinkedList<SearchUserRecord>(); // for storing all User Records of needed fields
-				for (User user : list) {	
-					 SearchUserRecord searchUserRecord = new SearchUserRecord(user);
-
-					//get project Names associated with particular Users Id
-					 List<UserProject> userProjects =
-					 UserProjectHandler.getInstance().getUserProjectsByUserId(user.getId());//for getting all userProject Ids
-					 List<String> projectNames = new ArrayList<String>();
-					 for(UserProject userProject : userProjects){
-					 long projectId= userProject.getProjectId();
-					 Project project = ProjectHandler.getInstance().getObjectById(projectId); //Getting project by project Id
-					 projectNames.add(project.getName());//adding names to project Names list
-				      }					
+			List<User> list = null;
+			SearchUserRecords searchUserRecords = null;
+			// validations of the input provided  separate method  which return true or false
+			List<SearchUserRecord> records = null;
+			if (bean == null || searchUserValidations(bean) || bean.toString().trim().isEmpty()) {
+				try {
 					
-					searchUserRecord.setProjects(projectNames);
-					// after that insert into List of records
-					records.add(searchUserRecord);
-				}
-				searchUserRecords = new SearchUserRecords();
-				searchUserRecords.setRecords(records);//saving list Of records 
-			} catch (HibernateException he) {
-				he.printStackTrace();
-				throw he;
-			}
-		}
-		return searchUserRecords;
-		}
+					list = DAOFactory.getInstance().getUserDAO().searchUser(bean);	// for list of users			
+					records = new LinkedList<SearchUserRecord>(); // for storing all User Records of needed fields
+					for (User user : list) {	
+						 SearchUserRecord searchUserRecord = new SearchUserRecord(user);
 
-	@AuthorizeEntity(roles = {Roles.ROLE_ADMIN}, entity = "User.java")
-	public long addUserAOP(UserBean bean) throws UserException {		
+						//get project Names associated with particular Users Id
+						 List<UserProject> userProjects =
+						 UserProjectHandler.getInstance().getUserProjectsByUserId(user.getId());//for getting all userProject Ids
+						 List<String> projectNames = new ArrayList<String>();
+						 for(UserProject userProject : userProjects){
+						 long projectId= userProject.getProjectId();
+						 Project project = ProjectHandler.getInstance().getObjectById(projectId); //Getting project by project Id
+						 projectNames.add(project.getName());//adding names to project Names list
+					      }					
+						
+						searchUserRecord.setProjects(projectNames);
+						// after that insert into List of records
+						records.add(searchUserRecord);
+					}
+					searchUserRecords = new SearchUserRecords();
+					searchUserRecords.setRecords(records);//saving list Of records 
+				} catch (HibernateException he) {
+					he.printStackTrace();
+					throw he;
+				}
+			}
+			return searchUserRecords;
+			}
+	public long addUser(UserBean bean) throws UserException {		
 		long id = 0;
 		long newId = 0;
 		User user = null;
 		if (isaddUserIsValidated(bean)) {			
 			UserDAO userDAOImpl = DAOFactory.getInstance().getUserDAO();			
-			id = Utils.getUserId();// id of admin
+			id = ServiceRequestContextHolder.getContext().getUserSessionToken()
+					.getUserId();// id of admin
 			Date date = new Date();
 			long cts = date.getTime();
 			long mts = cts;// default cts = mts
@@ -177,7 +170,6 @@ public class UserHandler extends AbstractHandler {
 		isPasswordChanged = validatePassword(bean.getPassword());
 		isPasswordChanged = validateConfirmPassword(bean.getPassword(),
 				bean.getConfirmPassword());
-
 		UserDAO userDAOImpl = DAOFactory.getInstance().getUserDAO();
 		isPasswordChanged = userDAOImpl.changePassword(bean);
 		return isPasswordChanged;
@@ -301,7 +293,9 @@ public class UserHandler extends AbstractHandler {
 		return isSent;
 	}
 
-	//validations
+	/*
+	 * searchUser  Validations 
+	 */
 
 	private boolean searchUserValidations(UserBean bean) throws UserException {
 		boolean isValidated = false;
