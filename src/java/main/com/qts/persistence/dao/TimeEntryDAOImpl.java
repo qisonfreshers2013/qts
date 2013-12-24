@@ -4,11 +4,13 @@ package com.qts.persistence.dao;
  * Implementation class for TimeEntryDAO to perform Business Operation
  * @author Ajay
  */
+import java.sql.Timestamp;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 
+import org.apache.commons.lang3.time.DateUtils;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -19,11 +21,9 @@ import org.hibernate.criterion.Restrictions;
 import com.qts.common.Utils;
 import com.qts.exception.ExceptionCodes;
 import com.qts.exception.ObjectNotFoundException;
-import com.qts.exception.TimeEntryException;
 import com.qts.model.TimeEntries;
 import com.qts.model.TimeEntryBean;
 import com.qts.service.common.ServiceRequestContextHolder;
-import com.sun.xml.xsom.impl.scd.ParseException;
 
 public class TimeEntryDAOImpl extends BaseDAOImpl implements TimeEntryDAO {
 
@@ -49,36 +49,32 @@ public class TimeEntryDAOImpl extends BaseDAOImpl implements TimeEntryDAO {
 	 * TimeEntriesForm, org.hibernate.Session) Method to Add TimeEntry to
 	 * DATABASE TimeEntries Storage Table
 	 */
-     public boolean add(TimeEntryBean timeEntry){
-		   
-		  TimeEntries addentry = new TimeEntries();
+	public boolean add(TimeEntryBean timeEntry) throws Exception {
+   
+		TimeEntries addentry = new TimeEntries();
 
-		  addentry.setUserId(timeEntry.getUserId());
-		  try {
-		   addentry.setCts(Utils.parseDateToLong((timeEntry.getDate())));
-		   addentry.setDate(Utils.parseDateToLong(timeEntry.getDate()));
-		   addentry.setMts(Utils.parseDateToLong((timeEntry.getDate())));
-		  } catch (Exception e) {
-		   e.printStackTrace();
-		  }
-		  addentry.setHours(timeEntry.getHours());
-		  addentry.setProjectId(timeEntry.getProjectId());
-		  addentry.setActivityId(timeEntry.getActivityId());
-		  addentry.setReleaseId(timeEntry.getReleaseId());
-		  addentry.setTask(timeEntry.getTask());
-		  addentry.setRemarks(timeEntry.getUserRemarks());
-		  addentry.setCreated_by(timeEntry.getUserId());
-		  addentry.setModified_by(timeEntry.getUserId());
-		  addentry.setStatus(0);
-		  TimeEntries timeEntryAdded = null;
+		addentry.setUserId(timeEntry.getUserId());
+		addentry.setDate(Utils.parseDateToLong(timeEntry.getDate()));
+		addentry.setHours(timeEntry.getHours());
+		addentry.setProjectId(timeEntry.getProjectId());
+		addentry.setActivityId(timeEntry.getActivityId());
+		addentry.setReleaseId(timeEntry.getReleaseId());
+		addentry.setTask(timeEntry.getTask());
+		addentry.setRemarks(timeEntry.getUserRemarks());
+		addentry.setCts(Utils.parseDateToLong((timeEntry.getDate())));
+		addentry.setMts(Utils.parseDateToLong((timeEntry.getDate())));
+		addentry.setCreated_by(timeEntry.getUserId());
+		addentry.setModified_by(timeEntry.getUserId());
+		addentry.setStatus(0);
+		TimeEntries timeEntryAdded = null;
 
-		  timeEntryAdded = (TimeEntries) saveObject(addentry);
-		       if(timeEntryAdded!=null)
-		        return true;
+		timeEntryAdded = (TimeEntries) saveObject(addentry);
+       if(timeEntryAdded!=null)
+    	   return true;
 
-		  return false;
+		return false;
 
-		 }
+	}
 
 	@Override
 	/*
@@ -88,7 +84,7 @@ public class TimeEntryDAOImpl extends BaseDAOImpl implements TimeEntryDAO {
 	 * TimeEntriesForm) Method Used by Approver to REJECT Submitted TimeEntry
 	 */
 
-	public boolean reject(TimeEntryBean timeEntry) throws ObjectNotFoundException {
+	public boolean reject(TimeEntryBean timeEntry) throws Exception {
 		Session session = getSession();
 		try {
 			Query query = session
@@ -100,11 +96,11 @@ public class TimeEntryDAOImpl extends BaseDAOImpl implements TimeEntryDAO {
 			
 			if(rejectedCount!=0)
 			return true;
-			else
-				throw new ObjectNotFoundException(ExceptionCodes.OBJECT_NOT_FOUND,"Invalid Id");
 		} catch (Exception e) {
-			throw e;
-		}
+			e.printStackTrace();
+			throw new ObjectNotFoundException(ExceptionCodes.OBJECT_NOT_FOUND,"Invalid Id");
+		} 
+		return false;
 	}
 
 	@Override
@@ -123,16 +119,13 @@ public class TimeEntryDAOImpl extends BaseDAOImpl implements TimeEntryDAO {
 							+ timeEntry.getId());
 			query.setInteger("status", 2);
 			query.setString("approvedComments", timeEntry.getApprovedComments());
-			int approved=query.executeUpdate();
-			if(approved!=0)
-			return true;
-			else 
-				throw new ObjectNotFoundException(ExceptionCodes.OBJECT_NOT_FOUND,"Invalid Id");
+			query.executeUpdate();
 			
+			return true;
+
 		} catch (Exception e) {
 			e.printStackTrace();
-			throw e;
-			
+			throw new ObjectNotFoundException(ExceptionCodes.OBJECT_NOT_FOUND,"Invalid Id");
 		} 
 	}
 
@@ -151,14 +144,13 @@ public class TimeEntryDAOImpl extends BaseDAOImpl implements TimeEntryDAO {
 					+ deleteTimeEntry.getId() + "and userId="
 					+ deleteTimeEntry.getUserId() + "and status=" + 0);
 
-			int isDeleted=query.executeUpdate();
-			if(isDeleted!=0){
-			return true;}
-			else 
-				throw new ObjectNotFoundException(ExceptionCodes.OBJECT_NOT_FOUND,"Invalid Id");
+			query.executeUpdate();
 			
-		} catch (ObjectNotFoundException e) {
-			throw e;
+			return true;
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new ObjectNotFoundException(ExceptionCodes.OBJECT_NOT_FOUND,"Invalid Id");
 		} 
 
 
@@ -173,7 +165,7 @@ public class TimeEntryDAOImpl extends BaseDAOImpl implements TimeEntryDAO {
 	 */
 	public boolean update(TimeEntryBean updateTimeEntry) throws ObjectNotFoundException {
 		Session session = getSession();
-		try{
+		try {
 			Query query = session
 					.createQuery("Update TimeEntries set hours=:hours,projectId=:projectId,releaseId=:releaseId,task=:task,activityId=:activityId,remarks=:remarks,date=:date where id="
 							+ updateTimeEntry.getId()
@@ -185,22 +177,17 @@ public class TimeEntryDAOImpl extends BaseDAOImpl implements TimeEntryDAO {
 			query.setString("task", updateTimeEntry.getTask());
 			query.setLong("activityId", updateTimeEntry.getActivityId());
 			query.setString("remarks", updateTimeEntry.getUserRemarks());
-				query.setLong("date", Utils.parseDateToLong((updateTimeEntry.getDate())));
-		
+			query.setLong("date", Utils.parseDateToLong((updateTimeEntry.getDate())));
 			int updated = query.executeUpdate();
 			if (updated != 0) {
 				return true;
 			}
-			else{
-				throw new ObjectNotFoundException(ExceptionCodes.OBJECT_NOT_FOUND,"Invalid Id");
-			    }
-		}catch(ObjectNotFoundException e){
-			throw e;
-		} catch (Exception ex) {
-			ex.printStackTrace();
-		}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new ObjectNotFoundException(ExceptionCodes.OBJECT_NOT_FOUND,"Invalid Id");
+		} 
 		return false;
-		
 	}
 
 
@@ -222,17 +209,16 @@ public class TimeEntryDAOImpl extends BaseDAOImpl implements TimeEntryDAO {
 			if (deleted != 0) {
 				return session;
 			}
-			else 
-				throw new ObjectNotFoundException(ExceptionCodes.OBJECT_NOT_FOUND,"Invalid Id");
 		} catch (Exception e) {
 			e.printStackTrace();
-			throw e;
+			throw new ObjectNotFoundException(ExceptionCodes.OBJECT_NOT_FOUND,"Invalid Id");
 		}
+		return null;
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public boolean isTimeEntryMappedToReleaseId(long id) throws ObjectNotFoundException {
+	public boolean getTimeEntryObjectById(long id) throws ObjectNotFoundException {
 		Session session = getSession();
 		try {
 
@@ -240,34 +226,21 @@ public class TimeEntryDAOImpl extends BaseDAOImpl implements TimeEntryDAO {
 					"from TimeEntries where release_Id=" + id).list();
 			if (mapped.size() != 0) {
 				return true;
-				}
-			else
-				throw new ObjectNotFoundException(ExceptionCodes.OBJECT_NOT_FOUND,"Invalid Id");
+			}
 
-		} catch (ObjectNotFoundException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
-			throw e;
+			throw new ObjectNotFoundException(ExceptionCodes.OBJECT_NOT_FOUND,"Invalid Id");
 		}
+		return false;
 	}
 
-	
-	public TimeEntries getTimeEntryObjectById(long id){
-		Session session = getSession();
-      List<TimeEntries> mapped = session.createQuery(
-					"from TimeEntries where id=" + id).list();
-			if (!mapped.isEmpty()) {
-				return mapped.get(0);
-				}
-			else
-				return null;
-
-		} 
-	
 	@Override
-	public boolean submit(TimeEntryBean submitTimeEntry) {
-       
+	public boolean submit(TimeEntryBean submitTimeEntry) throws ObjectNotFoundException {
+
 		Session session = getSession();
 		try {
+			
 			Query query = session
 					.createQuery("Update TimeEntries set status=:newStatus where id="
 							+ submitTimeEntry.getId()
@@ -278,10 +251,11 @@ public class TimeEntryDAOImpl extends BaseDAOImpl implements TimeEntryDAO {
 			int isSubmitted = query.executeUpdate();
 			
 			if (isSubmitted == 0) {
-			  return false;
+				return false;
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
+			throw new ObjectNotFoundException(ExceptionCodes.OBJECT_NOT_FOUND,"Invalid Id");
 		} 
 
 		return true;
@@ -314,7 +288,6 @@ public class TimeEntryDAOImpl extends BaseDAOImpl implements TimeEntryDAO {
 			userSearchCriteria.setProjection(Projections.projectionList()
 					.add(Projections.property("id"))
 					.add(Projections.property("date"))
-					.add(Projections.property("userId"))
 					.add(Projections.property("projectId"))
 					.add(Projections.property("releaseId"))
 					.add(Projections.property("task"))
@@ -433,12 +406,6 @@ public class TimeEntryDAOImpl extends BaseDAOImpl implements TimeEntryDAO {
 						.add(Restrictions.eq("userId", searchCriteria.getUserId()))
 						.add(Restrictions.eq("status", searchCriteria.getStatus())));
 			}
-			else if (searchCriteria.getFrom() == null && searchCriteria.getProjectId() == null
-					&& searchCriteria.getUserId() == null
-					&& searchCriteria.getTo() == null
-					&& searchCriteria.getStatus() != null) {
-				approverSearchCriteria.add(Restrictions.eq("status", searchCriteria.getStatus()));
-			}
 			else if (searchCriteria.getFrom() == null && searchCriteria.getTo() == null && searchCriteria.getUserId()==null) {
 				approverSearchCriteria.add(Restrictions
 						.conjunction()
@@ -453,15 +420,6 @@ public class TimeEntryDAOImpl extends BaseDAOImpl implements TimeEntryDAO {
 								searchCriteria.getUserId()))
 						.add(Restrictions.eq("status", searchCriteria.getStatus())));
 			}
-			else if(searchCriteria.getFrom()!=null && searchCriteria.getTo()!=null && searchCriteria.getStatus()!=null && searchCriteria.getUserId()==null && searchCriteria.getProjectId()==null){
-				approverSearchCriteria.add(Restrictions
-				.conjunction()
-				.add(Restrictions.between("date",
-						Utils.parseDateToLong((searchCriteria.getFrom())),
-						Utils.parseDateToLong((searchCriteria.getTo()))))
-						.add(Restrictions.eq("status", searchCriteria.getStatus())));
-			}
-		
 			List<TimeEntries> submittedData = approverSearchCriteria.list();
 			
 			return submittedData;

@@ -1,19 +1,20 @@
-function Options(roleIds) {
+function Options(roles) {
 	Loader.loadHTML('.container', 'Options.html', true, function(){
-		this.handleShow(roleIds);
+		this.handleShow(roles);
 	}.ctx(this));
 }
-Options.prototype.handleShow = function(roleIds) {
 
-	if(roleIds.contains(1)){
+Options.prototype.handleShow = function(roles) {
+
+	if(roles.contains(1)){
 		$('.container').append('<div class="UserManagement"><img class="umImg" src="resources/img/um.png"><h4 class="umText">User Management</h4></div>');
-		if(roleIds.contains(2)){
+		if(roles.contains(2)){
 			$('.container').append('<div class="TimeSheetApproval"><img class="tsaImg" src="resources/img/tsa.png"><h4 class="tsaText">Time Sheet Approval</h4></div>');
 		}		
 	}
-	else if(roleIds.contains(3)){
+	else if(roles.contains(3)){
 		$('.container').append('<div class="TimeSheetFilling"><img class="tsfImage" src="resources/img/tsf.png"><h4 class="tsfText">Time Sheet Filling</h4></div>');		
-		if(roleIds.contains(2)){
+		if(roles.contains(2)){
 			$('.container').append('<div class="TimeSheetApproval"><img class="tsaImg" src="resources/img/tsa.png"><h4 class="tsaText">Time Sheet Approval</h4></div>');
 		}
 	}
@@ -22,20 +23,11 @@ Options.prototype.handleShow = function(roleIds) {
 		$('.container').append('<div class="TimeSheetApproval"><img class="tsaImg" src="resources/img/tsa.png"><h4 class="tsaText">Time Sheet Approval</h4></div>');
 	}
 	
-	$('.ProjectReleaseManagement').click(function(){	
+	$('.ProjectReleaseManagement').click(function(){
+		App.loadMenu(roles);		
 		App.loadSearchProjectRelease(roles);
-		if(roleIds.contains(1)){
+		if(roles.contains(1)){
 			App.loadAddProjectRelease();
-		}
-	}.ctx(this));
-	
-	$('.ProjectManagement').click(function(){
-		App.loadMenu(roleIds);
-		if(roleIds.contains(1)){
-		App.loadAllocateUsersToProject();
-		}
-		else{
-			App.loadSearchProject();
 		}
 	}.ctx(this));
 

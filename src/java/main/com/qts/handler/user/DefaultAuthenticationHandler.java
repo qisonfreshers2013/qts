@@ -3,16 +3,9 @@
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.Calendar;
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Set;
 import java.util.TimeZone;
 
-import org.apache.commons.collections.CollectionUtils;
-
 import com.qts.common.EncryptionFactory;
-import com.qts.common.Utils;
 import com.qts.common.cache.Cache;
 import com.qts.common.cache.CacheManager;
 import com.qts.common.cache.CacheRegionType;
@@ -23,8 +16,6 @@ import com.qts.exception.ExceptionMessages;
 import com.qts.exception.ObjectNotFoundException;
 import com.qts.exception.SystemException;
 import com.qts.model.User;
-import com.qts.model.UserProject;
-import com.qts.model.UserProjectsRoles;
 import com.qts.model.UserSessionToken;
 import com.qts.model.user.AuthenticationInput;
 import com.qts.model.user.AuthenticationOutput;
@@ -58,31 +49,6 @@ public class DefaultAuthenticationHandler implements AuthenticationHandler {
 		user = daoFactory.getUserDAO().getUserByEmail(email);
 		//String encryptedPassword = Utils.encrypt(password);
 		String passwordFromDB = user.getPassword();
-		
-		
-		/////////////////////////////////////////////////////////////////////////////////
-		long userId = user.getId();
-		List<UserProject> userProjects = daoFactory.getUserProjectDAOImplInstance().getUserProjectsByUserId(userId);
-		Set<Long> roleIds = new HashSet<>();
-		if(CollectionUtils.isNotEmpty(userProjects)) {
-			for(UserProject project : userProjects) {
-				List<UserProjectsRoles> userProjectsRoles = new LinkedList<>();
-				try {
-					userProjectsRoles = daoFactory.getUserProjectsRolesDAOInstance().getUserProjectsRolesByUserProject(project.getId());
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-				if(CollectionUtils.isNotEmpty(userProjectsRoles)) {
-					for(UserProjectsRoles userProjectsRole: userProjectsRoles) {
-						roleIds.add(userProjectsRole.getRoleId());
-					}
-				}
-			}
-		}
-		
-		
-	////////////////////////////////////////////////////////////
-		
 		boolean userValidity = passwordFromDB.equals(password);//anil
 
 		if (!userValidity) {
@@ -113,15 +79,12 @@ public class DefaultAuthenticationHandler implements AuthenticationHandler {
 		userSessionToken.setUserEmail(user.getEmail());
 		userSessionToken.setUserId(user.getId());
 		userSessionToken.setUserSessionId(sessionToken);
-		//////////////////////////////////////////
-		userSessionToken.setRoleIds(roleIds);
-		////////////////////////////////////////////
 		Cache cache = CacheManager.getInstance().getCache(CacheRegionType.USER_SESSION_CACHE);
 		cache.put(sessionToken, userSessionToken);
 		System.out.println("Session Token : "+sessionToken);		
 		System.out.println("Cached : "+cache.getValue(sessionToken));
 		AuthenticationOutput authenticationOutput = new AuthenticationOutput(
-				sessionToken, authStatus, user,roleIds);
+				sessionToken, authStatus, user);
 		return authenticationOutput;
 	}
 

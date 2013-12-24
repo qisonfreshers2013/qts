@@ -5,67 +5,51 @@ function App() {
     this.termsAndConditions = '';
 
     $(document).ready(function () {
-        $('.loadingAnimation').show();
-    })
+    	
+    });
     this.handleShow();
+    
 }
 App.prototype.handleShow = function () {
-	$('.container').show();
-    $('.contentBody').css('background-color', '#AA0011');
-    this.loadPhoto();
-    this.loadLogin();
+    $('.container').css('background-color', '#FFF');
+    
 }
 
 
-
-App.prototype.loadPhoto=function(){
-	Loader.loadPhoto();
-}
-App.prototype.loadLogin=function(){
-	Loader.loadLogin();
+App.prototype.loadAddProjectRelease=function(){
+	Loader.loadAddProjectRelease(function(){
+		new AddProjectRelease();
+	});
 }
 
+App.prototype.loadMenu=function(roles){
+	Loader.loadMenu(function(){
+		new Menu(roles);
+	});
+}
 
-App.prototype.loadWelcome=function(){
+App.prototype.loadSearchProjectRelease=function(roles){
+	Loader.loadSearchProjectRelease(function(){
+		new SearchProjectRelease(roles);
+	});
+}
+
+App.prototype.loadOptions=function(roles){
+	Loader.loadOptions(function(){
+		new Options(roles);
+	});
+}
+
+App.prototype.loadWelcome=function(cb){
 	Loader.loadWelcome(function(){
 		new Welcome();
 	});
 }
 
-App.prototype.loadSearchProject=function(){
-	Loader.loadSearchProject(function(){
-		new SearchProject();
+App.prototype.loadReleaseResult=function(roles){
+	Loader.loadReleaseResult(function(){
+		new ReleaseResult(roles);
 	});
 }
 
-App.prototype.loadMenu=function(roleIds){
-	Loader.loadMenu(function(){
-		new Menu(roleIds);
-	})
-}
-
-App.prototype.loadOptions=function(roleIds){
-	Loader.loadOptions(function(){
-		new Options(roleIds);
-	})
-}
-
-App.prototype.loadAddProject=function(){
-	Loader.loadAddProject(function(){
-		new AddProject();
-	});
-}
-
-App.prototype.loadAllocateUsersToProject=function(){
-	Loader.loadAllocateUsersToProject(function(){
-		new AllocateUsersToProject();
-	});
-}
-
-
-App.prototype.loadSearchProjectResults=function(data){
-	Loader.loadSearchProjectResults(function(){
-		new SearchProjectResults(data);
-	});
-}
 var App = new App();
