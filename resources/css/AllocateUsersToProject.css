@@ -1,0 +1,41 @@
+
+#content {
+    font-family: Arial;
+    margin-top: 8%;
+    width:100%;
+}
+.headline {
+}
+#text {
+    margin-top: 4%;
+}
+.enter {
+}
+#nonUsers {
+    margin-top: 4%;
+    position: relative;
+}
+#copy {
+    left: 31%;
+    margin-top: -10.5%;
+    position: relative;
+}
+#users {
+    left: 38%;
+    margin-top: -13.8%;
+    position: relative;
+}
+.save {
+    left: 38%;
+    margin-top: 2%;
+    position: relative;
+}
+p{
+	font-size:16px;
+}
+.go,#reset{
+	background-color:#8AAF09;
+	 width:7% ;
+	 border-radius:5px;
+}
+
