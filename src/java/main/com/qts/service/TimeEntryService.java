@@ -6,6 +6,7 @@ package com.qts.service;
  */
 
 import java.util.List;
+
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -14,8 +15,10 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.UriInfo;
+
 import com.qts.common.json.JsonUtil;
 import com.qts.handler.TimeEntryHandler;
+import com.qts.model.BaseObject;
 import com.qts.model.GetListOfTimeEntryBeans;
 import com.qts.model.TimeEntries;
 import com.qts.model.TimeEntryBean;
@@ -25,7 +28,7 @@ import com.qts.service.common.WebserviceRequest;
 import com.qts.service.descriptors.TimeEntriesOptionOutputDescriptor;
 
 @Path("/v1/timeEntry")
-public class TimeEntryService {
+public class TimeEntryService extends BaseService{
    /*
     * AddEntry Service 
     */
@@ -41,9 +44,9 @@ public class TimeEntryService {
 		TimeEntryBean timeEntry = (TimeEntryBean) JsonUtil
 				.getObject(request.getPayload(), TimeEntryBean.class);
 		
-        Boolean isAdded=TimeEntryHandler.getInstance().add(timeEntry);
+       boolean addedTimeEntry=TimeEntryHandler.getInstance().add(timeEntry);
         
-        return JsonUtil.getJsonBasedOnDescriptor(isAdded,Boolean.class);
+        return JsonUtil.getJsonBasedOnDescriptor(addedTimeEntry,Boolean.class);
 		}
 
 	 /*
@@ -122,8 +125,7 @@ public class TimeEntryService {
 		
 	     return JsonUtil.getJsonBasedOnDescriptor(isApproved,Boolean.class);     
 		
-		
-	}
+		}
 	 /*
 	  * SearchTimeSheet For User
 	 */
@@ -181,8 +183,30 @@ public class TimeEntryService {
 		GetListOfTimeEntryBeans getTimeEntriesToSubmit = (GetListOfTimeEntryBeans) JsonUtil
 				.getObject(request.getPayload(), GetListOfTimeEntryBeans.class);
 		
-		boolean isSubmitted=TimeEntryHandler.getInstance().submit(getTimeEntriesToSubmit.getListOfTimeEntryBeans());
+		boolean isSubmitted=TimeEntryHandler.getInstance().submit(getTimeEntriesToSubmit.getTimeEntries());
 		
 	     return JsonUtil.getJsonBasedOnDescriptor(isSubmitted, Boolean.class);
 	}
+	
+	
+	@POST
+	@RestService(input = String.class, output = String.class)
+	@ServiceStatus(value = "complete")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	@Path("/getTimeEntry")
+	public String getTimeEntryObjectById(@Context HttpHeaders headers,
+			@Context UriInfo uriInfo, WebserviceRequest request)
+			throws Exception {
+		Long id = (Long) JsonUtil
+				.getObject(request.getPayload(), Long.class);
+		
+		BaseObject timeEntry=TimeEntryHandler.getInstance().getObjectById(id);
+		
+	     return JsonUtil.getJsonBasedOnDescriptor(timeEntry,BaseObject.class);     
+		
+		}
+	
+	
+	
 }

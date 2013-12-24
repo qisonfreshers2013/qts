@@ -11,15 +11,15 @@ public class GetListOfTimeEntryBeans {
       public GetListOfTimeEntryBeans(){
     	  
          }
- 
 
-	public List<TimeEntryBean> getListOfTimeEntryBeans() {
+	public List<TimeEntryBean> getTimeEntries() {
 		return timeEntries;
 	}
 
-	public void setListOfTimeEntryBeans(List<TimeEntryBean> timeEntryBean) {
-		this.timeEntries = timeEntryBean;
+	public void setTimeEntries(List<TimeEntryBean> timeEntries) {
+		this.timeEntries = timeEntries;
 	}
+ 
       
       
     	 

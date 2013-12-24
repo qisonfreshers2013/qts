@@ -4,7 +4,6 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
-import java.util.HashSet;
 import java.util.List;
 
 import com.qts.common.Utils;
@@ -16,6 +15,7 @@ import com.qts.exception.ProjectException;
 import com.qts.exception.ReleaseException;
 import com.qts.exception.RolesException;
 import com.qts.exception.TimeEntryException;
+import com.qts.model.BaseObject;
 import com.qts.model.RoleBean;
 import com.qts.model.TimeEntries;
 import com.qts.model.TimeEntryBean;
@@ -54,7 +54,7 @@ public class TimeEntryHandler {
 	 * Validation method for TimeEntryBean
 	 */
 
-	private boolean validateTimeEntryBean(TimeEntryBean timeEntry) throws Exception {
+	private boolean validateTimeEntryBean(TimeEntryBean timeEntry) throws InvalidTimeEntryDataException,ObjectNotFoundException,TimeEntryException,Exception {
 		RoleBean roleBean = new RoleBean(ServiceRequestContextHolder.getContext()
 				.getUserSessionToken().getUserId(),timeEntry.getProjectId());
 		try{
@@ -107,7 +107,7 @@ public class TimeEntryHandler {
 	 */
 
 
-	public static boolean validateDate(String date)
+	private static boolean validateDate(String date)
 			throws InvalidTimeEntryDataException, ParseException {
 
 		if (date == null) {
@@ -215,7 +215,10 @@ public class TimeEntryHandler {
 	 */
 	
 	private boolean validateSearchCriteria(TimeEntryBean searchCriteria) throws Exception{
-		
+		if(searchCriteria.getStatus()!=null){
+		if(!(searchCriteria.getStatus()==1 || searchCriteria.getStatus()==2 || searchCriteria.getStatus()==3)){
+		throw new TimeEntryException(ExceptionCodes.SEARCH_NOT_ALLOWED,ExceptionMessages.INVALID_STATUS);	
+		}}
 		if(searchCriteria.getFrom()!=null)
 		{
 			 Utils.generalValidationsForDate(searchCriteria.getFrom());
@@ -231,7 +234,13 @@ public class TimeEntryHandler {
 	    }
 	    if(searchCriteria.getUserId()!=null && searchCriteria.getProjectId()!=null){
 	    	try{
+	    	UserProjectHandler.getInstance().getUserProjectByIds(searchCriteria.getProjectId(),ServiceRequestContextHolder.getContext().getUserSessionToken().getUserId());
 	    	UserProjectHandler.getInstance().getUserProjectByIds(searchCriteria.getProjectId(),searchCriteria.getUserId());
+	    	RoleBean roleBeanInput=new RoleBean(ServiceRequestContextHolder.getContext().getUserSessionToken().getUserId(),searchCriteria.getProjectId());
+			RoleBean roleBeanOutput=RoleHandler.getInstance().getUserRoles(roleBeanInput);
+			if(roleBeanOutput.getRoleIds().isEmpty() || !roleBeanOutput.getRoleIds().contains(2)){
+				throw new TimeEntryException(ExceptionCodes.PROJECT_ID_INVALID,ExceptionMessages.USER_NOT_ASSOCIATED_WITH_PROJECT);
+			}
 	    	}catch(ProjectException ex){
 	    		throw new TimeEntryException(ExceptionCodes.PROJECT_ID_INVALID,ExceptionMessages.USER_NOT_ASSOCIATED_WITH_PROJECT);
 	    	}
@@ -254,20 +263,20 @@ public class TimeEntryHandler {
 	 * Handler Method Used By AddEntry Service
 	 */
 	public boolean add(TimeEntryBean timeEntry) throws Exception {
-		timeEntry.setUserId(ServiceRequestContextHolder.getContext()
-				.getUserSessionToken().getUserId());
-		boolean isTimeEntryAdded=false;
-		//validateDate validates the DATE String 
-		
-		//validateTimeEntryBean validates the projectId,releaseId,ActivityId
-		
-		if (validateDate(timeEntry.getDate()) && validateTimeEntryBean(timeEntry)) {
-			 isTimeEntryAdded = DAOFactory.getInstance().getTimeEntryDAOInstance()
-					.add(timeEntry);
-		}
-		
-		return isTimeEntryAdded;
-	}
+		  timeEntry.setUserId(ServiceRequestContextHolder.getContext()
+		    .getUserSessionToken().getUserId());
+		  boolean isTimeEntryAdded=false;
+		  //validateDate validates the DATE String 
+		  
+		  //validateTimeEntryBean validates the projectId,releaseId,ActivityId
+		  
+		  if (validateDate(timeEntry.getDate()) && validateTimeEntryBean(timeEntry)) {
+		    isTimeEntryAdded = DAOFactory.getInstance().getTimeEntryDAOInstance()
+		     .add(timeEntry);
+		  }
+		  
+		  return isTimeEntryAdded;
+		 }
 
 	/*
 	 * Handler Method Used By RejectEntry Service by Approver
@@ -326,7 +335,7 @@ public class TimeEntryHandler {
 	/*
 	 * Handler Method Used By Update Service
 	 */
-	public boolean update(TimeEntryBean timeEntry) throws Exception {
+	public boolean update(TimeEntryBean timeEntry) throws ParseException, ObjectNotFoundException,InvalidTimeEntryDataException,Exception {
 		
 		boolean updated=true;
 		timeEntry.setUserId(ServiceRequestContextHolder.getContext()
@@ -335,12 +344,12 @@ public class TimeEntryHandler {
 		
 	   //validateTimeEntryBean validates the projectId,releaseId,ActivityId
 		
-		if (validateDate(timeEntry.getDate()) && validateTimeEntryBean(timeEntry)) {
-			 updated = DAOFactory.getInstance()
-					.getTimeEntryDAOInstance().update(timeEntry);
-		}
-		return updated;
-
+			if (validateDate(timeEntry.getDate()) && validateTimeEntryBean(timeEntry)) {
+				 updated = DAOFactory.getInstance()
+						.getTimeEntryDAOInstance().update(timeEntry);
+			}
+	
+          return updated;
 	}
 
 	/*
@@ -386,11 +395,12 @@ public class TimeEntryHandler {
 	public boolean isEntryMapped(long id) throws ObjectNotFoundException {
 		try {
 			if (!(DAOFactory.getInstance().getTimeEntryDAOInstance()
-					.getTimeEntryObjectById(id))) {
+					.isTimeEntryMappedToReleaseId(id))) {
 				throw new ObjectNotFoundException();
 			}
-		} catch (Exception e) {
+		} catch (ObjectNotFoundException e) {
 			e.printStackTrace();
+			throw e;
 		}
 		return true;
 	}
@@ -398,23 +408,29 @@ public class TimeEntryHandler {
 	
 	
 	
-	public boolean submit(List<TimeEntryBean> getTimeEntriesToSubmit)
-			throws Exception {
+	public boolean submit(List<TimeEntryBean> getTimeEntriesToSubmit){
 		
 		//Here validations is not necessary because TimeEntries which are in saved mode are already validated for the corresponding user
+		List<TimeEntryBean> notSubmittedEntriesList=new ArrayList<TimeEntryBean>();
 		
 		for (TimeEntryBean timeEntry : getTimeEntriesToSubmit) {
 			timeEntry.setUserId(ServiceRequestContextHolder.getContext()
 					.getUserSessionToken().getUserId());
+			if(DAOFactory.getInstance()
+					.getTimeEntryDAOInstance().getTimeEntryObjectById(timeEntry.getId())!=null && DAOFactory.getInstance()
+							.getTimeEntryDAOInstance().getTimeEntryObjectById(timeEntry.getId()).getStatus()==0 ){
 			boolean submitted = DAOFactory.getInstance()
 					.getTimeEntryDAOInstance().submit(timeEntry);
 			if (!submitted) {
-				throw new TimeEntryException(
-						ExceptionCodes.TIMEENTRY_SUBMISSION_FAILED,
-						ExceptionMessages.TIMEENTRY_SUBMIT_FAILED);
+				notSubmittedEntriesList.add(timeEntry);
+			}
+			}else{
+				notSubmittedEntriesList.add(timeEntry);
 			}
 		}
-		return true;
+		if(notSubmittedEntriesList.isEmpty()){
+		return true;}
+		return false;
 	}
 
 	
@@ -460,32 +476,53 @@ public class TimeEntryHandler {
 		if(validateSearchCriteria(searchCriteria)){
 			
      	List<TimeEntries> getTimeEntriesForApporver = new ArrayList<TimeEntries>();
+     	
+     	if(listOfApprovers.contains(ServiceRequestContextHolder.getContext().getUserSessionToken().getUserId())){
+     		getTimeEntriesForApporver=getResultsForApprover(searchCriteria);
+     		return getTimeEntriesForApporver;
+     	}else{
 		List<UserProject> associatedProjectList = UserProjectHandler.getInstance().getUserProjectsByUserId(ServiceRequestContextHolder.getContext().getUserSessionToken().getUserId());		
 		for (UserProject associatedProject : associatedProjectList) {
 			RoleBean roleBeanInput=new RoleBean(ServiceRequestContextHolder.getContext().getUserSessionToken().getUserId(),associatedProject.getProjectId());
 			RoleBean roleBeanOutput=RoleHandler.getInstance().getUserRoles(roleBeanInput);
-			
-			
-		if((roleBeanOutput.getRoleIds()!=null && roleBeanOutput.getRoleIds().contains(new Long(2)))||listOfApprovers.contains(ServiceRequestContextHolder.getContext().getUserSessionToken().getUserId()))
-			{      
-			if(!listOfApprovers.contains(ServiceRequestContextHolder.getContext().getUserSessionToken().getUserId())){
-			searchCriteria.setProjectId(associatedProject.getProjectId());}
-				List<TimeEntries> responseList = DAOFactory.getInstance()
-						.getTimeEntryDAOInstance()
-						.getTimeEntriesForApprover(searchCriteria);
+				
+		if((roleBeanOutput.getRoleIds()!=null && roleBeanOutput.getRoleIds().contains(new Long(2)))){      
+			searchCriteria.setProjectId(associatedProject.getProjectId());
+				List<TimeEntries> responseList = getResultsForApprover(searchCriteria);
 					getTimeEntriesForApporver.addAll(responseList);
 			}else{
 				isApprover=isApprover+1;
 			}
+		  }
+		   if(isApprover==associatedProjectList.size()){
+			   throw new TimeEntryException(ExceptionCodes.ACTION_DOESNOT_EXIST,ExceptionMessages.TIMEENTRY_USER_NOT_AUTHORIZED);
+		   }
 		}
-	   if(isApprover==associatedProjectList.size()){
-		   throw new TimeEntryException(ExceptionCodes.ACTION_DOESNOT_EXIST,ExceptionMessages.TIMEENTRY_USER_NOT_AUTHORIZED);
-	   }
-
 		return getTimeEntriesForApporver;
 		}
 		return null;
 	}
+	
+	private List<TimeEntries> getResultsForApprover(TimeEntryBean searchCriteria){
+		return DAOFactory.getInstance()
+				.getTimeEntryDAOInstance()
+				.getTimeEntriesForApprover(searchCriteria);
+		
+		}
+	
+	public BaseObject getObjectById(long id) throws ObjectNotFoundException{
+		
+		TimeEntries timeEntry= DAOFactory.getInstance()
+				.getTimeEntryDAOInstance()
+				.getTimeEntryObjectById(id);
+		if(timeEntry!=null){
+			return timeEntry;
+		}else{
+			throw new ObjectNotFoundException();
+			}
+	}
+	
+	
 	
 
 	/*

@@ -1,0 +1,86 @@
+
+@charset "ISO-8859-1";
+.majorDiv {
+    background-color: #FFFFFF;
+    border: 1px solid #000000;
+    position: fixed;
+    width: 50%;
+}
+.fieldset {
+    width: 60%;
+}
+p {
+    font-size: 16px;
+}
+.leftHeaders {
+    float: left;
+    margin-left: 6%;
+    margin-top: 2%;
+    width: 20%;
+}
+.leftHeaderFields {
+    float: left;
+    margin-right: 3%;
+    margin-top: 2%;
+    width: 42%;
+}
+.rightHeaders {
+    float: left;
+    margin-left: 8%;
+    width: 21%;
+}
+.rightHeaderFields {
+    margin-bottom: 0;
+    margin-left: 104%;
+    margin-top: 11%;
+    width: 45%;
+}
+.datepicker {
+    background-color: #FFFFFF;
+    margin-left: 0;
+    margin-top: -2%;
+}
+.projectId {
+    margin-left: 0;
+    margin-top: 3%;
+}
+.task {
+    margin-left: 0;
+    margin-top: 7%;
+}
+.hours {
+    margin-left: 0;
+    margin-top: 4%;
+}
+.selectRelease {
+    margin-left: 0;
+    margin-top: 10%;
+}
+.selectActivity {
+    margin-top: 10%;
+}
+.userRemarks {
+    margin-left: 0;
+    margin-top: 7%;
+}
+.release {
+    margin-left: 2%;
+    margin-top: 16%;
+}
+.activity {
+    margin-left: 4%;
+    margin-top: 41%;
+}
+.cancel {
+    margin-left: 108%;
+    margin-top: 2%;
+}
+.save {
+    margin-left: 130%;
+    margin-top: -14%;
+}
+.remarksHeader {
+    margin-left: 0;
+    margin-top: 0;
+}
+

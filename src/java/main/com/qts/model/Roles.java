@@ -25,6 +25,8 @@ public class Roles extends AbstractObject
 	@Column(name="NAME")
 	private String name;
 	
+	
+	public static final long ROLE_ADMIN=1; 
 	public Roles() {
 	}
 	public long getId() {

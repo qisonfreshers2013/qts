@@ -62,7 +62,10 @@ Loader.prototype.handleShow = function() {
 	 
 	}
 
-
+	Loader.prototype.loadRoles = function(cb){
+		LazyLoad.js('resources/js/roles.js', cb);
+		LazyLoad.css('resources/css/roles.css');
+	}
 
 
 
@@ -173,6 +176,7 @@ Loader.prototype.loadUserProfile = function(cb){
 	LazyLoad.js('resources/js/UserProfile.js',cb);
 	
 }
+
 
 
 Loader.prototype.loadHTML = function(container, filePath, empty, callback) {

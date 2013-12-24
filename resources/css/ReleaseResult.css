@@ -1,0 +1,16 @@
+th{
+background-color:lightblue;
+}
+tr:nth-child(even){
+	background:#cdcdcd;
+}
+tr:nth-child(odd){
+	background:#efefef;
+}
+.releaseResult{
+
+}
+.result{
+    position: relative;
+ 	margin-top:5%;
+}
