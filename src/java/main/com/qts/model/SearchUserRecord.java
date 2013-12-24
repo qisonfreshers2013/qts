@@ -3,7 +3,7 @@ package com.qts.model;
 import java.util.List;
 
 public class SearchUserRecord {
-
+	private long id;
 	private String photoFileUrl ;
 	private String email;
 	private String employeeId;
@@ -11,10 +11,23 @@ public class SearchUserRecord {
 	private List<String> projects;		
 	
 	public SearchUserRecord(User user) {
+		this.id = user.getId();		
 		this.email = user.getEmail();
 		this.employeeId = user.getEmployeeId();
 		this.designation = user.getDesignation();	
 	
+	}
+	/**
+	 * @return the id
+	 */
+	public long getId() {
+		return id;
+	}
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(long id) {
+		this.id = id;
 	}
 	public String getPhotoFileUrl() {
 		return photoFileUrl;

@@ -1,0 +1,25 @@
+
+
+table.resultsTable {
+    border-collapse: collapse;
+    color: #000000;
+    font-family: Arial;
+    font-style: normal;
+    font-weight: normal;  
+}
+table.resultsTable thead {
+    background-color: #3091FF;
+    border-width: 0;
+    padding: 0%;
+    height:46px;
+}
+table.resultsTable tbody {
+    background-color: #EEEEEE;
+    padding: 8px;
+}
+.resultsDiv {
+    position: relative;
+}
+td,th {
+    text-align: center;
+}

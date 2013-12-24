@@ -4,14 +4,22 @@
 	float : left;
 	}
 .data{
-	height : 50%;
-	width : 200%;
+	height : 100px;
+	width : 400px;
 	}
-.logout,.myAccount,.nickname {
+.myAccount,.nicknameCursor {
     color: #000000;
     text-align: left;
     cursor: pointer;
 }
+.logout{
+	 color: #000000;
+    text-align: left;
+   
+	}
 span:hover {
     color: #008000;
+}
+p{
+font-size: 16px;
 }

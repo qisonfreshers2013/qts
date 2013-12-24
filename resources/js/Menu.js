@@ -20,10 +20,12 @@ Menu.prototype.handleShow=function(roleIds){
 		
 		
 		$('#su').click(function(){
-			App.loadSearchUser();
+			$('#content').remove();
+			App.loadSearchUser(roleIds);
 		});
 		
 		$('#um').click(function(){
+			$('#content').remove();
 			App.loadAddUser();
 		});
 		
@@ -51,6 +53,7 @@ Menu.prototype.handleShow=function(roleIds){
 			
 		});
 		$('#prm').click(function(){
+			$('#content').remove();
 			App.loadAddProjectRelease();
 			App.loadSearchProjectRelease(roleIds);
 		});
@@ -64,7 +67,9 @@ Menu.prototype.handleShow=function(roleIds){
 			$('#projectOptions').css( 'width', '17.5%').css('margin-left','-2%');
 			
 			$('#tsa').click(function(){
-				App.loadTimeSheetApproval();
+				$('#content').remove();
+				App.loadApproverTimeSheetSearch();
+				App.loadDefaultApproverPage();
 			});
 		}
 		else{
@@ -80,18 +85,23 @@ Menu.prototype.handleShow=function(roleIds){
 		
 		//click events for approver
 		$('#tsa').click(function(){
-			App.loadTimeSheetApproval();
+			$('#content').remove();
+			App.loadApproverTimeSheetSearch();
+			App.loadDefaultApproverPage();
 		});
 		
 		$('#pm').click(function(){
+			$('#content').remove();
 			App.loadSearchProject();
 		});
 		
 		$('#prm').click(function(){
+			$('#content').remove();
 			App.loadSearchProjectRelease(roleIds);
 		});
 		
 		$('#su').click(function(){
+			$('#content').remove();
 			App.loadSearchUser();
 		});
 		
@@ -99,7 +109,9 @@ Menu.prototype.handleShow=function(roleIds){
 			$('#main').append('<li><a id="tsf">Time Sheet Filling</a>');
 			
 			$('#tsf').click(function(){
+				$('#content').remove();
 				App.loadTimeSheetFilling();
+				App.loadDefaultTimeSheetPage();
 			});
 			
 		}
@@ -115,19 +127,24 @@ Menu.prototype.handleShow=function(roleIds){
 		
 		//click events for member role
 		$('#pm').click(function(){
+			$('#content').remove();
 			App.loadSearchProject();
 		});
 		
 		$('#prm').click(function(){
+			$('#content').remove();
 			App.loadSearchProjectRelease(roleIds);
 		});
 		
 		$('#su').click(function(){
-			App.loadSearchUser();
+			$('#content').remove();
+			App.loadSearchUser(roleIds);
 		});
 		
 		$('#tsf').click(function(){
+			$('#content').remove();
 			App.loadTimeSheetFilling();
+			App.loadDefaultTimeSheetPage();
 		});
 	}
 	

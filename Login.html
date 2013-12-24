@@ -1,28 +1,41 @@
-
+<div id = "content">
 <div id = "loginDiv"  class = "loginDiv">
-<div id = "loginImg" class = "loginImg"><img id = "login" class="login" src = "resources/img/login.png" alt = "login">
+<fieldset>
+<div id = "loginImg" class = "loginImg"><h1><img id = "login" class="login" src = "resources/img/login.png" alt = "login">Login</h1>
 </div>
-
+<form id = "loginForm" class = "loginForm" >
 <div id = "userIdField" class = "userIdField">
-User Id<span id = star class = "star"><sup>*</sup></span> 
+<p><label for="userId">User Id<span id = star class = "star"><sup>*</sup></span> </label></p>
 </div>
-<div id = "userIdText" class = "userIdText">
-<input id = "userId" type = "email" placeholder = "User Id"  title = "email Pattern" required>
+<div id = "userIdText" class = "userIdText ">
+<input id = "userId" class = "userId userIdWidth" type = "email" autofocus  placeholder = "User Id"  title = "email Pattern"  required>
 </div>
 <div id = "passwordField" class = "passwordField">
-Password<span id = star class = "star"><sup>*</sup></span> 
+<p><label for="password">Password<span id = star class = "star"><sup>*</sup></span></label> </p>
 </div>
 <div id = "passwordText" class = "passwordText">
-<input id = "password" type = "password" placeholder="password" pattern=".{6,}" title = "minimum length is 6" required>
+<input id = "password"  class = "password passwordWidth" type = "password" placeholder="password" onblur="this.checkValidity();" pattern=".{6,}" title = "minimum length is 6" required>
 </div>
 <div id = "forgotPassword" class = "forgotPassword">
-<a href = forgotPassword.js>Forgot Password</a>
+<a id = "forgotPasswordLink" class = "forgotPasswordLink">Forgot Password</a>
 </div>
-<div id = "submit" class = "submit">
-<button id = "signInBtn" class = "signInBtn btn-primary">SignIn</button>
+</form>
+<div id = "submitDiv" class = "submitDiv">
+<button id = "submit" form = "loginForm" class = "submit" type = "button" value = "signin">Signin</button>
 </div>
-<div id = "clear" class = "clear">
-<input id = "clear" class = "clear" type = "reset" value = "clear">
+<div id = "clearDiv" class = "clearDiv">
+<input id = "clear" class = "clear" type = "reset" form = "loginForm" value = "Clear">
 </div>
 
+</fieldset>
+</div>
+<!-- Modal -->
+<div class="modal fade forgotPasswordModal" id="forgotPasswordModal">
+<div class="modal-body"><label for="emailToSend">Email</label> <input
+	type="email" name="emailToSend" id="emailToSend" placeholder = "email" class="emailToSend"></div>
+<div class="modal-footer">
+<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+<button id = "submitEmail" class = "button.submitEmail" type="button" class="btn btn-primary submitEmail">Submit</button>
+</div>
+</div>
 </div>

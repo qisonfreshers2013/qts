@@ -20,11 +20,13 @@ public interface TimeEntryDAO {
     public boolean reject(TimeEntryBean timeEntry) throws ObjectNotFoundException;
     public boolean approve(TimeEntryBean timeEntry) throws ObjectNotFoundException;
     public boolean delete(TimeEntryBean deleteEntry) throws ObjectNotFoundException;
+
     public boolean update(TimeEntryBean updateWithData) throws ObjectNotFoundException, Exception;
 	public Session deleteTimeEntryById(int id,Session session) throws ObjectNotFoundException;
 	public TimeEntries getTimeEntryObjectById(long id) throws ObjectNotFoundException;
 	public boolean isTimeEntryMappedToReleaseId(long id) throws ObjectNotFoundException;
 	public boolean submit(TimeEntryBean submitData);
+
 	public List<TimeEntries> getUserTimeEntries(TimeEntryBean timeEntry) ;
 	public List<TimeEntries> getTimeEntriesForApprover(TimeEntryBean timeEntry);
 	public int getUserWorkingHoursperDay(String date);

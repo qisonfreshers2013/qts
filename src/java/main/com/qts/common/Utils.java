@@ -25,14 +25,14 @@ public final class Utils {
 
     public static final String EMAIL_PATTERN = "^[_A-Za-z]+[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
     public static final String NAME_PATTERN = "^[A-Za-z0-9\\s]*$";
-    public static final String USER_NAME_PATTERN = "^[A-Za-z\\s]*$";//-----
-    public static final String DESIGNATION = "^([A-Z]+)$";//-----
-    public static final String GENDER = "^(?:m|M|male|Male|f|F|female|Female)$";//----//^M(ale)?$|^F(emale)?$
+    public static final String USER_NAME_PATTERN = "^[A-Za-z\\s]*$";
+    public static final String DESIGNATION = "^([A-Z]+)$";
+    public static final String GENDER = "^(?:male|Male|female|Female)$";//----//^M(ale)?$|^F(emale)?$
     public static final String EMPLOYEE_ID_PATTERN = "^[A-Za-z0-9]*$";
     public static final int MIN_PASSWORD_LENGTH = 6;
     public static final int ARTICLE_BRIEF_DESCRIPTION_LENGTH = 190;
     public static final int BRIEF_DESCRIPTION_START_INDEX = 0;
-	public static final String LOCATION_PATTERN = "^[A-Za-z\\s]*$";//-----
+	public static final String LOCATION_PATTERN = "^[A-Za-z\\s]*$";
 	public static final String DATE_PATTTERN="^(0[1-9]|1[012])([-/])(0[1-9]|[12][0-9]|3[01])\\2([23]0)\\d\\d$";
     public static void validateEmail(String email)
             throws BusinessException {

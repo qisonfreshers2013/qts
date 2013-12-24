@@ -1,0 +1,67 @@
+<div id = "content" class = "profileDiv">
+<div id = "profileHeader" class = "profileHeader">
+<h1><img src = "resources/img/results.png" alt = "profilePic">
+Profile Page</h1>
+</div>
+<div id = "line" class = "line">
+<hr>
+</div>
+<div id = "innerProfileDiv" class = "innerProfileDiv">
+<div id = "profilePhotoDiv" class = "profilePhotoDiv" >
+<img src = "resources/img/defaultImage.png" alt = "profilePhoto">
+<p id = "upperDesignationField" class = "upperDesignationField">designation</p>
+</div>
+<div id = "profileDetails" class = "profileDetails">
+<h1 id = "nicknameHeader" class = "nicknameHeader">
+Nickname
+</h1>
+<p id = "loacationHeader" class = "locationHeader">
+Place
+</p>
+</div>
+</div>
+<div id = "editProfileDiv" class = "editProfileDiv">
+<div id = "editProfileHeader" class = "editProfileHeader">
+<h2><img src = "resources/img/addUser.png" alt = "AddUser">
+ Edit Profile </h2>
+</div>
+<div id = "line">
+<hr></div>
+<div id = "editFields" class = "editFields">
+<p id = "employeeId" class = "employeeId">Employee Id</p>
+<p id = "email" class = "email">Email</p>
+<p id = "userId" class = "userId">User Id</p>
+<p id = "designation" class = "designation">Designation</p>
+<p id = "gender" class = "gender">Gender</p>
+<p id = "firstName" class = "firstName">First Name<span class="star"><sup>*</sup></span></p>
+<p id = "lastName" class = "lastName">Last Name<span class="star"><sup>*</sup></span></p>
+<p id = "nickname" class = "nickname">Nickname</p>
+<p id = "location" class = "location">Location<span class="star"></span></p>
+
+</div>
+<div id =  "editTextFields" class = "editTextFields">
+<div><input id = "employeeIdText" class = "employeeIdText" value = "Employee Id" type = "text" name = "employeeId" readonly="readonly"/></div>
+<div><input id = "emailText" class = "emailText" type = "text" value = "Email" name = "email"  readonly="readonly"/></div>
+<div id = "userIdTextDiv" class = "userIdTextDiv"><input id = "userIdText" class = "userIdText" type = "text" value = "User Id" name = "userId" readonly="readonly"/></div>
+<div><input id = "designationText" class = "designationText" type = "text" value = "Designation" name = "designation" readonly="readonly"/></div>
+<div><input id = "genderText" class = "genderText" type = "text" value = "Gender" name = "gender" readonly="readonly"/></div>
+<form id = "myProfileInnerForm" class = "myProfileInnerForm">
+<div><input id = "firstNameText" class = "firstNameText" type = "text" name = "First Name"  pattern="^[A-Za-z]+[A-Za-z\s]*$" placeholder = "First Name" required/></div>
+<div><input id = "lastNameText" class = "lastNameText" type = "text" name = "Last Name"  pattern="^[A-Za-z]+[A-Za-z\s]*$" placeholder = "Last Name" required/></div>
+<div><input id = "nicknameText" class = "nicknameText" type = "text" name = "Nickname"   pattern="^[A-Za-z]+[A-Za-z\s]*$" placeholder = "Nickname" /></div>
+<div><input id = "locationText" class = "locationText" type = "text" name = "Location"  pattern="^[A-Za-z]+[A-Za-z\s]*$"  placeholder = "Location" /></div>
+</form>
+</div>
+<div>
+<div id = "submitMyProfileDiv" class = "submitMyProfileDiv">
+<button id = "submit" class = "submit" name = "save" form = "myProfileInnerForm"  type = "button">Save</button>
+</div >
+<div id = "clearMyProfileDiv" class = "clearMyProfileDiv">
+<input id = "clear" class = "clear" name = "clear" form = "myProfileInnerForm" value = "Clear" type = "reset"/>
+</div>
+</div>
+<div id = "changePasswordDiv"  class = "changePasswordDiv"  data-toggle="modal" >
+<button id = "changePassword" class = "changePassword" value = "Change Password" name = "changePassword" type = "button">Change Password</button>
+</div>
+</div>
+</div>

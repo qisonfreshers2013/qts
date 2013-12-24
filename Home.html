@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Home</title>
+<link href="Home.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<header>
+<div id = "qisonLogoDiv" class = "qisonLogoDiv"><img id = "qisonLogoImg" src = "logo.png" alt = "qison logo">
+<div id = "welcome" class = "welcome"></div>
+</div>
+</header>
+<div class = "line">
+<hr></div>
+<div id = container class = "container" > 
+<div id = "photoDiv" class = "photoDiv">
+<img id = "photoImg" class = "photoImg"src = "photo.jpg" alt = "photo">
+</div>
+<div id = "loginDiv" class = "loginDiv">
+<div id = "loginImg" class = "loginImg"><img id = "login" class="login" src = "login.png" alt = "login">
+</div>
+<form action="loadOptions();">
+<div id = "userIdField" class = "userIdField">
+User Id<span id = star class = "star"><sup>*</sup></span> 
+</div>
+<div id = "userIdText" class = "userIdText">
+<input id = "userId" type = "email" placeholder = "User Id"  title = "email Pattern" required>
+</div>
+<div id = "passwordField" class = "passwordField">
+Password<span id = star class = "star"><sup>*</sup></span> 
+</div>
+<div id = "passwordText" class = "passwordText">
+<input id = "password" type = "text" placeholder="password" pattern=".{6,}" title = "minimum length is 6" required>
+</div>
+<div id = "forgotPassword" class = "forgotPassword">
+<a href = forgotPassword.js>Forgot Password</a>
+</div>
+<div id = "submit" class = "submit">
+<input id = "submit" class = "submit" type = "submit" value = "signin">
+</div>
+<div id = "clear" class = "clear">
+<input id = "clear" class = "clear" type = "reset" value = "clear">
+</div>
+</form>
+</div>
+</div>
+<footer id = "footer" class = "footer">
+<div class = "hr">
+<hr>
+</div>
+<p>
+Copyright @ QISON SOFT 2013 All Rights Reserved.
+</p>
+</footer>
+
+<script type="text/javascript" src="resources/js/lib/jquery.js"></script>
+<script type="text/javascript" src="resources/js/lib/lazyload.js"></script>
+<script type="text/javascript" src="resources/js/loader.js"></script>
+<script type="text/javascript" src="resources/js/requestManager.js"></script>
+<script type="text/javascript" src="resources/js/app.js"></script>
+<script type="text/javascript" src="resources/js/lib/function.js"></script>
+
+<script type="text/javascript" src="resources/js/lib/json2.js"></script>
+<script type="text/javascript" src="resources/js/lib/modal.js"></script>
+<script type="text/javascript" src="resources/js/lib/alert.js"></script>
+<script type="text/javascript" src="resources/js/lib/dropdown.js"></script>
+<script type="text/javascript" src="resources/js/util.js"></script>
+<script type="text/javascript" src="resources/js/String.js"></script>
+<script type="text/javascript" src="resources/js/jqueryPlugins.js"></script>
+<script type="text/javascript" src="resources/js/lib/bootstrap.js"></script>
+</body>
+
