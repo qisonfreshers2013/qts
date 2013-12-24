@@ -78,8 +78,21 @@ Menu.prototype.handleShow=function(roleIds){
 	else if(roleIds.contains(2)){
 		$('#main').append('<li><a id="tsa">Time Sheet Approval</a></li>');
 		
+		//click events for approver
 		$('#tsa').click(function(){
 			App.loadTimeSheetApproval();
+		});
+		
+		$('#pm').click(function(){
+			App.loadSearchProject();
+		});
+		
+		$('#prm').click(function(){
+			App.loadSearchProjectRelease(roleIds);
+		});
+		
+		$('#su').click(function(){
+			App.loadSearchUser();
 		});
 		
 		if(roleIds.contains(3)){
@@ -94,8 +107,24 @@ Menu.prototype.handleShow=function(roleIds){
 			$('#main > li').css('width','24%');
 		}
 	}else{
+		
+		
 		$('#main').append('<li><a id="tsf">Time Sheet Filling</a>');
 		$('#main > li').css('width','24%');
+		
+		
+		//click events for member role
+		$('#pm').click(function(){
+			App.loadSearchProject();
+		});
+		
+		$('#prm').click(function(){
+			App.loadSearchProjectRelease(roleIds);
+		});
+		
+		$('#su').click(function(){
+			App.loadSearchUser();
+		});
 		
 		$('#tsf').click(function(){
 			App.loadTimeSheetFilling();
