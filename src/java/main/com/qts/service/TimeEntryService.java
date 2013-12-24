@@ -18,6 +18,7 @@ import javax.ws.rs.core.UriInfo;
 
 import com.qts.common.json.JsonUtil;
 import com.qts.handler.TimeEntryHandler;
+import com.qts.model.BaseObject;
 import com.qts.model.GetListOfTimeEntryBeans;
 import com.qts.model.TimeEntries;
 import com.qts.model.TimeEntryBean;
@@ -124,8 +125,7 @@ public class TimeEntryService extends BaseService{
 		
 	     return JsonUtil.getJsonBasedOnDescriptor(isApproved,Boolean.class);     
 		
-		
-	}
+		}
 	 /*
 	  * SearchTimeSheet For User
 	 */
@@ -187,4 +187,26 @@ public class TimeEntryService extends BaseService{
 		
 	     return JsonUtil.getJsonBasedOnDescriptor(isSubmitted, Boolean.class);
 	}
+	
+	
+	@POST
+	@RestService(input = String.class, output = String.class)
+	@ServiceStatus(value = "complete")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	@Path("/getTimeEntry")
+	public String getTimeEntryObjectById(@Context HttpHeaders headers,
+			@Context UriInfo uriInfo, WebserviceRequest request)
+			throws Exception {
+		Long id = (Long) JsonUtil
+				.getObject(request.getPayload(), Long.class);
+		
+		BaseObject timeEntry=TimeEntryHandler.getInstance().getObjectById(id);
+		
+	     return JsonUtil.getJsonBasedOnDescriptor(timeEntry,BaseObject.class);     
+		
+		}
+	
+	
+	
 }

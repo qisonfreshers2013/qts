@@ -309,6 +309,7 @@ public class TimeEntryDAOImpl extends BaseDAOImpl implements TimeEntryDAO {
 	public List<TimeEntries> getUserTimeEntries(TimeEntryBean searchCriteria) {
 		Session session=getSession();
 		try {
+             
 			Criteria userSearchCriteria = session
 					.createCriteria(TimeEntries.class);
 			userSearchCriteria.setProjection(Projections.projectionList()
@@ -321,14 +322,16 @@ public class TimeEntryDAOImpl extends BaseDAOImpl implements TimeEntryDAO {
 					.add(Projections.property("activityId"))
 					.add(Projections.property("hours"))
 					.add(Projections.property("status"))
+					.add(Projections.property("approvedComments"))
+					.add(Projections.property("rejectedComments"))
 					.add(Projections.property("remarks")));
 			if (searchCriteria.getDate() == null && searchCriteria.getProjectId() == null){
-				userSearchCriteria.add(Restrictions
-						.conjunction()
-						.add(Restrictions.eq("date",
-								getPreviousWorkingDay()))
-						.add(Restrictions.eq("userId",
-								searchCriteria.getUserId())));}
+				userSearchCriteria.add(Restrictions.between("date",
+								getPreviousWorkingDay(),Calendar.getInstance().getTimeInMillis()));
+						userSearchCriteria.add(Restrictions.eq("userId",
+											searchCriteria.getUserId()));
+					    userSearchCriteria.addOrder(Order.desc("date"));
+				}
 						
 			else if (searchCriteria.getDate() != null
 					&& searchCriteria.getProjectId() == null)
@@ -438,6 +441,16 @@ public class TimeEntryDAOImpl extends BaseDAOImpl implements TimeEntryDAO {
 					&& searchCriteria.getTo() == null
 					&& searchCriteria.getStatus() != null) {
 				approverSearchCriteria.add(Restrictions.eq("status", searchCriteria.getStatus()));
+			}
+			else if (searchCriteria.getFrom() == null && searchCriteria.getTo() == null && searchCriteria.getUserId()==null && searchCriteria.getStatus()==null) {
+				approverSearchCriteria.add(Restrictions
+						.conjunction()
+						.add(Restrictions.eq("projectId",
+								searchCriteria.getProjectId()))
+						.add(Restrictions.between("date",
+						getPreviousWeekDate.getTimeInMillis(),
+						new Date().getTime()))
+						.add(Restrictions.eq("status",1)));
 			}
 			else if (searchCriteria.getFrom() == null && searchCriteria.getTo() == null && searchCriteria.getUserId()==null) {
 				approverSearchCriteria.add(Restrictions

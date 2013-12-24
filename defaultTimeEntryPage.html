@@ -1,0 +1,40 @@
+<div class="majordiv" id="content">
+<div id="loadTimeSheetFilling"  class="modal fade loadTimeSheetFilling"></div>
+<div class="savedTimeSheetsEntries" >
+<button class="addTimeEntry">Add TimeEntry</button><br>
+<!-- <button type="button" data-toggle="modal" data-target="#loadTimeSheetFilling">Add TimeEntry</button><br> -->
+
+<p class="dateHeader" id="dateHeader">Date</p><input id="searchByDate" type=type class="searchByDate"></input>
+<p class="projectHeader" id="projectHeader">Project</p>
+<select id="searchByProjectId projectName" class="searchByProjectId projectName">
+</select>
+<button  id="searchUserTimeEntries" class="searchUserTimeEntries">Go</button><br>
+<table class="userTimeEntries">
+     <tr id="tableheader">
+     <th>SELECT ALL<br><input type="checkbox" id="selectAll"></input></th>
+     <th>Date</th>
+     <th>Project</th>
+     <th>Release</th>
+     <th>Task</th>
+     <th>Activity</th>
+     <th>Hours</th>
+     <th>Status</th>
+     <th>Remarks</th>
+     </tr>
+     <tr class="userTableData">
+     <td><input type="checkbox" id="checkbox" value="22"></input></td>
+     <td>20112013</td>
+     <td>ThinkPassenger</td>
+     <td>4.1</td>
+     <td>HTML Design</td>
+     <td>Design</td>
+     <td>5hrs</td>
+     <td>Saved</td>
+     <td><img  class="userRemarks" src="resources/img/userRemarks.png" title="On hOver show the content" ></td>
+     </tr>
+</table>
+<button id="editTimeEntry" class="editTimeEntry">EDIT</button>
+<button class="deleteTimeEntry" id="deleteTimeEntry">DELETE</button>
+<button class="submitTimeEntries" id="submitTimeEntries">SUBMIT</button>
+</div>
+</div>

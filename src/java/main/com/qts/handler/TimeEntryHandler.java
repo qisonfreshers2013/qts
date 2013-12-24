@@ -4,7 +4,6 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
-import java.util.HashSet;
 import java.util.List;
 
 import com.qts.common.Utils;
@@ -16,6 +15,7 @@ import com.qts.exception.ProjectException;
 import com.qts.exception.ReleaseException;
 import com.qts.exception.RolesException;
 import com.qts.exception.TimeEntryException;
+import com.qts.model.BaseObject;
 import com.qts.model.RoleBean;
 import com.qts.model.TimeEntries;
 import com.qts.model.TimeEntryBean;
@@ -215,10 +215,10 @@ public class TimeEntryHandler {
 	 */
 	
 	private boolean validateSearchCriteria(TimeEntryBean searchCriteria) throws Exception{
-		
+		if(searchCriteria.getStatus()!=null){
 		if(!(searchCriteria.getStatus()==1 || searchCriteria.getStatus()==2 || searchCriteria.getStatus()==3)){
 		throw new TimeEntryException(ExceptionCodes.SEARCH_NOT_ALLOWED,ExceptionMessages.INVALID_STATUS);	
-		}
+		}}
 		if(searchCriteria.getFrom()!=null)
 		{
 			 Utils.generalValidationsForDate(searchCriteria.getFrom());
@@ -510,7 +510,17 @@ public class TimeEntryHandler {
 		
 		}
 	
-	
+	public BaseObject getObjectById(long id) throws ObjectNotFoundException{
+		
+		TimeEntries timeEntry= DAOFactory.getInstance()
+				.getTimeEntryDAOInstance()
+				.getTimeEntryObjectById(id);
+		if(timeEntry!=null){
+			return timeEntry;
+		}else{
+			throw new ObjectNotFoundException();
+			}
+	}
 	
 	
 	

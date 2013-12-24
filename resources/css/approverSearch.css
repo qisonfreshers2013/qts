@@ -1,0 +1,53 @@
+
+@charset "ISO-8859-1";
+.fieldset {
+    width: 65%;
+}
+p {
+    font-size: 16px;
+}
+.projectHeader {
+    float: left;
+    margin: 1%;
+    width: 8%;
+}
+.projectId {
+    float: left;
+    margin: 0 1% 1% 8%;
+}
+.userHeader {
+    float: left;
+    margin: 1% 1% 1% 17%;
+}
+.userId {
+    margin: 0 1% 1% 5%;
+}
+.fromHeader {
+    float: left;
+    margin: 2% 1% 1%;
+    width: 8%;
+}
+.from {
+    float: left;
+    margin: 1% 1% 1% 8%;
+}
+.toHeader {
+    float: left;
+    margin: 2% 1% 1% 9%;
+}
+.to {
+    margin: 1% 1% 1% 7%;
+}
+.statusHeader {
+    float: left;
+    margin: 2% 1% 1%;
+    width: 45%;
+}
+.status {
+    float: left;
+    margin: 1% 1% 1% -29%;
+}
+.search {
+    float: left;
+    margin: 2% 1% 1% 9%;
+}

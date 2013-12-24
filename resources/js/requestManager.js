@@ -75,4 +75,13 @@ RequestManager.prototype.searchTimeEntriesByUser = function(data, callback) {
 RequestManager.prototype.searchTimeEntriesByApprover = function(data, callback) {
 	this.sendToServer('timeEntry/searchTimeEntriesByApprover', data, callback);
 }
+RequestManager.prototype.getTimeEntryObjectById = function(data, callback) {
+	this.sendToServer('timeEntry/getTimeEntry', data, callback);
+}
+RequestManager.prototype.submit = function(data, callback) {
+	this.sendToServer('timeEntry/submitTimeEntries', data, callback);
+}
+RequestManager.prototype.getProjects = function(data, callback) {
+	this.sendToServer('project/getProjects', data, callback);
+}
 var RequestManager = new RequestManager();

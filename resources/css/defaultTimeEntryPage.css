@@ -1,0 +1,85 @@
+
+@charset "ISO-8859-1";
+th {
+    background-color: #ADD8E6;
+    color: #000000;
+    font-size: 16px;
+    text-align: center;
+}
+table {
+    border-collapse: collapse;
+    width: 80%;
+}
+p {
+    font-size: 16px;
+}
+td {
+    font-size: 16px;
+    padding: 1%;
+    text-align: center;
+}
+tr:nth-child(2n+1) {
+    background-color: #EEEEEE;
+}
+tr:nth-child(2n) {
+    background-color: #DDDDDD;
+}
+.dateHeader {
+    float: left;
+    margin-left: 0.6%;
+    margin-top: 1%;
+}
+.searchByDate {
+    float: left;
+    margin-left: 2%;
+    margin-top: 1%;
+}
+.projectHeader {
+    float: left;
+    margin: 1% 1% 1% 25%;
+}
+.searchByProjectId {
+    bottom: 5%;
+    float: left;
+    left: 2%;
+    position: relative;
+    top: 5%;
+}
+.searchUserTimeEntries {
+    left: 3%;
+    position: relative;
+    top: 5%;
+}
+.userTimeEntries {
+    margin: 2% 0 0 0.5%;
+}
+.savedTimeSheetsEntries {
+    margin: 0.5%;
+    width: 100%;
+}
+.addTimeEntry {
+    left: 57%;
+    margin-bottom: 1%;
+    margin-top: 1%;
+    position: relative;
+}
+#loadTimeSheetFilling {
+    display: none;
+    width: 45%;
+}
+.editTimeEntry {
+    left: 55%;
+    position: relative;
+    top: 3%;
+}
+.deleteTimeEntry {
+    left: 55%;
+    position: relative;
+    top: 3%;
+}
+.submitTimeEntries {
+    left: 55%;
+    position: relative;
+    top: 3%;
+}
+
