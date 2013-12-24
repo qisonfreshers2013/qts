@@ -17,7 +17,7 @@ import com.qts.model.UserBean;
  */
 public interface UserDAO extends BaseDAO{
 	public boolean deleteUser(long id) throws UserException; // deleteUser
-	public User getUserById(long userId);
+	public User getUserById(long userId) throws UserException;
 	public List<User> searchUser(UserBean bean) throws UserException; // search User								
 	public User getUserByEmail(String email) throws UserException;
 	public String getUserName(long id);

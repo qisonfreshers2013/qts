@@ -8,7 +8,7 @@ import com.qts.model.UserProject;
 
 public interface UserProjectDAO extends BaseDAO {
 	
-	public List<UserProject> getUserProjectsByUserId(long id);
+	public List<UserProject> getUserProjectsByUserId(long id) throws ProjectException;
 	
 	public List<UserProject> getUserProjectsByProjectId(long id);
 	

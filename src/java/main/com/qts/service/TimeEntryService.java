@@ -27,7 +27,7 @@ import com.qts.service.common.WebserviceRequest;
 import com.qts.service.descriptors.TimeEntriesOptionOutputDescriptor;
 
 @Path("/v1/timeEntry")
-public class TimeEntryService {
+public class TimeEntryService extends BaseService{
    /*
     * AddEntry Service 
     */

@@ -1,0 +1,42 @@
+#menu {
+    font-family: Arial;
+    width: 100%;
+    margin-top:1%;
+}
+a {
+    background-color:#CCCCFF;
+}
+ul{
+list-style:none;
+ margin:0%;
+}
+#main > li {
+    border: 1px solid rgb(0, 0, 0);
+    float: left;
+}
+#main li a {
+    display: block;
+    height: 2em;
+    line-height: 2em;
+    padding: 0 1.5em;
+    text-align: center;
+    text-decoration: none;
+}
+#main ul {
+    display: none;
+    position: absolute;
+    text-align: center;
+    z-index: 999;
+	list-style: none;
+}
+#main li:hover ul {
+    display: block;
+    margin-left: 0%;
+}
+
+a:hover {
+  background-color:#EEEEEE;
+ display: block;
+ color:blue;
+ cursor: pointer;
+}

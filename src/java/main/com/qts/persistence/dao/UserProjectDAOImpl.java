@@ -11,7 +11,6 @@ import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
-import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.exception.ConstraintViolationException;
 
@@ -41,14 +40,20 @@ public class UserProjectDAOImpl extends BaseDAOImpl implements UserProjectDAO {
 	/*
 	 * fetches all userProject records based on userId
 	 */
-	public List<UserProject> getUserProjectsByUserId(long id){
+	public List<UserProject> getUserProjectsByUserId(long id) throws ProjectException{
 		 session = getSession();
 		 List<UserProject> userProjectList=null;
+		 try{
 			Criteria userProjectCriteria = session
 					.createCriteria(UserProject.class);
 			userProjectCriteria.add(Restrictions.eq("userId", id));
-			userProjectCriteria.addOrder(Order.asc("userId"));
 			userProjectList = userProjectCriteria.list();
+			if(userProjectList.isEmpty()){
+				throw new  ProjectException(ExceptionCodes.USER_NOT_PART_OF_ANY_PROJECT,ExceptionMessages.USER_NOT_PART_OF_ANY_PROJECT);
+			}
+		 }catch(ProjectException e){
+			 throw e;
+		 }
 			return userProjectList;
 	}
 
@@ -61,7 +66,6 @@ public class UserProjectDAOImpl extends BaseDAOImpl implements UserProjectDAO {
 		List<UserProject> userProjects=null;
 			Criteria userProjectCriteria =session.createCriteria(UserProject.class);
 			userProjectCriteria.add(Restrictions.eq("projectId",projectId));
-			userProjectCriteria.addOrder(Order.asc("userId"));
 			userProjects= userProjectCriteria.list();
 		return userProjects;
 

@@ -6,50 +6,53 @@ function App() {
 
     $(document).ready(function () {
         $('.container').show();
-    })
+    });
     this.handleShow();
+    
 }
-
 App.prototype.handleShow = function () {
     this.loadPhoto();
     this.loadLogin();
-//    this.loadOptions();
-//    this.loadMenu();
-//    this.loadRoles();
-}
-
-//App.prototype.loadSampleContent = function () {
-//	Loader.loadTestingSample();
-//}
 App.prototype.loadLogin=function(){
 	Loader.loadLogin();
 }
-App.prototype.loadPhoto=function(){
-	Loader.loadPhoto();
-}
-App.prototype.loadOptions=function(){
-	Loader.loadOptions(function(){
-		new Options();
+App.prototype.loadAddProjectRelease=function(){
+	Loader.loadAddProjectRelease(function(){
+		new AddProjectRelease();
 	});
 }
-App.prototype.loadWelcome=function(){
-	Loader.loadWelcome(function() {
-		new Welcome();
-	});
-}
-App.prototype.loadMenu=function(){
+
+App.prototype.loadMenu=function(roles){
 	Loader.loadMenu(function(){
-		new OnlyAdminMenu();
+		new Menu(roles);
 	});
-	//App.loadRoles();
+}
+
+App.prototype.loadSearchProjectRelease=function(roles){
+	Loader.loadSearchProjectRelease(function(){
+		new SearchProjectRelease(roles);
+	});
+}
+
+App.prototype.loadOptions=function(roles){
+	Loader.loadOptions(function(){
+		new Options(roles);
+	});
 }
 App.prototype.loadRoles = function () {
 	Loader.loadRoles(function() {
 		new Roles();
 	});
 }
+App.prototype.loadWelcome=function(cb){
+	Loader.loadWelcome(function(){
+		new Welcome();
+	});
+}
 
-//App.prototype.loadHeader = function () {
-//	Loader.loadHeader();
-//}
+App.prototype.loadReleaseResult=function(roles){
+	Loader.loadReleaseResult(function(){
+		new ReleaseResult(roles);
+	});
+}
 var App = new App();

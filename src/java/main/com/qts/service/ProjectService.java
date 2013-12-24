@@ -25,14 +25,14 @@ import com.qts.model.User;
 import com.qts.model.UserProject;
 import com.qts.service.annotations.RestService;
 import com.qts.service.annotations.ServiceStatus;
-import com.qts.service.annotations.UnSecure;
 import com.qts.service.common.WebserviceRequest;
+import com.qts.service.descriptors.ProjectBeanDescriptor;
 import com.qts.service.descriptors.ProjectOutputDescriptor;
 import com.qts.service.descriptors.UserListOutputDescriptor;
 import com.qts.service.descriptors.UserOutputDescriptor;
 import com.qts.service.descriptors.UserProjectOutputDescriptor;
 
-@Path("/v1/project/")
+@Path("/v1/project")
 public class ProjectService {
 
 	@POST
@@ -109,10 +109,10 @@ public class ProjectService {
 	public String getProjectUsers(@Context HttpHeaders headers,
 			@Context UriInfo uriInfo, WebserviceRequest request)
 	throws Exception {
-		ProjectBean projectBean = (ProjectBean) JsonUtil.getObject(request.getPayload(),
-				ProjectBean.class);
+		Project project = (Project) JsonUtil.getObject(request.getPayload(),
+				Project.class);
 		List<User> userList = ProjectHandler.getInstance()
-		.getProjectUsers(projectBean);
+		.getProjectUsers(project);
 		String jsonForListBasedOnDescriptor = JsonUtil
 		.getJsonForListBasedOnDescriptor(userList, User.class,
 				UserListOutputDescriptor.class);
@@ -171,11 +171,11 @@ public class ProjectService {
 	public String nonUsersOfProject(@Context HttpHeaders headers,
 			@Context UriInfo uriInfo, WebserviceRequest request) throws Exception{
 		
-		ProjectBean projectBean = (ProjectBean) JsonUtil.getObject(request.getPayload(),
-				ProjectBean.class);
+		Project project = (Project) JsonUtil.getObject(request.getPayload(),
+				Project.class);
 		
 		List<User> usersList=ProjectHandler.getInstance()
-		.nonUsersOfProject(projectBean);
+		.nonUsersOfProject(project);
 		
 		String jsonForListBasedOnDescriptor = JsonUtil
 		.getJsonForListBasedOnDescriptor(usersList, User.class,

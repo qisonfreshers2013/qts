@@ -40,7 +40,7 @@ public interface ExceptionMessages {
 	public static final String DELETE_USER_FROM_PROJECT_FAILED="User already removed from project";
 	public static final String REPORTING_USER_ID_NOT_NULL="Reporting user id can not be null";
 	public static final String USER_PROJECT_CONSTRAINT_FAILED="User already a member of the project";
-    public static final String USER_NOT_ASSOCIATED_WITH_PROJECT="User/Logged in Approver is not associated with project.";
+    public static final String USER_NOT_ASSOCIATED_WITH_PROJECT="User is not associated with project.";
 	public static final String DUPLICATE_PROJECT_ENTRY="Duplicate Entry For Project Name ";
 	public static final String USER_NOT_PART_OF_ANY_PROJECT = "user not associated with any project";
 	public static final String NO_USER_ASSOCIATED_WITH_PROJECT ="No User is associated with this project";
@@ -128,7 +128,6 @@ public interface ExceptionMessages {
 	public static final String ILLEGAL_YEAR_PASSED="Only in January Year can be previous year.";
 	public static final String PASSED_DATA_IS_NOT_RELATED="Passed data such as Project name,Release name,Activity mismatch.";
 	public static final String SEARCH_NOT_ALLOWED="Pass Dates in Correct Order";
-	public static final String INVALID_STATUS="Invalid STATUS";
 	public static final String SEARCH_FUTURE_SHEETS="PASSED ILLEGAL DATE I.E.,FUTURE DATE";
 	public static final String FILLING_FUTURE_TIMESHEETS="FUTURE TIME SHEETS ARE NOT ALLOWED TO FILL";
 	public static final String TIMEENTRY_USER_NOT_AUTHORIZED="USERS/ADMIN ARE NOT AUTHORIZED TO PERFORM SEARCH OPERATION";
