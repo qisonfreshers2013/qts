@@ -86,6 +86,12 @@ App.prototype.loadDefaultApproverPage=function(){
 	Loader.loadDefaultApproverPage();
 }
 
+App.prototype.loadRoles=function(){
+Loader.loadRoles(function(){
+new Roles();
+});
+}
+
 
 
 
