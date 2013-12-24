@@ -5,13 +5,36 @@ function Loader() {
 Loader.prototype.handleShow = function () {
 }
 
-Loader.prototype.loadHeader = function (cb) {
-    LazyLoad.js('header/header.js', cb);
-    LazyLoad.css('header/header.css');
+Loader.prototype.loadMenu = function (cb) {
+	LazyLoad.css('resources/css/Menu.css');
+	LazyLoad.js('resources/js/Menu.js', cb);
 }
 
-Loader.prototype.loadTestingSample = function (cb) {
-	LazyLoad.js('sample.js', cb);
+Loader.prototype.loadAddProjectRelease=function(cb){
+	LazyLoad.css('resources/css/AddProjectRelease.css');
+	LazyLoad.js('resources/js/AddProjectRelease.js',cb);
+}
+
+Loader.prototype.loadSearchProjectRelease=function(cb){
+	LazyLoad.css('resources/css/SearchProjectRelease.css');
+	LazyLoad.js('resources/js/SearchProjectRelease.js',cb);	
+}
+
+Loader.prototype.loadReleaseResult=function(cb){
+	LazyLoad.css('resources/css/ReleaseResult.css');
+	LazyLoad.js('resources/js/ReleaseResult.js',cb);
+}
+
+Loader.prototype.loadOptions=function(cb){
+	LazyLoad.css('resources/css/Options.css');
+	LazyLoad.js('resources/js/Options.js',cb);
+	
+}
+
+Loader.prototype.loadWelcome=function(cb){
+	LazyLoad.css('resources/css/Welcome.css');
+	LazyLoad.js('resources/js/Welcome.js',cb);
+	
 }
 
 Loader.prototype.loadHTML = function(container, filePath, empty, callback) {
