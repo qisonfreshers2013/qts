@@ -5,35 +5,22 @@ function App() {
     this.termsAndConditions = '';
 
     $(document).ready(function () {
-       // $('.container').hide();
-        $('.loadingAnimation').show();
+        $('.container').show();
     })
     this.handleShow();
 }
+
 App.prototype.handleShow = function () {
-    $('.contentBody').css('background-color', '#FFF')
-    this.loadLogin();
     this.loadPhoto();
-//    //this.loadApproverTimeSheetSearch();
-//    this.loadDefaultTimeSheetPage();
-//   // this.loadDefaultApproverPage();
+    this.loadLogin();
+//    this.loadOptions();
+//    this.loadMenu();
+//    this.loadRoles();
 }
 
-App.prototype.loadSampleContent = function () {
-	Loader.loadTestingSample();
-}
-App.prototype.loadTimeSheetFilling=function(){
-	Loader.loadTimeSheetFilling();
-}
-App.prototype.loadApproverTimeSheetSearch=function(){
-	Loader.loadApproverTimeSheetSearch();
-}
-App.prototype.loadDefaultTimeSheetPage=function(){
-	Loader.loadDefaultTimeSheetPage();
-}
-App.prototype.loadDefaultApproverPage=function(){
-	Loader.loadDefaultApproverPage();
-}
+//App.prototype.loadSampleContent = function () {
+//	Loader.loadTestingSample();
+//}
 App.prototype.loadLogin=function(){
 	Loader.loadLogin();
 }
@@ -41,11 +28,28 @@ App.prototype.loadPhoto=function(){
 	Loader.loadPhoto();
 }
 App.prototype.loadOptions=function(){
-	console.log("In loadOptions");
-	Loader.loadOptions();
+	Loader.loadOptions(function(){
+		new Options();
+	});
 }
 App.prototype.loadWelcome=function(){
-	console.log("In welcome");
-	Loader.loadWelcome();
+	Loader.loadWelcome(function() {
+		new Welcome();
+	});
 }
+App.prototype.loadMenu=function(){
+	Loader.loadMenu(function(){
+		new OnlyAdminMenu();
+	});
+	//App.loadRoles();
+}
+App.prototype.loadRoles = function () {
+	Loader.loadRoles(function() {
+		new Roles();
+	});
+}
+
+//App.prototype.loadHeader = function () {
+//	Loader.loadHeader();
+//}
 var App = new App();

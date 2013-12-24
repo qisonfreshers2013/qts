@@ -1,0 +1,74 @@
+@charset "ISO-8859-1";
+
+.roles {
+     height: 50%;
+     margin: 8% 0px 15% 10%;
+     width: 60%;
+}
+
+p {
+     font-size: 16px;
+}
+
+#employee {
+     float: left;
+}
+
+#title {
+     font-family: arial,monospace,sans-serif;
+     font-style: normal;
+     font-weight: bold;
+}
+
+#project {
+     float: left;
+     width: 30%;
+}
+#projectList{
+	overflow: scroll;
+}
+#user {
+     float: left;
+     width: 30%;
+ 	margin-left:5%;
+}
+#userList{
+	overflow: scroll;
+}
+#role {
+     float: right;
+     margin-left: 5%;
+     width: 30%;
+}
+
+#rolesList {
+     background-color: #EFEFEF;
+     border: 1px solid #000000;
+     table-layout: inherit;
+     width: 100%;
+}
+
+#rolesList td {
+     border-bottom: 1px solid #000000;
+     display: table-cell;
+     overflow: scroll;
+     padding: 5%;
+     font-size: 16px;
+}
+select{
+width:100%;
+}
+#buttons {
+     float: left;
+     margin: 3% 0px 0px 70%;
+     width: 35%;
+}
+
+#saveb, #cancelb {
+     background-color: #669933;
+     border: medium none;
+     color: #FFFFFF;
+     font-weight: bold;
+     text-align: center;
+     width: 42%;
+}

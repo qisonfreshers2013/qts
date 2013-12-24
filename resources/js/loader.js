@@ -3,17 +3,7 @@ function Loader() {
 }
 
 Loader.prototype.handleShow = function () {
-}
-
-Loader.prototype.loadHeader = function (cb) {
-    LazyLoad.js('header/header.js', cb);
-    LazyLoad.css('header/header.css');
-}
-
-Loader.prototype.loadTestingSample = function (cb) {
-	LazyLoad.js('sample.js', cb);
-}
-
+};
 Loader.prototype.loadHTML = function(container, filePath, empty, callback) {
 	var filePath = filePath;
 
@@ -23,13 +13,12 @@ Loader.prototype.loadHTML = function(container, filePath, empty, callback) {
 			if (empty) {
 				$(container).empty();
 			}
-			$(container).append(data);
-			
+			$(container).append(data);			
 			
 			if (callback) {
 				callback();
 				//console.log(container)
-				$(container).msgkey();
+				//$(container).msgkey();
 			}
 			/*var compiledTemplate = Ember.Handlebars.compile(data);
 			Ember.View.create({ template: compiledTemplate }).appendTo(container);*/
@@ -38,42 +27,29 @@ Loader.prototype.loadHTML = function(container, filePath, empty, callback) {
 	
 	
 }
-Loader.prototype.loadTimeSheetFilling=function(cb){
-       LazyLoad.js("timeEntry.js",cb);
-       LazyLoad.css("timeEntry.css",cb);
+Loader.prototype.loadLogin=function(cb){
+	LazyLoad.js('resources/js/Login.js', cb);
+	LazyLoad.css('resources/css/Login.css');
 }
-Loader.prototype.loadApproverTimeSheetSearch=function(cb){
-    LazyLoad.js("approverSearch.js",cb);
-    LazyLoad.css("approverSearch.css",cb);
+Loader.prototype.loadPhoto=function(cb){
+	LazyLoad.js('resources/js/Photo.js', cb);
+	LazyLoad.css('resources/css/Photo.css');
 }
-Loader.prototype.loadDefaultTimeSheetPage=function(cb){
-    LazyLoad.js("defaultTimeSheetPage.js",cb);
-    LazyLoad.css("defaultTimeEntryPage.css",cb);
+Loader.prototype.loadOptions=function(cb){
+	LazyLoad.js('resources/js/Options.js',cb);
+	LazyLoad.css('resources/css/Options.css');
 }
-Loader.prototype.loadDefaultApproverPage=function(cb){
-    LazyLoad.js("defaultApproverPage.js",cb);
-    LazyLoad.css("defaultApproverPage.css",cb);
+Loader.prototype.loadWelcome=function(cb){
+	LazyLoad.js('resources/js/Welcome.js',cb);
+	LazyLoad.css('resources/css/Welcome.css');
 }
- Loader.prototype.loadLogin = function(cb){
-	 LazyLoad.js('Login.js',cb);
-	 LazyLoad.css('Login.css',cb);
-	}
-
-	Loader.prototype.loadPhoto = function(cb){
-	 LazyLoad.js('Photo.js',cb);
-	 LazyLoad.css('Photo.css',cb);
-	}
-	Loader.prototype.loadOptions = function(cb) {
-	 LazyLoad.js('Options.js', cb);
-	 LazyLoad.css('Options.css',cb);
-	}
-
-	Loader.prototype.loadWelcome = function(cb){
-	 LazyLoad.js('Welcome.js', cb);
-	 LazyLoad.css('Welcome.css',cb);
-	}
-
-
-
+Loader.prototype.loadMenu=function(cb){
+	LazyLoad.js('resources/js/onlyAdminMenu.js', cb);
+	LazyLoad.css('resources/css/onlyAdminMenu.css');
+}
+Loader.prototype.loadRoles = function(cb){
+	LazyLoad.js('resources/js/roles.js', cb);
+	LazyLoad.css('resources/css/roles.css');
+}
 
 var Loader = new Loader();
