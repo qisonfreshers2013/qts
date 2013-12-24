@@ -1,0 +1,25 @@
+.image{
+	height : 100px;
+	width : 100px;
+	float : left;
+	}
+.data{
+	height : 100px;
+	width : 400px;
+	}
+.myAccount,.nicknameCursor {
+    color: #000000;
+    text-align: left;
+    cursor: pointer;
+}
+.logout{
+	 color: #000000;
+    text-align: left;
+   
+	}
+span:hover {
+    color: #008000;
+}
+p{
+font-size: 16px;
+}

@@ -1,5 +1,6 @@
 package com.qts.persistence.dao;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
@@ -16,7 +17,7 @@ import org.hibernate.exception.ConstraintViolationException;
 import com.qts.exception.ExceptionCodes;
 import com.qts.exception.ExceptionMessages;
 import com.qts.exception.UserException;
-
+import com.qts.model.BaseObject;
 import com.qts.model.ChangePasswordBean;
 import com.qts.model.LoginBean;
 import com.qts.model.User;
@@ -114,8 +115,6 @@ public class UserDAOImpl extends BaseDAOImpl implements UserDAO {
 		Criteria userCriteria = session.createCriteria(User.class);
 		userCriteria.add(Restrictions.eq("id", id));
 		List<User> list = userCriteria.list();
-		if(list.size() == 0)
-			return null;
 		return list.iterator().next().getNickName();
 	}
 
@@ -245,7 +244,7 @@ public class UserDAOImpl extends BaseDAOImpl implements UserDAO {
 					ServiceRequestContextHolder.getContext()
 							.getUserSessionToken().getUserId()));
 			@SuppressWarnings("rawtypes")
-			List list = createCriteria.list();			
+			List list = createCriteria.list();
 			createCriteria.add(Restrictions.eq("isDeleted", false));
 			list = createCriteria.list();
 			if (list.size() == 0)
@@ -266,7 +265,7 @@ public class UserDAOImpl extends BaseDAOImpl implements UserDAO {
 		return isChanged;
 	}
 
-	public User getUserById(long id)  {
+	public User getUserById(long id) {
 		Session session = getSession();
 		List<User> list = null;
 		Criteria createCriteria = session.createCriteria(User.class);
@@ -365,7 +364,7 @@ public class UserDAOImpl extends BaseDAOImpl implements UserDAO {
 		}
 
 		user.setMts(new Date().getTime());// updating mts
-		
+		// user.setModifiedBy(ServiceRequestContextHolder.getContext().getUserSessionToken().getNickName());//ServiceRequestContextHolder.getContext().getUserSessionToken().getnickName()
 
 		user.setModifiedBy(getUserName(ServiceRequestContextHolder.getContext()
 				.getUserSessionToken().getUserId()));
@@ -386,8 +385,76 @@ public class UserDAOImpl extends BaseDAOImpl implements UserDAO {
 		return userCriteria.list();
 	}
 
+	@Override
+	public List<String> getEmployeeIds() {
+		Session session = getSession();
+		List<User> list = null;
+		List<String> employeeIdList = new ArrayList<String>();
+		Criteria createCriteria = session.createCriteria(User.class).addOrder(Order.asc("employeeId"));		
+		createCriteria.add(Restrictions.eq("isDeleted",false));
+		list = createCriteria.list();
+		for(User user:list){
+			employeeIdList.add(user.getEmployeeId());
+		}
+		return employeeIdList;
+	}
+
 	
 
 }
 
+// @Override
+// /addUserfrrom Bean
+// public long addUser(UserBean bean, long id, long cts, long mts,
+// String createdBy, String modifiedBy, boolean isDeleted,
+// long photoFileId) {
+// long userId = 0;
+// boolean gender = bean.getGender().equals("male")?true:false;
+// Session session =getSession();
+// Transaction
+// User user = new User(bean.getEmail(),
+// bean.getPassword(),
+// bean.getEmployeeId(),
+// bean.getFirstName(),
+// bean.getLastName(),
+// bean.getNickName(),
+// bean.getLocation(),
+// gender,
+// bean.getDesignation(),
+// cts,
+// mts,
+// createdBy,
+// modifiedBy,
+// isDeleted,
+// bean.getUserId(),
+// photoFileId);
+// userId = (Integer)session.save(user);
+// transaction.commit();
+//
+// return userId;
+//
+//
+// }
+
+/* searchUser */
+// Set<User> set = new HashSet<User>();
+// List<User> list = new ArrayList<User>();
+//
+// List<User> listNickName = session.createQuery(
+// "from User where nickName = " + bean.getNickName()).list();
+//
+// set.addAll(listNickName);
+// List<User> listEmail = session.createQuery(
+// "from User where email = " + bean.getEmail()).list();
+// set.addAll(listEmail);
+// List<User> listEmployeeId = session.createQuery(
+// "from User where employeeId = " + bean.getEmployeeId()).list();
+// set.addAll(listEmployeeId);
+// List<User> listDesignation = session.createQuery(
+// "from User where designation = " + bean.getDesignation())
+// .list();
+// set.addAll(listDesignation);
+// DAOConnection.closeSession(session);
+// list.addAll(set);
+// return list;
 

@@ -1,0 +1,77 @@
+
+.field {
+    line-height: 28px;
+    margin-top: 0;
+    position: relative;
+    text-align: left;
+}
+.addUSer {
+    height: 100%;
+    position: relative;
+    width: 100%;
+}
+.textField {
+    color: #000000;
+    font-family: 'Arial';
+    font-size: 13px;
+    font-style: normal;
+    font-weight: normal;
+    position: relative;
+    text-align: left;
+}
+.star {
+    color: #FF0000;
+}
+div#submitDiv {
+    clear: both;
+    font-family: Arial;   
+    left: 20%;
+    position: relative;
+    text-align: left;
+    margin-top: 0%;   
+    word-wrap: break-word;
+}
+div#clearDiv {
+    left: 13%;
+    position: relative;
+    margin-top: 0%;
+}
+input.clear {
+    background-color: #00FF00;
+    padding: 0.5%;
+    width: 47%;
+}
+input.firstName, input.lastName, input.nickname, input.email, input.employeeId, input.designation, input.location, input.userId, input.password, input.confirmPassword {
+    width: 21%;
+}
+button.submit {
+    padding: 0;
+    width: 47%;
+}
+hr {
+    background-color: #E0E0E0;
+    color: #E0E0E0;
+    height: 2px;
+}
+input.password, input.userId {
+    width: 21%;
+}
+.innerAddUserForm {
+    position: relative;
+    top: 6%;
+}
+.innerAddUserFormLeft {
+    float: left;
+    position: relative;
+}
+.innerAddUserFormRight {
+    left: 7%;
+    position: relative;
+    top: 1%;
+}
+p {
+    font-size: 16px;
+}
+select {
+    width: 22%;
+}

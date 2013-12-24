@@ -1,0 +1,117 @@
+
+div#nicknameField {
+    color: #000000;
+    font-family: 'Arial';
+    font-style: normal;
+    font-weight: normal;
+    left: 0;
+    position: relative;
+    text-align: left;
+    text-decoration: none;
+}
+div#nicknameText {
+    font-family: 'Arial';
+    font-size: 13px;
+    font-style: normal;
+    font-weight: normal;
+    left: 10%;
+    margin-top: -3.4%;
+    position: relative;
+    text-align: left;
+    text-decoration: none;
+}
+div#designationField {
+    font-family: Arial;
+    font-style: normal;
+    font-weight: normal;
+    left: 0;
+    position: relative;
+    text-align: left;
+    word-wrap: break-word;
+}
+div#designationText {
+    color: #000000;
+    font-family: 'Arial';
+    font-size: 13px;
+    font-style: normal;
+    font-weight: normal;
+    left: 10%;
+    margin-top: -3.3%;
+    position: relative;
+    text-align: left;
+    text-decoration: none;
+}
+div#emailField {
+    font-family: Arial;
+    font-style: normal;
+    font-weight: normal;
+    left: 29%;
+    margin-top: -3.3%;
+    position: relative;
+    text-align: left;
+    word-wrap: break-word;
+}
+div#employeeIdField {
+    font-family: Arial;
+    font-style: normal;
+    font-weight: normal;
+    left: 29%;
+    margin-top: -3.3%;
+    position: relative;
+    text-align: left;
+    word-wrap: break-word;
+}
+select.employeeId {
+    color: #000000;
+    font-family: 'Arial';
+    font-size: 13px;
+    font-style: normal;
+    font-weight: normal;
+}
+div#search {
+    color: #000000;
+    font-family: 'Arial';
+    font-size: 13px;
+    font-style: normal;
+    font-weight: normal;
+    left: 40%;
+    margin-top: 1%;
+    position: relative;
+    text-decoration: none;
+}
+hr {
+}
+div#content {
+    height: 100%;
+    position: relative;
+    width: 100%;
+}
+div#resultsContainer {
+    position: relative;
+}
+div.searchUserContent {
+    margin-top: 4%;
+    position: relative;
+}
+div.employeeIdText {
+    left: 40%;
+    margin-top: -3.3%;
+    position: relative;
+      
+}
+div.emailText {
+    left: 40%;
+    margin-top: -3.5%;;
+    position: relative;
+    
+}
+select {
+    width: 21%;
+}
+#emailText > input {
+    width: 20%;
+}
+
+input.search {
+    background-color: #00FF00;
+}

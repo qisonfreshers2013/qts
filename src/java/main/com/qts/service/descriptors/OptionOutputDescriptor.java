@@ -9,6 +9,9 @@ public interface OptionOutputDescriptor  extends JSONSerializationDescriptor{
 	
 	@JsonProperty
 	public String getName();
+	
+	@JsonProperty
+	public String getEmployeeIds();
 
 
 

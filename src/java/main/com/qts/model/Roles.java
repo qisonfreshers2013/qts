@@ -20,6 +20,8 @@ public class Roles extends AbstractObject
 	@Column(name="ID")
 	private long id;
 	
+	public static final long ROLE_ADMIN = 1;
+	
 	@Column(name="NAME")
 	private String name;
 	

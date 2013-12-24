@@ -1,0 +1,60 @@
+.loginDiv {
+    position: relative;
+    margin-top: 12%;
+}
+.login{
+
+}
+.submitDiv,.clearDiv {
+    height: 3%;    
+    position: relative;
+    width: 20%;
+    float: left;
+}
+.userIdField, .userIdText, .passwordText, .passwordField, .forgotPassword {
+    height: 2%;
+    margin: 1%;
+    position: relative;
+}
+.star {
+    color: #FF0000;
+}
+.userIdWidth,.passwordWidth{
+width:50%;
+}
+a {
+    color: #000000;
+    text-align: left;
+    text-decoration: none;
+}
+a:hover {
+    color: #008000;
+	cursor:pointer;
+}
+button.submit  {
+    background-color: #00FF00;
+    display: inline-block;
+    text-decoration: none;
+    border-radius:5%; 
+    width:80%;
+    
+}
+input.clear {
+    background-color: #00FF00;
+    display: inline-block;
+    text-decoration: none;
+    border-radius:5%; 
+    width:80%;
+    padding: 1.5%;
+}
+label{
+	cursor:pointer;
+	}
+	
+fieldset {
+    background-color: #EEEEEE;
+    border: 2px groove #000000;
+    border-radius: 3%;
+    padding-left: 19%;
+    padding-right: 0;
+}

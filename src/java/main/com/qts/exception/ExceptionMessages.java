@@ -141,6 +141,7 @@ public interface ExceptionMessages {
 	public static final String ROLE_ID_EXISTS = "This role already exists for this user";
 	public static final String ONLY_ONE_APPROVER = "only one approver allowed for one project";
 	public static final String ROLE_ID_DOESNOT_EXISTS = "This role id doesnot exists for this user.";
+	public static final String USER_NOT_AUTHORIZED = "You are not authorized for this action.";
 
 	
 	
