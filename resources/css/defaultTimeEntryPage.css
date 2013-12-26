@@ -1,5 +1,9 @@
 
 @charset "ISO-8859-1";
+#content {
+    margin-top: 8%;
+}
+
 th {
     background-color: #ADD8E6;
     color: #000000;
@@ -58,7 +62,7 @@ tr:nth-child(2n) {
     width: 100%;
 }
 .addTimeEntry {
-    left: 57%;
+    left: 67%;
     margin-bottom: 1%;
     margin-top: 1%;
     position: relative;

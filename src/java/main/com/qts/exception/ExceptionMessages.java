@@ -132,6 +132,7 @@ public interface ExceptionMessages {
 		public static final String SEARCH_FUTURE_SHEETS="PASSED ILLEGAL DATE I.E.,FUTURE DATE";
 		public static final String FILLING_FUTURE_TIMESHEETS="FUTURE TIME SHEETS ARE NOT ALLOWED TO FILL";
 		public static final String TIMEENTRY_USER_NOT_AUTHORIZED="USERS/ADMIN ARE NOT AUTHORIZED TO PERFORM SEARCH OPERATION";
+		public static final String APPROVER_NOTAUTHORIZED="APPROVER IS NOT AUTHORIZED FOR THIS PROJECT";
 		public static final String SELECT_APPROPRIATE_FIELDS_FOR_SEARCH="Select USERID,PROJECTID,STATUS of the user for search";
 	//roles exception
 	public static final String ROLES_EMPTY_EXCEPTION="Select atleast one role.";

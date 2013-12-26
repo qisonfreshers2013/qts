@@ -1,5 +1,8 @@
 
 @charset "ISO-8859-1";
+#content {
+    margin-top: 8%;
+}
 .defaultView {
     margin-top: 5%;
 }
@@ -25,8 +28,8 @@ td {
 tr:nth-child(odd)  { background-color:#EEEEEE; }
 tr:nth-child(even)  { background-color:#DDDDDD; }
 .approve {
-    background-image: url('approve.png');
+    background-image: url('images/approve.png');
 }
 .reject {
-    background-image: url('reject.png');
+    background-image: url('images/reject.png');
 }

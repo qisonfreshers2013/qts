@@ -15,7 +15,8 @@ TimeEntry.prototype.handleShow=function(){
         $(".datepicker").datepicker({ minDate: -30, maxDate:new Date()});
     });
     
-    
+    this.getProjects();
+    this.getReleases();
 	$('.save').click(function(event){
 		if(this.validateTimeEntry()){
 		this.getRequestParameters();
@@ -23,6 +24,11 @@ TimeEntry.prototype.handleShow=function(){
 		this.saveTimeEntry();
 		}
 	}.ctx(this));
+	
+	$('.projectId').change(function(event){
+	        this.getReleases();
+	}.ctx(this));
+	
 
 }
  
@@ -33,7 +39,7 @@ TimeEntry.prototype.getRequestParameters=function(){
 			               "task":$('.task').val(),
 			               "hours":$('.hours').val(),
 			               "activityId":$('.selectActivity').val(),
-			               "releaseId":$('.SelectRelease').val(),
+			               "releaseId":$('.selectRelease').val(),
 			               "userRemarks":$('.userRemarks').val()
 			               };
       return requestParameters;
@@ -56,24 +62,7 @@ TimeEntry.prototype.getInputForTimeSheetFilling=function(){
 	return input;
 	
 }
-//
-//TimeEntry.prototype.populateFields=function(id,callback){
-//	RequestManager.getTimeEntryObjectById({"payload":id},function(data,success){
-//		if(success){
-//			$('.datepicker').val(data.date);
-//			$('.projectId').val(data.projectId);
-//			$('.task').val(data.task);
-//			$('.hours').val(data.hours);
-//			$('.selectActivity').val(data.activityId);
-//			$('.SelectRelease').val(data.releaseId);
-//			$('.userRemarks').val(data.userRemarks);
-//		}else{
-//			alert(data.message);
-//		}
-//	});
-//	
-//	return this.getInputForTimeSheetFilling();
-//}
+
 
 TimeEntry.prototype.setRequestParameters=function(updateRequestParameters){
 	var requestParameters=TimeEntry.getRequestParameters;
@@ -92,6 +81,7 @@ TimeEntry.prototype.setRequestParameters=function(updateRequestParameters){
  
  TimeEntry.prototype.saveTimeEntry=function(){
      var input=this.getInputForTimeSheetFilling();
+       
 		RequestManager.addTimeEntry(input, function(data, success) {
 			if (success) {
 			      alert("TimeEntry Saved");
@@ -101,26 +91,26 @@ TimeEntry.prototype.setRequestParameters=function(updateRequestParameters){
 		}.ctx(this));
 		DefaultTimeSheetPage.searchUserTimeEntries();
 		$( "#loadTimeSheetFilling" ).modal( "hide" );
-		$(".clearField").empty();
+		
  }
  
  
 TimeEntry.prototype.getProjects=function(){
-	 $('#projectName').empty();
-	 $('#projectName').append('<option value=0>--select--</option>');
-	 RequestManager.getProjects({}, function(data, success) {
+	 $('.projectId').empty();
+	 RequestManager.getProjectsForUser({}, function(data, success) {
 	  if(success){
 	   var id=0;
-	   var name='';
+	   var name;
 	   $.each(data,function(key1,value1){
 	    $.each(value1,function(key2,value2){
-	     if(key2==0){
+	     if(key2=='id'){
 	      id=value2;
 	     }else{
+	    	 if(key2=='name')
 	      name=value2;
 	     }
 	    });
-	    $('#projectName').append('<option value='+id+'>'+name+'</option>');
+	    $('.projectId').append('<option class=\"projectValue\" value='+id+'>'+name+'</option>');
 	   });
 	  }else{
 	   alert(data.message);
@@ -129,7 +119,19 @@ TimeEntry.prototype.getProjects=function(){
 	}
  
  
- 
+TimeEntry.prototype.getReleases=function(){
+	 $('.selectRelease').empty();
+	 var id=$(".projectId").val();
+	 RequestManager.getProjectReleases({"payload":{"projectId":id}}, function(data, success) {
+	  if(success){
+	for(var i=0;i<data.length;i++){
+		 $('.selectRelease').append('<option class=\"releaseValue\" value='+data[i][0]+'>'+data[i][1]+'</option>');
+	}
+	  }else{
+	   $("cancel").trigger("click");
+	  }
+	 }.ctx(this));
+	}
  
  
  

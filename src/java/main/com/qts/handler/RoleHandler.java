@@ -10,6 +10,7 @@ import com.qts.exception.ObjectNotFoundException;
 import com.qts.exception.ProjectException;
 import com.qts.exception.RolesException;
 import com.qts.handler.annotations.AuthorizeEntity;
+import com.qts.model.BaseObject;
 import com.qts.model.RoleBean;
 import com.qts.model.Roles;
 import com.qts.model.UserProject;
@@ -39,12 +40,12 @@ public class RoleHandler extends AbstractHandler {
 	public List<Roles> getRolesAOP() throws Exception {
 		return DAOFactory.getInstance().getRoleDAOImplInstance().getRoles();
 	}
-	@AuthorizeEntity(roles = {Roles.ROLE_ADMIN}, entity = "RoleBean.java")
-	public RoleBean getUserRoles(RoleBean roleBean) throws Exception {
+	//@AuthorizeEntity(roles = {Roles.ROLE_ADMIN,Roles.ROLE_APPROVER}, entity = "RoleBean.java")
+	public RoleBean getUserRolesAOP(RoleBean roleBean) throws Exception {
 		try {
 			// validating the input whether both userid and projectid is
 			// given,roleid should be intially null
-			if (validateBean(roleBean) && roleBean.getRoleIds() == null) {
+			if (validateBean(roleBean) && roleBean.getRoleIds().isEmpty()) {
 
 				UserProject userProject = UserProjectHandler.getInstance()
 						.getUserProjectByIds(roleBean.getProjectId(),
@@ -55,8 +56,11 @@ public class RoleHandler extends AbstractHandler {
 				return UserProjectsRolesHandler.getInstance().getUserRoles(
 						roleBean, listUserProjectRoles);
 			}
-		} catch (ProjectException | RolesException e) {
+		} catch (ProjectException|ObjectNotFoundException e) {
 			throw e;
+		}
+		catch (RolesException e){
+			
 		}
 		return roleBean;
 	}
@@ -88,7 +92,7 @@ public class RoleHandler extends AbstractHandler {
 			myRoleBean = UserProjectsRolesHandler.getInstance().allocateRoles(
 					roleBean, userProject);
 			return myRoleBean;
-		} catch (RolesException e) {
+		} catch (RolesException|ObjectNotFoundException e) {
 			throw e;
 		}
 	}
@@ -110,7 +114,7 @@ public class RoleHandler extends AbstractHandler {
 						nonAvailableRoles.add(id);
 					}
 
-				} catch (ProjectException | RolesException e) {
+				} catch (ProjectException | RolesException|ObjectNotFoundException e) {
 
 				}
 			}
@@ -132,7 +136,9 @@ public class RoleHandler extends AbstractHandler {
 			else if (roleBean.getUserId() == 0 || roleBean.getProjectId() == 0)
 				throw new RolesException(ExceptionCodes.USER_DOESNOT_EXIST,
 						"Both userid and projectid should be given");
-		} catch (RolesException e) {
+			else if(ProjectHandler.getInstance().getObjectById(roleBean.getProjectId())!=null){}
+				//throw new 
+		} catch (ObjectNotFoundException|RolesException e) {
 			throw e;
 		}
 		return true;
@@ -151,5 +157,12 @@ public class RoleHandler extends AbstractHandler {
 				.getUserProjectsRolesByUserProjectAndRole(id, roleId) != null)
 			exists = true;
 		return exists;
+	}
+	public Roles getObjectById(long id) throws ObjectNotFoundException {
+		try{
+			return (Roles)DAOFactory.getInstance().getRoleDAOImplInstance().getObjectById(id);
+		}catch(ObjectNotFoundException e){
+			throw e;
+		}
 	}
 }

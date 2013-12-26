@@ -1,5 +1,7 @@
 package com.qts.handler;
 
+import java.util.List;
+
 import com.qts.model.Activities;
 import com.qts.persistence.dao.ActivitiesDAOImpl;
 
@@ -19,6 +21,8 @@ public class ActivityHandler {
 	public Activities getObjectById(long id){
 		return ActivitiesDAOImpl.getInstance().getObjectById(id);
 	  }
-	
+	public List<Activities> getActivities(){
+		return ActivitiesDAOImpl.getInstance().getActivities();
+	}
 	
 }

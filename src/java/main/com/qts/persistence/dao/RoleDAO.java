@@ -10,7 +10,7 @@ import com.qts.model.Roles;
  * @author Jagadish
  * 
  */
-public interface RoleDAO {
+public interface RoleDAO extends BaseDAO{
 
 	List<Roles> getRoles() throws Exception;
 

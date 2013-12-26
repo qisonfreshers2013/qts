@@ -15,13 +15,13 @@ p {
 .leftHeaders {
     float: left;
     margin-left: 6%;
-    margin-top: 2%;
+    margin-top: 1%;
     width: 20%;
 }
 .leftHeaderFields {
     float: left;
     margin-right: 3%;
-    margin-top: 2%;
+    margin-top: 1%;
     width: 42%;
 }
 .rightHeaders {
@@ -32,7 +32,7 @@ p {
 .rightHeaderFields {
     margin-bottom: 0;
     margin-left: 104%;
-    margin-top: 11%;
+    margin-top: 5%;
     width: 45%;
 }
 .datepicker {
@@ -54,33 +54,32 @@ p {
 }
 .selectRelease {
     margin-left: 0;
-    margin-top: 10%;
+    margin-top: 24%;
 }
 .selectActivity {
     margin-top: 10%;
 }
 .userRemarks {
-    margin-left: 0;
-    margin-top: 7%;
+    margin-left: 0px;
+    margin-top: 5%;
 }
 .release {
     margin-left: 2%;
-    margin-top: 16%;
+    margin-top: 15%;
 }
 .activity {
-    margin-left: 4%;
-    margin-top: 41%;
+    margin-left: 0%;
+    margin-top: 38%;
 }
 .cancel {
     margin-left: 108%;
     margin-top: 2%;
 }
 .save {
-    margin-left: 130%;
-    margin-top: -14%;
+    margin-left: 127%;
+    margin-top: -22%;
 }
 .remarksHeader {
     margin-left: 0;
     margin-top: 0;
 }
-

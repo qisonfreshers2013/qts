@@ -177,14 +177,17 @@ public class TimeEntryDAOImpl extends BaseDAOImpl implements TimeEntryDAO {
 					.createQuery("Update TimeEntries set hours=:hours,projectId=:projectId,releaseId=:releaseId,task=:task,activityId=:activityId,remarks=:remarks,date=:date where id="
 							+ updateTimeEntry.getId()
 							+ "and userId="
-							+ updateTimeEntry.getUserId() + "and status=" + 0);
+							+ updateTimeEntry.getUserId());
 			query.setInteger("hours", updateTimeEntry.getHours());
 			query.setLong("projectId", updateTimeEntry.getProjectId());
 			query.setLong("releaseId", updateTimeEntry.getReleaseId());
 			query.setString("task", updateTimeEntry.getTask());
 			query.setLong("activityId", updateTimeEntry.getActivityId());
 			query.setString("remarks", updateTimeEntry.getUserRemarks());
-				query.setLong("date", Utils.parseDateToLong((updateTimeEntry.getDate())));
+			query.setLong("date", Utils.parseDateToLong((updateTimeEntry.getDate())));
+			if(getTimeEntryObjectById(updateTimeEntry.getId()).getStatus()==3){
+			    query.setInteger("status",0);
+			}
 		
 			int updated = query.executeUpdate();
 			if (updated != 0) {
@@ -248,6 +251,7 @@ public class TimeEntryDAOImpl extends BaseDAOImpl implements TimeEntryDAO {
 			throw e;
 		}
 	}
+	@SuppressWarnings("unchecked")
 	public boolean isTimeEntryMappedToReleaseId(long id) throws ObjectNotFoundException {
 		Session session = getSession();
 		try {
