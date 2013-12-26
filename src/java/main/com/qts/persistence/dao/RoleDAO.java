@@ -1,7 +1,6 @@
 package com.qts.persistence.dao;
 
 import java.util.List;
-import java.util.Set;
 
 import com.qts.model.Roles;
 
@@ -10,7 +9,7 @@ import com.qts.model.Roles;
  * @author Jagadish
  * 
  */
-public interface RoleDAO {
+public interface RoleDAO extends BaseDAO{
 
 	List<Roles> getRoles() throws Exception;
 

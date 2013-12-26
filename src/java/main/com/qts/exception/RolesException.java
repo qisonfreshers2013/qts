@@ -9,9 +9,9 @@ public class RolesException extends BusinessException
 	public RolesException() {
 		
 	}
-	public RolesException(int code,String message)
+	public RolesException(int userIsAdminSoCannotBeMember,String message)
 	{
-		this.code=code;
+		this.code=userIsAdminSoCannotBeMember;
 		this.message=message;
 	}
 	public int getCode() {
