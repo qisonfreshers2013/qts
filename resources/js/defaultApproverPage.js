@@ -10,18 +10,21 @@ function DefaultApproverPage(){
 }
 DefaultApproverPage.prototype.handleShow=function(){
     
-	this.getProjects();
+
 	this.searchTimeEntriesByApprover();
 	
-	$('.searchTimeEntriesByApprover').click(function(){
+	$('.searchTimeEntriesByApprover').click(function(event){
+		console.log("Search btn clicked");
 		this.searchTimeEntriesByApprover();
 		}.ctx(this));
 	
-	$('.approveTimeEntries').click(function(){
+	$('.approveTimeEntry').click(function(event){
+		console.log("clickHappened");
 		this.approveTimeEntry();
 		}.ctx(this));
 	
-	$('.rejectTimeEntries').click(function(){
+	$('.rejectTimeEntry').click(function(event){
+		console.log("reject btn clicked");
 		this.rejectTimeEntry();
 		}.ctx(this));
 
@@ -88,7 +91,7 @@ DefaultApproverPage.prototype.searchTimeEntriesByApprover = function() {
     	                "<td>"+data[i][6]+"</td>"+
     	                "<td>"+data[i][7]+"</td>"+
     	                "<td>"+data[i][8]+"</td>"+
-    	                "<td><button class=\"approve approveTimeEntries\" value=\""+data[i][0]+"\">.</button><button class=\"reject rejectTimeEntries\" value=\""+data[i][0]+"\">.</button></td>";
+    	                "<td><button class=\"approve approveTimeEntry\" value=\""+data[i][0]+"\">.</button><button class=\"reject rejectTimeEntry\" value=\""+data[i][0]+"\">.</button></td>";
     				    $(".approverTableHeader").after(tabledata);
     			}
     		}else {
@@ -98,7 +101,7 @@ DefaultApproverPage.prototype.searchTimeEntriesByApprover = function() {
 }
 
 DefaultApproverPage.prototype.approveTimeEntry=function(){
-	RequestManager.approve({"payload":{"id":$(".approveTimeEntries").val()}},function(){
+	RequestManager.approve({"payload":{"id":$(".approveTimeEntry").val()}},function(){
 		if(success){
 			alert("approved");
 		}
@@ -110,7 +113,7 @@ DefaultApproverPage.prototype.approveTimeEntry=function(){
 	
 }
 DefaultApproverPage.prototype.rejectTimeEntry=function(){
-	RequestManager.reject({"payload":{"id":$(".rejectTimeEntries").val()}},function(){
+	RequestManager.reject({"payload":{"id":$(".rejectTimeEntry").val()}},function(){
 		if(success){
 			alert("rejected");
 		}
@@ -119,27 +122,5 @@ DefaultApproverPage.prototype.rejectTimeEntry=function(){
 		}	
 	});
 }
-DefaultApproverPage.prototype.getProjects=function(){
-	 $('#projectName').empty();
-	 $('#projectName').append('<option></option>');
-	 RequestManager.getProjects({}, function(data, success) {
-	  if(success){
-	   var id=0;
-	   var name='';
-	   $.each(data,function(key1,value1){
-	    $.each(value1,function(key2,value2){
-	     if(key2==0){
-	      id=value2;
-	     }else{
-	      name=value2;
-	     }
-	    });
-	    $('#projectName').append('<option value='+id+'>'+name+'</option>');
-	   });
-	  }else{
-	   alert(data.message);
-	  }
-	 }.ctx(this));
-	}
 
 var DefaultApproverPage=new DefaultApproverPage();

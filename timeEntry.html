@@ -2,8 +2,10 @@
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 <h2><img src="resources/img/tsf.png" alt=""></img>  Time Sheet Filling</h2>
-</div>
+</div>  
+
 <fieldset class="fieldset">
+<form>
    <div class="leftHeaders">
       <p>Date<span id = star class = "star"><sup>*</sup></span> </p><br> 
       <p>Project<span id = star class = "star"><sup>*</sup></span> </p><br>
@@ -11,11 +13,11 @@
       <p>Hours<span id = star class = "star"><sup>*</sup></span></p>
    </div>
    <div class="leftHeaderFields">
-   <input type="text" class="datepicker clearField" id="timeEntryDate" required></input><br>
-   <select class="projectId projectName clearField" id="projectName" required> 
+   <input type="text" class="datepicker " id="timeEntryDate" required></input><br>
+   <select class="projectId projectName " id="projectName projectId" required> 
         </select><br>
-   <input type="text" class="task clearField" required></input><br>
-   <select class="hours clearField" required>
+   <input type="text" class="task" required></input><br>
+   <select class="hours" required>
      <option>--select--</option>
         <option>1</option>
         <option>2</option>
@@ -37,7 +39,7 @@
       <p class="remarksHeader">Remarks</p>
    </div>
    <div class="rightHeaderFields">
-        <select class="SelectRelease clearField" id="SelectRelease" required>
+        <select class="selectRelease" id="selectRelease" required>
         <option value="15">--select--</option>
         <option value="6">Version 1.0</option>
         <option value="15">Version 1.1</option>
@@ -45,15 +47,17 @@
         <option value="15">Version 2.0</option>
         <option value="15">Version 2.1</option>
        </select><br>
-   <select class="selectActivity clearField" id="selectActivity" required>
+   <select class="selectActivity" id="selectActivity" required>
         <option value="4">--select--</option>
         <option value="2">Coding</option>
         <option value="3">Testing</option>
         <option value="1">HTML Design</option>
    </select><br>
-   <textarea class="userRemarks clearField" id="userRemarks"></textarea>
+   <textarea class="userRemarks" id="userRemarks"></textarea>
    </div>
-    <button  id="cancel" class="cancel btn btn-danger">CLEAR</button>
-    <button  id="save" class="save btn btn-primary">SAVE</button>
+ 
+    <input  id="cancel" class="cancel" type="reset" value="CLEAR"></input>
+    </form>
+    <button  id="save" class="save">SAVE</button>
    </fieldset>
 </div>

@@ -144,7 +144,7 @@ Roles.prototype.allocateRoles=function(cb){
 			allocate.push(val);
 	}*/
 	//alert("allocate: "+allocate);
-	alert("checked: "+checked);
+	//alert("checked: "+checked);
 	var inputToAllocate={"payload":{"projectId":$('#projectList').val(),"userId":$('#userList').val(),"roleIds":checked}};
 	RequestManager.allocateRoles(inputToAllocate,function(data,success){
 		if(success){
@@ -171,11 +171,12 @@ Roles.prototype.deallocateRoles=function(){
 		else{
 			deallocate.push(val);
 		}*/
-	alert("unchecked: "+unchecked);
+	//alert("unchecked: "+unchecked);
 	var inputToDeallocate={"payload":{"projectId":$('#projectList').val(),"userId":$('#userList').val(),"roleIds":unchecked}};
 	RequestManager.deallocateRoles(inputToDeallocate,function(data,success){
 	if(success){
-		alert(data.roleIds+" roles are available after deallocating.");	
+		//alert(data.roleIds+" roles are available after deallocating.");	
+		alert("successfull");
 	}
 	else{
 		alert(data.message);

@@ -47,7 +47,7 @@ public class RoleService extends BaseService {
 			@Context UriInfo info, WebserviceRequest request) throws Exception {
 		RoleBean roleBeanInput = (RoleBean) JsonUtil.getObject(
 				request.getPayload(), RoleBean.class);
-		RoleBean rolBeanOutput = RoleHandler.getInstance().getUserRoles(
+		RoleBean rolBeanOutput = RoleHandler.getInstance().getUserRolesAOP(
 				roleBeanInput);
 		String output = JsonUtil.getJsonBasedOnDescriptor(rolBeanOutput,
 				RoleBean.class);
