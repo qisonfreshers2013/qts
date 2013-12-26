@@ -357,5 +357,9 @@ RequestManager.prototype.sendMail = function(data, callback) {
 	this.sendToServer('user/forgotPassword', data, callback);
 }
 
+RequestManager.prototype.changePassword = function(data, callback) {
+	this.sendToServer('user/changePassword', data, callback);
+}
+
 
 var RequestManager = new RequestManager();

@@ -26,7 +26,7 @@ public class Roles extends AbstractObject
 	private String name;
 	
 	
-
+	public static final long ROLE_ADMIN=1; 
 	public Roles() {
 	}
 	public long getId() {

@@ -20,7 +20,7 @@
 }
 #users {
     left: 43%;
-    margin-top: -12.6%;
+    margin-top: -14.7%;
     position: relative;
 }
 .saveBlock {
@@ -42,4 +42,8 @@
 }
 #projectName{
  width:auto;	
+}
+
+.projectNameAllocate{
+	margin-left:5%;
 }

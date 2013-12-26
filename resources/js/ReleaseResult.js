@@ -22,7 +22,7 @@ ReleaseResult.prototype.handleShow = function(roles) {
 							name=value2;
 						}
 					});
-					$('table').append("<tr style='text-align:center'><td>"+name+"</td><td>"+projectName+"</td><td><img class='delete' id="+id+" src='resources/img/delete.png' style='width:40%;cursor:pointer'/></td></tr>");
+					$('table').append("<tr style='text-align:center'><td>"+name+"</td><td>"+projectName+"</td><td><img class='delete' id="+id+" src='resources/img/delete.png' style='width:60%;cursor:pointer'/></td></tr>");
 				});
 				$('.delete').click(function(event){
 					var releaseId=event.target.id;

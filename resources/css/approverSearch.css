@@ -11,16 +11,16 @@ p {
     margin: 1%;
     width: 8%;
 }
-.projectId {
+.userProjectId {
     float: left;
     margin: 0 1% 1% 8%;
 }
 .userHeader {
     float: left;
-    margin: 1% 1% 1% 17%;
+    margin: 1% 1% 1% 18%;
 }
 .userId {
-    margin: 0 1% 1% 5%;
+    margin: 0 1% 1% 6%;
 }
 .fromHeader {
     float: left;
@@ -49,5 +49,9 @@ p {
 }
 .search {
     float: left;
-    margin: 2% 1% 1% 9%;
+    margin: 2% 1% 1% -1%;
+}
+#rejectedComments{
+	display: none;
+	width:30%;
 }

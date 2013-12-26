@@ -250,7 +250,7 @@ public class UserHandler extends AbstractHandler {
 		return user;
 	}
 
-	public boolean isUserDeleted(long id){
+	public boolean isUserDeleted(long id) throws Exception {
 		return DAOFactory.getInstance().getUserDAO().isUserDeleted(id);
 
 	}
@@ -679,11 +679,5 @@ public User getUserById(Long id) throws UserException {
 		UserDAO userDAOImpl = DAOFactory.getInstance().getUserDAO();
 		List<String> employeeIds = userDAOImpl.getEmployeeIds();
 		return employeeIds;
-	}
-	
-	public List<User> getUsersByIds(List<Long> userIds){
-		UserDAO userDAOImpl = DAOFactory.getInstance().getUserDAO();
-		List<User> usersList=userDAOImpl.getUsersByIds(userIds);
-		return usersList;
 	}
 }

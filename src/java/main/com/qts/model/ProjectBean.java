@@ -10,7 +10,7 @@ public class ProjectBean {
 	private long projectId;
 	private String name;
 	private String technologies;
-	private Set<Long> userIds=new HashSet();
+	private List<Long> userIds=new LinkedList();
 	private long userId;
 	private List<User> users =new LinkedList(); 
 	
@@ -45,12 +45,12 @@ public class ProjectBean {
 		this.technologies = technologies;
 	}
 
-	public Set<Long> getUserIds() {
+	public List<Long> getUserIds() {
 		return userIds;
 	}
 
 
-	public void setUserIds(Set<Long> ids) {
+	public void setUserIds(List<Long> ids) {
 		this.userIds = ids;
 	}
 
