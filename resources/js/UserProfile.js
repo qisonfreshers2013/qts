@@ -70,7 +70,9 @@ UserProfile.prototype.loadUserValues = function(id){
 		}
 		else{
 			console.log("loaded my profile"+data.message);
-			alert("my profile" +" failed" + data.message);				
+			alert("my profile" +" failed" + data.message);	
+			
+			
 		}
 		
 	}.ctx(this));

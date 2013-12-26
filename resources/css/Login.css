@@ -48,10 +48,10 @@ input.clear {
     padding: 1.5%;
 }
 label{
-	cursor:pointer;
+	
 	}
 	
-fieldset {
+fieldset.loginFieldSet{
     background-color: #EEEEEE;
     border: 2px groove #000000;
     border-radius: 3%;

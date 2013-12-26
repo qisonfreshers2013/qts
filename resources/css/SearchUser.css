@@ -56,7 +56,7 @@ div#employeeIdField {
     font-style: normal;
     font-weight: normal;
     left: 29%;
-    margin-top: -3.3%;
+    margin-top: -5.3%;
     position: relative;
     text-align: left;
     word-wrap: break-word;
@@ -97,13 +97,11 @@ div.employeeIdText {
     left: 40%;
     margin-top: -3.3%;
     position: relative;
-      
 }
 div.emailText {
     left: 40%;
-    margin-top: -3.5%;;
+    margin-top: -3.5%;
     position: relative;
-    
 }
 select {
     width: 21%;
@@ -111,7 +109,6 @@ select {
 #emailText > input {
     width: 20%;
 }
-
-input.search {
+button.search {
     background-color: #00FF00;
 }

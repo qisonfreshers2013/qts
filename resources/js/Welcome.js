@@ -11,6 +11,7 @@ Welcome.prototype.handleShow = function(nickname) {
 		this.logout();
 	}.ctx(this));
 	$('.myAccount').click(function(){
+		$('.content').remove();
 		App.loadMyProfile();		
 	}.ctx(this));
 	$('.logout').click(function(){		 
