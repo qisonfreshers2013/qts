@@ -28,7 +28,7 @@
     margin-top: 2%;
     position: relative;
 }
-p{
+.para{
 	font-size:16px;
 }
 .go,.reset{
@@ -39,10 +39,6 @@ p{
     text-align: center;
     width: 8%;
     height:20px;
-}
-select{
-	font-family:Arial;
-	font-size:13px;
 }
 #projectName{
  width:auto;	
