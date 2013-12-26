@@ -11,6 +11,20 @@ function DefaultApproverPage(){
 DefaultApproverPage.prototype.handleShow=function(){
     
 
+   /*   $(".rejectedComments").hide();*/
+
+/*	
+	$('.approveTimeEntry').click(function(event){
+		console.log("clickHappened");
+		this.approveTimeEntry();
+		}.ctx(this));
+	
+	$('.rejectTimeEntry').click(function(event){
+		console.log("reject btn clicked");
+		this.rejectTimeEntry();
+		}.ctx(this));*/
+
+
 }
 DefaultApproverPage.prototype.loadApproverSearch=function(){
 	new ApproverSearch();

@@ -137,7 +137,6 @@ ApproverSearch.prototype.searchTimeEntriesByApprover = function() {
     		if(success){
     			$(".approverTableData").empty();
     			for(var i=0;i<data.length;i++){
-    				var id=data[i][0];
     				 var tabledata="<tr class=\"approverTableData\">"+
     	                "<td>"+$.datepicker.formatDate('mm/dd/yy', new Date(data[i][1]))+"</td>"+
     	                "<td>"+data[i][3]+"</td>"+

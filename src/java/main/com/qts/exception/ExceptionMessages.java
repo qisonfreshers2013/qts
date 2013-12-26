@@ -97,7 +97,7 @@ public interface ExceptionMessages {
 		 public static final String DESIGNATION_NULL = "designation Can not null";
 		 public static final String EMAIL_USERID_NOT_EQUAL = "UserId must equal to Email";
 		 public static final String UPDATE_HANDLAER_EXCEPTION = "exception in update handler,validations return false";
-		 public static final String EMAIL_NOT_EXISTS = "Email is not existing";
+		 public static final String EMAIL_NOT_EXISTS = "Email is not existing,use registered email";
 		 public static final String USER_NOT_AUTHENTICATED = "Please login.";
 		 public static final String SEARCH_RESULTS_NO_MATCH = "no matchs found";
 		 
