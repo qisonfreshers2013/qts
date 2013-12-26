@@ -54,7 +54,8 @@ ChangePassword.prototype.validatePassword = function(passwordRef){
 	$(".error").hide();
     var isValid = false;   
     if(password.length < 6 ){
-		$('.password').focus();
+		$('.passwordRef').focus();
+		passwordRef.after('<span  class = "error"><img style = "height:2.5%;width:2.5%;" src = "resources/img/wrong.png"></span>');
         isValid = false;
 	}else{
 			$(".error").hide();
@@ -67,7 +68,8 @@ ChangePassword.prototype.validateConfirmPassword = function(confirmPasswordRef,p
 	var isValid = false;
 	$(".error").hide();
 	if(confirmPasswordRef.val() != passwordRef.val()){
-		confirmPassword.after('<span  class = "error"><img style = "height:2.5%;width:2.5%;" src = "resources/img/wrong.png"></span>');
+		$('.confirmPasswordRef').focus();
+		confirmPasswordRef.after('<span  class = "error"><img style = "height:2.5%;width:2.5%;" src = "resources/img/wrong.png"></span>');
 		isValid = false;
 	}
 	else

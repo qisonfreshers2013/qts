@@ -47,45 +47,34 @@ RequestManager.prototype.sendToServer = function (api, data, callback, options) 
 
 }
 
+
 RequestManager.prototype.authenticate=function(data,callback){
 	this.sendToServer('user/authenticate', data, callback);
 }
-
-RequestManager.prototype.getProjects = function(data, callback) {
-	this.sendToServer('project/getProjects', data, callback);
-}
-
 RequestManager.prototype.addProjectRelease = function(data, callback) {
 	this.sendToServer('release/add', data, callback);
 }
-
 RequestManager.prototype.getProjectReleases = function(data, callback) {
 	this.sendToServer('release/get', data, callback);
 }
-
-RequestManager.prototype.authenticate=function(data,callback){
-	this.sendToServer('user/authenticate',data,callback);
-}
-
 RequestManager.prototype.deleteProjectRelease=function(data,callback){
 	this.sendToServer('release/delete',data,callback);
 }
 
+
 RequestManager.prototype.listRoles=function(data,callback){
 	this.sendToServer('role/get', data, callback);
 }
-
 RequestManager.prototype.listUserRoles=function(data,callback){
 	this.sendToServer('role/getUserRoles', data, callback);
 }
-
 RequestManager.prototype.allocateRoles=function(data,callback){
 	this.sendToServer('role/allocateRoles', data, callback);
 }
-
 RequestManager.prototype.deallocateRoles=function(data,callback){
 	this.sendToServer('role/deallocateRoles', data, callback);
 }
+
 
 RequestManager.prototype.addTimeEntry = function(data, callback) {
 	this.sendToServer('timeEntry/add', data, callback);
@@ -118,39 +107,28 @@ RequestManager.prototype.submit = function(data, callback) {
 
 
 RequestManager.prototype.addProject=function(data,callback){
-	 this.sendToServer('project/add', data, callback);
-	}
-	RequestManager.prototype.getProjects=function(data,callback){
-	 this.sendToServer('project/getProjects', data, callback);
-	}
-	RequestManager.prototype.getProjectsForUser=function(data,callback){
-	 this.sendToServer('project/getProjectsForUser', data, callback);
-	}
-	RequestManager.prototype.allocateUsersToProject=function(data,callback){
-	 this.sendToServer('project/allocateUsersToProject', data, callback);
-	}
-	RequestManager.prototype.deAllocateUsersFromProject=function(data,callback){
-	 this.sendToServer('project/deAllocateUsersFromProject', data, callback);
-	}
-	RequestManager.prototype.getProjectUsers=function(data,callback){
-	 this.sendToServer('project/getProjectUsers', data, callback);
-	}
-	RequestManager.prototype.getProjectNonUsers=function(data,callback){
-	 this.sendToServer('project/nonUsersOfProject', data, callback);
-	}
-
-	RequestManager.prototype.addProjectRelease = function(data, callback) {
-	 this.sendToServer('release/add', data, callback);
-	}
-
-	RequestManager.prototype.getProjectReleases = function(data, callback) {
-	 this.sendToServer('release/get', data, callback);
-	}
+	this.sendToServer('project/add', data, callback);
+}
+RequestManager.prototype.getProjects=function(data,callback){
+	this.sendToServer('project/getProjects', data, callback);
+}
+RequestManager.prototype.getProjectsForUser=function(data,callback){
+	this.sendToServer('project/getProjectsForUser', data, callback);
+}
+RequestManager.prototype.allocateUsersToProject=function(data,callback){
+	this.sendToServer('project/allocateUsersToProject', data, callback);
+}
+RequestManager.prototype.deAllocateUsersFromProject=function(data,callback){
+	this.sendToServer('project/deAllocateUsersFromProject', data, callback);
+}
+RequestManager.prototype.getProjectUsers=function(data,callback){
+	this.sendToServer('project/getProjectUsers', data, callback);
+}
+RequestManager.prototype.getProjectNonUsers=function(data,callback){
+	this.sendToServer('project/getNonUsersOfProject', data, callback);
+}
 
 
-	RequestManager.prototype.deleteProjectRelease=function(data,callback){
-	 this.sendToServer('release/delete',data,callback);
-	}
 
 
 

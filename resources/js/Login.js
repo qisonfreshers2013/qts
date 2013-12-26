@@ -50,6 +50,8 @@ Login.prototype.handleShow = function() {
 		//$('#forgotPasswordModal').modal('hide');
 		}
 		else{
+			 $('.emailToSend').focus();
+			 $('.emailToSend').after('<span class = "error"><img style = "height:5%;width:5%;"src = "resources/img/wrong.png"></span>')
 			console.log("notValidated");
 		}
 	}.ctx(this));
@@ -67,8 +69,10 @@ Login.prototype.authenticate = function() {
 		 var roleIds=data.roleIds;
 		      var  token = data.sessionToken;
 		      setCookie('qtsSessionId', token, null);
-		      App.loadWelcome(data.user.nickName);
+		      App.loadWelcome(data.user.nickName,roleIds);
 		      App.loadOptions(roleIds);
+		      App.loadQisonLogo(roleIds);
+
 		}else{
 			console.log('fail '+ data.message);
 			alert('fail '+ data.message);

@@ -60,9 +60,9 @@ App.prototype.loadOptions=function(roles){
 	});
 }
 
-App.prototype.loadWelcome=function(nickName){
+App.prototype.loadWelcome=function(nickName,roleIds){
 	Loader.loadWelcome(function(){
-		new Welcome(nickName);
+		new Welcome(nickName,roleIds);
 	});
 }
 
@@ -92,7 +92,11 @@ new Roles();
 });
 }
 
-
+App.prototype.loadQisonLogo=function(roleIds){
+	Loader.loadQisonLogo(function(){
+		new QisonLogo(roleIds);
+	});
+}
 
 
 
@@ -229,9 +233,9 @@ App.prototype.loadSearchUser = function (roles) {
 	});	
 }
 
-App.prototype.loadSearchResults = function (data) {
+App.prototype.loadSearchResults = function (data,roles) {
 	Loader.loadSearchResults(function (){
-		new SearchResults(data);
+		new SearchResults(data,roles);
 	});
 }
 

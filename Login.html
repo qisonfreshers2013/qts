@@ -18,7 +18,7 @@
 <input id = "password"  class = "password passwordWidth" type = "password" placeholder="password" onblur="this.checkValidity();" pattern=".{6,}" title = "minimum length is 6" required/>
 </div>
 <div id = "forgotPassword" class = "forgotPassword">
-<a id = "forgotPasswordLink" class = "forgotPasswordLink" data-toggle="modal" data-target="#forgotPasswordModal">Forgot Password</a>
+<a id = "forgotPasswordLink" class = "forgotPasswordLink" data-target="#forgotPasswordModal">Forgot Password</a>
 </div>
 </form>
 <div id = "submitDiv" class = "submitDiv">
@@ -32,7 +32,7 @@
 </div>
 <!-- Modal -->
 <div class="modal fade forgotPasswordModal" id="forgotPasswordModal">
-<div class="modal-body"><label for="emailToSend">Email</label> <input
+<div class="modal-body"><label id = "emailForgot" class = "emailForgot" for="emailToSend">Email</label> <input
 	type="email" name="emailToSend" id="emailToSend" placeholder = "email" class="emailToSend"></div>
 <div class="modal-footer">
 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

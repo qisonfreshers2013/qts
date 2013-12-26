@@ -6,7 +6,7 @@ function SearchProjectResults(data){
 
 SearchProjectResults.prototype.handleShow=function(data){
 	var body=$('#load');
-	var image='resources/img/u144_normal.png';
+	var image='resources/img/employee.png';
 	var name='';
 	body.empty();
 	
@@ -14,8 +14,8 @@ SearchProjectResults.prototype.handleShow=function(data){
 	    if (a.email.toLowerCase() == b.email.toLowerCase()) {
 	        return 0;
 	    } else if(a.email.toLowerCase() > b.email.toLowerCase()) {
-	        return 1;
-	    }
+	        return 1;	 
+			}
 	    return -1;
 	});
 	

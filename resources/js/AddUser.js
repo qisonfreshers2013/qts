@@ -8,7 +8,7 @@ function AddUser() {
 }
 
 AddUser.prototype.handleShow = function() {
-	$('.container').show();
+//	$('.container').show();
 	
 //	$('input.firstname').keyup(function(){
 //		this.validateName();

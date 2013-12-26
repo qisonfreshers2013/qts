@@ -2,7 +2,7 @@
  * 
  */
 function UserProfile(id) {
-	Loader.loadHTML('#container', 'UserProfile.html', true, function(){
+	Loader.loadHTML('#container', 'UserProfile.html', false, function(){
 		this.handleShow(id);
 	}.ctx(this));
 }

@@ -4,11 +4,14 @@ font-family:Arial;
 margin-top:8%;
 width:100%;
 }
-.headline {
-}
-
 #project_name{
 	left: 17%;
     margin-top: -4%;
     position: relative;
+}
+select{
+	font-family:Arial;
+	font-size:13px;
+	width:auto;
+	
 }

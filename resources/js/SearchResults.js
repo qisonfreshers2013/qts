@@ -10,6 +10,7 @@ SearchResults.prototype.handleShow = function(data,roles){
 	this.appendValues(data,roles);	
 	$('.editSymbol').click(function(event){		
 		var id = event.target.id;
+		$('#content').remove();
     	App.loadUserProfile(id);
 	}.ctx(this));
 	$('.deleteSymbol').click(function(event){	

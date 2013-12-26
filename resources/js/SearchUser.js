@@ -15,7 +15,7 @@ SearchUser.prototype.handleShow = function(roles){
 	// hide the hiding symbol
 	
 	this.loadEmployeeIds();
-	$('.container').show();
+	//$('.container').show();
 	$('.resultsContainer').show();
 	$('button.search').click(function(){			
 		var nickname = $('input.nickname').val();
@@ -68,7 +68,7 @@ SearchUser.prototype.search = function(roles,nickname,email,designation,employee
 			App.loadSearchResults(data,roles);			
 		}	
 		else{
-			alert('failed'+data.message);
+			alert('failed  :'+data.message);
 			$('#resultsContainer').hide();
 			
 			}
@@ -88,8 +88,8 @@ SearchUser.prototype.loadEmployeeIds = function(){
 			}		
 		}	
 		else{
-			//App.loadSearchResults();
-			alert('failed');		
+			
+			alert('failed  :'+data.message);		
 			}
 	}.ctx(this));	
 }
@@ -101,7 +101,7 @@ SearchUser.prototype.validateNickname= function(nickname){
 	    var nicknameVal = nickname.val();
 	    
 	    if(!nicknameReg.test(nicknameVal)) {
-	    	nickname.focus();
+	    	nickname.focus().css("border-color","red");
 	        isValid = false;
 	    }	
 	    else 
@@ -120,7 +120,7 @@ SearchUser.prototype.validateEmail = function(email){
 
     var emailVal = email.val();
     if(emailVal == '') {
-    	email.focus();
+    	email.focus().css("border-color","red");
         isValid = false;
     }
 
@@ -144,7 +144,7 @@ SearchUser.prototype.validateDesignation = function(designation){
        $('.error').hide();
 	    var designationVal = designation.val();
 	    if(!designationReg.test(designationVal)) {
-	    	designation.focus();
+	    	designation.focus().css("border-color","red");
 	        isValid = false;
 	    }	
 	    else

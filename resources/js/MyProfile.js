@@ -2,7 +2,7 @@
  * 
  */
 function MyProfile(){
-	Loader.loadHTML('.content', 'MyProfile.html', true , function(){
+	Loader.loadHTML('.container', 'MyProfile.html', false , function(){
 			this.handleShow();
 	}.ctx(this));
 }

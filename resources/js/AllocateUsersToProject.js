@@ -70,12 +70,20 @@ AllocateUsersToProject.prototype.handleShow=function(){
 //		alert('old Emails:'+oldEmails);
 //		alert('new Ids:'+newIds);
 //		alert('old Ids:'+oldIds);
-		this.allocateUsersToProject(function(){
-			this.getProjectUsersAndNonUsers();
-		});
+		var projectId=$('select#projectName option:selected').attr('value');
+		if(projectId==0){
+			alert('select project nmae');
+			$('#projectName').focus();
+		}
+		else{
+			this.allocateUsersToProject(projectId,function(){
+				$('.reset').trigger('click');
+			});
+
+		}
 	}.ctx(this));
 
-	$("#reset").click(function(){
+	$(".reset").click(function(){
 		$('select#existingUsers').empty();
 		$('select#nonExistingUsers').empty();
 	});
@@ -84,9 +92,9 @@ AllocateUsersToProject.prototype.handleShow=function(){
 
 
 
-AllocateUsersToProject.prototype.allocateUsersToProject=function(callBack){
+AllocateUsersToProject.prototype.allocateUsersToProject=function(projectId,callBack){
 
-	var projectId=$('select#projectName option:selected').attr('value');
+	
 
 	var allocateIds=new Array();
 	var deAllocateIds=new Array();
@@ -141,7 +149,9 @@ AllocateUsersToProject.prototype.allocateUsersToProject=function(callBack){
 				}
 			}.ctx(this));
 		}
+		
 	}
+	$('.reset').trigger('click');
 }
 
 
@@ -163,7 +173,7 @@ AllocateUsersToProject.prototype.getProjectUsersAndNonUsers=function(){
 					        return 0;
 					    } else if(a.email.toLowerCase() > b.email.toLowerCase()) {
 					        return 1;
-					    }
+				    }
 					    return -1;
 					});
 					
@@ -179,17 +189,27 @@ AllocateUsersToProject.prototype.getProjectUsersAndNonUsers=function(){
 		}.ctx(this));
 
 		RequestManager.getProjectNonUsers({"payload":{"projectId":projectId}}, function(data, success) {
+			var id='0';
+			var email='';
 			if(success){
-					data=data.sort(function(a, b){
-						if (a.email.toLowerCase() == b.email.toLowerCase()) {
-					        return 0;
-					    } else if (a.email.toLowerCase() > b.email.toLowerCase()) {
-					        return 1;
-					    }
-					    return -1;
+//					data=data.sort(function(a, b){
+//						if (a.email.toLowerCase() == b.email.toLowerCase()) {
+//					        return 0;
+//					    } else if (a.email.toLowerCase() > b.email.toLowerCase()) {
+//					        return 1;
+//					    }
+//					    return -1;
+//					});
+				$.each(data,function(key1,value1){
+					$.each(value1,function(key2,value2){
+						if(key2==0){
+							id=value2;
+						}
+						if(key2==1){
+							email=value2;
+						}
 					});
-				$.each(data,function(key,value){
-					nonExisting.append('<option value='+value.id+'>'+value.email+'</option>');
+					nonExisting.append('<option value='+id+'>'+email+'</option>');
 				});
 			}else{
 				alert(data.message);
