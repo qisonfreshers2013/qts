@@ -39,7 +39,7 @@ ApproverSearch.prototype.handleShow=function(){
 ApproverSearch.prototype.getProjects=function(){
 	 $('#userProjectId').empty();
 	 $('#userProjectId').append('<option>SELECT</option>');
-	 RequestManager.getProjectsForUser({}, function(data, success) {
+	 RequestManager.getProjectsForApprover({}, function(data, success) {
 	  if(success){
 	   var id=0;
 	   var name='';

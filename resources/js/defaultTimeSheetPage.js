@@ -299,7 +299,7 @@ DefaultTimeSheetPage.prototype.searchUserTimeEntries=function(){
 
 DefaultTimeSheetPage.prototype.getProjects=function(){
 	 $('#searchByProjectId').empty();
-	 RequestManager.getProjectsForUser({}, function(data, success) {
+	 RequestManager.getProjectsForMember({}, function(data, success) {
 	  if(success){
 	   var id=0;
 	   var name;
