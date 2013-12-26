@@ -79,7 +79,6 @@ public class HandlerAspect {
 				try {
 					userProjectsRoles = daoFactory.getUserProjectsRolesDAOInstance().getUserProjectsRolesByUserProject(project.getId());
 				} catch (Exception e) {
-					e.printStackTrace();
 				}
 				if(CollectionUtils.isNotEmpty(userProjectsRoles)) {
 					for(UserProjectsRoles userProjectsRole: userProjectsRoles) {
@@ -90,7 +89,6 @@ public class HandlerAspect {
 		}
 		for(int i=0;i<roles.length;i++){
 			if(roleIds.contains(roles[i])) {
-				//System.out.println("Role : Admin.");
 			} else {
 				throw new BusinessException(ExceptionCodes.USER_NOT_AUTHORIZED,
 						ExceptionMessages.USER_NOT_AUTHORIZED);

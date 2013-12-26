@@ -48,7 +48,7 @@ Options.prototype.handleShow = function(roles) {
 		}  
 	}
 	else if(roles.contains(3)){
-		$('.container').append('<div class="TimeSheetFilling"><img class="tsfImage" src="resources/img/tsf.png"><h4 class="tsfText">Time Sheet Filling</h4></div>');
+		$('.container').append('<div class="TimeSheetFilling"><img class="tsfImg" src="resources/img/tsf.png"><h4 class="tsfText">Time Sheet Filling</h4></div>');
 		
 		$('.TimeSheetFilling').css( {"background-color": "#2871F2",
 	    "cursor": "pointer",

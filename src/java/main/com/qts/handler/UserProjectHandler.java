@@ -4,15 +4,13 @@ package com.qts.handler;
  * author mani kumar
  * 
  */
-import java.util.HashSet;
-import java.util.Iterator;
+
 import java.util.List;
 import java.util.Set;
 
 import com.qts.exception.ObjectNotFoundException;
 import com.qts.exception.ProjectException;
 import com.qts.model.BaseObject;
-import com.qts.model.RoleBean;
 import com.qts.model.UserProject;
 import com.qts.persistence.dao.DAOFactory;
 
@@ -33,13 +31,10 @@ public class UserProjectHandler extends AbstractHandler{
 	}
 	
 
-	public  Set<Long> reportingIds=new HashSet<Long>();
 
 	public List<UserProject> getUserProjectsByUserId(long id){
 		
 		return	DAOFactory.getInstance().getUserProjectDAOImplInstance().getUserProjectsByUserId(id);
-	
-		
 	}
 		
 	
@@ -51,8 +46,8 @@ public class UserProjectHandler extends AbstractHandler{
 	}
 	
 	
-	public void addUserToProject(List<UserProject> userProject) throws ProjectException{
-		 DAOFactory.getInstance().getUserProjectDAOImplInstance().addUserToProject(userProject);
+	public void addUsersToProject(List<UserProject> userProject) throws ProjectException{
+		 DAOFactory.getInstance().getUserProjectDAOImplInstance().addUsersToProject(userProject);
 	}
 	
 	
@@ -76,7 +71,7 @@ public class UserProjectHandler extends AbstractHandler{
 
 
 
-	public List<UserProject> getUserProjectsByIds(long projectId, List<Long> userIdsList){
+	public List<UserProject> getUserProjectsByIds(long projectId, Set<Long> userIdsList){
 		return DAOFactory.getInstance().getUserProjectDAOImplInstance().getUserProjectsByIds(projectId, userIdsList);
 	}
 

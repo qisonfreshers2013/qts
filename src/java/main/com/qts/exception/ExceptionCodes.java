@@ -270,6 +270,7 @@ public interface ExceptionCodes {
 	public static final int PARAMETERS_ZERO_EXCEPTION = 8007;
 	public static final int ROLE_ID_DOESNOT_EXISTS =8008;
 	public static final int NULL_POINTER_EXCEPTION = 8009;
+	public static final int NO_ROLES_OR_NOT_ASSOCIATED_WITH_ANY_PROJECT=8010;
 
 
 	//Releases related Exceptions Codes

@@ -11,7 +11,7 @@ Menu.prototype.handleShow=function(roleIds){
 		        '<li id="addProject" class="dropDown"><a>Add Project</a></li>'+
 				'<li id="allocateUsers" class="dropDown"><a>Allocate Users</a></li>'+
 				'<li id="addRoles" class="dropDown"><a>Add Roles</a></li>'+
-				'<li id="searchProject" class="dropDown"><a>Search project</a></li></ul>');
+				'<li id="searchProject" class="dropDown"><a>Search Project</a></li></ul>');
 		
 		
 		
@@ -68,8 +68,9 @@ Menu.prototype.handleShow=function(roleIds){
 			
 			$('#tsa').click(function(){
 				$('#content').remove();
+				App.loadDefaultApproverPage();
 				App.loadApproverTimeSheetSearch();
-				App.loadDefaultTimeSheetPage();
+				
 			});
 		}
 		else{
@@ -86,8 +87,9 @@ Menu.prototype.handleShow=function(roleIds){
 		//click events for approver
 		$('#tsa').click(function(){
 			$('#content').remove();
+			App.loadDefaultApproverPage();
 			App.loadApproverTimeSheetSearch();
-			App.loadDefaultTimeSheetPage();
+			
 		});
 		
 		$('#pm').click(function(){
@@ -106,7 +108,7 @@ Menu.prototype.handleShow=function(roleIds){
 		
 		$('#su').click(function(){
 			$('#content').remove();
-			App.loadSearchUser();
+			App.loadSearchUser(roleIds);
 		});
 		
 		if(roleIds.contains(3)){
@@ -114,8 +116,9 @@ Menu.prototype.handleShow=function(roleIds){
 			
 			$('#tsf').click(function(){
 				$('#content').remove();
-				App.loadTimeSheetFilling
 				App.loadDefaultTimeSheetPage();
+				App.loadTimeSheetFilling();
+				
 			});
 			
 		}
@@ -151,8 +154,9 @@ Menu.prototype.handleShow=function(roleIds){
 		
 		$('#tsf').click(function(){
 			$('#content').remove();
-			App.loadTimeSheetFilling();
 			App.loadDefaultTimeSheetPage();
+			App.loadTimeSheetFilling();
+			
 		});
 	}
 	

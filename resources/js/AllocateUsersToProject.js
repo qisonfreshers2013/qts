@@ -77,7 +77,8 @@ AllocateUsersToProject.prototype.handleShow=function(){
 		}
 		else{
 			this.allocateUsersToProject(projectId,function(){
-				$('.reset').trigger('click');
+				this.getProjectUsersAndNonUsers();
+				//$('.reset').trigger('click');
 			});
 
 		}
@@ -151,7 +152,6 @@ AllocateUsersToProject.prototype.allocateUsersToProject=function(projectId,callB
 		}
 		
 	}
-	$('.reset').trigger('click');
 }
 
 

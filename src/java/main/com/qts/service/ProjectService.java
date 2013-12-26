@@ -78,6 +78,50 @@ public class ProjectService extends BaseService {
 	}
 	
 	
+	
+	@POST
+	@RestService(input = String.class, output = String.class)
+	@ServiceStatus(value = "complete")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	@Path("/getProjectsForMember")
+	public String getProjectsForMember(@Context HttpHeaders headers,
+			@Context UriInfo uriInfo, WebserviceRequest request)
+	throws Exception {
+
+		List<Project> projectList = ProjectHandler.getInstance()
+		.getProjectsForMember();
+
+		String jsonForListBasedOnDescriptor = JsonUtil
+		.getJsonForListBasedOnDescriptor(projectList, Project.class,
+				ProjectOutputDescriptor.class);
+
+		return jsonForListBasedOnDescriptor;
+	}
+	
+	
+	@POST
+	@RestService(input = String.class, output = String.class)
+	@ServiceStatus(value = "complete")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	@Path("/getProjectsForApprover")
+	public String getProjectsForApprover(@Context HttpHeaders headers,
+			@Context UriInfo uriInfo, WebserviceRequest request)
+	throws Exception {
+
+		List<Project> projectList = ProjectHandler.getInstance()
+		.getProjectsForApprover();
+
+		String jsonForListBasedOnDescriptor = JsonUtil
+		.getJsonForListBasedOnDescriptor(projectList, Project.class,
+				ProjectOutputDescriptor.class);
+
+		return jsonForListBasedOnDescriptor;
+	}
+	
+	
+	
 	@POST
 	@RestService(input = String.class, output = String.class)
 	@ServiceStatus(value = "complete")
@@ -167,7 +211,7 @@ public class ProjectService extends BaseService {
 	@ServiceStatus(value = "complete")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	@Path("/nonUsersOfProject")
+	@Path("/getNonUsersOfProject")
 	public String nonUsersOfProject(@Context HttpHeaders headers,
 			@Context UriInfo uriInfo, WebserviceRequest request) throws Exception{
 		

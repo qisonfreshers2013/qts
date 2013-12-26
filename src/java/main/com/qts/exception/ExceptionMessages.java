@@ -143,6 +143,8 @@ public interface ExceptionMessages {
 	public static final String ONLY_ONE_APPROVER = "only one approver allowed for one project";
 	public static final String ROLE_ID_DOESNOT_EXISTS = "This role id doesnot exists for this user.";
 	public static final String USER_NOT_AUTHORIZED = "You are not authorized for this action.";
+	public static final String  NO_ROLES_OR_NOT_ASSOCIATED_WITH_ANY_PROJECT="No roles assigned to user or User not associated with any project";
+
 
 	
 	

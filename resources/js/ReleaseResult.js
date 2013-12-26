@@ -53,7 +53,7 @@ ReleaseResult.prototype.handleShow = function(roles) {
 						name=value2;
 					}
 				});
-				$('table').append("<tr><td id="+id+">"+name+"</td><td>"+projectName+"</td></tr>");
+				$('table').append("<tr style='text-align:center'><td id="+id+">"+name+"</td><td>"+projectName+"</td></tr>");
 			});
 			}
 		}
