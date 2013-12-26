@@ -1,81 +1,81 @@
+
 @charset "ISO-8859-1";
-
 .roles {
-     height: 50%;
-     margin: 8% 0% 15% 0%;
-     width: 90%;
+    margin-top: 8%;
+    width: 100%;
 }
-
 p {
-     font-size: 16px;
+    font-size: 16px;
 }
-
 #employee {
-     float: left;
+    float: left;
 }
-
 #title {
-     font-family: arial,monospace,sans-serif;
-     font-style: normal;
-     font-weight: bold;
+    font-family: arial,monospace,sans-serif;
+    font-style: normal;
+    font-weight: bold;
 }
-
 #project {
-     float: left;
-     width: 30%;
+    position: relative;
+    width: auto;
 }
-
+#projectUser {
+    position: relative;
+    width: 100%;
+}
 #projectList {
-     overflow: scroll;
+    min-width: 30%;
+    overflow-x: scroll;
+    width: auto;
+    max-width: 75%;
+    text-overflow: inherit;
 }
-
 #user {
-     float: left;
-     margin-left: 5%;
-     width: 40%;
+    position: relative;
+    width: auto;
 }
-
 #userList {
-     overflow: hidden;
+    min-width: 30%;
+    overflow: hidden;
+    width: auto;
+    max-width: 75%;
 }
-
 #role {
-     float: right;
-     margin-left: 5%;
-     width: 20%;
+    left: 80%;
+    margin-right: 0;
+    margin-top: -14%;
+    position: relative;
+    width: 20%;
 }
-
 #rolesList {
-     background-color: #EFEFEF;
-     border: 1px solid #000000;
-     table-layout: inherit;
-     width: 100%;
+    background-color: #EFEFEF;
+    border: 1px solid #000000;
+    table-layout: inherit;
+    width: 100%;
 }
-
 #rolesList td {
-     border-bottom: 1px solid #000000;
-     display: table-cell;
-     font-size: 16px;
-     overflow: scroll;
-     padding: 5%;
+    border-bottom: 1px solid #000000;
+    display: table-cell;
+    font-size: 16px;
+    overflow: scroll;
+    padding: 5%;
 }
-
 select {
-     width: -moz-available;
 }
-
 #buttons {
-     float: left;
-     height: inherit;
-     margin: 3% 0px 0px 80%;
-     width: 35%;
+    height: auto;
+    left: 80%;
+    margin-top: 2%;
+    position: relative;
+    top: 10%;
+    width: 35%;
 }
-
 #saveb, #cancelb {
-     background-color: #669933;
-     border: medium none;
-     color: #FFFFFF;
-     font-weight: bold;
-     text-align: center;
-     width: 28%;
+    background-color: #669933;
+    border: medium none;
+    color: #FFFFFF;
+    font-weight: bold;
+    position: relative;
+    text-align: center;
+    width: 28%;
 }

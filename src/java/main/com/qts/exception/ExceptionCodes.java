@@ -261,7 +261,7 @@ public interface ExceptionCodes {
 
 	//roles related exception
 	public static final int ROLES_EMPTY_EXCEPTION=8000;
-	public static final int ROLES_LIST_EMPTY_EXCEPTION=8001;
+	public static final int rolesList_EMPTY_EXCEPTION=8001;
 	public static final int PARAMETERS_EMPTY_EXCEPTION =8002;
 	public static final int NO_ROLES_FOR_THIS_USERPROJECT_ID = 8003;
 	public static final int INVALID_ROLE_ID = 8004;
@@ -270,7 +270,11 @@ public interface ExceptionCodes {
 	public static final int PARAMETERS_ZERO_EXCEPTION = 8007;
 	public static final int ROLE_ID_DOESNOT_EXISTS =8008;
 	public static final int NULL_POINTER_EXCEPTION = 8009;
-
+	public static final int BOTH_ADMIN_MEMBER_NOT_POSSIBLE = 8010;
+	public static final int USER_IS_ADMIN_SO_CANNOT_BE_MEMBER = 8011;
+	public static final int USER_IS_MEMBER_SO_CANNOT_BE_ADMIN = 8012;
+	public static final int NO_ROLES_OR_NOT_ASSOCIATED_WITH_ANY_PROJECT=8013;
+	
 
 	//Releases related Exceptions Codes
 	public static final int RELEASES_NAME_NULL = 9001;
@@ -283,6 +287,9 @@ public interface ExceptionCodes {
 	public static final int TIME_ENTRY_PRESENT = 9008;
 	public static final int RELEASE_ID_NULL = 9009;
 	public static final int DB_EXCEPTION = 9010;
+	
+	
+	
 	
 
 }

@@ -1,7 +1,6 @@
 package com.qts.persistence.dao;
 
 import java.util.List;
-import java.util.Set;
 
 import com.qts.model.Roles;
 

@@ -1,5 +1,5 @@
 function Roles() {
-	this.roles=new Array();
+	roles=new Array([]);
 	$(".rolesContainer").remove();
 	Loader.loadHTML('#container', 'roles.html', false, function() {
 		this.handleShow();
@@ -10,6 +10,7 @@ Roles.prototype.handleShow = function() {
 	this.listProjects();
 	this.getRoles();
 	$("#projectList").change(function(){
+		$('input:checkbox.avalRoles').removeAttr('checked');
 			this.listUsers();
 	}.ctx(this));
 	$("#userList").change(function(){
@@ -25,7 +26,8 @@ Roles.prototype.handleShow = function() {
 };
 
 Roles.prototype.listProjects = function() {
-RequestManager.listProjects({}, function(data, success) {
+	if($('#userList').val()!="u0") {
+RequestManager.getProjects({}, function(data, success) {
 if (success) {
 	var id=0;var name="";
 	$("#projectList").empty().append("<option>select</option>");
@@ -42,15 +44,18 @@ if (success) {
 else{
 		alert(data.message);
 	}
+}else{
+	
+}
 }.ctx(this));
 };
 
 Roles.prototype.listUsers = function() {
-RequestManager.listUsers({"payload":{"projectId":$("#projectList").val()}}, function(data, success) {
+RequestManager.getProjectUsers({"payload":{"projectId":$("#projectList").val()}}, function(data, success) {
  if (success) {
-	 $("#userList").empty();//.append("<option>select</option>");
+	 $("#userList").empty().append("<option value=\"u0\">select</option>");
 $.each(data,function(key,value){
-	//var fname=(value.firstName+" ").concat(value.lastName);
+	// var fname=(value.firstName+" ").concat(value.lastName);
 	var email=value.email;
 	$("#userList").append(
 			"<option value="+ value.id
@@ -90,30 +95,36 @@ else{
 }.ctx(this));
 };
 Roles.prototype.listUserRoles = function() {
-var input={"payload":{"projectId":$('#projectList').val(),"userId":$('#userList').val()}};
-RequestManager.listUserRoles(input, function(data, success) {
-	if(success){
-		roles =data.roleIds;
-		$('input:checkbox').removeAttr('checked');
-		for(var val of roles){
-			switch (val) {
-			case 1:
-				$("input[value=3]").prop("disabled",true);
-				$("input[value=1]").prop("disabled",false);
-				break;
-			case 3:
-				$("input[value=1]").prop("disabled",true);
-				$("input[value=3]").prop("disabled",false);
-				break;
+	if($('#userList').val()!="u0") {
+		input={"payload":{"projectId":$('#projectList').val(),"userId":$('#userList').val()}};
+		RequestManager.listUserRoles(input, function(data, success) {
+			if(success){
+				roles =data.roleIds;
+				$('input:checkbox').removeAttr('checked');
+				for(var val of roles){
+					switch (val) {
+					case 1:
+						$("input[value=3]").prop("disabled",true);
+						$("input[value=1]").prop("disabled",false);
+						break;
+					case 3:
+						$("input[value=1]").prop("disabled",true);
+						$("input[value=3]").prop("disabled",false);
+						break;
+					}
+					$("input[value="+val+"]").prop("checked", true);
+				}
 			}
-			$("input[value="+val+"]").prop("checked", true);
-		}
+			else{
+				// alert(data.message);
+				$('input:checkbox').removeAttr('checked');
+			}
+	
+		}.ctx(this));
 	}
 	else{
-		alert(data.message);
+		$('input:checkbox.avalRoles').removeAttr('checked');
 	}
-}.ctx(this));
-
 $("#role3").change(function() {
     if(this.checked) {
     	$("input[value=1]").prop("disabled",true);
@@ -136,51 +147,60 @@ Roles.prototype.allotRoles = function() {
 };
 Roles.prototype.allocateRoles=function(cb){
 	var checked= $('input:checkbox:checked.avalRoles').map(function() {
-		return this.value;
+		return parseInt(this.value);
 	}).get();
-	/*var allocate=new Array();
+	var allocate=new Array();
 	for(val of checked){
-		if(jQuery.inArray(val,roles)===-1)
+		if($.inArray(val,roles)==-1){
 			allocate.push(val);
-	}*/
-	//alert("allocate: "+allocate);
-	alert("checked: "+checked);
-	var inputToAllocate={"payload":{"projectId":$('#projectList').val(),"userId":$('#userList').val(),"roleIds":checked}};
+		}
+	}
+// alert("allocate: "+allocate);
+// alert("checked: "+checked);
+	if(allocate.length>0){
+	var inputToAllocate={"payload":{"projectId":$('#projectList').val(),"userId":$('#userList').val(),"roleIds":allocate}};
 	RequestManager.allocateRoles(inputToAllocate,function(data,success){
 		if(success){
-			/*$.ambiance({
-			    message : allocate,
-			    type : 'success'
-			   });*/
-			//alert(data.roleIds+" roles are available after allocating.");
+// $.ambiance({
+// message : allocate,
+// type : 'success'
+// });
+			// alert(data.roleIds+" roles are available after allocating.");
+			// roles=checked;
 		}
 		else{
 			alert(data.message);
 		}
 	}.ctx(this));
+	}
 };
 Roles.prototype.deallocateRoles=function(){
 	var unchecked=$('input:checkbox:not(:checked).avalRoles').map(function(){
-		return this.value;
+		return parseInt(this.value);
 	}).get();
-	/*var deallocate=new Array();
+	var deallocate=new Array();
 	for(val of unchecked){
-		if(jQuery.inArray(val,roles)===-1){
-			alert("inside")
-		}
-		else{
+		if($.inArray(val,roles)!==-1){
 			deallocate.push(val);
-		}*/
-	alert("unchecked: "+unchecked);
+			// alert("deallocate[] "+$.inArray(val,roles));
+		}else{
+		alert("deallocate[] "+$.inArray(val,roles));
+		}
+	}
+// alert("deallocate: "+deallocate);
+// alert("unchecked: "+unchecked);
+	if(deallocate.length>0){
 	var inputToDeallocate={"payload":{"projectId":$('#projectList').val(),"userId":$('#userList').val(),"roleIds":unchecked}};
 	RequestManager.deallocateRoles(inputToDeallocate,function(data,success){
 	if(success){
-		alert(data.roleIds+" roles are available after deallocating.");	
+		// alert(data.roleIds+" roles are available after deallocating.");
+		alert("successfull");
 	}
 	else{
 		alert(data.message);
 	}
 	}.ctx(this));
+	}
 };
-
+var roles;
 // var Roles = new Roles();

@@ -20,14 +20,12 @@ public class Roles extends AbstractObject
 	@Column(name="ID")
 	private long id;
 	
-
+	public static final long ROLE_ADMIN = 1;
 	
 	@Column(name="NAME")
 	private String name;
 	
-	
-	public static final long ROLE_ADMIN=1; 
-	public static final long ROLE_APPROVER=2; 
+
 	public Roles() {
 	}
 	public long getId() {
