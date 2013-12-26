@@ -18,7 +18,6 @@ import org.hibernate.exception.ConstraintViolationException;
 import com.qts.exception.ExceptionCodes;
 import com.qts.exception.ExceptionMessages;
 import com.qts.exception.UserException;
-import com.qts.model.BaseObject;
 import com.qts.model.ChangePasswordBean;
 import com.qts.model.LoginBean;
 import com.qts.model.User;
@@ -294,7 +293,7 @@ public class UserDAOImpl extends BaseDAOImpl implements UserDAO {
 			createCriteria.add(Restrictions.eq("isDeleted", false));
 			list = createCriteria.list();
 			if (list.size() == 0) {
-				throw new UserException(ExceptionCodes.USER_DOESNOT_EXIST, ExceptionMessages.USER_DOESNOT_EXIST);
+				throw new UserException(ExceptionCodes.EMAIL_NOT_EXISTS, ExceptionMessages.EMAIL_NOT_EXISTS);
 			}
 
 		} finally {
@@ -314,6 +313,7 @@ public class UserDAOImpl extends BaseDAOImpl implements UserDAO {
 
 	}
 
+	@Override
 	public boolean isUserDeleted(long id) {
 		Session session = getSession();
 		boolean isDeleted = false;
@@ -373,6 +373,7 @@ public class UserDAOImpl extends BaseDAOImpl implements UserDAO {
 		return user;
 	}
 
+	@Override
 	public List<User> getUsersOtherThanTheseIds(List<Long> userIds) {
 		Session session = getSession();
 		Iterator<Long> iterator = userIds.listIterator();
@@ -398,17 +399,6 @@ public class UserDAOImpl extends BaseDAOImpl implements UserDAO {
 		userCriteria.addOrder(Order.asc("email"));
 		return userCriteria.list();
 	}
-	
-	
-	@Override
-	public List<User> getUsersByIds(List<Long> userIds) {
-		Session session = getSession();
-		Criteria userCriteria = session.createCriteria(User.class);
-		userCriteria = userCriteria.add(Restrictions.in("id",userIds));
-		userCriteria.add(Restrictions.eq("isDeleted", false));
-		userCriteria.addOrder(Order.asc("email"));
-		return userCriteria.list();
-	}
 
 	@Override
 	public List<String> getEmployeeIds() {
@@ -424,62 +414,15 @@ public class UserDAOImpl extends BaseDAOImpl implements UserDAO {
 		return employeeIdList;
 	}
 
-	
+	@Override
+	public List<User> getUsersByIds(List<Long> userIds) {
+		Session session = getSession();
+		Criteria userCriteria = session.createCriteria(User.class);
+		userCriteria = userCriteria.add(Restrictions.in("id",userIds));
+		userCriteria.add(Restrictions.eq("isDeleted", false));
+		userCriteria.addOrder(Order.asc("email"));
+		return userCriteria.list();
+	}
 
 }
-
-// @Override
-// /addUserfrrom Bean
-// public long addUser(UserBean bean, long id, long cts, long mts,
-// String createdBy, String modifiedBy, boolean isDeleted,
-// long photoFileId) {
-// long userId = 0;
-// boolean gender = bean.getGender().equals("male")?true:false;
-// Session session =getSession();
-// Transaction
-// User user = new User(bean.getEmail(),
-// bean.getPassword(),
-// bean.getEmployeeId(),
-// bean.getFirstName(),
-// bean.getLastName(),
-// bean.getNickName(),
-// bean.getLocation(),
-// gender,
-// bean.getDesignation(),
-// cts,
-// mts,
-// createdBy,
-// modifiedBy,
-// isDeleted,
-// bean.getUserId(),
-// photoFileId);
-// userId = (Integer)session.save(user);
-// transaction.commit();
-//
-// return userId;
-//
-//
-// }
-
-/* searchUser */
-// Set<User> set = new HashSet<User>();
-// List<User> list = new ArrayList<User>();
-//
-// List<User> listNickName = session.createQuery(
-// "from User where nickName = " + bean.getNickName()).list();
-//
-// set.addAll(listNickName);
-// List<User> listEmail = session.createQuery(
-// "from User where email = " + bean.getEmail()).list();
-// set.addAll(listEmail);
-// List<User> listEmployeeId = session.createQuery(
-// "from User where employeeId = " + bean.getEmployeeId()).list();
-// set.addAll(listEmployeeId);
-// List<User> listDesignation = session.createQuery(
-// "from User where designation = " + bean.getDesignation())
-// .list();
-// set.addAll(listDesignation);
-// DAOConnection.closeSession(session);
-// list.addAll(set);
-// return list;
 

@@ -25,7 +25,7 @@ Roles.prototype.handleShow = function() {
 };
 
 Roles.prototype.listProjects = function() {
-RequestManager.listProjects({}, function(data, success) {
+RequestManager.getProjects({}, function(data, success) {
 if (success) {
 	var id=0;var name="";
 	$("#projectList").empty().append("<option>select</option>");
@@ -46,7 +46,7 @@ else{
 };
 
 Roles.prototype.listUsers = function() {
-RequestManager.listUsers({"payload":{"projectId":$("#projectList").val()}}, function(data, success) {
+RequestManager.getProjectUsers({"payload":{"projectId":$("#projectList").val()}}, function(data, success) {
  if (success) {
 	 $("#userList").empty();//.append("<option>select</option>");
 $.each(data,function(key,value){

@@ -6,7 +6,7 @@
 	<session-factory>
 		<!-- hibernate dialect -->
 
-		<property name="connection.url">jdbc:mysql://localhost/project</property>
+		<property name="connection.url">jdbc:mysql://192.168.10.32/project</property>
 		<property name="hibernate.connection.username">qison</property>
 		<property name="hibernate.connection.password">Qis0n123$</property>
 		<property name="connection.driver_class">com.mysql.jdbc.Driver</property>

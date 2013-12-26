@@ -168,7 +168,7 @@ public class ProjectHandler extends AbstractHandler {
 			while (iterator.hasNext()) {
 				userIds.add(iterator.next().getUserId());
 			}
-			userList=DAOFactory.getInstance().getUserDAO().getUsersByIds(userIds);
+			userList=UserHandler.getInstance().getUsersByIds(userIds);
 		} catch (ProjectException e) {
 			throw e;
 		}

@@ -680,4 +680,10 @@ public User getUserById(Long id) throws UserException {
 		List<String> employeeIds = userDAOImpl.getEmployeeIds();
 		return employeeIds;
 	}
+	
+	public List<User> getUsersByIds(List<Long> userIds){
+		UserDAO userDAOImpl = DAOFactory.getInstance().getUserDAO();
+		List<User> usersList=userDAOImpl.getUsersByIds(userIds);
+		return usersList;
+	}
 }

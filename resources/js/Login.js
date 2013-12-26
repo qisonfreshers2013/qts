@@ -62,7 +62,8 @@ Login.prototype.authenticate = function() {
 		      var  token = data.sessionToken;
 		      setCookie('qtsSessionId', token, null);
 		      App.loadWelcome(data.user.nickName);
-		   App.loadOptions(roleIds);
+		      App.loadOptions(roleIds);
+		      App.loadQisonLogo(roleIds);
 		}else{
 			console.log('fail '+ data.message);
 			alert('fail '+ data.message);
