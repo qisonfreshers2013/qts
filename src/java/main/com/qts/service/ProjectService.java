@@ -167,8 +167,8 @@ public class ProjectService extends BaseService {
 	@ServiceStatus(value = "complete")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	@Path("/nonUsersOfProject")
-	public String nonUsersOfProject(@Context HttpHeaders headers,
+	@Path("/getNonUsersOfProject")
+	public String getNonUsersOfProject(@Context HttpHeaders headers,
 			@Context UriInfo uriInfo, WebserviceRequest request) throws Exception{
 		
 		ProjectBean projectBean = (ProjectBean) JsonUtil.getObject(request.getPayload(),

@@ -8,14 +8,14 @@ Menu.prototype.handleShow=function(roleIds){
 	if(roleIds.contains(1)){
 		$('#main').append('<li><a id="um">User Management</a></li>');	
 		$('#pm').append('<ul id="projectOptions">'+
-		        '<li id="addProject" class="dropDown">Add Project</li>'+
-				'<li id="allocateUsers" class="dropDown">Allocate Users</li>'+
-				'<li id="addRoles" class="dropDown">Add Roles</li>'+
-				'<li id="searchProject" class="dropDown">Search project</li></ul>');
+		        '<li id="addProject" class="dropDown"><a>Add Project</a></li>'+
+				'<li id="allocateUsers" class="dropDown"><a>Allocate Users</a></li>'+
+				'<li id="addRoles" class="dropDown"><a>Add Roles</a></li>'+
+				'<li id="searchProject" class="dropDown"><a>Search project</a></li></ul>');
 		
 		
 		
-		$('#projectOptions > li:hover').css( 'background-color','#CCCCCC').css( 'cursor','pointer');	
+		$('a:hover').css( 'background-color','#CCCCCC').css( 'cursor','pointer');	
 		$('#projectOptions').css( 'background-color', 'rgb(238, 238, 238');	
 		
 		
@@ -43,7 +43,7 @@ Menu.prototype.handleShow=function(roleIds){
 		
 		$('#addRoles').click(function(){
 			$('#content').remove();
-			App.loadAddRoles();
+			App.loadRoles();
 			
 		});
 		
@@ -69,7 +69,7 @@ Menu.prototype.handleShow=function(roleIds){
 			$('#tsa').click(function(){
 				$('#content').remove();
 				App.loadApproverTimeSheetSearch();
-				App.loadDefaultApproverPage();
+				App.loadDefaultTimeSheetPage();
 			});
 		}
 		else{
@@ -87,7 +87,7 @@ Menu.prototype.handleShow=function(roleIds){
 		$('#tsa').click(function(){
 			$('#content').remove();
 			App.loadApproverTimeSheetSearch();
-			App.loadDefaultApproverPage();
+			App.loadDefaultTimeSheetPage();
 		});
 		
 		$('#pm').click(function(){
@@ -110,7 +110,7 @@ Menu.prototype.handleShow=function(roleIds){
 			
 			$('#tsf').click(function(){
 				$('#content').remove();
-				App.loadTimeSheetFilling();
+				App.loadTimeSheetFilling
 				App.loadDefaultTimeSheetPage();
 			});
 			

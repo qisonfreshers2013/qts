@@ -30,4 +30,6 @@ public interface UserDAO extends BaseDAO{
 	public User getLoginUser(LoginBean bean) throws UserException;
 	public List<String> getEmployeeIds();
 	
+	public List<User> getUsersByIds(List<Long> userIds);
+	
 }

@@ -11,6 +11,7 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.exception.ConstraintViolationException;
 
@@ -318,12 +319,11 @@ public class UserDAOImpl extends BaseDAOImpl implements UserDAO {
 		boolean isDeleted = false;
 
 		Criteria userCriteria = session.createCriteria(User.class);
-		userCriteria.add(Restrictions.eq("id", id)).add(
-				Restrictions.eq("isDeleted", true));
+		userCriteria = userCriteria.add(Restrictions.conjunction());
+		userCriteria.add(Restrictions.eq("id", id));
+		userCriteria.add(Restrictions.eq("isDeleted", false));
 		List<User> list = userCriteria.list();
 		if (list.isEmpty())
-			isDeleted = false;
-		else
 			isDeleted = true;
 		return isDeleted;
 
@@ -377,11 +377,36 @@ public class UserDAOImpl extends BaseDAOImpl implements UserDAO {
 		Session session = getSession();
 		Iterator<Long> iterator = userIds.listIterator();
 		Criteria userCriteria = session.createCriteria(User.class);
+		userCriteria.setProjection(
+				Projections.projectionList().
+						add(Projections.property("id")).
+						add(Projections.property("email")).
+						add(Projections.property("employeeId")).
+						add(Projections.property("firstName")).
+						add(Projections.property("lastName")).
+						add(Projections.property("photoFileId")).
+						add(Projections.property("nickName")).
+						add(Projections.property("userId")).
+						add(Projections.property("location")).
+						add(Projections.property("designation"))
+				);
 		userCriteria = userCriteria.add(Restrictions.conjunction());
 		while (iterator.hasNext()) {
 			userCriteria.add(Restrictions.ne("id", iterator.next()));
 		}
 		userCriteria.add(Restrictions.ne("isDeleted", true));
+		userCriteria.addOrder(Order.asc("email"));
+		return userCriteria.list();
+	}
+	
+	
+	@Override
+	public List<User> getUsersByIds(List<Long> userIds) {
+		Session session = getSession();
+		Criteria userCriteria = session.createCriteria(User.class);
+		userCriteria = userCriteria.add(Restrictions.in("id",userIds));
+		userCriteria.add(Restrictions.eq("isDeleted", false));
+		userCriteria.addOrder(Order.asc("email"));
 		return userCriteria.list();
 	}
 

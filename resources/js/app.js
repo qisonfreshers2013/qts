@@ -92,7 +92,11 @@ new Roles();
 });
 }
 
-
+App.prototype.loadQisonLogo=function(roleIds){
+	Loader.loadQisonLogo(function(){
+		new QisonLogo(roleIds);
+	});
+}
 
 
 

@@ -250,7 +250,7 @@ public class UserHandler extends AbstractHandler {
 		return user;
 	}
 
-	public boolean isUserDeleted(long id) throws Exception {
+	public boolean isUserDeleted(long id){
 		return DAOFactory.getInstance().getUserDAO().isUserDeleted(id);
 
 	}
