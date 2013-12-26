@@ -77,8 +77,9 @@ Loader.prototype.loadWelcome = function(cb) {
 }
 
 Loader.prototype.loadRoles = function(cb) {
-	LazyLoad.js('resources/js/roles.js', cb);
 	LazyLoad.css('resources/css/roles.css');
+	LazyLoad.js('resources/js/roles.js', cb);
+	
 }
 
 Loader.prototype.loadQisonLogo = function(cb) {

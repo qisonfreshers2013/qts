@@ -1,5 +1,5 @@
 
-div#nicknameField {
+div#nicknameFieldSU {
     color: #000000;
     font-family: 'Arial';
     font-style: normal;
@@ -9,7 +9,7 @@ div#nicknameField {
     text-align: left;
     text-decoration: none;
 }
-div#nicknameText {
+div#nicknameTextSU {
     font-family: 'Arial';
     font-size: 13px;
     font-style: normal;
@@ -20,7 +20,7 @@ div#nicknameText {
     text-align: left;
     text-decoration: none;
 }
-div#designationField {
+div#designationFieldSU {
     font-family: Arial;
     font-style: normal;
     font-weight: normal;
@@ -29,7 +29,7 @@ div#designationField {
     text-align: left;
     word-wrap: break-word;
 }
-div#designationText {
+div#designationTextSU {
     color: #000000;
     font-family: 'Arial';
     font-size: 13px;
@@ -41,22 +41,22 @@ div#designationText {
     text-align: left;
     text-decoration: none;
 }
-div#emailField {
+div#emailFieldSU {
     font-family: Arial;
     font-style: normal;
     font-weight: normal;
-    left: 29%;
+    left: 33%;
     margin-top: -3.3%;
     position: relative;
     text-align: left;
     word-wrap: break-word;
 }
-div#employeeIdField {
+div#employeeIdFieldSU {
     font-family: Arial;
     font-style: normal;
     font-weight: normal;
-    left: 29%;
-    margin-top: -3.3%;
+    left: 33%;
+    margin-top: -5.3%;
     position: relative;
     text-align: left;
     word-wrap: break-word;
@@ -74,7 +74,7 @@ div#search {
     font-size: 13px;
     font-style: normal;
     font-weight: normal;
-    left: 40%;
+    left: 44%;
     margin-top: 1%;
     position: relative;
     text-decoration: none;
@@ -85,6 +85,7 @@ div#content {
     height: 100%;
     position: relative;
     width: 100%;
+    margin-top: 8%;
 }
 div#resultsContainer {
     position: relative;
@@ -93,25 +94,25 @@ div.searchUserContent {
     margin-top: 4%;
     position: relative;
 }
-div.employeeIdText {
-    left: 40%;
+div.employeeIdTextSU {
+    left: 44%;
     margin-top: -3.3%;
     position: relative;
-      
 }
-div.emailText {
-    left: 40%;
-    margin-top: -3.5%;;
+div.emailTextSU {
+    left: 44%;
+    margin-top: -3.5%;
     position: relative;
-    
 }
-select {
-    width: 21%;
+select.employeeId {
+    width: 22.5%;
 }
 #emailText > input {
     width: 20%;
 }
-
-input.search {
-    background-color: #00FF00;
+button.search {
+    background-color:#669933;
+}
+input.nickname ,input.employeeId, input.designation, input.email {
+    width: 21.5%;
 }

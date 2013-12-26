@@ -192,14 +192,14 @@ AllocateUsersToProject.prototype.getProjectUsersAndNonUsers=function(){
 			var id='0';
 			var email='';
 			if(success){
-					data=data.sort(function(a, b){
-						if (a.email.toLowerCase() == b.email.toLowerCase()) {
-					        return 0;
-					    } else if (a.email.toLowerCase() > b.email.toLowerCase()) {
-					        return 1;
-					    }
-					    return -1;
-					});
+//					data=data.sort(function(a, b){
+//						if (a.email.toLowerCase() == b.email.toLowerCase()) {
+//					        return 0;
+//					    } else if (a.email.toLowerCase() > b.email.toLowerCase()) {
+//					        return 1;
+//					    }
+//					    return -1;
+//					});
 				$.each(data,function(key1,value1){
 					$.each(value1,function(key2,value2){
 						if(key2==0){

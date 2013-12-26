@@ -25,7 +25,7 @@ TimeEntry.prototype.handleShow=function(){
 		}
 	}.ctx(this));
 	
-	$('.projectId').click(function(event){
+	$('.projectId').change(function(event){
 	        this.getReleases();
 	}.ctx(this));
 	
@@ -110,7 +110,7 @@ TimeEntry.prototype.getProjects=function(){
 	      name=value2;
 	     }
 	    });
-	    $('.projectId').append('<option value='+id+'>'+name+'</option>');
+	    $('.projectId').append('<option class=\"projectValue\" value='+id+'>'+name+'</option>');
 	   });
 	  }else{
 	   alert(data.message);
@@ -125,7 +125,7 @@ TimeEntry.prototype.getReleases=function(){
 	 RequestManager.getProjectReleases({"payload":{"projectId":id}}, function(data, success) {
 	  if(success){
 	for(var i=0;i<data.length;i++){
-		 $('.selectRelease').append('<option value='+data[i][0]+'>'+data[i][1]+'</option>');
+		 $('.selectRelease').append('<option class=\"releaseValue\" value='+data[i][0]+'>'+data[i][1]+'</option>');
 	}
 	  }else{
 	   $("cancel").trigger("click");

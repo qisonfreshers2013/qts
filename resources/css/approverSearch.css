@@ -17,7 +17,7 @@ p {
 }
 .userHeader {
     float: left;
-    margin: 1% 1% 1% 14%;
+    margin: 1% 1% 1% 18%;
 }
 .userId {
     margin: 0 1% 1% 6%;
@@ -49,5 +49,9 @@ p {
 }
 .search {
     float: left;
-    margin: 2% 1% 1% 9%;
+    margin: 2% 1% 1% -1%;
+}
+#rejectedComments{
+	display: none;
+	width:30%;
 }

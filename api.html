@@ -3,10 +3,10 @@
                     "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<script src="resources/js/lib/jquery.js"></script>
-<script src="resources/js/lib/jquery.treeview.js"></script>
-<link href="resources/css/jquery.treeview.css" rel="stylesheet">
-<style type="text/css">
+  		<script src="resources/js/lib/jquery.js"></script>
+		<script src="resources/js/lib/jquery.treeview.js"></script>
+		<link href="resources/css/jquery.treeview.css" rel="stylesheet">
+  <style type="text/css">
 #browser {
 	font-family: Verdana, helvetica, arial, sans-serif;
 	font-size: 68.75%;
@@ -33,2129 +33,623 @@
 	<ul id="browser" class="filetree">
 		<li><span class="folder module">USER</span>
 			<ul>
-				<li><span class="folder api">save user</span>
+				<li><span class="folder api">authenticate user</span>
 					<ul id="folder1_1">
 						<li><span class="file url">URL :
-								http://localhost:8080/services/v1/user/save</span></li>
-						<li><span class="file input"> input : { "payload": {
-								"id": 3, "qtsId": 1234, "firstName": "rammohan", "lastName":
-								"gundra", "email": "rammohan.reddy@qisonsoft.com", "password":
-								"password1", "gender": "male", "address1": "skp", "address2":
-								"golconda", "city": "pune", "state": "maharashtra", "country":
-								"india", "zip": 501203, "facebookIdentifier": "rammohanFB",
-								"dob": 54321 } } </span></li>
+								http://localhost:8080/services/v1/user/authenticate</span></li>
+						<li><span class="file input"> input
+								:{"payload":{"authType":"REGULAR","email":"NAMINDER@QISON.COM","password":"NAMINDER@123"}}
+						</span></li>
 						<li><span class="file output">output :
-								{"status":"SUCCESS","payload":true}</span></li>
+								{"status":"SUCCESS","payload":{"user":{"location":null,"id":11,"createdBy":"NAMINDER","isDeleted":false,"password":"NAMINDER@123","objectType":104,"email":"NAMINDER@QISON.COM","gender":true,"firstName":"NAMINDER","lastName":"DHIR","cts":2013,"mts":2013,"nickName":"naminder","userId":"NAMINDER@QISON.COM","employeeId":"1","designation":"COO","photoFileId":7,"modifiedBy":"NAMINDER","deleted":0,"creatorId":0,"modifierId":0},"authStatus":0,"sessionToken":"Tt3VTgLb597bOFkbqNLB%2Fg%3D%3D"}}</span>
+						</li>
+
 						<li><span class="file reqtype">method : POST</span></li>
-						<li><span class="file author">author : Rammohan</span></li>
+						<li><span class="file author">author : Anil Ram</span></li>
 					</ul></li>
 			</ul>
 			<ul>
-				<li><span class="folder api">authenticate user</span>
+				<li><span class="folder api">search user</span>
 					<ul id="folder1_2">
-						<li><span class="file url">URL :
-								http://localhost:8080/services/v1/user/authenticate</span></li>
-						<li><span class="file input"> input :{ "payload": {
-								"email": "rammohan.reddy@qisonsoft.com", "password": "password1"
-								} } </span></li>
-						<li><span class="file output">ouput :
-								{"status":"SUCCESS","payload":{"displayName":"rammohan gundra"}}</span>
+						<li><span class="file url">URL
+								:http://localhost:8080/services/v1/user/search</span></li>
+						<li><span class="file input"> input 1 :{} or
+								{"payload":{}} </span></li>
+						<li><span class="file output">output 1 :
+								{"status":"SUCCESS","payload":{"records":[{"projects":["COS/QSP","QTS"],"email":"AJAYKUMAR.SAMUDRALA@QISON.COM","employeeId":"72","designation":"TRAINEE","photoFileUrl":null},{"projects":[],"email":"DEEPA.SHARMA@QISON.COM","employeeId":"69","designation":"TRAINEE","photoFileUrl":null},{"projects":["FLIPLIST","MERAEVENTS","QTSPLATFORM","QisonP","bhjkii"],"email":"manikumar.garaga@qison.com","employeeId":"67","designation":"TRAINEE","photoFileUrl":null},{"projects":["FLIPLIST","MERAEVENTS","bhjkii"],"email":"VAMSI.KUCHI@QISON.COM","employeeId":"23","designation":"APM","photoFileUrl":null},{"projects":[],"email":"LAXMI.MUNNANGI@QISON.COM","employeeId":"78","designation":"TRAINEE","photoFileUrl":null},{"projects":["FLIPLIST"],"email":"NAMINDER@QISON.COM","employeeId":"1","designation":"COO","photoFileUrl":null},{"projects":["COS/QSP","FLIPLIST","MERAEVENTS","QTSPLATFORM"],"email":"ANILRAM.LAXMISETTY@QISON.COM","employeeId":"68","designation":"TRAINEE","photoFileUrl":null},{"projects":["FLIPLIST"],"email":"RAMNIVAS.VENNU@QISON.COM","employeeId":"77","designation":"TRAINEE","photoFileUrl":null},{"projects":[],"email":"Kapila@gmail.com","employeeId":"91","designation":"APM","photoFileUrl":null},{"projects":["QTSPLATFORM","QisonP"],"email":"SHIVA.NIMMAKAYALA@QISON.COM","employeeId":"70","designation":"TRAINEE","photoFileUrl":null},{"projects":["FLIPLIST"],"email":"VINAY.THANDRA@QISON.COM","employeeId":"21","designation":"PROJECT
+								MANAGER","photoFileUrl":null}]}}</span></li>
+						<li><span class="file input"> input 2:
+								{"payload":{"nickName":"Ram"}}</span></li>
+						<li><span class="file output">output 2
+								:{"status":"SUCCESS","payload":{"records":[{"projects":["COS/QSP","FLIPLIST","MERAEVENTS","QTSPLATFORM"],"email":"ANILRAM.LAXMISETTY@QISON.COM","employeeId":"68","designation":"TRAINEE","photoFileUrl":null},{"projects":["FLIPLIST"],"email":"RAMNIVAS.VENNU@QISON.COM","employeeId":"77","designation":"TRAINEE","photoFileUrl":null},{"projects":[],"email":"Kapila@gmail.com","employeeId":"91","designation":"APM","photoFileUrl":null}]}}
+						</span></li>
+						<li><span class="file input"> input 3:
+								{"payload":{"nickName":"Ram","designation":"TRAINEE"}} </span></li>
+						<li><span class="file output">output 3:
+								{"status":"SUCCESS","payload":{"records":[{"projects":["COS/QSP","FLIPLIST","MERAEVENTS","QTSPLATFORM"],"email":"ANILRAM.LAXMISETTY@QISON.COM","employeeId":"68","designation":"TRAINEE","photoFileUrl":null},{"projects":["FLIPLIST"],"email":"RAMNIVAS.VENNU@QISON.COM","employeeId":"77","designation":"TRAINEE","photoFileUrl":null}]}}</span>
+						</li>
+
+						<li><span class="file input"> input 4:
+								{"payload":{"nickName":"Ram","designation":"TRAINEE","employeeId":"68"}}
+						</span></li>
+						<li><span class="file output">output 4:
+								{"status":"SUCCESS","payload":{"records":[{"projects":["COS/QSP","FLIPLIST","MERAEVENTS","QTSPLATFORM"],"email":"ANILRAM.LAXMISETTY@QISON.COM","employeeId":"68","designation":"TRAINEE","photoFileUrl":null}]}}</span>
+						</li>
+						<li><span class="file input"> input 5:
+								{"payload":{"nickName":"Ram","designation":"TRAINEE","employeeId":"68","email":"ANILRAM.LAXMISETTY@QISON.COM"}}
+						</span></li>
+						<li><span class="file output">output 5:
+								{"status":"SUCCESS","payload":{"records":[{"projects":["COS/QSP","FLIPLIST","MERAEVENTS","QTSPLATFORM"],"email":"ANILRAM.LAXMISETTY@QISON.COM","employeeId":"68","designation":"TRAINEE","photoFileUrl":null}]}}</span>
 						</li>
 						<li><span class="file reqtype">method : POST</span></li>
-						<li><span class="file author">author : Rammohan</span></li>
+						<li><span class="file author">author : Anil Ram</span></li>
 					</ul></li>
 			</ul>
 			<ul>
-				<li><span class="folder api">authenticate admin</span>
+				<li><span class="folder api">add user</span>
 					<ul id="folder1_2">
-						<li><span class="file url">URL :
-								http://localhost:8080/services/v1/user/authenticateAdmin</span></li>
-						<li><span class="file input"> input : { "payload": {
-								"email": "rushi@gmail.com", "password": "password", "roleNames"
-								: "AffinityOwner,Editor" } } </span></li>
-						<li><span class="file output">ouput :
-								{"status":"SUCCESS","payload":{"user":{"file":{"name":"Hydrangeas.jpg","fileUrl":"http://www.everymac.com/images/cpu_pictures/apple-macbook-pro-15_09.jpg","id":8,"cts":1349410768668},"role":{"name":"AffinityOwner","id":2},"affinity":null,"name":"Nikitha
-								Reddy","email":"picharagadi.nikitha@qisonsoft.com","id":3},"sessionToken":"UXcFElir8ebgJo7pXTcBTw%3D%3D%0D%0A","authStatus":0}}
+						<li><span class="file url">http://localhost:8080/services/v1/user/add</span></li>
+						<li><span class="file input"> input:
+								{"payload":{"firstName":"rambabu","lastName":"Pasupulati","nickName":"rammi","gender":"Male","email":"rambabu@gmail.com","employeeId":"100","designation":"APM","location":"hyd","userId":"rambabu@gmail.com","password":"pas@123","confirmPassword":"pas@123"}}
 						</span></li>
+						<li><span class="file output">output:{"status":"SUCCESS","payload":23}</span>
+						</li>
 						<li><span class="file reqtype">method : POST</span></li>
-						<li><span class="file author">author : Nikitha</span></li>
+						<li><span class="file author">author : Anil Ram</span></li>
 					</ul></li>
 			</ul>
 			<ul>
-				<li><span class="folder api">register user</span>
+				<li><span class="folder api">delete user</span>
 					<ul id="folder1_3">
-						<li><span class="file url">URL :
-								http://localhost:8080/services/v1/user/register</span></li>
-						<li><span class="file input"> input : { "payload": {
-								"email": "rammohan.reddy@qisonsoft.com", "password": "password",
-								"firstName": "rammohan", "lastName": "reddy" } } </span></li>
-						<li><span class="file output">output :
+						<li><span class="file url">http://localhost:8080/services/v1/user/delete</span></li>
+						<li><span class="file input">input:
+								{"payload":{"id":"5"}} </span></li>
+						<li><span class="file output">output:
 								{"status":"SUCCESS","payload":true}</span></li>
 						<li><span class="file reqtype">method : POST</span></li>
-						<li><span class="file author">author : Rammohan</span></li>
+						<li><span class="file author">author : Anil Ram</span></li>
 					</ul></li>
 			</ul>
 			<ul>
-				<li><span class="folder api">get user details</span>
+				<li><span class="folder api">update User details</span>
 					<ul id="folder1_4">
-						<li><span class="file url">URL :
-								http://localhost:8080/services/v1/user/getDetail</span></li>
-						<li><span class="file input"> input : { "payload": {
-								"email": "rammohan.reddy@qisonsoft.com" } } </span></li>
-						<li><span class="file output"> output : { "status":
-								"SUCCESS", "payload": { "displayName": "rammohan reddy" } } </span></li>
+						<li><span class="file url">http://localhost:8080/services/v1/user/updateUserDetails</span></li>
+						<li><span class="file input">input:{"payload":{"firstName":"Kapila","lastName":"thota","nickName":"rammi","gender":"Male","email":"Kapila@gmail.com","employeeId":"91","designation":"APM","location":"hyd","userId":"Kapila@gmail.com","password":"pas@123","confirmPassword":"pas@123","id":"13"}}
+						</span></li>
+						<li><span class="file output">output:{"status":"SUCCESS","payload":{"location":"hyd","id":13,"password":"pas@123","objectType":104,"employeeId":"91","photoFileId":7,"designation":"APM","modifiedBy":"Naminder","email":"Kapila@gmail.com","nickName":"rammi","userId":"Kapila@gmail.com","cts":1386848141744,"mts":1386848293125,"firstName":"Kapila","lastName":"thota","gender":true,"createdBy":"Naminder","isDeleted":false,"modifierId":0,"creatorId":0,"deleted":0}}</span>
+						</li>
 						<li><span class="file reqtype">method : POST</span></li>
-						<li><span class="file author">author : Rammohan</span></li>
+						<li><span class="file author">author : Anil Ram</span></li>
+					</ul></li>
+			</ul>
+			<ul>
+				<li><span class="folder api">update Login User Details</span>
+					<ul id="folder1_5">
+						<li><span class="file url">http://localhost:8080/services/v1/user/updateLoginUserDetails</span></li>
+						<li><span class="file input">input :
+								{"payload":{"firstName":"Naminder","lastName":"dhir","nickName":"Naminder","location":"Madhapur"}}
+						</span></li>
+						<li><span class="file output">output :
+								status":"SUCCESS","payload":{"location":"Madhapur","id":11,"password":"NAMINDER@123","objectType":104,"employeeId":"1","photoFileId":7,"designation":"COO","email":"NAMINDER@QISON.COM","nickName":"Naminder","userId":"NAMINDER@QISON.COM","cts":2013,"mts":1386864003618,"firstName":"Naminder","lastName":"dhir","gender":true,"createdBy":"NAMINDER","isDeleted":false,"modifiedBy":"Naminder","modifierId":0,"creatorId":0,"deleted":0}}</span>
+						</li>
+						<li><span class="file reqtype">method : POST</span></li>
+						<li><span class="file author">author : Anil Ram</span></li>
+					</ul></li>
+			</ul>
+			<ul>
+				<li><span class="folder api">get Login User Details</span>
+					<ul id="folder1_6">
+						<li><span class="file url">http://localhost:8080/services/v1/user/getLoginUserDetails</span></li>
+						<li><span class="file input">input :{} or
+								{"payload":{"":""}} </span></li>
+						<li><span class="file output">output
+								{"status":"SUCCESS","payload":{"location":"Madhapur","id":11,"password":"NAMINDER@123","objectType":104,"employeeId":"1","photoFileId":7,"designation":"COO","email":"NAMINDER@QISON.COM","nickName":"Naminder","userId":"NAMINDER@QISON.COM","cts":2013,"mts":1386864003618,"firstName":"Naminder","lastName":"dhir","gender":true,"createdBy":"NAMINDER","isDeleted":false,"modifiedBy":"Naminder","modifierId":0,"creatorId":0,"deleted":0}}</span>
+						</li>
+						<li><span class="file reqtype">method : POST</span></li>
+						<li><span class="file author">author : Anil Ram</span></li>
+					</ul></li>
+			</ul>
+			<ul>
+				<li><span class="folder api">get User Details</span>
+					<ul id="folder1_7">
+						<li><span class="file url">http://localhost:8080/services/v1/user/getUserDetails</span></li>
+						<li><span class="file input">input:{"payload":{"id":"1"}}
+						</span></li>
+						<li><span class="file output">output:{"status":"SUCCESS","payload":{"location":"KUKATPALLY","id":1,"password":"KUCHI@123","objectType":104,"employeeId":"23","photoFileId":1,"designation":"APM","email":"VAMSI.KUCHI@QISON.COM","nickName":"KUCHI","userId":"VAMSI.KUCHI@QISON.COM","cts":2013,"mts":2013,"firstName":"VAMSI","lastName":"KRISHNA","gender":true,"createdBy":"NAMINDER","isDeleted":false,"modifiedBy":"NAMINDER","modifierId":0,"creatorId":0,"deleted":0}}</span>
+						</li>
+						<li><span class="file reqtype">method : POST</span></li>
+						<li><span class="file author">author : Anil Ram</span></li>
+					</ul></li>
+			</ul>
+			<ul>
+				<li><span class="folder api">change Password</span>
+					<ul id="folder1_8">
+						<li><span class="file url">http://localhost:8080/services/v1/user/changePassword</span></li>
+						<li><span class="file input">input:
+								{"payload":{"oldPassword":"NAMINDER@123","password":"N@minder123$","confirmPassword":"N@minder123$"}}
+						</span></li>
+						<li><span class="file output">output:
+								{"status":"SUCCESS","payload":true}</span></li>
+						<li><span class="file reqtype">method : POST</span></li>
+						<li><span class="file author">author : Anil Ram</span></li>
 					</ul></li>
 			</ul>
 			<ul>
 				<li><span class="folder api">logout</span>
-					<ul id="folder1_5">
-						<li><span class="file url">URL :
-								http://localhost:8080/services/v1/user/logout</span></li>
-						<li><span class="file input">input : {}</span></li>
-						<li><span class="file output"> output :
-								{"status":"ERROR","payload":{"message":"Please
-								login","code":109}} </span></li>
-						<li><span class="file reqtype">method : POST</span></li>
-						<li><span class="file author">author : Nikitha</span></li>
-					</ul></li>
-			</ul>
-			<ul>
-				<li><span class="folder api">isUserLoggedIn</span>
-					<ul id="folder1_6">
-						<li><span class="file url">URL:
-								http://localhost:8080/services/v1/user/isUserLoggedIn</span></li>
-						<li><span class="file input">input : {}</span></li>
-						<li><span class="file output"> output :
-								{"status":"SUCCESS","payload":true} </span></li>
-					</ul></li>
-			</ul>
-			<ul>
-				<li><span class="folder api">getUsers</span>
-					<ul id="folder1_7">
-						<li><span class="file url">URL:
-								http://localhost:8080/services/v1/user/getUsers</span></li>
-						<li><span class="file input"> input : { "payload": {
-								"pageNo": 1, "pageSize": 10 } } </span></li>
-						<li><span class="file output">output : NOT GIVEN</span></li>
-						<li><span class="file reqtype">method : POST</span></li>
-						<li><span class="file author">author : Rammohan</span></li>
-					</ul></li>
-			</ul>
-			<ul>
-				<li><span class="folder api">getUser</span>
-					<ul id="folder1_8">
-						<li><span class="file url">URL:
-								http://localhost:8080/services/v1/user/getUser</span></li>
-						<li><span class="file input"> input : { "payload": {
-								"id": 1 } } </span></li>
-						<li><span class="file output">output : NOT GIVEN</span></li>
-						<li><span class="file author">author : Rammohan</span></li>
-					</ul></li>
-			</ul>
-			<ul>
-				<li><span class="folder api">get Profile</span>
 					<ul id="folder1_9">
-						<li><span class="file url">URL:
-								http://localhost:8080/services/v1/user/getProfile</span></li>
-						<li><span class="file input"> input : {} </span></li>
-						<li><span class="file output">output : NOT GIVEN</span></li>
+						<li><span class="file url">http://localhost:8080/services/v1/user/logout</span></li>
+						<li><span class="file input">input:{} </span></li>
+						<li><span class="file output">output:{"status":"SUCCESS","payload":true}}</span>
+						</li>
 						<li><span class="file reqtype">method : POST</span></li>
-						<li><span class="file author">author : Rammohan</span></li>
-					</ul></li>
-			</ul>
-			<ul>
-				<li><span class="folder api">get Users By Search</span>
-					<ul id="folder1_10">
-						<li><span class="file url">URL:
-								http://localhost:8080/services/v1/user/getUsersBySearchKey</span></li>
-						<li><span class="file input"> input : { "payload": {
-								"searchKey": "red" } } </span></li>
-						<li><span class="file output">output : NOT GIVEN</span></li>
-						<li><span class="file reqtype">method : POST</span></li>
-						<li><span class="file author">author : Rammohan</span></li>
-					</ul></li>
-			</ul>
-			<ul>
-				<li><span class="folder api">change Role</span>
-					<ul id="folder1_11">
-						<li><span class="file url">URL:
-								http://localhost:8080/services/v1/user/changeRole</span></li>
-						<li><span class="file input"> input : { "payload": {
-								"id":4, "roleId":3 } } </span></li>
-						<li><span class="file output">output : NOT GIVEN</span></li>
-						<li><span class="file reqtype">method : POST</span></li>
-						<li><span class="file author">author : Rammohan</span></li>
-					</ul></li>
-			</ul>
-			<ul>
-				<li><span class="folder api">get Users By Search</span>
-					<ul id="folder1_12">
-						<li><span class="file url">URL:
-								http://localhost:8080/services/v1/user/getUsersBySearchKey</span></li>
-						<li><span class="file input"> input : { "payload": {
-								"searchKey": "red" } } </span></li>
-						<li><span class="file output">output : NOT GIVEN</span></li>
-						<li><span class="file reqtype">method : POST</span></li>
-						<li><span class="file author">author : Rammohan</span></li>
+						<li><span class="file author">author : Anil Ram</span></li>
 					</ul></li>
 			</ul>
 			<ul>
 				<li><span class="folder api">forgot Password</span>
-					<ul id="folder1_14">
-						<li><span class="file url">URL:
-								http://localhost:8080/services/v1/user/forgotPassword</span></li>
-						<li><span class="file input"> input : { "payload": {
-								"email": "asd@asd.com" } } </span></li>
-						<li><span class="file output">output : NOT GIVEN</span></li>
-						<li><span class="file reqtype">method : POST</span></li>
-						<li><span class="file author">author : Rammohan</span></li>
-					</ul></li>
-			</ul>
-			<ul>
-				<li><span class="folder api">reset Password</span>
-					<ul id="folder1_15">
-						<li><span class="file url">URL:
-								http://localhost:8080/services/v1/user/resetPassword</span></li>
-						<li><span class="file input"> input : { "payload": {
-								"newPassword": "myNewPassword", "resetPasswordToken" : "token
-								sent in the mail" } } </span></li>
-						<li><span class="file output">output : NOT GIVEN</span></li>
-						<li><span class="file reqtype">method : POST</span></li>
-						<li><span class="file author">author : Rammohan</span></li>
-					</ul></li>
-			</ul>
-			<ul>
-				<li><span class="folder api">validate the link sent in
-						the email</span>
-					<ul id="folder1_16">
-						<li><span class="file url">URL:
-								http://localhost:8080/services/v1/user/isValidResetPasswordLink</span></li>
-						<li><span class="file input"> input : { "payload": {
-								"resetPasswordToken":"abcd" } } </span></li>
-						<li><span class="file output">output : NOT GIVEN</span></li>
-						<li><span class="file reqtype">method : POST</span></li>
-						<li><span class="file author">author : Rammohan</span></li>
-					</ul></li>
-			</ul>
-			<ul>
-				<li><span class="folder api">get List of Affinity Owners</span>
-					<ul id="folder1_17">
-						<li><span class="file url">URL:
-								http://localhost:8080/services/v1/user/getAffinityOwners</span></li>
-						<li><span class="file input"> input : { "payload": {
-								"pageNo": 1, "pageSize": 10 } } </span></li>
-						<li><span class="file output">output : NOT GIVEN</span></li>
-						<li><span class="file reqtype">method : POST</span></li>
-						<li><span class="file author">author : Nikitha</span></li>
-					</ul></li>
-			</ul>
-			<ul>
-				<li><span class="folder api">ping</span>
-					<ul id="folder1_18">
-						<li><span class="file url">URL:
-								http://localhost:8080/services/v1/user/ping</span></li>
-						<li><span class="file input"> input : { "payload": {
-								"email": "picharagadi.nikitha@qisonsoft.com", "message": "Test
-								ping" } } </span></li>
-						<li><span class="file output">output :
-								{"status":"SUCCESS","payload":true}</span></li>
-						<li><span class="file reqtype">method : POST</span></li>
-						<li><span class="file author">author : Nikitha</span></li>
-					</ul></li>
-				<li><span class="folder api">Save User Tags</span>
-					<ul id="folder1_19">
-						<li><span class="file url">URL:
-								http://localhost:8080/services/v1/user/tag/save</span></li>
-						<li><span class="file input"> input : { "payload": {
-								"name":"IIMA" } } </span></li>
-						<li><span class="file output">output :
-								{"status":"SUCCESS","payload":true}</span></li>
-						<li><span class="file reqtype">method : POST</span></li>
-						<li><span class="file author">author : Nikitha</span></li>
-					</ul></li>
-				<li><span class="folder api">get all User Tags</span>
-					<ul id="folder1_19">
-						<li><span class="file url">URL:
-								http://localhost:8080/services/v1/user/getAllUserTags</span></li>
-						<li><span class="file input"> input : { "payload":
-								"user" } </span></li>
-						<li><span class="file output">output :
-								{"status":"SUCCESS","payload":["Apple","Banana","ball","Apricot","Appreciation","barista"]}</span>
+					<ul id="folder1_10">
+						<li><span class="file url">http://localhost:8080/services/v1/user/forgotPassword</span></li>
+						<li><span class="file input">input:{"payload":{"email":"manikumar.garaga@qison.com"}}
+
+						</span></li>
+						<li><span class="file output">output:{"status":"SUCCESS","payload":true}</span>
 						</li>
 						<li><span class="file reqtype">method : POST</span></li>
-						<li><span class="file author">author : Nikitha</span></li>
+						<li><span class="file author">author : Anil Ram</span></li>
 					</ul></li>
 			</ul></li>
-		<li><span class="folder module">AFFINITY</span>
+		<li><span class="folder module">PROJECT</span>
 			<ul>
-				<li><span class="folder api">create AffinityType</span>
+				<li><span class="folder api">GET PROJECTS</span>
 					<ul id="folder2_1">
-						<li><span class="file url">URL:
-								http://localhost:8080/services/v1/affinity/saveAffinityType</span></li>
-						<li><span class="file input"> input : { "payload": {
-								"name": "Coffee Lovers" } } </span></li>
+						<li><span class="file url">URL :
+								http://localhost:8080/services/v1/project/getProjects</span></li>
+						<li><span class="file input"> input : {} </span></li>
 						<li><span class="file output">output :
-								{"status":"SUCCESS","payload":true}</span></li>
+								{"status":"SUCCESS","payload":[[21,"ANY7"],[11,"ASDFTHUUII"],[14,"bhjkii"],[1,"COS/QSP"],[19,"er"],[25,"ertyujkfcvbh"],[28,"first"],[32,"five"],[39,"Five14"],[42,"Five15"],[2,"FLIPLIST"],[27,"lkj"],[26,"lkjhgfdergggv"],[3,"MERAEVENTS"],[15,"oppoi"],[4,"P4RC"],[22,"pqrs"],[18,"puhfegbfdr"],[8,"QisonP"],[9,"QisonTP"],[6,"QTS"],[7,"QTSPLATFORM"],[23,"qwerty"],[10,"qwertyui"],[29,"second"],[33,"seven"],[34,"TEN"],[37,"TEN2"],[30,"third"],[5,"TP"],[20,"TP
+								MH"]]}</span></li>
 						<li><span class="file reqtype">method : POST</span></li>
-						<li><span class="file author">author : Nikitha</span></li>
+						<li><span class="file author">author : MANI KUMAR</span></li>
 					</ul></li>
 			</ul>
 			<ul>
-				<li><span class="folder api">update AffinityType</span>
+				<li><span class="folder api">GET PROJECTS FOR USER</span>
 					<ul id="folder2_2">
-						<li><span class="file url">URL:
-								http://localhost:8080/services/v1/affinity/updateAffinityType</span></li>
-						<li><span class="file input"> input : { "payload": {
-								"id": 7, "name": "Students Zone" } } </span></li>
-						<li><span class="file output">output :
-								{"status":"SUCCESS","payload":true}</span></li>
+						<li><span class="file url">URL :
+								http://localhost:8080/services/v1/project/getProjectsForUser</span></li>
+						<li><span class="file input"> input:{}
+						 </span></li>
+						<li><span class="file output">ouput :
+								{"status":"SUCCESS","payload":[{"name":"MERAEVENTS","id":3,"objectType":130,"technologies":null,"modifierId":0,"cts":0,"mts":0,"creatorId":0,"deleted":0},{"name":"QTSPLATFORM","id":7,"objectType":130,"technologies":"JAVA","modifierId":0,"cts":0,"mts":0,"creatorId":0,"deleted":0},{"name":"QisonP","id":8,"objectType":130,"technologies":"java","modifierId":0,"cts":0,"mts":0,"creatorId":0,"deleted":0}]}</span>
+						</li>
 						<li><span class="file reqtype">method : POST</span></li>
-						<li><span class="file author">author : Nikitha</span></li>
+						<li><span class="file author">author : MANI KUMAR</span></li>
 					</ul></li>
 			</ul>
 			<ul>
-				<li><span class="folder api">get AffinityType</span>
-					<ul id="folder2_2">
-						<li><span class="file url">URL:
-								http://localhost:8080/services/v1/affinity/getAffinityType</span></li>
-						<li><span class="file input"> input : { "payload": {
-								"id": 7 }} </span></li>
-						<li><span class="file output">output : NOT GIVEN</span></li>
-						<li><span class="file reqtype">method : POST</span></li>
-						<li><span class="file author">author : Nikitha</span></li>
-					</ul></li>
-			</ul>
-			<ul>
-				<li><span class="folder api">get AffinityTypes</span>
+				<li><span class="folder api">ADD PROJECT</span>
 					<ul id="folder2_3">
-						<li><span class="file url">URL:
-								http://localhost:8080/services/v1/affinity/affinityTypes</span></li>
-						<li><span class="file input"> input : { "payload": {
-								"pageNo": 1, "pageSize": 2 } } </span></li>
-						<li><span class="file output"> output : { "status":
-								"SUCCESS", "payload": { "pageNo": 1, "start": 1, "end": 2,
-								"count": 2, "affinityTypes": [ { "name": "Media", "id": 1 }, {
-								"name": "Coffee Lovers", "id": 2 } ] } } </span></li>
+						<li><span class="file url">URL :
+								http://localhost:8080/services/v1/project/add</span></li>
+						<li><span class="file input"> input1 :
+								{"payload":{"name":"QisonProject","technologies":"java"}} </span></li>
+						<li><span class="file output">ouput1 :
+								{"status":"SUCCESS","payload":{"name":"QisonProject","id":43,"objectType":130,"technologies":"java","modifierId":0,"cts":0,"mts":0,"creatorId":0,"deleted":0}}
+						</span></li>
+						<li><span class="file input"> input2
+								:{"payload":{"name":"QisonProject"}} </span></li>
+						<li><span class="file output"> ouput2 :
+								{"status":"SUCCESS","payload":{"name":"QisonProject2","id":44,"objectType":130,"technologies":null,"modifierId":0,"cts":0,"mts":0,"creatorId":0,"deleted":0}}
+						</span></li>
 						<li><span class="file reqtype">method : POST</span></li>
-						<li><span class="file author">author : Nikitha</span></li>
+						<li><span class="file author">author : MANI KUMAR</span></li>
 					</ul></li>
 			</ul>
 			<ul>
-				<li><span class="folder api">create Affinity</span>
+				<li><span class="folder api">PROJECT USERS</span>
 					<ul id="folder2_4">
-						<li><span class="file url">URL:
-								http://localhost:8080/services/v1/affinity/saveAffinity</span></li>
-						<li><span class="file input"> input : { "payload": {
-								"name": "Canon", "type" : 6, "url":"www.Canon.com" } } </span></li>
-						<li><span class="file output">output :
-								{"status":"SUCCESS","payload":true}</span></li>
+						<li><span class="file url">URL
+								:http://localhost:8080/services/v1/project/getProjectUsers</span></li>
+						<li><span class="file input"> input :
+								{"payload":{"projectId":"2"}} </span></li>
+						<li><span class="file output">output
+								{"status":"SUCCESS","payload":[{"location":"LALAPET","id":6,"password":"AJAY@123","objectType":104,"employeeId":"72","designation":"TRAINEE","email":"AJAYKUMAR.SAMUDRALA@QISON.COM","gender":true,"firstName":"AJAY KUMAR","lastName":"SAMUDRALA","nickName":"AJAY","userId":"AJAYKUMAR.SAMUDRALA@QISON.COM","photoFileId":6,"modifiedBy":"Namindher ","cts":2013,"mts":1388032285155,"createdBy":"NAMINDER","isDeleted":false,"modifierId":0,"creatorId":0,"deleted":0},{"location":"hyd","id":2,"password":"Anil@123","objectType":104,"employeeId":"68","designation":"TRAINEE","email":"ANILRAM.LAXMISETTY@QISON.COM","gender":true,"firstName":"anil","lastName":"laxmisetti","nickName":"Anil","userId":"ANILRAM.LAXMISETTY@QISON.COM","photoFileId":2,"modifiedBy":"Anil","cts":2013,"mts":1387897376617,"createdBy":"NAMINDER","isDeleted":false,"modifierId":0,"creatorId":0,"deleted":0},{"location":"SR NAGAR","id":8,"password":"LAXMI@123","objectType":104,"employeeId":"78","designation":"TRAINEE","email":"LAXMI.MUNNANGI@QISON.COM","gender":false,"firstName":"LAXMI CHAITANYA","lastName":"MUNNANGI","nickName":"laxmi","userId":"LAXMI.MUNNANGI@QISON.COM","photoFileId":7,"modifiedBy":"NAMINDER","cts":2013,"mts":2013,"createdBy":"NAMINDER","isDeleted":false,"modifierId":0,"creatorId":0,"deleted":0},{"location":"hyd","id":3,"password":"MANI@123","objectType":104,"employeeId":"67","designation":"TRAINEE","email":"manikumar.garaga@qison.com","gender":true,"firstName":"Mani Kumar","lastName":"Garaga","nickName":"Garaga","userId":"MANIKUMAR.GARAGA@QISON.COM","photoFileId":3,"modifiedBy":"Garaga","cts":2013,"mts":1387953925837,"createdBy":"NAMINDER","isDeleted":false,"modifierId":0,"creatorId":0,"deleted":0},{"location":"hyd","id":31,"password":"pas@123","objectType":104,"employeeId":"2334200","designation":"APM","email":"rambabu4@gmail.com","gender":true,"firstName":"rambabu","lastName":"Pasupulati","nickName":"rammi","userId":"rambabu4@gmail.com","photoFileId":7,"modifiedBy":"Garaga","cts":1387793834005,"mts":1387793834005,"createdBy":"Garaga","isDeleted":false,"modifierId":0,"creatorId":0,"deleted":0},{"location":"hyd","id":4,"password":"SHIVA@123","objectType":104,"employeeId":"70","designation":"APM","email":"SHIVA.NIMMAKAYALA@QISON.COM","gender":true,"firstName":"Kapila","lastName":"thota","nickName":"rammi","userId":"SHIVA.NIMMAKAYALA@QISON.COM","photoFileId":4,"modifiedBy":"dhir","cts":2013,"mts":1387868708837,"createdBy":"NAMINDER","isDeleted":false,"modifierId":0,"creatorId":0,"deleted":0}]}
+						</span></li>
 						<li><span class="file reqtype">method : POST</span></li>
-						<li><span class="file author">author : Nikitha</span></li>
+						<li><span class="file author">author : MANI KUMAR</span></li>
 					</ul></li>
 			</ul>
 			<ul>
-				<li><span class="folder api">update Affinity</span>
+				<li><span class="folder api">NON USERS OF PROJECT</span>
 					<ul id="folder2_5">
-						<li><span class="file url">URL:
-								http://localhost:8080/services/v1/affinity/updateAffinity</span></li>
-						<li><span class="file input"> input : { "payload": {
-								"id":6, "name": "Nike", "type" : 4 } } </span></li>
-						<li><span class="file output">output :
-								{"status":"SUCCESS","payload":true}</span></li>
+						<li><span class="file url">URL
+								:http://localhost:8080/services/v1/project/getNonUsersOfProject</span></li>
+						<li><span class="file input"> input : {"payload":{
+								"projectId":"1"}} </span></li>
+						<li><span class="file output"> output :
+											{"status":"SUCCESS","payload":[[8,"LAXMI.MUNNANGI@QISON.COM","78","LAXMI CHAITANYA","MUNNANGI",7,"laxmi","LAXMI.MUNNANGI@QISON.COM","SR NAGAR","TRAINEE"],[39,"mani@gamil.com","566","sdfhj","asdfhj",7,"fgd","mani@gamil.com","hyd","PKIJN"],[3,"manikumar.garaga@qison.com","67","Mani Kumar","Garaga",3,"Garaga","MANIKUMAR.GARAGA@QISON.COM","hyd","TRAINEE"],[11,"NAMINDER@QISON.COM","1","Namindher ","dhir",7,"Namindher ","NAMINDER@QISON.COM","Madhapur","COO"],[24,"rajesh@gmail.com","200","Kapila","thota",7,"rammi","rajesh@gmail.com","hyd","APM"],[19,"Ram@gmail.com","96","Ramesh","Pasupulati",7,"rammi","Ram@gmail.com","hyd","APM"],[31,"rambabu4@gmail.com","2334200","rambabu","Pasupulati",7,"rammi","rambabu4@gmail.com","hyd","APM"],[23,"rambabu@gmail.com","100","rambabu","Pasupulati",7,"rammi","rambabu@gmail.com","hyd","APM"],[12,"Ramesh@gmail.com","90","Ramesh","Pasupulati",7,"rammi","Ramesh@gmail.com","hyd","APM"],[20,"Rammi@gmail.com","97","Ramesh","Pasupulati",7,"rammi","Rammi@gmail.com","hyd","APM"],[9,"RAMNIVAS.VENNU@QISON.COM","77","RAM NIVAS","VENNU",7,"ram","RAMNIVAS.VENNU@QISON.COM","SR NAGAR","TRAINEE"],[4,"SHIVA.NIMMAKAYALA@QISON.COM","70","Kapila","thota",4,"rammi","SHIVA.NIMMAKAYALA@QISON.COM","hyd","APM"],[1,"VAMSI.KUCHI@QISON.COM","150","Kapila","thota",1,"rammi","VAMSI.KUCHI@QISON.COM","hyd","APM"],[10,"VINAY.THANDRA@QISON.COM","21","VINAY","THANDRA",7,"vinay","VINAY.THANDRA@QISON.COM",null,"PROJECT MANAGER"]]}						</span></li>
 						<li><span class="file reqtype">method : POST</span></li>
-						<li><span class="file author">author : Nikitha</span></li>
+						<li><span class="file author">author : mani kumar</span></li>
 					</ul></li>
 			</ul>
 			<ul>
-				<li><span class="folder api">get Affinity</span>
+				<li><span class="folder api">ALLOCATE USERS TO PROJECT</span>
 					<ul id="folder2_6">
-						<li><span class="file url">URL:
-								http://localhost:8080/services/v1/affinity/getAffinity</span></li>
-						<li><span class="file input"> input : { "payload": {
-								"id":6 }} </span></li>
-						<li><span class="file output">output : NOT GIVEN</span></li>
+						<li><span class="file url">URL :
+								http://localhost:8080/services/v1/project/allocateUsersToProject</span></li>
+						<li><span class="file input">input : {"payload":{
+								"projectId":"2", "userIds":["1","2","3"]}} </span></li>
+						<li><span class="file output"> output :
+												{"status":"SUCCESS","payload":[{"location":"LALAPET","id":6,"password":"AJAY@123","objectType":104,"employeeId":"72","designation":"TRAINEE","email":"AJAYKUMAR.SAMUDRALA@QISON.COM","gender":true,"firstName":"AJAY KUMAR","lastName":"SAMUDRALA","nickName":"AJAY","userId":"AJAYKUMAR.SAMUDRALA@QISON.COM","photoFileId":6,"modifiedBy":"Namindher ","cts":2013,"mts":1388032285155,"createdBy":"NAMINDER","isDeleted":false,"modifierId":0,"creatorId":0,"deleted":0},{"location":"hyd","id":2,"password":"Anil@123","objectType":104,"employeeId":"68","designation":"TRAINEE","email":"ANILRAM.LAXMISETTY@QISON.COM","gender":true,"firstName":"anil","lastName":"laxmisetti","nickName":"Anil","userId":"ANILRAM.LAXMISETTY@QISON.COM","photoFileId":2,"modifiedBy":"Anil","cts":2013,"mts":1387897376617,"createdBy":"NAMINDER","isDeleted":false,"modifierId":0,"creatorId":0,"deleted":0},{"location":"sdfg","id":40,"password":"asdasd","objectType":104,"employeeId":"ZXcv","designation":"ASDFGHJK","email":"as@gmail.com","gender":true,"firstName":"aSZfgnjm","lastName":"wsdel","nickName":"","userId":"as@gmail.com","photoFileId":7,"modifiedBy":"Namindher ","cts":1388044602718,"mts":1388044602718,"createdBy":"Namindher ","isDeleted":false,"modifierId":0,"creatorId":0,"deleted":0},{"location":"HABSIGUDA","id":7,"password":"deepa123","objectType":104,"employeeId":"69","designation":"APM","email":"DEEPA.SHARMA@QISON.COM","gender":false,"firstName":"DEEPA","lastName":"SHARMA","nickName":"deepa","userId":"DEEPA.SHARMA@QISON.COM","photoFileId":7,"modifiedBy":"deepa","cts":2013,"mts":1388042172900,"createdBy":"NAMINDER","isDeleted":false,"modifierId":0,"creatorId":0,"deleted":0},{"location":"BHARATHNAGAR","id":5,"password":"meyur123","objectType":104,"employeeId":"71","designation":"TRAINEE","email":"jagadish@qison.com","gender":true,"firstName":"JAGADISH","lastName":"MEYUR SHAMBUNATH","nickName":"MEYUR SHAMBUNATH","userId":"JAGADISH.MS@QISON.COM","photoFileId":5,"modifiedBy":"NAMINDER","cts":2013,"mts":2013,"createdBy":"NAMINDER","isDeleted":false,"modifierId":0,"creatorId":0,"deleted":0},{"location":"hyd","id":34,"password":"123456","objectType":104,"employeeId":"1004","designation":"APM","email":"kamal@we.com","gender":true,"firstName":"Kamal","lastName":"Kamal","nickName":"","userId":"kamal@we.com","photoFileId":7,"modifiedBy":"Ram","cts":1387799634416,"mts":1387799634416,"createdBy":"Ram","isDeleted":false,"modifierId":0,"creatorId":0,"deleted":0}]}
+						</span></li>
 						<li><span class="file reqtype">method : POST</span></li>
-						<li><span class="file author">author : Nikitha</span></li>
+						<li><span class="file author">author : Mani kumar</span></li>
 					</ul></li>
 			</ul>
 			<ul>
-				<li><span class="folder api">get Affinities</span>
+				<li><span class="folder api">DEALLOCATE USERS FROM
+						PROJECT</span>
 					<ul id="folder2_7">
 						<li><span class="file url">URL:
-								http://localhost:8080/services/v1/affinity/affinities</span></li>
-						<li><span class="file input"> input1 : { "payload": {
-								"pageNo": 1, "pageSize": 10 } } </span></li>
-						<li><span class="file input"> input2 : { "payload": {
-								"pageNo": 1, "pageSize": 10, "type":1 } } </span></li>
-						<li><span class="file output"> output : { "status":
-								"SUCCESS", "payload": { "pageNo": 1, "start": 1, "end": 2,
-								"count": 2, "affinities": [ { "name": "Hindu", "type": 1, "url":
-								"www.TheHindu.com", "id": 1 }, { "name": "Cafe Coffe Day",
-								"type": 2, "url": "www.CafeCoffeeDay.com", "id": 2 } ] } } </span></li>
+								http://localhost:8080/services/v1/project/deAllocateUsersFromProject</span></li>
+						<li><span class="file input">input :
+								{"payload":{"projectId":"2","userIds":["7"]}} </span></li>
+						<li><span class="file output"> output :
+													{"status":"SUCCESS","payload":[{"location":"Madhapur","id":11,"password":"NAMINDER@123","objectType":104,"employeeId":"1","designation":"COO","email":"NAMINDER@QISON.COM","gender":true,"firstName":"Namindher ","lastName":"dhir","nickName":"Namindher ","userId":"NAMINDER@QISON.COM","photoFileId":7,"modifiedBy":"Namindher ","cts":2013,"mts":1388032007949,"createdBy":"NAMINDER","isDeleted":false,"modifierId":0,"creatorId":0,"deleted":0},{"location":"hyd","id":24,"password":"pas@123","objectType":104,"employeeId":"200","designation":"APM","email":"rajesh@gmail.com","gender":true,"firstName":"Kapila","lastName":"thota","nickName":"rammi","userId":"rajesh@gmail.com","photoFileId":7,"modifiedBy":"nani","cts":1386916902857,"mts":1387536074351,"createdBy":"Garaga","isDeleted":false,"modifierId":0,"creatorId":0,"deleted":0},{"location":"hyd","id":19,"password":"pas@123","objectType":104,"employeeId":"96","designation":"APM","email":"Ram@gmail.com","gender":true,"firstName":"Ramesh","lastName":"Pasupulati","nickName":"rammi","userId":"Ram@gmail.com","photoFileId":7,"modifiedBy":"Garaga","cts":1386910831445,"mts":1386910831445,"createdBy":"Garaga","isDeleted":false,"modifierId":0,"creatorId":0,"deleted":0},{"location":"hyd","id":31,"password":"pas@123","objectType":104,"employeeId":"2334200","designation":"APM","email":"rambabu4@gmail.com","gender":true,"firstName":"rambabu","lastName":"Pasupulati","nickName":"rammi","userId":"rambabu4@gmail.com","photoFileId":7,"modifiedBy":"Garaga","cts":1387793834005,"mts":1387793834005,"createdBy":"Garaga","isDeleted":false,"modifierId":0,"creatorId":0,"deleted":0},{"location":"hyd","id":23,"password":"pas@123","objectType":104,"employeeId":"100","designation":"APM","email":"rambabu@gmail.com","gender":true,"firstName":"rambabu","lastName":"Pasupulati","nickName":"rammi","userId":"rambabu@gmail.com","photoFileId":7,"modifiedBy":"Garaga","cts":1386914328593,"mts":1386914328593,"createdBy":"Garaga","isDeleted":false,"modifierId":0,"creatorId":0,"deleted":0},{"location":"hyd","id":12,"password":"pas@123","objectType":104,"employeeId":"90","designation":"APM","email":"Ramesh@gmail.com","gender":true,"firstName":"Ramesh","lastName":"Pasupulati","nickName":"rammi","userId":"Ramesh@gmail.com","photoFileId":7,"modifiedBy":"NAMINDER","cts":1386848076106,"mts":1386848076106,"createdBy":"NAMINDER","isDeleted":false,"modifierId":0,"creatorId":0,"deleted":0},{"location":"hyd","id":20,"password":"pas@123","objectType":104,"employeeId":"97","designation":"APM","email":"Rammi@gmail.com","gender":true,"firstName":"Ramesh","lastName":"Pasupulati","nickName":"rammi","userId":"Rammi@gmail.com","photoFileId":7,"modifiedBy":"Garaga","cts":1386910893663,"mts":1386911472607,"createdBy":"Garaga","isDeleted":false,"modifierId":0,"creatorId":0,"deleted":0},{"location":"SR NAGAR","id":9,"password":"NIVAS@123","objectType":104,"employeeId":"77","designation":"TRAINEE","email":"RAMNIVAS.VENNU@QISON.COM","gender":true,"firstName":"RAM NIVAS","lastName":"VENNU","nickName":"ram","userId":"RAMNIVAS.VENNU@QISON.COM","photoFileId":7,"modifiedBy":"NAMINDER","cts":2013,"mts":2013,"createdBy":"NAMINDER","isDeleted":false,"modifierId":0,"creatorId":0,"deleted":0},{"location":"hyd","id":4,"password":"SHIVA@123","objectType":104,"employeeId":"70","designation":"APM","email":"SHIVA.NIMMAKAYALA@QISON.COM","gender":true,"firstName":"Kapila","lastName":"thota","nickName":"rammi","userId":"SHIVA.NIMMAKAYALA@QISON.COM","photoFileId":4,"modifiedBy":"dhir","cts":2013,"mts":1387868708837,"createdBy":"NAMINDER","isDeleted":false,"modifierId":0,"creatorId":0,"deleted":0},{"location":"hyd","id":1,"password":"KUCHI@123","objectType":104,"employeeId":"150","designation":"APM","email":"VAMSI.KUCHI@QISON.COM","gender":true,"firstName":"Kapila","lastName":"thota","nickName":"rammi","userId":"VAMSI.KUCHI@QISON.COM","photoFileId":1,"modifiedBy":"rammi","cts":2013,"mts":1387541107943,"createdBy":"NAMINDER","isDeleted":false,"modifierId":0,"creatorId":0,"deleted":0},{"location":null,"id":10,"password":"VINAY@123","objectType":104,"employeeId":"21","designation":"PROJECT MANAGER","email":"VINAY.THANDRA@QISON.COM","gender":true,"firstName":"VINAY","lastName":"THANDRA","nickName":"vinay","userId":"VINAY.THANDRA@QISON.COM","photoFileId":7,"modifiedBy":"NAMINDER","cts":2013,"mts":2013,"createdBy":"NAMINDER","isDeleted":false,"modifierId":0,"creatorId":0,"deleted":0}]}						</span></li>
 						<li><span class="file reqtype">method : POST</span></li>
-						<li><span class="file author">author : Nikitha</span></li>
+						<li><span class="file author">author : MANI KUMAR</span></li>
 					</ul></li>
 			</ul></li>
-		<li><span class="folder module">DISCUSSIONS</span>
+		<li><span class="folder module">TIME ENTRY</span>
+	 		<ul>
+	 			<li><span class="folder api">ADD TIME ENTRY</span>
+	 				<ul id="folder3_1">
+	 					<li><span class="file url">URL : http://localhost:8080/services/v1/timeEntry/add</span></li>
+						<li>
+							<span class="file input">
+								input : { "payload": { "date": "12-12-2013",
+									"projectId":"3", "releaseId": "6", "activityId": "2",
+									"task": "coding", "hours":"3", "userRemarks": "almost done"} }
+							</span>
+						</li>
+						<li>
+							<span class="file output">output :	{"status":"SUCCESS","payload":true}</span>
+						</li>	
+						<li>
+							<span class="file reqtype">method :	POST</span>
+						</li>
+						<li>
+							<span class="file author">author : Ajay Kumar</span>
+						</li>		
+					</ul>
+	 			</li>
+	 		</ul>
+	 		<ul>
+	 			<li><span class="folder api">DELETE TIME ENTRY</span>
+	 				<ul id="folder3_2">
+	 					<li><span class="file url">URL : http://localhost:8080/services/v1/timeEntry/delete</span></li>
+						<li>
+							<span class="file input">
+								input : { "payload": { "id": "39"} }
+							</span>
+						</li>
+						<li>
+							<span class="file output">output :{"status":"SUCCESS","payload":true}</span>
+						</li>	
+						<li>
+							<span class="file reqtype">method :	POST</span>
+						</li>
+						<li>
+							<span class="file author">author : Ajay Kumar</span>
+						</li>		
+					</ul>
+	 			</li>
+	 		</ul>
+	 		<ul>
+	 			<li><span class="folder api">UPDATE TIME ENTRY</span>
+	 				<ul id="folder3_3">
+	 					<li><span class="file url">URL : http://localhost:8080/services/v1/timeEntry/update</span></li>
+						<li>
+							<span class="file input">
+								input : { "payload":{"id":"40","projectId":"3","releaseId":"6","activityId":"2","date":"12/13/2013","task":"fixing bug","hours":"3","userRemarks":"testing"} }
+							</span>
+						</li>
+						<li>
+							<span class="file output">output : {"status":"SUCCESS","payload":true}</span>
+						</li>	
+						<li>
+							<span class="file reqtype">method :	POST</span>
+						</li>
+						<li>
+							<span class="file author">author : Ajay Kumar</span>
+						</li>		
+					</ul>
+	 			</li>
+	 		</ul>
+	 		<ul>
+	 			<li><span class="folder api">SUBMIT TIME ENTRIES</span>
+	 				<ul id="folder3_4">
+	 					<li><span class="file url">URL : http://localhost:8080/services/v1/timeEntry/submitTimeEntries</span></li>
+						<li>
+							<span class="file input">
+								input : { "payload": {"timeEntries":[{"id":"56"},{"id":"57"},{"id":"58"}] } }
+							</span>
+						</li>
+						<li>
+							<span class="file output">output :	{"status":"SUCCESS","payload":true}</span>
+						</li>	
+						<li>
+							<span class="file reqtype">method :	POST</span>
+						</li>
+						<li>
+							<span class="file author">author : Ajay Kumar</span>
+						</li>		
+					</ul>
+	 			</li>
+	 		</ul>
+	 		<ul>
+	 			<li><span class="folder api">APPROVE TIME ENTRY</span>
+	 				<ul id="folder3_5">
+	 					<li><span class="file url">URL : http://localhost:8080/services/v1/timeEntry/approveTimeEntry</span></li>
+						<li>
+							<span class="file input">
+								input : { "payload": {"id":"39" }}
+							</span>
+						</li>
+						<li>
+							<span class="file output">output :	{"status":"SUCCESS","payload":true}</span>
+						</li>	
+						<li>
+							<span class="file reqtype">method :	POST</span>
+						</li>
+						<li>
+							<span class="file author">author : Ajay Kumar</span>
+						</li>		
+					</ul>
+	 			</li>
+	 		</ul>
+	 			<ul>
+	 			<li><span class="folder api">REJECT TIME ENTRY</span>
+	 				<ul id="folder3_6">
+	 					<li><span class="file url">URL : http://localhost:8080/services/v1/timeEntry/rejectTimeEntry</span></li>
+						<li>
+							<span class="file input">
+								input : { "payload": {"id":"35","rejectedComments":"TaskNotyetDone"} }
+							</span>
+						</li>
+						<li>
+							<span class="file output">output :	{"status":"SUCCESS","payload":true}</span>
+						</li>	
+						<li>
+							<span class="file reqtype">method :	POST</span>
+						</li>
+						<li>
+							<span class="file author">author : Ajay Kumar</span>
+						</li>		
+					</ul>
+	 			</li>
+	 		</ul>
+	 		 			<ul>
+	 			<li><span class="folder api">USER SEARCH RESULTS</span>
+	 				<ul id="folder3_7">
+	 					<li><span class="file url">URL : http://localhost:8080/services/v1/timeEntry/searchTimeEntriesByUser</span></li>
+						<li>
+							<span class="file input">
+								input : { "payload": {} }
+							</span>
+						</li>
+						<li>
+							<span class="file output">output :{"status":"SUCCESS","payload":[[40,1386873000000,3,6,"fixing bug",2,3,2,"testing"]]}</span>
+					   </li>
+					   <li>
+							<span class="file input">
+								input :{"payload":{"date":"12-13-2013","projectId":"3"}}
+							</span>
+						</li>
+						 	<li>
+							<span class="file output">output :{"status":"SUCCESS","payload":[[40,1386873000000,3,6,"fixing bug",2,3,2,"testing"]]}</span>
+					   </li>
+					   		   <li>
+							<span class="file input">
+								input :{"payload":{"date":"12-13-2013"}}
+							</span>
+						</li>
+						 	<li>
+							<span class="file output">output :{"status":"SUCCESS","payload":[[40,1386873000000,3,6,"fixing bug",2,3,2,"testing"]]}</span>
+					   </li>
+					   		   <li>
+							<span class="file input">
+								input :{"payload":{"projectId":"3"}}
+							</span>
+						</li>
+						 	<li>
+							<span class="file output">output :{"status":"SUCCESS","payload":[[40,1386873000000,3,6,"fixing bug",2,3,2,"testing"]]}</span>
+					   </li>	
+						<li>
+							<span class="file reqtype">method :	POST</span>
+						</li>
+						<li>
+							<span class="file author">author : Ajay Kumar</span>
+						</li>		
+					</ul>
+	 			</li>
+	 		</ul>
+	 		 			<ul>
+	 			<li><span class="folder api">APPROVER SEARCH RESULTS</span>
+	 				<ul id="folder3_8">
+	 					<li><span class="file url">URL : http://localhost:8080/services/v1/timeEntry/searchTimeEntriesByApprover</span></li>
+						<li>
+							<span class="file input">
+								input : { "payload": {} }
+							</span>
+						</li>
+						<li>
+							<span class="file output">output :{"status":"SUCCESS","payload":[[37,1386613800000,6,1,16,"UpdateEntryServiceTesting",2,1,1,"done with Uservice",null,null],[38,1386786600000,10,2,5,"developing",2,2,1,"following naming convention",null,null]]}</span>
+						</li>
+							<li>
+							<span class="file input">
+								input : { "payload": {"userId":"6","status":"3"} }
+							</span>
+						</li>
+						<li>
+							<span class="file output">output :{"status":"SUCCESS","payload":[[35,1388428200000,6,1,15,"Coding",2,3,3,null,null,"TaskNotyetDone"],[36,1384885800000,6,1,15,"Coding",2,3,3,null,null,"FillDataCorrectly"]]}
+						</li>
+									</li>
+							<li>
+							<span class="file input">
+								input : { "payload":{"projectId":"3","status":"2"} }
+							</span>
+						</li>
+						<li>
+							<span class="file output">output :{"status":"SUCCESS","payload":[[40,1386873000000,7,3,6,"fixing bug",2,3,2,"testing",null,null]]}
+						</li>
+								<li>
+							<span class="file input">
+								input : { "payload":{"projectId":"3","status":"2","userId":7} }
+							</span>
+						</li>
+						<li>
+							<span class="file output">output :{"status":"SUCCESS","payload":[[40,1386873000000,7,3,6,"fixing bug",2,3,2,"testing",null,null]]}
+						</li>
+									<li>
+							<span class="file input">
+								input :{ "payload": { "projectId":"1","status":"1","userId":6,"from":"12-05-2013" } }
+							</span>
+						</li>
+						<li>
+							<span class="file output">output :{"status":"SUCCESS","payload":[[37,1386613800000,6,1,16,"UpdateEntryServiceTesting",2,1,1,"done with Uservice",null,null]]}
+						</li>
+						<li>
+							<span class="file input">
+								input :{ "payload":  { "projectId":"1","status":"1","userId":6,"from":"12-05-2013","to":"12-13-2013" }}
+							</span>
+						</li>
+						<li>
+							<span class="file output">output :{"status":"SUCCESS","payload":[[37,1386613800000,6,1,16,"UpdateEntryServiceTesting",2,1,1,"done with Uservice",null,null]]}
+						</li>
+						<li>
+						<span class="file input">
+								input :{ "payload":  {"status":"1","from":"12-05-2013","to":"12-13-2013" }}
+							</span>
+						</li>
+						<li>
+							<span class="file output">output :{"status":"SUCCESS","payload":[[37,1386613800000,6,1,16,"UpdateEntryServiceTesting",2,1,1,"done with Uservice",null,null],[38,1386786600000,10,2,5,"developing",2,2,1,"following naming convention",null,null]]}
+						</li>
+						<li>
+						<span class="file input">
+								input :{ "payload":  {"status":"1"}}
+							</span>
+						</li>
+						<li>
+							<span class="file output">output :{"status":"SUCCESS","payload":[[2,2013,1,1,2,"coding",2,5,1,"successful",null,null],[7,2013,5,1,1,"developing algorithm",3,4,1,null,null,null],[8,2013,5,1,1,"drawing flowcharts",3,5,1,null,null,null],[9,2013,6,1,1,"creating user cases",2,10,1,"some user cases are pending",null,null],[10,2013,7,1,1,"functional testing",3,4,1,null,null,null],[11,2013,7,2,2,"regression testing",3,4,1,null,null,null],[12,2013,8,2,1,"retriving bug 999f",3,7,1,null,null,null],[13,2013,9,2,1,"study manual",2,4,1,null,null,null],[19,1386095400000,1,6,15,"Guiding freshers",4,8,1,"nothing",null,null],[37,1386613800000,6,1,16,"UpdateEntryServiceTesting",2,1,1,"done with Uservice",null,null],[38,1386786600000,10,2,5,"developing",2,2,1,"following naming convention",null,null],[45,1387045800000,3,3,16,"coding",2,3,1,"almost done",null,null]]}
+						</li>	
+						<li>
+							<span class="file reqtype">method :	POST</span>
+						</li>
+						<li>
+							<span class="file author">author : Ajay Kumar</span>
+						</li>		
+					</ul>
+	 			</li>
+	 		</ul>
+			</li>
+		<li><span class="folder module">ROLES</span>
 			<ul>
-				<li><span class="folder api">save article</span>
-					<ul id="folder3_1">
-						<li><span class="file url">URL :
-								http://localhost:8080/services/v1/article/save</span></li>
-						<li><span class="file input"> input : { "payload": {
-								"title": "Judges will head RTI panels now, rules SC",
-								"categoryId": 1, "tags": [ "Android", "Media Players" ],
-								"richContent": "Judges will head RTI panels now, rules SC",
-								"markers": [ 1, 2 ], "fileId": 0, "noOfLikes": 0, "noOfViews":
-								0, "noOfComments": 0, "rating": 5, "noOfRatings": 1, "goLiveOn":
-								0, "archived": 0, "authorId":1 } } </span></li>
-						<li><span class="file output">output :
-								{"status":"SUCCESS","payload":true}</span></li>
-						<li><span class="file reqtype">method : POST</span></li>
-						<li><span class="file author">author : Nikitha</span></li>
-					</ul></li>
-			</ul>
-			<ul>
-				<li><span class="folder api">update article</span>
-					<ul id="folder3_2">
-						<li><span class="file url">URL :
-								http://localhost:8080/services/v1/article/update</span></li>
-						<li><span class="file input"> input : { "payload": {
-								"id":1 "title": "Judges will head RTI panels now, rules SC",
-								"categoryId": 1, "tags": [ "Android", "Media Players" ],
-								"richContent": "Judges will head RTI panels now, rules SC",
-								"markers": [ 1, 2 ], "fileId": 0, "rating": 5, "goLiveOn": 0,
-								"archived": 0, "authorId":1 } } } } </span></li>
-						<li><span class="file output">output :
-								{"status":"SUCCESS","payload":true}</span></li>
-						<li><span class="file reqtype">method : POST</span></li>
-						<li><span class="file author">author : Nikitha</span></li>
-					</ul></li>
-			</ul>
-			<ul>
-				<li><span class="folder api">publish article</span>
-					<ul id="folder3_3">
-						<li><span class="file url">URL :
-								http://localhost:8080/services/v1/article/publish</span></li>
-						<li><span class="file input"> input : { "payload": {
-								"id":2 } } </span></li>
-						<li><span class="file output">output :
-								{"status":"SUCCESS","payload":true}</span></li>
-						<li><span class="file reqtype">method : POST</span></li>
-						<li><span class="file author">author : Nikitha</span></li>
-					</ul></li>
-			</ul>
-			<ul>
-				<li><span class="folder api">archive article</span>
-					<ul id="folder3_4">
-						<li><span class="file url">URL :
-								http://localhost:8080/services/v1/article/archive</span></li>
-						<li><span class="file input"> input : { "payload": {
-								"id":2 } } </span></li>
-						<li><span class="file output">output :
-								{"status":"SUCCESS","payload":true}</span></li>
-						<li><span class="file reqtype">method : POST</span></li>
-						<li><span class="file author">author : Nikitha</span></li>
-					</ul></li>
-			</ul>
-			<ul>
-				<li><span class="folder api">get articles for CKEditor
-						Links</span>
-					<ul id="folder3_4">
-						<li><span class="file url">URL :
-								http://localhost:8080/services/v1/article/getAllForLinks</span></li>
-						<li><span class="file input"> input : {} </span></li>
-						<li><span class="file output">output :
-								{"status":"SUCCESS","payload":[{"title":"Test Comments
-								1","id":50},{"title":"Sample Article","id":49}]} </span></li>
-						<li><span class="file reqtype">method : POST</span></li>
-						<li><span class="file author">author : Rammohan</span></li>
-					</ul></li>
-			</ul>
-			<ul>
-				<li><span class="folder api">get articles</span>
-					<ul id="folder3_5">
-						<li><span class="file url">URL:
-								http://localhost:8080/services/v1/article/getArticles</span></li>
-						<li><span class="file input"> input1 : { "payload": {
-								"pageNo": 1, "pageSize": 3 } } </span></li>
-						<li><span class="file input"> input2 : { "payload": {
-								"pageNo": 1, "pageSize": 3, "categoryId": 1 } } </span></li>
-						<li><span class="file input"> input3 : { "payload": {
-								"pageNo": 1, "pageSize": 3, "tag":"Android" } } </span></li>
-						<li><span class="file input"> input4 : { "payload": {
-								"pageNo": 1, "pageSize": 3, "categoryId": 1, "tag":"Android" } }
-						</span></li>
-						<li><span class="file input"> input5 : { "payload": {
-								"pageNo": 1, "pageSize": 3, "markerId":1 } } </span></li>
-						<li><span class="file output"> output : { "status":
-								"SUCCESS", "payload": { "pageNo": 1, "end": 1, "start": 1,
-								"count": 6, "list": [ { "markers": [ { "name": "Editor Choice",
-								"imageUrl":
-								"http://photo.net/equipment/recommended/editors-choice-badge.jpg",
-								"id": 1 } ], "authorName": "vinay thandra", "title": "No apology
-								from The Washington Post for article calling PM Manmohan Singh A
-								Tragic Figure", "imageUrl":
-								"http://www.ndtv.com/news/images/story_page/Prime_Minister_Manmohan_Singh_new_pic_295.jpg",
-								"richContent": "New Delhi: Not many days after the Time magazine
-								called him an underachiever, another widely respected
-								publication has been critical of Prime Minister Manmohan Singh
-								and the UPA, saying his image is one of a dithering, ineffectual
-								bureaucrat presidin", "noOfLikes": 0, "noOfViews": 0,
-								"noOfComments": 0, "id": 1, "cts": 0 } ] } } </span></li>
-						<li><span class="file reqtype">method : POST</span></li>
-						<li><span class="file author">author : Rammohan</span></li>
-					</ul></li>
-			</ul>
-			<ul>
-				<li><span class="folder api">get articles for affinity
-						owner</span>
-					<ul id="folder3_6">
-						<li><span class="file url">URL :
-								http://localhost:8080/services/v1/article/getArticlesForAffinityOwner</span></li>
-						<li><span class="file input"> input : { "payload": {
-								"pageNo": 1, "pageSize": 3 } } </span></li>
-						<li><span class="file output">output :
-								{"status":"SUCCESS","payload":true}</span></li>
-						<li><span class="file reqtype">method : POST</span></li>
-						<li><span class="file author">author : Nikitha</span></li>
-					</ul></li>
-			</ul>
-			<ul>
-				<li><span class="folder api">get article</span>
-					<ul id="folder3_7">
-						<li><span class="file url">URL :
-								http://localhost:8080/services/v1/article/getArticle</span></li>
-						<li><span class="file input"> input : { "payload": {
-								"id": 1 } } </span></li>
-						<li><span class="file output"> output : { "status":
-								"SUCCESS", "payload": { "markersList": [ { "name":
-								"Recommended", "imageUrl": "recommended.jpg", "id": 1 }, {
-								"name": "Editor's Choice", "imageUrl": "editor.jpg", "id": 2 }
-								], "title": "Under 19 world Cup", "categoryId": 1, "tags": [
-								"T20", "Unmukt Chand" ], "richContent": "Under 19 World Cup",
-								"noOfComments": 0, "id": 0 } } </span></li>
-						<li><span class="file reqtype">method : POST</span></li>
-						<li><span class="file author">author : Rammohan</span></li>
-					</ul></li>
-			</ul>
-			<ul>
-				<li><span class="folder api">like article</span>
-					<ul id="folder3_8">
-						<li><span class="file url">URL :
-								http://localhost:8080/services/v1/article/like</span></li>
-						<li><span class="file input"> input : { "payload": {
-								"id": 1 } } </span></li>
-						<li><span class="file output"> output :
-								{"status":"SUCCESS","payload":786} </span></li>
-						<li><span class="file reqtype">method : POST</span></li>
-						<li><span class="file author">author : Nikitha</span></li>
-					</ul></li>
-			</ul>
-			<ul>
-				<li><span class="folder api">is article liked</span>
-					<ul id="folder3_8">
-						<li><span class="file url">URL :
-								http://localhost:8080/services/v1/article/isLiked</span></li>
-						<li><span class="file input"> input : { "payload": {
-								"id": 3 } } </span></li>
-						<li><span class="file output"> output :
-								{"status":"SUCCESS","payload":true} </span></li>
-						<li><span class="file reqtype">method : POST</span></li>
-						<li><span class="file author">author : Nikitha</span></li>
-					</ul></li>
-			</ul>
-			<ul>
-				<li><span class="folder api">rate this article</span>
-					<ul id="folder3_8">
-						<li><span class="file url">URL :
-								http://localhost:8080/services/v1/article/rating</span></li>
-						<li><span class="file input"> input : { "payload": {
-								"id": 3, "totalRating": 1 } } </span></li>
-						<li><span class="file output"> output : NOT GIVEN </span></li>
-						<li><span class="file reqtype">method : POST</span></li>
-						<li><span class="file author">author : Rajshekar</span></li>
-					</ul></li>
-			</ul>
-			<ul>
-				<li><span class="folder api">is article rated</span>
-					<ul id="folder3_8">
-						<li><span class="file url">URL :
-								http://localhost:8080/services/v1/article/isRated</span></li>
-						<li><span class="file input"> input : { "payload": {
-								"id": 3 } } </span></li>
-						<li><span class="file output"> output : NOT GIVEN </span></li>
-						<li><span class="file reqtype">method : POST</span></li>
-						<li><span class="file author">author : Rajshekar</span></li>
-					</ul></li>
-			</ul>
-
-			<ul>
-				<li><span class="folder api">get Recent Comments For
-						Category right side widget</span>
-					<ul id="folder3_8">
-						<li><span class="file url">URL :
-								http://localhost:8080/services/v1/article/comment/getRecentForCategory</span></li>
-						<li><span class="file input"> input : { "payload": {
-								"id": 3 } } </span></li>
-						<li><span class="file output"> output : { "status":
-								"SUCCESS", "payload": [ { "id": 270, "date": 1363683058424,
-								"description": "Article Test For Comments 2", "articleId": 58,
-								"author": "Nikitha Reddy" }, { "id": 269, "date": 1363683054682,
-								"description": "Article Test For Comments 1", "articleId": 58,
-								"author": "Nikitha Reddy" }, { "id": 268, "date": 1363678465945,
-								"description": "1.1.1.1", "articleId": 57, "author": "Nikitha
-								Reddy" }, { "id": 267, "date": 1363678457336, "description":
-								"1.1.1", "articleId": 57, "author": "Nikitha Reddy" }, { "id":
-								266, "date": 1363678448481, "description": "1.1", "articleId":
-								57, "author": "Nikitha Reddy" }, { "id": 265, "date":
-								1363678422575, "description": "4.1.1", "articleId": 57,
-								"author": "Nikitha Reddy" }, { "id": 264, "date": 1363678415078,
-								"description": "4.1", "articleId": 57, "author": "Nikitha Reddy"
-								}, { "id": 263, "date": 1363678407328, "description": "7.1",
-								"articleId": 57, "author": "Nikitha Reddy" }, { "id": 262,
-								"date": 1363678400622, "description": "7", "articleId": 57,
-								"author": "Nikitha Reddy" }, { "id": 261, "date": 1363678397798,
-								"description": "6", "articleId": 57, "author": "Nikitha Reddy" }
-								] } </span></li>
-						<li><span class="file reqtype">method : POST</span></li>
-						<li><span class="file author">author : Nikitha</span></li>
-					</ul></li>
-			</ul>
-
-			<ul>
-				<li><span class="folder api">get Top Rated Comments For
-						Category right side widget</span>
-					<ul id="folder3_8">
-						<li><span class="file url">URL :
-								http://localhost:8080/services/v1/article/comment/getTopRatedForCategory</span></li>
-						<li><span class="file input"> input : { "payload": {
-								"id": 3 } } </span></li>
-						<li><span class="file output"> output : { "status":
-								"SUCCESS", "payload": [ { "description": "6", "articleId": 57,
-								"agrees": 2, "id": 261 }, { "description": "4", "articleId": 57,
-								"agrees": 1, "id": 258 }, { "description": "comment 1",
-								"articleId": 57, "agrees": 0, "id": 254 }, { "description":
-								"comment 2", "articleId": 57, "agrees": 0, "id": 255 }, {
-								"description": "comment 3", "articleId": 57, "agrees": 0, "id":
-								256 }, { "description": "yes", "articleId": 57, "agrees": 0,
-								"id": 257 }, { "description": "4", "articleId": 57, "agrees": 0,
-								"id": 259 }, { "description": "5", "articleId": 57, "agrees": 0,
-								"id": 260 }, { "description": "7", "articleId": 57, "agrees": 0,
-								"id": 262 }, { "description": "7.1", "articleId": 57, "agrees":
-								0, "id": 263 } ] } </span></li>
-						<li><span class="file reqtype">method : POST</span></li>
-						<li><span class="file author">author : Nikitha</span></li>
-					</ul></li>
-			</ul>
-
-			<ul>
-				<li><span class="folder api">get Top Rated Articles For
-						Category right side widget</span>
-					<ul id="folder3_8">
-						<li><span class="file url">URL :
-								http://localhost:8080/services/v1/article/getTopRatedForCategory</span></li>
-						<li><span class="file input"> input : { "payload": {
-								"id": 3 } } </span></li>
-						<li><span class="file output"> output : { "status":
-								"SUCCESS", "payload": [ { "id": 2, "date": 1347104412000,
-								"rating": 4.0, "title": "Google Maps gets live traffic updates,
-								navigation in India", "author": "vinay thandra", "imageFile": {
-								} }, { "id": 5, "date": 1347617412000, "rating": 4.0, "title":
-								"Iran says it treats Israeli military threats as American",
-								"author": "vinay thandra", "imageFile": { } }, { "id": 3,
-								"date": 1347253752000, "rating": 3.5, "title": "Drone strike
-								kills 5 Qaeda militants", "author": "vinay thandra",
-								"imageFile": { } }, { "id": 25, "date": 1347013815000, "rating":
-								3.5, "title": "Troubled monsoon session of Parliament ends",
-								"author": "vinay thandra", "imageFile": { } }, { "id": 23,
-								"date": 1349770517000, "rating": 3.0, "title": "Govt may hike
-								fuel prices next week", "author": "vinay thandra", "imageFile":
-								{ } }, { "id": 4, "date": 1347451932000, "rating": 0.5, "title":
-								"China backs Transition in Syria", "author": "vinay thandra",
-								"imageFile": { } } ] } </span></li>
-						<li><span class="file reqtype">method : POST</span></li>
-						<li><span class="file author">author : Nikitha</span></li>
-					</ul></li>
-			</ul>
-
-			<ul>
-				<li><span class="folder api">post Comment</span>
-					<ul id="folder3_8">
-						<li><span class="file url">URL :
-								http://localhost:8080/services/v1/article/postComment</span></li>
-						<li><span class="file input"> input : { "payload": {
-								"articleId":1, "parentId":0, "description":"Awesome" } } </span></li>
-						<li><span class="file output"> output : { "status":
-								"SUCCESS", "payload": { "commentedBy": "vinay thandra",
-								"fileUrl": null, "description": "Smart work", "level": 0,
-								"articleId": 2, "noOfLikes": 0, "archived": 0, "parentId": 0,
-								"flagged": 0, "id": 0 } } </span></li>
-						<li><span class="file reqtype">method : POST</span></li>
-						<li><span class="file author">author : Rammohan</span></li>
-					</ul></li>
-			</ul>
-			<ul>
-				<li><span class="folder api">like Comment</span>
-					<ul id="folder3_8">
-						<li><span class="file url">URL :
-								http://localhost:8080/services/v1/article/comment/like</span></li>
-						<li><span class="file input"> input : { "payload": {
-								"id":2 } } </span></li>
-						<li><span class="file output"> output :
-								{"status":"SUCCESS","payload":3} </span></li>
-						<li><span class="file reqtype">method : POST</span></li>
-						<li><span class="file author">author : Rammohan</span></li>
-					</ul></li>
-			</ul>
-			<ul>
-				<li><span class="folder api">is Comment liked</span>
-					<ul id="folder3_8">
-						<li><span class="file url">URL :
-								http://localhost:8080/services/v1/article/comment/isLiked</span></li>
-						<li><span class="file input"> input : { "payload": {
-								"id":2 } } </span></li>
-						<li><span class="file output"> output : NOT GIVEN </span></li>
-						<li><span class="file reqtype">method : POST</span></li>
-						<li><span class="file author">author : Rammohan</span></li>
-					</ul></li>
-			</ul>
-			<ul>
-				<li><span class="folder api">get comments</span>
-					<ul id="folder3_8">
-						<li><span class="file url">URL :
-								http://localhost:8080/services/v1/article/getComments</span></li>
-						<li><span class="file input"> input : { "payload": {
-								"pageNo": 1, "pageSize": 10, "articleId":1 } } </span></li>
-						<li><span class="file output"> output : NOT GIVEN </span></li>
-						<li><span class="file reqtype">method : POST</span></li>
-						<li><span class="file author">author : Rammohan</span></li>
-					</ul></li>
-			</ul>
-			<ul>
-				<li><span class="folder api">get recent articles </span>
-					<ul id="folder3_8">
-						<li><span class="file url">URL :
-								http://localhost:8080/services/v1/article/getRecent</span></li>
-						<li><span class="file input"> input : { "payload": {}}
-						</span></li>
-						<li><span class="file output"> output : NOT GIVEN </span></li>
-						<li><span class="file reqtype">method : POST</span></li>
-						<li><span class="file author">author : Nikitha</span></li>
-					</ul></li>
-			</ul>
-			<ul>
-				<li><span class="folder api">get recent comments </span>
-					<ul id="folder3_8">
-						<li><span class="file url">URL :
-								http://localhost:8080/services/v1/article/comment/getRecent</span></li>
-						<li><span class="file input"> input : { "payload": {}}
-						</span></li>
-						<li><span class="file output"> output : NOT GIVEN </span></li>
-						<li><span class="file reqtype">method : POST</span></li>
-						<li><span class="file author">author : Nikitha</span></li>
-					</ul></li>
-			</ul>
-			<ul>
-				<li><span class="folder api">get top rated articles </span>
-					<ul id="folder3_8">
-						<li><span class="file url">URL :
-								http://localhost:8080/services/v1/article/getTopRated</span></li>
-						<li><span class="file input"> input : { "payload": {}}
-						</span></li>
-						<li><span class="file output"> output : NOT GIVEN </span></li>
-						<li><span class="file reqtype">method : POST</span></li>
-						<li><span class="file author">author : Nikitha</span></li>
-					</ul></li>
-			</ul>
-			<ul>
-				<li><span class="folder api">get top rated comments </span>
-					<ul id="folder3_8">
-						<li><span class="file url">URL :
-								http://localhost:8080/services/v1/article/comment/getTopRated</span></li>
-						<li><span class="file input"> input : { "payload": {}}
-						</span></li>
-						<li><span class="file output"> output : NOT GIVEN </span></li>
-						<li><span class="file reqtype">method : POST</span></li>
-						<li><span class="file author">author : Nikitha</span></li>
-					</ul></li>
-			</ul>
-			<ul>
-				<li><span class="folder api">agree Comment</span>
-					<ul id="folder3_8">
-						<li><span class="file url">URL :
-								http://localhost:8080/services/v1/article/comment/agree</span></li>
-						<li><span class="file input"> input : { "payload": {
-								"id":2 } } </span></li>
-						<li><span class="file output"> output :
-								{"status":"SUCCESS","payload":3} </span></li>
-						<li><span class="file reqtype">method : POST</span></li>
-						<li><span class="file author">author : Rammohan</span></li>
-					</ul></li>
-			</ul>
-			<ul>
-				<li><span class="folder api">disagree Comment</span>
-					<ul id="folder3_8">
-						<li><span class="file url">URL :
-								http://localhost:8080/services/v1/article/comment/disagree</span></li>
-						<li><span class="file input"> input : { "payload": {
-								"id":2 } } </span></li>
-						<li><span class="file output"> output :
-								{"status":"SUCCESS","payload":3} </span></li>
-						<li><span class="file reqtype">method : POST</span></li>
-						<li><span class="file author">author : Rammohan</span></li>
-					</ul></li>
-			</ul>
-			<ul>
-				<li><span class="folder api">flag Comment</span>
-					<ul id="folder3_8">
-						<li><span class="file url">URL :
-								http://localhost:8080/services/v1/article/comment/flag</span></li>
-						<li><span class="file input"> input : { "payload": {
-								"id":2 } } </span></li>
-						<li><span class="file output"> output :
-								{"status":"SUCCESS","payload":3} </span></li>
-						<li><span class="file reqtype">method : POST</span></li>
-						<li><span class="file author">author : Rammohan</span></li>
-					</ul></li>
-			</ul>
-			<ul>
-				<li><span class="folder api">unflag Comment</span>
-					<ul id="folder3_8">
-						<li><span class="file url">URL :
-								http://localhost:8080/services/v1/article/comment/unflag</span></li>
-						<li><span class="file input"> input : { "payload": {
-								"id":2 } } </span></li>
-						<li><span class="file output"> output :
-								{"status":"SUCCESS","payload":3} </span></li>
-						<li><span class="file reqtype">method : POST</span></li>
-						<li><span class="file author">author : Rammohan</span></li>
-					</ul></li>
-			</ul>
-			<ul>
-				<li><span class="folder api">archive Comment</span>
-					<ul id="folder3_8">
-						<li><span class="file url">URL :
-								http://localhost:8080/services/v1/article/comment/archive</span></li>
-						<li><span class="file input"> input : { "payload": {
-								"id":2 } } </span></li>
-						<li><span class="file output"> output :
-								{"status":"SUCCESS","payload":true} </span></li>
-						<li><span class="file reqtype">method : POST</span></li>
-						<li><span class="file author">author : Rammohan</span></li>
-					</ul></li>
-			</ul>
-			<ul>
-				<li><span class="folder api">get flagged comments</span>
-					<ul id="folder3_8">
-						<li><span class="file url">URL :
-								http://localhost:8080/services/v1/article/comment/getFlagged</span></li>
-						<li><span class="file input"> input : { "payload": {
-								"pageNo":1, "pageSize":10 } } </span></li>
-						<li><span class="file output"> output :
-								{"status":"SUCCESS","payload":{"pageNo":1,"start":1,"end":10,"count":17,"comments":[{"file":{"name":"jung_alchemyA.jpg","fileUrl":["http://localhost:800//_0_0/image/13364629278497.jpg"],"thumbNail":null,"id":311,"cts":1362820097326},"commentedBy":{"file":null,"firstName":"Prabhas","lastName":"Raju","email":"prabhas@gmail.com","name":"Prabhas
-								Raju","id":21},"repliedTo":null,"agreeStatus":"noAction","description":"4996","level":0,"flagged":1,"articleId":57,"archived":0,"parentId":0,"agrees":0,"disagrees":0,"id":5245,"cts":1362822483075},{"file":{"name":"jung_alchemyA.jpg","fileUrl":["http://localhost:800//_0_0/image/13364629278497.jpg"],"thumbNail":null,"id":311,"cts":1362820097326},"commentedBy":{"file":null,"firstName":"Prabhas","lastName":"Raju","email":"prabhas@gmail.com","name":"Prabhas
-								Raju","id":21},"repliedTo":null,"agreeStatus":"noAction","description":"4995","level":0,"flagged":1,"articleId":57,"archived":0,"parentId":0,"agrees":0,"disagrees":0,"id":5244,"cts":1362822482980},{"file":{"name":"jung_alchemyA.jpg","fileUrl":["http://localhost:800//_0_0/image/13364629278497.jpg"],"thumbNail":null,"id":311,"cts":1362820097326},"commentedBy":{"file":null,"firstName":"Prabhas","lastName":"Raju","email":"prabhas@gmail.com","name":"Prabhas
-								Raju","id":21},"repliedTo":null,"agreeStatus":"noAction","description":"4994","level":0,"flagged":1,"articleId":57,"archived":0,"parentId":0,"agrees":0,"disagrees":0,"id":5243,"cts":1362822482886},{"file":{"name":"jung_alchemyA.jpg","fileUrl":["http://localhost:800//_0_0/image/13364629278497.jpg"],"thumbNail":null,"id":311,"cts":1362820097326},"commentedBy":{"file":null,"firstName":"Prabhas","lastName":"Raju","email":"prabhas@gmail.com","name":"Prabhas
-								Raju","id":21},"repliedTo":null,"agreeStatus":"noAction","description":"4993","level":0,"flagged":1,"articleId":57,"archived":0,"parentId":0,"agrees":0,"disagrees":0,"id":5242,"cts":1362822482791},{"file":{"name":"jung_alchemyA.jpg","fileUrl":["http://localhost:800//_0_0/image/13364629278497.jpg"],"thumbNail":null,"id":311,"cts":1362820097326},"commentedBy":{"file":null,"firstName":"Prabhas","lastName":"Raju","email":"prabhas@gmail.com","name":"Prabhas
-								Raju","id":21},"repliedTo":null,"agreeStatus":"noAction","description":"4992","level":0,"flagged":1,"articleId":57,"archived":0,"parentId":0,"agrees":0,"disagrees":0,"id":5241,"cts":1362822482339},{"file":{"name":"jung_alchemyA.jpg","fileUrl":["http://localhost:800//_0_0/image/13364629278497.jpg"],"thumbNail":null,"id":311,"cts":1362820097326},"commentedBy":{"file":null,"firstName":"Prabhas","lastName":"Raju","email":"prabhas@gmail.com","name":"Prabhas
-								Raju","id":21},"repliedTo":null,"agreeStatus":"noAction","description":"4991","level":0,"flagged":1,"articleId":57,"archived":0,"parentId":0,"agrees":0,"disagrees":0,"id":5240,"cts":1362822482244},{"file":{"name":"jung_alchemyA.jpg","fileUrl":["http://localhost:800//_0_0/image/13364629278497.jpg"],"thumbNail":null,"id":311,"cts":1362820097326},"commentedBy":{"file":null,"firstName":"Prabhas","lastName":"Raju","email":"prabhas@gmail.com","name":"Prabhas
-								Raju","id":21},"repliedTo":null,"agreeStatus":"noAction","description":"4990","level":0,"flagged":1,"articleId":57,"archived":0,"parentId":0,"agrees":0,"disagrees":0,"id":5239,"cts":1362822482150},{"file":{"name":"jung_alchemyA.jpg","fileUrl":["http://localhost:800//_0_0/image/13364629278497.jpg"],"thumbNail":null,"id":311,"cts":1362820097326},"commentedBy":{"file":null,"firstName":"Prabhas","lastName":"Raju","email":"prabhas@gmail.com","name":"Prabhas
-								Raju","id":21},"repliedTo":null,"agreeStatus":"noAction","description":"4989","level":0,"flagged":1,"articleId":57,"archived":0,"parentId":0,"agrees":0,"disagrees":0,"id":5238,"cts":1362822482055},{"file":{"name":"jung_alchemyA.jpg","fileUrl":["http://localhost:800//_0_0/image/13364629278497.jpg"],"thumbNail":null,"id":311,"cts":1362820097326},"commentedBy":{"file":null,"firstName":"Prabhas","lastName":"Raju","email":"prabhas@gmail.com","name":"Prabhas
-								Raju","id":21},"repliedTo":null,"agreeStatus":"noAction","description":"4988","level":0,"flagged":1,"articleId":57,"archived":0,"parentId":0,"agrees":0,"disagrees":0,"id":5237,"cts":1362822481961},{"file":{"name":"jung_alchemyA.jpg","fileUrl":["http://localhost:800//_0_0/image/13364629278497.jpg"],"thumbNail":null,"id":311,"cts":1362820097326},"commentedBy":{"file":null,"firstName":"Prabhas","lastName":"Raju","email":"prabhas@gmail.com","name":"Prabhas
-								Raju","id":21},"repliedTo":null,"agreeStatus":"noAction","description":"4987","level":0,"flagged":1,"articleId":57,"archived":0,"parentId":0,"agrees":0,"disagrees":0,"id":5236,"cts":1362822481866}]}}
-						</span></li>
-						<li><span class="file reqtype">method : POST</span></li>
-						<li><span class="file author">author : Rammohan</span></li>
-					</ul></li>
-			</ul></li>
-		<li><span class="folder module">ADMIN</span>
-			<ul>
-				<li><span class="folder api">save marker</span>
+				<li><span class="folder api">get All Roles</span>
 					<ul id="folder4_1">
 						<li><span class="file url">URL :
-								http://localhost:8080/services/v1/marker/save</span></li>
-						<li><span class="file input"> input : { "payload": {
-								"name":"Editor's Choice", "fileId":"3" } } </span></li>
+								http://localhost:8080/services/v1/role/get</span></li>
+						<li><span class="file input"> input : { "payload": {}
+						</span></li>
 						<li><span class="file output">output :
-								{"status":"SUCCESS","payload":true}</span></li>
+								{"status":"SUCCESS","payload":[[1,"ADMIN"],[2,"APPROVER"],[3,"MEMBER"]]}</span></li>
 						<li><span class="file reqtype">method : POST</span></li>
-						<li><span class="file author">author : Nikitha</span></li>
+						<li><span class="file author">author : Jagadish</span></li>
 					</ul></li>
 			</ul>
 			<ul>
-				<li><span class="folder api">update marker</span>
+				<li><span class="folder api">get User Roles</span>
 					<ul id="folder4_2">
 						<li><span class="file url">URL :
-								http://localhost:8080/services/v1/marker/update</span></li>
-						<li><span class="file input"> input : { "payload":
-								{"id": 1, "name":"Editor's Choice", "fileId":"3" } } </span></li>
+								http://localhost:8080/services/v1/role/getUserRoles</span></li>
+						<li><span class="file input"> input : {"payload":{
+								"userId":3, "projectId":3 } } </span></li>
 						<li><span class="file output">output :
-								{"status":"SUCCESS","payload":true}</span></li>
+								{"status":"SUCCESS","payload":{"projectId":3,"userId":3,"roleIds":[2,3]}}</span></li>
 						<li><span class="file reqtype">method : POST</span></li>
-						<li><span class="file author">author : Nikitha</span></li>
+						<li><span class="file author">author : Jagadish</span></li>
 					</ul></li>
 			</ul>
 			<ul>
-				<li><span class="folder api">get Markers</span>
+				<li><span class="folder api">allocate Roles</span>
 					<ul id="folder4_3">
 						<li><span class="file url">URL :
-								http://localhost:8080/services/v1/marker/markers</span></li>
-						<li><span class="file input"> input : { "payload": {
-								"pageNo": 1, "pageSize": 2 } } </span></li>
+								http://localhost:8080/services/v1/role/allocateRoles</span></li>
+						<li><span class="file input"> input : {"payload":{
+								"userId":3, "projectId":3, "roleIds":[2,3] } } </span></li>
 						<li><span class="file output"> output :
-								{"status":"SUCCESS","payload":{"pageNo":1,"start":1,"end":2,"count":5,"markers":[{"file":{"name":"Mixed
-								Flowers and a
-								Bear.jpg","fileUrl":"http://localhost:8080/upload/Affinity_1_UserId_27/IMAGE/Mixed
-								Flowers and a
-								Bear_1_1360320796976.jpg","id":159,"cts":1360320796995},"name":"testMarker","id":40},{"file":{"name":"index.jpg","fileUrl":"http://localhost:8080/upload/Affinity_1_UserId_27/IMAGE/index_1_1360312532171.jpg","id":158,"cts":1360312532188},"name":"Affinity1Marker","id":39}]}}
+								{"status":"SUCCESS","payload":{"projectId":3,"userId":3,"roleIds":[2,3]}}
 						</span></li>
 						<li><span class="file reqtype">method : POST</span></li>
-						<li><span class="file author">author : Nikitha</span></li>
+						<li><span class="file author">author : Jagadish</span></li>
 					</ul></li>
 			</ul>
 			<ul>
-				<li><span class="folder api">get All Markers</span>
+				<li><span class="folder api">deallocate Roles</span>
 					<ul id="folder4_3">
 						<li><span class="file url">URL :
-								http://localhost:8080/services/v1/marker/allMarkers</span></li>
-						<li><span class="file input"> input : {} </span></li>
-						<li><span class="file output"> output : { "status":
-								"SUCCESS", "payload": [ { "file": { "name": "Mixed Flowers and a
-								Bear.jpg", "fileUrl":
-								"http://localhost:8080/upload/Affinity_1_UserId_27/IMAGE/Mixed
-								Flowers and a Bear_1_1360320796976.jpg", "id": 159, "cts":
-								1360320796995 }, "name": "testMarker", "id": 40 }, { "file": {
-								"name": "index.jpg", "fileUrl":
-								"http://localhost:8080/upload/Affinity_1_UserId_27/IMAGE/index_1_1360312532171.jpg",
-								"id": 158, "cts": 1360312532188 }, "name": "Affinity1Marker",
-								"id": 39 }, { "file": { "name": "Hydrangeas.jpg", "fileUrl":
-								"http://www.ece.ncsu.edu/news_info/images/featured_story.jpg",
-								"id": 5, "cts": 1349410224418 }, "name": "Featured", "id": 3 },
-								{ "file": { "name": "Lighthouse.jpg", "fileUrl":
-								"http://www.dekho.in/images/icons/recommended_vote48.gif", "id":
-								4, "cts": 1349351009980 }, "name": "Recommended", "id": 2 }, {
-								"file": { "name": "Lighthouse.jpg", "fileUrl":
-								"http://photo.net/equipment/recommended/editors-choice-badge.jpg",
-								"id": 3, "cts": 1349349818405 }, "name": "Editor Choice", "id":
-								1 } ] } </span></li>
-						<li><span class="file reqtype">method : POST</span></li>
-						<li><span class="file author">author : Nikitha</span></li>
-					</ul></li>
-			</ul>
-			<ul>
-				<li><span class="folder api">archive marker</span>
-					<ul id="folder4_5">
-						<li><span class="file url">URL :
-								http://localhost:8080/services/v1/marker/archive</span></li>
-						<li><span class="file input"> input : { "payload": {
-								"id":1 } } </span></li>
+								http://localhost:8080/services/v1/role/deallocateRoles</span></li>
+						<li><span class="file input"> input :{"payload":{
+								"userId":3, "projectId":3, "roleIds":[1] } } </span></li>
 						<li><span class="file output"> output :
-								{"status":"SUCCESS","payload":true} </span></li>
+								{"status":"SUCCESS","payload":{"projectId":3,"userId":3,"roleIds":[2,3]}}
+						</span></li>
 						<li><span class="file reqtype">method : POST</span></li>
-						<li><span class="file author">author : Rammohan</span></li>
-					</ul></li>
-			</ul>
-
-			<ul>
-				<li><span class="folder api">save tag</span>
-					<ul id="folder4_6">
-						<li><span class="file url">URL :
-								http://localhost:8080/services/v1/tag/save</span></li>
-						<li><span class="file input"> input : { "payload":
-								"Sports" } </span></li>
-						<li><span class="file output">output :
-								{"status":"SUCCESS","payload":true}</span></li>
-						<li><span class="file reqtype">method : POST</span></li>
-						<li><span class="file author">author : Nikitha</span></li>
-					</ul></li>
-			</ul>
-			<ul>
-				<li><span class="folder api">update tag</span>
-					<ul id="folder4_7">
-						<li><span class="file url">URL :
-								http://localhost:8080/services/v1/tag/update</span></li>
-						<li><span class="file input"> input : { "payload": {
-								"id":1, "name":"Sports" } } </span></li>
-						<li><span class="file output">output :
-								{"status":"SUCCESS","payload":true}</span></li>
-						<li><span class="file reqtype">method : POST</span></li>
-						<li><span class="file author">author : Nikitha</span></li>
-					</ul></li>
-			</ul>
-			<ul>
-				<li><span class="folder api">get All Tags</span>
-					<ul id="folder4_8">
-						<li><span class="file url">URL :
-								http://localhost:8080/services/v1/tag/allTags</span></li>
-						<li><span class="file input"> input :
-								{payload:"global"} </span></li>
-						<li><span class="file output"> output : { "status":
-								"SUCCESS", "payload": [ "Sports", "Criket"] } </span></li>
-						<li><span class="file reqtype">method : POST</span></li>
-						<li><span class="file author">author : Nikitha</span></li>
-					</ul></li>
-			</ul>
-			<ul>
-				<li><span class="folder api">get Tags (deprecated)</span>
-					<ul id="folder4_9">
-						<li><span class="file url">URL :
-								http://localhost:8080/services/v1/tag/tags</span></li>
-						<li><span class="file input"> input : { "payload": {
-								"pageNo":1, "pageSize":2} } </span></li>
-						<li><span class="file output"> output : { "status":
-								"SUCCESS", "payload": [ { "name": "Sports", "id": 1 }, { "name":
-								"Criket", "id": 2 } ] } </span></li>
-						<li><span class="file reqtype">method : POST</span></li>
-						<li><span class="file author">author : Nikitha</span></li>
-					</ul></li>
-			</ul>
-			<ul>
-				<li><span class="folder api">search tags (NOT REVIEWED)</span>
-					<ul id="folder4_9">
-						<li><span class="file url">URL :
-								http://localhost:8080/services/v1/tag/searchTags</span></li>
-						<li><span class="file input"> input : { "payload": {
-								"source":"global", "searchString":"app"} } </span></li>
-						<li><span class="file output"> output : { "status":
-								"SUCCESS", "payload": [ "apple", "Appreciation" } </span></li>
-						<li><span class="file reqtype">method : POST</span></li>
-						<li><span class="file author">author : Rammohan</span></li>
-					</ul></li>
-			</ul>
-			<ul>
-				<li><span class="folder api">save category</span>
-					<ul id="folder4_9">
-						<li><span class="file url">URL :
-								http://localhost:8080/services/v1/category/save</span></li>
-						<li><span class="file input"> input : { "payload": {
-								"name":"News", "engagementModel": 1, "orderOnMenu": 1, "tags": [
-								"apple", "banana" ], "menuOption":1 } } </span></li>
-						<li><span class="file output"> output :
-								{"status":"SUCCESS","payload":true} </span></li>
-						<li><span class="file reqtype">method : POST</span></li>
-						<li><span class="file author">author : Nikitha,
-								Rammohan</span></li>
-					</ul></li>
-			</ul>
-			<ul>
-				<li><span class="folder api">update category</span>
-					<ul id="folder4_10">
-						<li><span class="file url">URL :
-								http://localhost:8080/services/v1/category/update</span></li>
-						<li><span class="file input"> input : { "payload": {
-								"id":1, "engagementModel": 1, "name": "News", "orderOnMenu": 1,
-								"tags": [ "apple", "banana" ], "menuOption":1 } } </span></li>
-						<li><span class="file output"> output :
-								{"status":"SUCCESS","payload":true} </span></li>
-						<li><span class="file reqtype">method : POST</span></li>
-						<li><span class="file author">author : Nikitha,
-								Rammohan</span></li>
-					</ul></li>
-			</ul>
-			<ul>
-				<li><span class="folder api">reoder categories</span>
-					<ul id="folder4_11">
-						<li><span class="file url">URL :
-								http://localhost:8080/services/v1/category/reorder</span></li>
-						<li><span class="file input"> input : { "payload": [2,
-								4, 3, 5, 1] } </span></li>
-						<li><span class="file output"> output :
-								{"status":"SUCCESS","payload":true} </span></li>
-						<li><span class="file reqtype">method : POST</span></li>
-						<li><span class="file author">author : Rammohan</span></li>
-					</ul></li>
-			</ul>
-			<ul>
-				<li><span class="folder api">get categories</span>
-					<ul id="folder4_11">
-						<li><span class="file url">URL :
-								http://localhost:8080/services/v1/category/categories</span></li>
-						<li><span class="file input"> input : {} </span></li>
-						<li><span class="file output"> output : { "status":
-								"SUCCESS", "payload": [ { "tags": [ "apple", "banana" ], "name":
-								"News", "affinityId": 1, "engagementModel": 0, "orderOnMenu": 1,
-								"id": 0 }, { "tags": [ { "name": "MobilePhones", "id": 3 }, {
-								"name": "Laptops", "id": 4 } ], "name": "Reviews", "affinityId":
-								1, "engagementModel": 0, "orderOnMenu": 2, "id": 0 } ] } </span></li>
-						<li><span class="file reqtype">method : POST</span></li>
-						<li><span class="file author">author : Nikitha</span></li>
-					</ul></li>
-			</ul>
-			<ul>
-				<li><span class="folder api">get role</span>
-					<ul id="folder4_12">
-						<li><span class="file url">URL :
-								http://localhost:8080/services/v1/role/getRole</span></li>
-						<li><span class="file input"> input : { "payload": {
-								"id":2 } } </span></li>
-						<li><span class="file output"> output : NOT GIVEN </span></li>
-						<li><span class="file reqtype">method : POST</span></li>
-						<li><span class="file author">author : Nikitha</span></li>
-					</ul></li>
-			</ul>
-			<ul>
-				<li><span class="folder api">get roles</span>
-					<ul id="folder4_13">
-						<li><span class="file url">URL :
-								http://localhost:8080/services/v1/role/roles</span></li>
-						<li><span class="file input"> input : {} </span></li>
-						<li><span class="file output"> output : NOT GIVEN </span></li>
-						<li><span class="file reqtype">method : POST</span></li>
-						<li><span class="file author">author : Nikitha</span></li>
-					</ul></li>
-			</ul>
-			<ul>
-				<li><span class="folder api">save FB configuration</span>
-					<ul id="folder4_14">
-						<li><span class="file url">URL :
-								http://localhost:8080/services/v1/common/saveFBConfiguration</span></li>
-						<li><span class="file input"> input : { "payload": {
-								"link" : "http://localhost:8080/affinities/affinity1/index.html"
-								} } </span></li>
-						<li><span class="file output">output : NOT GIVEN</span></li>
-						<li><span class="file reqtype">method : POST</span></li>
-						<li><span class="file author">author : Rammohan</span></li>
+						<li><span class="file author">author : Jagadish</span></li>
 					</ul></li>
 			</ul></li>
-		<li><span class="folder module">POLLS</span>
+		<li><span class="folder module">RELEASES</span>
 			<ul>
-				<li><span class="folder api">get option types</span>
+				<li><span class="folder api">getReleases</span>
 					<ul id="folder5_1">
 						<li><span class="file url">URL :
-								http://localhost:8080/services/v1/poll/optionTypes</span></li>
-						<li><span class="file input"> input : {} </span></li>
-						<li><span class="file output">{"status":"SUCCESS","payload":[{"type":"Text","id":1},{"type":"Image","id":2},{"type":"Video","id":3},{"type":"Audio","id":4},{"type":"Text+Image","id":5},{"type":"Text+Video","id":6},{"type":"Text+Audio","id":7},{"type":"Image+Video","id":8},{"type":"Image+Audio","id":9},{"type":"Text
-								Expected","id":10},{"type":"Image
-								Expected","id":11},{"type":"Video
-								Expected","id":12},{"type":"Audio
-								Expected","id":13},{"type":"Text+Image
-								Expected","id":14},{"type":"Text+Video
-								Expected","id":15},{"type":"Text+Audio
-								Expected","id":16},{"type":"Image+Video
-								Expected","id":17},{"type":"Image+Audio
-								Expected","id":18},{"type":"Video+Audio
-								Expected","id":19},{"type":"Video+Audio","id":20}]}</span></li>
+								http://localhost:8080/services/v1/release/get</span></li>
+						<li><span class="file input"> input :
+								{"payload":{"projectId":"1"}} </span></li>
+						<li><span class="file output">{"status":"SUCCESS","payload":[[1,"1.0"],[2,"1.1"],[3,"2.0"],[137,"v5.0"],[144,"v6.0"]]}</span>
+						</li>
 						<li><span class="file reqtype">method : POST</span></li>
-						<li><span class="file author">author : Nikitha</span></li>
+						<li><span class="file author">author : Shiva</span></li>
 					</ul></li>
 			</ul>
 			<ul>
-				<li><span class="folder api">save poll</span>
+				<li><span class="folder api">addRelease</span>
 					<ul id="folder5_2">
 						<li><span class="file url">URL :
-								http://localhost:8080/services/v1/poll/save</span></li>
-						<li><span class="file input"> input : { "payload": {
-								"title":"Sports", "description":"Here the User is going to
-								answer his interests", "startDate":1354702424000,
-								"endDate":1355134424000, "fileId":9, "categoryId":9,
-								"tags":["sports"], "pages":[]} } </span></li>
+								http://localhost:8080/services/v1/release/add</span></li>
+						<li><span class="file input"> input :
+								{"payload":{"projectId":"2","releaseName":"v7.0"}} </span></li>
 						<li><span class="file output">output :
-								{"status":"SUCCESS","payload":{"id":1}}</span></li>
+								{"status":"SUCCESS","payload":{"name":"v7.0","id":147,"objectType":132,"projectId":2,"modifierId":0,"cts":0,"mts":0,"creatorId":0,"deleted":0}}</span>
+						</li>
 						<li><span class="file reqtype">method : POST</span></li>
-						<li><span class="file author">author : Nikitha</span></li>
+						<li><span class="file author">author : Shiva</span></li>
 					</ul></li>
 			</ul>
 			<ul>
-				<li><span class="folder api">update poll</span>
+				<li><span class="folder api">deleteRelease</span>
 					<ul id="folder5_3">
 						<li><span class="file url">URL :
-								http://localhost:8080/services/v1/poll/update</span></li>
-						<li><span class="file input"> input : { "payload": {
-								"id":1, "title":"Personal Interests of the User",
-								"description":"Here the User is going to answer his interests",
-								"startDate":1354702424000, "endDate":1355134424000,
-								"fileId":29,"tags":["interests"],"pages":[]} } </span></li>
+								http://localhost:8080/services/v1/release/delete</span></li>
+						<li><span class="file input"> input :
+								{"payload":{"releaseId":"147"}} </span></li>
 						<li><span class="file output">output :
-								{"status":"SUCCESS","payload":{"id":1}}</span></li>
-						<li><span class="file reqtype">method : POST</span></li>
-						<li><span class="file author">author : Nikitha</span></li>
-					</ul></li>
-			</ul>
-			<ul>
-				<li><span class="folder api">get poll</span>
-					<ul id="folder5_4">
-						<li><span class="file url">URL :
-								http://localhost:8080/services/v1/poll/getPoll</span></li>
-						<li><span class="file input"> input : { "payload": {
-								"id":1 } } </span></li>
-						<li><span class="file output">output : { "status":
-								"SUCCESS", "payload": { "file": { "name": "solar.jpg",
-								"fileUrl":
-								"http://t2.gstatic.com/images?q=tbn:ANd9GcSPTXUVIf3GQroMg_B4fCfoghCe4bzvWGTw8gEUxPGbCsLpkywu",
-								"id": 29, "cts": 1350565447020 }, "pagesList": [ { "title":
-								"page 3", "id": 3 }, { "title": "page 2", "id": 2 }, { "title":
-								"page 1", "id": 1 } ], "description": "Here the User is going to
-								answer his interests", "title": "Personal Interests of the
-								User", "startDate": 1354702424000, "endDate": 1355134424000,
-								"affinityId": 1, "id": 1 } } </span></li>
-						<li><span class="file reqtype">method : POST</span></li>
-						<li><span class="file author">author : Nikitha</span></li>
-					</ul></li>
-			</ul>
-			<ul>
-				<li><span class="folder api">get polls for CKEditor
-						Links</span>
-					<ul id="folder3_4">
-						<li><span class="file url">URL :
-								http://localhost:8080/services/v1/poll/getAllForLinks</span></li>
-						<li><span class="file input"> input : {} </span></li>
-						<li><span class="file output">output :
-								{"status":"SUCCESS","payload":[{"title":"Akka Poll
-								1","id":16},{"title":"May day","id":15},{"title":"Poll 1 in
-								TestPoll Category","id":14},{"title":"Test chrome issue
-								1","id":17}]} </span></li>
-						<li><span class="file reqtype">method : POST</span></li>
-						<li><span class="file author">author : Rammohan</span></li>
-					</ul></li>
-			</ul>
-			<ul>
-				<li><span class="folder api">get polls</span>
-					<ul id="folder5_5">
-						<li><span class="file url">URL :
-								http://localhost:8080/services/v1/poll/getPolls</span></li>
-						<li><span class="file input"> input 1 : { "payload": {
-								"pageNo":1, "pageSize":2,"categoryId":12 } } </span> <span
-							class="file input"> input 2 : { "payload": { "pageNo":1,
-								"pageSize":2,"tag":"sports" } } </span></li>
-						<li><span class="file output">output : { "status":
-								"SUCCESS", "payload": { "pageNo": 1, "start": 1, "end": 2,
-								"count": 4, "polls": [ { "file": { "name": "solar.jpg",
-								"fileUrl":
-								"http://t2.gstatic.com/images?q=tbn:ANd9GcSPTXUVIf3GQroMg_B4fCfoghCe4bzvWGTw8gEUxPGbCsLpkywu",
-								"id": 29, "cts": 1350565447020 }, "pagesList":
-								null,"pollAnsweredStatus":"Not Answered", "description": "Here
-								the User is going to answer his interests", "title": "Personal
-								Interests of the User", "startDate": 1354702424000, "endDate":
-								1355134424000, "affinityId": 1, "id": 1 }, { "file": { "name":
-								"Chrysanthemum.jpg", "fileUrl":
-								"http://s1.reutersmedia.net/resources/r/?m=02&d=20120825&t=2&i=645846014&w=460&fh=&fw=&ll=&pl=&r=CBRE87N1OXT00",
-								"id": 1, "cts": 1349326753048 }, "pagesList": null,
-								"description": "Education interests", "title": "Education",
-								"startDate": 1354702424000, "endDate": 1355134424000,
-								"affinityId": 1, "id": 2 } ] } } </span></li>
-						<li><span class="file reqtype">method : POST</span></li>
-						<li><span class="file author">author : Nikitha</span></li>
-					</ul></li>
-			</ul>
-			<ul>
-				<li><span class="folder api">save page</span>
-					<ul id="folder5_6">
-						<li><span class="file url">URL :
-								http://localhost:8080/services/v1/poll/page/save</span></li>
-						<li><span class="file input"> input : { "payload": {
-								"title":"page 1" } } </span></li>
-						<li><span class="file output">output
-								:{"status":"SUCCESS","payload":{"title":"page 1","id":1}}</span></li>
-						<li><span class="file reqtype">method : POST</span></li>
-						<li><span class="file author">author : Nikitha</span></li>
-					</ul></li>
-			</ul>
-			<ul>
-				<li><span class="folder api">update page</span>
-					<ul id="folder5_7">
-						<li><span class="file url">URL :
-								http://localhost:8080/services/v1/poll/page/update</span></li>
-						<li><span class="file input"> input : { "payload": {
-								"id":1, "title":"page 1","questionIds":[2,3] } } </span></li>
-						<li><span class="file output">output
-								:{"status":"SUCCESS","payload":{"title":"page 1","id":1}}</span></li>
-						<li><span class="file reqtype">method : POST</span></li>
-						<li><span class="file author">author : Nikitha</span></li>
-					</ul></li>
-			</ul>
-			<ul>
-				<li><span class="folder api">get Pages</span>
-					<ul id="folder5_8">
-						<li><span class="file url">URL :
-								http://localhost:8080/services/v1/poll/getPages</span></li>
-						<li><span class="file input"> input : { "payload": {
-								"id":1 } } </span></li>
-						<li><span class="file output">output :
-								{"status":"SUCCESS","payload":[{"title":"page
-								3","id":3},{"title":"page 1","id":1}]} </span></li>
-						<li><span class="file reqtype">method : POST</span></li>
-						<li><span class="file author">author : Nikitha</span></li>
-					</ul></li>
-			</ul>
-			<ul>
-				<li><span class="folder api">reorder Pages</span>
-					<ul id="folder5_9">
-						<li><span class="file url">URL :
-								http://localhost:8080/services/v1/poll/reorderPages</span></li>
-						<li><span class="file input"> input : { "payload": {
-								"id":1, "pages":[3,2,1] } } </span></li>
-						<li><span class="file output">output :
-								{"status":"SUCCESS","payload":true}</span></li>
-						<li><span class="file reqtype">method : POST</span></li>
-						<li><span class="file author">author : Nikitha</span></li>
-					</ul></li>
-			</ul>
-			<ul>
-				<li><span class="folder api">save question</span>
-					<ul id="folder5_10">
-						<li><span class="file url">URL :
-								http://localhost:8080/services/v1/poll/question/save</span></li>
-						<li><span class="file input"> input : { "payload": {
-								"pollId": 1, "pageId": 1, "pollEntries": [ { "questionEntry": {
-								"text": "Which games do you like?", "image": 0, "video": 0,
-								"optionType": 1, "update": 0, "replacement": 0, "mandatory": 0,
-								"maxSelect": 3,"minSelect": 1}, "options": [ { "text": "Indoor",
-								"image": 0, "video": 0, "optionType": 1, "update": 0,
-								"replacement": 0, "mandatory": 0}, { "text": "Outdoor", "image":
-								0, "video": 0, "optionType": 1, "update": 0, "replacement": 0,
-								"mandatory": 0}, { "text": "Both", "image": 0, "video": 0,
-								"optionType": 1, "update": 0, "replacement": 0, "mandatory": 0}
-								] }, { "questionEntry": { "text": "Favourite Criketer?",
-								"image": 0, "video": 0, "optionType": 1, "update": 0,
-								"replacement": 0, "mandatory": 0, "maxSelect": 2,"minSelect":
-								1}, "options": [ { "text": "Sachin", "image": 0, "video": 0,
-								"optionType": 1, "update": 0, "replacement": 0, "mandatory": 0},
-								{ "text": "Dhoni", "image": 0, "video": 0, "optionType": 1,
-								"update": 0, "replacement": 0, "mandatory": 0}, { "text":
-								"Kohili", "image": 0, "video": 0, "optionType": 1, "update": 0,
-								"replacement": 0, "mandatory": 0} ] } ] } } </span></li>
-						<li><span class="file output">output :
-								{"status":"SUCCESS","payload":true}</span></li>
-						<li><span class="file reqtype">method : POST</span></li>
-						<li><span class="file author">author : Nikitha</span></li>
-					</ul></li>
-			</ul>
-			<ul>
-				<li><span class="folder api">get Questions</span>
-					<ul id="folder5_11">
-						<li><span class="file url">URL :
-								http://localhost:8080/services/v1/poll/page/getQuestions</span></li>
-						<li><span class="file input"> input : { "payload": {
-								"pollId": 3, "pageId": 4 } } </span></li>
-						<li><span class="file output">output : { "status":
-								"SUCCESS", "payload": [ { "questionEntry": { "imageFile": null,
-								"videoFile": null, "text": "Ice Cream?", "optionType": 1,
-								"update": 0, "replacement": 0, "mandatory": 0, "id": 1 },
-								"options": [ { "imageFile": null, "videoFile": null, "text":
-								"Butter Scotch", "optionType": 1, "update": 0, "replacement": 0,
-								"mandatory": 0, "id": 2 }, { "imageFile": null, "videoFile":
-								null, "text": "Straw Berry", "optionType": 1, "update": 0,
-								"replacement": 0, "mandatory": 0, "id": 3 }, { "imageFile":
-								null, "videoFile": null, "text": "Chocolate", "optionType": 1,
-								"update": 0, "replacement": 0, "mandatory": 0, "id": 4 } ],
-								"maxSelect": 3, "id": 1 } ] } </span></li>
-						<li><span class="file reqtype">method : POST</span></li>
-						<li><span class="file author">author : Nikitha</span></li>
-					</ul></li>
-			</ul>
-			<ul>
-				<li><span class="folder api">reorder questions</span>
-					<ul id="folder5_12">
-						<li><span class="file url">URL :
-								http://localhost:8080/services/v1/poll/page/reorderQuestions</span></li>
-						<li><span class="file input"> input : { "payload": {
-								"id":1, "questionIds":[3,2,1] } } </span></li>
-						<li><span class="file output">output :
-								{"status":"SUCCESS","payload":true}</span></li>
-						<li><span class="file reqtype">method : POST</span></li>
-						<li><span class="file author">author : Nikitha</span></li>
-					</ul></li>
-			</ul>
-			<ul>
-				<li><span class="folder api">save answer</span>
-					<ul id="folder5_12">
-						<li><span class="file url">URL :
-								http://localhost:8080/services/v1/poll/answer/save</span></li>
-						<li><span class="file input"> input : { "payload": {
-								"pollId": 4, "pageId": 5, "answerEntries": [ { "question": {},
-								"optionsList": [ { "imageFile": { "id": 6, "fileUrl":
-								"http://www.gizbot.com/files/2012/08/Samsung-Galaxy-Note-2.jpg"
-								}, "videoFile": { "id": 7, "fileUrl":
-								"http://www.gizbot.com/files/2012/08/Samsung-Galaxy-Note-2.jpg"
-								}, "audioFile": { "id": 8, "fileUrl":
-								"http://www.gizbot.com/files/2012/08/Samsung-Galaxy-Note-2.jpg"
-								}, "text": "Indoor", "optionType": 1, "update": 0,
-								"replacement": 0, "mandatory": 0, "id": 106 } ], "maxSelect": 3,
-								"minSelect": 1, "id": 24 }, { "question": {}, "optionsList": [ {
-								"imageFile": null, "videoFile": null, "audioFile": null, "text":
-								"Dhoni", "optionType": 1, "update": 0, "replacement": 0,
-								"mandatory": 0, "id": 111 } ], "maxSelect": 2, "minSelect": 1,
-								"id": 25 } ] } } </span></li>
-						<li><span class="file output">output :
-								{"status":"SUCCESS","payload":true}</span></li>
-						<li><span class="file reqtype">method : POST</span></li>
-						<li><span class="file author">author : Nikitha</span></li>
-					</ul></li>
-			</ul>
-			<ul>
-				<li><span class="folder api">Listing polls </span>
-					<ul id="folder5_20">
-						<li><span class="file url">URL :
-								http://localhost:8080/services/v1/poll/listPolls</span></li>
-						<li><span class="file input"> input
-								:{"payload":{"pageNo":1,"pageSize":10,"tag":"tag1","categoryId":1}}
-						</span></li>
-						<li><span class="file output">output :
-								{"status":"SUCCESS","payload":{"pageNo":1,"start":1,"end":5,"count":11,"polls":[{"id":1,"status":"active","tags":"[interests]","title":"Personal
-								Interests of the
-								User"},{"id":2,"status":"active","tags":"[sports]","title":"Sports"},{"id":3,"status":"active","tags":"[123]","title":"
-								Sensex gains 106 points in early
-								trade"},{"id":4,"status":"active","tags":"[]","title":""},{"id":5,"status":"active","tags":"[News]","title":"
-								China will need 5,260 new planes by 2031: Boeing"}]}}</span></li>
-						<li><span class="file reqtype">method : POST</span></li>
-						<li><span class="file author">author : Vamsi Kuchi</span></li>
-					</ul></li>
-			</ul>
-			<ul>
-				<li><span class="folder api">delete poll </span>
-					<ul id="folder5_21">
-						<li><span class="file url">URL :
-								http://localhost:8080/services/v1/poll/delete</span></li>
-						<li><span class="file input"> input : { "payload":
-								{"id": 1 } } </span></li>
-						<li><span class="file output">output :
-								{"status":"SUCCESS","payload":true}</span></li>
-						<li><span class="file reqtype">method : POST</span></li>
-						<li><span class="file author">author : Nikitha</span></li>
-					</ul></li>
-			</ul>
-			<ul>
-				<li><span class="folder api">delete page </span>
-					<ul id="folder5_22">
-						<li><span class="file url">URL :
-								http://localhost:8080/services/v1/poll/deletePage</span></li>
-						<li><span class="file input"> input : { "payload":
-								{"id": 1 } } </span></li>
-						<li><span class="file output">output :
-								{"status":"SUCCESS","payload":true}</span></li>
-						<li><span class="file reqtype">method : POST</span></li>
-						<li><span class="file author">author : Vamsi Kuchi</span></li>
-					</ul></li>
-			</ul>
-			<ul>
-				<li><span class="folder api">Get Questions Of Poll </span>
-					<ul id="folder5_23">
-						<li><span class="file url">URL :
-								http://localhost:8080/services/v1/poll/getQuestionsOfPoll</span></li>
-						<li><span class="file input"> input : { "payload":
-								{"id": 9 } } </span></li>
-						<li><span class="file output">output :
-								{"status":"SUCCESS","payload":[70,71,72]}</span></li>
-						<li><span class="file reqtype">method : POST</span></li>
-						<li><span class="file author">author : Nikitha</span></li>
-					</ul></li>
-			</ul>
-			<ul>
-				<li><span class="folder api">Report Of Question </span>
-					<ul id="folder5_24">
-						<li><span class="file url">URL :
-								http://localhost:8080/services/v1/poll/reportOfQuestion</span></li>
-						<li><span class="file input"> input : { "payload":
-								{"id": 90 } } </span></li>
-						<li><span class="file output">output :
-								{"status":"SUCCESS","payload":{"question":{"90":{"Your favorite
-								day?":3}},"options":{"278":{"Thursday":1},"277":{"Saturday":1},"276":{"Sunday":1}}}}</span>
+								{"status":"SUCCESS","payload":{"name":"v7.0","id":147,"objectType":132,"projectId":2,"modifierId":0,"cts":0,"mts":0,"creatorId":0,"deleted":0}}</span>
 						</li>
 						<li><span class="file reqtype">method : POST</span></li>
-						<li><span class="file author">author : Nikitha</span></li>
-					</ul></li>
-			</ul>
-			<ul>
-				<li><span class="folder api">get Few Details Of Poll </span>
-					<ul id="folder5_25">
-						<li><span class="file url">URL :
-								http://localhost:8080/services/v1/poll/getFewDetailsOfPoll</span></li>
-						<li><span class="file input"> input : { "payload":
-								{"id": 48 } } </span></li>
-						<li><span class="file output">output :
-								{"status":"SUCCESS","payload":{"description":"Which is the best
-								movie of Tollywood ?","title":"The best movie of
-								Tollywood","startDate":1360325280000,"endDate":1362053280000,"id":48}}</span>
-						</li>
-						<li><span class="file reqtype">method : POST</span></li>
-						<li><span class="file author">author : Aryan</span></li>
-					</ul></li>
-			</ul>
-			<ul>
-				<li><span class="folder api">is Poll Answered </span>
-					<ul id="folder5_26">
-						<li><span class="file url">URL :
-								http://localhost:8080/services/v1/poll/isPollAnswered</span></li>
-						<li><span class="file input"> input : { "payload":
-								{"id": 72 } } </span></li>
-						<li><span class="file output">output :
-								{"status":"SUCCESS","payload":"Not Answered"}</span></li>
-						<li><span class="file reqtype">method : POST</span></li>
-						<li><span class="file author">author : Aryan</span></li>
-					</ul></li>
-			</ul>
-			<ul>
-				<li><span class="folder api">get Top Rated </span>
-					<ul id="folder5_26">
-						<li><span class="file url">URL :
-								http://localhost:8080/services/v1/poll/getTopRated</span></li>
-						<li><span class="file input"> input : {} </span></li>
-						<li><span class="file output">output : { "status":
-								"SUCCESS", "payload": [ { "description": "Poll Test for
-								Submissions count Poll Test for Submissions count Poll Test for
-								Submissions count Poll Test for Submissions count Poll Test for
-								Submissions count Poll Test for Submissions count Poll Test for
-								Submissions countPoll Test for Submissions count Poll Test for
-								Submissions count Poll Test for Submissions count Poll Test for
-								Submissions count Poll Test for Submissions count", "title":
-								"Poll Test for Submissions count", "noOfSubmissions": 4, "id":
-								12 }, { "description": "Polls To Check Questions Count. Polls To
-								Check Questions Count. Polls To Check Questions Count. Polls To
-								Check Questions Count. Polls To Check Questions Count.",
-								"title": "Polls To Check Questions Count.", "noOfSubmissions":
-								3, "id": 4 }, { "description": "Test Polls of My Polls Category
-								Test Polls of My Polls Category Test Polls of My Polls
-								Category", "title": "Test Polls of My Polls Category",
-								"noOfSubmissions": 3, "id": 6 }, { "description": "Poll Title
-								Poll TitlePoll TitlePoll Title Poll TitlePoll TitlePoll
-								TitlePoll TitlePoll TitlePoll TitlePoll TitlePoll TitlePoll
-								TitlePoll TitlePoll TitlePoll TitlePoll TitlePoll TitlePoll
-								TitlePoll TitlePoll TitlePoll TitlePoll TitlePoll TitlePoll
-								TitlePoll Title", "title": "Poll Title Poll Title Poll TitlePoll
-								Title Poll Title Poll Title Poll Title Poll Title Poll Title",
-								"noOfSubmissions": 3, "id": 11 }, { "description": "test poll
-								for no of questions column test poll for no of questions column
-								test poll for no of questions column test poll for no of
-								questions column", "title": "test poll for no of questions
-								column", "noOfSubmissions": 2, "id": 2 }, { "description":
-								"Polls Test to see PAge is having poll Id or not Polls Test to
-								see PAge is having poll Id or not Polls Test to see PAge is
-								having poll Id or not Polls Test to see PAge is having poll Id
-								or not Polls Test to see PAge is having poll Id or not Polls
-								Test to see PAge is having poll Id or not Polls Test to see PAge
-								is having poll Id or not", "title": "Polls Test to see PAge is
-								having poll Id or not", "noOfSubmissions": 1, "id": 1 }, {
-								"description": "No Questions Poll No Questions Poll No Questions
-								Poll No Questions Poll No Questions Poll No Questions Poll No
-								Questions Poll", "title": "No Questions Poll",
-								"noOfSubmissions": 0, "id": 3 }, { "description": "Poll with 5
-								pages but No Questions Poll with 5 pages but No Questions Poll
-								with 5 pages but No Questions Poll with 5 pages but No Questions
-								Poll with 5 pages but No Questions Poll with 5 pages but No
-								Questions Poll with 5 pages but No Questions", "title": "Poll
-								with 5 pages but No Questions", "noOfSubmissions": 0, "id": 5 },
-								{ "description": "Poll Poll Poll Poll Poll Poll Poll Poll Poll
-								Poll Poll Poll Poll Poll PollPoll Poll Poll", "title": "Poll
-								Poll Poll", "noOfSubmissions": 0, "id": 7 }, { "description":
-								"Poll 2 Poll 2 Poll 2 Poll 2 Poll 2 Poll 2 Poll 2 Poll 2 ",
-								"title": "Poll 2", "noOfSubmissions": 0, "id": 8 } ] }</span></li>
-						<li><span class="file reqtype">method : POST</span></li>
-						<li><span class="file author">author : Nikitha</span></li>
-					</ul></li>
-			</ul>
-
-			<ul>
-				<li><span class="folder api">get Top Rated By Category
-						For index page</span>
-					<ul id="folder5_27">
-						<li><span class="file url">URL :
-								http://localhost:8080/services/v1/poll/getTopRatedByCategory</span></li>
-						<li><span class="file input"> input :
-								{"payload":{"pageNo":1,"pageSize":4,"categoryId":12}} </span></li>
-						<li><span class="file output">output : { "status":
-								"SUCCESS", "payload": { "pageNo": 1, "start": 1, "end": 4,
-								"count": 10, "polls": [ { "file": { "name": "flower.jpg",
-								"fileUrl": [
-								"http://localhost:800//_1_34/image/10242869236533.jpg" ],
-								"thumbNail": null, "id": 272, "cts": 1363244545128 },
-								"pagesList": null, "authorName": "Rushitha Reddy", "author": {
-								"firstName": "Rushitha", "lastName": "Reddy", "email":
-								"rushi@gmail.com", "name": "Rushitha Reddy", "id": 34 },
-								"pollAnsweredStatus": "User Not Logged In",
-								"nonEmptyPagesCount": 0, "description": "Polls To Check
-								Questions Count. Polls To Check Questions Count. Polls To Check
-								Questions Count. Polls To Check Questions Count. Polls To Check
-								Questions Count.", "categoryId": 12, "tags": [ "" ],
-								"affinityId": 1, "title": "Polls To Check Questions Count.",
-								"startDate": 1363245000000, "endDate": 1364713260000,
-								"noOfViews": 6, "noOfSubmissions": 3, "id": 4 }, { "file": null,
-								"pagesList": null, "authorName": "Nikitha Reddy", "author": {
-								"firstName": "Nikitha", "lastName": "Reddy", "email":
-								"picharagadi.nikitha@qisonsoft.com", "name": "Nikitha Reddy",
-								"id": 3 }, "pollAnsweredStatus": "User Not Logged In",
-								"nonEmptyPagesCount": 0, "description": "Poll Title Poll
-								TitlePoll TitlePoll Title Poll TitlePoll TitlePoll TitlePoll
-								TitlePoll TitlePoll TitlePoll TitlePoll TitlePoll TitlePoll
-								TitlePoll TitlePoll TitlePoll TitlePoll TitlePoll TitlePoll
-								TitlePoll TitlePoll TitlePoll TitlePoll TitlePoll TitlePoll
-								Title", "categoryId": 12, "tags": [ "" ], "affinityId": 1,
-								"title": "Poll Title Poll Title Poll TitlePoll Title Poll Title
-								Poll Title Poll Title Poll Title Poll Title", "startDate":
-								1363331760000, "endDate": 1364713860000, "noOfViews": 4,
-								"noOfSubmissions": 3, "id": 11 }, { "file": null, "pagesList":
-								null, "authorName": "Rushitha Reddy", "author": { "firstName":
-								"Rushitha", "lastName": "Reddy", "email": "rushi@gmail.com",
-								"name": "Rushitha Reddy", "id": 34 }, "pollAnsweredStatus":
-								"User Not Logged In", "nonEmptyPagesCount": 0, "description":
-								"test poll for no of questions column test poll for no of
-								questions column test poll for no of questions column test poll
-								for no of questions column", "categoryId": 12, "tags": [ "" ],
-								"affinityId": 0, "title": "test poll for no of questions
-								column", "startDate": 1363242420000, "endDate": 1364381700000,
-								"noOfViews": 14, "noOfSubmissions": 2, "id": 2 }, { "file": {
-								"name": "baby-Pranav-Rao.jpg", "fileUrl": [
-								"http://localhost:800//_0_0/image/23365380554770.jpg" ],
-								"thumbNail": null, "id": 269, "cts": 1363171474644 },
-								"pagesList": null, "authorName": "Rushitha Reddy", "author": {
-								"firstName": "Rushitha", "lastName": "Reddy", "email":
-								"rushi@gmail.com", "name": "Rushitha Reddy", "id": 34 },
-								"pollAnsweredStatus": "User Not Logged In",
-								"nonEmptyPagesCount": 0, "description": "Polls Test to see PAge
-								is having poll Id or not Polls Test to see PAge is having poll
-								Id or not Polls Test to see PAge is having poll Id or not Polls
-								Test to see PAge is having poll Id or not Polls Test to see PAge
-								is having poll Id or not Polls Test to see PAge is having poll
-								Id or not Polls Test to see PAge is having poll Id or not",
-								"categoryId": 12, "tags": [ "" ], "affinityId": 0, "title":
-								"Polls Test to see PAge is having poll Id or not", "startDate":
-								1363245000000, "endDate": 1364726400000, "noOfViews": 2,
-								"noOfSubmissions": 1, "id": 1 } ] } }</span></li>
-						<li><span class="file reqtype">method : POST</span></li>
-						<li><span class="file author">author : Nikitha</span></li>
-					</ul></li>
-			</ul>
-
-			<ul>
-				<li><span class="folder api">get Top Rated For Category
-						for Right side gadget</span>
-					<ul id="folder5_26">
-						<li><span class="file url">URL :
-								http://localhost:8080/services/v1/poll/getTopRatedForCategory</span></li>
-						<li><span class="file input"> input : { "payload":
-								{"id": 12 } } </span></li>
-						<li><span class="file output">output : { "status":
-								"SUCCESS", "payload": [ { "authorName": "Rushitha Reddy",
-								"author": { "firstName": "Rushitha", "lastName": "Reddy",
-								"email": "rushi@gmail.com", "name": "Rushitha Reddy", "id": 34
-								}, "title": "Polls To Check Questions Count.",
-								"noOfSubmissions": 3, "id": 4 }, { "authorName": "Nikitha
-								Reddy", "author": { "firstName": "Nikitha", "lastName": "Reddy",
-								"email": "picharagadi.nikitha@qisonsoft.com", "name": "Nikitha
-								Reddy", "id": 3 }, "title": "Poll Title Poll Title Poll
-								TitlePoll Title Poll Title Poll Title Poll Title Poll Title Poll
-								Title", "noOfSubmissions": 3, "id": 11 }, { "authorName":
-								"Rushitha Reddy", "author": { "firstName": "Rushitha",
-								"lastName": "Reddy", "email": "rushi@gmail.com", "name":
-								"Rushitha Reddy", "id": 34 }, "title": "test poll for no of
-								questions column", "noOfSubmissions": 2, "id": 2 }, {
-								"authorName": "Rushitha Reddy", "author": { "firstName":
-								"Rushitha", "lastName": "Reddy", "email": "rushi@gmail.com",
-								"name": "Rushitha Reddy", "id": 34 }, "title": "Polls Test to
-								see PAge is having poll Id or not", "noOfSubmissions": 1, "id":
-								1 }, { "authorName": "Rushitha Reddy", "author": { "firstName":
-								"Rushitha", "lastName": "Reddy", "email": "rushi@gmail.com",
-								"name": "Rushitha Reddy", "id": 34 }, "title": "No Questions
-								Poll", "noOfSubmissions": 0, "id": 3 }, { "authorName":
-								"Rushitha Reddy", "author": { "firstName": "Rushitha",
-								"lastName": "Reddy", "email": "rushi@gmail.com", "name":
-								"Rushitha Reddy", "id": 34 }, "title": "Poll with 5 pages but No
-								Questions", "noOfSubmissions": 0, "id": 5 }, { "authorName":
-								"Nikitha Reddy", "author": { "firstName": "Nikitha", "lastName":
-								"Reddy", "email": "picharagadi.nikitha@qisonsoft.com", "name":
-								"Nikitha Reddy", "id": 3 }, "title": "Poll Poll Poll",
-								"noOfSubmissions": 0, "id": 7 }, { "authorName": "Nikitha
-								Reddy", "author": { "firstName": "Nikitha", "lastName": "Reddy",
-								"email": "picharagadi.nikitha@qisonsoft.com", "name": "Nikitha
-								Reddy", "id": 3 }, "title": "Poll 2", "noOfSubmissions": 0,
-								"id": 8 }, { "authorName": "Nikitha Reddy", "author": {
-								"firstName": "Nikitha", "lastName": "Reddy", "email":
-								"picharagadi.nikitha@qisonsoft.com", "name": "Nikitha Reddy",
-								"id": 3 }, "title": "Poll3", "noOfSubmissions": 0, "id": 9 }, {
-								"authorName": "Nikitha Reddy", "author": { "firstName":
-								"Nikitha", "lastName": "Reddy", "email":
-								"picharagadi.nikitha@qisonsoft.com", "name": "Nikitha Reddy",
-								"id": 3 }, "title": "Poll 4", "noOfSubmissions": 0, "id": 10 } ]
-								}</span></li>
-						<li><span class="file reqtype">method : POST</span></li>
-						<li><span class="file author">author : Aryan</span></li>
-					</ul></li>
-			</ul>
-		<li><span class="folder module">COMMON</span>
-			<ul>
-				<li><span class="folder api">get labels</span>
-					<ul id="folder6_1">
-						<li><span class="file url">URL :
-								http://localhost:8080/services/v1/common/getLabels</span></li>
-						<li><span class="file input"> input : {} </span></li>
-						<li><span class="file output"> output :
-								{"status":"SUCCESS","payload":{"common.no.label":"No","common.reorder.label":"reorder","common.youliked.label":"You
-								liked","common.ok.label":"Ok","common.yes.label":"Yes","common.polls.label":"Polls","common.delete.label":"delete","common.noarticles.message":"There
-								are no articles for the selected
-								category.","common.edit.label":"edit","common.cancel.label":"cancel","common.save.label":"save","common.reply.label":"Reply"}}
-						</span></li>
-						<li><span class="file reqtype">method : POST</span></li>
-						<li><span class="file author">author : Rammohan</span></li>
-					</ul></li>
-			</ul>
-			<ul>
-				<li><span class="folder api">Categories based on
-						Engagement model</span>
-					<ul id="folder6_2">
-						<li><span class="file url">URL :
-								http://localhost:8080/services/v1/category/getCategoryIdNames</span></li>
-						<li><span class="file input">
-								{"payload":{"engagementModel":2}} </span></li>
-						<li><span class="file output"> output :
-								{"status":"SUCCESS","payload":[{"name":"Polls","id":13}]} </span></li>
-						<li><span class="file reqtype">method : POST</span></li>
-						<li><span class="file author">author : Vamsi Kuchi</span></li>
-					</ul></li>
-			</ul>
-			<ul>
-				<li><span class="folder api">get Engagement models</span>
-					<ul id="folder6_3">
-						<li><span class="file url">URL :
-								http://localhost:8080/services/v1/engagementmodel/getEngagementmodels</span></li>
-						<li><span class="file input"> {} </span></li>
-						<li><span class="file output"> output :
-								{"status":"SUCCESS","payload":[{"name":"Discussion","id":1},{"name":"Poll","id":2},{"name":"Session","id":3}]}
-						</span></li>
-						<li><span class="file reqtype">method : POST</span></li>
-						<li><span class="file author">author : Nikitha</span></li>
+						<li><span class="file author">author : Shiva</span></li>
 					</ul></li>
 			</ul></li>
-		<li><span class="folder module">PROMOTED CONTENT</span>
-			<ul>
-				<li><span class="folder api">save</span>
-					<ul id="folder7_1">
-						<li><span class="file url">URL :
-								http://localhost:8080/services/v1/promotedContent/save</span></li>
-						<li><span class="file input"> input : { "payload": {
-								"title": "title1", "description": "description1", "fileId": 1,
-								"engagementType": 1, "engagementObjectId": 1 } } </span></li>
-						<li><span class="file output">output :
-								{"status":"SUCCESS","payload":true}</span></li>
-						<li><span class="file reqtype">method : POST</span></li>
-						<li><span class="file author">author : Rammohan</span></li>
-					</ul></li>
-			</ul>
-			<ul>
-				<li><span class="folder api">update</span>
-					<ul id="folder7_2">
-						<li><span class="file url">URL :
-								http://localhost:8080/services/v1/promotedContent/update</span></li>
-						<li><span class="file input"> input : { "payload": {
-								"id": 1, "title": "title1", "description": "description1",
-								"fileId": 1, "engagementType": 1, "engagementObjectId": 1 } } </span></li>
-						<li><span class="file output">output :
-								{"status":"SUCCESS","payload":true}</span></li>
-						<li><span class="file reqtype">method : POST</span></li>
-						<li><span class="file author">author : Rammohan</span></li>
-					</ul></li>
-			</ul>
-			<ul>
-				<li><span class="folder api">archive</span>
-					<ul id="folder7_3">
-						<li><span class="file url">URL :
-								http://localhost:8080/services/v1/promotedContent/archive</span></li>
-						<li><span class="file input"> input : { "payload": {
-								"id": 1 } } </span></li>
-						<li><span class="file output">output :
-								{"status":"SUCCESS","payload":true}</span></li>
-						<li><span class="file reqtype">method : POST</span></li>
-						<li><span class="file author">author : Rammohan</span></li>
-					</ul></li>
-			</ul>
-			<ul>
-				<li><span class="folder api">getContent</span>
-					<ul id="folder7_4">
-						<li><span class="file url">URL :
-								http://localhost:8080/services/v1/promotedContent/getContent</span></li>
-						<li><span class="file input"> input : { "payload": {
-								"id": 1 } } </span></li>
-						<li><span class="file output"> output : { "status":
-								"SUCCESS", "payload": { "file": { "name": "Chrysanthemum.jpg",
-								"fileUrl":
-								"http://s1.reutersmedia.net/resources/r/?m=02&d=20120825&t=2&i=645846014&w=460&fh=&fw=&ll=&pl=&r=CBRE87N1OXT00",
-								"id": 1, "cts": 1349326753048 }, "author": { "name": "vinay
-								thandra", "id": 1 }, "description": "pcdescription1",
-								"affinityId": 1, "engagementType": 1, "engagementObjectId": 1,
-								"engagementObjectCts": 1347013815000, "order": 0, "id": 1 } } </span></li>
-						<li><span class="file reqtype">method : POST</span></li>
-						<li><span class="file author">author : Rammohan</span></li>
-					</ul></li>
-			</ul>
-			<ul>
-				<li><span class="folder api">get all Contents</span>
-					<ul id="folder7_5">
-						<li><span class="file url">URL :
-								http://localhost:8080/services/v1/promotedContent/getAllContents</span></li>
-						<li><span class="file input"> input : {} </span></li>
-						<li><span class="file output">output : { "status":
-								"SUCCESS", "payload": [ { "file": { "name": "Chrysanthemum.jpg",
-								"fileUrl":
-								"http://s1.reutersmedia.net/resources/r/?m=02&d=20120825&t=2&i=645846014&w=460&fh=&fw=&ll=&pl=&r=CBRE87N1OXT00",
-								"id": 1, "cts": 1349326753048 }, "author": { "name": "vinay
-								thandra", "id": 1 }, "description": "pcdescription1",
-								"affinityId": 1, "engagementType": 1, "engagementObjectId": 1,
-								"engagementObjectCts": 1347013815000, "order": 1, "id": 1 }, {
-								"file": { "name": "Chrysanthemum.jpg", "fileUrl":
-								"http://s1.reutersmedia.net/resources/r/?m=02&d=20120825&t=2&i=645846014&w=460&fh=&fw=&ll=&pl=&r=CBRE87N1OXT00",
-								"id": 1, "cts": 1349326753048 }, "author": { "name": "vinay
-								thandra", "id": 1 }, "description": "description1",
-								"affinityId": 1, "engagementType": 1, "engagementObjectId": 1,
-								"engagementObjectCts": 1347013815000, "order": 2, "id": 2 } ] }
-						</span></li>
-						<li><span class="file reqtype">method : POST</span></li>
-						<li><span class="file author">author : Rammohan</span></li>
-					</ul></li>
-			</ul></li>
-		<li><span class="folder module">WHITE LABEL CONFIGURATIONS</span>
-			<ul>
-				<li><span class="folder api">save All</span>
-					<ul id="folder8_1">
-						<li><span class="file url">URL :
-								http://localhost:8080/services/v1/whiteLabel/saveAll</span></li>
-						<li><span class="file input"> input : { "payload": {
-								"whiteLabels": [ { "key": "body", "value":
-								"{\"background-color\":\"#d3d3d3\",\"background-image\":\"http://localhost:8080/upload/Affinity_1_UserId_3/IMAGE/earcellphone_1_1359548331886.jpg\",\"font-family\":\"verdana\",\"font-size\":\"16px\",\"brand-color\":\"#d3d3d3\"}"
-								}, { "key": "header", "value":
-								"{\"background-color\":\"#d3d3d3\"}" }, { "key": "menu",
-								"value":
-								"{\"background-color\":\"#d3d3d3\",\"background-image\":\"http://localhost:8080/upload/Affinity_1_UserId_3/IMAGE/flexiblemobile3_1_1359548351438.jpg\",\"font-family\":\"verdana\",\"font-size\":\"15px\",\"brand-color\":\"#d3d3d3\"}"
-								}, { "key": "gadget", "value":
-								"{\"background-color\":\"#d3d3d3\",\"background-image\":\"http://localhost:8080/upload/Affinity_1_UserId_3/IMAGE/mobilescriptcellphone_1_1359548364444.jpg\",\"font-family\":\"verdana\",\"font-size\":\"14px\",\"brand-color\":\"#d3d3d3\"}"
-								}, { "key": "footer", "value":
-								"{\"background-color\":\"#d3d3d3\"}" } ] } } </span></li>
-						<li><span class="file output">output :
-								{"status":"SUCCESS","payload":true}</span></li>
-						<li><span class="file reqtype">method : POST</span></li>
-						<li><span class="file author">author : Rammohan</span></li>
-					</ul></li>
-			</ul>
-			<ul>
-				<li><span class="folder api">get all White labels </span>
-					<ul id="folder8_2">
-						<li><span class="file url">URL :
-								http://localhost:8080/services/v1/whiteLabel/getAll</span></li>
-						<li><span class="file input"> input : {} </span></li>
-						<li><span class="file output"> output : { "status":
-								"SUCCESS", "payload": { "footer":
-								"{\"background-color\":\"#d3d3d3\"}", "body":
-								"{\"background-color\":\"#d3d3d3\",\"background-image\":\"http://localhost:8080/upload/Affinity_1_UserId_3/IMAGE/earcellphone_1_1359548331886.jpg\",\"font-family\":\"verdana\",\"font-size\":\"16px\",\"brand-color\":\"#d3d3d3\"}",
-								"gadget":
-								"{\"background-color\":\"#d3d3d3\",\"background-image\":\"http://localhost:8080/upload/Affinity_1_UserId_3/IMAGE/mobilescriptcellphone_1_1359548364444.jpg\",\"font-family\":\"verdana\",\"font-size\":\"14px\",\"brand-color\":\"#d3d3d3\"}",
-								"menu":
-								"{\"background-color\":\"#d3d3d3\",\"background-image\":\"http://localhost:8080/upload/Affinity_1_UserId_3/IMAGE/flexiblemobile3_1_1359548351438.jpg\",\"font-family\":\"verdana\",\"font-size\":\"15px\",\"brand-color\":\"#d3d3d3\"}",
-								"header": "{\"background-color\":\"#d3d3d3\"}" } } </span></li>
-						<li><span class="file reqtype">method : POST</span></li>
-						<li><span class="file author">author : Rammohan</span></li>
-					</ul></li>
-			</ul></li>
-		<li><span class="folder module">STATIC CONTENT AND STATIC
-				BLOCKS</span>
-			<ul>
-				<li><span class="folder api">save feed</span>
-					<ul id="folder8_1">
-						<li><span class="file url">URL :
-								http://localhost:8080/services/v1/static/feed/save</span></li>
-						<li><span class="file input"> input :
-								{"payload":{"types":["feed1", "feed2"], "content":"feed one feed
-								one"}} </span></li>
-						<li><span class="file output">output :
-								{"status":"SUCCESS","payload":true} </span></li>
-						<li><span class="file reqtype">method : POST</span></li>
-						<li><span class="file author">author : Rammohan</span></li>
-					</ul></li>
-				<li><span class="folder api">update feed</span>
-					<ul id="folder8_1">
-						<li><span class="file url">URL :
-								http://localhost:8080/services/v1/static/feed/update</span></li>
-						<li><span class="file input"> input :
-								{"payload":{"id":1, "types":["feed1", "feed2"], "content":"feed
-								one feed one"}} </span></li>
-						<li><span class="file output">output :
-								{"status":"SUCCESS","payload":true}</span></li>
-						<li><span class="file reqtype">method : POST</span></li>
-						<li><span class="file author">author : Rammohan</span></li>
-					</ul></li>
-				<li><span class="folder api">archive feed</span>
-					<ul id="folder8_1">
-						<li><span class="file url">URL :
-								http://localhost:8080/services/v1/static/feed/archive</span></li>
-						<li><span class="file input"> input :
-								{"payload":{"id":1}} </span></li>
-						<li><span class="file output">output :
-								{"status":"SUCCESS","payload":true}</span></li>
-						<li><span class="file reqtype">method : POST</span></li>
-						<li><span class="file author">author : Rammohan</span></li>
-					</ul></li>
-				<li><span class="folder api">get feed</span>
-					<ul id="folder8_1">
-						<li><span class="file url">URL :
-								http://localhost:8080/services/v1/static/feed/getFeed</span></li>
-						<li><span class="file input"> input :
-								{"payload":{"id":1}} </span></li>
-						<li><span class="file output">output :
-								{"status":"SUCCESS","payload":{"id":1, "content":"feed two
-								","types":["feed3","feed4"]}} </span></li>
-						<li><span class="file reqtype">method : POST</span></li>
-						<li><span class="file author">author : Rammohan</span></li>
-					</ul></li>
-				<li><span class="folder api">get feeds</span>
-					<ul id="folder8_1">
-						<li><span class="file url">URL :
-								http://localhost:8080/services/v1/static/feed/getFeeds</span></li>
-						<li><span class="file input"> input : {"payload" : {
-								"type":"feed1", "pageNo":1, "pageSize":10 } } </span></li>
-						<li><span class="file output">output :
-								{"status":"SUCCESS","payload":{"pageNo":1,"start":1,"end":1,"count":1,"feeds":[{"id":8,"content":"feed
-								three feed four","types":["feed3","feed4"]}]}} </span></li>
-						<li><span class="file reqtype">method : POST</span></li>
-						<li><span class="file author">author : Rammohan</span></li>
-					</ul></li>
-				<li><span class="folder api">get feed types</span>
-					<ul id="folder8_1">
-						<li><span class="file url">URL :
-								http://localhost:8080/services/v1/static/feed/getTypes</span></li>
-						<li><span class="file input"> input : {} </span></li>
-						<li><span class="file output">output :
-								{"status":"SUCCESS","payload":["whats new"]} </span></li>
-						<li><span class="file reqtype">method : POST</span></li>
-						<li><span class="file author">author : Rammohan</span></li>
-					</ul></li>
-				<li><span class="folder api">save static content</span>
-					<ul id="folder8_1">
-						<li><span class="file url">URL :
-								http://localhost:8080/services/v1/static/save</span></li>
-						<li><span class="file input"> input :
-								{"payload":{"categoryId":16, "title":"title title",
-								"content":"content content", "blocks":[{"blockId":1,
-								"feedType":"feed4", "noOfRecords":4}]}} </span></li>
-						<li><span class="file output">output :
-								{"status":"SUCCESS","payload":true} </span></li>
-						<li><span class="file reqtype">method : POST</span></li>
-						<li><span class="file author">author : Rammohan</span></li>
-					</ul></li>
-				<li><span class="folder api">update static content</span>
-					<ul id="folder8_1">
-						<li><span class="file url">URL :
-								http://localhost:8080/services/v1/static/update</span></li>
-						<li><span class="file input"> input :
-								{"payload":{"id":1,"categoryId":16, "title":"title title",
-								"content":"content content", "blocks":[{"blockId":1,
-								"feedType":"feed4", "noOfRecords":4}]}} </span></li>
-						<li><span class="file output">output :
-								{"status":"SUCCESS","payload":true} </span></li>
-						<li><span class="file reqtype">method : POST</span></li>
-						<li><span class="file author">author : Rammohan</span></li>
-					</ul></li>
-				<li><span class="folder api">archive static content</span>
-					<ul id="folder8_1">
-						<li><span class="file url">URL :
-								http://localhost:8080/services/v1/static/archive</span></li>
-						<li><span class="file input"> input :
-								{"payload":{"id":1}} </span></li>
-						<li><span class="file output">output :
-								{"status":"SUCCESS","payload":true} </span></li>
-						<li><span class="file reqtype">method : POST</span></li>
-						<li><span class="file author">author : Rammohan</span></li>
-					</ul></li>
-				<li><span class="folder api">get static content by
-						categoryId (for member view)</span>
-					<ul id="folder8_1">
-						<li><span class="file url">URL :
-								http://localhost:8080/services/v1/static/getContent</span></li>
-						<li><span class="file input"> input :
-								{"payload":{"categoryId":1}} </span></li>
-						<li><span class="file output"> output :
-								{"status":"SUCCESS","payload":{"id":1,"content":"content
-								content","categoryId":16,"title":"title
-								title","blocks":[{"blockId":1,"feedType":"feed4","noOfRecords":4}]}}
-						</span></li>
-						<li><span class="file reqtype">method : POST</span></li>
-						<li><span class="file author">author : Rammohan</span></li>
-					</ul></li>
-				<li><span class="folder api">get static content by Id
-						(for admin)</span>
-					<ul id="folder8_1">
-						<li><span class="file url">URL :
-								http://localhost:8080/services/v1/static/getContentById</span></li>
-						<li><span class="file input"> input :
-								{"payload":{"id":1}} </span></li>
-						<li><span class="file output"> output :
-								{"status":"SUCCESS","payload":{"id":1,"content":"content
-								content","categoryId":16,"title":"title
-								title","blocks":[{"blockId":1,"feedType":"feed4","noOfRecords":4}]}}
-						</span></li>
-						<li><span class="file reqtype">method : POST</span></li>
-						<li><span class="file author">author : Rammohan</span></li>
-					</ul></li>
-				<li><span class="folder api">get all static content</span>
-					<ul id="folder8_1">
-						<li><span class="file url">URL :
-								http://localhost:8080/services/v1/static/getAll</span></li>
-						<li><span class="file input"> input : {} </span></li>
-						<li><span class="file output">output :
-								{"status":"SUCCESS","payload":[{"id":1,"content":"content
-								content","categoryId":16,"title":"title
-								title","blocks":[{"blockId":1,"feedType":"feed4","noOfRecords":4}]}]}
-						</span></li>
-						<li><span class="file reqtype">method : POST</span></li>
-						<li><span class="file author">author : Rammohan</span></li>
-					</ul></li>
-				<li><span class="folder api">save block</span>
-					<ul id="folder8_1">
-						<li><span class="file url">URL :
-								http://localhost:8080/services/v1/static/block/save</span></li>
-						<li><span class="file input"> input :
-								{"payload":{"type":"type1", "title":"title1"}} </span></li>
-						<li><span class="file output">output :
-								{"status":"SUCCESS","payload":true} </span></li>
-						<li><span class="file reqtype">method : POST</span></li>
-						<li><span class="file author">author : Rammohan</span></li>
-					</ul></li>
-				<li><span class="folder api">update block</span>
-					<ul id="folder8_1">
-						<li><span class="file url">URL :
-								http://localhost:8080/services/v1/static/block/update</span></li>
-						<li><span class="file input"> input :
-								{"payload":{"id":1,"type":"type1", "title":"title1"}} </span></li>
-						<li><span class="file output">output :
-								{"status":"SUCCESS","payload":true}</span></li>
-						<li><span class="file reqtype">method : POST</span></li>
-						<li><span class="file author">author : Rammohan</span></li>
-					</ul></li>
-				<li><span class="folder api">archive block</span>
-					<ul id="folder8_1">
-						<li><span class="file url">URL :
-								http://localhost:8080/services/v1/static/block/archive</span></li>
-						<li><span class="file input"> input :
-								{"payload":{"id":1}} </span></li>
-						<li><span class="file output">output :
-								{"status":"SUCCESS","payload":true}</span></li>
-						<li><span class="file reqtype">method : POST</span></li>
-						<li><span class="file author">author : Rammohan</span></li>
-					</ul></li>
-				<li><span class="folder api">get block</span>
-					<ul id="folder8_1">
-						<li><span class="file url">URL :
-								http://localhost:8080/services/v1/static/block/getBlock</span></li>
-						<li><span class="file input"> input :
-								{"payload":{"id":1}} </span></li>
-						<li><span class="file output">output :
-								{"status":"SUCCESS","payload":{"id":2,"type":"type2","title":"title2"}}
-						</span></li>
-						<li><span class="file reqtype">method : POST</span></li>
-						<li><span class="file author">author : Rammohan</span></li>
-					</ul></li>
-				<li><span class="folder api">get all blocks</span>
-					<ul id="folder8_1">
-						<li><span class="file url">URL :
-								http://localhost:8080/services/v1/static/block/getAll</span></li>
-						<li><span class="file input"> input :
-								{"payload":{"pageNo":1,"pageSize":10}} </span></li>
-						<li><span class="file output">output :
-								{"status":"SUCCESS","payload":{"pageNo":1,"start":1,"end":10,"count":11,"blocks":[{"id":1,"type":"type7","title":"My
-								Block Title"},{"id":2,"type":"type3","title":"Your Block
-								Title"},{"id":3,"type":"block7","title":"My
-								block"},{"id":4,"type":"Block type","title":"Block
-								title"},{"id":5,"type":"New Type","title":"New
-								Block"},{"id":8,"type":"type1","title":"block1"},{"id":9,"type":"type2","title":"block2"},{"id":10,"type":"type4","title":"block4"},{"id":11,"type":"type5","title":"block5"},{"id":12,"type":"type6","title":"block6"}]}}
-						</span></li>
-						<li><span class="file reqtype">method : POST</span></li>
-						<li><span class="file author">author : Rammohan</span></li>
-					</ul></li>
-			</ul></li>
-		<li><span class="folder module">FEATURED ENGAGEMENTS</span>
-			<ul>
-				<li><span class="folder api">save featured</span>
-					<ul id="folder4_1">
-						<li><span class="file url">URL :
-								http://localhost:8080/services/v1/featured/save</span></li>
-						<li><span class="file input"> input : { "payload": {
-								"categoryId": "1", "engagementObjectId": "34","displayOrder":
-								"4" } } </span></li>
-						<li><span class="file output">output :
-								{"status":"SUCCESS","payload":true}</span></li>
-						<li><span class="file reqtype">method : POST</span></li>
-						<li><span class="file author">author : Raja Sekhar</span></li>
-					</ul></li>
-			</ul>
-
-			<ul>
-				<li><span class="folder api">get featured</span>
-					<ul id="folder4_1">
-						<li><span class="file url">URL :
-								http://localhost:8080/services/v1/featured/getFeatured</span></li>
-						<li><span class="file input"> input : { "payload": {
-								"categoryId": "3"} } </span></li>
-						<li>output :
-							{"status":"SUCCESS","payload":{"engagementModelType":100,"featuredPolls":null,
-							"featuredDiscussions":{"pageNo":1,"start":1,"end":5,"count":5,
-							"articles":[{"file":{"name":"Chrysanthemum.jpg",
-							"fileUrl":"http://s1.reutersmedia.net/resources/r/?m=02&d=20120825&t=2&i=645846014&w=460&fh=&fw=&ll=&pl=&r=CBRE87N1OXT00","id":1,
-							"cts":1349326753048},
-							"markers":[{"file":{"name":"Hydrangeas.jpg","fileUrl":"http://www.ece.ncsu.edu/news_info/images/featured_story.jpg","id":5,"cts":1349410224418},
-							"name":"Featured","id":3}],"author":{"firstName":"vinay","lastName":"thandra","email":"vinay.thandra@qisonsoft.com",
-							"name":"vinay thandra","id":1},"authorName":"vinay
-							thandra","noOfLikes":1,"rating":4.0,"fileId":1, "title":"How
-							Apple Triumphed Over Samsung In Patent Suit", "richContent":"(In
-							what can be described as the biggest patent war of the century to
-							date, Apple recently scored a win over its arch rival Samsung,
-							with the US court ordering a pay-out worth over a billion dollars
-							as compensation. Apple has also sought a ban on
-							eig","noOfViews":79,"noOfComments":7,"goLiveOn":0,"id":6,
-							"mts":1347804910000},{"file":{"name":"Hydrangeas.jpg",
-							"fileUrl":"http://1.bp.blogspot.com/-lEMveWfwOY0/T36ZeTfjeLI/AAAAAAAAIBw/yf7Sl2xIYM8/s1600/htc-one-v.jpg","id":7,
-							"cts":1349410768657},"markers":[{"file":{"name":"Hydrangeas.jpg",
-							"fileUrl":"http://www.ece.ncsu.edu/news_info/images/featured_story.jpg","id":5,"cts":1349410224418},
-							"name":"Featured","id":3}],"author":{"firstName":"vinay","lastName":"thandra","email":"vinay.thandra@qisonsoft.com",
-							"name":"vinay thandra","id":1},"authorName":"vinay
-							thandra","noOfLikes":2,"rating":4.5,"fileId":7,"title":"HTC One V
-							Video Review", "richContent":"Unlike last year, HTC now seems to
-							release and concentrate on fewer handsets. While its One rivals
-							the Samsungs GALAXY S III, the One V battles it out in the
-							crowded mid-range segment. The handset offers Android 4.0 out of
-							t he box to stand out
-							from","noOfViews":44,"noOfComments":3,"goLiveOn":0,"id":8,"mts":1347967215000},{"file":{"name":"Hydrangeas.jpg",
-							"fileUrl":"http://www.gizbot.com/files/2012/08/Samsung-Galaxy-Note-2.jpg","id":6,"cts":1349410768542},"markers":[{"file":{"name":
-							"Lighthouse.jpg","fileUrl":"http://photo.net/equipment/recommended/editors-choice-badge.jpg","id":3,"cts":1349349818405},
-							"name":"Editor
-							Choice","id":1}],"author":{"firstName":"vinay","lastName":"thandra","email":"vinay.thandra@qisonsoft.com",
-							"name":"vinay thandra","id":1},"authorName":"vinay
-							thandra","noOfLikes":3,"rating":2.0,"fileId":6,"title":"Samsung
-							Releases GALAXY Not e II Launch Teaser","richContent":"Samsung is
-							pulling out all the stops in its hype campaign as it prepares to
-							unveil the second-generati on GALAXY Note II (aka N7100) phablet
-							on 29th August at the Unpacked event scheduled to be held in
-							Berlin. Leading up to the launch event, the
-							compa","noOfViews":37,"noOfComments":2,"goLiveOn":0,"id":7,"mts":1347898815000},
-							{"file":{"name":"Lighthouse.jpg","fileUrl":"http://im.tech2.in.com/gallery/2012/sep/razerbladetf2_041627138462_640x360.jpg","id":10
-							"cts":1349410768823},"markers":[{"file":{"name":"Hydrangeas.jpg","fileUrl":"http://www.ece.ncsu.edu/news_info/images/featured_story.jpg",
-							"id":5,"cts":1349410224418},"name":"Featured","id":3}],"author":{"firstName":"vinay","lastName":"thandra","email":"vinay.thandra@qisonsoft.
-							com","name":"vinay thandra","id":1},"authorName":"vinay
-							thandra","noOfLikes":0,"rating":2.5,"fileId":10,"title":"Gaming
-							laptop Razer Blade upgraded in new
-							version","richContent":"Razer’s attempt at a gaming laptop, the
-							Razer Blade, made its debut in 2011. The laptop was quite popular
-							with the high-end gaming enthusiasts who like to carry their
-							gaming systems with them. Now, according to Pocket Lint, Razer
-							wants to up the
-							ante","noOfViews":19,"noOfComments":0,"goLiveOn":0,"id":10,"mts":1348216521000},{"file":{"name":"Hydrangeas.jpg",
-							"fileUrl":"http://compareindia.in.com/media/gallery/images/2012/jun/v5431_1_271129007411.jpg","id":9,"cts":1349410768823},
-							"markers":[{"file":{"name":"Lighthouse.jpg","fileUrl":"http://photo.net/equipment/recommended/editors-choice-badge.jpg","id":3,
-							"cts":1349349818405},"name":"Editor
-							Choice","id":1}],"author":{"firstName":"vinay","lastName":"thandra",
-							"email":"vinay.thandra@qisonsoft.com","name":"vinay
-							thandra","id":1},"authorName":"vinay
-							thandra","noOfLikes":1,"rating":2.5, "fileId":9,"title":"Acer
-							Aspire V5-431","richContent":"Ultrabooks have recently been
-							making headlines with their slim bodies and attractive styling.
-							However, these gadgets have been prohibitively priced, thus
-							limiting access to only the moneyed. Thankfully, Acer has
-							attempted to give consumers the best
-							o","noOfViews":23,"noOfComments":4,"goLiveOn":0,"id":9,"mts":1348040715000}]}}}
-						</li>
-						<li><span class="file reqtype">method : POST</span></li>
-						<li><span class="file author">author : Raja Sekhar</span></li>
-					</ul></li>
-			</ul>
-			<ul>
-
-			</ul>
+	</ul>
 </body>
 </html>

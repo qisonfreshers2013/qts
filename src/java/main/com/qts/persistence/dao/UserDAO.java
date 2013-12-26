@@ -29,6 +29,5 @@ public interface UserDAO extends BaseDAO{
 	public User updateLoginUser(UserBean bean) throws UserException;
 	public User getLoginUser(LoginBean bean) throws UserException;
 	public List<String> getEmployeeIds();
-	public List<User> getUsersByIds(List<Long> userIds);
 	
 }

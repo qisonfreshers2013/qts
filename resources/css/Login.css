@@ -32,26 +32,28 @@ a:hover {
 	cursor:pointer;
 }
 button.submit  {
-    background-color: #00FF00;
+    background-color:#669933;
     display: inline-block;
     text-decoration: none;
     border-radius:5%; 
     width:80%;
+    color:#FFFFFF;
     
 }
 input.clear {
-    background-color: #00FF00;
+    background-color:#669933;
     display: inline-block;
     text-decoration: none;
     border-radius:5%; 
     width:80%;
     padding: 1.5%;
+    color:#FFFFFF;
 }
 label{
-	cursor:pointer;
+	
 	}
 	
-fieldset {
+fieldset.loginFieldSet{
     background-color: #EEEEEE;
     border: 2px groove #000000;
     border-radius: 3%;

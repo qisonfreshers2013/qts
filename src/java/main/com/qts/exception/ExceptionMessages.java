@@ -100,6 +100,7 @@ public interface ExceptionMessages {
 	 public static final String EMAIL_NOT_EXISTS = "Email is not existing";
 	 public static final String USER_NOT_AUTHENTICATED = "Please login.";
 	 public static final String SEARCH_RESULTS_NO_MATCH = "no matchs found";
+
 	//Time Entry Exception messages
 	public static final String DATE_CANNOT_BE_NULL= "DATE CANNOT BE NULL";
 	public static final String DATE_LENGTH_MISMATCH= "DATE LENGTH SHOULD BE 10 AND DATE PATTERN IS MM/DD/YYYY";

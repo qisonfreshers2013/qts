@@ -40,11 +40,12 @@ public class RoleHandler extends AbstractHandler {
 	public List<Roles> getRoles() throws Exception {
 		return DAOFactory.getInstance().getRoleDAOImplInstance().getRoles();
 	}
+
 	//@AuthorizeEntity(roles = {Roles.ROLE_ADMIN}, entity = "RoleBean.java")
 	public RoleBean getUserRoles(RoleBean roleBean) throws Exception {
 		try {
 			// validating the input whether both userid and projectid is
-			// given,roleid should be intially null
+			// given,roleid should be intially empty
 			if (validateBean(roleBean) && roleBean.getRoleIds().isEmpty()) {
 
 				UserProject userProject = UserProjectHandler.getInstance()

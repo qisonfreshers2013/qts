@@ -9,11 +9,15 @@ function DefaultTimeSheetPage(){
 DefaultTimeSheetPage.prototype.handleShow=function(){
 	$(".container").show();
 	this.loadTimeSheetFilling();
+	  this.getProjects();
     $(document).ready(function() {
         console.log("on ready")
         $(".searchByDate").datepicker({maxDate:new Date()});
     });
-    this.getProjects();
+  
+	$('.searchByProjectId').change(function(event){
+        this.getReleases();
+       }.ctx(this));
 	this.searchUserTimeEntries();
 	//To Add A New TimeEntrySheet
 	$('.addTimeEntry').click(function(){
@@ -104,11 +108,15 @@ DefaultTimeSheetPage.prototype.submitTimeEntries=function(){
 		var input={"payload":{"timeEntries":[ids]}};
 	RequestManager.submit(input,function(data,success){
 		if(success){
+		if(data){
 			alert("Submitted");
 		}
 		else{
-			alert(data.message);
+			alert("Not Submitted");
 			}
+		}else{
+			alert(data.message)
+		}
 	});
 	this.searchUserTimeEntries();
 	}
@@ -273,10 +281,10 @@ DefaultTimeSheetPage.prototype.searchUserTimeEntries=function(){
 				 var tabledata="<tr class=\"userTableData\">" +
 				    "<td>"+checkbox+"</td>"+
 	                "<td>"+$.datepicker.formatDate('mm/dd/yy', new Date(data[i][1]))+"</td>"+
-	                "<td>"+data[i][3]+"</td>"+
-	                "<td>"+data[i][4]+"</td>"+
+	                "<td>"+$(".projectValue[value="+data[i][3]+"]").text()+"</td>"+
+	                "<td>"+$(".releaseValue[value="+data[i][4]+"]").text()+"</td>"+
 	                "<td>"+data[i][5]+"</td>"+
-	                "<td>"+data[i][6]+"</td>"+
+	                "<td>"+$(".activityValue[value="+data[i][6]+"]").text()+"</td>"+
 	                "<td>"+data[i][7]+"</td>"+
 	                 "<td>"+status+"</td>"+
 	                "<td>"+remarks+"</td>" +
@@ -311,7 +319,19 @@ DefaultTimeSheetPage.prototype.getProjects=function(){
 	  }
 	 }.ctx(this));
 	}
-
+DefaultTimeSheetPage.prototype.getReleases=function(){
+	 $('.selectRelease').empty();
+	 var id=$(".searchByProjectId").val();
+	 RequestManager.getProjectReleases({"payload":{"projectId":id}}, function(data, success) {
+	  if(success){
+	for(var i=0;i<data.length;i++){
+		 $('.selectRelease').append('<option class=\"releaseValue\" value='+data[i][0]+'>'+data[i][1]+'</option>');
+	}
+	  }else{
+	   $("cancel").trigger("click");
+	  }
+	 }.ctx(this));
+	}
 
 DefaultTimeSheetPage.prototype.validateTimeEntry=function(){
 	  var date=$('.datepicker').val();

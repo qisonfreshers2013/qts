@@ -34,6 +34,7 @@ AddProject.prototype.handleShow = function() {
 		}
 		else{
 			this.addProject();
+			$('.reset').trigger('click');
 		}
 	}.ctx(this));
 
