@@ -204,13 +204,13 @@ ApproverSearch.prototype.validateSearchCriteria=function(){
 	  var isvalid=true;
 	  var dateRegex="^(0[1-9]|1[012])([-/])(0[1-9]|[12][0-9]|3[01])\\2([23]0)\\d\\d$";
 	  var pattern=new RegExp(dateRegex);
-	  if(fromDate!=null || fromDate!=''){
+	  if(fromDate!=null && fromDate!=''){
 		  if(!pattern.test(fromDate)){
 				alert("Invalid Date(Format:mm/dd/yyyy).");
 				  isvalid=false;
 			  }
 	  }
-	  if(toDate!=null || toDate!=''){
+	  if(toDate!=null && toDate!=''){
       if(!pattern.test(toDate)){
 		alert("Invalid Date(Format:mm/dd/yyyy).");
 		  isvalid=false;

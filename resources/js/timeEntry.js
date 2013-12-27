@@ -11,12 +11,11 @@ function TimeEntry(){
 TimeEntry.prototype.handleShow=function(){
 	$(".container").show();
     $(document).ready(function() {
-        console.log("on ready")
         $(".datepicker").datepicker({ minDate: -30, maxDate:new Date()});
     });
     
     this.getProjects();
-    this.getReleases();
+    
 	$('.save').click(function(event){
 		if(this.validateTimeEntry()){
 		this.getRequestParameters();
@@ -97,6 +96,7 @@ TimeEntry.prototype.setRequestParameters=function(updateRequestParameters){
  
 TimeEntry.prototype.getProjects=function(){
 	 $('.projectId').empty();
+	 $('.projectId').append('<option class=\"projectValue\">SELECT</option>');
 	 RequestManager.getProjectsForMember({}, function(data, success) {
 	  if(success){
 	   var id=0;
