@@ -54,7 +54,7 @@ p {
 }
 .selectRelease {
     margin-left: 0;
-    margin-top: 10%;
+    margin-top: 25%;
 }
 .selectActivity {
     margin-top: 10%;
@@ -74,13 +74,22 @@ p {
 .cancel {
     margin-left: 108%;
     margin-top: 2%;
+    background-color: #669933;
+    border: medium none;
+    color: #FFFFFF;
+    font-weight: bold;
+    text-align: center;
 }
 .save {
-    margin-left: 130%;
-    margin-top: -14%;
+    margin-left: 127%;
+    margin-top: -22%;
+    background-color: #669933;
+    border: medium none;
+    color: #FFFFFF;
+    font-weight: bold;
+    text-align: center;
 }
 .remarksHeader {
     margin-left: 0;
     margin-top: 0;
 }
-

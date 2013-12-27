@@ -68,8 +68,9 @@ Menu.prototype.handleShow=function(roleIds){
 			
 			$('#tsa').click(function(){
 				$('#content').remove();
-				App.loadDefaultApproverPage();
 				App.loadApproverTimeSheetSearch();
+				App.loadDefaultApproverPage();
+				
 				
 			});
 		}
@@ -87,8 +88,9 @@ Menu.prototype.handleShow=function(roleIds){
 		//click events for approver
 		$('#tsa').click(function(){
 			$('#content').remove();
-			App.loadDefaultApproverPage();
 			App.loadApproverTimeSheetSearch();
+			App.loadDefaultApproverPage();
+			
 			
 		});
 		
@@ -116,8 +118,10 @@ Menu.prototype.handleShow=function(roleIds){
 			
 			$('#tsf').click(function(){
 				$('#content').remove();
-				App.loadDefaultTimeSheetPage();
 				App.loadTimeSheetFilling();
+				App.loadDefaultTimeSheetPage();
+				
+				
 				
 			});
 			
@@ -154,8 +158,9 @@ Menu.prototype.handleShow=function(roleIds){
 		
 		$('#tsf').click(function(){
 			$('#content').remove();
-			App.loadDefaultTimeSheetPage();
 			App.loadTimeSheetFilling();
+			App.loadDefaultTimeSheetPage();
+			
 			
 		});
 	}

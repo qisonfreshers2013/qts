@@ -70,7 +70,22 @@ Loader.prototype.handleShow = function() {
 
 
 
-
+	Loader.prototype.loadTimeSheetFilling = function(cb) {
+		LazyLoad.js("resources/js/timeEntry.js", cb);
+		LazyLoad.css("resources/css/timeEntry.css", cb);
+	}
+	Loader.prototype.loadApproverTimeSheetSearch = function(cb) {
+		LazyLoad.js("resources/js/approverSearch.js", cb);
+		LazyLoad.css("resources/css/approverSearch.css", cb);
+	}
+	Loader.prototype.loadDefaultTimeSheetPage = function(cb) {
+		LazyLoad.js("resources/js/defaultTimeSheetPage.js", cb);
+		LazyLoad.css("resources/css/defaultTimeEntryPage.css", cb);
+	}
+	Loader.prototype.loadDefaultApproverPage = function(cb) {
+		LazyLoad.js("resources/js/defaultApproverPage.js", cb);
+		LazyLoad.css("resources/css/defaultApproverPage.css", cb);
+	}
 
 
 

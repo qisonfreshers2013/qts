@@ -43,8 +43,10 @@ Options.prototype.handleShow = function(roles) {
 				 "color": "white", "position": "relative", "left": "4%", "top": "39%"
 					});
 			
-			$('.TimeSheetApproval').click(function(){App.loadMenu(roles);  App.loadApproverTimeSheetSearch();
-			App.loadDefaultApproverPage();});
+			$('.TimeSheetApproval').click(function(){App.loadMenu(roles);
+			App.loadApproverTimeSheetSearch();
+			 App.loadDefaultApproverPage();
+			});
 		}  
 	}
 	else if(roles.contains(3)){
@@ -64,8 +66,10 @@ Options.prototype.handleShow = function(roles) {
 			 "color": "white", "position": "relative", "left": "4%", "top": "55%"
 				});
 		
-		$('.TimeSheetFilling').click(function(){App.loadMenu(roles); App.loadTimeSheetFilling();
+		$('.TimeSheetFilling').click(function(){App.loadMenu(roles);App.loadTimeSheetFilling();
 		App.loadDefaultTimeSheetPage();
+		
+		
 		});
 		if(roles.contains(2)){
 			$('.container').append('<div class="TimeSheetApproval"><img class="tsaImg" src="resources/img/tsa.png"><h4 class="tsaText">Time Sheet Approval</h4></div>');
@@ -85,8 +89,9 @@ Options.prototype.handleShow = function(roles) {
 				 "color": "white", "position": "relative", "left": "4%", "top": "39%"
 					});
 			
-			$('.TimeSheetApproval').click(function(){ App.loadMenu(roles); App.loadApproverTimeSheetSearch();
-			App.loadDefaultApproverPage();});
+			$('.TimeSheetApproval').click(function(){ App.loadMenu(roles);App.loadApproverTimeSheetSearch();
+			App.loadDefaultApproverPage(); 
+			});
 		}
 	}
 	else{
@@ -108,7 +113,8 @@ Options.prototype.handleShow = function(roles) {
 		
 		
 		$('.TimeSheetApproval').click(function(){ App.loadMenu(roles); App.loadApproverTimeSheetSearch();
-		App.loadDefaultApproverPage();});
+		App.loadDefaultApproverPage();
+		});
 	}
 
 	$('.ProjectReleaseManagement').click(function(){

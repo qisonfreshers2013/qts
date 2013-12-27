@@ -46,9 +46,14 @@ p {
     float: left;
     margin: 1% 1% 1% -29%;
 }
-.search {
+.searchTimeEntriesByApprover {
     float: left;
     margin: 2% 1% 1% -1%;
+    background-color: #669933;
+    border: medium none;
+    color: #FFFFFF;
+    font-weight: bold;
+    text-align: center;
 }
 #rejectedComments {
     display: none;

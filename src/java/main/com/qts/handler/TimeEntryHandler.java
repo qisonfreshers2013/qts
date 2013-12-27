@@ -78,7 +78,7 @@ public class TimeEntryHandler {
 				.getProjectId())
 			throw new InvalidTimeEntryDataException(ExceptionCodes.MANDATORY_FIELDS_MISMATCH,ExceptionMessages.PASSED_DATA_IS_NOT_RELATED);
        
-		else if (!(RoleHandler.getInstance().getUserRolesAOP(roleBean)
+		else if (!(RoleHandler.getInstance().getUserRoles(roleBean)
 				.getRoleIds().contains(new Long(3))))
 			throw new TimeEntryException(
 					ExceptionCodes.TIMEENTRY_FILLING_IS_NOT_ALLOWED_FOR_APPROVER,
@@ -237,7 +237,7 @@ public class TimeEntryHandler {
 	    	UserProjectHandler.getInstance().getUserProjectByIds(searchCriteria.getProjectId(),ServiceRequestContextHolder.getContext().getUserSessionToken().getUserId());
 	    	UserProjectHandler.getInstance().getUserProjectByIds(searchCriteria.getProjectId(),searchCriteria.getUserId());
 	    	RoleBean roleBeanInput=new RoleBean(ServiceRequestContextHolder.getContext().getUserSessionToken().getUserId(),searchCriteria.getProjectId());
-			RoleBean roleBeanOutput=RoleHandler.getInstance().getUserRolesAOP(roleBeanInput);
+			RoleBean roleBeanOutput=RoleHandler.getInstance().getUserRoles(roleBeanInput);
 			
 			if(roleBeanOutput.getRoleIds().isEmpty() && !roleBeanOutput.getRoleIds().contains(2)){
 				throw new TimeEntryException(ExceptionCodes.PROJECT_ID_INVALID,ExceptionMessages.APPROVER_NOTAUTHORIZED);
@@ -485,7 +485,7 @@ public class TimeEntryHandler {
 		List<UserProject> associatedProjectList = UserProjectHandler.getInstance().getUserProjectsByUserId(ServiceRequestContextHolder.getContext().getUserSessionToken().getUserId());		
 		for (UserProject associatedProject : associatedProjectList) {
 			RoleBean roleBeanInput=new RoleBean(ServiceRequestContextHolder.getContext().getUserSessionToken().getUserId(),associatedProject.getProjectId());
-			RoleBean roleBeanOutput=RoleHandler.getInstance().getUserRolesAOP(roleBeanInput);
+			RoleBean roleBeanOutput=RoleHandler.getInstance().getUserRoles(roleBeanInput);
 				
 		if((roleBeanOutput.getRoleIds()!=null && roleBeanOutput.getRoleIds().contains(new Long(2)))){      
 			searchCriteria.setProjectId(associatedProject.getProjectId());
