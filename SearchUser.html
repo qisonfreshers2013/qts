@@ -1,5 +1,5 @@
 
-<div id = "content" class = "searchContainer">
+<div id = "content" class = "content searchContainer">
 <div id = "head" class = "head">
 <h2><img src = "resources/img/searchUser.png" alt = "searchUser">SearchUser</h2>
 </div>
@@ -8,36 +8,35 @@
 </div>
 <div id = "searchUserContent" class = "searchUserContent">
 <form>
-<div id = "nicknameField" class = "nicknameField">
+<div id = "nicknameFieldSU" class = "nicknameFieldSU">
 <p>Nickname</p>
 </div>
-<div id = "nicknameText" class = "nicknameText">
+<div id = "nicknameTextSU" class = "nicknameTextSU">
 <input id = "nickname" class = "nickname" name = "nickname" pattern="^[A-Za-z\s]*$" type = "text" placeHolder = "nickname"/>
 </div>
-<div id = "emailField"  class = "emailField">
+<div id = "emailFieldSU"  class = "emailFieldSU">
 <p>Email</p>
 </div>
-<div id = "emailText" class = "emailText">
+<div id = "emailTextSU" class = "emailTextSU">
 <input id = "email" class = "email" name = "email" type = "email" placeHolder = "email"/>
 </div>
-<div id = "designationField" class = "designationField">
+<div id = "designationFieldSU" class = "designationFieldSU">
 <p>Designation</p>
 </div>
-<div id = "designationText" class = "designationText">
+<div id = "designationTextSU" class = "designationTextSU">
 <input id = "designation" class = "designation" name = "designation" type = "text" pattern="^[A-Z\\s]*$"  onblur = "this.value = this.value.toUpperCase()" placeHolder = "designation"/>
 </div>
 </form>
-<div id = "employeeIdField" class = "employeeIdField">
+<div id = "employeeIdFieldSU" class = "employeeIdFieldSU">
 <p>Employee Id</p>
 </div>
-<div id = "employeeIdText" class = "employeeIdText">
+<div id = "employeeIdTextSU" class = "employeeIdTextSU">
 <select id = "employeeId" pattern="^[A-Za-z0-9]*$" class = "employeeId" name = "employeeId">
- 
  
 </select>
 </div>
 <div id = "search" class = "search">
-<input id = "search" class = search name = "search" type = "submit" value = "search" />
+<button id = "search" class = "search" name = "search" type = "button" value = "search" >Search</button>
 </div>
 </div>
 <div class="resultsContainer"></div>

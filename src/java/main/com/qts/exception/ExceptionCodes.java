@@ -261,7 +261,7 @@ public interface ExceptionCodes {
 
 	//roles related exception
 	public static final int ROLES_EMPTY_EXCEPTION=8000;
-	public static final int rolesList_EMPTY_EXCEPTION=8001;
+	public static final int ROLES_LIST_EMPTY_EXCEPTION=8001;
 	public static final int PARAMETERS_EMPTY_EXCEPTION =8002;
 	public static final int NO_ROLES_FOR_THIS_USERPROJECT_ID = 8003;
 	public static final int INVALID_ROLE_ID = 8004;

@@ -12,27 +12,27 @@ Loader.prototype.handleShow = function() {
 	}
 
 	Loader.prototype.loadAddProject=function(cb){
-	 LazyLoad.css('addProject.css');
-	 LazyLoad.js('addProject.js',cb);
+	 LazyLoad.css('resources/css/AddProject.css');
+	 LazyLoad.js('resources/js/AddProject.js',cb);
 
 	}
 
 
 	Loader.prototype.loadAllocateUsersToProject=function(cb){
-	 LazyLoad.css('allocateUsersToProject.css');
-	 LazyLoad.js('allocateUsersToProject.js',cb);
+	 LazyLoad.css('resources/css/AllocateUsersToProject.css');
+	 LazyLoad.js('resources/js/AllocateUsersToProject.js',cb);
 	 
 	}
 
 	Loader.prototype.loadSearchProject=function(cb){
-	 LazyLoad.css('searchProject.css');
-	 LazyLoad.js('searchProject.js',cb);
+	 LazyLoad.css('resources/css/SearchProject.css');
+	 LazyLoad.js('resources/js/SearchProject.js',cb);
 	 
 	}
 
 	Loader.prototype.loadSearchProjectResults=function(cb){
-	 LazyLoad.css('searchProjectResults.css');
-	 LazyLoad.js('searchProjectResults.js',cb);
+	 LazyLoad.css('resources/css/SearchProjectResults.css');
+	 LazyLoad.js('resources/js/SearchProjectResults.js',cb);
 	 
 	}
 	Loader.prototype.loadAddProjectRelease=function(cb){
@@ -63,10 +63,14 @@ Loader.prototype.handleShow = function() {
 	}
 
 	Loader.prototype.loadRoles = function(cb){
-		LazyLoad.js('resources/js/roles.js', cb);
 		LazyLoad.css('resources/css/roles.css');
+		LazyLoad.js('resources/js/roles.js', cb);
+		
 	}
-
+	
+	Loader.prototype.loadQisonLogo=function(cb){
+		LazyLoad.js('resources/js/QisonLogo.js', cb);
+	}
 
 
 

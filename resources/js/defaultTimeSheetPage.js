@@ -112,9 +112,9 @@ DefaultTimeSheetPage.prototype.submitTimeEntries=function(){
 		alert(idOfTimeEntries);
 		var ids=new Array();
 		for(var i=0;i<idOfTimeEntries.length;i++){
-			 ids.pust({"id":idOfTimeEntries[i]});;
+			 ids.push({"id":idOfTimeEntries[i]});;
 		}
-		var input={"payload":{"timeEntries":[ids]}};
+		var input={"payload":{"timeEntries":ids}};
 	RequestManager.submit(input,function(data,success){
 		if(success){
 		if(data){
@@ -238,7 +238,7 @@ DefaultTimeSheetPage.prototype.getInputForSearchUserTimeEntries=function(){
 
 DefaultTimeSheetPage.prototype.searchUserTimeEntries=function(){
 	var input=this.getInputForSearchUserTimeEntries();
-	if(input==null || input ==""){
+	if(input==null || input =={"payload":{"projectId":"SELECT"}}){
 		input={"payload":{}}
 	}
 	RequestManager.searchTimeEntriesByUser(input,function(data,success){

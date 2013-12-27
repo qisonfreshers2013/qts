@@ -33,11 +33,11 @@ div#submitDiv {
 }
 div#clearDiv {
     left: 13%;
-    position: relative;
+    position: relative; 
     margin-top: 0%;
 }
 input.clear {
-    background-color: #00FF00;
+    background-color:#669933;
     padding: 0.5%;
     width: 47%;
 }
@@ -45,6 +45,7 @@ input.firstName, input.lastName, input.nickname, input.email, input.employeeId, 
     width: 21%;
 }
 button.submit {
+	background-color:#669933;
     padding: 0;
     width: 47%;
 }
@@ -74,4 +75,7 @@ p {
 }
 select {
     width: 22%;
+}
+#content {
+    margin-top: 8%;
 }

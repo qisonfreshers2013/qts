@@ -4,38 +4,46 @@
     margin-top: 8%;
     width:100%;
 }
-.headline {
-}
+
 #text {
     margin-top: 4%;
 }
-.enter {
-}
+
 #nonUsers {
     margin-top: 4%;
     position: relative;
 }
 #copy {
-    left: 31%;
+    left: 36%;
     margin-top: -10.5%;
     position: relative;
 }
 #users {
-    left: 38%;
-    margin-top: -13.8%;
+    left: 43%;
+    margin-top: -14.7%;
     position: relative;
 }
-.save {
-    left: 38%;
+.saveBlock {
+    left: 43%;
     margin-top: 2%;
     position: relative;
 }
-p{
+.para{
 	font-size:16px;
 }
-.go,#reset{
-	background-color:#8AAF09;
-	 width:7% ;
-	 border-radius:5px;
+.go,.reset{
+    background-color: #669933;
+    border: medium none;
+    color: #FFFFFF;
+    font-weight: bold;
+    text-align: center;
+    width: 8%;
+    height:20px;
+}
+#projectName{
+ width:auto;	
 }
 
+.projectNameAllocate{
+	margin-left:5%;
+}

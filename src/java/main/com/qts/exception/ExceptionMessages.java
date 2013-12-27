@@ -137,7 +137,7 @@ public interface ExceptionMessages {
 	public static final String APPROVER_NOTAUTHORIZED="APPROVER IS NOT AUTHORIZED FOR THIS PROJECT";
 	//roles exception
 	public static final String ROLES_EMPTY_EXCEPTION="Select atleast one role.";
-	public static final String rolesList_EMPTY_EXCEPTION="No Roles available add few.";
+	public static final String ROLES_LIST_EMPTY_EXCEPTION="No Roles available add few.";
 	public static final String PARAMETERS_EMPTY_EXCEPTION = "You need to specify correct userid and projectid";
 	public static final String NO_ROLES_FOR_THIS_USERPROJECT_ID = "No roles allocated for this user for this project";
 	public static final String INVALID_ROLE_ID = "Invalid roleid";

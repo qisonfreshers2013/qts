@@ -86,6 +86,12 @@ App.prototype.loadDefaultApproverPage=function(){
 	Loader.loadDefaultApproverPage();
 }
 
+App.prototype.loadQisonLogo=function(roleIds){
+Loader.loadQisonLogo(function(){
+new QisonLogo(roleIds);
+});
+	
+}
 App.prototype.loadRoles=function(){
 Loader.loadRoles(function(){
 new Roles();
@@ -229,9 +235,9 @@ App.prototype.loadSearchUser = function (roles) {
 	});	
 }
 
-App.prototype.loadSearchResults = function (data) {
+App.prototype.loadSearchResults = function (data,roles) {
 	Loader.loadSearchResults(function (){
-		new SearchResults(data);
+		new SearchResults(data,roles);
 	});
 }
 

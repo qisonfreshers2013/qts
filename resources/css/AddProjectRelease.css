@@ -9,8 +9,8 @@
 }
 
 .rightAddProject {
-    left: 40%;
-    margin-top: -14.6%;
+    left: 25%;
+    margin-top: -9.3%;
     position: relative;
     width: 60%;
 }
@@ -21,11 +21,11 @@
 
 
 .buttons {   
-    left: 40%;
+    left: 25%;
     margin-bottom: 5%;
     margin-top: 3%;
     position: relative;
-    width: 60%;
+    width: 40%;
 
 }
 #save{

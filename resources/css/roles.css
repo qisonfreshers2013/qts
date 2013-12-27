@@ -69,6 +69,7 @@ select {
     position: relative;
     top: 10%;
     width: 35%;
+    height: 20px;
 }
 #saveb, #cancelb {
     background-color: #669933;
