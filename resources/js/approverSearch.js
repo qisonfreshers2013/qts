@@ -12,33 +12,24 @@ ApproverSearch.prototype.handleShow=function(){
 	
 	$("#rejectedComments").hide();
 	
-	this.getProjects();
-//	this.getUsers();
 	$(".userProjectId").change(function(){
 		this.getUsers();
 	}.ctx(this));
 	
     $(document).ready(function() {
-        $(".from").datepicker();
-        $(".to").datepicker();
+        $(".from").datepicker({maxDate:new Date()});
+        $(".to").datepicker({maxDate:new Date()});
+        this.getProjects();
+        this.searchTimeEntriesByApprover();
     }.ctx(this));   
     
-	this.searchTimeEntriesByApprover();
 	
-	$('#search').click(function(event){
-		console.log("Search btn clicked");
-		this.searchTimeEntriesByApprover();
+	
+	$('#searchTimeEntriesByApprover').click(function(event){
+		if(this.validateSearchCriteria()){
+		this.searchTimeEntriesByApprover();}
 		}.ctx(this));
 	
-	/*$('#approveTimeEntry').click(function(event){
-		console.log("clickHappened");
-		this.approveTimeEntry(event);
-		}.ctx(this));
-	
-	$('#rejectTimeEntry').click(function(event){
-		console.log("reject btn clicked");
-		this.rejectTimeEntry(event);
-		}.ctx(this));*/
     
     
 }
@@ -47,8 +38,8 @@ ApproverSearch.prototype.handleShow=function(){
 
 ApproverSearch.prototype.getProjects=function(){
 	 $('#userProjectId').empty();
-	// $('#userProjectId').append('<option></option>');
-	 RequestManager.getProjectsForUser({}, function(data, success) {
+	 $('#userProjectId').append('<option>SELECT</option>');
+	 RequestManager.getProjectsForApprover({}, function(data, success) {
 	  if(success){
 	   var id=0;
 	   var name='';
@@ -73,7 +64,7 @@ ApproverSearch.prototype.getUsers=function(){
 	if($(".userProjectId").val()!=''){
 		projectId=$(".userProjectId").val();
 		$('.userId').empty();
-		 $('.userId').append('<option></option>');
+		 $('.userId').append('<option>SELECT</option>');
 		 RequestManager.getProjectUsers({"payload":{"projectId":projectId}}, function(data, success) {
 		  if(success){
 		   var id=0;
@@ -139,7 +130,7 @@ ApproverSearch.prototype.getInputForSearchUserTimeEntriesByApprover=function(){
 ApproverSearch.prototype.searchTimeEntriesByApprover = function() {
 	
      var input=this.getInputForSearchUserTimeEntriesByApprover();
-     if(input==null){
+     if(input={"payload":{"projectId":"SELECT"}}){
     	 input={"payload":{}};
      }
      RequestManager.searchTimeEntriesByApprover(input,function(data,success){
@@ -163,11 +154,10 @@ ApproverSearch.prototype.searchTimeEntriesByApprover = function() {
     						}.ctx(this));
     					$('#rejectTimeEntry').click(function(event){
     						console.log("reject btn clicked");
-    						$("#rejectedComments").show();
-    						$(".submitComments").click(function(event){
-    							var rejectedComments=$(".comments").val();
-    							this.rejectTimeEntry(event);
+    						$("#rejectedComments").modal('show');
+    						$(".submitComments").click(function(){
     							$("#rejectedComments").hide();
+    							this.rejectTimeEntry(event);			
     						}.ctx(this));
     						
     						
@@ -180,8 +170,8 @@ ApproverSearch.prototype.searchTimeEntriesByApprover = function() {
 }
 
 ApproverSearch.prototype.approveTimeEntry=function(event){
-	var id=parseInt(event.target.value);
-	RequestManager.approve({"payload":{"id":id}},function(data, success){
+	var timeEntryId=event.target.value;
+	RequestManager.approve({"payload":{"id":timeEntryId}},function(data, success){
 		if(success){
 			alert("approved");
 		}
@@ -193,8 +183,8 @@ ApproverSearch.prototype.approveTimeEntry=function(event){
 	
 }
 ApproverSearch.prototype.rejectTimeEntry=function(event){
-	var id=parseInt(event.target.value);
-	RequestManager.reject({ "payload": {"id":id,"rejectedComments":$(".comments").val()} },function(data,success){
+	var timeEntryId=event.target.value;
+	RequestManager.reject({ "payload": {"id":timeEntryId,"rejectedComments":$(".comments").val()} },function(data,success){
 		if(success){
 			if(data){
 			alert("rejected");
@@ -206,6 +196,31 @@ ApproverSearch.prototype.rejectTimeEntry=function(event){
 			alert(data.message);
 		}	
 	});
+}
+
+ApproverSearch.prototype.validateSearchCriteria=function(){
+	  var fromDate=$('.from').val();
+	  var toDate=$('.to').val();
+	  var isvalid=true;
+	  var dateRegex="^(0[1-9]|1[012])([-/])(0[1-9]|[12][0-9]|3[01])\\2([23]0)\\d\\d$";
+	  var pattern=new RegExp(dateRegex);
+	  if(fromDate!=null || fromDate!=''){
+		  if(!pattern.test(fromDate)){
+				alert("Invalid Date(Format:mm/dd/yyyy).");
+				  isvalid=false;
+			  }
+	  }
+	  if(toDate!=null || toDate!=''){
+      if(!pattern.test(toDate)){
+		alert("Invalid Date(Format:mm/dd/yyyy).");
+		  isvalid=false;
+	  }
+	  }
+	  else if($('.status').val()==''){
+		  alert("specify the status");
+	      isvalid=false;
+	  }
+	  return isvalid;
 }
 
 

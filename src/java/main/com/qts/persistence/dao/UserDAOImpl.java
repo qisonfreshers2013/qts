@@ -11,13 +11,13 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.exception.ConstraintViolationException;
 
 import com.qts.exception.ExceptionCodes;
 import com.qts.exception.ExceptionMessages;
 import com.qts.exception.UserException;
-import com.qts.model.BaseObject;
 import com.qts.model.ChangePasswordBean;
 import com.qts.model.LoginBean;
 import com.qts.model.User;
@@ -312,18 +312,18 @@ public class UserDAOImpl extends BaseDAOImpl implements UserDAO {
 		return list.iterator().next();
 
 	}
-
+	
+	@Override
 	public boolean isUserDeleted(long id) {
 		Session session = getSession();
 		boolean isDeleted = false;
 
 		Criteria userCriteria = session.createCriteria(User.class);
-		userCriteria.add(Restrictions.eq("id", id)).add(
-				Restrictions.eq("isDeleted", true));
+		userCriteria = userCriteria.add(Restrictions.conjunction());
+		userCriteria.add(Restrictions.eq("id", id));
+		userCriteria.add(Restrictions.eq("isDeleted", false));
 		List<User> list = userCriteria.list();
 		if (list.isEmpty())
-			isDeleted = false;
-		else
 			isDeleted = true;
 		return isDeleted;
 
@@ -373,17 +373,44 @@ public class UserDAOImpl extends BaseDAOImpl implements UserDAO {
 		return user;
 	}
 
+	@Override
 	public List<User> getUsersOtherThanTheseIds(List<Long> userIds) {
 		Session session = getSession();
 		Iterator<Long> iterator = userIds.listIterator();
 		Criteria userCriteria = session.createCriteria(User.class);
+		userCriteria.setProjection(
+				Projections.projectionList().
+						add(Projections.property("id")).
+						add(Projections.property("email")).
+						add(Projections.property("employeeId")).
+						add(Projections.property("firstName")).
+						add(Projections.property("lastName")).
+						add(Projections.property("photoFileId")).
+						add(Projections.property("nickName")).
+						add(Projections.property("userId")).
+						add(Projections.property("location")).
+						add(Projections.property("designation"))
+				);
 		userCriteria = userCriteria.add(Restrictions.conjunction());
 		while (iterator.hasNext()) {
 			userCriteria.add(Restrictions.ne("id", iterator.next()));
 		}
 		userCriteria.add(Restrictions.ne("isDeleted", true));
+		userCriteria.addOrder(Order.asc("email"));
 		return userCriteria.list();
 	}
+	
+	
+	@Override
+	public List<User> getUsersByIds(List<Long> userIds) {
+		Session session = getSession();
+		Criteria userCriteria = session.createCriteria(User.class);
+		userCriteria = userCriteria.add(Restrictions.in("id",userIds));
+		userCriteria.add(Restrictions.eq("isDeleted", false));
+		userCriteria.addOrder(Order.asc("email"));
+		return userCriteria.list();
+	}
+
 
 	@Override
 	public List<String> getEmployeeIds() {
@@ -402,59 +429,3 @@ public class UserDAOImpl extends BaseDAOImpl implements UserDAO {
 	
 
 }
-
-// @Override
-// /addUserfrrom Bean
-// public long addUser(UserBean bean, long id, long cts, long mts,
-// String createdBy, String modifiedBy, boolean isDeleted,
-// long photoFileId) {
-// long userId = 0;
-// boolean gender = bean.getGender().equals("male")?true:false;
-// Session session =getSession();
-// Transaction
-// User user = new User(bean.getEmail(),
-// bean.getPassword(),
-// bean.getEmployeeId(),
-// bean.getFirstName(),
-// bean.getLastName(),
-// bean.getNickName(),
-// bean.getLocation(),
-// gender,
-// bean.getDesignation(),
-// cts,
-// mts,
-// createdBy,
-// modifiedBy,
-// isDeleted,
-// bean.getUserId(),
-// photoFileId);
-// userId = (Integer)session.save(user);
-// transaction.commit();
-//
-// return userId;
-//
-//
-// }
-
-/* searchUser */
-// Set<User> set = new HashSet<User>();
-// List<User> list = new ArrayList<User>();
-//
-// List<User> listNickName = session.createQuery(
-// "from User where nickName = " + bean.getNickName()).list();
-//
-// set.addAll(listNickName);
-// List<User> listEmail = session.createQuery(
-// "from User where email = " + bean.getEmail()).list();
-// set.addAll(listEmail);
-// List<User> listEmployeeId = session.createQuery(
-// "from User where employeeId = " + bean.getEmployeeId()).list();
-// set.addAll(listEmployeeId);
-// List<User> listDesignation = session.createQuery(
-// "from User where designation = " + bean.getDesignation())
-// .list();
-// set.addAll(listDesignation);
-// DAOConnection.closeSession(session);
-// list.addAll(set);
-// return list;
-

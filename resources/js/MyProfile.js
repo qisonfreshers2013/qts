@@ -2,7 +2,7 @@
  * 
  */
 function MyProfile(){
-	Loader.loadHTML('.container', 'MyProfile.html', false , function(){
+	Loader.loadHTML('.container', 'MyProfile.html', true, function(){
 			this.handleShow();
 	}.ctx(this));
 }
@@ -59,8 +59,7 @@ MyProfile.prototype.loadValues = function(){
 				$('h1.nicknameHeader').text(data.nickName);
 			else
 				$('h1.nicknameHeader').text(data.lastName);
-			$('p.locationHeader').text(data.location);
-			$('p.upperDesignationField').text(data.designation);
+			$('p.locationHeader').text(data.location);	
 			var gender = (data.gender)?"Male":"Female";
 			$('input.employeeIdText').val(data.employeeId);
 			$('input.emailText').val(data.email);

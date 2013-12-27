@@ -41,7 +41,17 @@ public class ActivitiesDAOImpl extends BaseDAOImpl implements ActivitiesDAO{
 		return null;
 	}
 	
-	
+@SuppressWarnings("unchecked")
+public List<Activities> getActivities(){
+	Session session=getSession();
+	try{
+		List<Activities> activitieslist=session.createQuery("from Activities").list();
+		return activitieslist;
+	}catch(Exception e){
+		e.printStackTrace();
+		throw e;
+	}
+}
 	
 	
 	

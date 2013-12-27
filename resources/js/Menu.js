@@ -10,8 +10,8 @@ Menu.prototype.handleShow=function(roleIds){
 		$('#pm').append('<ul id="projectOptions">'+
 		        '<li id="addProject" class="dropDown"><a>Add Project</a></li>'+
 				'<li id="allocateUsers" class="dropDown"><a>Allocate Users</a></li>'+
-				'<li id="addroleIds" class="dropDown"><a>Add roleIds</a></li>'+
-				'<li id="searchProject" class="dropDown"><a>Search project</a></li></ul>');
+				'<li id="addRoles" class="dropDown"><a>Add Roles</a></li>'+
+				'<li id="searchProject" class="dropDown"><a>Search Project</a></li></ul>');
 		
 		
 		
@@ -41,7 +41,7 @@ Menu.prototype.handleShow=function(roleIds){
 			
 		});
 		
-		$('#addroleIds').click(function(){
+		$('#addRoles').click(function(){
 			$('#content').remove();
 			App.loadRoles();
 			
@@ -54,10 +54,8 @@ Menu.prototype.handleShow=function(roleIds){
 		});
 		$('#prm').click(function(){
 			$('#content').remove();
+			App.loadAddProjectRelease();
 			App.loadSearchProjectRelease(roleIds);
-			if(roleIds.contains(1)){
-				App.loadAddProjectRelease();
-			}
 		});
 		
 		
@@ -71,7 +69,9 @@ Menu.prototype.handleShow=function(roleIds){
 			$('#tsa').click(function(){
 				$('#content').remove();
 				App.loadApproverTimeSheetSearch();
-				App.loadDefaultTimeSheetPage();
+				App.loadDefaultApproverPage();
+				
+				
 			});
 		}
 		else{
@@ -89,7 +89,9 @@ Menu.prototype.handleShow=function(roleIds){
 		$('#tsa').click(function(){
 			$('#content').remove();
 			App.loadApproverTimeSheetSearch();
-			App.loadDefaultTimeSheetPage();
+			App.loadDefaultApproverPage();
+			
+			
 		});
 		
 		$('#pm').click(function(){
@@ -108,7 +110,7 @@ Menu.prototype.handleShow=function(roleIds){
 		
 		$('#su').click(function(){
 			$('#content').remove();
-			App.loadSearchUser();
+			App.loadSearchUser(roleIds);
 		});
 		
 		if(roleIds.contains(3)){
@@ -116,8 +118,11 @@ Menu.prototype.handleShow=function(roleIds){
 			
 			$('#tsf').click(function(){
 				$('#content').remove();
-				App.loadTimeSheetFilling
+				App.loadTimeSheetFilling();
 				App.loadDefaultTimeSheetPage();
+				
+				
+				
 			});
 			
 		}
@@ -155,6 +160,8 @@ Menu.prototype.handleShow=function(roleIds){
 			$('#content').remove();
 			App.loadTimeSheetFilling();
 			App.loadDefaultTimeSheetPage();
+			
+			
 		});
 	}
 	

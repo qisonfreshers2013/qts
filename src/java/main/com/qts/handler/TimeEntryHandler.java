@@ -238,11 +238,12 @@ public class TimeEntryHandler {
 	    	UserProjectHandler.getInstance().getUserProjectByIds(searchCriteria.getProjectId(),searchCriteria.getUserId());
 	    	RoleBean roleBeanInput=new RoleBean(ServiceRequestContextHolder.getContext().getUserSessionToken().getUserId(),searchCriteria.getProjectId());
 			RoleBean roleBeanOutput=RoleHandler.getInstance().getUserRoles(roleBeanInput);
-			if(roleBeanOutput.getRoleIds().isEmpty() || !roleBeanOutput.getRoleIds().contains(2)){
-				throw new TimeEntryException(ExceptionCodes.PROJECT_ID_INVALID,ExceptionMessages.USER_NOT_ASSOCIATED_WITH_PROJECT);
+			
+			if(roleBeanOutput.getRoleIds().isEmpty() && !roleBeanOutput.getRoleIds().contains(2)){
+				throw new TimeEntryException(ExceptionCodes.PROJECT_ID_INVALID,ExceptionMessages.APPROVER_NOTAUTHORIZED);
 			}
 	    	}catch(ProjectException ex){
-	    		throw new TimeEntryException(ExceptionCodes.PROJECT_ID_INVALID,ExceptionMessages.USER_NOT_ASSOCIATED_WITH_PROJECT);
+	    		throw new TimeEntryException(ExceptionCodes.PROJECT_ID_INVALID,ExceptionMessages.APPROVER_NOTAUTHORIZED);
 	    	}
 	    }
 	    if(searchCriteria.getFrom()!=null && searchCriteria.getUserId()==null && searchCriteria.getProjectId()==null && searchCriteria.getStatus()==null)

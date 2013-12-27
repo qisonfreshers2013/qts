@@ -3,15 +3,19 @@
     margin-top: 8%;
     width: 100%;
 }
+.headline {
+}
 .enter {
-	margin-top:4%;
+    left: 3%;
+    margin-top: 6%;
+    position: relative;
 }
 .text {
     left: 27%;
     margin-top: -8%;
     position: relative;
 }
-.saveSection {
+.save {
     left: 27%;
     margin-top: 2%;
     position: relative;
@@ -20,12 +24,9 @@ p{
 	font-size:16px;
 }
 .go,.reset{
-    background-color: #669933;
-    border: medium none;
-    color: #FFFFFF;
-    font-weight: bold;
-    text-align: center;
-    width:8%;
-    height:20px;
+	background-color:#8AAF09;
+	 width:7% ;
+	 border-radius:5px;
 }
+
 

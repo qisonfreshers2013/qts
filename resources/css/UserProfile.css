@@ -1,8 +1,4 @@
 
-
-#content {
-    margin-top: 8%;
-}
 .field {
     line-height: 28px;
     margin-top: 0;
@@ -22,27 +18,26 @@
     font-weight: normal;
     position: relative;
     text-align: left;
-   
 }
 .star {
     color: #FF0000;
 }
 div#submitDiv {
     clear: both;
-    font-family: Arial;
-    left: 25%;
-    margin-top: 0;
+    font-family: Arial;   
+    left: 20%;
     position: relative;
     text-align: left;
+    margin-top: 0%;   
     word-wrap: break-word;
 }
 div#clearDiv {
-    left: 18%;
-    margin-top: 0;
+    left: 13%;
     position: relative;
+    margin-top: 0%;
 }
 input.clear {
-    background-color: #669933;
+    background-color: #00FF00;
     padding: 0.5%;
     width: 47%;
 }
@@ -52,7 +47,6 @@ input.firstName, input.lastName, input.nickname, input.email, input.employeeId, 
 button.submit {
     padding: 0;
     width: 47%;
-    background-color: #669933;
 }
 hr {
     background-color: #E0E0E0;
@@ -80,7 +74,4 @@ p {
 }
 select {
     width: 22%;
-}
-input.userId{
-margin:0%;
 }

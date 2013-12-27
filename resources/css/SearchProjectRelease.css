@@ -1,6 +1,6 @@
 .content{
-	margin-top: 8%;
-    width: 100%;
+	margin-top: 10%;
+    width: 60%;
 }
 
 .project {
@@ -10,9 +10,9 @@
 }
 
 .selectProjectName {
-    left: 25%;
-    margin-top: -3.3%;
+    left: 40%;
+    margin-top: -5%;
     position: relative;
-    width: 60%;
+    width: 60%
 	 
 }

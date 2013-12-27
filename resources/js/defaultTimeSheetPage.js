@@ -2,23 +2,27 @@
  * Ajay
  */
 function DefaultTimeSheetPage(){
-	Loader.loadHTML('#container', 'defaultTimeEntryPage.html',true, function() {
+	Loader.loadHTML('#container', 'defaultTimeEntryPage.html',false, function() {
+		this.searchUserTimeEntries();
+        this.getProjects();
 		this.handleShow();
 	}.ctx(this))
 }
 DefaultTimeSheetPage.prototype.handleShow=function(){
 	$(".container").show();
 	this.loadTimeSheetFilling();
-	  this.getProjects();
+	  
     $(document).ready(function() {
-        console.log("on ready")
         $(".searchByDate").datepicker({maxDate:new Date()});
+       // this.searchUserTimeEntries();
+        //this.getProjects();
+        
     });
   
 	$('.searchByProjectId').change(function(event){
         this.getReleases();
        }.ctx(this));
-	this.searchUserTimeEntries();
+	
 	//To Add A New TimeEntrySheet
 	$('.addTimeEntry').click(function(){
 		$("cancel").trigger("click");
@@ -29,7 +33,7 @@ DefaultTimeSheetPage.prototype.handleShow=function(){
 		this.deleteTimeEntry();
 		}.ctx(this));
 	
-	$("input:checkbox").click(function(){
+	$("input:checkbox").change(function(){
 		if(this.checked==false){
 			$("#selectAll").checked=false;
 			}
@@ -67,9 +71,12 @@ DefaultTimeSheetPage.prototype.loadTimeSheetFilling=function(){
 	$( "#loadTimeSheetFilling" ).hide();
 	new TimeEntry();
 }
+
+
 DefaultTimeSheetPage.prototype.add = function() {
 	  $( "#loadTimeSheetFilling" ).modal('show');
 	 }
+
 DefaultTimeSheetPage.prototype.deleteTimeEntry=function(){
 	var selectedCheckBox=$("input[type=checkbox]:checked").length;
 	if(selectedCheckBox!=1){
@@ -82,6 +89,7 @@ DefaultTimeSheetPage.prototype.deleteTimeEntry=function(){
 			if(success){
 				alert("Deleted");
 				$("input[type=checkbox][value="+id+"]").empty();
+				this.searchUserTimeEntries();
 			}
 			else{
 				alert(data.message);
@@ -102,14 +110,16 @@ DefaultTimeSheetPage.prototype.submitTimeEntries=function(){
 			}
 		});
 		alert(idOfTimeEntries);
+		var ids=new Array();
 		for(var i=0;i<idOfTimeEntries.length;i++){
-			 ids={"id":idOfTimeEntries[i]};
+			 ids.pust({"id":idOfTimeEntries[i]});;
 		}
 		var input={"payload":{"timeEntries":[ids]}};
 	RequestManager.submit(input,function(data,success){
 		if(success){
 		if(data){
 			alert("Submitted");
+			this.searchUserTimeEntries();
 		}
 		else{
 			alert("Not Submitted");
@@ -190,6 +200,7 @@ DefaultTimeSheetPage.prototype.editTimeEntry=function(){
 					if(success){
 						alert("Updated");
 						$("cancel").trigger("click");
+						this.searchUserTimeEntries();
 					}
 					else{
 						alert(data.message);
@@ -207,18 +218,6 @@ DefaultTimeSheetPage.prototype.selectAllCheckBoxes=function(){
 	else
 		$("input:checkbox").each(function(){ this.checked=false;});
 }
-
-
-
-
-
-
-
-
-
-
-
-
 
 DefaultTimeSheetPage.prototype.getInputForSearchUserTimeEntries=function(){
 	var input;
@@ -239,6 +238,9 @@ DefaultTimeSheetPage.prototype.getInputForSearchUserTimeEntries=function(){
 
 DefaultTimeSheetPage.prototype.searchUserTimeEntries=function(){
 	var input=this.getInputForSearchUserTimeEntries();
+	if(input==null || input ==""){
+		input={"payload":{}}
+	}
 	RequestManager.searchTimeEntriesByUser(input,function(data,success){
 		if(success){
 			var status;
@@ -299,7 +301,8 @@ DefaultTimeSheetPage.prototype.searchUserTimeEntries=function(){
 
 DefaultTimeSheetPage.prototype.getProjects=function(){
 	 $('#searchByProjectId').empty();
-	 RequestManager.getProjectsForUser({}, function(data, success) {
+	 $('#searchByProjectId').append('<option>SELECT</option>');
+	 RequestManager.getProjectsForMember({}, function(data, success) {
 	  if(success){
 	   var id=0;
 	   var name;

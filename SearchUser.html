@@ -1,5 +1,5 @@
 
-<div id = "content" class = "content searchContainer">
+<div id = "content" class = "searchContainer">
 <div id = "head" class = "head">
 <h2><img src = "resources/img/searchUser.png" alt = "searchUser">SearchUser</h2>
 </div>
@@ -8,35 +8,36 @@
 </div>
 <div id = "searchUserContent" class = "searchUserContent">
 <form>
-<div id = "nicknameFieldSU" class = "nicknameFieldSU">
+<div id = "nicknameField" class = "nicknameField">
 <p>Nickname</p>
 </div>
-<div id = "nicknameTextSU" class = "nicknameTextSU">
+<div id = "nicknameText" class = "nicknameText">
 <input id = "nickname" class = "nickname" name = "nickname" pattern="^[A-Za-z\s]*$" type = "text" placeHolder = "nickname"/>
 </div>
-<div id = "emailFieldSU"  class = "emailFieldSU">
+<div id = "emailField"  class = "emailField">
 <p>Email</p>
 </div>
-<div id = "emailTextSU" class = "emailTextSU">
+<div id = "emailText" class = "emailText">
 <input id = "email" class = "email" name = "email" type = "email" placeHolder = "email"/>
 </div>
-<div id = "designationFieldSU" class = "designationFieldSU">
+<div id = "designationField" class = "designationField">
 <p>Designation</p>
 </div>
-<div id = "designationTextSU" class = "designationTextSU">
+<div id = "designationText" class = "designationText">
 <input id = "designation" class = "designation" name = "designation" type = "text" pattern="^[A-Z\\s]*$"  onblur = "this.value = this.value.toUpperCase()" placeHolder = "designation"/>
 </div>
 </form>
-<div id = "employeeIdFieldSU" class = "employeeIdFieldSU">
+<div id = "employeeIdField" class = "employeeIdField">
 <p>Employee Id</p>
 </div>
-<div id = "employeeIdTextSU" class = "employeeIdTextSU">
+<div id = "employeeIdText" class = "employeeIdText">
 <select id = "employeeId" pattern="^[A-Za-z0-9]*$" class = "employeeId" name = "employeeId">
+ 
  
 </select>
 </div>
 <div id = "search" class = "search">
-<button id = "search" class = search name = "search" type = "button" value = "search" >Search</button>
+<input id = "search" class = search name = "search" type = "submit" value = "search" />
 </div>
 </div>
 <div class="resultsContainer"></div>

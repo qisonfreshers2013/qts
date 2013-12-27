@@ -70,7 +70,6 @@ public class DefaultAuthenticationHandler implements AuthenticationHandler {
 				try {
 					userProjectsRoles = daoFactory.getUserProjectsRolesDAOInstance().getUserProjectsRolesByUserProject(project.getId());
 				} catch (Exception e) {
-					e.printStackTrace();
 				}
 				if(CollectionUtils.isNotEmpty(userProjectsRoles)) {
 					for(UserProjectsRoles userProjectsRole: userProjectsRoles) {

@@ -39,7 +39,7 @@ TimeEntry.prototype.getRequestParameters=function(){
 			               "task":$('.task').val(),
 			               "hours":$('.hours').val(),
 			               "activityId":$('.selectActivity').val(),
-			               "releaseId":$('.SelectRelease').val(),
+			               "releaseId":$('.selectRelease').val(),
 			               "userRemarks":$('.userRemarks').val()
 			               };
       return requestParameters;
@@ -97,7 +97,7 @@ TimeEntry.prototype.setRequestParameters=function(updateRequestParameters){
  
 TimeEntry.prototype.getProjects=function(){
 	 $('.projectId').empty();
-	 RequestManager.getProjectsForUser({}, function(data, success) {
+	 RequestManager.getProjectsForMember({}, function(data, success) {
 	  if(success){
 	   var id=0;
 	   var name;

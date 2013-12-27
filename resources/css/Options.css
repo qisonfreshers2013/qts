@@ -57,3 +57,57 @@
 	 color: white; position: relative; left: 4%; top: 40%;
 }
 
+.UserManagement {
+    background-color: #4638A7;
+    cursor: pointer;
+    height: 162px;
+    margin: 5% 1.5% 1.5%;
+    position: relative;
+    width: 30%;
+}
+
+.umImg{
+	position: relative; top: 25%; left: 37%;
+}
+.umText{
+	 color: white; position: relative; left: 4%; top: 40%;
+}
+
+.TimeSheetApproval {
+    background-color: #D24625;
+    cursor: pointer;
+    height: 162px;
+    left: 33%;
+    margin: -18.7% 2% 1.5% ;
+    position: relative;
+    width: 30%;
+}
+
+
+.tsaImg{
+	position: relative; left: 36%; top: 30%;
+}
+.tsaText{
+	color: white; position: relative; top: 39%;
+}
+
+.TimeSheetFilling {
+    background-color: #2871F2;
+    cursor: pointer;
+    height: 162px;
+    margin: 5% 1.5% 1.5%;
+    position: relative;
+    width: 30%;
+}
+
+.tsfImage{
+	position: relative;
+	 top: 36%;
+	 left: 40%;
+}
+.tsfText{
+	 color: white; 
+	 position: relative; 
+	 top: 55%;
+	 left:4%;
+}

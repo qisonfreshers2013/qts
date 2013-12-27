@@ -2,7 +2,7 @@
  * 
  */
 function UserProfile(id) {
-	Loader.loadHTML('#container', 'UserProfile.html', false, function(){
+	Loader.loadHTML('#container', 'UserProfile.html', true, function(){
 		this.handleShow(id);
 	}.ctx(this));
 }
@@ -70,9 +70,7 @@ UserProfile.prototype.loadUserValues = function(id){
 		}
 		else{
 			console.log("loaded my profile"+data.message);
-			alert("my profile" +" failed" + data.message);	
-			
-			
+			alert("my profile" +" failed" + data.message);				
 		}
 		
 	}.ctx(this));

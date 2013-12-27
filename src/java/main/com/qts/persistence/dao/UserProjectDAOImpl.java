@@ -7,6 +7,7 @@ package com.qts.persistence.dao;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 
 import org.hibernate.Criteria;
 import org.hibernate.Query;
@@ -20,7 +21,6 @@ import com.qts.exception.ExceptionMessages;
 import com.qts.exception.ObjectNotFoundException;
 import com.qts.exception.ProjectException;
 import com.qts.model.BaseObject;
-import com.qts.model.RoleBean;
 import com.qts.model.UserProject;
 
 public class UserProjectDAOImpl extends BaseDAOImpl implements UserProjectDAO {
@@ -97,23 +97,21 @@ public class UserProjectDAOImpl extends BaseDAOImpl implements UserProjectDAO {
 	 * inserts new userProject records into userProject Table
 	 */
 	@Override
-	public void addUserToProject(List<UserProject> userProject)
-			throws ProjectException {
-		try {
-			Iterator<UserProject> iterator = userProject.iterator();
-			UserProject userProjectObject = new UserProject();
-			System.out.println(userProject);
-			while (iterator.hasNext()) {
-				session = getSession();
-				userProjectObject = iterator.next();
+	public void addUsersToProject(List<UserProject> userProject)
+	throws ProjectException {
+
+		Iterator<UserProject> iterator = userProject.iterator();
+		UserProject userProjectObject = new UserProject();
+		System.out.println(userProject);
+		while (iterator.hasNext()) {
+			session = getSession();
+			userProjectObject = iterator.next();
+			try {
 				session.save(userProjectObject);
-			}
-		} catch (ConstraintViolationException e) {
-			e.printStackTrace();
-			throw new ProjectException(
-					ExceptionCodes.USER_PROJECT_CONSTRAINT_FAILED,
-					ExceptionMessages.USER_PROJECT_CONSTRAINT_FAILED);
-		} 
+			}catch (ConstraintViolationException e) {
+				throw new ProjectException(ExceptionCodes.USER_PROJECT_CONSTRAINT_FAILED,ExceptionMessages.USER_PROJECT_CONSTRAINT_FAILED);
+			} 
+		}
 	}
 
 	/*
@@ -161,7 +159,7 @@ public class UserProjectDAOImpl extends BaseDAOImpl implements UserProjectDAO {
 	 */
 	@Override
 	public List<UserProject> getUserProjectsByIds(long projectId,
-			List<Long> userIdsList)  {
+			Set<Long> userIdsList)  {
 		session = getSession();
 		long userId;
 		List<UserProject> userProjectList = new LinkedList<UserProject>();

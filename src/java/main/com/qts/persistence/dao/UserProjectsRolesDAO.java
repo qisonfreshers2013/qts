@@ -1,7 +1,6 @@
 package com.qts.persistence.dao;
 
 import java.util.List;
-import java.util.Set;
 
 import com.qts.model.RoleBean;
 import com.qts.model.UserProject;
@@ -12,7 +11,7 @@ import com.qts.model.UserProjectsRoles;
  * @author Jagadish
  * 
  */
-public interface UserProjectsRolesDAO {
+public interface UserProjectsRolesDAO extends BaseDAO{
 	// Gives UserProjectRoles that are available with the given userProjectId
 	// and roleId
 	UserProjectsRoles getUserProjectsRolesByUserProjectAndRole(long userProjectId, long roleId)

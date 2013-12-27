@@ -128,7 +128,12 @@ RequestManager.prototype.getProjectNonUsers=function(data,callback){
 	this.sendToServer('project/getNonUsersOfProject', data, callback);
 }
 
-
+RequestManager.prototype.getProjectsForApprover=function(data,callback){
+	this.sendToServer('project/getProjectsForApprover', data, callback);
+}
+RequestManager.prototype.getProjectsForMember=function(data,callback){
+	this.sendToServer('project/getProjectsForMember', data, callback);
+}
 
 
 
