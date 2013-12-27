@@ -2,17 +2,20 @@
  * 
  */
 function AddUser() {
-	Loader.loadHTML('#container', 'AddUser.html', true, function(){
+	Loader.loadHTML('#container', 'AddUser.html', false, function(){
 		this.handleShow();
 	}.ctx(this));
 }
 
 AddUser.prototype.handleShow = function() {
-	$('.container').show();
+//	$('.container').show();
 	
 //	$('input.firstname').keyup(function(){
 //		this.validateName();
 //	}.ctx(this));
+//	$('input.email').blur(function(){
+//			$('input.userId').value = $('input.email').value ; }.ctx(this));
+	
 	$('.submit').click(function(){
 		if(this.validateName($('input.firstName'))){
 			if(this.validateName($('input.lastName'))){
@@ -58,10 +61,10 @@ AddUser.prototype.addUser = function() {
 		"password":$('.password').val(),
 		"confirmPassword":$('.confirmPassword').val()
 	}};
-	alert($('.gender').val());
+	
 	RequestManager.addUser(input, function(data, success) {
 		if(success){
-			alert(data.message+"success");
+			alert("success" + "  user added  "+data);
 			$( "input#clear" ).trigger( "click" );
 		}else{
 			
