@@ -10,8 +10,8 @@ Menu.prototype.handleShow=function(roleIds){
 		$('#pm').append('<ul id="projectOptions">'+
 		        '<li id="addProject" class="dropDown"><a>Add Project</a></li>'+
 				'<li id="allocateUsers" class="dropDown"><a>Allocate Users</a></li>'+
-				'<li id="addroleIds" class="dropDown"><a>Add roleIds</a></li>'+
-				'<li id="searchProject" class="dropDown"><a>Search project</a></li></ul>');
+				'<li id="addroleIds" class="dropDown"><a>Add Roles</a></li>'+
+				'<li id="searchProject" class="dropDown"><a>Search Project</a></li></ul>');
 		
 		
 		
