@@ -112,6 +112,7 @@ select.employeeId {
 }
 button.search {
     background-color:#669933;
+     color: white;
 }
 input.nickname ,input.employeeId, input.designation, input.email {
     width: 21.5%;

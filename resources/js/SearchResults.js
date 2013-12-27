@@ -25,9 +25,9 @@ SearchResults.prototype.appendValues = function(data,roles){
 		if(data.records[i].projects.length<1){
 			data.records[i].projects = "No projects";
 		}
-		$("#resultsTable tbody").append("<tr id = "+ data.records[i].id+">"+			        
+		$("#resultsTable tbody").append("<tr style = 'text-align:center;' id = "+ data.records[i].id+">"+			        
 				"<td id ="+data.records[i].photoFileUrl+"><img src='resources/img/defaultImage.png' alt = 'default image' class='defaultImage'/></td>"+
-				"<td><p style = 'font-size:12px'>"+data.records[i].email+"</p></td>"+
+				"<td><p style = 'font-size:12px;'>"+data.records[i].email+"</p></td>"+
 				"<td><p style = 'font-size:12px'>"+data.records[i].employeeId+"</p></td>"+
 				"<td><p style = 'font-size:12px'>"+data.records[i].designation+"</p></td>"+			     
 				"<td><p style = 'font-size:12px'>"+data.records[i].projects+"</p></td>"+
@@ -41,7 +41,7 @@ SearchResults.prototype.appendValues = function(data,roles){
 			if(data.records[i].projects.length<1){
 				data.records[i].projects = "No projects";
 			}
-			$("#resultsTable tbody").append("<tr>"+			        
+			$("#resultsTable tbody").append("<tr style = 'text-align:center;'>"+			        
 					"<td id ="+data.records[i].photoFileUrl+"><img src='resources/img/defaultImage.png' alt = 'default image' class='defaultImage'/></td>"+
 					"<td><p style = 'font-size:12px'>"+data.records[i].email+"</p></td>"+
 					"<td><p style = 'font-size:12px'>"+data.records[i].employeeId+"</p></td>"+

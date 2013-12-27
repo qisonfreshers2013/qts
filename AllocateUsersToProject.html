@@ -8,14 +8,14 @@
 	<div id="text">
 	<form>
 		<div>
-			<p>
-				Project Name <select id=projectName>
+			<p class="para">
+				Project Name <select id=projectName class=projectNameAllocate>
 				</select>
 			</p>
 		</div>
 		<div id="nonUsers">
-			<p>Non Existing Users</p>
-			<select id=nonExistingUsers size=6 multiple style="width:33%">
+			<p class="para">Unassigned Users</p>
+			<select id=nonExistingUsers  multiple style="width:33%; height:120px">
 			</select>
 		</div>
 		<div id="copy">
@@ -23,13 +23,14 @@
 				src="resources/img/u448_normal.png" id="backward">
 		</div>
 		<div id="users">
-			<p>Existing Users</p>
-			<select id=existingUsers size=6 multiple style="width:33%">
+			<p class="para">Assigned Users</p>
+			<select id=existingUsers multiple  style="width:33%; height:120px">
 			</select>
 		</div>
 		<div class="saveBlock">
 			<button type="button" class="go">Save</button>
-			 <input type="reset" value="Cancel" class="reset" style="width:8%"/>
+			 <button type="button" class="reset" style="width:8%">Cancel</button>
+			 <input type="reset" class="hidden"/>
 		</div>
 		</form>
 	</div>

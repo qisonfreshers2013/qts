@@ -120,7 +120,7 @@ SearchUser.prototype.validateEmail = function(email){
 
     var emailVal = email.val();
     if(emailVal == '') {
-    	email.focus().css("border-color","red");
+    	//email.focus().css("border-color","red");
         isValid = false;
     }
 

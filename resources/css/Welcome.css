@@ -1,14 +1,14 @@
-.image{
-	height : 100px;
-	width : 100px;
+div.image{
+	height:60px;
+	width : 50px;
 	float : left;
 	}
 .data{
 	height : 100px;
-	width : 400px;
+	width : 290px
 	}
 .logout,.myAccount {
-    color: #000000;
+    color: #0000FF;
     text-align: left;
     cursor: pointer;
 }
@@ -17,9 +17,14 @@
     text-align: left;
    
 	}
-span:hover {
+span.logout:hover,span.myAccount:hover {
     color: #008000;
 }
 p{
 font-size: 16px;
+}
+
+img.welcomeImage{
+	border-radius:25%;
+	border:solid grey;
 }

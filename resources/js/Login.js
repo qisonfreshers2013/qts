@@ -19,21 +19,25 @@ Login.prototype.handleShow = function() {
 		 }.ctx(this));
 	
 	
-	$("#userId").blur(function(){
-		this.validateEmail( $('#userId').val());			
-	}.ctx(this));
-	
-	$("#password").blur(function(){
-		this.validatePassword( $('#password').val());			
-	}.ctx(this));	
+//	$("#userId").blur(function(){
+//		//$(".error").hide();			
+//	}.ctx(this));
+//	
+//	$("#password").blur(function(){
+//		//$(".error").hide();		
+//	}.ctx(this));	
 	
 	$(".submit").click(function(){
-		if(this.validateLogin( $('.userId').val(), $('.password').val())){				
+	//var isValidateUserId = this.validateEmail($('input.userId'));
+	//	var isValidatePassword = this.validatePassword($('input.password'));		
+		if(this.validateLogin($('input.userId').val(),$('input.password').val())){		
 		this.authenticate();
 		}
 	}.ctx(this));
-	$(".clear").click(function(){
+		
+	$(".clear").click(function(){		
 		$('#userId').focus();
+		$(".error").hide();
 	}.ctx(this));
 	
 	
@@ -42,17 +46,14 @@ Login.prototype.handleShow = function() {
 	}.ctx(this));	
 	
 	$("button.submitEmail").click(function(){	
-		if(this.validateEmail( $('.emailToSend').val())){	
+		if(this.validateEmail( $('.emailToSend'))){	
 		var email = $('.emailToSend').val();	
 		this.sendMail(email);
-		//$('.emailToSend').empty();
-		//console.log("sendTo requsestManager"+email);
-		//$('#forgotPasswordModal').modal('hide');
+		
 		}
 		else{
-			 $('.emailToSend').focus();
-			 $('.emailToSend').after('<span class = "error"><img style = "height:5%;width:5%;"src = "resources/img/wrong.png"></span>')
-			console.log("notValidated");
+			 $('.emailToSend').focus();			
+			console.log("Email not Validated");
 		}
 	}.ctx(this));
 	
@@ -74,7 +75,7 @@ Login.prototype.authenticate = function() {
 		      App.loadQisonLogo(roleIds);
 
 		}else{
-			console.log('fail '+ data.message);
+			console.log('fail  :'+ data.message);
 			alert('fail '+ data.message);
 			$( "input#clear" ).trigger( "click");			
 	}
@@ -89,7 +90,7 @@ Login.prototype.sendMail = function(email){
 		$('#forgotPasswordModal').modal('hide');
 		}
 		else
-		alert("fail to send"+data.message);
+		alert("fail :"+data.message);
 		
 	}.ctx(this));
 }
@@ -103,21 +104,25 @@ Login.prototype.openEmailDialogBox = function() {
 
 
 Login.prototype.validateLogin = function(email,password){
+	$(".error").hide();
 	console.log(email+" validation "+password);
     var isValid = false;
     var emailReg = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,})?$/;
     var emailVal = email;
     if(emailVal == "" || emailVal == null) {
     	$('.userId').focus();
+    	$('.userId').after('<span class = "error" style = "color:red" >UserId can not be null</span>');
         isValid = false;
     }
 
     else if(!emailReg.test(email)) {
     	$('.userId').focus();
+    	$('.userId').after('<span class = "error"  style = "color:red" >Enter the valid UserId</span>');
         isValid = false;
     }
-	 else if(password.length < 6 ){
+	 else if(password.trim().length < 6 ){
 		$('.password').focus();
+		$('.password').after('<span class = "error" style = "color:red" >Minimum length of passsword is 6</span>');
 		//{
 //			  $( this ).after.css( "display", "inline" ).fadeOut( 1000 );
 //			});
@@ -131,44 +136,30 @@ Login.prototype.validateLogin = function(email,password){
 	return isValid; 
 }
 
-Login.prototype.validateEmail = function(email){
-	console.log(email+" validation ");
+Login.prototype.validateEmail = function(emailRef){
+	var emailVal = emailRef.val();
+	console.log(emailVal+" validation ");
 	$(".error").hide();
     var isValid = false;
     var emailReg = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,})?$/;
-
-    var emailVal = email;
+   
     if(emailVal == '') {
-    	$('.userId').after('<span class = "error"><img style = "height:5%;width:5%;"src = "resources/img/wrong.png"></span>');
+    	$(".error").show();
+    	emailRef.after('<span class = "error" style = "color:red" >Email can not be null</span>');
         isValid = false;
     }
 
-    else if(!emailReg.test(email)) {
-    	$('.userId').after('<span class="error"><img style = "height:5%;width:5%;"src = "resources/img/wrong.png"></span>');
+    else if(!emailReg.test(emailVal)) {
+    	$(".error").show();
+    	emailRef.after('<span class = "error"  style = "color:red" >Enter the valid Email</span>');
         isValid = false;
     }	
 	    else
 		{
-			$(".error").hide();
+			$("p.error").hide();
 			isValid = true;    
 		}
 	return isValid;  
-}
-
-Login.prototype.validatePassword = function(password){
-console.log(password+" validation ");
-$(".error").hide();
-    var isValid = false;   
-    if(password.length < 6 ){
-		$('.password').after('<span  class = "error"><img style = "height:5%;width:5%;"src = "resources/img/wrong.png"></span>');
-        isValid = false;
-	}
-	    else
-		{
-			$(".error").hide();
-			isValid = true;    
-		}
-	return isValid; 
 }
 
 Array.prototype.contains = function(k) {
@@ -180,3 +171,24 @@ Array.prototype.contains = function(k) {
     return false;
 }
 var Login= new Login();
+
+
+
+
+//Login.prototype.validatePassword = function(password){
+//console.log(password+" validation ");
+//$(".error").hide();
+//    var isValid = false;   
+//    if(password.length < 6 ){
+//    	$(".error").show();
+//		$('p.error').text("minimum password length is 6 ");
+//        isValid = false;
+//	}
+//	    else
+//		{   
+//			$(".error").hide();
+//			isValid = true;    
+//		}
+//	return isValid; 
+//}
+

@@ -76,25 +76,20 @@ AllocateUsersToProject.prototype.handleShow=function(){
 			$('#projectName').focus();
 		}
 		else{
-			this.allocateUsersToProject(projectId,function(){
-				$('.reset').trigger('click');
-			});
-
+			this.allocateUsersToProject(projectId);
 		}
+
 	}.ctx(this));
 
 	$(".reset").click(function(){
-		$('select#existingUsers').empty();
-		$('select#nonExistingUsers').empty();
-	});
+		this.getProjectUsersAndNonUsers();
+	}.ctx(this));
 }
 
 
 
 
-AllocateUsersToProject.prototype.allocateUsersToProject=function(projectId,callBack){
-
-	
+AllocateUsersToProject.prototype.allocateUsersToProject=function(projectId){
 
 	var allocateIds=new Array();
 	var deAllocateIds=new Array();
@@ -128,30 +123,36 @@ AllocateUsersToProject.prototype.allocateUsersToProject=function(projectId,callB
 //	alert('deAllocate:\n'+deAllocateIds);
 //	alert('allocating:\n'+allocateEmails);
 //	alert('deAllocate:\n'+deAllocateEmails);
-
-	if(confirm('allocating users:\n'+allocateEmails+'\n\ndeAllocatingUsers:\n'+deAllocateEmails)){
-		if(allocateIds.length>0){
-			RequestManager.allocateUsersToProject({"payload":{ "projectId":projectId, "userIds":allocateIds}}, function(data, success) {
-				if(success){
-					//alert(data);
-				}else{
-					alert("failed");
-				}
-			}.ctx(this));
-		}
-
-		if(deAllocateIds.length>0){
-			RequestManager.deAllocateUsersFromProject({"payload":{ "projectId":projectId, "userIds":deAllocateIds}}, function(data, success) {
-				if(success){
-					//alert(data);
-				}else{
-					alert("failed");
-				}
-			}.ctx(this));
-		}
+	if(allocateIds.length>0 || deAllocateIds.length>0){
 		
+		if(confirm('allocating users:\n'+allocateEmails+'\n\ndeAllocatingUsers:\n'+deAllocateEmails)){
+			if(allocateIds.length>0){
+				RequestManager.allocateUsersToProject({"payload":{ "projectId":projectId, "userIds":allocateIds}}, function(data, success) {
+					if(success){
+						//alert(data);
+					}else{
+						alert(data.message);
+					}
+				}.ctx(this));
+			}
+
+			if(deAllocateIds.length>0){
+				RequestManager.deAllocateUsersFromProject({"payload":{ "projectId":projectId, "userIds":deAllocateIds}}, function(data, success) {
+					if(success){
+						//alert(data);
+					}else{
+						alert(data.message);
+					}
+				}.ctx(this));
+			}
+		}
+		$('.hidden').trigger('click');
+		$('select#existingUsers').empty();
+		$('select#nonExistingUsers').empty();
+	}else{
+		alert('please select atleast one user for allocation or deallocation');
 	}
-	$('.reset').trigger('click');
+	
 }
 
 
@@ -173,7 +174,7 @@ AllocateUsersToProject.prototype.getProjectUsersAndNonUsers=function(){
 					        return 0;
 					    } else if(a.email.toLowerCase() > b.email.toLowerCase()) {
 					        return 1;
-				    }
+					    }
 					    return -1;
 					});
 					

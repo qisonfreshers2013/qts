@@ -64,7 +64,7 @@ AddUser.prototype.addUser = function() {
 	
 	RequestManager.addUser(input, function(data, success) {
 		if(success){
-			alert("success" + "  user added"+data.user.id);
+			alert("success" + "  user added  "+data);
 			$( "input#clear" ).trigger( "click" );
 		}else{
 			
