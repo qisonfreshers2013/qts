@@ -14,10 +14,13 @@ Login.prototype.handleShow = function() {
 	
 	$(document.documentElement).keyup(function (event) {
 		  if (event.keyCode == 13) {
-		   this.testLogin();
+			  if(this.validateLogin($('input.userId').val(),$('input.password').val())){		
+					this.authenticate();
+					}
 		  }
 		 }.ctx(this));
 	
+
 	
 //	$("#userId").blur(function(){
 //		//$(".error").hide();			
@@ -28,6 +31,7 @@ Login.prototype.handleShow = function() {
 //	}.ctx(this));	
 	
 	$(".submit").click(function(){
+		$(".error").hide();
 	//var isValidateUserId = this.validateEmail($('input.userId'));
 	//	var isValidatePassword = this.validatePassword($('input.password'));		
 		if(this.validateLogin($('input.userId').val(),$('input.password').val())){		
@@ -45,8 +49,10 @@ Login.prototype.handleShow = function() {
 		this.openEmailDialogBox();
 	}.ctx(this));	
 	
-	$("button.submitEmail").click(function(){	
+	$("button.submitEmail").click(function(){
+		$(".error").hide();
 		if(this.validateEmail( $('.emailToSend'))){	
+		$(".error").hide();
 		var email = $('.emailToSend').val();	
 		this.sendMail(email);
 		
@@ -70,13 +76,18 @@ Login.prototype.authenticate = function() {
 		 var roleIds=data.roleIds;
 		      var  token = data.sessionToken;
 		      setCookie('qtsSessionId', token, null);
-		      App.loadWelcome(data.user.nickName,roleIds);
+		      if(data.user.nickName==null  || data.user.nickName.trim.length < 1){
+		    	 App.loadWelcome(data.user.lastName,roleIds);
+		      }
+		      else {		    	
+		    	  App.loadWelcome(data.user.nickName ,roleIds);
+		    	  }		     
 		      App.loadOptions(roleIds);
 		      App.loadQisonLogo(roleIds);
 
 		}else{
 			console.log('fail  :'+ data.message);
-			alert('fail '+ data.message);
+			alert('Fail to login :'+ data.message);
 			$( "input#clear" ).trigger( "click");			
 	}
 	}.ctx(this));
@@ -108,8 +119,8 @@ Login.prototype.validateLogin = function(email,password){
 	console.log(email+" validation "+password);
     var isValid = false;
     var emailReg = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,})?$/;
-    var emailVal = email;
-    if(emailVal == "" || emailVal == null) {
+  //  var emailVal = email;
+    if(email == "" || email == null) {
     	$('.userId').focus();
     	$('.userId').after('<span class = "error" style = "color:red" >UserId can not be null</span>');
         isValid = false;
@@ -120,14 +131,25 @@ Login.prototype.validateLogin = function(email,password){
     	$('.userId').after('<span class = "error"  style = "color:red" >Enter the valid UserId</span>');
         isValid = false;
     }
+    else if (email.length > 128){
+    	$('.userId').focus();
+    	$('.userId').after('<span class = "error"  style = "color:red" >Maximum length of Email is 128</span>');
+        isValid = false;    	
+    }
 	 else if(password.trim().length < 6 ){
 		$('.password').focus();
 		$('.password').after('<span class = "error" style = "color:red" >Minimum length of passsword is 6</span>');
-		//{
+//{
 //			  $( this ).after.css( "display", "inline" ).fadeOut( 1000 );
 //			});
         isValid = false;
 	}
+	else if(password.trim().length  > 128)
+		{
+			$('.password').focus();
+			$('.password').after('<span class = "error" style = "color:red" >Maximum length of passsword is 128</span>');
+		
+		}
 	    else
 		{
 		$(".error").hide();
@@ -144,19 +166,23 @@ Login.prototype.validateEmail = function(emailRef){
     var emailReg = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,})?$/;
    
     if(emailVal == '') {
-    	$(".error").show();
+    	emailRef.focus();
     	emailRef.after('<span class = "error" style = "color:red" >Email can not be null</span>');
         isValid = false;
     }
 
     else if(!emailReg.test(emailVal)) {
-    	$(".error").show();
+    	emailRef.focus();
     	emailRef.after('<span class = "error"  style = "color:red" >Enter the valid Email</span>');
         isValid = false;
-    }	
+    }	else if (emailVal.length > 128){
+    	emailRef.focus();
+    	emailRef.after('<span class = "error"  style = "color:red" >Maximum length of Email is 128</span>');
+        isValid = false;    	
+    }
 	    else
 		{
-			$("p.error").hide();
+			$(".error").hide();
 			isValid = true;    
 		}
 	return isValid;  

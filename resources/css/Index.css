@@ -1,8 +1,7 @@
-
 body {
     background-color: #FFFFFF;
     color: #000000;
-    font-family: serif,sans-serif,cursive,Arial;
+    font-family: Arial;
     width: 100%;
 }
 .qisonLogoDiv {
@@ -11,7 +10,7 @@ body {
     position: absolute;
 }
 .welcome {
-    left: 80%;
+    left: 69%;
     margin: 1%;
     position: absolute;
 }
@@ -44,6 +43,7 @@ body {
 .footer p {
     text-align: center;
 }
-p{
-	font-size:16px;
+
+hr#indexHr{
+	 border: thin solid #000000;
 }

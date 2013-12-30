@@ -96,41 +96,47 @@ SearchUser.prototype.loadEmployeeIds = function(){
 
 SearchUser.prototype.validateNickname= function(nickname){
 	var isValid = true;
-	var nicknameReg = /^[A-Za-z\s]*$/;
-       $('.error').hide();
-	    var nicknameVal = nickname.val();
-	    
+	var nicknameReg = /^[A-Za-z]+([ {1}][A-Za-z]+)*$/g;
+	$(".error").show();
+	    var nicknameVal = nickname.val();	    
 	    if(!nicknameReg.test(nicknameVal)) {
 	    	nickname.focus().css("border-color","red");
+	    	$('p.error').text("Nickname is invalid");
 	        isValid = false;
-	    }	
+	    }
+	    else if(nicknameVal.length > 128){
+	    	nickname.focus().css("border-color","red");
+	    	$('p.error').text("Maximum length of nickname is 128");
+	    }
 	    else 
-	    	{
+	    	{   nickname.focus().css("border-color","blue");
 	    	 	$('.error').hide();
 	    	 	isValid = true;
 	    	}
 	    return isValid;
 }
 
+
 SearchUser.prototype.validateEmail = function(email){
 	var isValid = false;
-	$(".error").hide();
+	$(".error").show();
     var isValid = false;
     var emailReg = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,})?$/;
 
     var emailVal = email.val();
-    if(emailVal == '') {
-    	//email.focus().css("border-color","red");
-        isValid = false;
-    }
-
-    else if(!emailReg.test(emailVal)) {
-    	email.focus();
+    if(!emailReg.test(emailVal)) {
+    	email.addClass("red");
+    	$('p.error').text("Invalid Email");
         isValid = false;
     }	
+    else if (emailVal.length > 128){	  
+    	email.addClass("focus");
+    	$('p.error').text("Maximum length of email is 128");
+        isValid = false; 
+    }
 	    else
-		{
-			$(".error").hide();
+		{	email.removeClass("focus");
+			$(".error").hide();			
 			isValid = true;    
 		}
 	return isValid; 
@@ -141,14 +147,20 @@ SearchUser.prototype.validateEmail = function(email){
 SearchUser.prototype.validateDesignation = function(designation){
 	var isValid = false; 
 	var designationReg = /^[A-Z]+$/;
-       $('.error').hide();
+	$(".error").show();
 	    var designationVal = designation.val();
 	    if(!designationReg.test(designationVal)) {
+	    	$('p.error').text("Designation is invalid");
 	    	designation.focus().css("border-color","red");
 	        isValid = false;
-	    }	
+	    }
+	    else if (designationVal.length > 128){	    
+	    	designation.focus().css("border-color","red");
+	    	$('p.error').text("Maximum length of designation is 128");
+	      isValid = false; 
+	    }
 	    else
-		{
+		{   designation.focus().css("border-color","blue");
 			$(".error").hide();
 			isValid = true;    
 		}

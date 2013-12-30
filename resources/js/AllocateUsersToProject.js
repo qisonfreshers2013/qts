@@ -38,6 +38,8 @@ AllocateUsersToProject.prototype.getProjects=function(){
 
 
 AllocateUsersToProject.prototype.handleShow=function(){
+	
+	
 
 	$('#projectName').change(function(){
 		this.getProjectUsersAndNonUsers();
@@ -45,16 +47,32 @@ AllocateUsersToProject.prototype.handleShow=function(){
 
 
 	$('#forward').click(function(){
+		var projectId=parseInt($('select#projectName option:selected').attr('value'));
 		var options = $('select#nonExistingUsers option:selected').clone();
-		$('select#existingUsers').append(options);
-		$('select#nonExistingUsers option:selected').remove();
+		if(options.length>0){
+			$('select#existingUsers').append(options);
+			$('select#nonExistingUsers option:selected').remove();
+		}else if(projectId==0){
+			alert('please select project');
+		}else{
+			alert('please select atleast one user for allocation');
+		}
+
 	});
 
 
 	$('#backward').click(function(){
+		var projectId=parseInt($('select#projectName option:selected').attr('value'));
 		var options = $('select#existingUsers option:selected').clone();
-		$('select#nonExistingUsers').append(options);
-		$('select#existingUsers option:selected').remove();
+		if(options.length>0){
+			$('select#nonExistingUsers').append(options);
+			$('select#existingUsers option:selected').remove();
+		}else if(projectId==0){
+			alert('please select project');
+		}else{
+			alert('please select atleast one user for deallocation');
+		}
+
 	});
 
 
@@ -72,7 +90,7 @@ AllocateUsersToProject.prototype.handleShow=function(){
 //		alert('old Ids:'+oldIds);
 		var projectId=$('select#projectName option:selected').attr('value');
 		if(projectId==0){
-			alert('select project nmae');
+			alert('select project name');
 			$('#projectName').focus();
 		}
 		else{
@@ -123,10 +141,20 @@ AllocateUsersToProject.prototype.allocateUsersToProject=function(projectId){
 //	alert('deAllocate:\n'+deAllocateIds);
 //	alert('allocating:\n'+allocateEmails);
 //	alert('deAllocate:\n'+deAllocateEmails);
-	if(allocateIds.length>0 || deAllocateIds.length>0){
+	var allocatingIdsLength=allocateIds.length;
+	var daAllocatingIdsLength=deAllocateIds.length;
+	var message='';
+	if(allocatingIdsLength>0&&daAllocatingIdsLength>0){
+		message='allocating users:\n'+allocateEmails+'\n\ndeAllocatingUsers:\n'+deAllocateEmails;
+	}else if(allocatingIdsLength>0){
+		message='allocating users:\n'+allocateEmails;
+	}else{
+		message='deAllocatingUsers:\n'+deAllocateEmails;
+	}
+	if(allocatingIdsLength>0 || daAllocatingIdsLength>0){
 		
-		if(confirm('allocating users:\n'+allocateEmails+'\n\ndeAllocatingUsers:\n'+deAllocateEmails)){
-			if(allocateIds.length>0){
+		if(confirm(message)){
+			if(allocatingIdsLength>0){
 				RequestManager.allocateUsersToProject({"payload":{ "projectId":projectId, "userIds":allocateIds}}, function(data, success) {
 					if(success){
 						//alert(data);
@@ -136,7 +164,7 @@ AllocateUsersToProject.prototype.allocateUsersToProject=function(projectId){
 				}.ctx(this));
 			}
 
-			if(deAllocateIds.length>0){
+			if(daAllocatingIdsLength>0){
 				RequestManager.deAllocateUsersFromProject({"payload":{ "projectId":projectId, "userIds":deAllocateIds}}, function(data, success) {
 					if(success){
 						//alert(data);

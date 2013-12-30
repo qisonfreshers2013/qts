@@ -118,17 +118,10 @@ public class UserProjectsRolesDAOImpl extends BaseDAOImpl implements
 				if (!criteria.list().isEmpty())
 					session.delete(criteria.list().listIterator().next());
 			}
-			Set<Long> allRoles = new HashSet<Long>();
-			for (UserProjectsRoles userProjectsRoles : getUserProjectsRolesByUserProject(userProject
-					.getId())) {
-				allRoles.add(userProjectsRoles.getRoleId());
-			}
-			roleBean.setRoleIds(allRoles);
-			return roleBean;
-		} catch (RolesException e) {
-			// roleBean.setRoleIds(new HashSet<Long>());
+			roleBean.setRoleIds(new HashSet<Long>());
 			return roleBean;
 		}
+		finally{}
 
 	}
 

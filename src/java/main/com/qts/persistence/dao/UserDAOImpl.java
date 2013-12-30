@@ -115,7 +115,7 @@ public class UserDAOImpl extends BaseDAOImpl implements UserDAO {
 		Criteria userCriteria = session.createCriteria(User.class);
 		userCriteria.add(Restrictions.eq("id", id));
 		List<User> list = userCriteria.list();
-		return list.iterator().next().getNickName();
+		return list.iterator().next().getFirstName();
 	}
 
 	@SuppressWarnings("unchecked")
