@@ -27,7 +27,7 @@ public interface TimeEntryDAO {
 	public boolean isTimeEntryMappedToReleaseId(long id) throws ObjectNotFoundException;
 	public boolean submit(TimeEntryBean submitData);
 
-	public List<TimeEntries> getUserTimeEntries(TimeEntryBean timeEntry) ;
-	public List<TimeEntries> getTimeEntriesForApprover(TimeEntryBean timeEntry);
+	public List<TimeEntryBean> getUserTimeEntries(TimeEntryBean timeEntry) ;
+	public List<TimeEntryBean> getTimeEntriesForApprover(TimeEntryBean timeEntry);
 	public int getUserWorkingHoursperDay(String date);
 }

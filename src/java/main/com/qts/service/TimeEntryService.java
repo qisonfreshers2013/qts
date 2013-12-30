@@ -143,9 +143,9 @@ public class TimeEntryService extends BaseService{
 	   
 		TimeEntryBean searchCriteria = (TimeEntryBean) JsonUtil.getObject(request.getPayload(), TimeEntryBean.class);
 	
-		List<TimeEntries> searchResult=TimeEntryHandler.getInstance().search(searchCriteria);
+		List<TimeEntryBean> searchResult=TimeEntryHandler.getInstance().search(searchCriteria);
 		
-	return JsonUtil.getJsonForListBasedOnDescriptor(searchResult, TimeEntries.class, TimeEntriesOptionOutputDescriptor.class);
+	return JsonUtil.getJsonForListBasedOnDescriptor(searchResult, TimeEntryBean.class, TimeEntriesOptionOutputDescriptor.class);
 		
 
 		
@@ -164,9 +164,9 @@ public class TimeEntryService extends BaseService{
 		
 		TimeEntryBean searchCriteria = (TimeEntryBean) JsonUtil.getObject(request.getPayload(), TimeEntryBean.class);
 		
-		List<TimeEntries> searchResult=TimeEntryHandler.getInstance().searchTimeEntriesByApprover(searchCriteria);
+		List<TimeEntryBean> searchResult=TimeEntryHandler.getInstance().searchTimeEntriesByApprover(searchCriteria);
 		
-		return JsonUtil.getJsonForListBasedOnDescriptor(searchResult, TimeEntries.class, TimeEntriesOptionOutputDescriptor.class);
+		return JsonUtil.getJsonForListBasedOnDescriptor(searchResult, TimeEntryBean.class, TimeEntriesOptionOutputDescriptor.class);
 		}
                      
 

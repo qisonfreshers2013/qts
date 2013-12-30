@@ -33,6 +33,12 @@ public interface TimeEntriesOptionOutputDescriptor  extends JSONSerializationDes
 	@JsonProperty
 	public String getRejectedComments();
 	@JsonProperty
-	public int getId();
+	public Long getId();
+	@JsonProperty
+	public String getActivity();
+	@JsonProperty
+	public String getReleaseVersion();
+	@JsonProperty
+	public String getUserName();
 	
 }

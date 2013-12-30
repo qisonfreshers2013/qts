@@ -52,7 +52,9 @@ public class DAOFactory {
 	public TimeEntryDAO getTimeEntryDAOInstance(){
 		return TimeEntryDAOImpl.getTimeEntryDAOInstance();
 	}
-	
+	public ActivitiesDAO getActivitiesDAOInstance(){
+		return ActivitiesDAOImpl.getInstance();
+	}
 
 	public  UserProjectsRolesDAO getUserProjectsRolesDAOInstance() {
 		return UserProjectsRolesDAOImpl.getInstance(); 

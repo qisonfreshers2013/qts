@@ -20,6 +20,7 @@ ApproverSearch.prototype.handleShow=function(){
         $(".from").datepicker({maxDate:new Date()});
         $(".to").datepicker({maxDate:new Date()});
         this.getProjects();
+        $(".approverTableHeader").hide();
         this.searchTimeEntriesByApprover();
     }.ctx(this));   
     
@@ -129,24 +130,41 @@ ApproverSearch.prototype.getInputForSearchUserTimeEntriesByApprover=function(){
 
 ApproverSearch.prototype.searchTimeEntriesByApprover = function() {
 	
-     var input=this.getInputForSearchUserTimeEntriesByApprover();
-     if(input={"payload":{"projectId":"SELECT"}}){
-    	 input={"payload":{}};
-     }
+	var input=this.getInputForSearchUserTimeEntriesByApprover();
+	if(input==null || input =={"payload":{"projectId":"SELECT"}}){
+		input={"payload":{}}
+	}
      RequestManager.searchTimeEntriesByApprover(input,function(data,success){
     		if(success){
+    			var status;
+    			var operations;
     			$(".approverTableData").empty();
+    			if(data.length!=0){
+    			$(".approverTableHeader").show();
     			for(var i=0;i<data.length;i++){
+    				if(data[i].status==2){
+    					status="APPROVED";
+    					operations="";
+    				}
+    				if(data[i].status==3){
+    					status="REJECTED";
+    					operations="";
+    				}
+    				if(data[i].status==1){
+    					status="SUBMITTED";
+    					operations="<button class=\"approve approveTimeEntry\" id=\"approveTimeEntry\" value=\""+data[i][0]+"\">.</button><button class=\"reject rejectTimeEntry\" id=\"rejectTimeEntry\" value=\""+data[i][0]+"\">.</button>";
+    				}
     				 var tabledata="<tr class=\"approverTableData\">"+
-    	                "<td>"+$.datepicker.formatDate('mm/dd/yy', new Date(data[i][1]))+"</td>"+
-    	                "<td>"+data[i][3]+"</td>"+
-    	                "<td>"+data[i][2]+"</td>"+
-    	                "<td>"+data[i][4]+"</td>"+
-    	                "<td>"+data[i][5]+"</td>"+
-    	                "<td>"+data[i][6]+"</td>"+
-    	                "<td>"+data[i][7]+"</td>"+
-    	                "<td>"+data[i][8]+"</td>"+
-    	                "<td><button class=\"approve approveTimeEntry\" id=\"approveTimeEntry\" value=\""+data[i][0]+"\">.</button><button class=\"reject rejectTimeEntry\" id=\"rejectTimeEntry\" value=\""+data[i][0]+"\">.</button></td>";
+    	                "<td>"+$.datepicker.formatDate('mm/dd/yy', new Date(data[i].dateInLong))+"</td>"+
+    	                "<td>"+data[i].projectName+"</td>"+
+    	                "<td>"+data[i].userName+"</td>"+
+    	                "<td>"+data[i].releaseVersion+"</td>"+
+    	                "<td>"+data[i].task+"</td>"+
+    	                "<td>"+data[i].activity+"</td>"+
+    	                "<td>"+data[i].hours+"</td>"+
+    	                "<td>"+status+"</td>"+
+    	                "<td>"+operations+"</td>";
+    	                //"<td><button class=\"approve approveTimeEntry\" id=\"approveTimeEntry\" value=\""+data[i][0]+"\">.</button><button class=\"reject rejectTimeEntry\" id=\"rejectTimeEntry\" value=\""+data[i][0]+"\">.</button></td>";
     				    $(".approverTableHeader").after(tabledata);
     				    $('#approveTimeEntry').click(function(event){
     						console.log("clickHappened");
@@ -162,6 +180,10 @@ ApproverSearch.prototype.searchTimeEntriesByApprover = function() {
     						
     						
     						}.ctx(this));
+    			}}
+    			else{
+    				alert("No TimeEntries Found");
+    				$(".approverTableHeader").hide();
     			}
     		}else {
     			alert(data.message);
@@ -174,6 +196,7 @@ ApproverSearch.prototype.approveTimeEntry=function(event){
 	RequestManager.approve({"payload":{"id":timeEntryId}},function(data, success){
 		if(success){
 			alert("approved");
+			this.searchTimeEntriesByApprover();
 		}
 		else{
 			alert(data.message);
@@ -188,6 +211,7 @@ ApproverSearch.prototype.rejectTimeEntry=function(event){
 		if(success){
 			if(data){
 			alert("rejected");
+			this.searchTimeEntriesByApprover();
 			}else{
 				alert("not Rejected");
 			}
