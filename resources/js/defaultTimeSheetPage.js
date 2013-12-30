@@ -245,10 +245,12 @@ DefaultTimeSheetPage.prototype.searchUserTimeEntries=function(){
 		if(success){
 			if(data.length!=0){
 			var status;
+			var remarks;
 			$(".userTableData").empty();
 			for(var i=0;i<data.length;i++){
 				if(data[i].status==0){
 					 status="SAVED";
+					 remarks="";
 					 checkbox="<input type=\"checkbox\" id=\"checkboxForTableData\" class=\"checkboxForTableData\" value="+data[i].id+"></input>";
 					if(data[i].userRemarks!=null && data[i].userRemarks!='' ){
 					 remarks="<img  class=\"userRemarks\" src=\"resources/img/userRemarks.png\" title=\""+data[i].userRemarks+"\">";}
@@ -257,7 +259,7 @@ DefaultTimeSheetPage.prototype.searchUserTimeEntries=function(){
 				else if(data[i].status==1){
 					status="SUBMITTED";
 					checkbox='';
-                     remarks="";
+                    remarks="";
 					if(data[i].userRemarks!=null && data[i].userRemarks!='')
 					remarks=remarks+"<img  class=\"userRemarks\" src=\"resources/img/userRemarks.png\" title=\""+data[i].userRemarks+"\">";
 				}

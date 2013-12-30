@@ -152,7 +152,7 @@ ApproverSearch.prototype.searchTimeEntriesByApprover = function() {
     				}
     				if(data[i].status==1){
     					status="SUBMITTED";
-    					operations="<button class=\"approve approveTimeEntry\" id=\"approveTimeEntry\" value=\""+data[i][0]+"\">.</button><button class=\"reject rejectTimeEntry\" id=\"rejectTimeEntry\" value=\""+data[i][0]+"\">.</button>";
+    					operations="<button class=\"approve approveTimeEntry\" id=\"approveTimeEntry\" value=\""+data[i].id+"\">.</button><button class=\"reject rejectTimeEntry\" id=\"rejectTimeEntry\" value=\""+data[i][0]+"\">.</button>";
     				}
     				 var tabledata="<tr class=\"approverTableData\">"+
     	                "<td>"+$.datepicker.formatDate('mm/dd/yy', new Date(data[i].dateInLong))+"</td>"+
@@ -167,11 +167,11 @@ ApproverSearch.prototype.searchTimeEntriesByApprover = function() {
     	                //"<td><button class=\"approve approveTimeEntry\" id=\"approveTimeEntry\" value=\""+data[i][0]+"\">.</button><button class=\"reject rejectTimeEntry\" id=\"rejectTimeEntry\" value=\""+data[i][0]+"\">.</button></td>";
     				    $(".approverTableHeader").after(tabledata);
     				    $('#approveTimeEntry').click(function(event){
-    						console.log("clickHappened");
     						this.approveTimeEntry(event);
+    						//this.searchTimeEntriesByApprover();
     						}.ctx(this));
     					$('#rejectTimeEntry').click(function(event){
-    						console.log("reject btn clicked");
+    						
     						$("#rejectedComments").modal('show');
     						$(".submitComments").click(function(){
     							$("#rejectedComments").hide();
