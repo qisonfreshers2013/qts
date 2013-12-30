@@ -1,7 +1,7 @@
 function Roles() {
 	roles=new Array([]);
 	$(".rolesContainer").remove();
-	Loader.loadHTML('#container', 'roles.html', false, function() {
+	Loader.loadHTML('#container', 'Roles.html', false, function() {
 		this.handleShow();
 	}.ctx(this));
 }
@@ -21,18 +21,25 @@ Roles.prototype.handleShow = function() {
 		
 	}.ctx(this));
 	$("#userList").change(function(){
-		if($('#projectList').val()!="p0" && $('#userList').val()=="u0") {
+		if($('#projectList').val()!="p0" && $('#userList').val()!="u0") {
 		this.listUserRoles();
 		}else{
-			
+			$.ambiance({
+				 message : "Select project and user.(USERLIST)",
+				 type : 'error'
+				 });
 		}
 	}.ctx(this));
 	$("#saveb").click(function(event) {
 		if($('#projectList').val()!="p0" && $('#userList').val()!="u0") {
 			event.preventDefault();
-			this.allotRoles();
-		}else{
+			this.deallocateRoles();
 			
+		}else{
+			$.ambiance({
+				 message : "Select project and user.",
+				 type : 'error'
+				 });
 		}
 	}.ctx(this));
 	$("#cancelb").click(function(){
@@ -57,12 +64,18 @@ if($('#projectList').val()!="p0") {
 	});
 	}
 	else{
-		alert(data.message);
+		$.ambiance({
+			 message : data.message,
+			 type : 'error'
+			 });
 	}
 }.ctx(this));
 }
 else{
-		
+	$.ambiance({
+		 message : "Select project to get users.",
+		 type : 'error'
+		 });
 	}
 };
 
@@ -72,7 +85,6 @@ RequestManager.getProjectUsers({"payload":{"projectId":$("#projectList").val()}}
  if (success) {
 	 $("#userList").empty().append("<option value=\"u0\">select</option>");
 $.each(data,function(key,value){
-	// var fname=(value.firstName+" ").concat(value.lastName);
 	var email=value.email;
 	$("#userList").append(
 			"<option value="+ value.id
@@ -81,13 +93,19 @@ $.each(data,function(key,value){
 	this.listUserRoles(); 
 		}
  else{
-	 alert(data.message);
+	 $.ambiance({
+		 message : data.message,
+		 type : 'error'
+		 });
  }
 	 
 }.ctx(this));
 	}
 	else{
-			
+		$.ambiance({
+			 message : "Select project.",
+			 type : 'error'
+			 });
 		}
 };
 Roles.prototype.getRoles = function() {
@@ -111,33 +129,39 @@ if (success) {
 		});
 	}
 else{
-	alert(data.message);
+	$.ambiance({
+		 message : data.message,
+		 type : 'error'
+		 });
 }
 }.ctx(this));
 };
 Roles.prototype.listUserRoles = function() {
-	if($('#userList').val()!="u0") {
+	if($('#projectList').val()!="p0" && $('#userList').val()!="u0") {
 		input={"payload":{"projectId":$('#projectList').val(),"userId":$('#userList').val()}};
 		RequestManager.listUserRoles(input, function(data, success) {
 			if(success){
 				roles =data.roleIds;
 				$('input:checkbox').removeAttr('checked');
-				for(var val of roles){
-					switch (val) {
-					case 1:
-						$("input[value=3]").prop("disabled",true);
-						$("input[value=1]").prop("disabled",false);
-						break;
-					case 3:
-						$("input[value=1]").prop("disabled",true);
-						$("input[value=3]").prop("disabled",false);
-						break;
-					}
-					$("input[value="+val+"]").prop("checked", true);
-				}
+					$.each(roles,function(i,val){
+						switch (val) {
+						case 1:
+							$("input[value=3]").prop("disabled",true);
+							$("input[value=1]").prop("disabled",false);
+							break;
+						case 3:
+							$("input[value=1]").prop("disabled",true);
+							$("input[value=3]").prop("disabled",false);
+							break;
+						}
+						$("input[value="+val+"]").prop("checked", true);
+					});
 			}
 			else{
-				// alert(data.message);
+				$.ambiance({
+					 message : data.message,
+					 type : 'error'
+					 });
 				$('input:checkbox').removeAttr('checked');
 			}
 	
@@ -146,82 +170,81 @@ Roles.prototype.listUserRoles = function() {
 	else{
 		$('input:checkbox.avalRoles').removeAttr('checked');
 	}
-$("#role3").change(function() {
-    if(this.checked) {
-    	$("input[value=1]").prop("disabled",true);
-    }else{
-    	$("input[value=1]").prop("disabled",false);
-    }
-});
-$("#role1").change(function() {
-    if(this.checked) {
-    	$("input[value=3]").prop("disabled",true);
-    }else{
-    	$("input[value=3]").prop("disabled",false);
-    }
-});
-};
-
-Roles.prototype.allotRoles = function() {
-	this.allocateRoles();
-	this.deallocateRoles(function() {
-		alert("successfull")
+	$("#role3").change(function() {
+	    if(this.checked) {
+	    	$("input[value=1]").prop("disabled",true);
+	    }else{
+	    	$("input[value=1]").prop("disabled",false);
+	    }
+	});
+	$("#role1").change(function() {
+	    if(this.checked) {
+	    	$("input[value=3]").prop("disabled",true);
+	    }else{
+	    	$("input[value=3]").prop("disabled",false);
+	    }
 	});
 };
-Roles.prototype.allocateRoles=function(cb){
+
+Roles.prototype.sucessMessage=function(){
+	$.ambiance({
+		 message : "Roles allocated successfully.",
+		 type : 'success'
+		 });
+};
+Roles.prototype.allocateRoles=function(){
 	var checked= $('input:checkbox:checked.avalRoles').map(function() {
 		return parseInt(this.value);
 	}).get();
 	var allocate=new Array();
-	for(val of checked){
+	$.each(checked,function(i,val){
 		if($.inArray(val,roles)==-1){
 			allocate.push(val);
 		}
-	}
-// alert("allocate: "+allocate);
-// alert("checked: "+checked);
+	});
 	if(allocate.length>0){
 	var inputToAllocate={"payload":{"projectId":$('#projectList').val(),"userId":$('#userList').val(),"roleIds":allocate}};
 	RequestManager.allocateRoles(inputToAllocate,function(data,success){
 		if(success){
-// $.ambiance({
-// message : allocate,
-// type : 'success'
-// });
-			// alert(data.roleIds+" roles are available after allocating.");
-			// roles=checked;
+			this.sucessMessage();
+			this.roles=data.roleIds;
 		}
 		else{
-			alert(data.message);
+			$.ambiance({
+				 message : data.message,
+				 type : 'error'
+				 });
 		}
 	}.ctx(this));
+	}else{
+		this.sucessMessage();
 	}
 };
-Roles.prototype.deallocateRoles=function(cb){
+Roles.prototype.deallocateRoles=function(){
 	var unchecked=$('input:checkbox:not(:checked).avalRoles').map(function(){
 		return parseInt(this.value);
 	}).get();
 	var deallocate=new Array();
-	for(val of unchecked){
-		if($.inArray(val,roles)!==-1){
+	$.each(unchecked,function(i,val){
+		if($.inArray(val,roles)!=-1){
 			deallocate.push(val);
-			// alert("deallocate[] "+$.inArray(val,roles));
 		}
-	}
-// alert("deallocate: "+deallocate);
-// alert("unchecked: "+unchecked);
+	});
 	if(deallocate.length>0){
-	var inputToDeallocate={"payload":{"projectId":$('#projectList').val(),"userId":$('#userList').val(),"roleIds":unchecked}};
+	var inputToDeallocate={"payload":{"projectId":$('#projectList').val(),"userId":$('#userList').val(),"roleIds":deallocate}};
 	RequestManager.deallocateRoles(inputToDeallocate,function(data,success){
 	if(success){
-		// alert(data.roleIds+" roles are available after deallocating.");
-		//alert("successfull");
-	}
-	else{
-		alert(data.message);
+			this.allocateRoles();
+			this.roles=data.roleIds;
+	}else{
+		$.ambiance({
+			 message : data.message,
+			 type : 'error'
+			 });
 	}
 	}.ctx(this));
+	}else{
+			this.allocateRoles();
 	}
 };
 var roles;
-// var Roles = new Roles();
