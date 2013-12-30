@@ -89,7 +89,7 @@ DefaultTimeSheetPage.prototype.deleteTimeEntry=function(){
 			if(success){
 				alert("Deleted");
 				$("input[type=checkbox][value="+id+"]").empty();
-				this.searchUserTimeEntries();
+				$(".searchUserTimeEntries").trigger("click");
 			}
 			else{
 				alert(data.message);
@@ -106,7 +106,8 @@ DefaultTimeSheetPage.prototype.submitTimeEntries=function(){
 		var idOfTimeEntries=new Array();
 		$(":checkbox").each(function(){
 			if(this.checked==true){
-				idOfTimeEntries.push($(this).val());
+				if($(this).val()!='on'){
+				idOfTimeEntries.push($(this).val());}
 			}
 		});
 		alert(idOfTimeEntries);
@@ -119,7 +120,7 @@ DefaultTimeSheetPage.prototype.submitTimeEntries=function(){
 		if(success){
 		if(data){
 			alert("Submitted");
-			this.searchUserTimeEntries();
+			$(".searchUserTimeEntries").trigger("click");
 		}
 		else{
 			alert("Not Submitted");
@@ -198,9 +199,13 @@ DefaultTimeSheetPage.prototype.editTimeEntry=function(){
 				event.preventDefault();
 				RequestManager.updateTimeEntry(input,function(data,success){
 					if(success){
+						if(data){
 						alert("Updated");
 						$(".cancel").trigger("click");
-						this.searchUserTimeEntries();
+						$(".searchUserTimeEntries").trigger("click");
+						}else{
+							alert("Not Updated");
+						}
 					}
 					else{
 						alert(data.message);
@@ -221,15 +226,15 @@ DefaultTimeSheetPage.prototype.selectAllCheckBoxes=function(){
 
 DefaultTimeSheetPage.prototype.getInputForSearchUserTimeEntries=function(){
 	var input;
-	if($(".searchByDate").val()!='' && $(".searchByProjectId").val()!=null){
+	if($(".searchByDate").val()!='' && $(".searchByProjectId").val()!=null && $(".searchByProjectId").val()!="SELECT"){
 	input={"payload":{"date":$(".searchByDate").val(),
 		               "projectId": $(".searchByProjectId").val()}};
 	}
-	else if($(".searchByDate").val()!='' && $(".searchByProjectId").val()==null){
+	else if($(".searchByDate").val()!='' && $(".searchByProjectId").val()=="SELECT"){
 		input={"payload":{"date":$(".searchByDate").val()}};}
-	else if($(".searchByDate").val()=='' && $(".searchByProjectId").val()!=null && $(".searchByProjectId").val()!=""){
+	else if($(".searchByDate").val()=='' && $(".searchByProjectId").val()!=null && $(".searchByProjectId").val()!="SELECT"){
 		input={"payload":{"projectId": $(".searchByProjectId").val()}};}
-	else if($(".searchByDate").val()=='' && $(".searchByProjectId").val()!=null && $(".searchByProjectId").val()==""){
+	else if($(".searchByDate").val()=='' && $(".searchByProjectId").val()!=null && $(".searchByProjectId").val()=="SELECT"){
 		input={"payload":{}};}
 	
      return input;	
@@ -238,17 +243,19 @@ DefaultTimeSheetPage.prototype.getInputForSearchUserTimeEntries=function(){
 
 DefaultTimeSheetPage.prototype.searchUserTimeEntries=function(){
 	var input=this.getInputForSearchUserTimeEntries();
-	if(input==null || input =={"payload":{"projectId":"SELECT"}}){
+	if(input==null || input=={"payload":{"projectId":"SELECT"}}){
 		input={"payload":{}}
 	}
 	RequestManager.searchTimeEntriesByUser(input,function(data,success){
 		if(success){
 			if(data.length!=0){
 			var status;
+			var remarks;
 			$(".userTableData").empty();
 			for(var i=0;i<data.length;i++){
 				if(data[i].status==0){
 					 status="SAVED";
+					 remarks="";
 					 checkbox="<input type=\"checkbox\" id=\"checkboxForTableData\" class=\"checkboxForTableData\" value="+data[i].id+"></input>";
 					if(data[i].userRemarks!=null && data[i].userRemarks!='' ){
 					 remarks="<img  class=\"userRemarks\" src=\"resources/img/userRemarks.png\" title=\""+data[i].userRemarks+"\">";}
@@ -257,7 +264,7 @@ DefaultTimeSheetPage.prototype.searchUserTimeEntries=function(){
 				else if(data[i].status==1){
 					status="SUBMITTED";
 					checkbox='';
-                     remarks="";
+                    remarks="";
 					if(data[i].userRemarks!=null && data[i].userRemarks!='')
 					remarks=remarks+"<img  class=\"userRemarks\" src=\"resources/img/userRemarks.png\" title=\""+data[i].userRemarks+"\">";
 				}
@@ -325,20 +332,7 @@ DefaultTimeSheetPage.prototype.getProjects=function(){
 	  }
 	 }.ctx(this));
 	}
-DefaultTimeSheetPage.prototype.getReleases=function(){
-	 $('.selectRelease').empty();
-	 $('.selectRelease').append('<option>SELECT</option>');
-	 var id=$(".searchByProjectId").val();
-	 RequestManager.getProjectReleases({"payload":{"projectId":id}}, function(data, success) {
-	  if(success){
-	for(var i=0;i<data.length;i++){
-		 $('.selectRelease').append('<option class=\"releaseValue\" value='+data[i][0]+'>'+data[i][1]+'</option>');
-	}
-	  }else{
-	   $(".cancel").trigger("click");
-	  }
-	 }.ctx(this));
-	}
+
 
 DefaultTimeSheetPage.prototype.validateTimeEntry=function(){
 	  var date=$('.datepicker').val();
@@ -354,10 +348,7 @@ DefaultTimeSheetPage.prototype.validateTimeEntry=function(){
 		alert("Invalid Date(Format:mm/dd/yyyy).");
 		  isvalid=false;
 	  }
-	  else if($('.task').val()==''){
-		  alert("Mention the Task Performed.");
-	      isvalid=false;
-	  }
+	
 	  
 	  return isvalid;
 }
