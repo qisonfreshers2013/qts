@@ -293,8 +293,13 @@ public class TimeEntryHandler {
 				&& timeEntry.getRejectedComments() == null){
 			throw new InvalidTimeEntryDataException(ExceptionCodes.TIMEENTRY_REJECT_FAILED,ExceptionMessages.TIMEENTRY_REJECT_FAILED);
 		}else{
+			TimeEntries timeEntryToApprove=(TimeEntries) TimeEntryHandler.getInstance().getObjectById(timeEntry.getId());
+			RoleBean roleBeanInput=new RoleBean(ServiceRequestContextHolder.getContext().getUserSessionToken().getUserId(),timeEntryToApprove.getProjectId());
+			RoleBean roleBeanOutput=RoleHandler.getInstance().getUserRoles(roleBeanInput);
+			if(roleBeanOutput.getRoleIds().contains(new Long(2))){
 		        isTimeEntryRejected = DAOFactory.getInstance().getTimeEntryDAOInstance().reject(timeEntry);
 			  } 
+		}
 			
 		return isTimeEntryRejected;
 	}
@@ -308,7 +313,12 @@ public class TimeEntryHandler {
 		if (timeEntry.getId() == null){ 
 			throw new InvalidTimeEntryDataException(ExceptionCodes.TIMEENTRY_APPROVE_FAILED,ExceptionMessages.TIMEENTRY_APPROVE_FAILED);
 		}else{
-		isTimeEntryApproved = DAOFactory.getInstance().getTimeEntryDAOInstance().approve(timeEntry);
+			TimeEntries timeEntryToApprove=(TimeEntries) TimeEntryHandler.getInstance().getObjectById(timeEntry.getId());
+			RoleBean roleBeanInput=new RoleBean(ServiceRequestContextHolder.getContext().getUserSessionToken().getUserId(),timeEntryToApprove.getProjectId());
+			RoleBean roleBeanOutput=RoleHandler.getInstance().getUserRoles(roleBeanInput);
+			if(roleBeanOutput.getRoleIds().contains(new Long(2))){
+		    isTimeEntryApproved = DAOFactory.getInstance().getTimeEntryDAOInstance().approve(timeEntry);
+		      }
 			} 
 	
 		return isTimeEntryApproved;
@@ -458,8 +468,10 @@ public class TimeEntryHandler {
 			RoleBean roleBeanInput=new RoleBean(ServiceRequestContextHolder.getContext().getUserSessionToken().getUserId(),associatedProject.getProjectId());
 			RoleBean roleBeanOutput=RoleHandler.getInstance().getUserRoles(roleBeanInput);
 				
-		if((roleBeanOutput.getRoleIds()!=null && roleBeanOutput.getRoleIds().contains(new Long(2)))){      
+		if((roleBeanOutput.getRoleIds()!=null && roleBeanOutput.getRoleIds().contains(new Long(2)))){
+			    if(searchCriteria.getProjectId()==null){
 			    searchCriteria.setProjectId(associatedProject.getProjectId());
+			    }
 				List<TimeEntryBean> responseList =getResultsForApprover(searchCriteria);
 				for(TimeEntryBean timeEntryBean:responseList){
 					timeEntryBean.setProjectName(ProjectHandler.getInstance().getObjectById(timeEntryBean.getProjectId()).getName());
