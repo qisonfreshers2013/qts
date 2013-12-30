@@ -94,7 +94,7 @@ Options.prototype.handleShow = function(roles) {
 			});
 		}
 	}
-	else{
+	else if(roles.contains(2)){
 		$('.container').append('<div class="TimeSheetApproval"><img class="tsaImg" src="resources/img/tsa.png"><h4 class="tsaText">Time Sheet Approval</h4></div>');
 		
 		$('.TimeSheetApproval').css( {"background-color": "#D24625",
@@ -120,9 +120,6 @@ Options.prototype.handleShow = function(roles) {
 	$('.ProjectReleaseManagement').click(function(){
 		App.loadMenu(roles);  
 		App.loadSearchProjectRelease(roles);
-		if(roles.contains(1)){
-			App.loadAddProjectRelease();
-		}
 	}.ctx(this));
 
 	$('.ProjectManagement').click(function(){

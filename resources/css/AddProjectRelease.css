@@ -1,5 +1,4 @@
 .addProjectRelease{
-    margin-top: 10%;
     position: relative;
     width: 100%;
 }
@@ -10,7 +9,7 @@
 
 .rightAddProject {
     left: 25%;
-    margin-top: -9.3%;
+    margin-top: -3.5%;
     position: relative;
     width: 60%;
 }
@@ -29,9 +28,12 @@
 
 }
 #save{
-    background-color: #8AAF09;
-    border-radius: 5px;
-    margin-right: 5%;
-    width: 22%;
+    background-color: #669933;
+    border: medium none;
+    color: #FFFFFF;
+    font-weight: bold;
+    position: relative;
+    text-align: center;
+    width: 28%;
 }
 

@@ -158,6 +158,7 @@ TimeEntry.prototype.getActivities=function(){
   TimeEntry.prototype.validateTimeEntry=function(){
 	  var date=$('.datepicker').val();
 	  var userRemarks=$('.userRemarks').val();
+	  var task=$('.task').val();
 	  var isvalid=true;
 	  $(".error").hide();
 	  var dateRegex="^(0[1-9]|1[012])([-/])(0[1-9]|[12][0-9]|3[01])\\2([23]0)\\d\\d$";
@@ -174,7 +175,7 @@ TimeEntry.prototype.getActivities=function(){
 		  alert("Mention the Task Performed.");
 	      isvalid=false;
 	  }
-	  else if(userRemarks.length()>4096){
+	  else if(userRemarks.length>4096){
 		  alert("Max of 4096 characters is supported.");
 		  isvalid=false;
 	  }
@@ -192,6 +193,10 @@ TimeEntry.prototype.getActivities=function(){
 	  }
 	  else if( $('.selectRelease').val()=='SELECT'){
 		  alert("Select the Release Version of the project.");
+		  isvalid=false;
+	  }
+	  else if(task.length>512){
+		  alert("Max of 512 characters is supported.");
 		  isvalid=false;
 	  }
 	  return isvalid;

@@ -1,13 +1,13 @@
 /**
  * 
  */
-function AddProjectRelease() {
+function AddProjectRelease(roles) {
 	Loader.loadHTML('.add', 'AddProjectRelease.html', true, function(){
-		this.handleShow();
+		this.handleShow(roles);
 	}.ctx(this));
 }
 
-AddProjectRelease.prototype.handleShow = function() {
+AddProjectRelease.prototype.handleShow = function(roles) {
 
 	RequestManager.getProjects({},function(data,success){
 		if(success){
@@ -22,37 +22,51 @@ AddProjectRelease.prototype.handleShow = function() {
 						name=value2;
 					}
 				})
-				$('.SelectProjectAdd').append("<option value="+id+">"+name+"</option>");
+//				$('.SelectProject').append("<option value="+id+">"+name+"</option>");
 			})
 		}
 		else
 			alert(data.message);
 	}.ctx(this));
 	$('.save').click(function(){
-		this.addProjectRelease();
+		this.addProjectRelease(roles);
 		$('.cancelAPR').trigger('click');
 	}.ctx(this));
 
 }
 
-AddProjectRelease.prototype.addProjectRelease = function() {
-	var projectId=parseInt($('select.SelectProjectAdd option:selected').attr('value'));
+AddProjectRelease.prototype.addProjectRelease = function(roles) {
+	var projectId=parseInt($('select.SelectProject option:selected').attr('value'));
 	var releaseName=$('.ReleaseName').val();
+//	var searchProjectName=$('select.SelectProject option:selected').text();
+//	var addProjectName=$('select.SelectProjectAdd option:selected').text();
 	var rNamePattern=/^[\w]+[\\.-_\w]*([ {1}][\\.-_\w]+)*$/g;
 	if(rNamePattern.test(releaseName) && releaseName.length<=128){
 		RequestManager.addProjectRelease({"payload":{"projectId":projectId,"releaseName":releaseName}}, function(data, success) {
 			if(success){
-				
-				alert("success");
+				$.ambiance({
+				    message : "Successfully Added",
+				    type : 'success'
+				   });
+					App.loadReleaseResult(roles);
 			}else{
-				alert(data.message);
+				$.ambiance({
+				    message : data.message,
+				    type : 'error'
+				   });
 			}
 		}.ctx(this));
 	}
 	else if(releaseName.length>128){
-		alert('Maximum 128 Characters Allowed');
+		$.ambiance({
+		    message : "Maximum Characters Allowed For Release Name are 128",
+		    type : 'error'
+		   });
 	}
 	else{
-		alert('Release Name Format Exception');
+		$.ambiance({
+		    message : "Release Name Format Exception",
+		    type : 'error'
+		   });
 	}
 }
