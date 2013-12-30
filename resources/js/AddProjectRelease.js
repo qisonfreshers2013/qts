@@ -29,7 +29,8 @@ AddProjectRelease.prototype.handleShow = function() {
 			alert(data.message);
 	}.ctx(this));
 	$('.save').click(function(){
-		this.addProjectRelease();		
+		this.addProjectRelease();
+		$('.cancelAPR').trigger('click');
 	}.ctx(this));
 
 }
@@ -37,7 +38,6 @@ AddProjectRelease.prototype.handleShow = function() {
 AddProjectRelease.prototype.addProjectRelease = function() {
 	var projectId=parseInt($('select.SelectProjectAdd option:selected').attr('value'));
 	var releaseName=$('.ReleaseName').val();
-	$('.ReleaseName').empty();
 	var rNamePattern=/^[\w]+[\\.-_\w]*([ {1}][\\.-_\w]+)*$/g;
 	if(rNamePattern.test(releaseName) && releaseName.length<=128){
 		RequestManager.addProjectRelease({"payload":{"projectId":projectId,"releaseName":releaseName}}, function(data, success) {
@@ -48,6 +48,9 @@ AddProjectRelease.prototype.addProjectRelease = function() {
 				alert(data.message);
 			}
 		}.ctx(this));
+	}
+	else if(releaseName.length>128){
+		alert('Maximum 128 Characters Allowed');
 	}
 	else{
 		alert('Release Name Format Exception');

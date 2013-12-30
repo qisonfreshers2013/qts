@@ -1,16 +1,17 @@
 
-function Welcome(nickname) {
+function Welcome(nickname,roles) {
 	Loader.loadHTML('.welcome', 'Welcome.html', true, function(){
-		this.handleShow(nickname);
+		this.handleShow(nickname,roles);
 	}.ctx(this));
 }
 
-Welcome.prototype.handleShow = function(nickname) {	
+Welcome.prototype.handleShow = function(nickname,roles) {	
 	this.loadNickname(nickname);
 	$('.logout').click(function(){	
 		this.logout();
 	}.ctx(this));
 	$('.myAccount').click(function(){
+		App.loadMenu(roles);
 		App.loadMyProfile();		
 	}.ctx(this));
 	$('.logout').click(function(){		 
@@ -25,8 +26,7 @@ Welcome.prototype.loadNickname = function(nickname){
 Welcome.prototype.logout = function(){
 	var input = {"payload":{}};
 	RequestManager.logout(input, function(data,success){
-		if(success){
-			alert('logout success');
+		if(success){			
 			document.location.reload();
 		}else
 			alert('logout '+' fail'+data.message);

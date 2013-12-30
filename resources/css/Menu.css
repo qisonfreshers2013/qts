@@ -40,3 +40,7 @@ a:hover {
  color:blue;
  cursor: pointer;
 }
+li{
+margin-top:1px;
+margin-left:1px;
+}

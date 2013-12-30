@@ -10,7 +10,7 @@ ReleaseResult.prototype.handleShow = function(roles) {
 	RequestManager.getProjectReleases({"payload":{"projectId":projectId}},function(data,success){
 		if(success){
 			if(roles.contains(1)){
-				$('table').append('<th>Release Name</th><th>Project</th><th>Edit</th>');
+				$('table').append('<th>Release Name</th><th>Project</th><th>Delete</th>');
 				var id=0;
 				var name='';
 				$.each(data,function(key1,value1){

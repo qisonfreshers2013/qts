@@ -2,13 +2,13 @@
 	width:35%;
 }
 
-th{
+#resultTable th{
 background-color:lightblue;
 }
-tr:nth-child(even){
+#resultTable tr:nth-child(even){
 	background:#cdcdcd;
 }
-tr:nth-child(odd){
+#resultTable tr:nth-child(odd){
 	background:#efefef;
 }
 .releaseResult{
