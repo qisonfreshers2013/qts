@@ -221,15 +221,15 @@ DefaultTimeSheetPage.prototype.selectAllCheckBoxes=function(){
 
 DefaultTimeSheetPage.prototype.getInputForSearchUserTimeEntries=function(){
 	var input;
-	if($(".searchByDate").val()!='' && $(".searchByProjectId").val()!=null){
+	if($(".searchByDate").val()!='' && $(".searchByProjectId").val()!=null && $(".searchByProjectId").val()!="SELECT"){
 	input={"payload":{"date":$(".searchByDate").val(),
 		               "projectId": $(".searchByProjectId").val()}};
 	}
-	else if($(".searchByDate").val()!='' && $(".searchByProjectId").val()==null){
+	else if($(".searchByDate").val()!='' && $(".searchByProjectId").val()==null && $(".searchByProjectId").val()=="SELECT"){
 		input={"payload":{"date":$(".searchByDate").val()}};}
-	else if($(".searchByDate").val()=='' && $(".searchByProjectId").val()!=null && $(".searchByProjectId").val()!=""){
+	else if($(".searchByDate").val()=='' && $(".searchByProjectId").val()!=null && $(".searchByProjectId").val()!="SELECT"){
 		input={"payload":{"projectId": $(".searchByProjectId").val()}};}
-	else if($(".searchByDate").val()=='' && $(".searchByProjectId").val()!=null && $(".searchByProjectId").val()==""){
+	else if($(".searchByDate").val()=='' && $(".searchByProjectId").val()!=null && $(".searchByProjectId").val()=="SELECT"){
 		input={"payload":{}};}
 	
      return input;	
@@ -238,7 +238,7 @@ DefaultTimeSheetPage.prototype.getInputForSearchUserTimeEntries=function(){
 
 DefaultTimeSheetPage.prototype.searchUserTimeEntries=function(){
 	var input=this.getInputForSearchUserTimeEntries();
-	if(input==null || input =={"payload":{"projectId":"SELECT"}}){
+	if(input==null || input=={"payload":{"projectId":"SELECT"}}){
 		input={"payload":{}}
 	}
 	RequestManager.searchTimeEntriesByUser(input,function(data,success){
