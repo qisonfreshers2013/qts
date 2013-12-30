@@ -69,6 +69,7 @@ ApproverSearch.prototype.getUsers=function(){
 		 RequestManager.getProjectUsers({"payload":{"projectId":projectId}}, function(data, success) {
 		  if(success){
 		   var id=0;
+		   //var records=data.projectUserRecords;
 		   var name='';
 		   $.each(data,function(key1,value1){
 		    $.each(value1,function(key2,value2){
@@ -120,6 +121,8 @@ ApproverSearch.prototype.getInputForSearchUserTimeEntriesByApprover=function(){
 		input={ "payload": { "status":searchCriteria.status,"from":searchCriteria.from,"to":searchCriteria.to}}; 
 	else if(searchCriteria.from=='' && searchCriteria.projectId=='SELECT'&& searchCriteria.status!=''&& searchCriteria.userId=='SELECT' && searchCriteria.to=='')
 		input={ "payload": {"status":searchCriteria.status}}; 
+	else if(searchCriteria.from=='' && searchCriteria.projectId!='SELECT'&& searchCriteria.status==''&& searchCriteria.userId=='SELECT' && searchCriteria.to=='')
+		input={ "payload": {"projectId":searchCriteria.projectId}};
 	else if(searchCriteria.from=='' && searchCriteria.projectId=='SELECT'&& searchCriteria.status==''&& searchCriteria.userId=='SELECT' && searchCriteria.to==''){
 		input={"payload":{}};
 	}
@@ -154,7 +157,7 @@ ApproverSearch.prototype.searchTimeEntriesByApprover = function() {
     				}
     				if(data[i].status==1){
     					status="SUBMITTED";
-    					operations="<button class=\"approve approveTimeEntry\" id=\"approveTimeEntry\" value=\""+data[i].id+"\">.</button><button class=\"reject rejectTimeEntry\" id=\"rejectTimeEntry\" value=\""+data[i][0]+"\">.</button>";
+    					operations="<button class=\"approve approveTimeEntry\" id=\"approveTimeEntry\" value=\""+data[i].id+"\">.</button><button class=\"reject rejectTimeEntry\" id=\"rejectTimeEntry\" value=\""+data[i].id+"\">.</button>";
     				}
     				 var tabledata="<tr class=\"approverTableData\">"+
     	                "<td>"+$.datepicker.formatDate('mm/dd/yy', new Date(data[i].dateInLong))+"</td>"+

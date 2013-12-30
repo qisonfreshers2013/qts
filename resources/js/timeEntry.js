@@ -88,6 +88,7 @@ TimeEntry.prototype.setRequestParameters=function(updateRequestParameters){
 		RequestManager.addTimeEntry(input, function(data, success) {
 			if (success) {
 			      alert("TimeEntry Saved");
+			      $(".searchUserTimeEntries").trigger("click");
 			    } else {
 				alert(data.message);
 			}

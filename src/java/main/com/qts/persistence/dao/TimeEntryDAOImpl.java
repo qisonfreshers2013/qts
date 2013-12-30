@@ -176,7 +176,7 @@ public class TimeEntryDAOImpl extends BaseDAOImpl implements TimeEntryDAO {
 		Session session = getSession();
 		try{
 			Query query = session
-					.createQuery("Update TimeEntries set hours=:hours,projectId=:projectId,releaseId=:releaseId,task=:task,activityId=:activityId,remarks=:remarks,date=:date where id="
+					.createQuery("Update TimeEntries set hours=:hours,projectId=:projectId,releaseId=:releaseId,task=:task,activityId=:activityId,remarks=:remarks,date=:date,status=:status where id="
 							+ updateTimeEntry.getId()
 							+ "and userId="
 							+ updateTimeEntry.getUserId());
@@ -189,6 +189,8 @@ public class TimeEntryDAOImpl extends BaseDAOImpl implements TimeEntryDAO {
 			query.setLong("date", Utils.parseDateToLong((updateTimeEntry.getDate())));
 			if(getTimeEntryObjectById(updateTimeEntry.getId()).getStatus()==3){
 			    query.setInteger("status",0);
+			}else{
+				query.setInteger("status",0);
 			}
 		
 			int updated = query.executeUpdate();
@@ -407,15 +409,17 @@ public class TimeEntryDAOImpl extends BaseDAOImpl implements TimeEntryDAO {
 					.add(Projections.property("remarks"),"userRemarks")
 					.add(Projections.property("approvedComments"),"approvedComments")
 					.add(Projections.property("rejectedComments"),"rejectedComments"));
-			if (searchCriteria.getFrom() == null && searchCriteria.getProjectId() == null
+			if (searchCriteria.getFrom() == null && searchCriteria.getProjectId() != null
 					&& searchCriteria.getUserId() == null
 					&& searchCriteria.getTo() == null
 					&& searchCriteria.getStatus() == null) {
 				approverSearchCriteria.add(Restrictions.between("date",
 						getPreviousWeekDate.getTimeInMillis(),
 						new Date().getTime()));
+				approverSearchCriteria.add(Restrictions.eq("projectId", searchCriteria.getProjectId()));
 				approverSearchCriteria.add(Restrictions.eq("status", 1));
 				 approverSearchCriteria.addOrder(Order.desc("date"));	
+				 searchCriteria.setProjectId(0);
 			} else if (searchCriteria.getFrom() != null && searchCriteria.getTo() != null && searchCriteria.getUserId()!=null && searchCriteria.getProjectId()!=null && searchCriteria.getStatus()!=null) {
 				approverSearchCriteria.add(Restrictions
 						.conjunction()
@@ -455,16 +459,13 @@ public class TimeEntryDAOImpl extends BaseDAOImpl implements TimeEntryDAO {
 				approverSearchCriteria.add(Restrictions.eq("status", searchCriteria.getStatus()));
 			}
 			
-			else if (searchCriteria.getFrom() == null && searchCriteria.getTo() == null && searchCriteria.getUserId()==null && searchCriteria.getStatus()==null) {
+			else if (searchCriteria.getFrom() == null && searchCriteria.getTo() == null && searchCriteria.getUserId()==null && searchCriteria.getStatus()!=null) {
 				approverSearchCriteria.add(Restrictions
 						.conjunction()
 						.add(Restrictions.eq("projectId",
-								searchCriteria.getProjectId()))
-						.add(Restrictions.eq("status",1)));
-				approverSearchCriteria.add(Restrictions.between("date",
-						getPreviousWeekDate.getTimeInMillis(),
-						new Date().getTime()));
-				approverSearchCriteria.addOrder(Order.desc("date"));
+								searchCriteria.getProjectId())));
+				approverSearchCriteria.add(Restrictions.ne("status",0));
+				approverSearchCriteria.addOrder(Order.asc("status"));
 			}
 			else if (searchCriteria.getFrom() == null && searchCriteria.getTo() == null && searchCriteria.getUserId()==null) {
 				approverSearchCriteria.add(Restrictions
@@ -473,20 +474,25 @@ public class TimeEntryDAOImpl extends BaseDAOImpl implements TimeEntryDAO {
 								searchCriteria.getProjectId()))
 						.add(Restrictions.eq("status", searchCriteria.getStatus())));
 			}
-			else if (searchCriteria.getFrom() == null && searchCriteria.getTo() == null && searchCriteria.getProjectId()==null) {
+			else if (searchCriteria.getFrom() == null && searchCriteria.getTo() == null && searchCriteria.getProjectId()!=null) {
 				approverSearchCriteria.add(Restrictions
 						.conjunction()
 						.add(Restrictions.eq("userId",
 								searchCriteria.getUserId()))
 						.add(Restrictions.eq("status", searchCriteria.getStatus())));
+				approverSearchCriteria.add(Restrictions.eq("projectId", searchCriteria.getProjectId()));
+				searchCriteria.setProjectId(0);
+				
 			}
-			else if(searchCriteria.getFrom()!=null && searchCriteria.getTo()!=null && searchCriteria.getStatus()!=null && searchCriteria.getUserId()==null && searchCriteria.getProjectId()==null){
+			else if(searchCriteria.getFrom()!=null && searchCriteria.getTo()!=null && searchCriteria.getStatus()!=null && searchCriteria.getUserId()==null && searchCriteria.getProjectId()!=null){
 				approverSearchCriteria.add(Restrictions
 				.conjunction()
 				.add(Restrictions.between("date",
 						Utils.parseDateToLong((searchCriteria.getFrom())),
 						Utils.parseDateToLong((searchCriteria.getTo()))))
-						.add(Restrictions.eq("status", searchCriteria.getStatus())));
+				.add(Restrictions.eq("status", searchCriteria.getStatus())));
+				approverSearchCriteria.add(Restrictions.eq("projectId", searchCriteria.getProjectId()));
+				searchCriteria.setProjectId(0);
 			}
 			List<TimeEntryBean> submittedData=approverSearchCriteria.setResultTransformer(new AliasToBeanResultTransformer(TimeEntryBean.class)).list();
 			

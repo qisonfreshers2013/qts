@@ -16,10 +16,6 @@ DefaultTimeSheetPage.prototype.handleShow=function(){
         $(".searchByDate").datepicker({maxDate:new Date()});  
     });
   
-	$('.searchByProjectId').change(function(event){
-        this.getReleases();
-       }.ctx(this));
-	
 	//To Add A New TimeEntrySheet
 	$('.addTimeEntry').click(function(){
 		$("cancel").trigger("click");
@@ -192,11 +188,21 @@ DefaultTimeSheetPage.prototype.editTimeEntry=function(){
 	 else{
 		 var id=$("input[type=checkbox]:checked").val();
 		 this.populateFields(id);
-		 var input=this.getInputForUpdate();
+		 var timeSheetFillingInput=this.getRequestParameters();
+		 var input={ "payload":{"id":id,
+             "projectId":$('.projectId').val(),
+             "releaseId":$('.SelectRelease').val(),
+             "activityId":$('.selectActivity').val(),
+             "date":$('.datepicker').val(),
+             "task":$('.task').val(),
+             "hours":$('.hours').val(),
+             "userRemarks":$('.userRemarks').val(),
+             "status":0
+             } 
+          }
 		 $( "#loadTimeSheetFilling" ).modal('show');
 			$('.save').click(function(event){
 				if(this.validateTimeEntry()){
-				event.preventDefault();
 				RequestManager.updateTimeEntry(input,function(data,success){
 					if(success){
 						if(data){
@@ -251,6 +257,7 @@ DefaultTimeSheetPage.prototype.searchUserTimeEntries=function(){
 			if(data.length!=0){
 			var status;
 			var remarks;
+			var checkbox;
 			$(".userTableData").empty();
 			for(var i=0;i<data.length;i++){
 				if(data[i].status==0){
@@ -275,7 +282,7 @@ DefaultTimeSheetPage.prototype.searchUserTimeEntries=function(){
 					if(data[i].userRemarks!=null){
 					remarks=remarks+"<img  class=\"userRemarks\" src=\"resources/img/userRemarks.png\" title=\""+data[i].userRemarks+"\">";
 					if(data[i].approvedComments!=null)
-			           remarks=reamarks+"<img  class=\"userRemarks\" src=\"resources/img/approvedComments.png\" title=\""+data[i].approvedComments+"\">";
+			           remarks=remarks+"<img  class=\"userRemarks\" src=\"resources/img/approvedComments.png\" title=\""+data[i].approvedComments+"\">";
 						}
 				}
 				else if(data[i].status==3){
