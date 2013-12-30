@@ -18,12 +18,6 @@ Menu.prototype.handleShow=function(roleIds){
 		$('a:hover').css( 'background-color','#CCCCCC').css( 'cursor','pointer');	
 		$('#projectOptions').css( 'background-color', 'rgb(238, 238, 238');	
 		
-		
-		$('#su').click(function(){
-			$('#content').remove();
-			App.loadSearchUser(roleIds);
-		});
-		
 		$('#um').click(function(){
 			$('#content').remove();
 			App.loadAddUser();
@@ -51,13 +45,6 @@ Menu.prototype.handleShow=function(roleIds){
 			$('#content').remove();
 			App.loadSearchProject();
 			
-		});
-		$('#prm').click(function(){
-			$('#content').remove();
-			App.loadSearchProjectRelease(roleIds);
-			if(roleIds.contains(1)){
-				App.loadAddProjectRelease();
-			}
 		});
 		
 		
@@ -92,25 +79,6 @@ Menu.prototype.handleShow=function(roleIds){
 			App.loadDefaultApproverPage();
 		});
 		
-		$('#pm').click(function(){
-			$('#content').remove();
-			App.loadSearchProject();
-		});
-		
-		$('#prm').click(function(){
-			$('#content').remove();
-			App.loadSearchProjectRelease(roleIds);
-			if(roleIds.contains(1)){
-				App.loadAddProjectRelease();
-			}
-			
-		});
-		
-		$('#su').click(function(){
-			$('#content').remove();
-			App.loadSearchUser(roleIds);
-		});
-		
 		if(roleIds.contains(3)){
 			$('#main').append('<li><a id="tsf">Time Sheet Filling</a>');
 			
@@ -124,7 +92,7 @@ Menu.prototype.handleShow=function(roleIds){
 		else{
 			$('#main > li').css('width','24%');
 		}
-	}else{
+	}else if(roleIds.contains(3)){
 		
 		
 		$('#main').append('<li><a id="tsf">Time Sheet Filling</a>');
@@ -132,24 +100,6 @@ Menu.prototype.handleShow=function(roleIds){
 		
 		
 		//click events for member role
-		$('#pm').click(function(){
-			$('#content').remove();
-			App.loadSearchProject();
-		});
-		
-		$('#prm').click(function(){
-			$('#content').remove();
-			App.loadSearchProjectRelease(roleIds);
-			if(roleIds.contains(1)){
-				App.loadAddProjectRelease();
-			}
-			
-		});
-		
-		$('#su').click(function(){
-			$('#content').remove();
-			App.loadSearchUser(roleIds);
-		});
 		
 		$('#tsf').click(function(){
 			$('#content').remove();
@@ -157,5 +107,29 @@ Menu.prototype.handleShow=function(roleIds){
 			App.loadDefaultTimeSheetPage();
 		});
 	}
+	else{
+		$('#main > li').css('width','30%');
+	}
+	
+	if(!(roleIds.contains(1))){
+	$('#pm').click(function(){
+		$('#content').remove();
+		App.loadSearchProject();
+	});
+	}
+	
+	$('#prm').click(function(){
+		$('#content').remove();
+		App.loadSearchProjectRelease(roleIds);
+		if(roleIds.contains(1)){
+			App.loadAddProjectRelease(roleIds);
+		}
+		
+	});
+	
+	$('#su').click(function(){
+		$('#content').remove();
+		App.loadSearchUser(roleIds);
+	});
 	
 }
