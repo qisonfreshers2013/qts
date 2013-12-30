@@ -10,7 +10,6 @@ import com.qts.exception.ObjectNotFoundException;
 import com.qts.exception.ProjectException;
 import com.qts.exception.RolesException;
 import com.qts.handler.annotations.AuthorizeEntity;
-import com.qts.model.BaseObject;
 import com.qts.model.RoleBean;
 import com.qts.model.Roles;
 import com.qts.model.UserProject;
@@ -66,16 +65,6 @@ public class RoleHandler extends AbstractHandler {
 	@AuthorizeEntity(roles = {Roles.ROLE_ADMIN}, entity = "RoleBean.java")
 	public RoleBean allocateRolesAOP(RoleBean roleBean) throws Exception {
 		RoleBean myRoleBean;
-		Set<Long> adminMember=new HashSet<Long>();
-		adminMember.add(new Long(1));
-		adminMember.add(new Long(3));
-		if(roleBean.getRoleIds().containsAll(adminMember))
-			throw new RolesException(ExceptionCodes.BOTH_ADMIN_MEMBER_NOT_POSSIBLE,ExceptionMessages.BOTH_ADMIN_MEMBER_NOT_POSSIBLE);
-		else if(getUserRoles(new RoleBean(roleBean.getUserId(), roleBean.getProjectId())).getRoleIds().contains(new Long(1))&& roleBean.getRoleIds().contains(new Long(3)))
-			throw new RolesException(ExceptionCodes.USER_IS_ADMIN_SO_CANNOT_BE_MEMBER, ExceptionMessages.USER_IS_ADMIN_SO_CANNOT_BE_MEMBER);
-		else if(getUserRoles(new RoleBean(roleBean.getUserId(), roleBean.getProjectId())).getRoleIds().contains(new Long(3))&& roleBean.getRoleIds().contains(new Long(1)))
-			throw new RolesException(ExceptionCodes.USER_IS_MEMBER_SO_CANNOT_BE_ADMIN, ExceptionMessages.USER_IS_MEMBER_SO_CANNOT_BE_ADMIN);
-	
 		UserProject userProject = UserProjectHandler.getInstance()
 				.getUserProjectByIds(roleBean.getProjectId(),
 						roleBean.getUserId());

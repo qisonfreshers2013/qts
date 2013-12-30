@@ -16,19 +16,31 @@ AddProject.prototype.handleShow = function() {
 		//validations for project name and technologies
 		var pattern=/^[a-zA-Z0-9]+[\s\._\w]*/;
 		if(projectName.length==0){
-			alert("Project name can't be empty.");
+			$.ambiance({
+			    message : "Project name can't be empty.",
+			    type : 'error'
+			   });
 			projectNameField.focus();
 		}
 		else if(projectName.length>127){
-			alert("Project name length can't be more than 128 characters.");
+			$.ambiance({
+			    message : "Project name length can't be more than 128 characters.",
+			    type : 'error'
+			   });
 			projectNameField.focus();
 		}
 		else if(technologies.length>511){
-			alert("Technologies  length can't be more than 512 characters.");
+			$.ambiance({
+			    message : "Technologies  length can't be more than 512 characters.",
+			    type : 'error'
+			   });
 			technologiesField.focus();
 		}
 		else if(!pattern.test(projectName)){
-			alert("invalid pattern for project Name");
+			$.ambiance({
+			    message : "invalid pattern for project Name",
+			    type : 'error'
+			   });
 			projectNameField.focus();
 
 		}
@@ -45,9 +57,15 @@ AddProject.prototype.addProject = function() {
 	RequestManager.addProject({"payload":{"name":projectNameField,"technologies":technologiesField}}, function(data, success) {
 		if(success){
 			var output=data.name;
-		alert('project sucessfully added\n'+'project name: '+output);
+			$.ambiance({
+			    message : 'project sucessfully added\n'+'project name: '+output,
+			    type : 'success'
+			   });
 	}else{
-			alert(data.message);
+		$.ambiance({
+		    message : data.message,
+		    type : 'error'
+		   });
 		}
 	}.ctx(this));
 }

@@ -32,10 +32,16 @@ ReleaseResult.prototype.handleShow = function(roles) {
 							if($('table tr').length==0){
 								$('#resultTable').empty();
 							}
-							alert('deleted');
+							$.ambiance({
+							    message : "Deleted Successfully",
+							    type : 'success'
+							   });
 						}
 						else{
-							alert(data.message);
+							$.ambiance({
+							    message : data.message,
+							    type : 'error'
+							   });
 						}
 					});
 				}.ctx(this));
@@ -58,7 +64,10 @@ ReleaseResult.prototype.handleShow = function(roles) {
 			}
 		}
 		else{
-			alert(data.message);
+			$.ambiance({
+			    message : data.message,
+			    type : 'error'
+			   });
 		}
 	}.ctx(this));
 
