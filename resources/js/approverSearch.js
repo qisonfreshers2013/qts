@@ -106,21 +106,23 @@ ApproverSearch.prototype.getSearchCriteria=function(){
 ApproverSearch.prototype.getInputForSearchUserTimeEntriesByApprover=function(){
 	var input;
 	var searchCriteria=this.getSearchCriteria();
-	 if(searchCriteria.from!='' && searchCriteria.projectId!=''&& searchCriteria.status!=''&& searchCriteria.userId!='' && searchCriteria.to!='')
+	 if(searchCriteria.from!='' && searchCriteria.projectId!='SELECT'&& searchCriteria.status!=''&& searchCriteria.userId!='SELECT' && searchCriteria.to!='')
 		input={ "payload": { "projectId":searchCriteria.projectId,"status":searchCriteria.status,"userId":searchCriteria.userId,"from":searchCriteria.from,"to":searchCriteria.to}}; 
-	else if(searchCriteria.from=='' && searchCriteria.projectId==''&& searchCriteria.status!=''&& searchCriteria.userId!='' && searchCriteria.to=='')
+	else if(searchCriteria.from=='' && searchCriteria.projectId=='SELECT'&& searchCriteria.status!=''&& searchCriteria.userId!='SELECT' && searchCriteria.to=='')
 		input={ "payload": {"status":searchCriteria.status,"userId":searchCriteria.userId}}; 
-	else if(searchCriteria.from=='' && searchCriteria.projectId!=''&& searchCriteria.status!=''&& searchCriteria.userId=='' && searchCriteria.to=='')
+	else if(searchCriteria.from=='' && searchCriteria.projectId!='SELECT'&& searchCriteria.status!=''&& searchCriteria.userId=='SELECT' && searchCriteria.to=='')
 		input={ "payload": { "projectId":searchCriteria.projectId,"status":searchCriteria.status}}; 
-	else if(searchCriteria.from=='' && searchCriteria.projectId!=''&& searchCriteria.status!=''&& searchCriteria.userId!='' && searchCriteria.to=='')
+	else if(searchCriteria.from=='' && searchCriteria.projectId!='SELECT'&& searchCriteria.status!=''&& searchCriteria.userId!='SELECT' && searchCriteria.to=='')
 		input={ "payload": { "projectId":searchCriteria.projectId,"status":searchCriteria.status,"userId":searchCriteria.userId}}; 
-	else if(searchCriteria.from!='' && searchCriteria.projectId!=''&& searchCriteria.status!=''&& searchCriteria.userId!='' && searchCriteria.to=='')
+	else if(searchCriteria.from!='' && searchCriteria.projectId!='SELECT'&& searchCriteria.status!=''&& searchCriteria.userId!='SELECT' && searchCriteria.to=='')
 		input={ "payload": { "projectId":searchCriteria.projectId,"status":searchCriteria.status,"userId":searchCriteria.userId,"from":searchCriteria.from}}; 
-	else if(searchCriteria.from!='' && searchCriteria.projectId==''&& searchCriteria.status!=''&& searchCriteria.userId=='' && searchCriteria.to!='')
+	else if(searchCriteria.from!='' && searchCriteria.projectId=='SELECT'&& searchCriteria.status!=''&& searchCriteria.userId=='SELECT' && searchCriteria.to!='')
 		input={ "payload": { "status":searchCriteria.status,"from":searchCriteria.from,"to":searchCriteria.to}}; 
-	else if(searchCriteria.from=='' && searchCriteria.projectId==''&& searchCriteria.status!=''&& searchCriteria.userId=='' && searchCriteria.to=='')
+	else if(searchCriteria.from=='' && searchCriteria.projectId=='SELECT'&& searchCriteria.status!=''&& searchCriteria.userId=='SELECT' && searchCriteria.to=='')
 		input={ "payload": {"status":searchCriteria.status}}; 
-
+	else if(searchCriteria.from=='' && searchCriteria.projectId=='SELECT'&& searchCriteria.status==''&& searchCriteria.userId=='SELECT' && searchCriteria.to==''){
+		input={"payload":{}};
+	}
 	return input;
 }
 
@@ -167,8 +169,11 @@ ApproverSearch.prototype.searchTimeEntriesByApprover = function() {
     	                //"<td><button class=\"approve approveTimeEntry\" id=\"approveTimeEntry\" value=\""+data[i][0]+"\">.</button><button class=\"reject rejectTimeEntry\" id=\"rejectTimeEntry\" value=\""+data[i][0]+"\">.</button></td>";
     				    $(".approverTableHeader").after(tabledata);
     				    $('#approveTimeEntry').click(function(event){
-    						this.approveTimeEntry(event);
-    						//this.searchTimeEntriesByApprover();
+    				    	$("#rejectedComments").modal('show');
+    						$(".submitComments").click(function(){
+    							$("#rejectedComments").hide();
+    							this.approveTimeEntry(event);	
+    						}.ctx(this));
     						}.ctx(this));
     					$('#rejectTimeEntry').click(function(event){
     						
@@ -177,7 +182,7 @@ ApproverSearch.prototype.searchTimeEntriesByApprover = function() {
     							$("#rejectedComments").hide();
     							this.rejectTimeEntry(event);			
     						}.ctx(this));
-    						
+    						 
     						
     						}.ctx(this));
     			}}
@@ -192,11 +197,22 @@ ApproverSearch.prototype.searchTimeEntriesByApprover = function() {
 }
 
 ApproverSearch.prototype.approveTimeEntry=function(event){
+	$("#rejectedComments").modal('hide');
 	var timeEntryId=event.target.value;
-	RequestManager.approve({"payload":{"id":timeEntryId}},function(data, success){
+	if($(".comments").val()==""){
+		input={"payload":{"id":timeEntryId}};
+	}
+	else {
+		input={"payload": {"id":timeEntryId,"approvedComments":$(".comments").val()} }
+	}
+	RequestManager.approve(input,function(data, success){
 		if(success){
+			if(data){
 			alert("approved");
-			this.searchTimeEntriesByApprover();
+			$("#searchTimeEntriesByApprover").trigger("click");
+			}else{
+				alert("Not Approved");
+			}
 		}
 		else{
 			alert(data.message);
@@ -211,7 +227,7 @@ ApproverSearch.prototype.rejectTimeEntry=function(event){
 		if(success){
 			if(data){
 			alert("rejected");
-			this.searchTimeEntriesByApprover();
+			$("#searchTimeEntriesByApprover").trigger("click");
 			}else{
 				alert("not Rejected");
 			}
@@ -240,10 +256,7 @@ ApproverSearch.prototype.validateSearchCriteria=function(){
 		  isvalid=false;
 	  }
 	  }
-	  else if($('.status').val()==''){
-		  alert("specify the status");
-	      isvalid=false;
-	  }
+	
 	  return isvalid;
 }
 
