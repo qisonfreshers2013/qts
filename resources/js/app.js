@@ -60,9 +60,9 @@ App.prototype.loadOptions=function(roles){
 	});
 }
 
-App.prototype.loadWelcome=function(nickName){
+App.prototype.loadWelcome=function(nickName,roleIds){
 	Loader.loadWelcome(function(){
-		new Welcome(nickName);
+		new Welcome(nickName,roleIds);
 	});
 }
 

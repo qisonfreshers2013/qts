@@ -686,4 +686,9 @@ public User getUserById(Long id) throws UserException {
 		List<User> UsersList = userDAOImpl.getUsersByIds(userIds);
 		return UsersList;
 	}
+	public String getUserName(long id) {
+		  UserDAO userDAOImpl = DAOFactory.getInstance().getUserDAO();
+		  String userFirstName = userDAOImpl.getUserName(id);
+		  return userFirstName;
+		 }
 }

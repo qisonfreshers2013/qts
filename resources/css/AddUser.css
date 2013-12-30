@@ -25,14 +25,14 @@
 div#submitDiv {
     clear: both;
     font-family: Arial;   
-    left: 20%;
+    left: 21.5%;
     position: relative;
     text-align: left;
     margin-top: 0%;   
     word-wrap: break-word;
 }
 div#clearDiv {
-    left: 13%;
+    left: 14%;
     position: relative;
     margin-top: 0%;
 }
@@ -73,9 +73,13 @@ input.password, input.userId {
 p {
     font-size: 16px;
 }
-select {
+select.gender {
     width: 22%;
 }
 #content {
     margin-top: 8%;
+}
+
+input.userId {
+    margin-left:0%;
 }

@@ -1,13 +1,15 @@
 /**
  * 
  */
-function MyProfile(){
-	Loader.loadHTML('.container', 'MyProfile.html', true, function(){
+function MyProfile(){	
+	Loader.loadHTML('.container', 'MyProfile.html', false, function(){
 			this.handleShow();
 	}.ctx(this));
 }
 
 MyProfile.prototype.handleShow = function(){
+	$('#changePasswordModal').hide();
+	
 	this.loadValues();
 	$('button.submit').click(function(){	
 		var firstNameRef = $('input.firstNameText');
@@ -26,8 +28,8 @@ MyProfile.prototype.handleShow = function(){
 		}
 		
 	}.ctx(this));
-	$('.changePassword').click(function(){
-		App.loadChangePassword();
+	$('.changePassword').click(function(){		
+		App.loadChangePassword();		
 	}.ctx(this));
 	
 }
@@ -40,11 +42,22 @@ MyProfile.prototype.saveValues = function(firstNameRef,lastNameRef,nicknameRef,l
 		}};
 	RequestManager.updateLoginUserDetails(input,function(data,success){
 		if(success){
-		//alert(data.message?"sucess"+data.message:"fail"+data.message);
-			alert("success");
+			alert("success " + data);
+			if((data.nickName==null) || (data.nickName.trim().length < 1)){
+				
+				$('span.nicknameCursor').text(data.lastName);
+				$('h1.nicknameHeader').text(data.lastName);
+			}
+			else{
+				$('h1.nicknameHeader').text(data.nickName);
+			    $('span.nicknameCursor').text(data.nickName);
+			}
+			$('p.locationHeader').text(data.location);	
+			$('p.upperDesignationField').text(data.designation);			
+			
 		}
 		else
-			alert("MyProfile "+data.message);
+			alert("Fail to updateMyProfile : "+data.message);
 		}.ctx(this));
 		
 	
@@ -54,12 +67,14 @@ MyProfile.prototype.loadValues = function(){
 	var input = {"payload":{}};
 	RequestManager.getLoginUserDetails(input,function(data,success){
 		if(success){
-			console.log("success profile"+data);
-			if(data.nickName!=null)
-				$('h1.nicknameHeader').text(data.nickName);
+			console.log("success profile" + data.payload);
+			if(data.nickName == null || data.nickName.trim().length<1 )
+			
+			   $('h1.nicknameHeader').text(data.lastName);
 			else
-				$('h1.nicknameHeader').text(data.lastName);
+				$('h1.nicknameHeader').text(data.nickName);
 			$('p.locationHeader').text(data.location);	
+			$('p.upperDesignationField').text(data.designation);
 			var gender = (data.gender)?"Male":"Female";
 			$('input.employeeIdText').val(data.employeeId);
 			$('input.emailText').val(data.email);
@@ -82,17 +97,22 @@ MyProfile.prototype.loadValues = function(){
 
 MyProfile.prototype.validateName = function(name){
 	var isValid = false;
-	 var nameReg = /^[A-Za-z\s]+$/;
-        $('.error').hide();
+
+	 var nameReg=/^[A-Za-z]+([ {1}][A-Za-z]+)*$/g;
+       $('.error').hide();
 	    var nameVal = name.val();
-	    if(nameVal.trim().lenth <= 0 && nameVal == null) {
-	    	name.after('<span class = "error"><img style = "height:2.5%;width:2.5%;"src = "resources/img/wrong.png"></span>');
+	    if(nameVal.trim().length <= 0 || nameVal == null) {
+	    	name.after('<span class = "error" style = "color:red"  >Name can not be empty</span>');
 	        isValid = false;
 	    }
 	    else if(!nameReg.test(nameVal)) {
-	    	name.after('<span class="error"><img style = "height:2.5%;width:2.5%;"src = "resources/img/wrong.png"></span>');
+	    	name.after('<span class="error" style = "color:red" >Invalid name</span>');
 	        isValid = false;
-	    }	
+	    }
+	    else if(nameVal.length > 128){
+	    	name.after('<span class="error" style = "color:red">maximum length of name is 128 characters</span>');
+	        isValid = false;
+	    }	    
 	    else
 		{
 			$(".error").hide();
@@ -105,14 +125,18 @@ MyProfile.prototype.validateName = function(name){
 
 MyProfile.prototype.validateNickname= function(nickname){
 	var isValid = true;
-	var nicknameReg = /^[A-Za-z\s]*$/;
+	var nicknameReg = /^[A-Za-z]*([ {1}][A-Za-z]*)*$/g;
        $('.error').hide();
 	    var nicknameVal = nickname.val();
 	    
 	    if(!nicknameReg.test(nicknameVal)) {
-	    	nickname.after('<span class="error"><img style = "height:2.5%;width:2.5%;"src = "resources/img/wrong.png"></span>');
+	    	nickname.after('<span class="error" style = "color:red">Nickname is invalid</span>');
 	        isValid = false;
-	    }	
+	    }
+	    else  if(nicknameVal.length > 128) {
+	    	nickname.after('<span class="error" style = "color:red">Maximum length of nickname is 128</span>');
+	        isValid = false;
+	    }
 	    else 
 	    	{
 	    	 	$('.error').hide();
@@ -125,13 +149,17 @@ MyProfile.prototype.validateNickname= function(nickname){
 MyProfile.prototype.validateLocation= function(location){
 	var isValid = false;
 	$(".error").hide();
-	var locationReg = /^[A-Za-z\s]*$/;
+	var locationReg = /^[A-Za-z]*([ {1}][A-Za-z]*)*$/g;
        $('.error').hide();
 	    var locationVal = location.val();	    
 	    if(!locationReg.test(locationVal)) {
-	    	location.after('<span class="error"><img style = "height:2.5%;width:2.5%;" src = "resources/img/wrong.png"></span>');
+	    	location.after('<span class="error" style = "color:red">Location is invalid</span>');
 	        isValid = false;
-	    }	
+	    }
+	    else  if(locationVal.length > 128) {
+	    	nickname.after('<span class="error" style = "color:red">Maximum length of location is 128</span>');
+	        isValid = false;
+	    }
 	    else
 	    	isValid = true;
 	    return isValid;
