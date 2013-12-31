@@ -16,14 +16,20 @@ SearchProject.prototype.handleShow = function() {
 		if(projectId!=0){
 			RequestManager.getProjectUsers({"payload":{"projectId":projectId}}, function(data, success) {
 				if(success){
-					if(data.length>0){
+					if(data.projectUserRecords.length>0){
 						App.loadSearchProjectResults(data);
 					}
 					else{
-						alert('No user is Associated with this project');
+						$.ambiance({
+						    message :'No user is Associated with this project',
+						    type : 'error'
+						   });
 					}
 				}else{
-					alert("failed");
+					$.ambiance({
+					    message :data.message,
+					    type : 'error'
+					   });
 				}
 			}.ctx(this));
 		}

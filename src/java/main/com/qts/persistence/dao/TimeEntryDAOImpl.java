@@ -15,6 +15,8 @@ import org.hibernate.Session;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
+import org.hibernate.transform.AliasToBeanResultTransformer;
+import org.hibernate.transform.Transformers;
 
 import com.qts.common.Utils;
 import com.qts.exception.ExceptionCodes;
@@ -314,24 +316,24 @@ public class TimeEntryDAOImpl extends BaseDAOImpl implements TimeEntryDAO {
 	@Override
 	
 
-	public List<TimeEntries> getUserTimeEntries(TimeEntryBean searchCriteria) {
+	public List<TimeEntryBean> getUserTimeEntries(TimeEntryBean searchCriteria) {
 		Session session=getSession();
 		try {
 			Criteria userSearchCriteria = session
 					.createCriteria(TimeEntries.class);
 			userSearchCriteria.setProjection(Projections.projectionList()
-					.add(Projections.property("id"))
-					.add(Projections.property("date"))
-					.add(Projections.property("userId"))
-					.add(Projections.property("projectId"))
-					.add(Projections.property("releaseId"))
-					.add(Projections.property("task"))
-					.add(Projections.property("activityId"))
-					.add(Projections.property("hours"))
-					.add(Projections.property("status"))
-				    .add(Projections.property("approvedComments"))
-					.add(Projections.property("rejectedComments"))
-					.add(Projections.property("remarks")));
+					.add(Projections.property("id"),"id")
+					.add(Projections.property("date"),"dateInLong")
+					.add(Projections.property("userId"),"userId")
+					.add(Projections.property("projectId"),"projectId")
+					.add(Projections.property("releaseId"),"releaseId")
+					.add(Projections.property("task"),"task")
+					.add(Projections.property("activityId"),"activityId")
+					.add(Projections.property("hours"),"hours")
+					.add(Projections.property("status"),"status")
+				    .add(Projections.property("approvedComments"),"approvedComments")
+					.add(Projections.property("rejectedComments"),"rejectedComments")
+					.add(Projections.property("remarks"),"userRemarks"));
 			if (searchCriteria.getDate() == null && searchCriteria.getProjectId() == null){
 				userSearchCriteria.add(Restrictions
 						.conjunction()
@@ -369,7 +371,7 @@ public class TimeEntryDAOImpl extends BaseDAOImpl implements TimeEntryDAO {
 						.add(Restrictions.eq("userId",
 								searchCriteria.getUserId())));
 			}
-			List<TimeEntries> submittedData = userSearchCriteria.list();
+			List<TimeEntryBean> submittedData = userSearchCriteria.setResultTransformer(new AliasToBeanResultTransformer(TimeEntryBean.class)).list();
 			
 			return submittedData;
 
@@ -383,7 +385,7 @@ public class TimeEntryDAOImpl extends BaseDAOImpl implements TimeEntryDAO {
 	@SuppressWarnings("unchecked")
 	@Override
 
-	public List<TimeEntries> getTimeEntriesForApprover(TimeEntryBean searchCriteria) {
+	public List<TimeEntryBean> getTimeEntriesForApprover(TimeEntryBean searchCriteria) {
 		Session session = getSession();
 		try {
 
@@ -393,18 +395,18 @@ public class TimeEntryDAOImpl extends BaseDAOImpl implements TimeEntryDAO {
 			Criteria approverSearchCriteria = session
 					.createCriteria(TimeEntries.class);
 			approverSearchCriteria.setProjection(Projections.projectionList()
-					.add(Projections.property("id"))
-					.add(Projections.property("date"))
-					.add(Projections.property("userId"))
-					.add(Projections.property("projectId"))
-					.add(Projections.property("releaseId"))
-					.add(Projections.property("task"))
-					.add(Projections.property("activityId"))
-					.add(Projections.property("hours"))
-					.add(Projections.property("status"))
-					.add(Projections.property("remarks"))
-					.add(Projections.property("approvedComments"))
-					.add(Projections.property("rejectedComments")));
+					.add(Projections.property("id"),"id")
+					.add(Projections.property("date"),"dateInLong")
+					.add(Projections.property("userId"),"userId")
+					.add(Projections.property("projectId"),"projectId")
+					.add(Projections.property("releaseId"),"releaseId")
+					.add(Projections.property("task"),"task")
+					.add(Projections.property("activityId"),"activityId")
+					.add(Projections.property("hours"),"hours")
+					.add(Projections.property("status"),"status")
+					.add(Projections.property("remarks"),"userRemarks")
+					.add(Projections.property("approvedComments"),"approvedComments")
+					.add(Projections.property("rejectedComments"),"rejectedComments"));
 			if (searchCriteria.getFrom() == null && searchCriteria.getProjectId() == null
 					&& searchCriteria.getUserId() == null
 					&& searchCriteria.getTo() == null
@@ -486,8 +488,8 @@ public class TimeEntryDAOImpl extends BaseDAOImpl implements TimeEntryDAO {
 						Utils.parseDateToLong((searchCriteria.getTo()))))
 						.add(Restrictions.eq("status", searchCriteria.getStatus())));
 			}
-		
-			List<TimeEntries> submittedData = approverSearchCriteria.list();
+			List<TimeEntryBean> submittedData=approverSearchCriteria.setResultTransformer(new AliasToBeanResultTransformer(TimeEntryBean.class)).list();
+			
 			
 			return submittedData;
 		} catch (Exception e) {

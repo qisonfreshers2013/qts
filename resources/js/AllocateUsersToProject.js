@@ -53,9 +53,15 @@ AllocateUsersToProject.prototype.handleShow=function(){
 			$('select#existingUsers').append(options);
 			$('select#nonExistingUsers option:selected').remove();
 		}else if(projectId==0){
-			alert('please select project');
+			$.ambiance({
+			    message : 'please select project',
+			    type : 'error'
+			   });
 		}else{
-			alert('please select atleast one user for allocation');
+			$.ambiance({
+			    message :'please select atleast one user for allocation',
+			    type : 'error'
+			   });
 		}
 
 	});
@@ -68,9 +74,15 @@ AllocateUsersToProject.prototype.handleShow=function(){
 			$('select#nonExistingUsers').append(options);
 			$('select#existingUsers option:selected').remove();
 		}else if(projectId==0){
-			alert('please select project');
+			$.ambiance({
+			    message :'please select project',
+			    type : 'error'
+			   });
 		}else{
-			alert('please select atleast one user for deallocation');
+			$.ambiance({
+			    message :'please select atleast one user for deallocation',
+			    type : 'error'
+			   });
 		}
 
 	});
@@ -90,11 +102,18 @@ AllocateUsersToProject.prototype.handleShow=function(){
 //		alert('old Ids:'+oldIds);
 		var projectId=$('select#projectName option:selected').attr('value');
 		if(projectId==0){
-			alert('select project name');
+			$.ambiance({
+			    message :'select project name',
+			    type : 'error'
+			   });
 			$('#projectName').focus();
 		}
 		else{
-			this.allocateUsersToProject(projectId);
+			this.allocateUsersToProject(projectId,function(){
+					this.getProjectUsersAndNonUsers();
+				
+			}.ctx(this));
+			
 		}
 
 	}.ctx(this));
@@ -107,8 +126,7 @@ AllocateUsersToProject.prototype.handleShow=function(){
 
 
 
-AllocateUsersToProject.prototype.allocateUsersToProject=function(projectId){
-
+AllocateUsersToProject.prototype.allocateUsersToProject=function(projectId,callBack){
 	var allocateIds=new Array();
 	var deAllocateIds=new Array();
 
@@ -134,7 +152,7 @@ AllocateUsersToProject.prototype.allocateUsersToProject=function(projectId){
 		if (jQuery.inArray(el, oldEmails) == -1) 
 			allocateEmails.push(el);
 	});
-	
+
 	allocateIds=jQuery.unique(allocateIds);
 	deAllocateIds=jQuery.unique(deAllocateIds);
 //	alert('allocating:\n'+allocateIds);
@@ -152,35 +170,60 @@ AllocateUsersToProject.prototype.allocateUsersToProject=function(projectId){
 		message='deAllocatingUsers:\n'+deAllocateEmails;
 	}
 	if(allocatingIdsLength>0 || daAllocatingIdsLength>0){
-		
 		if(confirm(message)){
-			if(allocatingIdsLength>0){
+			if(allocatingIdsLength>0&&daAllocatingIdsLength>0){
 				RequestManager.allocateUsersToProject({"payload":{ "projectId":projectId, "userIds":allocateIds}}, function(data, success) {
 					if(success){
-						//alert(data);
+						RequestManager.deAllocateUsersFromProject({"payload":{ "projectId":projectId, "userIds":deAllocateIds}}, function(data, success) {
+							if(success){
+								callBack();
+							}else{
+								$.ambiance({
+								    message :data.message,
+								    type : 'error'
+								   });
+							}
+						}.ctx(this));
 					}else{
-						alert(data.message);
+						$.ambiance({
+						    message :data.message,
+						    type : 'error'
+						   });
 					}
 				}.ctx(this));
-			}
 
-			if(daAllocatingIdsLength>0){
+
+			}else if(allocatingIdsLength>0){
+				RequestManager.allocateUsersToProject({"payload":{ "projectId":projectId, "userIds":allocateIds}}, function(data, success) {
+					if(success){
+						callBack();
+					}else{
+						$.ambiance({
+						    message :data.message,
+						    type : 'error'
+						   });
+					}
+				}.ctx(this));
+			}else{
 				RequestManager.deAllocateUsersFromProject({"payload":{ "projectId":projectId, "userIds":deAllocateIds}}, function(data, success) {
 					if(success){
-						//alert(data);
+						callBack();
 					}else{
-						alert(data.message);
+						$.ambiance({
+						    message :data.message,
+						    type : 'error'
+						   });
 					}
 				}.ctx(this));
 			}
 		}
-		$('.hidden').trigger('click');
-		$('select#existingUsers').empty();
-		$('select#nonExistingUsers').empty();
 	}else{
-		alert('please select atleast one user for allocation or deallocation');
+		$.ambiance({
+		    message :'please select atleast one user for allocation or deallocation',
+		    type : 'error'
+		   });
 	}
-	
+
 }
 
 
@@ -195,9 +238,8 @@ AllocateUsersToProject.prototype.getProjectUsersAndNonUsers=function(){
 	if(projectId!=0){
 		RequestManager.getProjectUsers({"payload":{"projectId":projectId}}, function(data, success) {
 			if(success){
-				if(data.length>0){
-					
-					data=data.sort(function(a, b){
+				var records=data.projectUserRecords;
+				records=records.sort(function(a, b){
 					    if (a.email.toLowerCase() == b.email.toLowerCase()) {
 					        return 0;
 					    } else if(a.email.toLowerCase() > b.email.toLowerCase()) {
@@ -206,14 +248,16 @@ AllocateUsersToProject.prototype.getProjectUsersAndNonUsers=function(){
 					    return -1;
 					});
 					
-					$.each(data,function(key,value){
+					$.each(records,function(key,value){
 						oldEmails.push(value.email);
 						oldIds.push( parseInt(value.id));
 						existing.append('<option value='+value.id+'>'+value.email+'</option>');
 					});
-				}
 			}else{
-				alert('project Users'+data.message);
+				$.ambiance({
+				    message :data.message,
+				    type : 'error'
+				   });
 			}
 		}.ctx(this));
 
@@ -241,7 +285,10 @@ AllocateUsersToProject.prototype.getProjectUsersAndNonUsers=function(){
 					nonExisting.append('<option value='+id+'>'+email+'</option>');
 				});
 			}else{
-				alert(data.message);
+				$.ambiance({
+				    message :data.message,
+				    type : 'error'
+				   });
 			}
 		}.ctx(this));
 

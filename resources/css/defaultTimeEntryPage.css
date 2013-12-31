@@ -4,29 +4,30 @@
     margin-top: 8%;
 }
 
-th {
+.tableheader {
     background-color: #ADD8E6;
     color: #000000;
     font-size: 16px;
     text-align: center;
 }
-table {
+.userTimeEntries {
     border-collapse: collapse;
     width: 80%;
+     margin: 2% 0 0 0.5%;
 }
 p {
     font-size: 16px;
 }
-td {
+.userTableData {
     font-size: 16px;
     padding: 1%;
     text-align: center;
 }
-tr:nth-child(2n+1) {
-    background-color: #EEEEEE;
-}
 tr:nth-child(2n) {
-    background-color: #DDDDDD;
+    background: none repeat scroll 0 0 #CDCDCD;
+}
+tr:nth-child(2n+1) {
+    background: none repeat scroll 0 0 #EFEFEF;
 }
 .dateHeader {
     float: left;
@@ -54,9 +55,7 @@ tr:nth-child(2n) {
     position: relative;
     top: 5%;
 }
-.userTimeEntries {
-    margin: 2% 0 0 0.5%;
-}
+
 .savedTimeSheetsEntries {
     margin: 0.5%;
     width: 100%;
@@ -67,7 +66,7 @@ tr:nth-child(2n) {
     margin-top: 1%;
     position: relative;
     background-color: #669933;
-    border: medium none;
+    border: radius 0.5%;
     color: #FFFFFF;
     font-weight: bold;
     text-align: center;
@@ -81,7 +80,7 @@ tr:nth-child(2n) {
     position: relative;
     top: 3%;
     background-color: #669933;
-    border: medium none;
+    border: radius 0.5%;
     color: #FFFFFF;
     font-weight: bold;
     text-align: center;
@@ -91,7 +90,7 @@ tr:nth-child(2n) {
     position: relative;
     top: 3%;
     background-color: #669933;
-    border: medium none;
+    border: radius 0.5%;
     color: #FFFFFF;
     font-weight: bold;
     text-align: center;
@@ -101,7 +100,7 @@ tr:nth-child(2n) {
     position: relative;
     top: 3%;
     background-color: #669933;
-    border: medium none;
+    border: radius 0.5%;
     color: #FFFFFF;
     font-weight: bold;
     text-align: center;

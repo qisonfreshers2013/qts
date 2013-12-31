@@ -21,16 +21,14 @@ import com.qts.common.json.JsonUtil;
 import com.qts.handler.ProjectHandler;
 import com.qts.model.Project;
 import com.qts.model.ProjectBean;
+import com.qts.model.ProjectUserRecords;
 import com.qts.model.User;
-import com.qts.model.UserProject;
 import com.qts.service.annotations.RestService;
 import com.qts.service.annotations.ServiceStatus;
-import com.qts.service.annotations.UnSecure;
 import com.qts.service.common.WebserviceRequest;
 import com.qts.service.descriptors.ProjectOutputDescriptor;
 import com.qts.service.descriptors.UserListOutputDescriptor;
 import com.qts.service.descriptors.UserOutputDescriptor;
-import com.qts.service.descriptors.UserProjectOutputDescriptor;
 
 @Path("/v1/project/")
 public class ProjectService extends BaseService {
@@ -155,13 +153,11 @@ public class ProjectService extends BaseService {
 	throws Exception {
 		ProjectBean projectBean = (ProjectBean) JsonUtil.getObject(request.getPayload(),
 				ProjectBean.class);
-		List<User> usersList = ProjectHandler.getInstance()
+		ProjectUserRecords projectUserRecords = ProjectHandler.getInstance()
 		.getProjectUsers(projectBean);
-		String jsonForListBasedOnDescriptor = JsonUtil
-		.getJsonForListBasedOnDescriptor(usersList, User.class,
-				UserListOutputDescriptor.class);
-
-		return jsonForListBasedOnDescriptor;
+		
+		return JsonUtil.getJsonBasedOnDescriptor(projectUserRecords,
+				ProjectUserRecords.class);
 	}
 
 
@@ -175,12 +171,10 @@ public class ProjectService extends BaseService {
 			@Context UriInfo uriInfo, WebserviceRequest request) throws Exception {
 		ProjectBean projectBean = (ProjectBean) JsonUtil.getObject(request.getPayload(),
 				ProjectBean.class);
-		List<User> usersList=ProjectHandler.getInstance()
+		ProjectUserRecords projectUserRecords =ProjectHandler.getInstance()
 		.allocateUsersToProjectAOP(projectBean);
-		String jsonForListBasedOnDescriptor = JsonUtil
-		.getJsonForListBasedOnDescriptor(usersList, User.class,
-				UserListOutputDescriptor.class);
-		return jsonForListBasedOnDescriptor;
+		return JsonUtil.getJsonBasedOnDescriptor(projectUserRecords,
+				ProjectUserRecords.class);
 	}
 	
 	
@@ -196,13 +190,11 @@ public class ProjectService extends BaseService {
 	  ProjectBean projectBean = (ProjectBean) JsonUtil.getObject(request.getPayload(),
 	    ProjectBean.class);
 	  
-	  List<User> usersList=ProjectHandler.getInstance()
+	  ProjectUserRecords projectUserRecords=ProjectHandler.getInstance()
 	  .deAllocateUsersFromProjectAOP(projectBean);
 	  
-	  String jsonForListBasedOnDescriptor = JsonUtil
-		.getJsonForListBasedOnDescriptor(usersList, User.class,
-				UserListOutputDescriptor.class);
-		return jsonForListBasedOnDescriptor;
+	  return JsonUtil.getJsonBasedOnDescriptor(projectUserRecords,
+				ProjectUserRecords.class);
 	 }
 	
 	 

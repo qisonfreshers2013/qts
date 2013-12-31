@@ -5,7 +5,7 @@ package com.qts.model;
  */
 public class TimeEntryBean {
     
-	private Integer id;
+	private Long id;
     private Long userId;
 	private String date;
 	private Long projectId;
@@ -18,7 +18,45 @@ public class TimeEntryBean {
 	private String userRemarks;
 	private Integer status;
     private String approvedComments;
-    private String rejectedComments;
+    public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+
+	public String getReleaseVersion() {
+		return releaseVersion;
+	}
+
+	public void setReleaseVersion(String releaseVersion) {
+		this.releaseVersion = releaseVersion;
+	}
+
+	public String getActivity() {
+		return activity;
+	}
+
+	public void setActivity(String activity) {
+		this.activity = activity;
+	}
+
+
+	private String rejectedComments;
+    private String userName;
+    private String releaseVersion;
+    private String activity;
+    private String projectName;
+    private long dateInLong;
+	public long getDateInLong() {
+		return dateInLong;
+	}
+
+	public void setDateInLong(long dateInLong) {
+		this.dateInLong = dateInLong;
+	}
+
 	public TimeEntryBean() {
 	}
 
@@ -35,14 +73,16 @@ public class TimeEntryBean {
 		this.from=from;
 		this.to=to;
 	}
-	public Integer getId() {
-		return id;
+
+	public String getProjectName() {
+		return projectName;
+	}
+
+	public void setProjectName(String projectName) {
+		this.projectName = projectName;
 	}
 
 
-	public void setId(int id) {
-		this.id = id;
-	}
 	public String getDate() {
 		return date;
 	}
@@ -147,6 +187,14 @@ public class TimeEntryBean {
 
 	public String getFrom() {
 		return from;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 

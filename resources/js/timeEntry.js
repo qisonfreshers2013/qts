@@ -4,6 +4,8 @@
  */
 function TimeEntry(){
 	Loader.loadHTML('#loadTimeSheetFilling', 'timeEntry.html', true, function() {
+		 this.getProjects();
+	     this.getActivities();
 		this.handleShow();
 	}.ctx(this))
 }
@@ -11,12 +13,11 @@ function TimeEntry(){
 TimeEntry.prototype.handleShow=function(){
 	$(".container").show();
     $(document).ready(function() {
-        console.log("on ready")
         $(".datepicker").datepicker({ minDate: -30, maxDate:new Date()});
     });
     
-    this.getProjects();
-    this.getReleases();
+    //this.getProjects();
+    
 	$('.save').click(function(event){
 		if(this.validateTimeEntry()){
 		this.getRequestParameters();
@@ -28,7 +29,9 @@ TimeEntry.prototype.handleShow=function(){
 	$('.projectId').change(function(event){
 	        this.getReleases();
 	}.ctx(this));
-	
+	$('#closeTheModal').click(function(event){
+		$(".cancel").trigger("click");
+	}.ctx(this));	
 
 }
  
@@ -85,7 +88,7 @@ TimeEntry.prototype.setRequestParameters=function(updateRequestParameters){
 		RequestManager.addTimeEntry(input, function(data, success) {
 			if (success) {
 			      alert("TimeEntry Saved");
-			} else {
+			    } else {
 				alert(data.message);
 			}
 		}.ctx(this));
@@ -97,6 +100,7 @@ TimeEntry.prototype.setRequestParameters=function(updateRequestParameters){
  
 TimeEntry.prototype.getProjects=function(){
 	 $('.projectId').empty();
+	 $('.projectId').append('<option class=\"projectValue\">SELECT</option>');
 	 RequestManager.getProjectsForMember({}, function(data, success) {
 	  if(success){
 	   var id=0;
@@ -121,22 +125,40 @@ TimeEntry.prototype.getProjects=function(){
  
 TimeEntry.prototype.getReleases=function(){
 	 $('.selectRelease').empty();
+	 $('.selectRelease').append('<option>SELECT</option>');
 	 var id=$(".projectId").val();
 	 RequestManager.getProjectReleases({"payload":{"projectId":id}}, function(data, success) {
 	  if(success){
+		  if(data.length!=0){
 	for(var i=0;i<data.length;i++){
 		 $('.selectRelease').append('<option class=\"releaseValue\" value='+data[i][0]+'>'+data[i][1]+'</option>');
-	}
+	          }}
+		  else {alert("No Releases For This Project.");}
 	  }else{
 	   $("cancel").trigger("click");
 	  }
 	 }.ctx(this));
 	}
  
- 
+TimeEntry.prototype.getActivities=function(){
+	 $('.selectActivity').empty();
+	 $('.selectActivity').append('<option>SELECT</option>');
+	 RequestManager.getActivities({"payload":{}}, function(data, success) {
+	  if(success){
+	for(var i=0;i<data.length;i++){
+		 $('.selectActivity').append('<option class=\"activityValue\" value='+data[i].id+'>'+data[i].name+'</option>');
+	}
+	  }else{
+	   $("cancel").trigger("click");
+	  }
+	 }.ctx(this));
+	}
+
  
   TimeEntry.prototype.validateTimeEntry=function(){
 	  var date=$('.datepicker').val();
+	  var userRemarks=$('.userRemarks').val();
+	  var task=$('.task').val();
 	  var isvalid=true;
 	  $(".error").hide();
 	  var dateRegex="^(0[1-9]|1[012])([-/])(0[1-9]|[12][0-9]|3[01])\\2([23]0)\\d\\d$";
@@ -152,6 +174,30 @@ TimeEntry.prototype.getReleases=function(){
 	  else if($('.task').val()==''){
 		  alert("Mention the Task Performed.");
 	      isvalid=false;
+	  }
+	  else if(userRemarks.length>4096){
+		  alert("Max of 4096 characters is supported.");
+		  isvalid=false;
+	  }
+	  else if( $('.projectId').val()=='SELECT'){
+		  alert("Select a project.");
+		  isvalid=false;
+	  }
+	  else if( $('.hours').val()=='SELECT'){
+		  alert("Select Hours.");
+		  isvalid=false;
+	  }
+	  else if( $('.selectActivity').val()=='SELECT'){
+		  alert("Select the Activity Done.");
+		  isvalid=false;
+	  }
+	  else if( $('.selectRelease').val()=='SELECT'){
+		  alert("Select the Release Version of the project.");
+		  isvalid=false;
+	  }
+	  else if(task.length>512){
+		  alert("Max of 512 characters is supported.");
+		  isvalid=false;
 	  }
 	  return isvalid;
   }

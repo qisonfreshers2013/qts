@@ -135,7 +135,9 @@ RequestManager.prototype.getProjectsForMember=function(data,callback){
 	this.sendToServer('project/getProjectsForMember', data, callback);
 }
 
-
+RequestManager.prototype.getActivities=function(data,callback){
+	this.sendToServer('activities/getActivities', data, callback);
+}
 
 
 

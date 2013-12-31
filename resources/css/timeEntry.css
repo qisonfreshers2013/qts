@@ -72,21 +72,21 @@ p {
     margin-top: 41%;
 }
 .cancel {
-    margin-left: 108%;
-    margin-top: 2%;
     background-color: #669933;
     border: medium none;
     color: #FFFFFF;
     font-weight: bold;
+    margin-left: 108%;
+    margin-top: 2%;
     text-align: center;
 }
 .save {
-    margin-left: 127%;
-    margin-top: -22%;
     background-color: #669933;
     border: medium none;
     color: #FFFFFF;
     font-weight: bold;
+    margin-left: 127%;
+    margin-top: -20%;
     text-align: center;
 }
 .remarksHeader {

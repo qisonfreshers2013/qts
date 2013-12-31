@@ -10,7 +10,6 @@ import com.qts.exception.ObjectNotFoundException;
 import com.qts.exception.ProjectException;
 import com.qts.exception.RolesException;
 import com.qts.handler.annotations.AuthorizeEntity;
-import com.qts.model.BaseObject;
 import com.qts.model.RoleBean;
 import com.qts.model.Roles;
 import com.qts.model.UserProject;
@@ -36,12 +35,10 @@ public class RoleHandler extends AbstractHandler {
 		return INSTANCE;
 	}
 	
-	//@AuthorizeEntity(roles = {Roles.ROLE_ADMIN}, entity = "RoleBean.java")
 	public List<Roles> getRoles() throws Exception {
 		return DAOFactory.getInstance().getRoleDAOImplInstance().getRoles();
 	}
 
-	//@AuthorizeEntity(roles = {Roles.ROLE_ADMIN}, entity = "RoleBean.java")
 	public RoleBean getUserRoles(RoleBean roleBean) throws Exception {
 		try {
 			// validating the input whether both userid and projectid is
@@ -68,16 +65,6 @@ public class RoleHandler extends AbstractHandler {
 	@AuthorizeEntity(roles = {Roles.ROLE_ADMIN}, entity = "RoleBean.java")
 	public RoleBean allocateRolesAOP(RoleBean roleBean) throws Exception {
 		RoleBean myRoleBean;
-		Set<Long> adminMember=new HashSet<Long>();
-		adminMember.add(new Long(1));
-		adminMember.add(new Long(3));
-		if(roleBean.getRoleIds().containsAll(adminMember))
-			throw new RolesException(ExceptionCodes.BOTH_ADMIN_MEMBER_NOT_POSSIBLE,ExceptionMessages.BOTH_ADMIN_MEMBER_NOT_POSSIBLE);
-		else if(getUserRoles(new RoleBean(roleBean.getUserId(), roleBean.getProjectId())).getRoleIds().contains(new Long(1))&& roleBean.getRoleIds().contains(new Long(3)))
-			throw new RolesException(ExceptionCodes.USER_IS_ADMIN_SO_CANNOT_BE_MEMBER, ExceptionMessages.USER_IS_ADMIN_SO_CANNOT_BE_MEMBER);
-		else if(getUserRoles(new RoleBean(roleBean.getUserId(), roleBean.getProjectId())).getRoleIds().contains(new Long(3))&& roleBean.getRoleIds().contains(new Long(1)))
-			throw new RolesException(ExceptionCodes.USER_IS_MEMBER_SO_CANNOT_BE_ADMIN, ExceptionMessages.USER_IS_MEMBER_SO_CANNOT_BE_ADMIN);
-	
 		UserProject userProject = UserProjectHandler.getInstance()
 				.getUserProjectByIds(roleBean.getProjectId(),
 						roleBean.getUserId());
@@ -97,9 +84,6 @@ public class RoleHandler extends AbstractHandler {
 
 				}
 			}
-//			if (availableRoles.containsAll(roleBean.getRoleIds())){
-//				return roleBean;
-//			}
 			roleBean.getRoleIds().removeAll(availableRoles);
 			myRoleBean = UserProjectsRolesHandler.getInstance().allocateRoles(
 					roleBean, userProject);
@@ -110,6 +94,7 @@ public class RoleHandler extends AbstractHandler {
 	}
 	@AuthorizeEntity(roles = {Roles.ROLE_ADMIN}, entity = "RoleBean.java")
 	public RoleBean deallocateRolesAOP(RoleBean roleBean) throws Exception {
+		RoleBean myRoleBean;
 		UserProject userProject = UserProjectHandler.getInstance()
 				.getUserProjectByIds(roleBean.getProjectId(),
 						roleBean.getUserId());
@@ -130,14 +115,14 @@ public class RoleHandler extends AbstractHandler {
 
 				}
 			}
-			//if (!nonAvailableRoles.containsAll(roleBean.getRoleIds())) {
 			roleBean.getRoleIds().removeAll(nonAvailableRoles);
-				roleBean = UserProjectsRolesHandler.getInstance()
+				myRoleBean = UserProjectsRolesHandler.getInstance()
 						.deallocateRoles(roleBean, userProject);
+			myRoleBean.setRoleIds(getUserRoles(myRoleBean).getRoleIds());
 		} catch (RolesException e) {
 			throw e;
 		}
-		return roleBean;
+		return myRoleBean;
 	}
 
 	public boolean validateBean(RoleBean roleBean) throws Exception {
@@ -149,7 +134,6 @@ public class RoleHandler extends AbstractHandler {
 				throw new RolesException(ExceptionCodes.USER_DOESNOT_EXIST,
 						"Both userid and projectid should be given");
 			else if(ProjectHandler.getInstance().getObjectById(roleBean.getProjectId())!=null){}
-				//throw new 
 		} catch (ObjectNotFoundException|RolesException e) {
 			throw e;
 		}

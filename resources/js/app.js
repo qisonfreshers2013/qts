@@ -36,9 +36,9 @@ App.prototype.loadSearchProjectResults=function(data){
 	});
 }
 
-App.prototype.loadAddProjectRelease=function(){
+App.prototype.loadAddProjectRelease=function(roles){
 	Loader.loadAddProjectRelease(function(){
-		new AddProjectRelease();
+		new AddProjectRelease(roles);
 	});
 }
 

@@ -9,24 +9,27 @@
 p {
     font-size: 16px;
 }
-th {
+.approverTableHeader {
     background-color: #ADD8E6;
-    color: #000000;
     padding: 2%;
     text-align: center;
     font-size: 16px;
 }
-table {
+.searchTimeEntriesTableForApprover {
     border-collapse: collapse;
     width: 80%;
 }
-td {
+.approverTableData {
     padding: 1%;
     text-align: center;
     font-size: 16px;
 }
-tr:nth-child(odd)  { background-color:#EEEEEE; }
-tr:nth-child(even)  { background-color:#DDDDDD; }
+tr:nth-child(2n) {
+    background: none repeat scroll 0 0 #CDCDCD;
+}
+tr:nth-child(2n+1) {
+    background: none repeat scroll 0 0 #EFEFEF;
+}
 .approve {
     background-image: url('images/approve.png');
 }

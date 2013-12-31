@@ -62,11 +62,12 @@ public class UserProjectsRolesHandler extends AbstractHandler {
 					notValid.add(roleId);
 		} 
 		roleBean.getRoleIds().removeAll(notValid);
-		if(roleBean.getRoleIds()!=null){
+		if(roleBean.getRoleIds().isEmpty()){
+			roleBean.setRoleIds(RoleHandler.getInstance().getUserRoles(roleBean).getRoleIds());
+			return roleBean;
+		}
 		return DAOFactory.getInstance().getUserProjectsRolesDAOInstance()
 				.allocateRoles(roleBean, userProject);
-		}
-		return roleBean;
 	}
 
 	// remove's particular role of a user
@@ -80,11 +81,12 @@ public class UserProjectsRolesHandler extends AbstractHandler {
 					notValid.add(roleId);
 		}
 		roleBean.getRoleIds().removeAll(notValid);
-		if(roleBean.getRoleIds()!=null){
+		if(roleBean.getRoleIds().isEmpty()){
+			//roleBean.setRoleIds(RoleHandler.getInstance().getUserRoles(roleBean).getRoleIds());
+			return roleBean;
+		}
 		return DAOFactory.getInstance().getUserProjectsRolesDAOInstance()
 				.deallocateRoles(roleBean, userProject);
-		}
-		return roleBean;
 	}
 
 	public boolean deleteUserProjectsRolesByUserProject(UserProject next)
