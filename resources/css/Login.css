@@ -67,6 +67,11 @@ span#loginHeader{
 .userIdText {
     margin-top: 3%;
 }
+
+
+input.emailToSend {
+    width: 47%;
+}
 /*p.error{*/
 /*color:red;*/
 /*}*/

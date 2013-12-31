@@ -63,6 +63,10 @@ Login.prototype.handleShow = function() {
 		}
 	}.ctx(this));
 	
+	$("button.forgotButton").click(function(){
+		$("input.emailToSend" ).val("");
+	}.ctx(this));
+	
 }
 Login.prototype.authenticate = function() {	
 	
@@ -76,11 +80,11 @@ Login.prototype.authenticate = function() {
 		 var roleIds=data.roleIds;
 		      var  token = data.sessionToken;
 		      setCookie('qtsSessionId', token, null);
-		      if(data.user.nickName==null  || data.user.nickName.trim.length < 1){
+		      if(data.user.nickName == null  || data.user.nickName.trim().length < 1){
 		    	 App.loadWelcome(data.user.lastName,roleIds);
 		      }
-		      else {		    	
-		    	  App.loadWelcome(data.user.nickName ,roleIds);
+		      else{		    	
+		    	  	App.loadWelcome(data.user.nickName ,roleIds);
 		    	  }		     
 		      App.loadOptions(roleIds);
 		      App.loadQisonLogo(roleIds);
@@ -90,6 +94,8 @@ Login.prototype.authenticate = function() {
 			alert('Fail to login :'+ data.message);
 			$( "input#clear" ).trigger( "click");			
 	}
+		
+		
 	}.ctx(this));
 }
 	
@@ -97,12 +103,14 @@ Login.prototype.sendMail = function(email){
 	var input = {"payload":{"email":email}};
 	RequestManager.sendMail(input,function(data,success){
 		if(success){
+			$("input.emailToSend" ).val("");	
 			alert("success mail is sent");
 		$('#forgotPasswordModal').modal('hide');
+		
 		}
 		else
 		alert("fail :"+data.message);
-		
+		$("input.emailToSend" ).val("");		
 	}.ctx(this));
 }
 
@@ -147,8 +155,7 @@ Login.prototype.validateLogin = function(email,password){
 	else if(password.trim().length  > 128)
 		{
 			$('.password').focus();
-			$('.password').after('<span class = "error" style = "color:red" >Maximum length of passsword is 128</span>');
-		
+			$('.password').after('<span class = "error" style = "color:red" >Maximum length of passsword is 128</span>');		
 		}
 	    else
 		{

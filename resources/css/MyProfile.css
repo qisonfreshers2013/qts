@@ -81,6 +81,7 @@ p {
 
 #profilePhotoDiv img {
 	border-radius: 50%;
+	  border: medium solid #72AEE0;
 }
 
 button.submit {
@@ -115,7 +116,7 @@ div.userIdTextDiv {
 input.userIdText {
     margin-top: 0;
 }
-.userId {
-    margin: 0;
-}
+/*.userId {*/
+/*   margin: 0 0 7%;*/
+/*}*/
 
