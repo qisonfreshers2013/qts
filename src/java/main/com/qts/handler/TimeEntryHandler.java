@@ -471,8 +471,6 @@ public class TimeEntryHandler {
 		if((roleBeanOutput.getRoleIds()!=null && roleBeanOutput.getRoleIds().contains(new Long(2)))){
 			    if(searchCriteria.getProjectId()==null || searchCriteria.getProjectId()==0){
 			    searchCriteria.setProjectId(associatedProject.getProjectId());
-			    }else{
-			    	searchCriteria.setStatus(0);
 			    }
 			   
 				List<TimeEntryBean> responseList =getResultsForApprover(searchCriteria);

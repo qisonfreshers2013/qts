@@ -16,13 +16,17 @@ TimeEntry.prototype.handleShow=function(){
         $(".datepicker").datepicker({ minDate: -30, maxDate:new Date()});
     });
     
-    //this.getProjects();
     
 	$('.save').click(function(event){
+		var id=$("input[type=checkbox]:checked").val();
 		if(this.validateTimeEntry()){
 		this.getRequestParameters();
 		event.preventDefault();
+		if(id==null){
 		this.saveTimeEntry();
+		}else{
+			this.updateTimeEntry();
+		     }
 		}
 	}.ctx(this));
 	
@@ -154,7 +158,38 @@ TimeEntry.prototype.getActivities=function(){
 	  }
 	 }.ctx(this));
 	}
-
+TimeEntry.prototype.updateTimeEntry=function(){
+	 
+	var id=$("input[type=checkbox]:checked").val();
+	 
+	var input={ "payload":{"id":id,
+         "projectId":$('.projectId').val(),
+         "releaseId":$('.selectRelease').val(),
+         "activityId":$('.selectActivity').val(),
+         "date":$('.datepicker').val(),
+         "task":$('.task').val(),
+         "hours":$('.hours').val(),
+         "userRemarks":$('.userRemarks').val(),
+         "status":0
+         } 
+      }
+	
+	RequestManager.updateTimeEntry(input,function(data,success){
+		if(success){
+			if(data){
+			alert("Updated");
+			$(".cancel").trigger("click");
+			$(".searchUserTimeEntries").trigger("click");
+			$( "#loadTimeSheetFilling" ).modal('hide');
+			}else{
+				alert("Not Updated");
+			}
+		}
+		else{
+			alert(data.message);
+		}
+	});
+}
  
   TimeEntry.prototype.validateTimeEntry=function(){
 	  var date=$('.datepicker').val();
