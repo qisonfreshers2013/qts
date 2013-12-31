@@ -26,13 +26,34 @@ SearchProjectRelease.prototype.handleShow = function(roles) {
 				$('.SelectProject').append("<option value="+id+">"+name+"</option>");
 			});
 		}
-		else
-			alert(data.message);
+		else{
+			$.ambiance({
+			    message : data.message,
+			    type : 'error'
+			   });
+		}
 	}.ctx(this));
 
 	$('.SelectProject').change(function(){
+		if(roles.contains(1)){
+		$('.add').empty();
+		$('.add').append('<div><button class="AddPR" id="AddPR">Add Release</button></div>');
+		$('#AddPR').css({
+			 "background-color": "#669933",
+	    "border": "medium none",
+	    "color": "#FFFFFF",
+	    "font-weight": "bold",
+	    "left":"60%",
+	    "margin-top":"-11%",
+	    "position": "relative",
+	    "text-align": "center",
+	    "width": "15%"
+		});
+		$('.AddPR').click(function(){
+			App.loadAddProjectRelease(roles);
+		}.ctx(this));
+		}
 		App.loadReleaseResult(roles);
-
 	}.ctx(this));
 
 }

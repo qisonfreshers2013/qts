@@ -121,9 +121,6 @@ Menu.prototype.handleShow=function(roleIds){
 	$('#prm').click(function(){
 		$('#content').remove();
 		App.loadSearchProjectRelease(roleIds);
-		if(roleIds.contains(1)){
-			App.loadAddProjectRelease(roleIds);
-		}
 		
 	});
 	
