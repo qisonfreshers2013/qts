@@ -44,7 +44,15 @@ Roles.prototype.handleShow = function() {
 		}
 	}.ctx(this));
 	$("#cancelb").click(function() {
-		this.listUserRoles();
+		if ($('#projectList').val() != "p0" && $('#userList').val() != "u0") {
+			if(roles)
+				this.listUserRoles();
+		} else {
+			$.ambiance({
+				message : "Select project and user.",
+				type : 'error'
+			});
+		}
 	}.ctx(this));
 };
 
@@ -226,6 +234,7 @@ Roles.prototype.allocateRoles = function() {
 		};
 		RequestManager.allocateRoles(inputToAllocate, function(data, success) {
 			if (success) {
+				allocateSuccess=true;
 				roles = data.roleIds;
 				this.sucessMessage();
 			} else {
@@ -236,12 +245,32 @@ Roles.prototype.allocateRoles = function() {
 			}
 		}.ctx(this));
 	} else {
-		if(!deallocateSuccess){
-			$.ambiance({
-				message : "Roles already exists.",
-				type : 'error'
-			});
-		}else{
+		if(!deallocateSuccess && !allocateSuccess){
+			if(roles.length==0){
+				$.ambiance({
+					message : "perform allocate or deallocate.",
+					type : 'error'
+				});
+			}else{
+				$.ambiance({
+					message : "Roles already exists.",
+					type : 'error'
+				});
+			}
+			
+		}else if(!allocateSuccess){
+				$.ambiance({
+					message : "Select atleast one role to allocate.",
+					type : 'error'
+				});
+		}else if(!deallocateSuccess){
+				$.ambiance({
+					message : "Select atleast one role to deallocate.",
+					type : 'error'
+				});
+		}else if(deallocateSuccess || allocateSuccess){
+			deallocateSuccess=false;
+			allocateSuccess=false;
 			this.sucessMessage();
 		}
 	}
@@ -283,3 +312,4 @@ Roles.prototype.deallocateRoles = function() {
 };
 var roles;
 var deallocateSuccess=false;
+var allocateSuccess=false;
