@@ -25,14 +25,14 @@
 div#submitDiv {
     clear: both;
     font-family: Arial;   
-    left: 21.5%;
+    left: 16.5%;
     position: relative;
     text-align: left;
     margin-top: 0%;   
     word-wrap: break-word;
 }
 div#clearDiv {
-    left: 14%;
+    left: 10%;
     position: relative; 
     margin-top: 0%;
 }

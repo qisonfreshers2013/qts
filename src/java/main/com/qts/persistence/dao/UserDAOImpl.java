@@ -217,7 +217,7 @@ public class UserDAOImpl extends BaseDAOImpl implements UserDAO {
 			if (!(bean.getDesignation().equals(user.getDesignation()))) {
 				user.setDesignation(bean.getDesignation());
 			}
-			if (!(bean.getUserId().equals(bean.getUserId()))) {
+			if (!(bean.getUserId().equals(user.getUserId()))) {
 				user.setUserId(bean.getUserId());
 			}
 			user.setMts(new Date().getTime());// ---updating mts

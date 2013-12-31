@@ -4,28 +4,31 @@
     width: 100%;
 }
 .enter {
-	margin-top:4%;
+    margin-top: 4%;
+    width: 27%;
 }
+
 .text {
     left: 27%;
     margin-top: -8%;
     position: relative;
+    width: 70%;
 }
 .saveSection {
     left: 27%;
     margin-top: 2%;
     position: relative;
+    width: 40%;
 }
 p{
 	font-size:16px;
 }
-.go,.reset{
-    background-color: #669933;
+.go, .reset {
+    background-color: rgb(102, 153, 51);
     border: medium none;
-    color: #FFFFFF;
+    color: rgb(255, 255, 255);
     font-weight: bold;
     text-align: center;
-    width:8%;
-    height:20px;
+    width: 28%;
+    height:18px;
 }
-

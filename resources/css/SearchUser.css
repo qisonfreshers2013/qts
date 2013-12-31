@@ -117,6 +117,7 @@ button.search {
 input.nickname ,input.employeeId, input.designation, input.email {
     width: 21.5%;
 }
+
 .focus {
     border: 2px solid #FF0000;    
 }

@@ -49,7 +49,8 @@ ChangePassword.prototype.changePassword = function(oldPassword,password,confirmP
 	RequestManager.changePassword(input,function(data,success){
 		if(success){
 			alert("password is changed");
-		$('#changePasswordContainer').modal('hide');
+		$('#changePasswordModal').modal('hide');
+		$( "input.closeCPbutton" ).trigger( "click");
 		}
 		else
 			alert("fail to change : "+data.message);		
