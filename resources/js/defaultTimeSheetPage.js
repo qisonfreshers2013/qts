@@ -16,12 +16,15 @@ DefaultTimeSheetPage.prototype.handleShow=function(){
         $(".searchByDate").datepicker({maxDate:new Date()});  
     });
   
-	$('.searchByProjectId').change(function(event){
-        this.getReleases();
-       }.ctx(this));
-	
 	//To Add A New TimeEntrySheet
 	$('.addTimeEntry').click(function(){
+		var selectedCheckBox=$("input[type=checkbox]:checked").length;
+		if(selectedCheckBox!=0){
+			$(":checkbox").each(function(){
+				if(this.checked==true){
+					this.checked=false;}
+				});
+			}
 		$("cancel").trigger("click");
 		this.add();
 	}.ctx(this));
@@ -30,7 +33,7 @@ DefaultTimeSheetPage.prototype.handleShow=function(){
 		this.deleteTimeEntry();
 		}.ctx(this));
 	
-	$("input:checkbox").change(function(){
+	$("input:checkbox").click(function(){
 		if(this.checked==false){
 			$("#selectAll").checked=false;
 			}
@@ -160,7 +163,7 @@ DefaultTimeSheetPage.prototype.getRequestParameters=function(id){
 			               "task":$('.task').val(),
 			               "hours":$('.hours').val(),
 			               "activityId":$('.selectActivity').val(),
-			               "releaseId":$('.SelectRelease').val(),
+			               "releaseId":$('.selectRelease').val(),
 			               "userRemarks":$('.userRemarks').val()
 			               };
 	
@@ -192,27 +195,7 @@ DefaultTimeSheetPage.prototype.editTimeEntry=function(){
 	 else{
 		 var id=$("input[type=checkbox]:checked").val();
 		 this.populateFields(id);
-		 var input=this.getInputForUpdate();
 		 $( "#loadTimeSheetFilling" ).modal('show');
-			$('.save').click(function(event){
-				if(this.validateTimeEntry()){
-				event.preventDefault();
-				RequestManager.updateTimeEntry(input,function(data,success){
-					if(success){
-						if(data){
-						alert("Updated");
-						$(".cancel").trigger("click");
-						$(".searchUserTimeEntries").trigger("click");
-						}else{
-							alert("Not Updated");
-						}
-					}
-					else{
-						alert(data.message);
-					}
-				});
-				}
-			}.ctx(this));
 			}
 	 }
  	
@@ -251,6 +234,7 @@ DefaultTimeSheetPage.prototype.searchUserTimeEntries=function(){
 			if(data.length!=0){
 			var status;
 			var remarks;
+			var checkbox;
 			$(".userTableData").empty();
 			for(var i=0;i<data.length;i++){
 				if(data[i].status==0){
@@ -275,7 +259,7 @@ DefaultTimeSheetPage.prototype.searchUserTimeEntries=function(){
 					if(data[i].userRemarks!=null){
 					remarks=remarks+"<img  class=\"userRemarks\" src=\"resources/img/userRemarks.png\" title=\""+data[i].userRemarks+"\">";
 					if(data[i].approvedComments!=null)
-			           remarks=reamarks+"<img  class=\"userRemarks\" src=\"resources/img/approvedComments.png\" title=\""+data[i].approvedComments+"\">";
+			           remarks=remarks+"<img  class=\"userRemarks\" src=\"resources/img/approvedComments.png\" title=\""+data[i].approvedComments+"\">";
 						}
 				}
 				else if(data[i].status==3){
@@ -294,7 +278,7 @@ DefaultTimeSheetPage.prototype.searchUserTimeEntries=function(){
 	                "<td>"+data[i].task+"</td>"+
 	                "<td>"+data[i].activity+"</td>"+
 	                "<td>"+data[i].hours+"</td>"+
-	                 "<td>"+status+"</td>"+
+	                "<td value=\""+data[i].status+"\">"+status+"</td>"+
 	                "<td>"+remarks+"</td>" +
 	                "</tr>";
 				    $("#tableheader").after(tabledata);
