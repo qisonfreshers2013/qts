@@ -43,8 +43,6 @@ SearchResults.prototype.appendValues = function(data,roles){
 						"<td><p style = 'font-size:12px;'>"+data.records[i].projects[j]+"</p></td></tr>");
 			}
 			}
-			
-
 		}
 
 		else
@@ -68,26 +66,61 @@ SearchResults.prototype.appendValues = function(data,roles){
 				}			
 			}		
 		}	
-	}  
+	}
+	
+	
+	
+	
 	
 	else{
 		 $('#resultsTable thead tr th:last').hide();
+		 
 		 for(var i = 0;i<data.records.length;i++){
+			
 			if(data.records[i].projects.length<1){
-				data.records[i].projects = "No projects";
+				data.records[i].projects[0] = "No projects";
 			}
-			$("#resultsTable tbody").append("<tr style = 'text-align:center;'>"+			        
-					"<td id ="+data.records[i].photoFileUrl+"><img src='resources/img/defaultImage.png' alt = 'default image' class='defaultImage'/></td>"+
-					"<td><p style = 'font-size:12px'>"+data.records[i].email+"</p></td>"+
-					"<td><p style = 'font-size:12px'>"+data.records[i].employeeId+"</p></td>"+
-					"<td><p style = 'font-size:12px'>"+data.records[i].designation+"</p></td>"+			     
-					"<td><p style = 'font-size:12px'>"+data.records[i].projects+"</p></td>"+				
-			"</tr>"); 
-		}  
-		
+			if(i%2 == 0){
+				for(var j=0;j<data.records[i].projects.length;j++){
+					if(j==0){
+					$("#resultsTable tbody").append("<tr style = 'text-align:center;background-color:#eeeeee;' class = 'rowcolorEven'>"+			        
+							"<td rowspan = "+data.records[i].projects.length+" id ="+data.records[i].photoFileUrl+"><img src='resources/img/defaultImage.png' alt = 'default image' class='defaultImage'/></td>"+
+							"<td rowspan = "+data.records[i].projects.length+"  ><p style = 'font-size:12px;'>"+data.records[i].email+"</p></td>"+
+							"<td rowspan = "+data.records[i].projects.length+" ><p style = 'font-size:12px'>"+data.records[i].employeeId+"</p></td>"+
+							"<td rowspan = "+data.records[i].projects.length+" ><p style = 'font-size:12px'>"+data.records[i].designation+"</p></td>"+			     
+							"<td><p style = 'font-size:12px;'>"+data.records[i].projects[j]+"</p></td>"+
+							
+					"</tr>"	); 
+					}
+				
+					else{
+						$("#resultsTable tbody").append("<tr class = 'rowcolorEven' style = 'text-align:center; background-color:#eeeeee;' >"+
+								"<td><p style = 'font-size:12px;'>"+data.records[i].projects[j]+"</p></td></tr>");
+					}
+					}
+				}			
+		 
+		 
+		 else	{
+				for(var j=0;j<data.records[i].projects.length;j++){
+					if(j==0){
+					$("#resultsTable tbody").append("<tr style = 'text-align:center;background-color:#dddddd;' class = 'rowcolorOdd'>"+			        
+							"<td rowspan = "+data.records[i].projects.length+" id ="+data.records[i].photoFileUrl+"><img src='resources/img/defaultImage.png' alt = 'default image' class='defaultImage'/></td>"+
+							"<td rowspan = "+data.records[i].projects.length+"  ><p style = 'font-size:12px;'>"+data.records[i].email+"</p></td>"+
+							"<td rowspan = "+data.records[i].projects.length+" ><p style = 'font-size:12px'>"+data.records[i].employeeId+"</p></td>"+
+							"<td rowspan = "+data.records[i].projects.length+" ><p style = 'font-size:12px'>"+data.records[i].designation+"</p></td>"+			     
+							"<td><p style = 'font-size:12px;'>"+data.records[i].projects[j]+"</p></td>"+							
+					"</tr>"	); 
+					}
+				
+					else{
+						$("#resultsTable tbody").append("<tr class = 'rowcolorOdd' style = 'text-align:center; background-color:#dddddd;'>"+
+								"<td><p style = 'font-size:12px;'>"+data.records[i].projects[j]+"</p></td></tr>");
+					}
+					}			
+				}		
 	}
-
-
+}
 }
 
 SearchResults.prototype.deleteUser =  function(id){

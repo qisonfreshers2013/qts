@@ -14,7 +14,11 @@ AddUser.prototype.handleShow = function() {
 //		this.validateName();
 //	}.ctx(this));
 	$('input.email').keyup(function(){
-			$('input.userId').val($('input.email').val()) ; }.ctx(this));
+			$('input.userId').val($('input.email').val()) ; 
+			}.ctx(this));
+	$('input.email').blur(function(){
+		$('input.userId').val($('input.email').val()) ; 
+		}.ctx(this));
 	
 	$('.submit').click(function(){
 		if(this.validateName($('input.firstName'))){
