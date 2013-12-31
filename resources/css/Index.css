@@ -22,9 +22,12 @@ body {
     border-bottom: 2px solid #000000;
     height: 95px;
 }
+
 .footer {
+    border-top: 2px solid #000000;
     clear: both;
     margin-top: 10%;
+    padding-top: 1%;
 }
 .container {
     position: relative;
@@ -44,6 +47,4 @@ body {
     text-align: center;
 }
 
-hr#indexHr{
-	 border: thin solid #000000;
-}
+
