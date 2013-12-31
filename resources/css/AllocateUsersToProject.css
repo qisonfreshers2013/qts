@@ -27,23 +27,24 @@
     left: 43%;
     margin-top: 2%;
     position: relative;
+    width:40%;
 }
 .para{
 	font-size:16px;
 }
-.go,.reset{
-    background-color: #669933;
+.go, .reset {
+    background-color: rgb(102, 153, 51);
     border: medium none;
-    color: #FFFFFF;
+    color: rgb(255, 255, 255);
     font-weight: bold;
+    height: 18px;
     text-align: center;
-    width: 8%;
-    height:20px;
+    width: 28%;
 }
 #projectName{
- width:auto;	
+ width:31%;	
 }
 
 .projectNameAllocate{
-	margin-left:5%;
+	margin-left:15%;
 }

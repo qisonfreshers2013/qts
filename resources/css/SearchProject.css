@@ -4,9 +4,10 @@ font-family:Arial;
 margin-top:8%;
 width:100%;
 }
-#project_name{
-	left: 17%;
+#project_name {
+    left: 27%;
     margin-top: -4%;
     position: relative;
+    width: 31%;
 }
 	

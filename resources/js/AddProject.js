@@ -61,6 +61,7 @@ AddProject.prototype.addProject = function() {
 			    message : 'project sucessfully added\n'+'project name: '+output,
 			    type : 'success'
 			   });
+			$('.reset').trigger('click');
 	}else{
 		$.ambiance({
 		    message : data.message,
