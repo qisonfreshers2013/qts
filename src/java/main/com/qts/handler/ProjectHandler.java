@@ -235,6 +235,7 @@ public class ProjectHandler extends AbstractHandler {
 		List<ProjectUserRecord> projectUserRecordList=null;
 		long projectId=projectBean.getProjectId();
 		try{
+			projectUserRecords=new ProjectUserRecords();
 			projectUserRecordList=new LinkedList<ProjectUserRecord>();
 			userList=getProjectUsersHelper(projectBean);
 			for(User user:userList){
@@ -265,7 +266,6 @@ public class ProjectHandler extends AbstractHandler {
 					projectUser.setRoles(roles);
 					projectUserRecordList.add(projectUser);
 				}
-				projectUserRecords=new ProjectUserRecords();
 				projectUserRecords.setProjectUserRecords(projectUserRecordList);
 			}
 		} catch (ProjectException e) {
