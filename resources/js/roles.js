@@ -182,7 +182,10 @@ Roles.prototype.listUserRoles = function() {
 			if (success) {
 				roles = data.roleIds;
 				$('input:checkbox').removeAttr('checked');
-				$("input[value=" + val + "]").prop("checked", true);
+				$.each(roles, function(i, val) {
+					$("input[value=" + val + "]").prop("checked", true);
+				});
+				
 				
 			} else {
 				$.ambiance({
