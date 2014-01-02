@@ -22,31 +22,38 @@
 .star {
     color: #FF0000;
 }
+
 div#submitDiv {
     clear: both;
-    font-family: Arial;   
-    left: 21.5%;
+    font-family: Arial;
+    left: 21.3%;
+    margin-top: 0;
     position: relative;
     text-align: left;
-    margin-top: 0%;   
+    width: 16%;
     word-wrap: break-word;
 }
+
 div#clearDiv {
-    left: 14%;
+    left: 35.8%;
+    margin-top: -2.7%;
     position: relative;
-    margin-top: 0%;
+    width: 16%;
 }
-input.clear {
-    background-color:#669933;
-    padding: 0.5%;
+
+button.clear {
+    background-color: #669933;
+    color: #FFFFFF;
+    padding: 1%;
     width: 47%;
 }
 input.firstName, input.lastName, input.nickname, input.email, input.employeeId, input.designation, input.location, input.userId, input.password, input.confirmPassword {
     width: 21%;
 }
 button.submit {
-   background-color:#669933;
-    padding: 0;
+    background-color: #669933;
+    color: #FFFFFF;
+    padding: 1%;
     width: 47%;
 }
 hr {

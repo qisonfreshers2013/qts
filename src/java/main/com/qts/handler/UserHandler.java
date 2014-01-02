@@ -161,6 +161,9 @@ public class UserHandler extends AbstractHandler {
 			}
 		}
 		//if user not associated with projects delete user logically
+		   //	try{
+		  //deleteUserTimeEntriesByUserId(long id);
+	      //}catch(TimeEntryException){}
 		UserDAO userDAOImpl = DAOFactory.getInstance().getUserDAO();
 		
 		isDeleted = userDAOImpl.deleteUser(bean.getId());
@@ -414,6 +417,12 @@ public class UserHandler extends AbstractHandler {
 		isValidated = validateEmployeeId(bean.getEmployeeId());
 		isValidated = validateDesignation(bean.getDesignation());
 		isValidated = validateUserId(bean.getUserId());
+		isValidated = validatePassword(bean.getPassword());
+		if(!(bean.getPassword().equals(bean.getConfirmPassword()))){
+			isValidated = false;
+			throw new UserException(ExceptionCodes.CONFIRM_PASSWORD_NOT_EQUAL,
+					ExceptionMessages.CONFIRM_PASSWORD_NOT_EQUAL);
+		}
 		if(!(bean.getUserId().equals(bean.getEmail()))){
 			isValidated = false;
 			throw new UserException(ExceptionCodes.EMAIL_USERID_NOT_EQUAL,
