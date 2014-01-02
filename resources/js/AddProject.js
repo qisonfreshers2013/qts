@@ -5,6 +5,7 @@ function AddProject() {
 }
 
 AddProject.prototype.handleShow = function() {
+	$('#projectName').focus();
 	$('.go').click(function(){
 		
 		var projectNameField=$('#projectName');

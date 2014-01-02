@@ -22,7 +22,7 @@
       fade: true,
       width: 300
     };
-    
+    $("#ambiance-notification").empty();
     var options = $.extend(defaults, options);
     var note_area = $("#ambiance-notification");
 

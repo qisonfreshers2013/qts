@@ -39,7 +39,7 @@ ReleaseResult.prototype.handleShow = function(roles) {
 						}
 						else{
 							$.ambiance({
-							    message : data.message,
+							    message : "The Release which you are trying to delete is being referred by one of the Time Entry",
 							    type : 'error'
 							   });
 						}
