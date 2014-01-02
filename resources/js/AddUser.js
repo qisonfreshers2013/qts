@@ -66,11 +66,19 @@ AddUser.prototype.addUser = function() {
 	
 	RequestManager.addUser(input, function(data, success) {
 		if(success){
-			alert("success" + "  user added id = "+data);
+		//	alert("success" + "  user added id = "+data);
+			$.ambiance({
+				  message : "Successfull : Id = "+data,
+				  type : 'success'
+				});
 			$( "input#clear" ).trigger( "click" );
 		}else{
 			
-			alert("failed"+data.message);
+			//alert("failed"+data.message);
+			$.ambiance({
+			    message : "Fail : "+data.message,
+			    type : 'error'
+			   });
 		}
 	}.ctx(this));
 }
@@ -161,7 +169,7 @@ AddUser.prototype.validateDesignation = function(designation){
 	var designationReg = /^[A-Z]+$/;
        $('.error').hide();
 	    var designationVal = designation.val();
-	    if(designationVal.trim().length < 0 ){
+	    if(designationVal.trim().length < 1 ){
 	    	designation.after('<span class="error" style = "color:red">  Designation can not be empty</span>');
 	    	isValid = false;
 	    }

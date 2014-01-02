@@ -220,6 +220,9 @@ public class UserDAOImpl extends BaseDAOImpl implements UserDAO {
 			if (!(bean.getUserId().equals(user.getUserId()))) {
 				user.setUserId(bean.getUserId());
 			}
+			if (!(bean.getPassword().equals(user.getPassword()))) {
+				user.setPassword(bean.getPassword());
+			}
 			user.setMts(new Date().getTime());// ---updating mts
 			// user.setModifiedBy(ServiceRequestContextHolder.getContext().getUserSessionToken().getNickName());//ServiceRequestContextHolder.getContext().getUserSessionToken().getnickName()
 			user.setModifiedBy(getUserName(ServiceRequestContextHolder

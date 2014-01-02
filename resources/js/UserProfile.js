@@ -71,17 +71,14 @@ UserProfile.prototype.loadUserValues = function(id){
 		}
 		else{
 			console.log("loaded my profile"+data.message);
-			alert("my profile" +" failed" + data.message);				
+			$.ambiance({
+			    message : "Fail : "+data.message,
+			    type : 'error'
+			   });			
 		}
 		
 	}.ctx(this));
 }
-
-
-
-
-
-
 
 
 UserProfile.prototype.saveUserProfile = function(id) {
@@ -104,8 +101,12 @@ UserProfile.prototype.saveUserProfile = function(id) {
 			if(success){
 				alert('success : '+data);
 				
-			}else{				
-				alert("fail : "+data.message);
+			}
+			else{				
+				$.ambiance({
+				    message :"Fail : "+ data.message,
+				    type : 'error'
+				   });
 			}
 		}.ctx(this));
 	

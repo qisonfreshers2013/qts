@@ -71,7 +71,10 @@ SearchUser.prototype.search = function(roles,nickname,email,designation,employee
 		}	
 		else{
 			$('.error').empty();
-			alert('failed  : '+data.message);
+			$.ambiance({
+			    message : "Fail : "+data.message,
+			    type : 'error'
+			   });
 			$('#resultsContainer').hide();
 			
 			}
@@ -85,14 +88,16 @@ SearchUser.prototype.loadEmployeeIds = function(){
 	 $('select.employeeId').append('<option value="">--select--</option>');
 	RequestManager.getEmployeeIds(input,function(data,success){		
 		if(success){			
-			console.log("success : search results"+data.message);
+			
 			for(var i=0 ; i<data.length; i++){
 				 $('select.employeeId').append('<option value='+data[i]+'>'+data[i]+'</option>');	
 			}		
 		}	
 		else{
-			
-			alert('failed  :'+data.message);		
+			$.ambiance({
+			    message : "Fail : "+data.message,
+			    type : 'error'
+			   });	
 			}
 	}.ctx(this));	
 }
