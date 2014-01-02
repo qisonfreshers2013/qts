@@ -52,28 +52,29 @@ public class TimeEntryDAOImpl extends BaseDAOImpl implements TimeEntryDAO {
 	 */
      public boolean add(TimeEntryBean timeEntry){
 		   
-		  TimeEntries addentry = new TimeEntries();
+		  TimeEntries saveTimeEntry = new TimeEntries();
 
-		  addentry.setUserId(timeEntry.getUserId());
+		  saveTimeEntry.setUserId(timeEntry.getUserId());
 		  try {
-		   addentry.setCts(Utils.parseDateToLong((timeEntry.getDate())));
-		   addentry.setDate(Utils.parseDateToLong(timeEntry.getDate()));
-		   addentry.setMts(Utils.parseDateToLong((timeEntry.getDate())));
+		   saveTimeEntry.setCts(Utils.parseDateToLong((timeEntry.getDate())));
+		   saveTimeEntry.setDate(Utils.parseDateToLong(timeEntry.getDate()));
+		  // saveTimeEntry.setMts(Utils.parseDateToLong(timeEntry.getDate()));
+		   saveTimeEntry.setMts(Utils.parseDateToLong((timeEntry.getDate())));
 		  } catch (Exception e) {
 		   e.printStackTrace();
 		  }
-		  addentry.setHours(timeEntry.getHours());
-		  addentry.setProjectId(timeEntry.getProjectId());
-		  addentry.setActivityId(timeEntry.getActivityId());
-		  addentry.setReleaseId(timeEntry.getReleaseId());
-		  addentry.setTask(timeEntry.getTask());
-		  addentry.setRemarks(timeEntry.getUserRemarks());
-		  addentry.setCreated_by(timeEntry.getUserId());
-		  addentry.setModified_by(timeEntry.getUserId());
-		  addentry.setStatus(0);
+		  saveTimeEntry.setHours(timeEntry.getHours());
+		  saveTimeEntry.setProjectId(timeEntry.getProjectId());
+		  saveTimeEntry.setActivityId(timeEntry.getActivityId());
+		  saveTimeEntry.setReleaseId(timeEntry.getReleaseId());
+		  saveTimeEntry.setTask(timeEntry.getTask());
+		  saveTimeEntry.setRemarks(timeEntry.getUserRemarks());
+		  saveTimeEntry.setCreated_by(timeEntry.getUserId());
+		  saveTimeEntry.setModified_by(timeEntry.getUserId());
+		  saveTimeEntry.setStatus(0);
 		  TimeEntries timeEntryAdded = null;
 
-		  timeEntryAdded = (TimeEntries) saveObject(addentry);
+		  timeEntryAdded = (TimeEntries) saveObject(saveTimeEntry);
 		       if(timeEntryAdded!=null)
 		        return true;
 
@@ -187,6 +188,7 @@ public class TimeEntryDAOImpl extends BaseDAOImpl implements TimeEntryDAO {
 			query.setLong("activityId", updateTimeEntry.getActivityId());
 			query.setString("remarks", updateTimeEntry.getUserRemarks());
 			query.setLong("date", Utils.parseDateToLong((updateTimeEntry.getDate())));
+			query.setLong("mts",Calendar.getInstance().getTimeInMillis());
 			if(getTimeEntryObjectById(updateTimeEntry.getId()).getStatus()==3){
 			    query.setInteger("status",0);
 			}else{
@@ -469,6 +471,7 @@ public class TimeEntryDAOImpl extends BaseDAOImpl implements TimeEntryDAO {
 					&& searchCriteria.getTo() == null
 					&& searchCriteria.getStatus() != null) {
 				approverSearchCriteria.add(Restrictions.eq("status", searchCriteria.getStatus()));
+				
 			}
 			
 			else if (searchCriteria.getFrom() == null && searchCriteria.getTo() == null && searchCriteria.getUserId()==null && searchCriteria.getStatus()!=null) {
@@ -517,6 +520,7 @@ public class TimeEntryDAOImpl extends BaseDAOImpl implements TimeEntryDAO {
 	}
 
 	@Override
+	@SuppressWarnings("unchecked")
 	public int getUserWorkingHoursperDay(String date) {
 		Session session = getSession();
 		int sum=0;
@@ -529,6 +533,7 @@ public class TimeEntryDAOImpl extends BaseDAOImpl implements TimeEntryDAO {
 				Utils.parseDateToLong((date))))
 		        .add(Restrictions.eq("userId",
 				ServiceRequestContextHolder.getContext().getUserSessionToken().getUserId())));
+		
 		List<Integer> userWorkingHoursPerDay=getHours.list();
 		if(userWorkingHoursPerDay!=null){
 			for(Integer value:userWorkingHoursPerDay){
@@ -543,6 +548,23 @@ public class TimeEntryDAOImpl extends BaseDAOImpl implements TimeEntryDAO {
 		
 	}
 
+	@Override
+	public boolean deleteUserTimeEntriesByUserId(long id) throws ObjectNotFoundException {
+		Session session = getSession();
+		try {
+			
+			Query query = session.createQuery("Delete TimeEntries where userId="+id);
 
+			int isDeleted=query.executeUpdate();
+			if(isDeleted!=0){
+			return true;
+			}
+			else 
+				throw new ObjectNotFoundException(ExceptionCodes.OBJECT_NOT_FOUND,"Invalid Id");
+			
+		} catch (ObjectNotFoundException e) {
+			throw e;
+		} 
 
+	}
 }

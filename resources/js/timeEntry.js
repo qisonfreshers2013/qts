@@ -207,33 +207,38 @@ TimeEntry.prototype.updateTimeEntry=function(){
 		alert("Invalid Date(Format:mm/dd/yyyy).");
 		  isvalid=false;
 	  }
-	  else if($('.task').val()==''){
-		  alert("Mention the Task Performed.");
-	      isvalid=false;
-	  }
-	  else if(userRemarks.length>4096){
-		  alert("Max of 4096 characters is supported.");
-		  isvalid=false;
-	  }
 	  else if( $('.projectId').val()=='SELECT'){
 		  alert("Select a project.");
-		  isvalid=false;
-	  }
-	  else if( $('.hours').val()=='SELECT'){
-		  alert("Select Hours.");
-		  isvalid=false;
-	  }
-	  else if( $('.selectActivity').val()=='SELECT'){
-		  alert("Select the Activity Done.");
 		  isvalid=false;
 	  }
 	  else if( $('.selectRelease').val()=='SELECT'){
 		  alert("Select the Release Version of the project.");
 		  isvalid=false;
 	  }
+	  else if($('.task').val()==''){
+		  alert("Mention the Task Performed.");
+	      isvalid=false;
+	  }
 	  else if(task.length>512){
 		  alert("Max of 512 characters is supported.");
 		  isvalid=false;
 	  }
+	  else if( $('.selectActivity').val()=='SELECT'){
+		  alert("Select the Activity Done.");
+		  isvalid=false;
+	  }
+	  else if( $('.hours').val()=='SELECT'){
+		  alert("Select Hours.");
+		  isvalid=false;
+	  }
+	
+	  else if(userRemarks.length>4096){
+		  alert("Max of 4096 characters is supported.");
+		  isvalid=false;
+	  }
+
+	
+	
+
 	  return isvalid;
   }

@@ -33,9 +33,9 @@ DefaultTimeSheetPage.prototype.handleShow=function(){
 		this.deleteTimeEntry();
 		}.ctx(this));
 	
-	$("input:checkbox").click(function(){
+	$("input:checkbox").change(function(){
 		if(this.checked==false){
-			$("#selectAll").checked=false;
+			$("#selectAll").prop("checked",false);
 			}
 		});
 	
@@ -143,18 +143,17 @@ DefaultTimeSheetPage.prototype.submitTimeEntries=function(){
 DefaultTimeSheetPage.prototype.populateFields=function(id){
 	RequestManager.getTimeEntryObjectById({"payload":id},function(data,success){
 		if(success){
-			alert(data.date);
 			$('.datepicker').val($.datepicker.formatDate('mm/dd/yy', new Date(data.date)));
 			$('.projectId').val(data.projectId);
 			$('.task').val(data.task);
 			$('.hours').val(data.hours);
 			$('.selectActivity').val(data.activityId);
-			$('.SelectRelease').val(data.releaseId);
+			$('.selectRelease').val(data.releaseId);
 			$('.userRemarks').val(data.remarks);
 		}else{
 			alert(data.message);
 		}
-	});
+	}.ctx(this));
 }
 
 DefaultTimeSheetPage.prototype.getRequestParameters=function(id){
@@ -170,22 +169,7 @@ DefaultTimeSheetPage.prototype.getRequestParameters=function(id){
       return requestParameters;
 } 
 
-DefaultTimeSheetPage.prototype.getInputForUpdate=function(id){
-	
-	 var timeSheetFillingInput=this.getRequestParameters();
-	 var input= { "payload":{"id":id,
-		                     "projectId":timeSheetFillingInput.projectId,
-		                     "releaseId":timeSheetFillingInput.releaseId,
-		                     "activityId":timeSheetFillingInput.activityId,
-		                     "date":timeSheetFillingInput.date,
-		                     "task":timeSheetFillingInput.task,
-		                     "hours":timeSheetFillingInput.hours,
-		                     "userRemarks":timeSheetFillingInput.userRemarks
-		                     } 
-	             }
-	return input;
-	
-}
+
 DefaultTimeSheetPage.prototype.editTimeEntry=function(){
 	var selectedCheckBox=$("input[type=checkbox]:checked").length;
 	if(selectedCheckBox!=1){
@@ -270,7 +254,7 @@ DefaultTimeSheetPage.prototype.searchUserTimeEntries=function(){
 					remarks=remarks+"<img  class=\"userRemarks\" src=\"resources/img/userRemarks.png\" title=\""+data[i].userRemarks+"\">";}
 				      }
 				
-				 var tabledata="<tr class=\"userTableData\">" +
+				 var tabledata="<tr class=\"userTableData\" id=\"userTableData\">" +
 				    "<td>"+checkbox+"</td>"+
 	                "<td>"+$.datepicker.formatDate('mm/dd/yy', new Date(data[i].dateInLong))+"</td>"+
 	                "<td>"+data[i].projectName+"</td>"+
@@ -282,10 +266,15 @@ DefaultTimeSheetPage.prototype.searchUserTimeEntries=function(){
 	                "<td>"+remarks+"</td>" +
 	                "</tr>";
 				    $("#tableheader").after(tabledata);
+				    $("#userTableData").css({"border-spacing" : "0",
+				         "font-size" : "16px",
+				          "padding": "1%",
+				          "text-align": "center"
+				        });
 			}
 			}else{
 				alert("No TimeEntries Found");
-				$(".userTableData").empty();
+				$(".userTimeEntries").empty();
 			     }
 		}else {
 			     alert(data.message);
@@ -331,9 +320,7 @@ DefaultTimeSheetPage.prototype.validateTimeEntry=function(){
 	  else if(!pattern.test(date)){
 		alert("Invalid Date(Format:mm/dd/yyyy).");
 		  isvalid=false;
-	  }
-	
-	  
+	  }	  
 	  return isvalid;
 }
 

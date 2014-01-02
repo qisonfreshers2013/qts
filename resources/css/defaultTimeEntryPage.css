@@ -3,22 +3,21 @@
 #content {
     margin-top: 8%;
 }
-
-.tableheader {
+#userTimeEntries th {
     background-color: #ADD8E6;
     color: #000000;
     font-size: 16px;
     text-align: center;
 }
-.userTimeEntries {
+#userTimeEntries {
     border-collapse: collapse;
-    width: 80%;
-     margin: 2% 0 0 0.5%;
+    margin: 2% 0 0 0.5%;
+    width: 90%;
 }
 p {
     font-size: 16px;
 }
-.userTableData {
+#userTimeEntries td {
     font-size: 16px;
     padding: 1%;
     text-align: center;
@@ -35,74 +34,69 @@ tr:nth-child(2n+1) {
     margin-top: 1%;
 }
 .searchByDate {
-    float: left;
-    margin-left: 2%;
-    margin-top: 1%;
+    margin-left: -33%;
+    margin-top: 0;
 }
 .projectHeader {
-    float: left;
-    margin: 1% 1% 1% 25%;
+    margin: 1% 1% 1% 28%;
+    position: relative;
+    left: 23%;
 }
 .searchByProjectId {
     bottom: 5%;
-    float: left;
-    left: 2%;
+    left: 37%;
     position: relative;
-    top: 5%;
+    top: 0;
 }
 .searchUserTimeEntries {
-    left: 3%;
+    left: 38%;
     position: relative;
-    top: 5%;
+    top: -1%;
 }
-
 .savedTimeSheetsEntries {
     margin: 0.5%;
     width: 100%;
 }
 .addTimeEntry {
-    left: 67%;
-    margin-bottom: 1%;
-    margin-top: 1%;
-    position: relative;
     background-color: #669933;
-    border: radius 0.5%;
     color: #FFFFFF;
     font-weight: bold;
+    left: 65%;
+    margin-bottom: 2%;
+    margin-top: 1%;
+    position: relative;
     text-align: center;
 }
 #loadTimeSheetFilling {
     display: none;
-    width: 45%;
 }
 .editTimeEntry {
-    left: 55%;
-    position: relative;
-    top: 3%;
     background-color: #669933;
-    border: radius 0.5%;
     color: #FFFFFF;
     font-weight: bold;
+    left: 55%;
+    position: relative;
     text-align: center;
+    top: 3%;
 }
 .deleteTimeEntry {
-    left: 55%;
-    position: relative;
-    top: 3%;
     background-color: #669933;
-    border: radius 0.5%;
     color: #FFFFFF;
     font-weight: bold;
+    left: 55%;
+    position: relative;
     text-align: center;
+    top: 3%;
 }
 .submitTimeEntries {
-    left: 55%;
-    position: relative;
-    top: 3%;
     background-color: #669933;
-    border: radius 0.5%;
     color: #FFFFFF;
     font-weight: bold;
+    left: 55%;
+    position: relative;
     text-align: center;
+    top: 3%;
 }
-
+#calendar {
+    margin: 0% 1% 1% -2.8%;
+}

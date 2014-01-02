@@ -4,12 +4,13 @@
 <button class="addTimeEntry">Add TimeEntry</button><br>
 <!-- <button type="button" data-toggle="modal" data-target="#loadTimeSheetFilling">Add TimeEntry</button><br> -->
 
-<p class="dateHeader" id="dateHeader">Date</p><input id="searchByDate" type=type class="searchByDate"></input>
+<p class="dateHeader" id="dateHeader">Date</p><input id="searchByDate" type=text class="searchByDate"></input>
+ <img id="calendar" src="resources/img/Calendar.png"></img>
 <p class="projectHeader" id="projectHeader">Project</p>
 <select id="searchByProjectId" class="searchByProjectId projectName">
 </select>
 <button  id="searchUserTimeEntries" class="searchUserTimeEntries">Go</button><br>
-<table class="userTimeEntries">
+<table class="userTimeEntries" id="userTimeEntries">
      <tr id="tableheader" class="tableheader">
      <th>SELECT ALL<br><input type="checkbox" id="selectAll"></input></th>
      <th>Date</th>
@@ -20,8 +21,6 @@
      <th>Hours</th>
      <th>Status</th>
      <th>Remarks</th>
-     </tr>
-     <tr class="userTableData">
      </tr>
 </table>
 <button id="editTimeEntry" class="editTimeEntry">EDIT</button>

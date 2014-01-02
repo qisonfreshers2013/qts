@@ -355,12 +355,28 @@ public class TimeEntryHandler {
 		//validateDate validates the DATE String 
 		
 	   //validateTimeEntryBean validates the projectId,releaseId,ActivityId
-		
+		  try{
 			if (validateDate(timeEntry.getDate()) && validateTimeEntryBean(timeEntry)) {
 				 updated = DAOFactory.getInstance()
 						.getTimeEntryDAOInstance().update(timeEntry);
 			}
-	
+			}catch(TimeEntryException ex){
+				//For TimeEntries if got Rejected to Edit Them if user has already submitted
+				TimeEntries timeEntryToUpdate=(TimeEntries) getObjectById(timeEntry.getId());
+				if(getUserWorkedHoursPerDay(timeEntry.getDate())>24){
+					 int workedHoursWithOutThisTimeEntry=getUserWorkedHoursPerDay(timeEntry.getDate())-timeEntryToUpdate.getHours();
+					if(workedHoursWithOutThisTimeEntry+timeEntry.getHours()<=24){
+					 updated = DAOFactory.getInstance()
+							.getTimeEntryDAOInstance().update(timeEntry);
+					 }else{
+							throw new TimeEntryException(ExceptionCodes.ILLEGAL_ARGUMENT_HOURS_FIELD,
+										ExceptionMessages.ILLEGAL_HOURS_ARGUMENT_PASSED); 
+					      }
+				}else {
+					throw ex;
+				}
+			}
+	        
           return updated;
 	}
 
@@ -459,8 +475,6 @@ public class TimeEntryHandler {
 		int isApprover=0;
 		//validating The SeaarchCriteria 
 		if(validateSearchCriteria(searchCriteria)){
-			
-     	List<TimeEntries> getTimeEntriesForApporver = new ArrayList<TimeEntries>();
      	List<TimeEntryBean> getTimeEntryBeans=new ArrayList<TimeEntryBean>();
 		List<UserProject> associatedProjectList = UserProjectHandler.getInstance().getUserProjectsByUserId(ServiceRequestContextHolder.getContext().getUserSessionToken().getUserId());		
 		
@@ -527,8 +541,9 @@ public class TimeEntryHandler {
 				.getUserWorkingHoursperDay(date);
 	}
 	
-	public boolean deleteUserTimeEntriesByUserId(long id){
-		return false;
+	public boolean deleteUserTimeEntriesByUserId(long id) throws ObjectNotFoundException{
+		return DAOFactory.getInstance().getTimeEntryDAOInstance()
+		.deleteUserTimeEntriesByUserId(id);
 	}
 	
 	
