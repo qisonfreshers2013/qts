@@ -1,15 +1,15 @@
 
 
-function SearchResults(data,roles){
+function SearchResults(data){
 	Loader.loadHTML('.resultsContainer', 'SearchResults.html', true, function(){
-		this.handleShow(data,roles);
+		this.handleShow(data);
 	}.ctx(this));
 }
 
-SearchResults.prototype.handleShow = function(data,roles){	
+SearchResults.prototype.handleShow = function(data){	
 	//var position={my:'left center',at:'right+10 center'}
 	
-	this.appendValues(data,roles);	
+	this.appendValues(data);	
 	//$('#projectsIdSR').tooltip();
 //	var options = null;
 //	$(document).tooltip('position',position);
@@ -26,64 +26,74 @@ SearchResults.prototype.handleShow = function(data,roles){
 //	$("#projectsIdSR").tooltip(options);
 }
 
-SearchResults.prototype.appendValues = function(data,roles){
-	
+SearchResults.prototype.appendValues = function(data){
 	var projectList ="";
-	if(roles.contains(1)){
-		if(roles.contains(1)){
-			for(var i = 0;i<data.records.length;i++){
-				if(data.records[i].projects.length<1){
-					data.records[i].projects[0] = "No projects";
-				}
+	RequestManager.getLoggedInUserDetails({"payload":{}},function(Userdata,success){
+		if(success){
+			var empId=Userdata.employeeId;
 			
-				for(j = 0 ;j<data.records[i].projects.length-1 ;j++){
-					projectList = projectList+data.records[i].projects[j]+" ,";
+			if(roleNames.contains('ADMIN')){
+				for(var i = 0;i<data.records.length;i++){
+					if(data.records[i].projects.length<1){
+						data.records[i].projects[0] = "No projects";
+					}
+				
+					for(j = 0 ;j<data.records[i].projects.length-1 ;j++){
+						projectList = projectList+data.records[i].projects[j]+" ,";
+					}
+					projectList = projectList+data.records[i].projects[data.records[i].projects.length-1]+" .";
+				
+					if(empId!=data.records[i].employeeId){
+					$("#resultsTable tbody").append("<tr style = 'text-align:center; id = "+ data.records[i].id+" class = 'rowcolorEven'>"+			        
+							"<td id ="+data.records[i].photoFileUrl+"><img src='resources/img/defaultImage.png' alt = 'default image' class='defaultImage'/></td>"+
+							"<td ><p style = 'font-size:12px;'>"+data.records[i].email+"</p></td>"+
+							"<td ><p style = 'font-size:12px'>"+data.records[i].employeeId+"</p></td>"+
+							"<td ><p style = 'font-size:12px'>"+data.records[i].designation+"</p></td>"+			     
+							"<td id = 'projectsIdSR'><p style = 'font-size:12px;' title = '"+projectList+"'>"+projectList.ellipses(10)+"</p></td>"+
+							"<td ><img src='resources/img/delete.png' alt = 'delete' style ='cursor:pointer;' class='deleteSymbol' id = "+ data.records[i].id +" /></span><img src ='resources/img/edit.png'  style ='cursor:pointer;'  alt = 'edit' id = "+data.records[i].id+" class='editSymbol'/></td>"+
+					"</tr>"	); 
+					projectList = "";
+					}
+					}
+				
 				}
-				projectList = projectList+data.records[i].projects[data.records[i].projects.length-1]+" .";
-			
-//				options = {"title":data.records[i].projects,
-//						   "placement":"right"
-//						};
-				$("#resultsTable tbody").append("<tr style = 'text-align:center; id = "+ data.records[i].id+" class = 'rowcolorEven'>"+			        
-						"<td id ="+data.records[i].photoFileUrl+"><img src='resources/img/defaultImage.png' alt = 'default image' class='defaultImage'/></td>"+
-						"<td ><p style = 'font-size:12px;'>"+data.records[i].email+"</p></td>"+
-						"<td ><p style = 'font-size:12px'>"+data.records[i].employeeId+"</p></td>"+
-						"<td ><p style = 'font-size:12px'>"+data.records[i].designation+"</p></td>"+			     
-						"<td id = 'projectsIdSR'><p style = 'font-size:12px;' title = '"+projectList+"'>"+projectList.ellipses(10)+"</p></td>"+
-						"<td ><img src='resources/img/delete.png' alt = 'delete' style ='cursor:pointer;' class='deleteSymbol' id = "+ data.records[i].id +" /></span><img src ='resources/img/edit.png'  style ='cursor:pointer;'  alt = 'edit' id = "+data.records[i].id+" class='editSymbol'/></td>"+
-				"</tr>"	); 
-				projectList = "";
+			else{
+				 $('#resultsTable thead tr th:last').hide();
+				for(var i = 0;i<data.records.length;i++){
+					if(data.records[i].projects.length<1){
+						data.records[i].projects[0] = "No projects";
+					}
+					else{
+					for(j = 0 ;j<data.records[i].projects.length-1 ;j++){
+						projectList = projectList+data.records[i].projects[j]+" , ";
+					}
+					projectList = projectList+data.records[i].projects[data.records[i].projects.length-1]+" .";
+					}
+//					options = {"title":data.records[i].projects,
+//							   "placement":"right"
+//							};
+					if(empId!=data.records[i].employeeId){
+					$("#resultsTable tbody").append("<tr style = 'text-align:center;'>"+			        
+							"<td id ="+data.records[i].photoFileUrl+"><img src='resources/img/defaultImage.png' alt = 'default image' class='defaultImage'/></td>"+
+							"<td ><p style = 'font-size:12px;'>"+data.records[i].email+"</p></td>"+
+							"<td ><p style = 'font-size:12px'>"+data.records[i].employeeId+"</p></td>"+
+							"<td ><p style = 'font-size:12px'>"+data.records[i].designation+"</p></td>"+			     
+							"<td id = 'projectsIdSR'><p style = 'font-size:12px;' title = '"+projectList+"'>"+projectList.ellipses(10)+"</p></td>"+						
+					"</tr>"	); 
+					projectList = "";
+					}
 				}
-			
+				
 			}
-		else{
-			 $('#resultsTable thead tr th:last').hide();
-			for(var i = 0;i<data.records.length;i++){
-				if(data.records[i].projects.length<1){
-					data.records[i].projects[0] = "No projects";
-				}
-				else{
-				for(j = 0 ;j<data.records[i].projects.length-1 ;j++){
-					projectList = projectList+data.records[i].projects[j]+" , ";
-				}
-				projectList = projectList+data.records[i].projects[data.records[i].projects.length-1]+" .";
-				}
-//				options = {"title":data.records[i].projects,
-//						   "placement":"right"
-//						};
-				$("#resultsTable tbody").append("<tr style = 'text-align:center;'>"+			        
-						"<td id ="+data.records[i].photoFileUrl+"><img src='resources/img/defaultImage.png' alt = 'default image' class='defaultImage'/></td>"+
-						"<td ><p style = 'font-size:12px;'>"+data.records[i].email+"</p></td>"+
-						"<td ><p style = 'font-size:12px'>"+data.records[i].employeeId+"</p></td>"+
-						"<td ><p style = 'font-size:12px'>"+data.records[i].designation+"</p></td>"+			     
-						"<td id = 'projectsIdSR'><p style = 'font-size:12px;' title = '"+projectList+"'>"+projectList.ellipses(10)+"</p></td>"+						
-				"</tr>"	); 
-				projectList = "";
-				}
+			
+			
 			
 		}
-		
-	}
+		else{
+			alert('failed');
+		}
+	});	
+
 //	$("#projectsIdSR").tooltip('show');
 }
 

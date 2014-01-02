@@ -1,17 +1,17 @@
 
-function Welcome(nickname,roles) {
+function Welcome(nickname,roleNames) {
 	Loader.loadHTML('.welcome', 'Welcome.html', true, function(){
-		this.handleShow(nickname,roles);
+		this.handleShow(nickname,roleNames);
 	}.ctx(this));
 }
 
-Welcome.prototype.handleShow = function(nickname,roles) {	
+Welcome.prototype.handleShow = function(nickname,roleNames) {	
 	this.loadNickname(nickname);
 	$('.logout').click(function(){	
 		this.logout();
 	}.ctx(this));
 	$('.myAccount').click(function(){
-		App.loadMenu(roles);
+		App.loadMenu(roleNames);
 		App.loadMyProfile();		
 	}.ctx(this));
 	$('.logout').click(function(){		 

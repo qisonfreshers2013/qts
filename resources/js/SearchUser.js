@@ -1,13 +1,13 @@
 /**
  * 
  */
-function SearchUser(roles){
+function SearchUser(){
 	Loader.loadHTML('.container', 'SearchUser.html',false, function(){
 		 $('.resultsContainer').hide();		
-		this.handleShow(roles);
+		this.handleShow();
 	}.ctx(this));
 }
-SearchUser.prototype.handleShow = function(roles){
+SearchUser.prototype.handleShow = function(){
 	
 	// show loading symbol
 	// get the data for the default search
@@ -51,11 +51,11 @@ SearchUser.prototype.handleShow = function(roles){
 			isNicknameValidated = this.validateNickname($('input.nickname'));	
 		}
 		if(isNicknameValidated&&isEmailValidated&&isDesignationValidated){		
-		this.search(roles,nickname,email,designation,employeeId);
+		this.search(nickname,email,designation,employeeId);
 		}
 	}.ctx(this));
 }
-SearchUser.prototype.search = function(roles,nickname,email,designation,employeeId){
+SearchUser.prototype.search = function(nickname,email,designation,employeeId){
 	
 	var input = {"payload":{
 		"nickName":nickname,		
@@ -66,7 +66,7 @@ SearchUser.prototype.search = function(roles,nickname,email,designation,employee
 	RequestManager.search(input,function(data,success){		
 		if(success){			
 			console.log("success : search results");
-			App.loadSearchResults(data,roles);	
+			App.loadSearchResults(data);	
 			$('.error').empty();
 		}	
 		else{

@@ -8,12 +8,14 @@ function Login() {
 	}.ctx(this));
 }
 
+var roleNames=new Array();
+
 Login.prototype.handleShow = function() {
 	$('.container').show();
 	$('.rightContainer').show();
 	$('#userId').focus();
 	
-	$(document.documentElement).keyup(function (event) {
+	$('.rightContainer').keyup(function (event) {
 		  if (event.keyCode == 13) {
 			  if(this.validateLogin($('input.userId').val(),$('input.password').val())){		
 					this.authenticate();
@@ -87,17 +89,17 @@ Login.prototype.authenticate = function() {
 	
 	RequestManager.authenticate(input, function(data, success) {
 		if(success){
-		 var roleIds=data.roleIds;
+		 roleNames=data.roleNames;
 		      var  token = data.sessionToken;
 		      setCookie('qtsSessionId', token, null);
 		      if(data.user.nickName == null  || data.user.nickName.trim().length < 1){
-		    	 App.loadWelcome(data.user.lastName,roleIds);
+		    	 App.loadWelcome(data.user.lastName);
 		      }
 		      else{		    	
-		    	  	App.loadWelcome(data.user.nickName ,roleIds);
+		    	  	App.loadWelcome(data.user.nickName);
 		    	  }		     
-		      App.loadOptions(roleIds);
-		      App.loadQisonLogo(roleIds);
+		      App.loadOptions();
+		      App.loadQisonLogo();
 
 		}else{
 			
