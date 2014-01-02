@@ -9,7 +9,7 @@ function SearchProjectRelease(roles) {
 }
 
 SearchProjectRelease.prototype.handleShow = function(roles) {
-
+	$('.SelectProject').focus();
 	RequestManager.getProjects({},function(data,success){
 		if(success){
 			$.each(data,function(key1,value1){
@@ -28,30 +28,37 @@ SearchProjectRelease.prototype.handleShow = function(roles) {
 		}
 		else{
 			$.ambiance({
-			    message : data.message,
-			    type : 'error'
-			   });
+				message : data.message,
+				type : 'error'
+			});
 		}
 	}.ctx(this));
 
 	$('.SelectProject').change(function(){
+		var projectId=parseInt($('select.SelectProject option:selected').attr('value'));
 		if(roles.contains(1)){
-		$('.add').empty();
-		$('.add').append('<div><button class="AddPR" id="AddPR">Add Release</button></div>');
-		$('#AddPR').css({
-			 "background-color": "#669933",
-	    "border": "medium none",
-	    "color": "#FFFFFF",
-	    "font-weight": "bold",
-	    "left":"60%",
-	    "margin-top":"-11%",
-	    "position": "relative",
-	    "text-align": "center",
-	    "width": "15%"
-		});
-		$('.AddPR').click(function(){
-			App.loadAddProjectRelease(roles);
-		}.ctx(this));
+			$('.add').empty();
+			if(projectId!=0){
+				
+				$('.add').append('<div><button class="AddPR" id="AddPR">Add Release</button></div>');
+				$('#AddPR').css({
+					"background-color": "#669933",
+					"border": "medium none",
+					"border-radius":"5px",
+					"color": "#FFFFFF",
+					"font-weight": "bold",
+					"left":"60%",
+					"margin-top":"-11%",
+					"position": "relative",
+					"text-align": "center",
+					"width": "15%",
+					"height":"30px",
+					"font-size":"16px"
+				});
+				$('.AddPR').click(function(){
+					App.loadAddProjectRelease(roles);
+				}.ctx(this));
+			}
 		}
 		App.loadReleaseResult(roles);
 	}.ctx(this));

@@ -16,13 +16,17 @@ TimeEntry.prototype.handleShow=function(){
         $(".datepicker").datepicker({ minDate: -30, maxDate:new Date()});
     });
     
-    //this.getProjects();
     
 	$('.save').click(function(event){
+		var id=$("input[type=checkbox]:checked").val();
 		if(this.validateTimeEntry()){
 		this.getRequestParameters();
 		event.preventDefault();
+		if(id==null){
 		this.saveTimeEntry();
+		}else{
+			this.updateTimeEntry();
+		     }
 		}
 	}.ctx(this));
 	
@@ -88,6 +92,7 @@ TimeEntry.prototype.setRequestParameters=function(updateRequestParameters){
 		RequestManager.addTimeEntry(input, function(data, success) {
 			if (success) {
 			      alert("TimeEntry Saved");
+			      $(".searchUserTimeEntries").trigger("click");
 			    } else {
 				alert(data.message);
 			}
@@ -153,7 +158,38 @@ TimeEntry.prototype.getActivities=function(){
 	  }
 	 }.ctx(this));
 	}
-
+TimeEntry.prototype.updateTimeEntry=function(){
+	 
+	var id=$("input[type=checkbox]:checked").val();
+	 
+	var input={ "payload":{"id":id,
+         "projectId":$('.projectId').val(),
+         "releaseId":$('.selectRelease').val(),
+         "activityId":$('.selectActivity').val(),
+         "date":$('.datepicker').val(),
+         "task":$('.task').val(),
+         "hours":$('.hours').val(),
+         "userRemarks":$('.userRemarks').val(),
+         "status":0
+         } 
+      }
+	
+	RequestManager.updateTimeEntry(input,function(data,success){
+		if(success){
+			if(data){
+			alert("Updated");
+			$(".cancel").trigger("click");
+			$(".searchUserTimeEntries").trigger("click");
+			$( "#loadTimeSheetFilling" ).modal('hide');
+			}else{
+				alert("Not Updated");
+			}
+		}
+		else{
+			alert(data.message);
+		}
+	});
+}
  
   TimeEntry.prototype.validateTimeEntry=function(){
 	  var date=$('.datepicker').val();
@@ -171,33 +207,38 @@ TimeEntry.prototype.getActivities=function(){
 		alert("Invalid Date(Format:mm/dd/yyyy).");
 		  isvalid=false;
 	  }
-	  else if($('.task').val()==''){
-		  alert("Mention the Task Performed.");
-	      isvalid=false;
-	  }
-	  else if(userRemarks.length>4096){
-		  alert("Max of 4096 characters is supported.");
-		  isvalid=false;
-	  }
 	  else if( $('.projectId').val()=='SELECT'){
 		  alert("Select a project.");
-		  isvalid=false;
-	  }
-	  else if( $('.hours').val()=='SELECT'){
-		  alert("Select Hours.");
-		  isvalid=false;
-	  }
-	  else if( $('.selectActivity').val()=='SELECT'){
-		  alert("Select the Activity Done.");
 		  isvalid=false;
 	  }
 	  else if( $('.selectRelease').val()=='SELECT'){
 		  alert("Select the Release Version of the project.");
 		  isvalid=false;
 	  }
+	  else if($('.task').val()==''){
+		  alert("Mention the Task Performed.");
+	      isvalid=false;
+	  }
 	  else if(task.length>512){
 		  alert("Max of 512 characters is supported.");
 		  isvalid=false;
 	  }
+	  else if( $('.selectActivity').val()=='SELECT'){
+		  alert("Select the Activity Done.");
+		  isvalid=false;
+	  }
+	  else if( $('.hours').val()=='SELECT'){
+		  alert("Select Hours.");
+		  isvalid=false;
+	  }
+	
+	  else if(userRemarks.length>4096){
+		  alert("Max of 4096 characters is supported.");
+		  isvalid=false;
+	  }
+
+	
+	
+
 	  return isvalid;
   }

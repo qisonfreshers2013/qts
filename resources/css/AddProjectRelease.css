@@ -8,7 +8,7 @@
 }
 
 .rightAddProject {
-    left: 25%;
+    left: 20%;
     margin-top: -3.5%;
     position: relative;
     width: 60%;
@@ -20,7 +20,7 @@
 
 
 .buttons {   
-    left: 25%;
+    left: 20%;
     margin-bottom: 5%;
     margin-top: 3%;
     position: relative;
@@ -30,6 +30,7 @@
 #save{
     background-color: #669933;
     border: medium none;
+    border-radius:5px;
     color: #FFFFFF;
     font-weight: bold;
     position: relative;

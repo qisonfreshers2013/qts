@@ -62,15 +62,16 @@ ApproverSearch.prototype.getProjects=function(){
 	}
 ApproverSearch.prototype.getUsers=function(){
 	var projectId;
-	if($(".userProjectId").val()!=''){
+	if($(".userProjectId").val()!='SELECT'){
 		projectId=$(".userProjectId").val();
 		$('.userId').empty();
 		 $('.userId').append('<option>SELECT</option>');
 		 RequestManager.getProjectUsers({"payload":{"projectId":projectId}}, function(data, success) {
 		  if(success){
 		   var id=0;
+		   var records=data.projectUserRecords;
 		   var name='';
-		   $.each(data,function(key1,value1){
+		   $.each(records,function(key1,value1){
 		    $.each(value1,function(key2,value2){
 		     if(key2=='id'){
 		      id=value2;
@@ -106,22 +107,24 @@ ApproverSearch.prototype.getSearchCriteria=function(){
 ApproverSearch.prototype.getInputForSearchUserTimeEntriesByApprover=function(){
 	var input;
 	var searchCriteria=this.getSearchCriteria();
-	 if(searchCriteria.from!='' && searchCriteria.projectId!='SELECT'&& searchCriteria.status!=''&& searchCriteria.userId!='SELECT' && searchCriteria.to!='')
+	 if(searchCriteria.from!='' && searchCriteria.projectId!='SELECT'&& searchCriteria.status!=0 && searchCriteria.userId!='SELECT' && searchCriteria.to!='')
 		input={ "payload": { "projectId":searchCriteria.projectId,"status":searchCriteria.status,"userId":searchCriteria.userId,"from":searchCriteria.from,"to":searchCriteria.to}}; 
-	else if(searchCriteria.from=='' && searchCriteria.projectId=='SELECT'&& searchCriteria.status!=''&& searchCriteria.userId!='SELECT' && searchCriteria.to=='')
+	else if(searchCriteria.from=='' && searchCriteria.projectId=='SELECT'&& searchCriteria.status!=0 && searchCriteria.userId!='SELECT' && searchCriteria.to=='')
 		input={ "payload": {"status":searchCriteria.status,"userId":searchCriteria.userId}}; 
-	else if(searchCriteria.from=='' && searchCriteria.projectId!='SELECT'&& searchCriteria.status!=''&& searchCriteria.userId=='SELECT' && searchCriteria.to=='')
+	else if(searchCriteria.from=='' && searchCriteria.projectId!='SELECT'&& searchCriteria.status!=0 && searchCriteria.userId=='SELECT' && searchCriteria.to=='')
 		input={ "payload": { "projectId":searchCriteria.projectId,"status":searchCriteria.status}}; 
-	else if(searchCriteria.from=='' && searchCriteria.projectId!='SELECT'&& searchCriteria.status!=''&& searchCriteria.userId!='SELECT' && searchCriteria.to=='')
+	else if(searchCriteria.from=='' && searchCriteria.projectId!='SELECT'&& searchCriteria.status!=0 && searchCriteria.userId!='SELECT' && searchCriteria.to=='')
 		input={ "payload": { "projectId":searchCriteria.projectId,"status":searchCriteria.status,"userId":searchCriteria.userId}}; 
-	else if(searchCriteria.from!='' && searchCriteria.projectId!='SELECT'&& searchCriteria.status!=''&& searchCriteria.userId!='SELECT' && searchCriteria.to=='')
+	else if(searchCriteria.from!='' && searchCriteria.projectId!='SELECT'&& searchCriteria.status!=0 && searchCriteria.userId!='SELECT' && searchCriteria.to=='')
 		input={ "payload": { "projectId":searchCriteria.projectId,"status":searchCriteria.status,"userId":searchCriteria.userId,"from":searchCriteria.from}}; 
-	else if(searchCriteria.from!='' && searchCriteria.projectId=='SELECT'&& searchCriteria.status!=''&& searchCriteria.userId=='SELECT' && searchCriteria.to!='')
+	else if(searchCriteria.from!='' && searchCriteria.projectId=='SELECT'&& searchCriteria.status!=0 && searchCriteria.userId=='SELECT' && searchCriteria.to!='')
 		input={ "payload": { "status":searchCriteria.status,"from":searchCriteria.from,"to":searchCriteria.to}}; 
-	else if(searchCriteria.from=='' && searchCriteria.projectId=='SELECT'&& searchCriteria.status!=''&& searchCriteria.userId=='SELECT' && searchCriteria.to=='')
+	else if(searchCriteria.from=='' && searchCriteria.projectId=='SELECT'&& searchCriteria.status!=0 && searchCriteria.userId=='SELECT' && searchCriteria.to=='')
 		input={ "payload": {"status":searchCriteria.status}}; 
-	else if(searchCriteria.from=='' && searchCriteria.projectId=='SELECT'&& searchCriteria.status==''&& searchCriteria.userId=='SELECT' && searchCriteria.to==''){
-		input={"payload":{}};
+	else if(searchCriteria.from=='' && searchCriteria.projectId!='SELECT'&& searchCriteria.status==0 && searchCriteria.userId=='SELECT' && searchCriteria.to=='')
+		input={ "payload": {"projectId":searchCriteria.projectId}};
+	else if(searchCriteria.from=='' && searchCriteria.projectId=='SELECT'&& searchCriteria.status==0 && searchCriteria.userId=='SELECT' && searchCriteria.to==''){
+		input={ "payload": {}};
 	}
 	return input;
 }
@@ -144,6 +147,7 @@ ApproverSearch.prototype.searchTimeEntriesByApprover = function() {
     			if(data.length!=0){
     			$(".approverTableHeader").show();
     			for(var i=0;i<data.length;i++){
+    				
     				if(data[i].status==2){
     					status="APPROVED";
     					operations="";
@@ -154,12 +158,12 @@ ApproverSearch.prototype.searchTimeEntriesByApprover = function() {
     				}
     				if(data[i].status==1){
     					status="SUBMITTED";
-    					operations="<button class=\"approve approveTimeEntry\" id=\"approveTimeEntry\" value=\""+data[i].id+"\">.</button><button class=\"reject rejectTimeEntry\" id=\"rejectTimeEntry\" value=\""+data[i][0]+"\">.</button>";
+    					operations="<button class=\"approve approveTimeEntry\" id=\"approveTimeEntry\" value=\""+data[i].id+"\">.</button><button class=\"reject rejectTimeEntry\" id=\"rejectTimeEntry\" value=\""+data[i].id+"\">.</button>";
     				}
     				 var tabledata="<tr class=\"approverTableData\">"+
     	                "<td>"+$.datepicker.formatDate('mm/dd/yy', new Date(data[i].dateInLong))+"</td>"+
     	                "<td>"+data[i].projectName+"</td>"+
-    	                "<td>"+data[i].userName+"</td>"+
+    	                "<td>"+data[i].userName.charAt(0).toUpperCase()+data[i].userName.substr(1).toLowerCase()+"</td>"+
     	                "<td>"+data[i].releaseVersion+"</td>"+
     	                "<td>"+data[i].task+"</td>"+
     	                "<td>"+data[i].activity+"</td>"+
@@ -168,24 +172,26 @@ ApproverSearch.prototype.searchTimeEntriesByApprover = function() {
     	                "<td>"+operations+"</td>";
     	                //"<td><button class=\"approve approveTimeEntry\" id=\"approveTimeEntry\" value=\""+data[i][0]+"\">.</button><button class=\"reject rejectTimeEntry\" id=\"rejectTimeEntry\" value=\""+data[i][0]+"\">.</button></td>";
     				    $(".approverTableHeader").after(tabledata);
-    				    $('#approveTimeEntry').click(function(event){
-    				    	$("#rejectedComments").modal('show');
-    						$(".submitComments").click(function(){
-    							$("#rejectedComments").hide();
-    							this.approveTimeEntry(event);	
-    						}.ctx(this));
-    						}.ctx(this));
-    					$('#rejectTimeEntry').click(function(event){
-    						
-    						$("#rejectedComments").modal('show');
-    						$(".submitComments").click(function(){
-    							$("#rejectedComments").hide();
-    							this.rejectTimeEntry(event);			
-    						}.ctx(this));
-    						 
-    						
-    						}.ctx(this));
-    			}}
+    	
+    			}
+    			 $('#approveTimeEntry').click(function(event){
+				    	$("#rejectedComments").modal('show');
+						$(".submitComments").click(function(){
+							$("#rejectedComments").hide();
+							this.approveTimeEntry(event);	
+						}.ctx(this));
+						}.ctx(this));
+					$('#rejectTimeEntry').click(function(event){
+						
+						$("#rejectedComments").modal('show');
+						$(".submitComments").click(function(){
+							$("#rejectedComments").hide();
+							this.rejectTimeEntry(event);			
+						}.ctx(this));
+						 
+						
+						}.ctx(this));
+    			}
     			else{
     				alert("No TimeEntries Found");
     				$(".approverTableHeader").hide();
@@ -209,7 +215,9 @@ ApproverSearch.prototype.approveTimeEntry=function(event){
 		if(success){
 			if(data){
 			alert("approved");
-			$("#searchTimeEntriesByApprover").trigger("click");
+			this.searchTimeEntriesByApprover();
+			//$("#searchTimeEntriesByApprover").trigger("click");
+			
 			}else{
 				alert("Not Approved");
 			}
@@ -217,7 +225,7 @@ ApproverSearch.prototype.approveTimeEntry=function(event){
 		else{
 			alert(data.message);
 		}	
-	});
+	}.ctx(this));
 	
 	
 }
@@ -227,7 +235,7 @@ ApproverSearch.prototype.rejectTimeEntry=function(event){
 		if(success){
 			if(data){
 			alert("rejected");
-			$("#searchTimeEntriesByApprover").trigger("click");
+			this.searchTimeEntriesByApprover();
 			}else{
 				alert("not Rejected");
 			}
@@ -235,7 +243,7 @@ ApproverSearch.prototype.rejectTimeEntry=function(event){
 		else{
 			alert(data.message);
 		}	
-	});
+	}.ctx(this));
 }
 
 ApproverSearch.prototype.validateSearchCriteria=function(){
@@ -255,7 +263,11 @@ ApproverSearch.prototype.validateSearchCriteria=function(){
 		alert("Invalid Date(Format:mm/dd/yyyy).");
 		  isvalid=false;
 	  }
-	  }
+      }
+      if($('#status').val()==0){
+  		alert("Please Select Status.");
+  		  isvalid=false;
+  	  }
 	
 	  return isvalid;
 }

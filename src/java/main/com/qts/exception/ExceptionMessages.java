@@ -124,7 +124,7 @@ public interface ExceptionMessages {
 	public static final String TIMEENTRY_FILLING_FOR_APPROVER="APPROVER CANNOT FILL TIMESHEET UNLESS HE IS A MEMBER.";
 	public static final String TIMEENTRY_APPROVER_NOT_AUTHORIZED="APPROVER IS NOT AUTHORIZED FOR THIS PROJECT";
 	public static final String FORMFIELD_TO_NOT_PRESENT="search from which date to given date pass the from field";
-	public static final String ILLEGAL_HOURS_ARGUMENT_PASSED="USER ALREADY SUBMITTED TIME SHEETS FOR 24 HOURS.";
+	public static final String ILLEGAL_HOURS_ARGUMENT_PASSED="USER NOT ALLOWED TO SUBMIT TIME SHEETS FOR MORE THAN 24 HOURS PER DAY";
 	public static final String INVALID_ARGUMENTS_FOR_DATE="DATE CONTAINS ONLY NUMBERS AND PATTERN IS MM/DD/YYYY or MM-DD-YYYY";
 	public static final String ILLEGAL_YEAR_PASSED="Only in January Year can be previous year.";
 	public static final String PASSED_DATA_IS_NOT_RELATED="Passed data such as Project name,Release name,Activity mismatch.";

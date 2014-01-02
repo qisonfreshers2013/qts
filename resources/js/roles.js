@@ -32,6 +32,7 @@ Roles.prototype.handleShow = function() {
 		}
 	}.ctx(this));
 	$("#saveb").click(function(event) {
+		$("#ambiance-notification").empty();
 		if ($('#projectList').val() != "p0" && $('#userList').val() != "u0") {
 			event.preventDefault();
 			this.deallocateRoles();
@@ -44,7 +45,15 @@ Roles.prototype.handleShow = function() {
 		}
 	}.ctx(this));
 	$("#cancelb").click(function() {
-		this.listUserRoles();
+		if ($('#projectList').val() != "p0" && $('#userList').val() != "u0") {
+			if(roles)
+				this.listUserRoles();
+		} else {
+			$.ambiance({
+				message : "Select project and user.",
+				type : 'error'
+			});
+		}
 	}.ctx(this));
 };
 
@@ -173,18 +182,7 @@ Roles.prototype.listUserRoles = function() {
 			if (success) {
 				roles = data.roleIds;
 				$('input:checkbox').removeAttr('checked');
-				$.each(roles, function(i, val) {
-					switch (val) {
-					case 1:
-						$("input[value=3]").prop("disabled", true);
-						$("input[value=1]").prop("disabled", false);
-						break;
-					case 3:
-						$("input[value=1]").prop("disabled", true);
-						$("input[value=3]").prop("disabled", false);
-						break;
-					}
-					$("input[value=" + val + "]").prop("checked", true);
+				$("input[value=" + val + "]").prop("checked", true);
 				});
 			} else {
 				$.ambiance({
@@ -201,10 +199,28 @@ Roles.prototype.listUserRoles = function() {
 };
 
 Roles.prototype.sucessMessage = function() {
-	$.ambiance({
-		message : "Successfull.",
-		type : 'success'
-	});
+	if(!deallocateSuccess && !allocateSuccess){
+		if(roles.length==0){
+			$.ambiance({
+				message : "perform allocation or deallocation.",
+				type : 'error'
+			});
+		}else{
+			$.ambiance({
+				message : "Roles already exists.",
+				type : 'error'
+			});
+		}
+		
+	}else if(deallocateSuccess || allocateSuccess){
+		deallocateSuccess=false;
+		allocateSuccess=false;
+		$.ambiance({
+			message : "Successfull.",
+			type : 'success'
+		});
+	}
+	
 };
 Roles.prototype.allocateRoles = function() {
 	var checked = $('input:checkbox:checked.avalRoles').map(function() {
@@ -227,6 +243,7 @@ Roles.prototype.allocateRoles = function() {
 		RequestManager.allocateRoles(inputToAllocate, function(data, success) {
 			if (success) {
 				roles = data.roleIds;
+				allocateSuccess=true;
 				this.sucessMessage();
 			} else {
 				$.ambiance({
@@ -235,15 +252,13 @@ Roles.prototype.allocateRoles = function() {
 				});
 			}
 		}.ctx(this));
-	} else {
-		if(!deallocateSuccess){
-			$.ambiance({
-				message : "Roles already exists.",
-				type : 'error'
-			});
-		}else{
-			this.sucessMessage();
-		}
+	}else if(checked.length==0 && !deallocateSuccess){
+		$.ambiance({
+			message : "Select atleast one role to allocate.",
+			type : 'error'
+		});
+	}else {
+		this.sucessMessage();
 	}
 };
 Roles.prototype.deallocateRoles = function() {
@@ -278,8 +293,10 @@ Roles.prototype.deallocateRoles = function() {
 			}
 		}.ctx(this));
 	} else {
+		
 		this.allocateRoles();
 	}
 };
 var roles;
 var deallocateSuccess=false;
+var allocateSuccess=false;

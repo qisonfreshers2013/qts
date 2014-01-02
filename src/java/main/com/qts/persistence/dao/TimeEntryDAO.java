@@ -30,4 +30,5 @@ public interface TimeEntryDAO {
 	public List<TimeEntryBean> getUserTimeEntries(TimeEntryBean timeEntry) ;
 	public List<TimeEntryBean> getTimeEntriesForApprover(TimeEntryBean timeEntry);
 	public int getUserWorkingHoursperDay(String date);
+	public boolean deleteUserTimeEntriesByUserId(long id) throws ObjectNotFoundException;
 }

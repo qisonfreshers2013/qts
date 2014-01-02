@@ -20,11 +20,13 @@
  <select class="userId"><option>SELECT</option></select><br>
   <p class="fromHeader">From</p>
  <input class="from" type=text></input>
+ <img id="calendarForFrom" src="resources/img/Calendar.png"></img>
   <p class="toHeader">To</p>
- <input class="to" type=text></input><br>
- <p class="statusHeader">Status</p>
- <select class="status">
-  <option></option>
+ <input class="to" type=text></input><img id="calendarForTo" src="resources/img/Calendar.png"></img><br>
+ 
+ <p class="statusHeader">Status<span id = star class = "star"><sup>*</sup></span></p>
+ <select class="status" id="status">
+  <option value="0">SELECT</option>
   <option value="1">Pending</option>
   <option value="2">Approved</option>
   <option value="3">Rejected</option>

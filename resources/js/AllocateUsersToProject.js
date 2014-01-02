@@ -40,7 +40,7 @@ AllocateUsersToProject.prototype.getProjects=function(){
 AllocateUsersToProject.prototype.handleShow=function(){
 	
 	
-
+	$('#projectName').focus();
 	$('#projectName').change(function(){
 		this.getProjectUsersAndNonUsers();
 	}.ctx(this));

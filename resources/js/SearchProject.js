@@ -10,13 +10,17 @@ function SearchProject(){
 
 
 SearchProject.prototype.handleShow = function() {
+	$('#project_name').focus();
 	$('#project_name').change(function(){
 		$('#results').empty();
+		$('#adminDiv').empty();
+		$('#approverDiv').empty();
+		$('#memberDiv').empty();
 		var projectId=$('select#project_name option:selected').attr('value');
 		if(projectId!=0){
 			RequestManager.getProjectUsers({"payload":{"projectId":projectId}}, function(data, success) {
 				if(success){
-					if(data.projectUserRecords.length>0){
+					if(data!=null){
 						App.loadSearchProjectResults(data);
 					}
 					else{
