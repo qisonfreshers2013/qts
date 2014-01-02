@@ -469,9 +469,10 @@ public class TimeEntryHandler {
 			RoleBean roleBeanOutput=RoleHandler.getInstance().getUserRoles(roleBeanInput);
 				
 		if((roleBeanOutput.getRoleIds()!=null && roleBeanOutput.getRoleIds().contains(new Long(2)))){
-			    if(searchCriteria.getProjectId()==null){
+			    if(searchCriteria.getProjectId()==null || searchCriteria.getProjectId()==0){
 			    searchCriteria.setProjectId(associatedProject.getProjectId());
 			    }
+			   
 				List<TimeEntryBean> responseList =getResultsForApprover(searchCriteria);
 				for(TimeEntryBean timeEntryBean:responseList){
 					timeEntryBean.setProjectName(ProjectHandler.getInstance().getObjectById(timeEntryBean.getProjectId()).getName());

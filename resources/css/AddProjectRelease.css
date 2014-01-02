@@ -30,6 +30,7 @@
 #save{
     background-color: #669933;
     border: medium none;
+    border-radius:5px;
     color: #FFFFFF;
     font-weight: bold;
     position: relative;
