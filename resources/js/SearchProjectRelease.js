@@ -9,7 +9,7 @@ function SearchProjectRelease(roles) {
 }
 
 SearchProjectRelease.prototype.handleShow = function(roles) {
-
+	$('.SelectProject').focus();
 	RequestManager.getProjects({},function(data,success){
 		if(success){
 			$.each(data,function(key1,value1){
@@ -44,13 +44,16 @@ SearchProjectRelease.prototype.handleShow = function(roles) {
 				$('#AddPR').css({
 					"background-color": "#669933",
 					"border": "medium none",
+					"border-radius":"5px",
 					"color": "#FFFFFF",
 					"font-weight": "bold",
 					"left":"60%",
 					"margin-top":"-11%",
 					"position": "relative",
 					"text-align": "center",
-					"width": "15%"
+					"width": "15%",
+					"height":"30px",
+					"font-size":"16px"
 				});
 				$('.AddPR').click(function(){
 					App.loadAddProjectRelease(roles);
