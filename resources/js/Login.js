@@ -157,26 +157,23 @@ Login.prototype.validateLogin = function(email,password){
 
     else if(!emailReg.test(email)) {
     	$('.userId').focus();
-    	$('.userId').after('<span class = "error"  style = "color:red" >Enter the valid UserId</span>');
+    	$('.userId').after('<span class = "error"  style = "color:red" >invalid UserId</span>');
         isValid = false;
     }
     else if (email.length > 128){
     	$('.userId').focus();
-    	$('.userId').after('<span class = "error"  style = "color:red" >Maximum length of Email is 128</span>');
+    	$('.userId').after('<span class = "error"  style = "color:red" >UserId too long</span>');
         isValid = false;    	
     }
 	 else if(password.trim().length < 6 ){
 		$('.password').focus();
-		$('.password').after('<span class = "error" style = "color:red" >Minimum length of passsword is 6</span>');
-//{
-//			  $( this ).after.css( "display", "inline" ).fadeOut( 1000 );
-//			});
+		$('.password').after('<span class = "error" style = "color:red" >password too short</span>');
         isValid = false;
 	}
 	else if(password.trim().length  > 128)
 		{
 			$('.password').focus();
-			$('.password').after('<span class = "error" style = "color:red" >Maximum length of passsword is 128</span>');		
+			$('.password').after('<span class = "error" style = "color:red" >password too long</span>');		
 		}
 	    else
 		{
@@ -195,17 +192,17 @@ Login.prototype.validateEmail = function(emailRef){
    
     if(emailVal == '') {
     	emailRef.focus();
-    	emailRef.after('<span class = "error" style = "color:red" >Email can not be null</span>');
+    	emailRef.after('<span class = "error" style = "color:red;" >Email can not be null</span>');
         isValid = false;
     }
 
     else if(!emailReg.test(emailVal)) {
     	emailRef.focus();
-    	emailRef.after('<span class = "error"  style = "color:red" >Enter the valid Email</span>');
+    	emailRef.after('<span class = "error"  style = "color:red;" >Enter the valid Email</span>');
         isValid = false;
     }	else if (emailVal.length > 128){
     	emailRef.focus();
-    	emailRef.after('<span class = "error"  style = "color:red" >Maximum length of Email is 128</span>');
+    	emailRef.after('<span class = "error"  style = "color:red;" >Maximum length of Email is 128</span>');
         isValid = false;    	
     }
 	    else

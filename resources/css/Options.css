@@ -9,7 +9,7 @@
 }
 
 .ProjectReleaseManagement {
-    background-color: #AE1A32;
+	 background-color: #AE1A32;
     cursor: pointer;
     height: 162px;
     left: 33%;
@@ -30,15 +30,15 @@
 
 
 .pmImg{
-	position: relative;
-	top: 30%; 
-	left: 41%;"
+    left: 41%;
+    padding-top: 15%;
+    position: relative;
 }
 .pmText{
-	 color: white; 
-	 position: relative; 
-	 top: 47%; 
-	 left: 4%;
+    color: #FFFFFF;
+    left: 4%;
+    padding-top: 10%;
+    position: relative;
 }
 .prmImg{
 	position: relative;

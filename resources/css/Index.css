@@ -32,6 +32,7 @@ body {
 .container {
     position: relative;
     box-shadow: none;
+    display: block !important;
 }
 .leftContainer {
     float: left;

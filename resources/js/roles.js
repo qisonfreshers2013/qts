@@ -37,7 +37,12 @@ Roles.prototype.handleShow = function() {
 			event.preventDefault();
 			this.deallocateRoles();
 
-		} else {
+		} else if($('#projectList').val() != "p0" && $('#userList').val() == "u0"){
+			$.ambiance({
+				message : "Select User.",
+				type : 'error'
+			});
+		}else{
 			$.ambiance({
 				message : "Select project and user.",
 				type : 'error'
@@ -45,16 +50,10 @@ Roles.prototype.handleShow = function() {
 		}
 	}.ctx(this));
 	$("#cancelb").click(function() {
-		if ($('#projectList').val() != "p0" && $('#userList').val() != "u0") {
-			if(roles)
-				this.listUserRoles();
-		} else {
-			$.ambiance({
-				message : "Select project and user.",
-				type : 'error'
-			});
-		}
-	}.ctx(this));
+		$("#projectList option[value=\"p0\"]").attr("selected",true);
+		$("#userList").empty().append("<option id=\"u0\">select</option>");
+		$(".avalRoles").removeAttr("checked");
+	});
 };
 
 Roles.prototype.listProjects = function() {
