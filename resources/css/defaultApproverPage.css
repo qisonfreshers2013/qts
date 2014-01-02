@@ -9,17 +9,17 @@
 p {
     font-size: 16px;
 }
-.approverTableHeader {
+#searchTimeEntriesTableForApprover th {
     background-color: #ADD8E6;
-    padding: 2%;
+    padding: 1%;
     text-align: center;
     font-size: 16px;
 }
-.searchTimeEntriesTableForApprover {
+#searchTimeEntriesTableForApprover {
     border-collapse: collapse;
-    width: 80%;
+    width: 90%;
 }
-.approverTableData {
+#searchTimeEntriesTableForApprover tr {
     padding: 1%;
     text-align: center;
     font-size: 16px;

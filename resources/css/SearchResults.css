@@ -23,10 +23,11 @@ table.resultsTable thead {
 td,th {
     text-align: center;
 }
-/*.resultsTable tr:nth-child(odd)		{ background-color:#EEEEEE; }*/
-/*.resultsTable tr.rowcolor:nth-child(even)		{ background-color:#DDDDDD; }*/
+.resultsTable tr:nth-child(odd)		{ background-color:#EEEEEE; }
+.resultsTable tr:nth-child(even)		{ background-color:#DDDDDD; }
 
 
 th {
     background-color: #3091FF;
 }
+

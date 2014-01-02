@@ -2,6 +2,7 @@
  * 
  */
 function Login() {
+	
 	Loader.loadHTML('.rightContainer', 'Login.html', true, function(){
 		this.handleShow();
 	}.ctx(this));
@@ -30,7 +31,7 @@ Login.prototype.handleShow = function() {
 //		//$(".error").hide();		
 //	}.ctx(this));	
 	
-	$(".submit").click(function(){
+	$(".submitLogin").click(function(){
 		$(".error").hide();
 	//var isValidateUserId = this.validateEmail($('input.userId'));
 	//	var isValidatePassword = this.validatePassword($('input.password'));		
@@ -39,13 +40,14 @@ Login.prototype.handleShow = function() {
 		}
 	}.ctx(this));
 		
-	$(".clear").click(function(){		
+	$(".clearLogin").click(function(){		
 		$('#userId').focus();
 		$(".error").hide();
 	}.ctx(this));
 	
 	
-	$(".forgotPasswordLink").click(function(){			
+	$(".forgotPasswordLink").click(function(){	
+		$(".error").empty();
 		this.openEmailDialogBox();
 	}.ctx(this));	
 	
@@ -66,6 +68,14 @@ Login.prototype.handleShow = function() {
 	$("button.forgotButton").click(function(){
 		$("input.emailToSend" ).val("");
 	}.ctx(this));
+	$("#forgotPasswordModal.documentElement").keyup(function (event) {
+		  if (event.keyCode == 13) {
+			  if(this.validateLogin($('input.userId').val(),$('input.password').val())){		
+					this.authenticate();
+					}
+		  }
+		 }.ctx(this));
+	
 	
 }
 Login.prototype.authenticate = function() {	
@@ -90,9 +100,13 @@ Login.prototype.authenticate = function() {
 		      App.loadQisonLogo(roleIds);
 
 		}else{
-			console.log('fail  :'+ data.message);
-			alert('Fail to login :'+ data.message);
-			$( "input#clear" ).trigger( "click");			
+			
+			//alert('Fail to login :'+ data.message);
+			$.ambiance({
+			    message : "Fail : "+data.message,
+			    type : 'error'
+			   });
+			$( "button#clearLogin" ).trigger("click");			
 	}
 		
 		
@@ -104,13 +118,20 @@ Login.prototype.sendMail = function(email){
 	RequestManager.sendMail(input,function(data,success){
 		if(success){
 			$("input.emailToSend" ).val("");	
-			alert("success mail is sent");
+			$.ambiance({
+				  message : "Success : Mail is sent = "+data,
+				  type : 'success'
+				});
 		$('#forgotPasswordModal').modal('hide');
 		
 		}
-		else
-		alert("fail :"+data.message);
-		$("input.emailToSend" ).val("");		
+		else{
+			$.ambiance({
+			    message : "Fail : "+data.message,
+			    type : 'error'
+			   });
+		$("input.emailToSend" ).val("");
+		}
 	}.ctx(this));
 }
 
@@ -159,7 +180,7 @@ Login.prototype.validateLogin = function(email,password){
 		}
 	    else
 		{
-		$(".error").hide();
+		$(".error").empty();
 		isValid = true;    
 		}
 	return isValid; 
@@ -189,7 +210,7 @@ Login.prototype.validateEmail = function(emailRef){
     }
 	    else
 		{
-			$(".error").hide();
+			$(".error").empty();
 			isValid = true;    
 		}
 	return isValid;  

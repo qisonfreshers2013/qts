@@ -14,11 +14,10 @@ ChangePassword.prototype.handleShow = function(){
 	console.log('calling modelshow');	
 	$('#changePasswordModal').modal('show');
 	console.log('called modelshow');
-	$('button#submitPassword').click(function(){
-	
-		var oldPassword = $('input.oldPasswordText');
-		var password = $('input.passwordText');
-		var confirmPassword = $('input.confirmPasswordText');
+	$('button#submitPassword').click(function(){	
+		var oldPassword = $('input.oldPasswordTextCP');
+		var password = $('input.passwordTextCP');
+		var confirmPassword = $('input.confirmPasswordTextCP');
 		if(this.validatePassword(oldPassword)){
 			if(this.validatePassword(password)){
 				if(this.validateConfirmPassword(confirmPassword,password)){
@@ -48,13 +47,20 @@ ChangePassword.prototype.changePassword = function(oldPassword,password,confirmP
 	
 	RequestManager.changePassword(input,function(data,success){
 		if(success){
-			alert("password is changed");
+			$.ambiance({
+				  message : "Success : Password is changed",
+				  type : 'success'
+				});
 		$('#changePasswordModal').modal('hide');
 		$( "input.closeCPbutton" ).trigger( "click");
 		}
-		else
-			alert("fail to change : "+data.message);		
-	});
+		else{
+			$.ambiance({
+			    message : "Fail : "+data.message,
+			    type : 'error'
+			   });	
+		}
+	}).ctx(this);
 }
 
 

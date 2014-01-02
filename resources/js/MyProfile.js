@@ -42,7 +42,10 @@ MyProfile.prototype.saveValues = function(firstNameRef,lastNameRef,nicknameRef,l
 		}};
 	RequestManager.updateLoginUserDetails(input,function(data,success){
 		if(success){
-			alert("success " + data);
+			$.ambiance({
+				  message : "Updation is Successfull",
+				  type : 'success'
+				});
 			if((data.nickName==null) || (data.nickName.trim().length < 1)){
 				
 				$('span.nicknameCursor').text(data.lastName);
@@ -57,7 +60,11 @@ MyProfile.prototype.saveValues = function(firstNameRef,lastNameRef,nicknameRef,l
 			
 		}
 		else
-			alert("Fail to updateMyProfile : "+data.message);
+			//alert("Fail to updateMyProfile : "+data.message);
+			$.ambiance({
+			    message : "Fail : "+data.message,
+			    type : 'error'
+			   });
 		}.ctx(this));
 		
 	

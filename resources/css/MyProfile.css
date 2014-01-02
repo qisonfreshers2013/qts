@@ -57,6 +57,7 @@ input.clear {
 	width: 7%;
 	padding: 0.1%;
 	background-color: #669933;
+	  color: #FFFFFF;
 }
 
 p {
@@ -87,6 +88,8 @@ p {
 button.submit {
 	width: 7%;
 	background-color: #669933;
+	  color: #FFFFFF;
+	     padding: 0;
 }
 
 #clearMyProfileDiv {

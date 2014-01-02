@@ -8,25 +8,29 @@ div#nicknameFieldSU {
     position: relative;
     text-align: left;
     text-decoration: none;
+    width: 15%;
 }
 div#nicknameTextSU {
     font-family: 'Arial';
     font-size: 13px;
     font-style: normal;
     font-weight: normal;
-    left: 10%;
-    margin-top: -3.4%;
+    left: 15%;
+    margin-top: -4.5%;
     position: relative;
     text-align: left;
     text-decoration: none;
+    width: 50%;
 }
 div#designationFieldSU {
     font-family: Arial;
     font-style: normal;
     font-weight: normal;
     left: 0;
+    margin-top: 2.2%;
     position: relative;
     text-align: left;
+    width: 50%;
     word-wrap: break-word;
 }
 div#designationTextSU {
@@ -35,28 +39,30 @@ div#designationTextSU {
     font-size: 13px;
     font-style: normal;
     font-weight: normal;
-    left: 10%;
-    margin-top: -3.3%;
+    left: 15%;
+    margin-top: -4.5%;
     position: relative;
     text-align: left;
     text-decoration: none;
+    width: 50%;
 }
 div#emailFieldSU {
     font-family: Arial;
     font-style: normal;
     font-weight: normal;
-    left: 33%;
-    margin-top: -3.3%;
+    left: 47%;
+    margin-top: -4.5%;
     position: relative;
     text-align: left;
+    width: 50%;
     word-wrap: break-word;
 }
 div#employeeIdFieldSU {
     font-family: Arial;
     font-style: normal;
     font-weight: normal;
-    left: 33%;
-    margin-top: -5.3%;
+    left: 47%;
+    margin-top: -7.5%;
     position: relative;
     text-align: left;
     word-wrap: break-word;
@@ -74,7 +80,7 @@ div#search {
     font-size: 13px;
     font-style: normal;
     font-weight: normal;
-    left: 44%;
+    left: 63%;
     margin-top: 1%;
     position: relative;
     text-decoration: none;
@@ -83,9 +89,9 @@ hr {
 }
 div#content {
     height: 100%;
+    margin-top: 8%;
     position: relative;
     width: 100%;
-    margin-top: 8%;
 }
 div#resultsContainer {
     position: relative;
@@ -93,34 +99,36 @@ div#resultsContainer {
 div.searchUserContent {
     margin-top: 4%;
     position: relative;
+    width: 74%;
 }
 div.employeeIdTextSU {
-    left: 44%;
-    margin-top: -3.3%;
+    left: 63%;
+    margin-top: -4.1%;
     position: relative;
+    width: 50%;
 }
 div.emailTextSU {
-    left: 44%;
-    margin-top: -3.5%;
+    left: 63%;
+    margin-top: -4.5%;
     position: relative;
+    width: 55%;
 }
 select.employeeId {
-    width: 22.5%;
+    width: 57.6%;
 }
 #emailText > input {
     width: 20%;
 }
 button.search {
-    background-color:#669933;
-     color: white;
+    background-color: #669933;
+    color: #FFFFFF;
 }
-input.nickname ,input.employeeId, input.designation, input.email {
-    width: 21.5%;
+input.nickname, input.employeeId, input.designation, input.email {
+    width: 50%;
 }
-
 .focus {
-    border: 2px solid #FF0000;    
+    border: 2px solid #FF0000;
 }
-p.error{
- color: red;
+p.error {
+    color: #FF0000;
 }

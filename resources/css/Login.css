@@ -5,11 +5,16 @@
 img.login{
  vertical-align: sub;
 }
-.submitDiv,.clearDiv {
+.submitDivLogin,.clearDivLogin {
     height: 3%;    
     position: relative;
-    width: 20%;
-    float: left;
+    width: 21%;
+   
+}
+
+.clearDivLogin {
+    left: 35.5%;
+    margin-top: -7.2%;
 }
 .userIdField, .userIdText, .passwordText, .passwordField, .forgotPassword {
     height: 2%;
@@ -31,22 +36,23 @@ a.forgotPasswordLink:hover {
     color: #008000;
 	cursor:pointer;
 }
-button.submit  {
+button.submitLogin  {
     background-color:#669933;
     display: inline-block;
     text-decoration: none;
     border-radius:5%; 
     width:80%;
     color:#FFFFFF;
+     padding: 1%;
     
 }
-input.clear {
+button.clearLogin {
     background-color:#669933;
     display: inline-block;
     text-decoration: none;
     border-radius:5%; 
     width:80%;
-    padding: 1.5%;
+    padding: 1%;
     color:#FFFFFF;
 }
 p label.loginUserId {

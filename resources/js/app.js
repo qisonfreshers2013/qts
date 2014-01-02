@@ -6,6 +6,8 @@ function App() {
 	$(document).ready(function () {
 		$('.container').hide();
 		$('.loadingAnimation').show();
+		
+		 
 	})
 	this.handleShow();
 }

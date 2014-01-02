@@ -14,6 +14,9 @@ public class UserBean implements Serializable {
 	private String designation;
 	private String location;
 	private String userId;
+	
+	
+	
 	private String password;
 	private String confirmPassword;
 	public UserBean() {

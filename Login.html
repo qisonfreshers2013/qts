@@ -8,7 +8,7 @@
 <!--<p><label id = "loginUserId " class = "loginUserId " for="userId">User Id<span id = star class = "star"><sup>*</sup></span> </label></p>-->
 <!--</div>-->
 <div id = "userIdText" class = "userIdText ">
-<input id = "userId" class = "userId userIdWidth" type = "email" autofocus  placeholder = "User Id"  title = "Email Pattern" pattern = "^[_A-Za-z]+[_A-Za-z0-9-]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" required/>
+<input id = "userId" class = "userId userIdWidth" type = "email" pattern = "^([\w-\.]+@([\w-]+\.)+[\w-]{2,})?$" autofocus  placeholder = "User Id"  title = "Email Pattern" pattern = "^[_A-Za-z]+[_A-Za-z0-9-]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" required/>
 </div>
 <!--<div id = "passwordField" class = "passwordField">-->
 <!--<p><label for="password">Password<span id = star class = "star"><sup>*</sup></span></label> </p>-->
@@ -23,17 +23,17 @@
 <!--<p id = "error" class = "error"></p>-->
 <!--</div>-->
 </form>
-<div id = "submitDiv" class = "submitDiv">
-<button id = "submit" form = "loginForm" class = "submit" type = "button" value = "signin">Signin</button>
+<div id = "submitDivLogin" class = "submitDivLogin">
+<button id = "submitLogin" form = "loginForm" class = "submitLogin" type = "button" value = "signin">Sign In</button>
 </div>
-<div id = "clearDiv" class = "clearDiv">
-<input id = "clear" class = "clear" type = "reset" form = "loginForm" value = "Cancel">
+<div id = "clearDivLogin" class = "clearDivLogin">
+<button id = "clearLogin" class = "clearLogin" type = "reset" form = "loginForm" value = "">Cancel</button>
 </div>
 
 </fieldset>
 </div>
 <!-- Modal -->
-<div class="modal fade forgotPasswordModal" id="forgotPasswordModal">
+<div class="modal fade forgotPasswordModal" id="forgotPasswordModal" data-keyboard="false" data-backdrop="static">
 <div class="modal-body"><label id = "emailForgot" class = "emailForgot" for="emailToSend">Email<span id = star class = "star"><sup>*</sup></span></label> <input
 	type="email" name="emailToSend" id="emailToSend" placeholder = "email" class="emailToSend" required></div>
 <div class="modal-footer">

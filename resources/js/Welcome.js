@@ -29,7 +29,10 @@ Welcome.prototype.logout = function(){
 		if(success){			
 			document.location.reload();
 		}else
-			alert('logout '+' fail'+data.message);
+			$.ambiance({
+			    message : "Fail : "+data.message,
+			    type : 'error'
+			   });
 	}.ctx(this));
 }
 
