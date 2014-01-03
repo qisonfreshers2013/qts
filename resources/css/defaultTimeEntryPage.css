@@ -70,7 +70,9 @@ tr:nth-child(2n+1) {
     text-align: center;
 }
 #loadTimeSheetFilling {
-    display: none;
+        display: block;
+    left: 50%;
+    overflow: visible;
 }
 .editTimeEntry {
     background-color: #669933;

@@ -95,16 +95,22 @@ DefaultTimeSheetPage.prototype.deleteTimeEntry=function(){
 	    	var id=$("input[type=checkbox]:checked").val();
 		 RequestManager.deleteTimeEntry({"payload":{"id":id}},function(data,success){
 			if(success){
+				if(data){
 				$.ambiance({
     			    message : 'Deleted',
     			    type : 'success'
     			   });
 				$("input[type=checkbox][value="+id+"]").empty();
-				$(".searchUserTimeEntries").trigger("click");
+				$(".searchUserTimeEntries").trigger("click");}else{
+					$.ambiance({
+	    			    message : 'Not Deleted',
+	    			    type : 'error'
+	    			   });
+				}
 			}
 			else{
 				$.ambiance({
-    			    message : data.message,
+    			    message :'TimeEntry Cannot Be Deleted.',
     			    type : 'error'
     			   });
 			}
@@ -276,7 +282,7 @@ DefaultTimeSheetPage.prototype.searchUserTimeEntries=function(){
 				var workedHours=data[i].minutes/60;
 				var workedHoursInInteger=parseInt(workedHours);
 				if(data[i].status==0){
-					 status="SAVED";
+					 status="Saved";
 					 remarks="";
 					 checkbox="<input type=\"checkbox\" id=\"checkboxForTableData\" class=\"checkboxForTableData\" value="+data[i].id+"></input>";
 					if(data[i].userRemarks!=null && data[i].userRemarks!='' ){
@@ -284,27 +290,27 @@ DefaultTimeSheetPage.prototype.searchUserTimeEntries=function(){
 				      count++;
 				}
 				else if(data[i].status==1){
-					status="SUBMITTED";
+					status="Submitted";
 					checkbox='';
                     remarks="";
 					if(data[i].userRemarks!=null && data[i].userRemarks!='')
 					remarks=remarks+"<img  class=\"userRemarks\" src=\"resources/img/userRemarks.png\" title=\""+data[i].userRemarks+"\">";
 				}
 				else if(data[i].status==2){
-					status="APPROVED";
+					status="Approved";
 					checkbox='';
 					 remarks="";
-					if(data[i].userRemarks!=null){
+					if(data[i].userRemarks!=null && data[i].userRemarks!=""){
 					remarks=remarks+"<img  class=\"userRemarks\" src=\"resources/img/userRemarks.png\" title=\""+data[i].userRemarks+"\">";
-					if(data[i].approvedComments!=null)
+					if(data[i].approvedComments!=null && data[i].approvedComments!="")
 			           remarks=remarks+"<img  class=\"userRemarks\" src=\"resources/img/approvedComments.png\" title=\""+data[i].approvedComments+"\">";
 						}
 				}
 				else if(data[i].status==3){
-					status="REJECTED";
+					status="Rejected";
 					checkbox="<input type=\"checkbox\" id=\"checkboxForTableData\" class=\"checkboxForTableData\" value="+data[i].id+"></input>";
 					 remarks="<img  class=\"userRemarks\" src=\"resources/img/rejectedComments.png\" title=\""+data[i].rejectedComments+"\">";
-					if(data[i].userRemarks!=null){
+					if(data[i].userRemarks!=null && data[i].userRemarks!=""){
 					remarks=remarks+"<img  class=\"userRemarks\" src=\"resources/img/userRemarks.png\" title=\""+data[i].userRemarks+"\">";}
 				   count++;     
 				}
@@ -312,10 +318,10 @@ DefaultTimeSheetPage.prototype.searchUserTimeEntries=function(){
 				 var tabledata="<tr class=\"userTableData\" id=\"userTableData\">" +
 				    "<td>"+checkbox+"</td>"+
 	                "<td>"+$.datepicker.formatDate('mm/dd/yy', new Date(data[i].dateInLong))+"</td>"+
-	                "<td>"+data[i].projectName+"</td>"+
-	                "<td>"+data[i].releaseVersion+"</td>"+
-	                "<td>"+data[i].task+"</td>"+
-	                "<td>"+data[i].activity+"</td>"+
+	                "<td title='"+data[i].projectName+"'>"+(data[i].projectName.charAt(0).toUpperCase()+data[i].projectName.substr(1).toLowerCase()).ellipses(10)+"</td>"+
+	                "<td title='"+data[i].releaseVersion+"'>"+data[i].releaseVersion.ellipses(10)+"</td>"+
+	                "<td title='"+data[i].task+"'>"+(data[i].task.charAt(0).toUpperCase()+data[i].task.substr(1).toLowerCase()).ellipses(10)+"</td>"+
+	                "<td title='"+data[i].activity+"'>"+(data[i].activity.charAt(0).toUpperCase()+data[i].activity.substr(1).toLowerCase()).ellipses(10)+"</td>"+
 	                "<td>"+workedHoursInInteger+":"+workedMinutes+"</td>"+
 	                "<td value=\""+data[i].status+"\">"+status+"</td>"+
 	                "<td>"+remarks+"</td>" +
@@ -337,12 +343,10 @@ DefaultTimeSheetPage.prototype.searchUserTimeEntries=function(){
 					    if(!($(event.target).prop("checked"))){
 					    	$("#selectAll").attr("checked",false);
 					    }
-						}.ctx(this));
-				    
-				    
+						}.ctx(this));	    
 			}
 			}else{
-				$(".userTimeEntries").empty();
+				$("#userTimeEntries").empty();
    				$.ambiance({
     			    message : 'No TimeEntries Found',
     			    type : 'error'

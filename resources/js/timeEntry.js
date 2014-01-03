@@ -283,7 +283,14 @@ TimeEntry.prototype.updateTimeEntry=function(){
 		 
 		  isvalid=false;
 	  }
-	
+	  else if( $('.hours').val()== 0 && $('.minutes').val()==0){
+		  $.ambiance({
+			    message :'Cannot be added for 0 hours 0 minutes.',
+			    type : 'error'
+			   });
+		 
+		  isvalid=false;
+	  }
 	  else if(userRemarks.length>4096){
 		  $.ambiance({
 			    message :'Max of 4096 characters is supported.',

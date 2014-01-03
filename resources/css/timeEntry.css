@@ -1,67 +1,77 @@
 
 @charset "ISO-8859-1";
 .majorDiv {
-    background-color: #FFFFFF;
-    border: 1px solid #000000;
-    position: fixed;
-    width: 50%;
+	position:relative;
 }
 .fieldset {
-    width: 60%;
+        width: 100%;
 }
 p {
     font-size: 16px;
 }
 .leftHeaders {
-    float: left;
-    margin-left: 6%;
+    margin-left: 3%;
     margin-top: 2%;
-    width: 20%;
+    position: relative;
+    width: 15%;
 }
 .leftHeaderFields {
-    float: left;
-    margin-right: 3%;
-    margin-top: 2%;
-    width: 42%;
+    left: 15%;
+    margin-top: -28.5%;
+    position: relative;
+    width: 35%;
 }
 .rightHeaders {
-    float: left;
-    margin-left: 8%;
-    width: 21%;
+    left: 53%;
+    margin-top: -42%;
+    position: relative;
+    width: 15%;
 }
 .rightHeaderFields {
-    margin-bottom: 0;
-    margin-left: 104%;
-    margin-top: 11%;
-    width: 45%;
+    left: 68%;
+    margin-top: -31%;
+    position: relative;
+    width: 30%;
 }
 .datepicker {
-    background-color: #FFFFFF;
     margin-left: 0;
     margin-top: -3%;
+    width: 94%;
 }
 .projectId {
     margin-left: 0;
-    margin-top: -10%;
+    margin-top: -5.5%;
+    position: relative;
+    width: 99%;
 }
 .task {
     margin-left: 0;
-    margin-top: 7%;
+    margin-top: 4%;
+    position: relative;
+    width: 94%;
 }
 .hours {
     margin-left: 0;
     margin-top: 4%;
+    position: relative;
+    width: 45%;
 }
 .selectRelease {
     margin-left: 0;
     margin-top: 27%;
+    position: relative;
+    width: 93%;
 }
 .selectActivity {
-    margin-top: 7%;
+    margin-top: 9%;
+    position: relative;
+    width: 94%;
 }
-.userRemarks {
+.userRemarksInModal {
     margin-left: 0;
     margin-top: 7%;
+    position:relative;
+    resize:none;
 }
 .release {
     margin-left: 2%;
@@ -71,32 +81,44 @@ p {
     margin-left: 4%;
     margin-top: 41%;
 }
-.cancel {
+.clearTheFields {
     background-color: #669933;
+    border-radius: 5px;
     color: #FFFFFF;
     font-weight: bold;
-    margin-left: 108%;
+    left: 68%;
     margin-top: 2%;
+    position: relative;
     text-align: center;
+    width: 13% !important;
 }
-.save {
+.saveTheTimeEntry {
     background-color: #669933;
+    border-radius: 5px;
     color: #FFFFFF;
     font-weight: bold;
-    margin-left: 127%;
-    margin-top: -23%;
+    left: 83.5%;
+    margin-top: -13%;
+    position: relative;
     text-align: center;
+    width: 13% !important;
 }
 .remarksHeader {
     margin-left: 0;
     margin-top: 0;
 }
 #calendarIcon {
-    margin: -46% 1% 1% 108%;
+    left: 88%;
+    margin-top: -33%;
     position: relative;
 }
 #minutes {
-    margin-left: 71%;
-    margin-top: -40%;
-    postion: relative;
+    margin-left: 49%;
+    margin-top: -29%;
+    position: relative;
+    width: 50%;
+}
+#timeEntrymodal{
+	 margin-top:2%;
+	 margin-bottom:3%;
 }

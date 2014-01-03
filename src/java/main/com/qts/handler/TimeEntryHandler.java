@@ -477,7 +477,7 @@ public class TimeEntryHandler {
 		if(validateSearchCriteria(searchCriteria)){
      	List<TimeEntryBean> getTimeEntryBeans=new ArrayList<TimeEntryBean>();
 		List<Project> associatedProjectList = ProjectHandler.getInstance().getProjectsForApprover();		
-		
+		if(searchCriteria.getProjectId()==null){
 		for (Project associatedProject : associatedProjectList) {
 			RoleBean roleBeanInput=new RoleBean(ServiceRequestContextHolder.getContext().getUserSessionToken().getUserId(),associatedProject.getId());
 			RoleBean roleBeanOutput=RoleHandler.getInstance().getUserRoles(roleBeanInput);
@@ -485,7 +485,7 @@ public class TimeEntryHandler {
 		if((roleBeanOutput.getRoleIds()!=null && roleBeanOutput.getRoleIds().contains(new Long(2)))){
 			    if(searchCriteria.getProjectId()==null || searchCriteria.getProjectId()==0){
 			    searchCriteria.setProjectId(associatedProject.getId());
-			    if(searchCriteria.getStatus()==null){
+			    if(searchCriteria.getStatus()==null && searchCriteria.getFrom()==null && searchCriteria.getTo()==null && searchCriteria.getUserId()==null){
 			    searchCriteria.setStatus(1);}
 			    }
 			   
@@ -500,7 +500,17 @@ public class TimeEntryHandler {
 			}else{
 				isApprover=isApprover+1;
 			}
+		  }}else{
+			  List<TimeEntryBean> responseList =getResultsForApprover(searchCriteria);
+				for(TimeEntryBean timeEntryBean:responseList){
+					timeEntryBean.setProjectName(ProjectHandler.getInstance().getObjectById(timeEntryBean.getProjectId()).getName());
+					timeEntryBean.setActivity(ActivityHandler.getInstance().getObjectById(timeEntryBean.getActivityId()).getName());
+					timeEntryBean.setReleaseVersion(ReleaseHandler.getInstance().getObjectById(timeEntryBean.getReleaseId()).getName());
+					timeEntryBean.setUserName(UserHandler.getInstance().getUserName(timeEntryBean.getUserId()));		
+				}
+				getTimeEntryBeans.addAll(responseList);
 		  }
+		
 		//End of For Loop
 		
 		   if(isApprover==associatedProjectList.size()){

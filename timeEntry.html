@@ -1,5 +1,5 @@
 <div class="majordiv">
-<div class="modal-header">
+<div class="modal-header timeEntrymodal" id="timeEntrymodal" >
 <button type="button" id="closeTheModal" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 <h2><img src="resources/img/tsf.png" alt=""></img>  Time Sheet Filling</h2>
 </div>  
@@ -65,11 +65,11 @@
    <select class="selectActivity" id="selectActivity" required>
         <option  class="activityValue" value="0">--select--</option>
    </select><br>
-   <textarea class="userRemarks" id="userRemarks"></textarea>
+   <textarea class="userRemarksInModal" id="userRemarksInModal"></textarea>
    </div>
  
-    <input  id="cancel" class="cancel" type="reset" value="Clear"></input>
+    <input  id="clearTheFields" class="clearTheFields" type="reset" value="Clear"></input>
     </form>
-    <input   id="save" class="save" type=button value="Save"></input>
+    <input   id="saveTheTimeEntry" class="saveTheTimeEntry" type=button value="Save"></input>
    </fieldset>
 </div>
