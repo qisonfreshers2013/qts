@@ -12,6 +12,7 @@ public class TimeEntryBean {
 	private Long releaseId;
 	private String task;
 	private Long activityId;
+	private Integer minutes;
 	private Integer hours;
 	private String from;
     private String to;
@@ -36,7 +37,7 @@ public class TimeEntryBean {
 		this.releaseId=timeEntry.getReleaseId();
 		this.task=timeEntry.getTask();
 		this.activityId=timeEntry.getActivityId();
-		this.hours=timeEntry.getHours();
+		this.minutes=timeEntry.getMinutes();
 		this.userRemarks=timeEntry.getRemarks();
 		this.approvedComments=timeEntry.getApprovedComments();
 		this.rejectedComments=timeEntry.getRejectedComments();
@@ -196,5 +197,13 @@ public long getDateInLong() {
 public void setDateInLong(long dateInLong) {
 			this.dateInLong = dateInLong;
 		}
+
+public Integer getMinutes() {
+	return minutes;
+}
+
+public void setMinutes(Integer minutes) {
+	this.minutes = minutes;
+}
 
 }

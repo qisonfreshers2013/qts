@@ -35,12 +35,7 @@ DefaultTimeSheetPage.prototype.handleShow=function(){
 	$('.deleteTimeEntry').click(function(){
 		this.deleteTimeEntry();
 		}.ctx(this));
-	
-	$("input:checkbox").click(function(){
-		if(this.checked==false){
-			$("#selectAll").prop("checked",false);
-			}
-		});
+
 	
 	
 	
@@ -138,6 +133,15 @@ DefaultTimeSheetPage.prototype.submitTimeEntries=function(){
 		for(var i=0;i<idOfTimeEntries.length;i++){
 			 ids.push({"id":idOfTimeEntries[i]});
 		}
+		if(ids.length==0){
+			$.ambiance({
+			    message : 'No TimeEntries to Submit.',
+			    type : 'error'
+			   });
+			if($("#selectAll").is('input[type=checkbox]:checked')){
+				$("#selectAll").prop("checked",false);
+			}
+		}else{
 		var input={"payload":{"timeEntries":ids}};
 	RequestManager.submit(input,function(data,success){
 		if(success){
@@ -147,9 +151,9 @@ DefaultTimeSheetPage.prototype.submitTimeEntries=function(){
 			    type : 'success'
 			   });
 			$(".searchUserTimeEntries").trigger("click");
-			if($("#selectAll").is('input[type=checkbox]:checked')){
+		/*	if($("#selectAll").is('input[type=checkbox]:checked')){
 				$("#selectAll").prop("checked",false);
-			}
+			}*/
 			
 		}
 		else{
@@ -165,7 +169,8 @@ DefaultTimeSheetPage.prototype.submitTimeEntries=function(){
 			   });
 		}
 	});
-	this.searchUserTimeEntries();
+	}
+	//this.searchUserTimeEntries();
 	}
 }
 
@@ -179,7 +184,9 @@ DefaultTimeSheetPage.prototype.populateFields=function(id){
 			$('.datepicker').val($.datepicker.formatDate('mm/dd/yy', new Date(data.dateInLong)));
 			$('.projectId').val(data.projectId);
 			$('.task').val(data.task);
-			$('.hours').val(data.hours);
+			$('.hours').val(parseInt(data.minutes/60));
+			$('.minutes').val(parseInt(data.minutes%60));
+			this.getReleases();
 			$('.selectActivity').val(data.activityId);
 			$('.selectRelease').val(data.releaseId);
 			$('.userRemarks').val(data.remarks);
@@ -257,19 +264,24 @@ DefaultTimeSheetPage.prototype.searchUserTimeEntries=function(){
 	}
 	RequestManager.searchTimeEntriesByUser(input,function(data,success){
 		if(success){
+			$("#selectAll").attr("checked",false);
 			if(data.length!=0){
+			var count=0;
 			var status;
 			var remarks;
 			var checkbox;
 			$(".userTableData").empty();
 			for(var i=0;i<data.length;i++){
+				var workedMinutes=data[i].minutes%60;
+				var workedHours=data[i].minutes/60;
+				var workedHoursInInteger=parseInt(workedHours);
 				if(data[i].status==0){
 					 status="SAVED";
 					 remarks="";
 					 checkbox="<input type=\"checkbox\" id=\"checkboxForTableData\" class=\"checkboxForTableData\" value="+data[i].id+"></input>";
 					if(data[i].userRemarks!=null && data[i].userRemarks!='' ){
 					 remarks="<img  class=\"userRemarks\" src=\"resources/img/userRemarks.png\" title=\""+data[i].userRemarks+"\">";}
-				 
+				      count++;
 				}
 				else if(data[i].status==1){
 					status="SUBMITTED";
@@ -294,7 +306,8 @@ DefaultTimeSheetPage.prototype.searchUserTimeEntries=function(){
 					 remarks="<img  class=\"userRemarks\" src=\"resources/img/rejectedComments.png\" title=\""+data[i].rejectedComments+"\">";
 					if(data[i].userRemarks!=null){
 					remarks=remarks+"<img  class=\"userRemarks\" src=\"resources/img/userRemarks.png\" title=\""+data[i].userRemarks+"\">";}
-				      }
+				   count++;     
+				}
 				
 				 var tabledata="<tr class=\"userTableData\" id=\"userTableData\">" +
 				    "<td>"+checkbox+"</td>"+
@@ -303,7 +316,7 @@ DefaultTimeSheetPage.prototype.searchUserTimeEntries=function(){
 	                "<td>"+data[i].releaseVersion+"</td>"+
 	                "<td>"+data[i].task+"</td>"+
 	                "<td>"+data[i].activity+"</td>"+
-	                "<td>"+data[i].hours+"</td>"+
+	                "<td>"+workedHoursInInteger+":"+workedMinutes+"</td>"+
 	                "<td value=\""+data[i].status+"\">"+status+"</td>"+
 	                "<td>"+remarks+"</td>" +
 	                "</tr>";
@@ -313,6 +326,20 @@ DefaultTimeSheetPage.prototype.searchUserTimeEntries=function(){
 				          "padding": "1%",
 				          "text-align": "center"
 				        });
+				    
+
+					$('#checkboxForTableData').change(function(event){
+					    if($(event.target).prop("checked")){
+					    	var n=$('input[type="checkbox"]:checked').length;
+							if(count==n)
+								$("#selectAll").attr("checked",true);
+					    }
+					    if(!($(event.target).prop("checked"))){
+					    	$("#selectAll").attr("checked",false);
+					    }
+						}.ctx(this));
+				    
+				    
 			}
 			}else{
 				$(".userTimeEntries").empty();
@@ -357,7 +384,29 @@ DefaultTimeSheetPage.prototype.getProjects=function(){
 	  }
 	 }.ctx(this));
 	}
-
+DefaultTimeSheetPage.prototype.getReleases=function(){
+	 $('.selectRelease').empty();
+	 $('.selectRelease').append('<option>SELECT</option>');
+	 
+	 var id=$(".projectId").val();
+	 if(id!='SELECT'){
+	 RequestManager.getProjectReleases({"payload":{"projectId":id}}, function(data, success) {
+	  if(success){
+		  if(data.length!=0){
+	for(var i=0;i<data.length;i++){
+		 $('.selectRelease').append('<option class=\"releaseValue\" value='+data[i][0]+'>'+data[i][1]+'</option>');
+	          }}
+		  else {alert("No Releases For This Project.");}
+	  }else{
+	   $("cancel").trigger("click");
+	  }
+	 }.ctx(this));}else{
+		  $.ambiance({
+			    message : 'Select the project to get releases.',
+			    type : 'error'
+			   });
+	 }
+	}
 
 DefaultTimeSheetPage.prototype.validateTimeEntry=function(){
 	  var date=$('.datepicker').val();

@@ -35,14 +35,14 @@ ApproverSearch.prototype.handleShow=function(){
 		}.ctx(this));
 	
  	$(".submitComments").click(function(){
-		$("#rejectedComments").hide();
+		$("#rejectedComments").modal('hide');
 		if(statusToApproveOrReject==1){
-		this.approveTimeEntry(event);
+		this.approveTimeEntry();
 		}else{
 			if(statusToApproveOrReject==2){
 			if($(".comments").val()!=''){
-				$("#rejectedComments").hide();
-				this.rejectTimeEntry(event);}else{
+				$("#rejectedComments").modal('hide');
+				this.rejectTimeEntry();}else{
 					$("#rejectedComments").modal('show');
 					$.ambiance({
         			    message : 'Mention the Comments.',
@@ -53,7 +53,7 @@ ApproverSearch.prototype.handleShow=function(){
 	}.ctx(this));
 	
 	
-  	$('#cancel').click(function(event){
+  	$('#cancelTheAction').click(function(event){
 		$("#closeBtnForComments").trigger("click");
 		}.ctx(this));
   	
@@ -177,16 +177,12 @@ ApproverSearch.prototype.getInputForSearchUserTimeEntriesByApprover=function(){
 		 dataToSend=dataToSend+',"userId":'+searchCriteria.userId;
       }
 	 if(searchCriteria.status!=0 || searchCriteria.from!='' || searchCriteria.projectId!='SELECT' || searchCriteria.userId!='SELECT'){
-		 if(searchCriteria.status!=0){
-		 dataToSend=dataToSend+',"status":'+searchCriteria.status;
+		 if(searchCriteria.status!=0 && searchCriteria.from =='' && searchCriteria.projectId=='SELECT' && searchCriteria.userId=='SELECT'){
+		 dataToSend=dataToSend+'"status":'+searchCriteria.status;
+		 }else{
+			 dataToSend=dataToSend+',"status":'+searchCriteria.status;
 		 }
-	 }else
-		 {
-		 if(searchCriteria.status!=0){
-			 dataToSend=dataToSend+'"status":'+searchCriteria.status;
-		 }
-		 
-		 }
+	 }
 	    dataToSend=dataToSend+'}}';
 	
 	
@@ -258,8 +254,12 @@ ApproverSearch.prototype.searchTimeEntriesByApprover = function() {
     			}
     			
     			 $('.approveTimeEntry').click(function(event){
+    				 $("#rejectedComments").modal({
+							backdrop:"static"
+						});
 				    	$("#rejectedComments").modal('show');
 				    	statusToApproveOrReject=1;
+				    	timeEntryIdToApproveOrReject=event.target.value;
 //				    	$(".submitComments").click(function(){
 //							$("#rejectedComments").hide();
 //							statusToApproveOrReject=1;
@@ -267,9 +267,13 @@ ApproverSearch.prototype.searchTimeEntriesByApprover = function() {
 //						}.ctx(this));
 						}.ctx(this));
  			 
-					$('.rejectTimeEntry').click(function(event){	
+					$('.rejectTimeEntry').click(function(event){
+						$("#rejectedComments").modal({
+							backdrop:"static"
+						});
 						$("#rejectedComments").modal('show');
 						statusToApproveOrReject=2;
+						timeEntryIdToApproveOrReject=event.target.value;
 //						$(".submitComments").click(function(){
 //							if($(".comments").val()!=''){
 //							$("#rejectedComments").hide();
@@ -321,9 +325,9 @@ ApproverSearch.prototype.searchTimeEntriesByApprover = function() {
     	}.ctx(this));
 }
 
-ApproverSearch.prototype.approveTimeEntry=function(event){
+ApproverSearch.prototype.approveTimeEntry=function(){
 	$("#rejectedComments").modal('hide');
-	var timeEntryId=event.target.value;
+	var timeEntryId=timeEntryIdToApproveOrReject;
 	if($(".comments").val()==""){
 		input={"payload":{"id":timeEntryId}};
 	}
@@ -357,8 +361,8 @@ ApproverSearch.prototype.approveTimeEntry=function(event){
 	
 	
 }
-ApproverSearch.prototype.rejectTimeEntry=function(event){
-	var timeEntryId=event.target.value;
+ApproverSearch.prototype.rejectTimeEntry=function(){
+	var timeEntryId=timeEntryIdToApproveOrReject;
 	RequestManager.reject({ "payload": {"id":timeEntryId,"rejectedComments":$(".comments").val()} },function(data,success){
 		if(success){
 			if(data){
@@ -418,4 +422,5 @@ ApproverSearch.prototype.validateSearchCriteria=function(){
 	  return isvalid;
 }
 var statusToApproveOrReject;
+var timeEntryIdToApproveOrReject;
 

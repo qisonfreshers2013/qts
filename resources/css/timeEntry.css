@@ -38,7 +38,7 @@ p {
 .datepicker {
     background-color: #FFFFFF;
     margin-left: 0;
-    margin-top: -2%;
+    margin-top: -3%;
 }
 .projectId {
     margin-left: 0;
@@ -54,10 +54,10 @@ p {
 }
 .selectRelease {
     margin-left: 0;
-    margin-top: 25%;
+    margin-top: 27%;
 }
 .selectActivity {
-    margin-top: 10%;
+    margin-top: 7%;
 }
 .userRemarks {
     margin-left: 0;
@@ -73,7 +73,6 @@ p {
 }
 .cancel {
     background-color: #669933;
-    border: medium none;
     color: #FFFFFF;
     font-weight: bold;
     margin-left: 108%;
@@ -82,11 +81,10 @@ p {
 }
 .save {
     background-color: #669933;
-    border: medium none;
     color: #FFFFFF;
     font-weight: bold;
     margin-left: 127%;
-    margin-top: -22%;
+    margin-top: -23%;
     text-align: center;
 }
 .remarksHeader {
@@ -95,4 +93,10 @@ p {
 }
 #calendarIcon {
     margin: -46% 1% 1% 108%;
+    position: relative;
+}
+#minutes {
+    margin-left: 71%;
+    margin-top: -40%;
+    postion: relative;
 }

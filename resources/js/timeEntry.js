@@ -45,6 +45,7 @@ TimeEntry.prototype.getRequestParameters=function(){
 			               "projectId":$('.projectId').val(),
 			               "task":$('.task').val(),
 			               "hours":$('.hours').val(),
+			               "minutes":$('.minutes').val(),
 			               "activityId":$('.selectActivity').val(),
 			               "releaseId":$('.selectRelease').val(),
 			               "userRemarks":$('.userRemarks').val()
@@ -61,6 +62,7 @@ TimeEntry.prototype.getInputForTimeSheetFilling=function(){
 			    	         "task":requestParameters.task,
 	                         "activityId":requestParameters.activityId,
 	                         "hours":requestParameters.hours,
+	                         "minutes":requestParameters.minutes,
 	                         "status":"0",
 	                         "userRemarks":requestParameters.userRemarks
 			               }
@@ -92,7 +94,9 @@ TimeEntry.prototype.setRequestParameters=function(updateRequestParameters){
 		RequestManager.addTimeEntry(input, function(data, success) {
 			if (success) {
 			      alert("TimeEntry Saved");
+			      $("#cancel").trigger("click");
 			      $(".searchUserTimeEntries").trigger("click");
+			      
 			    } else {
 			    	$.ambiance({
 	    			    message : data.message,
@@ -100,7 +104,7 @@ TimeEntry.prototype.setRequestParameters=function(updateRequestParameters){
 	    			   });
 			}
 		}.ctx(this));
-		DefaultTimeSheetPage.searchUserTimeEntries();
+		//DefaultTimeSheetPage.searchUserTimeEntries();
 		$( "#loadTimeSheetFilling" ).modal( "hide" );
 		
  }
@@ -182,6 +186,7 @@ TimeEntry.prototype.updateTimeEntry=function(){
          "date":$('.datepicker').val(),
          "task":$('.task').val(),
          "hours":$('.hours').val(),
+         "minutes":$('.minutes').val(),
          "userRemarks":$('.userRemarks').val(),
          "status":0
          } 
