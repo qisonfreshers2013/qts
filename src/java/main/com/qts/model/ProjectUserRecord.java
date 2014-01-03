@@ -12,7 +12,7 @@ public class ProjectUserRecord {
 	private String designation;
 	private String userId;
 	private String firstName;
-	private Set<String> roles=new HashSet<String>();
+	private Set<String> roleNames=new HashSet<String>();
 	
 	public ProjectUserRecord(){
 		
@@ -83,12 +83,12 @@ public class ProjectUserRecord {
 		this.userId = userId;
 	}
 
-	public Set<String> getRoles() {
-		return roles;
+	public Set<String> getRoleNames() {
+		return roleNames;
 	}
 
-	public void setRoles(Set<String> roles) {
-		this.roles = roles;
+	public void setRoleNames(Set<String> roleNames) {
+		this.roleNames = roleNames;
 	}
 	
 	
