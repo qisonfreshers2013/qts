@@ -18,62 +18,31 @@ public class TimeEntryBean {
 	private String userRemarks;
 	private Integer status;
     private String approvedComments;
-    public String getUserName() {
-		return userName;
-	}
-
-	public void setUserName(String userName) {
-		this.userName = userName;
-	}
-
-	public String getReleaseVersion() {
-		return releaseVersion;
-	}
-
-	public void setReleaseVersion(String releaseVersion) {
-		this.releaseVersion = releaseVersion;
-	}
-
-	public String getActivity() {
-		return activity;
-	}
-
-	public void setActivity(String activity) {
-		this.activity = activity;
-	}
-
-
 	private String rejectedComments;
     private String userName;
     private String releaseVersion;
     private String activity;
     private String projectName;
     private long dateInLong;
-	public long getDateInLong() {
-		return dateInLong;
-	}
-
-	public void setDateInLong(long dateInLong) {
-		this.dateInLong = dateInLong;
-	}
 
 	public TimeEntryBean() {
 	}
 
-	public TimeEntryBean(long userId, String date, long projectID,
-			long releaseId, String task, long activityId, int hours,
-			String remarks,String from,String to) {
-		this.date = date;
-		this.projectId = projectID;
-		this.releaseId = releaseId;
-		this.task = task;
-		this.activityId = activityId;
-		this.hours = hours;
-		this.userRemarks = remarks;
-		this.from=from;
-		this.to=to;
-	}
-
+	public TimeEntryBean(TimeEntries timeEntry) {
+		this.id =timeEntry.getId();
+		this.userId=timeEntry.getUserId();
+		this.dateInLong=timeEntry.getDate();
+		this.projectId=timeEntry.getProjectId();
+		this.releaseId=timeEntry.getReleaseId();
+		this.task=timeEntry.getTask();
+		this.activityId=timeEntry.getActivityId();
+		this.hours=timeEntry.getHours();
+		this.userRemarks=timeEntry.getRemarks();
+		this.approvedComments=timeEntry.getApprovedComments();
+		this.rejectedComments=timeEntry.getRejectedComments();
+		
+	} 
+	
 	public String getProjectName() {
 		return projectName;
 	}
@@ -196,6 +165,36 @@ public class TimeEntryBean {
 	public void setId(Long id) {
 		this.id = id;
 	}
+ public String getUserName() {
+			return userName;
+		}
 
+public void setUserName(String userName) {
+		this.userName = userName;
+		}
+
+public String getReleaseVersion() {
+			return releaseVersion;
+		}
+
+public void setReleaseVersion(String releaseVersion) {
+			this.releaseVersion = releaseVersion;
+		}
+
+public String getActivity() {
+			return activity;
+		}
+
+public void setActivity(String activity) {
+			this.activity = activity;
+		}
+
+public long getDateInLong() {
+			return dateInLong;
+		}
+
+public void setDateInLong(long dateInLong) {
+			this.dateInLong = dateInLong;
+		}
 
 }
