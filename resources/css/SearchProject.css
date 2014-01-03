@@ -13,14 +13,9 @@ width:100%;
 #results{
 	margin-top:10%;
 }
-#adminDiv,#memberDiv,#approverDiv{
+#memberDiv,#approverDiv{
 	float:left;
 	width:100%;
-}
-#adminHeadLine{
-	border-bottom:1px solid #99CC2F;
-	margin-bottom:1%;
-	color: #99CC2F;
 }
 #memberHeadLine{
 	border-bottom:1px solid #F77E0D;
