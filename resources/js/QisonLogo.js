@@ -1,10 +1,10 @@
-function QisonLogo(roleIds) {
-	this.handleShow(roleIds);
+function QisonLogo() {
+	this.handleShow();
 }
 
-QisonLogo.prototype.handleShow = function(roleIds) {
+QisonLogo.prototype.handleShow = function() {
 	$('#qisonLogoImg').css('cursor','pointer');
 	$('#qisonLogoImg').click(function(){
-		App.loadOptions(roleIds);
+		App.loadOptions();
 	});
 }

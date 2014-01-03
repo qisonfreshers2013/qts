@@ -1,13 +1,13 @@
 /**
  * 
  */
-function SearchUser(roles){
+function SearchUser(){
 	Loader.loadHTML('.container', 'SearchUser.html',false, function(){
 		 $('.resultsContainer').hide();		
-		this.handleShow(roles);
+		this.handleShow();
 	}.ctx(this));
 }
-SearchUser.prototype.handleShow = function(roles){
+SearchUser.prototype.handleShow = function(){
 	
 	// show loading symbol
 	// get the data for the default search
@@ -59,11 +59,11 @@ SearchUser.prototype.handleShow = function(roles){
 			isNicknameValidated = this.validateNickname($('input.nickname'));	
 		}
 		if(isNicknameValidated&&isEmailValidated&&isDesignationValidated){		
-		this.search(roles,nickname,email,designation,employeeId);
+		this.search(nickname,email,designation,employeeId);
 		}
 	}.ctx(this));
 }
-SearchUser.prototype.search = function(roles,nickname,email,designation,employeeId){
+SearchUser.prototype.search = function(nickname,email,designation,employeeId){
 	
 	var input = {"payload":{
 		"nickName":nickname,		
@@ -74,7 +74,7 @@ SearchUser.prototype.search = function(roles,nickname,email,designation,employee
 	RequestManager.search(input,function(data,success){		
 		if(success){			
 			console.log("success : search results");
-			App.loadSearchResults(data,roles);	
+			App.loadSearchResults(data);	
 			$('.error').empty();
 		}	
 		else{
@@ -118,12 +118,20 @@ SearchUser.prototype.validateNickname= function(nickname){
 	    	//nickname.focus().css("border-color","red");
 	    	
 	    	nickname.focus();
-	    	$('p.error').text("Nickname is invalid");
+	    	$.ambiance({
+			    message :"Nickname is invalid",
+			    type : 'error'
+			   });	
+	    	//$('p.error').text("Nickname is invalid");
 	        isValid = false;
 	    }
 	    else if(nicknameVal.length > 128){
+	    	$.ambiance({
+			    message :"Maximum length of nickname is 128",
+			    type : 'error'
+			   });
 	    	//nickname.focus().css("border-color","red");
-	    	$('p.error').text("Maximum length of nickname is 128");
+	    	//$('p.error').text("Maximum length of nickname is 128");
 	    }
 	    else 
 	    	{  // nickname.focus().css("border-color","blue");
@@ -144,14 +152,21 @@ SearchUser.prototype.validateEmail = function(email){
     if(!emailReg.test(emailVal)) {
     	email.focus();
     	//email.addClass("focus");
-    	
-    	$('p.error').text("Invalid Email");
+    	$.ambiance({
+    		message:"Invalid Email",
+    		type:'error'
+    	});
+    	//$('p.error').text("Invalid Email");
         isValid = false;
     }	
     else if (emailVal.length > 128){	  
     	//email.addClass("focus");
     	email.focus();
-    	$('p.error').text("Maximum length of email is 128");
+    	$.ambiance({
+    		message:"Maximum length of email is 128",
+    		type:'error'
+    	});
+    	//$('p.error').text("Maximum length of email is 128");
         isValid = false; 
     }
 	    else
@@ -171,15 +186,23 @@ SearchUser.prototype.validateDesignation = function(designation){
 	//$(".error").show();
 	    var designationVal = designation.val();
 	    if(!designationReg.test(designationVal)) {
-	    	$('p.error').text("Designation is invalid");
+	    	$.ambiance({
+	    		message:"Designation is invalid",
+	    		type:'error'
+	    	});
+	    	//$('p.error').text("Designation is invalid");
 	    	//designation.focus().css("border-color","red");
 	    	designation.focus();
 	        isValid = false;
 	    }
-	    else if (designationVal.length > 128){	    
+	    else if (designationVal.length > 128){	  
+	    	$.ambiance({
+	    		message:"Maximum length of designation is 128",
+	    		type:'error'
+	    	});
 	    	//designation.focus().css("border-color","red");
 	    	designation.focus();
-	    	$('p.error').text("Maximum length of designation is 128");
+	    	//$('p.error').text("Maximum length of designation is 128");
 	      isValid = false; 
 	    }
 	    else

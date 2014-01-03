@@ -27,7 +27,7 @@
     width: 40%;
 
 }
-#save{
+.saveAPR,.cancelAPR{
     background-color: #669933;
     border: medium none;
     border-radius:5px;
@@ -35,6 +35,6 @@
     font-weight: bold;
     position: relative;
     text-align: center;
-    width: 28%;
+    width: 28% !important;
 }
 

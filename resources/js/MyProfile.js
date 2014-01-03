@@ -1,13 +1,13 @@
 /**
  * 
  */
-function MyProfile(){	
+function MyProfile(password){	
 	Loader.loadHTML('.container', 'MyProfile.html', false, function(){
-			this.handleShow();
+			this.handleShow(password);
 	}.ctx(this));
 }
 
-MyProfile.prototype.handleShow = function(){
+MyProfile.prototype.handleShow = function(password){
 	$('#changePasswordModal').hide();	
 	this.loadValues();
 	
@@ -38,7 +38,7 @@ MyProfile.prototype.handleShow = function(){
 		
 	}.ctx(this));
 	$('.changePassword').click(function(){		
-		App.loadChangePassword();		
+		App.loadChangePassword(password);		
 	}.ctx(this));
 	
 }

@@ -13,7 +13,9 @@ img.login{
     width: 21%;
    
 }
-
+.error{
+	margin-left: 3%;
+}
 .clearDivLogin {
     left: 35.5%;
     margin-top: -7.2%;

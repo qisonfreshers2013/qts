@@ -38,39 +38,39 @@ App.prototype.loadSearchProjectResults=function(data){
 	});
 }
 
-App.prototype.loadAddProjectRelease=function(roles){
+App.prototype.loadAddProjectRelease=function(){
 	Loader.loadAddProjectRelease(function(){
-		new AddProjectRelease(roles);
+		new AddProjectRelease();
 	});
 }
 
-App.prototype.loadMenu=function(roles){
+App.prototype.loadMenu=function(){
 	Loader.loadMenu(function(){
-		new Menu(roles);
+		new Menu();
 	});
 }
 
-App.prototype.loadSearchProjectRelease=function(roles){
+App.prototype.loadSearchProjectRelease=function(){
 	Loader.loadSearchProjectRelease(function(){
-		new SearchProjectRelease(roles);
+		new SearchProjectRelease();
 	});
 }
 
-App.prototype.loadOptions=function(roles){
+App.prototype.loadOptions=function(){
 	Loader.loadOptions(function(){
-		new Options(roles);
+		new Options();
 	});
 }
 
-App.prototype.loadWelcome=function(nickName,roleIds){
+App.prototype.loadWelcome=function(nickName,password){
 	Loader.loadWelcome(function(){
-		new Welcome(nickName,roleIds);
+		new Welcome(nickName,password);
 	});
 }
 
-App.prototype.loadReleaseResult=function(roles){
+App.prototype.loadReleaseResult=function(){
 	Loader.loadReleaseResult(function(){
-		new ReleaseResult(roles);
+		new ReleaseResult();
 	});
 }
 
@@ -88,9 +88,9 @@ App.prototype.loadDefaultApproverPage=function(){
 	Loader.loadDefaultApproverPage();
 }
 
-App.prototype.loadQisonLogo=function(roleIds){
+App.prototype.loadQisonLogo=function(){
 Loader.loadQisonLogo(function(){
-new QisonLogo(roleIds);
+new QisonLogo();
 });
 	
 }
@@ -231,21 +231,21 @@ new Roles();
 
 
 
-App.prototype.loadSearchUser = function (roles) {
+App.prototype.loadSearchUser = function () {
 	Loader.loadSearchUser(function (){
-		new SearchUser(roles);
+		new SearchUser();
 	});	
 }
 
-App.prototype.loadSearchResults = function (data,roles) {
+App.prototype.loadSearchResults = function (data) {
 	Loader.loadSearchResults(function (){
-		new SearchResults(data,roles);
+		new SearchResults(data);
 	});
 }
 
-App.prototype.loadMyProfile = function () {
+App.prototype.loadMyProfile = function (password) {
 	Loader.loadMyProfile(function(){
-		new MyProfile();
+		new MyProfile(password);
 	});
 }
 

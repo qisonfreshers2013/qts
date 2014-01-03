@@ -2,13 +2,13 @@
  * 
  */
 
-function SearchProjectRelease(roles) {
+function SearchProjectRelease() {
 	Loader.loadHTML('.container', 'SearchProjectRelease.html', false, function(){
-		this.handleShow(roles);
+		this.handleShow();
 	}.ctx(this));
 }
 
-SearchProjectRelease.prototype.handleShow = function(roles) {
+SearchProjectRelease.prototype.handleShow = function() {
 	$('.SelectProject').focus();
 	RequestManager.getProjects({},function(data,success){
 		if(success){
@@ -36,11 +36,11 @@ SearchProjectRelease.prototype.handleShow = function(roles) {
 
 	$('.SelectProject').change(function(){
 		var projectId=parseInt($('select.SelectProject option:selected').attr('value'));
-		if(roles.contains(1)){
+		if(roleNames.contains('ADMIN')){
 			$('.add').empty();
 			if(projectId!=0){
 				
-				$('.add').append('<div><button class="AddPR" id="AddPR">Add Release</button></div>');
+				$('.add').append('<div><button type="button" class="AddPR" id="AddPR">Add Release</button></div>');
 				$('#AddPR').css({
 					"background-color": "#669933",
 					"border": "medium none",
@@ -56,11 +56,11 @@ SearchProjectRelease.prototype.handleShow = function(roles) {
 					"font-size":"16px"
 				});
 				$('.AddPR').click(function(){
-					App.loadAddProjectRelease(roles);
+					App.loadAddProjectRelease();
 				}.ctx(this));
 			}
 		}
-		App.loadReleaseResult(roles);
+		App.loadReleaseResult();
 	}.ctx(this));
 
 }

@@ -2,10 +2,8 @@ package com.qts.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-
 import javax.persistence.Table;
 
 /**
@@ -59,61 +57,49 @@ public class User extends AbstractObject{
 
  @Column(name = "PHOTO_FILE_ID",columnDefinition= "BIGINT")
  private long photoFileId;
+ 
+ @Column(name="IS_ADMIN",columnDefinition="BIT")
+ private boolean isAdmin;
  public User() {
   
  }
- /**
-  * 
-  * @param email
-  * @param password
-  * @param employeeId
-  * @param photoFileId
-  * @param firstName
-  * @param lastName
-  * @param nickName
-  * @param location
-  * @param gender
-  * @param designation
-  * @param cts
-  * @param mts
-  * @param createdBy
-  * @param modifiedBy
-  * @param isDelete
-  * @param userId
-  * @param photoFileId
-  * 
-  */
+
  
  public static final String AUTH_TYPE_REGULAR = "REGULAR";
  public static final int AUTH_STATUS_EXISTING = 0;
  public static final int AUTH_STATUS_NEW = 1; 
  public static final int AUTH_STATUS_NONE = 2;
  
- public User(String email, String password, String employeeId,
-   String firstName, String lastName,
-   String nickName, String location, boolean gender, String designation,
-   long cts, long mts, String createdBy, String modifiedBy,
-   Boolean isDeleted, String userId,long photoFileId) {
-  this.email = email;
-  this.password = password;
-  this.employeeId = employeeId;
-  this.firstName = firstName;
-  this.lastName = lastName;
-  this.nickName = nickName;
-  this.location = location;
-  this.gender = gender;
-  this.designation = designation;
-  this.cts = cts;
-  this.mts = mts;
-  this.createdBy = createdBy;
-  this.modifiedBy = modifiedBy;
-  this.isDeleted = isDeleted;
-  this.userId = userId;
-  this.photoFileId = photoFileId;
-  
- }
 
- /**
+ 
+
+ public User( String email, String password, String employeeId,
+		String firstName, String lastName, String nickName, String location,
+		boolean gender, String designation, long cts, long mts,
+		String createdBy, String modifiedBy, Boolean isDeleted, String userId,
+		long photoFileId, boolean isAdmin) {
+	super();
+	
+	this.email = email;
+	this.password = password;
+	this.employeeId = employeeId;
+	this.firstName = firstName;
+	this.lastName = lastName;
+	this.nickName = nickName;
+	this.location = location;
+	this.gender = gender;
+	this.designation = designation;
+	this.cts = cts;
+	this.mts = mts;
+	this.createdBy = createdBy;
+	this.modifiedBy = modifiedBy;
+	this.isDeleted = isDeleted;
+	this.userId = userId;
+	this.photoFileId = photoFileId;
+	this.isAdmin = isAdmin;
+}
+
+/**
   * @return the id
   */
  public long getId() {
@@ -365,10 +351,22 @@ public class User extends AbstractObject{
 //		this.photoFile = photoFile;
 //	}
 //	
+ 
+ 
+ 
 	@Override
 	public int getObjectType() {
 		
 		return ObjectTypes.USER;
+	}
+
+	public void setIsAdmin(boolean isAdmin) {
+		this.isAdmin = isAdmin;
+	}
+
+	public boolean getIsAdmin() {
+		// TODO Auto-generated method stub
+		return isAdmin;
 	}
 
 }

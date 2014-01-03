@@ -51,7 +51,9 @@ AddUser.prototype.handleShow = function() {
 		}
 		
 	}.ctx(this));
-	
+	$('.clear').click(function() {
+		$('.error').remove();
+	});
 	
 }
 

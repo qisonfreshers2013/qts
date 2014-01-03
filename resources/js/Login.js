@@ -8,18 +8,36 @@ function Login() {
 	}.ctx(this));
 }
 
+var roleNames=new Array();
+
 Login.prototype.handleShow = function() {
 	$('.container').show();
 	$('.rightContainer').show();
 	$('#userId').focus();
 	
-	$(document.documentElement).keyup(function (event) {
+	$("#loginDiv").keyup(function (event) {
 		  if (event.keyCode == 13) {
 			  if(this.validateLogin($('input.userId').val(),$('input.password').val())){		
 					this.authenticate();
 					}
 		  }
 		 }.ctx(this));
+	
+	$('#forgotPasswordModal').keyup(function (event) {
+		  if (event.keyCode == 13) {
+				$(".error").remove();
+				$( "button.submitEmail" ).trigger("click");
+		}
+	
+		}.ctx(this));
+
+	$('#forgotPasswordModal').keyup(function (event) {
+		  if (event.keyCode == 27) {
+				$(".error").remove();
+				$( "button#forgotButton" ).trigger("click");
+				$("input.emailToSend" ).val("");			
+		}		
+		}.ctx(this));
 	
 
 	
@@ -68,13 +86,7 @@ Login.prototype.handleShow = function() {
 	$("button.forgotButton").click(function(){
 		$("input.emailToSend" ).val("");
 	}.ctx(this));
-	$("#forgotPasswordModal.documentElement").keyup(function (event) {
-		  if (event.keyCode == 13) {
-			  if(this.validateLogin($('input.userId').val(),$('input.password').val())){		
-					this.authenticate();
-					}
-		  }
-		 }.ctx(this));
+
 	
 	
 }
@@ -87,17 +99,17 @@ Login.prototype.authenticate = function() {
 	
 	RequestManager.authenticate(input, function(data, success) {
 		if(success){
-		 var roleIds=data.roleIds;
+		 roleNames=data.roleNames;
 		      var  token = data.sessionToken;
 		      setCookie('qtsSessionId', token, null);
 		      if(data.user.nickName == null  || data.user.nickName.trim().length < 1){
-		    	 App.loadWelcome(data.user.lastName,roleIds);
+		    	 App.loadWelcome(data.user.lastName,data.user.password);
 		      }
 		      else{		    	
-		    	  	App.loadWelcome(data.user.nickName ,roleIds);
+		    	  	App.loadWelcome(data.user.nickName,data.user.password);
 		    	  }		     
-		      App.loadOptions(roleIds);
-		      App.loadQisonLogo(roleIds);
+		      App.loadOptions();
+		      App.loadQisonLogo();
 
 		}else{
 			
@@ -139,6 +151,7 @@ Login.prototype.openEmailDialogBox = function() {
 	$(".error").hide();
 	console.log("modal");
 	$('#forgotPasswordModal').modal('show');	
+	$(".emailForgot").focus();
 }
 
 
@@ -157,26 +170,23 @@ Login.prototype.validateLogin = function(email,password){
 
     else if(!emailReg.test(email)) {
     	$('.userId').focus();
-    	$('.userId').after('<span class = "error"  style = "color:red" >Enter the valid UserId</span>');
+    	$('.userId').after('<span class = "error"  style = "color:red" >invalid UserId</span>');
         isValid = false;
     }
     else if (email.length > 128){
     	$('.userId').focus();
-    	$('.userId').after('<span class = "error"  style = "color:red" >Maximum length of Email is 128</span>');
+    	$('.userId').after('<span class = "error"  style = "color:red" >UserId too long</span>');
         isValid = false;    	
     }
 	 else if(password.trim().length < 6 ){
 		$('.password').focus();
-		$('.password').after('<span class = "error" style = "color:red" >Minimum length of passsword is 6</span>');
-//{
-//			  $( this ).after.css( "display", "inline" ).fadeOut( 1000 );
-//			});
+		$('.password').after('<span class = "error" style = "color:red" >password too short</span>');
         isValid = false;
 	}
 	else if(password.trim().length  > 128)
 		{
 			$('.password').focus();
-			$('.password').after('<span class = "error" style = "color:red" >Maximum length of passsword is 128</span>');		
+			$('.password').after('<span class = "error" style = "color:red" >password too long</span>');		
 		}
 	    else
 		{
@@ -195,17 +205,17 @@ Login.prototype.validateEmail = function(emailRef){
    
     if(emailVal == '') {
     	emailRef.focus();
-    	emailRef.after('<span class = "error" style = "color:red" >Email can not be null</span>');
+    	emailRef.after('<span class = "error" style = "color:red;" >Email can not be null</span>');
         isValid = false;
     }
 
     else if(!emailReg.test(emailVal)) {
     	emailRef.focus();
-    	emailRef.after('<span class = "error"  style = "color:red" >Enter the valid Email</span>');
+    	emailRef.after('<span class = "error"  style = "color:red;" >Enter the valid Email</span>');
         isValid = false;
     }	else if (emailVal.length > 128){
     	emailRef.focus();
-    	emailRef.after('<span class = "error"  style = "color:red" >Maximum length of Email is 128</span>');
+    	emailRef.after('<span class = "error"  style = "color:red;" >Maximum length of Email is 128</span>');
         isValid = false;    	
     }
 	    else

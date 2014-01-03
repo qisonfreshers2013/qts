@@ -107,7 +107,10 @@ UserProfile.prototype.saveUserProfile = function(id) {
 		
 		RequestManager.updateUserDetails(input, function(data, success){
 			if(success){
-				alert('success : '+data);
+				$.ambiance({
+				    message :"Successfull",
+				    type : 'success'
+				   });
 				
 			}
 			else{				

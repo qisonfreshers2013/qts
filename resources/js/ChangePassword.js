@@ -5,14 +5,16 @@
  * 
  */
 
-function ChangePassword(){
+function ChangePassword(password){
 	Loader.loadHTML('#changePasswordModal', 'ChangePassword.html', true, function(){		
-		this.handleShow();			
+		this.handleShow(password);			
 	}.ctx(this));
 }
-ChangePassword.prototype.handleShow = function(){
+ChangePassword.prototype.handleShow = function(dbPassword){
 	console.log('calling modelshow');	
+	
 	$('#changePasswordModal').modal('show');
+	$('input.oldPasswordTextCP').focus();
 	
 	$('#changePasswordModal').keyup(function (event) {
 		  if (event.keyCode == 13) {
@@ -32,17 +34,45 @@ ChangePassword.prototype.handleShow = function(){
 		}.ctx(this));
 	
 	console.log('called modelshow');
-	$('button#submitPassword').click(function(){	
-		var oldPassword = $('input.oldPasswordTextCP');
-		var password = $('input.passwordTextCP');
-		var confirmPassword = $('input.confirmPasswordTextCP');
-		if(this.validatePassword(oldPassword)){
-			if(this.validatePassword(password)){
-				if(this.validateConfirmPassword(confirmPassword,password)){
-					this.changePassword(oldPassword.val(),password.val(),confirmPassword.val());
-				}
-			}
-		}
+	$('button#submitPassword').click(function(){
+		  var oldPassword = $('input.oldPasswordTextCP');
+		  var password = $('input.passwordTextCP');
+		  var confirmPassword = $('input.confirmPasswordTextCP');
+		  
+		  if(dbPassword!=oldPassword.val()){
+			   $.ambiance({
+			       message : "invalid old password",
+			       type : 'error'
+			      }); 
+			   
+			  }
+			  else if(password.val().length<6){
+			   $.ambiance({
+			       message : "Minimum length of password is 6 characters",
+			       type : 'error'
+			      }); 
+			   
+			  }else if(oldPassword.val().length>128){
+			   $.ambiance({
+			       message : "Maximum length of password is 128 characters",
+			       type : 'error'
+			      });
+			   
+			  }else if(password.val()!=confirmPassword.val()){
+			   $.ambiance({
+			       message : "Confirm password must equal to password",
+			       type : 'error'
+			      });
+			   
+			  }else if(dbPassword==password.val()&&dbPassword==confirmPassword.val()){
+			   $.ambiance({
+			       message : " old password and new password are same",
+			       type : 'error'
+			      });
+			   
+			  }else{
+			   this.changePassword(oldPassword.val(),password.val(),confirmPassword.val());
+			  }
 //var isOldPasswordValidated  = this.validatePassword(oldPassword);
 //var isPasswordValidated = this.validatePassword(password);
 //var isConfirmPasswordValidated = this.validateConfirmPassword(confirmPassword,password);

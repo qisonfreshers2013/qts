@@ -19,6 +19,8 @@
 
 p.upperDesignationField {
 	width: 21%;
+	position: relative;
+    left: 23%;
 }
 
 .profileHeader {
@@ -40,12 +42,12 @@ p.upperDesignationField {
 }
 
 button.changePassword {
-	background-color: #669933;
-	border-radius: 5%;
-	display: inline-block;
-	text-decoration: none;
-	width: 18%;
-	color:#FFFFFF;
+    background-color: #669933;
+    border-radius: 5%;
+    color: #FFFFFF;
+    display: inline-block;
+    text-decoration: none;
+    width: 26.5%;
 }
 
 .editProfileHeader {
@@ -53,11 +55,14 @@ button.changePassword {
 	position: relative;
 }
 
+
 button.clearMyProfile {
-	width: 7%;
-	padding: 0.1%;
-	background-color: #669933;
-	color: #FFFFFF;
+	
+    background-color: #669933;
+    color: #FFFFFF;
+    padding: 0.1%;
+    width: 12%;
+
 }
 
 p {
@@ -66,7 +71,6 @@ p {
 }
 
 .editFields {
-	float: left;
 	font-size: 13px;
 	line-height: 38px;
 	position: relative;
@@ -74,9 +78,11 @@ p {
 }
 
 .editTextFields {
-	left: 0;
-	line-height: 47px;
-	position: relative;
+    left: 20%;
+    line-height: 47px;
+    margin-top: -45%;
+    position: relative;
+    width: 80%;
 	
 }
 
@@ -86,28 +92,31 @@ p {
 }
 
 button.submitMyProfile {
-	width: 7%;
-	background-color: #669933;
-	  color: #FFFFFF;
-	     padding: 0;
+
+    background-color: #669933;
+    color: #FFFFFF;
+    padding: 0.1%;
+    width: 10%;
 }
 
 #clearMyProfileDiv {
-	left: 27%;
-	position: relative;
-	margin-top: -2.4%;
+    margin-left: 33%;
+    margin-top: -2.3%;
+    position: relative;
+    width: 67%;
 }
 
 #submitMyProfileDiv {
-	left: 16%;
-	margin-top: 0%;
-	position: relative;
+    margin-left: 20%;
+    margin-top: 0;
+    position: relative;
+    width: 80%;
 }
 
 div.changePasswordDiv {
-	left: 16%;
-	margin-top: 1.8%;
-	position: relative;
+    margin-left: 20%;
+    margin-top: 1.8%;
+    position: relative;
 }
 
 div.userIdTextDiv {
@@ -130,4 +139,9 @@ input.userIdText {
 /*.userId {*/
 /*   margin: 0 0 7%;*/
 /*}*/
+
+input.employeeIdText, input.emailText, input.userIdText, input.designationText, input.genderText, input.firstNameText, input.lastNameText, input.nicknameText, input.locationText {
+    width: 25%;
+}
+
 

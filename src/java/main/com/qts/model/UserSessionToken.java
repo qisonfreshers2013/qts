@@ -22,18 +22,6 @@ public class UserSessionToken implements Serializable {
     protected long userId;  
     protected String nickName; //anil
     
-    
-    ///////////////////////////////
-    protected Set<Long> roleIds=new HashSet<>();
-
-    public Set<Long> getRoleIds() {
-		return roleIds;
-	}
-
-	public void setRoleIds(Set<Long> roleIds) {
-		this.roleIds = roleIds;
-	}
-	//////////////////////////////////////////////
 	/**
 	 * @return the nickName
 	 */

@@ -123,12 +123,13 @@ public class UserHandler extends AbstractHandler {
 			String modifiedBy = createdBy;// default modified By = created By 
 			//storing gender by converting String to Boolean
 			boolean gender = bean.getGender().equalsIgnoreCase("male") ? true
-					: false;			
+					: false;
+			boolean isAdmin = false;
 			user = new User(bean.getEmail(), bean.getPassword(),
 					bean.getEmployeeId(), bean.getFirstName(),
 					bean.getLastName(), bean.getNickName(), bean.getLocation(),
 					gender, bean.getDesignation(), cts, mts, createdBy,
-					modifiedBy, isDeleted, bean.getUserId(), photoFileId);			
+					modifiedBy, isDeleted, bean.getUserId(), photoFileId,isAdmin);			
 			newId = userDAOImpl.addUser(user);
 		
 		 }
