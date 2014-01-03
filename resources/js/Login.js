@@ -34,12 +34,17 @@ Login.prototype.handleShow = function() {
 	$('#forgotPasswordModal').keyup(function (event) {
 		  if (event.keyCode == 27) {
 				$(".error").remove();
-				$( "button#forgotButton" ).trigger("click");
+				//$( "button#forgotButton" ).trigger("click");
+				$('#forgotPasswordModal').modal('hide');
 				$("input.emailToSend" ).val("");			
 		}		
 		}.ctx(this));
-	
-
+	$('#forgotPasswordModal').on('hide',function(){
+		$('.loginDiv').children().prop("disabled",false);
+	}.ctx(this));
+	$('#forgotPasswordModal').on('show',function(){
+		$('.loginDiv').children().prop("disabled",true);
+	}.ctx(this));
 	
 //	$("#userId").blur(function(){
 //		//$(".error").hide();			
@@ -84,6 +89,7 @@ Login.prototype.handleShow = function() {
 	}.ctx(this));
 	
 	$("button.forgotButton").click(function(){
+		$('#forgotPasswordModal').modal('hide');
 		$("input.emailToSend" ).val("");
 	}.ctx(this));
 
@@ -126,8 +132,11 @@ Login.prototype.authenticate = function() {
 }
 	
 Login.prototype.sendMail = function(email){
+	$("input.emailToSend").after('<span class=\"error\ id=\"processing\">Processing.Please wait...</span>');
 	var input = {"payload":{"email":email}};
+	
 	RequestManager.sendMail(input,function(data,success){
+		
 		if(success){
 			$("input.emailToSend" ).val("");	
 			$.ambiance({
@@ -135,7 +144,7 @@ Login.prototype.sendMail = function(email){
 				  type : 'success'
 				});
 		$('#forgotPasswordModal').modal('hide');
-		
+		$('.loginDiv').children().prop("disabled",false);
 		}
 		else{
 			$.ambiance({
@@ -150,8 +159,9 @@ Login.prototype.sendMail = function(email){
 Login.prototype.openEmailDialogBox = function() {	
 	$(".error").hide();
 	console.log("modal");
-	$('#forgotPasswordModal').modal('show');	
-	$(".emailForgot").focus();
+	$('#forgotPasswordModal').modal('show');
+	$('.loginDiv').children().prop("disabled",true);
+	$(".emailToSend").focus();
 }
 
 
