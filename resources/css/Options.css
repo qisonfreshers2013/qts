@@ -30,29 +30,31 @@
 
 
 .pmImg{
-	position: relative;
-	top: 30%; 
-	left: 41%;"
+    left: 41%;
+    padding-top: 15%;
+    position: relative;
 }
 .pmText{
-	 color: white; 
-	 position: relative; 
-	 top: 47%; 
-	 left: 4%;
+    color: #FFFFFF;
+    padding-left: 4%;
+    padding-top: 10%;
+    position: relative;
 }
 .prmImg{
-	position: relative;
-	left: 36%; 
-	top: 30%;
+    left: 41%;
+    padding-top: 15%;
+    position: relative;
 }
 .prmText{
 	 color: white; 
-	 position: relative; top: 48.5%; left: 4%;
+	 position: relative; padding-top: 10%; padding-left: 4%;
 }
 
 .suImg{
-	position: relative; left: 37%; top: 27%;
+	left: 41%;
+    padding-top: 15%;
+    position: relative;
 }
 .suText{
-	 color: white; position: relative; left: 4%; top: 40%;
+	 color: white; position: relative; padding-left: 4%; padding-top: 6%;
 }

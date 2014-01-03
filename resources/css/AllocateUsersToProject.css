@@ -39,7 +39,7 @@
     font-weight: bold;
     height: 18px;
     text-align: center;
-    width: 28%;
+    width: 28% !important;
 }
 #projectName{
  width:31%;	
@@ -47,4 +47,9 @@
 
 .projectNameAllocate{
 	margin-left:15%;
+}
+#nonExistingUsers,#existingUsers{
+	width:33%; 
+	height:120px;
+	
 }

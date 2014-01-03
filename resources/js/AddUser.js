@@ -19,6 +19,11 @@ AddUser.prototype.handleShow = function() {
 	$('input.email').blur(function(){
 		$('input.userId').val($('input.email').val()) ; 
 		}.ctx(this));
+	$('div.addUSer').keyup(function(event){
+		if(event.keyCode == 13){
+			$('button#submit').trigger("click");
+		}
+	}.ctx(this));
 	
 	$('.submit').click(function(){
 		if(this.validateName($('input.firstName'))){
@@ -46,7 +51,9 @@ AddUser.prototype.handleShow = function() {
 		}
 		
 	}.ctx(this));
-	
+	$('.clear').click(function() {
+		$('.error').remove();
+	});
 	
 }
 

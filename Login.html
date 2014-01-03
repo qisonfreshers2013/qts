@@ -17,7 +17,7 @@
 <input id = "password"  class = "password passwordWidth" type = "password" placeholder= "Password"  pattern=".{6,}" title = "minimum length is 6" required/>
 </div>
 <div id = "forgotPassword" class = "forgotPassword">
-<a id = "forgotPasswordLink" class = "forgotPasswordLink" data-target="#forgotPasswordModal">Forgot Password</a>
+<a id = "forgotPasswordLink" class = "forgotPasswordLink" data-target="#forgotPasswordModal">Forgot Password ?</a>
 </div>
 <!--<div id = "error" class = "error">-->
 <!--<p id = "error" class = "error"></p>-->
@@ -33,11 +33,16 @@
 </fieldset>
 </div>
 <!-- Modal -->
-<div class="modal fade forgotPasswordModal" id="forgotPasswordModal" data-keyboard="false" data-backdrop="static">
+<div class="modal fade forgotPasswordModal" id="forgotPasswordModal" data-backdrop="static">
+ <div class="modal-header">
+<!--        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>-->
+        <button type="button" id = "forgotButton" class="btn btn-default  forgotButton close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">Email</h4>
+      </div>
 <div class="modal-body"><label id = "emailForgot" class = "emailForgot" for="emailToSend">Email<span id = star class = "star"><sup>*</sup></span></label> <input
 	type="email" name="emailToSend" id="emailToSend" placeholder = "email" class="emailToSend" required></div>
 <div class="modal-footer">
-<button type="button" class="btn btn-default forgotButton" data-dismiss="modal">Cancel</button>
+<!--<button type="button" id  = "forgotButton" class="btn btn-default forgotButton" data-dismiss="modal">Close</button>-->
 <button id = "submitEmail"  type="button" class="btn btn-primary submitEmail">Submit</button>
 </div>
 </div>

@@ -1,18 +1,18 @@
 
-function Welcome(nickname,roles) {
+function Welcome(nickname,password) {
 	Loader.loadHTML('.welcome', 'Welcome.html', true, function(){
-		this.handleShow(nickname,roles);
+		this.handleShow(nickname,password);
 	}.ctx(this));
 }
 
-Welcome.prototype.handleShow = function(nickname,roles) {	
+Welcome.prototype.handleShow = function(nickname,password) {	
 	this.loadNickname(nickname);
 	$('.logout').click(function(){	
 		this.logout();
 	}.ctx(this));
 	$('.myAccount').click(function(){
-		App.loadMenu(roles);
-		App.loadMyProfile();		
+		App.loadMenu();
+		App.loadMyProfile(password);		
 	}.ctx(this));
 	$('.logout').click(function(){		 
 		console.log("logout");

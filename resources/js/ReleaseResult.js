@@ -1,15 +1,15 @@
-function ReleaseResult(roles) {	
+function ReleaseResult() {	
 	Loader.loadHTML('.result', 'ReleaseResult.html', true, function(){
-		this.handleShow(roles);
+		this.handleShow();
 	}.ctx(this));
 }
 
-ReleaseResult.prototype.handleShow = function(roles) {
+ReleaseResult.prototype.handleShow = function() {
 	var projectId=parseInt($('select.SelectProject option:selected').attr('value'));
 	var projectName=$('select.SelectProject option:selected').text();
 	RequestManager.getProjectReleases({"payload":{"projectId":projectId}},function(data,success){
 		if(success){
-			if(roles.contains(1)){
+			if(roleNames.contains('ADMIN')){
 				$('table').append('<th>Release Name</th><th>Project</th><th>Delete</th>');
 				var id=0;
 				var name='';

@@ -1,11 +1,11 @@
-function Menu(roleIds) {
+function Menu() {
 	Loader.loadHTML('.container', 'Menu.html', true, function(){
-		this.handleShow(roleIds);
+		this.handleShow();
 	}.ctx(this));
 }
-Menu.prototype.handleShow=function(roleIds){
+Menu.prototype.handleShow=function(){
 	
-	if(roleIds.contains(1)){
+	if(roleNames.contains('ADMIN')){
 		$('#main').append('<li><a id="um">User Management</a></li>');	
 		$('#pm').append('<ul id="projectOptions">'+
 		        '<li id="addProject" class="dropDown"><a>Add Project</a></li>'+
@@ -17,6 +17,9 @@ Menu.prototype.handleShow=function(roleIds){
 		
 		$('a:hover').css( 'background-color','#CCCCCC').css( 'cursor','pointer');	
 		$('#projectOptions').css( 'background-color', 'rgb(238, 238, 238');	
+		
+		$('#projectOptions').css( 'width', '24%').css('margin-left','-2%');
+		$('#main > li').css('width','24%');
 		
 		$('#um').click(function(){
 			$('#content').remove();
@@ -49,27 +52,52 @@ Menu.prototype.handleShow=function(roleIds){
 		
 		
 		
-		if(roleIds.contains(2)){
+		if(roleNames.contains('APPROVER')){
 			$('#main').append('<li><a id="tsa">Time Sheet Approval</a></li>');
 			
 			
 			$('#projectOptions').css( 'width', '17.5%').css('margin-left','-2%');
+			$('#main > li').css('width','auto');
 			
 			$('#tsa').click(function(){
 				$('#content').remove();
 				App.loadApproverTimeSheetSearch();
 				App.loadDefaultApproverPage();
 			});
+			
+			if(roleNames.contains('MEMBER')){
+				$('#main').append('<li><a id="tsf">Time Sheet Filling</a>');
+				
+				$('#projectOptions').css( 'width', '17%').css('margin-left','-1.8%');
+				$('#main > li').css('width','auto');
+				$('#main > li > a').css('padding','0 1.1em');
+				
+				$('#tsf').click(function(){
+					$('#content').remove();
+					App.loadTimeSheetFilling();
+					App.loadDefaultTimeSheetPage();
+				});
+			}
 		}
-		else{
-			$('#projectOptions').css( 'width', '24%').css('margin-left','-2%');
-			$('#main > li').css('width','24%');
+		
+		else if(roleNames.contains('MEMBER')){
+			$('#main').append('<li><a id="tsf">Time Sheet Filling</a>');
+			
+			$('#projectOptions').css( 'width', '17.5%').css('margin-left','-2%');
+			$('#main > li').css('width','auto');
+			
+			$('#tsf').click(function(){
+				$('#content').remove();
+				App.loadTimeSheetFilling();
+				App.loadDefaultTimeSheetPage();
+			});
 		}
+			
 	}
 	
 	
 	
-	else if(roleIds.contains(2)){
+	else if(roleNames.contains('APPROVER')){
 		$('#main').append('<li><a id="tsa">Time Sheet Approval</a></li>');
 		
 		//click events for approver
@@ -79,7 +107,7 @@ Menu.prototype.handleShow=function(roleIds){
 			App.loadDefaultApproverPage();
 		});
 		
-		if(roleIds.contains(3)){
+		if(roleNames.contains('MEMBER')){
 			$('#main').append('<li><a id="tsf">Time Sheet Filling</a>');
 			
 			$('#tsf').click(function(){
@@ -92,7 +120,7 @@ Menu.prototype.handleShow=function(roleIds){
 		else{
 			$('#main > li').css('width','24%');
 		}
-	}else if(roleIds.contains(3)){
+	}else if(roleNames.contains('MEMBER')){
 		
 		
 		$('#main').append('<li><a id="tsf">Time Sheet Filling</a>');
@@ -111,7 +139,7 @@ Menu.prototype.handleShow=function(roleIds){
 		$('#main > li').css('width','30%');
 	}
 	
-	if(!(roleIds.contains(1))){
+	if(!(roleNames.contains('ADMIN'))){
 	$('#pm').click(function(){
 		$('#content').remove();
 		App.loadSearchProject();
@@ -120,13 +148,13 @@ Menu.prototype.handleShow=function(roleIds){
 	
 	$('#prm').click(function(){
 		$('#content').remove();
-		App.loadSearchProjectRelease(roleIds);
+		App.loadSearchProjectRelease();
 		
 	});
 	
 	$('#su').click(function(){
 		$('#content').remove();
-		App.loadSearchUser(roleIds);
+		App.loadSearchUser();
 	});
 	
 }
