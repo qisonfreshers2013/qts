@@ -36,7 +36,7 @@ tr:nth-child(2n+1) {
 .searchByDate {
     float: left;
     margin-left: 2%;
-    margin-top: 0%;
+    margin-top: 0;
 }
 .projectHeader {
     float: left;
@@ -51,9 +51,9 @@ tr:nth-child(2n+1) {
     top: 0;
 }
 .searchUserTimeEntries {
-    left: 51%;
+    left: 47%;
     position: relative;
-    top: 0%;
+    top: 0;
 }
 .savedTimeSheetsEntries {
     margin: 0.5%;
@@ -100,5 +100,6 @@ tr:nth-child(2n+1) {
     top: 3%;
 }
 #calendar {
-    margin: 3.8px 1% 1% -50%;
+    margin: 3.8px 1% 1% -46%;
 }
+
