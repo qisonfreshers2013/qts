@@ -30,27 +30,29 @@ div#submitDiv {
     text-align: left;
     margin-top: 0%;   
     word-wrap: break-word;
+    width: 77%;
 }
 div#clearDiv {
-    left: 35.2%;
-    margin-top: -2.6%;
-    position: relative; 
+    left: 36.2%;
+    margin-top: -2.7%;
+    position: relative;
+    width: 77%;
  
 }
-input.clear {
-     background-color: #669933;
+button.clearUserProfile {
+    background-color: #669933;
     color: #FFFFFF;
     padding: 0.2%;
-    width: 8%;
+    width: 9%;
 }
 input.firstName, input.lastName, input.nickname, input.email, input.employeeId, input.designation, input.location, input.userId, input.password, input.confirmPassword {
     width: 21%;
 }
-button.submit {
+button.submitUserProfile {
 	background-color: #669933;
     color: #FFFFFF;
     padding: 0.2%;
-    width: 8%;
+    width: 9%;
 }
 hr {
     background-color: #E0E0E0;

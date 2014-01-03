@@ -60,7 +60,7 @@ public interface ExceptionMessages {
 	//user web services releted exceptions
 	public static final String USER_ID_NOT_NUMBER = "Id of user must be long";
 	 public static final String USER_NAME_FORMAT = "name cannot be null";
-	 public static final String USER_EMAIL_FORMAT = "email is invalid";
+	 public static final String USER_EMAIL_FORMAT = "Email is invalid";
 	 public static final String EMPLOYEE_ID_INVALID_FORMAT = "employee id is invalid";
 	 public static final String DESIGNATION_PATTERN_INVALID = "designation is invalid";
 	 public static final String USER_ID_FORMAT = "invalid email pattern";
@@ -76,7 +76,7 @@ public interface ExceptionMessages {
 	 public static final String NICKNAME_INVALID = "Nickname is invalid";
 	 public static final String GENDER_NOT_NULL = "Gender Field is null";
 	 public static final String GENDER_INVALID = "Gender entered is invalid";
-	 public static final String EMAIL_FORMAT = "invalid Email";
+	 public static final String EMAIL_FORMAT = "Invalid Email";
 	 public static final String EMPLOYEE_ID_NULL = "Employee id is null";
 	 public static final String EMPLOYEE_ID_INVALID = "Employee id is Invalid";
 	 public static final String USER_ID_NULL = "User Id can not be null";

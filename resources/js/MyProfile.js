@@ -8,9 +8,18 @@ function MyProfile(){
 }
 
 MyProfile.prototype.handleShow = function(){
-	$('#changePasswordModal').hide();
-	
+	$('#changePasswordModal').hide();	
 	this.loadValues();
+	
+	
+	
+	$('div#editProfileDiv').keyup(function(event){
+		if(event.keyCode == 13){
+			$('.error').remove();
+			$('button#submit').trigger("click");
+		}
+	}.ctx(this));
+	
 	$('button.submit').click(function(){	
 		var firstNameRef = $('input.firstNameText');
 		var lastNameRef = $('input.lastNameText');

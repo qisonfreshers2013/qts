@@ -13,6 +13,24 @@ function ChangePassword(){
 ChangePassword.prototype.handleShow = function(){
 	console.log('calling modelshow');	
 	$('#changePasswordModal').modal('show');
+	
+	$('#changePasswordModal').keyup(function (event) {
+		  if (event.keyCode == 13) {
+				$(".error").remove();
+				$( "button#submitPassword" ).trigger("click");
+		}
+	
+		}.ctx(this));
+
+	$('#changePasswordModal').keyup(function (event) {
+		  if (event.keyCode == 27) {
+				$(".error").remove();
+				$("button#closeCPbutton" ).trigger("click");	
+				$( "button#clearCP" ).trigger("click");
+					
+		}		
+		}.ctx(this));
+	
 	console.log('called modelshow');
 	$('button#submitPassword').click(function(){	
 		var oldPassword = $('input.oldPasswordTextCP');
@@ -25,13 +43,11 @@ ChangePassword.prototype.handleShow = function(){
 				}
 			}
 		}
-		//var isOldPasswordValidated  = this.validatePassword(oldPassword);
-		//var isPasswordValidated = this.validatePassword(password);
-		//var isConfirmPasswordValidated = this.validateConfirmPassword(confirmPassword,password);
-		
-//		if(isOldPasswordValidated&&isPasswordValidated&&isConfirmPasswordValidated)
-//		this.changePassword(oldPassword.val(),password.val(),confirmPassword.val());
-		
+//var isOldPasswordValidated  = this.validatePassword(oldPassword);
+//var isPasswordValidated = this.validatePassword(password);
+//var isConfirmPasswordValidated = this.validateConfirmPassword(confirmPassword,password);
+//if(isOldPasswordValidated&&isPasswordValidated&&isConfirmPasswordValidated)
+//this.changePassword(oldPassword.val(),password.val(),confirmPassword.val());
 	}.ctx(this));	
 	
 }
@@ -68,8 +84,13 @@ ChangePassword.prototype.validatePassword = function(passwordRef){
 	var password = passwordRef.val();
 	console.log(password+" validation ");
 	$(".error").hide();
-    var isValid = false;   
-    if(password.length < 6 ){
+    var isValid = false; 
+    if(password.length < 1){
+    	$('.passwordRef').focus();
+		passwordRef.after('<span  class = "error" style = "color:red" >Password can not be null</span>');
+        isValid = false;
+    }
+    else if(password.length < 6 ){
 		$('.passwordRef').focus();
 		passwordRef.after('<span  class = "error" style = "color:red" >Minimum length of password is 6</span>');
         isValid = false;

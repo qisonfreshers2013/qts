@@ -53,11 +53,11 @@ button.changePassword {
 	position: relative;
 }
 
-input.clear {
+button.clearMyProfile {
 	width: 7%;
 	padding: 0.1%;
 	background-color: #669933;
-	  color: #FFFFFF;
+	color: #FFFFFF;
 }
 
 p {
@@ -85,7 +85,7 @@ p {
 	  border: medium solid #72AEE0;
 }
 
-button.submit {
+button.submitMyProfile {
 	width: 7%;
 	background-color: #669933;
 	  color: #FFFFFF;
@@ -119,6 +119,14 @@ div.userIdTextDiv {
 input.userIdText {
     margin-top: 0;
 }
+
+#changePasswordModal{
+	top:65%;
+	}
+
+
+
+
 /*.userId {*/
 /*   margin: 0 0 7%;*/
 /*}*/

@@ -18,7 +18,15 @@ SearchUser.prototype.handleShow = function(roles){
 	this.loadEmployeeIds();
 	//$('.container').show();
 	$('.resultsContainer').show();
-	$('button.search').click(function(){			
+	
+	$('div#searchUserContent').keyup(function(event){
+		if(event.keyCode == 13){
+			$('button#search').trigger("click");
+		}
+	}.ctx(this));
+	
+	$('button.search').click(function(){	
+		$('#resultsContainer').empty();
 		var nickname = $('input.nickname').val();
 		var email = $('input.email').val();
 		var employeeId = $('select.employeeId').val();
@@ -75,8 +83,7 @@ SearchUser.prototype.search = function(roles,nickname,email,designation,employee
 			    message : "Fail : "+data.message,
 			    type : 'error'
 			   });
-			$('#resultsContainer').hide();
-			
+			$('#resultsContainer').hide();			
 			}
 
 	}.ctx(this));	

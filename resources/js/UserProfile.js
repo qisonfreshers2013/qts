@@ -16,6 +16,14 @@ UserProfile.prototype.handleShow = function(id) {
 //	$('input.firstname').keyup(function(){
 //		this.validateName();
 //	}.ctx(this));
+	
+	
+	$('div.userProfile').keyup(function(event){
+		if(event.keyCode == 13){
+			$('button#submit').trigger("click");
+		}
+	}.ctx(this));
+	
 	$('.submit').click(function(){
 		if(this.validateName($('input.firstName'))){
 			if(this.validateName($('input.lastName'))){
