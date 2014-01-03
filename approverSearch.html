@@ -1,14 +1,15 @@
 <div>
 
-<div class=" rejectedComments modal fade" id="rejectedComments">
+<div class=" rejectedComments modal" id="rejectedComments">
 
 <div class="modal-header">
-<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+<button type="button" class="close" data-dismiss="modal" id="closeBtnForComments" aria-hidden="true">&times;</button>
 <h4 class="modal-title">Comments</h4>
 </div>
  <div class="modal-body">
-<input  class="comments" type=text></input>
-<button class="submitComments" >SUBMIT COMMENTS</button>
+Comments<input  class="comments" id="comments" type=text></input>
+<button class="submitComments" id="submitComments" >Okay</button>
+<button class="cancel" id="cancel">Cancel</button>
 </div>
 </div>
 <h2><img src="resources/img/tsa.png" alt=""></img>Time Sheet Approval</h2>
@@ -19,12 +20,12 @@
   <p class="userHeader">User</p>
  <select class="userId"><option>SELECT</option></select><br>
   <p class="fromHeader">From</p>
- <input class="from" type=text></input>
- <img id="calendarForFrom" src="resources/img/Calendar.png"></img>
+ <input class="from" id="from" type=text></input>
+ <img id="calendarForFrom" class="calendarForFrom" src="resources/img/Calendar.png"></img>
   <p class="toHeader">To</p>
- <input class="to" type=text></input><img id="calendarForTo" src="resources/img/Calendar.png"></img><br>
+ <input class="to" id="to"type=text></input><img id="calendarForTo" class="calendarForTo" src="resources/img/Calendar.png"></img><br>
  
- <p class="statusHeader">Status<span id = star class = "star"><sup>*</sup></span></p>
+ <p class="statusHeader">Status</p>
  <select class="status" id="status">
   <option value="0">SELECT</option>
   <option value="1">Pending</option>

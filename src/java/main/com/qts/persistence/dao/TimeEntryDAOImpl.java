@@ -177,7 +177,7 @@ public class TimeEntryDAOImpl extends BaseDAOImpl implements TimeEntryDAO {
 		Session session = getSession();
 		try{
 			Query query = session
-					.createQuery("Update TimeEntries set hours=:hours,projectId=:projectId,releaseId=:releaseId,task=:task,activityId=:activityId,remarks=:remarks,date=:date,status=:status where id="
+					.createQuery("Update TimeEntries set hours=:hours,projectId=:projectId,releaseId=:releaseId,task=:task,activityId=:activityId,remarks=:remarks,date=:date,status=:status,mts=:mts where id="
 							+ updateTimeEntry.getId()
 							+ "and userId="
 							+ updateTimeEntry.getUserId());
@@ -388,136 +388,239 @@ public class TimeEntryDAOImpl extends BaseDAOImpl implements TimeEntryDAO {
 
 	@SuppressWarnings("unchecked")
 	@Override
-
 	public List<TimeEntryBean> getTimeEntriesForApprover(TimeEntryBean searchCriteria) {
-		Session session = getSession();
-		try {
+	Session session = getSession();
+	try {
 
-			Calendar getPreviousWeekDate = GregorianCalendar.getInstance();
-			getPreviousWeekDate.add(Calendar.DAY_OF_YEAR, -7);
-			getPreviousWeekDate.getTimeInMillis();
-			Criteria approverSearchCriteria = session
-					.createCriteria(TimeEntries.class);
-			approverSearchCriteria.setProjection(Projections.projectionList()
-					.add(Projections.property("id"),"id")
-					.add(Projections.property("date"),"dateInLong")
-					.add(Projections.property("userId"),"userId")
-					.add(Projections.property("projectId"),"projectId")
-					.add(Projections.property("releaseId"),"releaseId")
-					.add(Projections.property("task"),"task")
-					.add(Projections.property("activityId"),"activityId")
-					.add(Projections.property("hours"),"hours")
-					.add(Projections.property("status"),"status")
-					.add(Projections.property("remarks"),"userRemarks")
-					.add(Projections.property("approvedComments"),"approvedComments")
-					.add(Projections.property("rejectedComments"),"rejectedComments"));
-			if (searchCriteria.getFrom() == null && searchCriteria.getProjectId() != null
+		Calendar getPreviousWeekDate = GregorianCalendar.getInstance();
+		getPreviousWeekDate.add(Calendar.DAY_OF_YEAR, -7);
+		getPreviousWeekDate.getTimeInMillis();
+		Criteria approverSearchCriteria = session
+				.createCriteria(TimeEntries.class);
+		approverSearchCriteria.setProjection(Projections.projectionList()
+				.add(Projections.property("id"),"id")
+				.add(Projections.property("date"),"dateInLong")
+				.add(Projections.property("userId"),"userId")
+				.add(Projections.property("projectId"),"projectId")
+				.add(Projections.property("releaseId"),"releaseId")
+				.add(Projections.property("task"),"task")
+				.add(Projections.property("activityId"),"activityId")
+				.add(Projections.property("hours"),"hours")
+				.add(Projections.property("status"),"status")
+				.add(Projections.property("remarks"),"userRemarks")
+				.add(Projections.property("approvedComments"),"approvedComments")
+				.add(Projections.property("rejectedComments"),"rejectedComments"));
+	         if(searchCriteria.getProjectId()!=null){
+	        	 approverSearchCriteria.add(Restrictions.eq("projectId", searchCriteria.getProjectId()));
+	        	   }	
+	         if(searchCriteria.getUserId()!=null){
+	        		approverSearchCriteria.add(Restrictions
+							.conjunction()
+							.add(Restrictions.eq("projectId",
+									searchCriteria.getProjectId()))
+							.add(Restrictions.eq("userId", searchCriteria.getUserId())));
+	         }
+	        if(searchCriteria.getFrom()!=null){
+	        	 approverSearchCriteria.add(Restrictions.between("date",
+						Utils.parseDateToLong((searchCriteria.getFrom())),
+						new Date().getTime()));
+	        }   
+	        if(searchCriteria.getFrom()!=null && searchCriteria.getTo()!=null){
+	        	 approverSearchCriteria.add(Restrictions.between("date",
+						Utils.parseDateToLong(searchCriteria.getFrom()),
+						Utils.parseDateToLong(searchCriteria.getTo())));
+	        }
+	        if(searchCriteria.getStatus()!=null){
+	        	approverSearchCriteria.add(Restrictions.eq("status", searchCriteria.getStatus()));
+	        	if(searchCriteria.getProjectId()!=null){
+	        		approverSearchCriteria.add(Restrictions
+							.conjunction()
+							.add(Restrictions.eq("projectId",
+									searchCriteria.getProjectId()))
+							.add(Restrictions.eq("status", searchCriteria.getStatus())));
+	        		if(searchCriteria.getUserId()!=null){
+	        			approverSearchCriteria.add(Restrictions
+								.conjunction()
+								.add(Restrictions.eq("projectId",
+										searchCriteria.getProjectId()))
+								.add(Restrictions.eq("userId", searchCriteria.getUserId()))	
+								.add(Restrictions.eq("status", searchCriteria.getStatus())));
+	        		}
+	        	}
+	        }
+	        if (searchCriteria.getFrom() == null && searchCriteria.getProjectId() != null
 					&& searchCriteria.getUserId() == null
 					&& searchCriteria.getTo() == null
-					&& searchCriteria.getStatus() == null) {
+					&& searchCriteria.getStatus() != null && searchCriteria.getStatus()==1) {
 				approverSearchCriteria.add(Restrictions.between("date",
 						getPreviousWeekDate.getTimeInMillis(),
 						new Date().getTime()));
 				approverSearchCriteria.add(Restrictions.eq("projectId", searchCriteria.getProjectId()));
-				approverSearchCriteria.add(Restrictions.eq("status", 1));
-				 approverSearchCriteria.addOrder(Order.desc("date"));	
-				 searchCriteria.setProjectId(0);
-			} else if (searchCriteria.getFrom() != null && searchCriteria.getTo() != null && searchCriteria.getUserId()!=null && searchCriteria.getProjectId()!=null && searchCriteria.getStatus()!=null) {
-				approverSearchCriteria.add(Restrictions
-						.conjunction()
-						.add(Restrictions.between("date",
-								Utils.parseDateToLong((searchCriteria.getFrom())),
-								Utils.parseDateToLong((searchCriteria.getTo()))))
-						.add(Restrictions.eq("projectId",
-								searchCriteria.getProjectId()))
-						.add(Restrictions.eq("userId", searchCriteria.getUserId()))
-						.add(Restrictions.eq("status", searchCriteria.getStatus())));
-
-			} else if (searchCriteria.getFrom() != null && searchCriteria.getTo() == null && searchCriteria.getUserId()!=null && searchCriteria.getProjectId()!=null && searchCriteria.getStatus()!=null) {
-				approverSearchCriteria.add(Restrictions
-						.conjunction()
-				        .add(Restrictions.eq("projectId",
-						searchCriteria.getProjectId()))
-				        .add(Restrictions.eq("status",
-						searchCriteria.getStatus()))
-				        .add(Restrictions.between("date",
-						Utils.parseDateToLong((searchCriteria.getFrom())),
-						new Date().getTime()))
-				        .add(Restrictions.eq("userId",
-						searchCriteria.getUserId())));
-
-			}
-			else if (searchCriteria.getFrom() != null && searchCriteria.getTo() == null && searchCriteria.getUserId()==null && searchCriteria.getProjectId()!=null && searchCriteria.getStatus()!=null) {
-				approverSearchCriteria.add(Restrictions
-						.conjunction()
-				        .add(Restrictions.eq("projectId",
-						searchCriteria.getProjectId()))
-				        .add(Restrictions.eq("status",
-						searchCriteria.getStatus()))
-				        .add(Restrictions.between("date",
-						Utils.parseDateToLong((searchCriteria.getFrom())),
-						new Date().getTime())));
-			}  
-			else if (searchCriteria.getFrom() == null && searchCriteria.getTo() == null && searchCriteria.getUserId()!=null && searchCriteria.getProjectId()!=null && searchCriteria.getStatus()!=null) {
-				approverSearchCriteria.add(Restrictions
-						.conjunction()
-						.add(Restrictions.eq("projectId",
-								searchCriteria.getProjectId()))
-						.add(Restrictions.eq("userId", searchCriteria.getUserId()))
-						.add(Restrictions.eq("status", searchCriteria.getStatus())));
-			}
-			else if (searchCriteria.getFrom() == null && searchCriteria.getProjectId() == null
-					&& searchCriteria.getUserId() == null
-					&& searchCriteria.getTo() == null
-					&& searchCriteria.getStatus() != null) {
-				approverSearchCriteria.add(Restrictions.eq("status", searchCriteria.getStatus()));
-				
-			}
-			
-			else if (searchCriteria.getFrom() == null && searchCriteria.getTo() == null && searchCriteria.getUserId()==null && searchCriteria.getStatus()!=null) {
-				approverSearchCriteria.add(Restrictions
-						.conjunction()
-						.add(Restrictions.eq("projectId",
-								searchCriteria.getProjectId())));
-				approverSearchCriteria.add(Restrictions.eq("status",searchCriteria.getStatus()));
-				approverSearchCriteria.addOrder(Order.asc("status"));
-			}
-			else if (searchCriteria.getFrom() == null && searchCriteria.getTo() == null && searchCriteria.getUserId()==null) {
-				approverSearchCriteria.add(Restrictions
-						.conjunction()
-						.add(Restrictions.eq("projectId",
-								searchCriteria.getProjectId()))
-						.add(Restrictions.eq("status", searchCriteria.getStatus())));
-			}
-			else if (searchCriteria.getFrom() == null && searchCriteria.getTo() == null && searchCriteria.getProjectId()!=null) {
-				approverSearchCriteria.add(Restrictions
-						.conjunction()
-						.add(Restrictions.eq("userId",
-								searchCriteria.getUserId()))
-						.add(Restrictions.eq("status", searchCriteria.getStatus())));
-				approverSearchCriteria.add(Restrictions.eq("projectId", searchCriteria.getProjectId()));
-				searchCriteria.setProjectId(0);
-				
-			}
-			else if(searchCriteria.getFrom()!=null && searchCriteria.getTo()!=null && searchCriteria.getStatus()!=null && searchCriteria.getUserId()==null && searchCriteria.getProjectId()!=null){
-				approverSearchCriteria.add(Restrictions
-				.conjunction()
-				.add(Restrictions.between("date",
-						Utils.parseDateToLong((searchCriteria.getFrom())),
-						Utils.parseDateToLong((searchCriteria.getTo()))))
-				.add(Restrictions.eq("status", searchCriteria.getStatus())));
-				approverSearchCriteria.add(Restrictions.eq("projectId", searchCriteria.getProjectId()));
+    			approverSearchCriteria.add(Restrictions.eq("status", searchCriteria.getStatus()));
+				approverSearchCriteria.addOrder(Order.desc("date"));	
 				searchCriteria.setProjectId(0);
 			}
-			List<TimeEntryBean> submittedData=approverSearchCriteria.setResultTransformer(new AliasToBeanResultTransformer(TimeEntryBean.class)).list();
-			
-			
-			return submittedData;
-		} catch (Exception e) {
-			e.printStackTrace();
-		} 
-		return null;
+	        List<TimeEntryBean> submittedData=approverSearchCriteria.setResultTransformer(new AliasToBeanResultTransformer(TimeEntryBean.class)).list();
+	        return submittedData;
+	}catch(Exception ex){
+		ex.printStackTrace();
+				}
+	return null;
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+
+//	public List<TimeEntryBean> getTimeEntriesForApprover(TimeEntryBean searchCriteria) {
+//		Session session = getSession();
+//		try {
+//
+//			Calendar getPreviousWeekDate = GregorianCalendar.getInstance();
+//			getPreviousWeekDate.add(Calendar.DAY_OF_YEAR, -7);
+//			getPreviousWeekDate.getTimeInMillis();
+//			Criteria approverSearchCriteria = session
+//					.createCriteria(TimeEntries.class);
+//			approverSearchCriteria.setProjection(Projections.projectionList()
+//					.add(Projections.property("id"),"id")
+//					.add(Projections.property("date"),"dateInLong")
+//					.add(Projections.property("userId"),"userId")
+//					.add(Projections.property("projectId"),"projectId")
+//					.add(Projections.property("releaseId"),"releaseId")
+//					.add(Projections.property("task"),"task")
+//					.add(Projections.property("activityId"),"activityId")
+//					.add(Projections.property("hours"),"hours")
+//					.add(Projections.property("status"),"status")
+//					.add(Projections.property("remarks"),"userRemarks")
+//					.add(Projections.property("approvedComments"),"approvedComments")
+//					.add(Projections.property("rejectedComments"),"rejectedComments"));
+//			if (searchCriteria.getFrom() == null && searchCriteria.getProjectId() != null
+//					&& searchCriteria.getUserId() == null
+//					&& searchCriteria.getTo() == null
+//					&& searchCriteria.getStatus() == null) {
+//				approverSearchCriteria.add(Restrictions.between("date",
+//						getPreviousWeekDate.getTimeInMillis(),
+//						new Date().getTime()));
+//				approverSearchCriteria.add(Restrictions.eq("projectId", searchCriteria.getProjectId()));
+//				approverSearchCriteria.add(Restrictions.eq("status", 1));
+//				approverSearchCriteria.addOrder(Order.desc("date"));	
+//				searchCriteria.setProjectId(0);
+//			} else if (searchCriteria.getFrom() != null && searchCriteria.getTo() != null && searchCriteria.getUserId()!=null && searchCriteria.getProjectId()!=null && searchCriteria.getStatus()!=null) {
+//				approverSearchCriteria.add(Restrictions
+//						.conjunction()
+//						.add(Restrictions.between("date",
+//								Utils.parseDateToLong((searchCriteria.getFrom())),
+//								Utils.parseDateToLong((searchCriteria.getTo()))))
+//						.add(Restrictions.eq("projectId",
+//								searchCriteria.getProjectId()))
+//						.add(Restrictions.eq("userId", searchCriteria.getUserId()))
+//						.add(Restrictions.eq("status", searchCriteria.getStatus())));
+//
+//			} else if (searchCriteria.getFrom() != null && searchCriteria.getTo() == null && searchCriteria.getUserId()!=null && searchCriteria.getProjectId()!=null && searchCriteria.getStatus()!=null) {
+//				approverSearchCriteria.add(Restrictions
+//						.conjunction()
+//				        .add(Restrictions.eq("projectId",
+//						searchCriteria.getProjectId()))
+//				        .add(Restrictions.eq("status",
+//						searchCriteria.getStatus()))
+//				        .add(Restrictions.between("date",
+//						Utils.parseDateToLong((searchCriteria.getFrom())),
+//						new Date().getTime()))
+//				        .add(Restrictions.eq("userId",
+//						searchCriteria.getUserId())));
+//
+//			}
+//			else if (searchCriteria.getFrom() != null && searchCriteria.getTo() == null && searchCriteria.getUserId()!=null && searchCriteria.getProjectId()!=null && searchCriteria.getStatus()!=null) {
+//				approverSearchCriteria.add(Restrictions
+//						.conjunction()
+//				        .add(Restrictions.eq("projectId",
+//						searchCriteria.getProjectId()))
+//				        .add(Restrictions.eq("status",
+//						searchCriteria.getStatus()))
+//				        .add(Restrictions.between("date",
+//						Utils.parseDateToLong((searchCriteria.getFrom())),
+//						new Date().getTime()))
+//				        .add(Restrictions.eq("userId",
+//						searchCriteria.getUserId())));
+//
+//			}
+//			
+//			else if (searchCriteria.getFrom() != null && searchCriteria.getTo() == null && searchCriteria.getUserId()==null && searchCriteria.getProjectId()!=null && searchCriteria.getStatus()!=null) {
+//				approverSearchCriteria.add(Restrictions
+//						.conjunction()
+//				        .add(Restrictions.eq("projectId",
+//						searchCriteria.getProjectId()))
+//				        .add(Restrictions.eq("status",
+//						searchCriteria.getStatus()))
+//				        .add(Restrictions.between("date",
+//						Utils.parseDateToLong((searchCriteria.getFrom())),
+//						new Date().getTime())));
+//			}  
+//			else if (searchCriteria.getFrom() == null && searchCriteria.getTo() == null && searchCriteria.getUserId()!=null && searchCriteria.getProjectId()!=null && searchCriteria.getStatus()!=null) {
+//				approverSearchCriteria.add(Restrictions
+//						.conjunction()
+//						.add(Restrictions.eq("projectId",
+//								searchCriteria.getProjectId()))
+//						.add(Restrictions.eq("userId", searchCriteria.getUserId()))
+//						.add(Restrictions.eq("status", searchCriteria.getStatus())));
+//			}
+//			else if (searchCriteria.getFrom() == null && searchCriteria.getProjectId() == null
+//					&& searchCriteria.getUserId() == null
+//					&& searchCriteria.getTo() == null
+//					&& searchCriteria.getStatus() != null) {
+//				approverSearchCriteria.add(Restrictions.eq("status", searchCriteria.getStatus()));
+//				
+//			}
+//			
+//			else if (searchCriteria.getFrom() == null && searchCriteria.getTo() == null && searchCriteria.getUserId()==null && searchCriteria.getStatus()!=null) {
+//				approverSearchCriteria.add(Restrictions
+//						.conjunction()
+//						.add(Restrictions.eq("projectId",
+//								searchCriteria.getProjectId())));
+//				approverSearchCriteria.add(Restrictions.eq("status",searchCriteria.getStatus()));
+//				approverSearchCriteria.addOrder(Order.asc("status"));
+//			}
+////			else if (searchCriteria.getFrom() == null && searchCriteria.getTo() == null && searchCriteria.getUserId()==null) {
+////				approverSearchCriteria.add(Restrictions
+////						.conjunction()
+////						.add(Restrictions.eq("projectId",
+////								searchCriteria.getProjectId()))
+////						.add(Restrictions.eq("status", searchCriteria.getStatus())));
+////			}
+//			else if (searchCriteria.getFrom() == null && searchCriteria.getTo() == null && searchCriteria.getProjectId()!=null) {
+//				approverSearchCriteria.add(Restrictions
+//						.conjunction()
+//						.add(Restrictions.eq("userId",
+//								searchCriteria.getUserId()))
+//						.add(Restrictions.eq("status", searchCriteria.getStatus())));
+//				approverSearchCriteria.add(Restrictions.eq("projectId", searchCriteria.getProjectId()));
+//				searchCriteria.setProjectId(0);
+//				
+//			}
+//			else if(searchCriteria.getFrom()!=null && searchCriteria.getTo()!=null && searchCriteria.getStatus()!=null && searchCriteria.getUserId()==null && searchCriteria.getProjectId()!=null){
+//				approverSearchCriteria.add(Restrictions
+//				.conjunction()
+//				.add(Restrictions.between("date",
+//						Utils.parseDateToLong((searchCriteria.getFrom())),
+//						Utils.parseDateToLong((searchCriteria.getTo()))))
+//				.add(Restrictions.eq("status", searchCriteria.getStatus())));
+//				approverSearchCriteria.add(Restrictions.eq("projectId", searchCriteria.getProjectId()));
+//				searchCriteria.setProjectId(0);
+//			}
+//			 approverSearchCriteria.addOrder(Order.desc("cts"));	
+//			List<TimeEntryBean> submittedData=approverSearchCriteria.setResultTransformer(new AliasToBeanResultTransformer(TimeEntryBean.class)).list();
+//			
+//			
+//			return submittedData;
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		} 
+//		return null;
+//	}
 
 	@Override
 	@SuppressWarnings("unchecked")

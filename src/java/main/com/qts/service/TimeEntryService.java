@@ -201,9 +201,9 @@ public class TimeEntryService extends BaseService{
 		Long id = (Long) JsonUtil
 				.getObject(request.getPayload(), Long.class);
 		
-		BaseObject timeEntry=TimeEntryHandler.getInstance().getObjectById(id);
+		TimeEntryBean timeEntry=TimeEntryHandler.getInstance().getObjectById(id);
 		
-	     return JsonUtil.getJsonBasedOnDescriptor(timeEntry,BaseObject.class);     
+	     return JsonUtil.getJsonBasedOnDescriptor(timeEntry,TimeEntriesOptionOutputDescriptor.class);     
 		
 		}
 	
