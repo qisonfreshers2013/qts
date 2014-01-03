@@ -63,7 +63,7 @@ public class TimeEntryDAOImpl extends BaseDAOImpl implements TimeEntryDAO {
 		  } catch (Exception e) {
 		   e.printStackTrace();
 		  }
-		  saveTimeEntry.setHours(timeEntry.getHours());
+		  saveTimeEntry.setMinutes((timeEntry.getHours()*60)+timeEntry.getMinutes());
 		  saveTimeEntry.setProjectId(timeEntry.getProjectId());
 		  saveTimeEntry.setActivityId(timeEntry.getActivityId());
 		  saveTimeEntry.setReleaseId(timeEntry.getReleaseId());
@@ -177,11 +177,11 @@ public class TimeEntryDAOImpl extends BaseDAOImpl implements TimeEntryDAO {
 		Session session = getSession();
 		try{
 			Query query = session
-					.createQuery("Update TimeEntries set hours=:hours,projectId=:projectId,releaseId=:releaseId,task=:task,activityId=:activityId,remarks=:remarks,date=:date,status=:status,mts=:mts where id="
+					.createQuery("Update TimeEntries set minutes=:minutes,projectId=:projectId,releaseId=:releaseId,task=:task,activityId=:activityId,remarks=:remarks,date=:date,status=:status,mts=:mts where id="
 							+ updateTimeEntry.getId()
 							+ "and userId="
 							+ updateTimeEntry.getUserId());
-			query.setInteger("hours", updateTimeEntry.getHours());
+			query.setInteger("minutes", ((updateTimeEntry.getHours()*60)+updateTimeEntry.getMinutes()));
 			query.setLong("projectId", updateTimeEntry.getProjectId());
 			query.setLong("releaseId", updateTimeEntry.getReleaseId());
 			query.setString("task", updateTimeEntry.getTask());
@@ -333,7 +333,7 @@ public class TimeEntryDAOImpl extends BaseDAOImpl implements TimeEntryDAO {
 					.add(Projections.property("releaseId"),"releaseId")
 					.add(Projections.property("task"),"task")
 					.add(Projections.property("activityId"),"activityId")
-					.add(Projections.property("hours"),"hours")
+					.add(Projections.property("minutes"),"minutes")
 					.add(Projections.property("status"),"status")
 				    .add(Projections.property("approvedComments"),"approvedComments")
 					.add(Projections.property("rejectedComments"),"rejectedComments")
@@ -405,7 +405,7 @@ public class TimeEntryDAOImpl extends BaseDAOImpl implements TimeEntryDAO {
 				.add(Projections.property("releaseId"),"releaseId")
 				.add(Projections.property("task"),"task")
 				.add(Projections.property("activityId"),"activityId")
-				.add(Projections.property("hours"),"hours")
+				.add(Projections.property("minutes"),"minutes")
 				.add(Projections.property("status"),"status")
 				.add(Projections.property("remarks"),"userRemarks")
 				.add(Projections.property("approvedComments"),"approvedComments")
@@ -629,7 +629,7 @@ public class TimeEntryDAOImpl extends BaseDAOImpl implements TimeEntryDAO {
 		int sum=0;
 		try{
 		Criteria getHours = session.createCriteria(TimeEntries.class);
-		getHours.setProjection(Projections.projectionList().add(Projections.property("hours")));
+		getHours.setProjection(Projections.projectionList().add(Projections.property("minutes")));
 		getHours.add(Restrictions
 				.conjunction()
 		        .add(Restrictions.eq("date",

@@ -51,7 +51,7 @@ tr:nth-child(2n+1) {
     top: 0;
 }
 .searchUserTimeEntries {
-    left: 47%;
+    left: 48%;
     position: relative;
     top: 0;
 }
@@ -100,6 +100,6 @@ tr:nth-child(2n+1) {
     top: 3%;
 }
 #calendar {
-    margin: 3.8px 1% 1% -46%;
+    margin: 3.8px 1% 1% -46.7%;
+    position: relative;
 }
-

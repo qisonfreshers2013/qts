@@ -69,8 +69,8 @@ public class TimeEntryHandler {
 					|| timeEntry.getUserRemarks().length() > 4096)
 				throw new InvalidTimeEntryDataException(ExceptionCodes.MANDATORY_FIELDS_MISMATCH,ExceptionMessages.PASSED_DATA_IS_NOT_RELATED);
 		else if (timeEntry.getReleaseId() == 0 || timeEntry.getActivityId() == 0
-				|| timeEntry.getProjectId() == 0 || timeEntry.getHours() == 0
-				|| timeEntry.getHours() > 12)
+				|| timeEntry.getProjectId() == 0 || timeEntry.getMinutes()>60
+				|| timeEntry.getHours() > 23 || timeEntry.getMinutes()<0 || timeEntry.getHours() < 0 )
 			throw new InvalidTimeEntryDataException(ExceptionCodes.MANDATORY_FIELDS_MISMATCH,ExceptionMessages.PASSED_DATA_IS_NOT_RELATED);
 		else if (ReleaseHandler.getInstance()
 				.getObjectById(timeEntry.getReleaseId()).getProjectId() != timeEntry
@@ -85,7 +85,7 @@ public class TimeEntryHandler {
 					ExceptionCodes.TIMEENTRY_FILLING_IS_NOT_ALLOWED_FOR_APPROVER,
 					ExceptionMessages.TIMEENTRY_FILLING_FOR_APPROVER);
        
-		else if (getUserWorkedHoursPerDay(timeEntry.getDate()) > 24)
+		else if (getUserWorkedHoursPerDay(timeEntry.getDate()) > 1440)
 			throw new TimeEntryException(
 					ExceptionCodes.ILLEGAL_ARGUMENT_HOURS_FIELD,
 					ExceptionMessages.ILLEGAL_HOURS_ARGUMENT_PASSED);
@@ -363,9 +363,9 @@ public class TimeEntryHandler {
 			}catch(TimeEntryException ex){
 				//For TimeEntries if got Rejected to Edit Them if user has already submitted
 				TimeEntryBean timeEntryToUpdate=(TimeEntryBean) getObjectById(timeEntry.getId());
-				if(getUserWorkedHoursPerDay(timeEntry.getDate())>24){
-					 int workedHoursWithOutThisTimeEntry=getUserWorkedHoursPerDay(timeEntry.getDate())-timeEntryToUpdate.getHours();
-					if(workedHoursWithOutThisTimeEntry+timeEntry.getHours()<=24){
+				if(getUserWorkedHoursPerDay(timeEntry.getDate())>1440){
+					 int workedHoursWithOutThisTimeEntry=getUserWorkedHoursPerDay(timeEntry.getDate())-(timeEntryToUpdate.getMinutes());
+					if(workedHoursWithOutThisTimeEntry+timeEntry.getMinutes()+(timeEntry.getHours()*60)<=1440){
 					 updated = DAOFactory.getInstance()
 							.getTimeEntryDAOInstance().update(timeEntry);
 					 }else{
