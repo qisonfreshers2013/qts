@@ -83,7 +83,7 @@ public class DefaultAuthenticationHandler implements AuthenticationHandler {
 				}
 			}
 		}
-		if(user.isAdmin()){
+		if(user.getIsAdmin()){
 			roleNames.add("ADMIN");
 		}
 		

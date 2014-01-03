@@ -22,9 +22,9 @@ ReleaseResult.prototype.handleShow = function() {
 							name=value2;
 						}
 					});
-					$('table').append("<tr style='text-align:center'><td>"+name+"</td><td>"+projectName+"</td><td><img class='delete' id="+id+" src='resources/img/delete.png' style='width:40%;cursor:pointer'/></td></tr>");
+					$('table').append("<tr style='text-align:center'><td title="+name+">"+name.ellipses(25)+"</td><td title="+projectName+">"+projectName.ellipses(25)+"</td><td><img class='deletePR' id="+id+" src='resources/img/delete.png' style='width:40%;cursor:pointer'/></td></tr>");
 				});
-				$('.delete').click(function(event){
+				$('.deletePR').click(function(event){
 					var releaseId=event.target.id;
 					RequestManager.deleteProjectRelease({"payload":{"releaseId":releaseId}},function(data,success){
 						if(success){
@@ -59,7 +59,7 @@ ReleaseResult.prototype.handleShow = function() {
 						name=value2;
 					}
 				});
-				$('table').append("<tr style='text-align:center'><td id="+id+">"+name+"</td><td>"+projectName+"</td></tr>");
+				$('table').append("<tr style='text-align:center'><td id="+id+" title="+name+">"+name.ellipses(25)+"</td><td title="+projectName+">"+projectName.ellipses(25)+"</td></tr>");
 			});
 			}
 		}

@@ -73,13 +73,11 @@ public class User extends AbstractObject{
 
  
 
- public User(long id, String email, String password, String employeeId,
+ public User(String email, String password, String employeeId,
 		String firstName, String lastName, String nickName, String location,
 		boolean gender, String designation, long cts, long mts,
 		String createdBy, String modifiedBy, Boolean isDeleted, String userId,
 		long photoFileId, boolean isAdmin) {
-	super();
-	this.id = id;
 	this.email = email;
 	this.password = password;
 	this.employeeId = employeeId;
@@ -360,11 +358,11 @@ public class User extends AbstractObject{
 		return ObjectTypes.USER;
 	}
 
-	public boolean isAdmin() {
+	public boolean getIsAdmin() {
 		return isAdmin;
 	}
 
-	public void setAdmin(boolean isAdmin) {
+	public void setIsAdmin(boolean isAdmin) {
 		this.isAdmin = isAdmin;
 	}
 
