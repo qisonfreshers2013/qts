@@ -5,6 +5,7 @@ function SearchProject(){
 	Loader.loadHTML('.container', 'SearchProject.html',false, function(){
 		this.getProjects();
 		this.handleShow();
+		
 	}.ctx(this));
 }
 
@@ -20,7 +21,7 @@ SearchProject.prototype.handleShow = function() {
 		if(projectId!=0){
 			RequestManager.getProjectUsers({"payload":{"projectId":projectId}}, function(data, success) {
 				if(success){
-					if(data!=null){
+					if(data.projectUserRecords!=null){
 						App.loadSearchProjectResults(data);
 					}
 					else{

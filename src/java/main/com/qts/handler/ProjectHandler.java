@@ -254,16 +254,16 @@ public class ProjectHandler extends AbstractHandler {
 					}
 					if(CollectionUtils.isNotEmpty(userProjectsRoles)) {
 						for(UserProjectsRoles userProjectsRole: userProjectsRoles) {
-							if(userProjectsRole.getRoleId()==1){
-								roles.add("Admin");
+							if(user.getIsAdmin()){
+								roles.add("ADMIN");
 							}else if(userProjectsRole.getRoleId()==2){
-								roles.add("Approver");
+								roles.add("APPROVER");
 							}else{
-								roles.add("member");
+								roles.add("MEMBER");
 							}
 						}
 					}
-					projectUser.setRoles(roles);
+					projectUser.setRoleNames(roles);
 					projectUserRecordList.add(projectUser);
 				}
 				projectUserRecords.setProjectUserRecords(projectUserRecordList);

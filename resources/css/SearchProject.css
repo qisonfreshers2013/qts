@@ -10,4 +10,27 @@ width:100%;
     position: relative;
     width: 31%;
 }
+#results{
+	margin-top:10%;
+}
+#adminDiv,#memberDiv,#approverDiv{
+	float:left;
+	width:100%;
+}
+#adminHeadLine{
+	border-bottom:1px solid #99CC2F;
+	margin-bottom:1%;
+	color: #99CC2F;
+}
+#memberHeadLine{
+	border-bottom:1px solid #F77E0D;
+	margin-bottom:1%;
+	color:#F77E0D;
+	
+}
+#approverHeadLine{
+	border-bottom:1px solid #2E85A3;
+	margin-bottom:1%;
+	color:#2E85A3;
+}
 	
