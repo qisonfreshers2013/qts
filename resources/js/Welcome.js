@@ -8,11 +8,28 @@ function Welcome(nickname,password) {
 Welcome.prototype.handleShow = function(nickname,password) {	
 	this.loadNickname(nickname);
 	$('.logout').click(function(){	
-		this.logout();
+		if(status){
+			if(confirm('Changes are not saved. Do you want to leave the page')){
+				status=false;
+				this.logout();
+			}
+		}else{
+			this.logout();
+		}
+		
 	}.ctx(this));
 	$('.myAccount').click(function(){
-		App.loadMenu();
-		App.loadMyProfile(password);		
+		if(status){
+			if(confirm('Do you want to leave the page. Do you want to leave page')){
+				status=false;
+				App.loadMenu();
+				App.loadMyProfile(password);
+			}
+		}else{
+			App.loadMenu();
+			App.loadMyProfile(password);
+		}
+				
 	}.ctx(this));
 	$('.logout').click(function(){		 
 		console.log("logout");
@@ -20,7 +37,8 @@ Welcome.prototype.handleShow = function(nickname,password) {
 }
 
 Welcome.prototype.loadNickname = function(nickname){
-	$('span.nicknameCursor').text(nickname);
+	 $('span.nicknameCursor').text(nickname.ellipses(15));
+	 $('span.nicknameCursor').attr('title',nickname);
 }
 
 Welcome.prototype.logout = function(){
