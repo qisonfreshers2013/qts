@@ -1,7 +1,7 @@
 <div id = "content" class = "profileDiv">
 <div id = "profileHeader" class = "profileHeader">
-<h1><img src = "resources/img/profilePic.png" alt = "profilePic">
-Profile Page</h1>
+<h2><img src = "resources/img/profilePic.png" alt = "profilePic">
+Profile Page</h2>
 </div>
 <div id = "line" class = "line">
 <hr>
@@ -46,10 +46,10 @@ Place
 <div><input id = "designationText" class = "designationText" type = "text" value = "Designation" name = "designation" readonly="readonly"/></div>
 <div><input id = "genderText" class = "genderText" type = "text" value = "Gender" name = "gender" readonly="readonly"/></div>
 <form id = "myProfileInnerForm" class = "myProfileInnerForm">
-<div><input id = "firstNameText" class = "firstNameText" type = "text" name = "First Name"  pattern="^[A-Za-z]+[A-Za-z\s]*$" placeholder = "First Name" required/></div>
-<div><input id = "lastNameText" class = "lastNameText" type = "text" name = "Last Name"  pattern="^[A-Za-z]+[A-Za-z\s]*$" placeholder = "Last Name" required/></div>
-<div><input id = "nicknameText" class = "nicknameText" type = "text" name = "Nickname"   pattern="^[A-Za-z]+[A-Za-z\s]*$" placeholder = "Nickname" /></div>
-<div><input id = "locationText" class = "locationText" type = "text" name = "Location"  pattern="^[A-Za-z]+[A-Za-z\s]*$"  placeholder = "Location" /></div>
+<div><input id = "firstNameText" class = "firstNameText" type = "text" name = "First Name"  pattern="^[A-Za-z]+[A-Za-z\s]*$" placeholder = "First Name" maxlength="128" required/></div>
+<div><input id = "lastNameText" class = "lastNameText" type = "text" name = "Last Name"  pattern="^[A-Za-z]+[A-Za-z\s]*$" placeholder = "Last Name" maxlength="128" required/></div>
+<div><input id = "nicknameText" class = "nicknameText" type = "text" name = "Nickname"   pattern="^[A-Za-z]+[A-Za-z\s]*$" placeholder = "Nickname" maxlength="128"/></div>
+<div><input id = "locationText" class = "locationText" type = "text" name = "Location"  pattern="^[A-Za-z]+[A-Za-z\s]*$"  placeholder = "Location" maxlength="128"/></div>
 </form>
 </div>
 <div>
@@ -65,6 +65,5 @@ Place
 </div>
 </div>
 <div id = "changePasswordModal" class="modal fade changePasswordModal"  data-backdrop="static">
-
 </div>
 </div>

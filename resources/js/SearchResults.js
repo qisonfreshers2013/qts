@@ -52,6 +52,20 @@ SearchResults.prototype.appendValues = function(data){
 						"</tr>"	); 		
 					projectList = "";
 					}
+					else
+						{
+						$("#resultsTable tbody").append("<tr style = 'text-align:center; id = "+ data.records[i].id+" class = 'rowcolor'>"+			        
+								"<td id ="+data.records[i].photoFileUrl+"><img src='resources/img/defaultImage.png' alt = 'default image' class='defaultImage'/></td>"+
+								"<td ><p style = 'font-size:12px;' title = '"+data.records[i].email+"'>"+data.records[i].email.ellipses(35)+"</p></td>"+
+								"<td ><p style = 'font-size:12px' title = '"+data.records[i].employeeId+"' >"+data.records[i].employeeId.ellipses(10)+"</p></td>"+
+								"<td ><p style = 'font-size:12px' title = '"+data.records[i].designation+"' >"+data.records[i].designation.ellipses(10)+"</p></td>"+			     
+								"<td id = 'projectsIdSR"+data.records[i].id+"' title = '"+projectList+"'><p style = 'font-size:12px;'>"+projectList.ellipses(10)+"</p></td>"+
+								"<td ><img src = 'resources/img/delete.png' alt = 'delete' style ='cursor:pointer;' title = 'delete user' class='deleteSymbolSelf' id = "+ data.records[i].id +" /><img src ='resources/img/edit.png'  style ='cursor:pointer;' title = 'edit profile' alt = 'edit' id = "+data.records[i].id+" class='editSymbol'/></td>"+
+						"</tr>"	); 	
+						projectList = "";
+						}
+					
+					
 					}
 				$('.editSymbol').click(function(event){		
 					var id = event.target.id;
@@ -59,6 +73,12 @@ SearchResults.prototype.appendValues = function(data){
 			    	App.loadUserProfile(id);
 				}.ctx(this));
 				
+				$('.deleteSymbolSelf').click(function(event){
+					$.ambiance({
+					    message :"You are not allowed to perform this action",
+					    type : 'error'
+					   });
+				}.ctx(this));			
 				
 				$('.deleteSymbol').click(function(event){	
 					var id = event.target.id;
@@ -70,7 +90,7 @@ SearchResults.prototype.appendValues = function(data){
 							$(event.target).parent().parent().remove();
 							if($('table tr').length==0){
 								$('#resultsTable').empty();
-							}		
+							}	
 							
 							var input = {"payload":{}};
 							 $('select.employeeId').empty();
@@ -88,10 +108,7 @@ SearchResults.prototype.appendValues = function(data){
 									    type : 'error'
 									   });	
 									}
-							}.ctx(this));	
-							
-							
-							
+							}.ctx(this));							
 							
 							
 							$.ambiance({
@@ -117,17 +134,18 @@ SearchResults.prototype.appendValues = function(data){
 				for(var i = 0;i<data.records.length;i++){
 					if(data.records[i].projects.length<1){
 						data.records[i].projects[0] = "No projects";
+						projectList = data.records[i].projects[0];
 					}
 					else{
 					for(j = 0 ;j<data.records[i].projects.length-1 ;j++){
-						projectList = projectList+data.records[i].projects[j]+" , ";
+						projectList = projectList+data.records[i].projects[j]+",";
 					}
 					projectList = projectList+data.records[i].projects[data.records[i].projects.length-1]+" .";
 					}
 //					options = {"title":data.records[i].projects,
 //							   "placement":"right"
 //							};
-					if(empId!=data.records[i].employeeId){
+				//	if(empId!=data.records[i].employeeId){
 						$("#resultsTable tbody").append("<tr style = 'text-align:center;'>"+			        
 								"<td id ="+data.records[i].photoFileUrl+"><img src='resources/img/defaultImage.png' alt = 'default image' class='defaultImage'/></td>"+
 								"<td ><p style = 'font-size:12px;' title = '"+data.records[i].email+"'>"+data.records[i].email.ellipses(35)+"</p></td>"+
@@ -136,16 +154,15 @@ SearchResults.prototype.appendValues = function(data){
 								"<td id = 'projectsIdSR"+data.records[i].id+"' title = '"+projectList+"' ><p style = 'font-size:12px;'>"+projectList.ellipses(10)+"</p></td>"+						
 						"</tr>"	);
 					projectList = "";
-					}
-				}
-				
-			}
-			
-			
-			
+					//}
+				}				
+			}			
 		}
 		else{
-			alert('failed');
+			$.ambiance({
+			    message : "Fail : "+data.message,
+			    type : 'error'
+			   });	
 		}
 	}.ctx(this));
 

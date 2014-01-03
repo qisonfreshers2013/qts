@@ -256,9 +256,9 @@ App.prototype.loadAddUser = function () {
 	});
 }
 
-App.prototype.loadChangePassword = function(){
+App.prototype.loadChangePassword = function(password){
 	Loader.loadChangePassword(function(){
-		new ChangePassword();
+		new ChangePassword(password);
 	});
 }	
 
