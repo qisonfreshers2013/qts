@@ -41,6 +41,12 @@ MyProfile.prototype.handleShow = function(password){
 		App.loadChangePassword(password);		
 	}.ctx(this));
 	
+      $('#clear').click(function() {
+		  $('.error').remove();
+		 });
+	
+	
+	
 }
 
 MyProfile.prototype.saveValues = function(firstNameRef,lastNameRef,nicknameRef,locationRef){
