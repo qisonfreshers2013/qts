@@ -9,10 +9,12 @@ import java.util.List;
 import java.util.Set;
 import java.util.TimeZone;
 
+
+
+
 import org.apache.commons.collections.CollectionUtils;
 
 import com.qts.common.EncryptionFactory;
-import com.qts.common.Utils;
 import com.qts.common.cache.Cache;
 import com.qts.common.cache.CacheManager;
 import com.qts.common.cache.CacheRegionType;
@@ -22,6 +24,7 @@ import com.qts.exception.ExceptionCodes;
 import com.qts.exception.ExceptionMessages;
 import com.qts.exception.ObjectNotFoundException;
 import com.qts.exception.SystemException;
+import com.qts.model.Roles;
 import com.qts.model.User;
 import com.qts.model.UserProject;
 import com.qts.model.UserProjectsRoles;
@@ -63,7 +66,7 @@ public class DefaultAuthenticationHandler implements AuthenticationHandler {
 		/////////////////////////////////////////////////////////////////////////////////
 		long userId = user.getId();
 		List<UserProject> userProjects = daoFactory.getUserProjectDAOImplInstance().getUserProjectsByUserId(userId);
-		Set<Long> roleIds = new HashSet<>();
+		Set<String> roleNames = new HashSet<>();
 		if(CollectionUtils.isNotEmpty(userProjects)) {
 			for(UserProject project : userProjects) {
 				List<UserProjectsRoles> userProjectsRoles = new LinkedList<>();
@@ -73,10 +76,15 @@ public class DefaultAuthenticationHandler implements AuthenticationHandler {
 				}
 				if(CollectionUtils.isNotEmpty(userProjectsRoles)) {
 					for(UserProjectsRoles userProjectsRole: userProjectsRoles) {
-						roleIds.add(userProjectsRole.getRoleId());
+						Roles r=(Roles)daoFactory.getRoleDAOImplInstance().getObjectById(userProjectsRole.getRoleId());
+						
+						roleNames.add(r.getName());
 					}
 				}
 			}
+		}
+		if(user.isAdmin()){
+			roleNames.add("ADMIN");
 		}
 		
 		
@@ -112,15 +120,12 @@ public class DefaultAuthenticationHandler implements AuthenticationHandler {
 		userSessionToken.setUserEmail(user.getEmail());
 		userSessionToken.setUserId(user.getId());
 		userSessionToken.setUserSessionId(sessionToken);
-		//////////////////////////////////////////
-		userSessionToken.setRoleIds(roleIds);
-		////////////////////////////////////////////
 		Cache cache = CacheManager.getInstance().getCache(CacheRegionType.USER_SESSION_CACHE);
 		cache.put(sessionToken, userSessionToken);
 		System.out.println("Session Token : "+sessionToken);		
 		System.out.println("Cached : "+cache.getValue(sessionToken));
 		AuthenticationOutput authenticationOutput = new AuthenticationOutput(
-				sessionToken, authStatus, user,roleIds);
+				sessionToken, authStatus, user,roleNames);
 		return authenticationOutput;
 	}
 

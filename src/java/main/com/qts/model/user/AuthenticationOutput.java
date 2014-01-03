@@ -18,18 +18,18 @@ public class AuthenticationOutput {
  private int authStatus;
  private User user;
  ///////////////////////////////
- protected Set<Long> roleIds=new HashSet<>();
+ protected Set<String> roleNames=new HashSet<>();
 
- public Set<Long> getRoleIds() {
-		return roleIds;
+ public Set<String> getRoleNames() {
+		return roleNames;
 	}
  
  /////////////////////////////
- public AuthenticationOutput(String sessionToken, int authStatus, User user, Set<Long> roleIds) {
+ public AuthenticationOutput(String sessionToken, int authStatus, User user, Set<String> roleNames) {
   this.sessionToken = sessionToken;
   this.authStatus = authStatus;
   this.user = user;
-  this.roleIds=roleIds;
+  this.roleNames=roleNames;
  }
 
  @JsonProperty
