@@ -41,6 +41,12 @@ MyProfile.prototype.handleShow = function(password){
 		App.loadChangePassword(password);		
 	}.ctx(this));
 	
+      $('#clear').click(function() {
+		  $('.error').remove();
+		 });
+	
+	
+	
 }
 
 MyProfile.prototype.saveValues = function(firstNameRef,lastNameRef,nicknameRef,locationRef){
@@ -104,7 +110,10 @@ MyProfile.prototype.loadValues = function(){
 		}
 		else{
 			console.log("loaded my profile"+data.message);
-			alert("my profile" +" failed" + data.message);				
+			$.ambiance({
+			    message : "Fail : "+data.message,
+			    type : 'error'
+			   });				
 		}
 		
 	}.ctx(this));

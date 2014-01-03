@@ -40,5 +40,7 @@ public interface TimeEntriesOptionOutputDescriptor  extends JSONSerializationDes
 	public String getReleaseVersion();
 	@JsonProperty
 	public String getUserName();
+	@JsonProperty
+	public int getMinutes();
 	
 }

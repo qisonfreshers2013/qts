@@ -18,8 +18,8 @@ public class TimeEntries extends AbstractObject {
 	private long userId;
     @Column(name="DATE")
     private long date;
-    @Column(name="HOURS")
-    private int hours;
+    @Column(name="MINUTES")
+    private int minutes;
     @Column(name="project_id")
     private long projectId;
     @Column(name="release_id")
@@ -49,12 +49,12 @@ public class TimeEntries extends AbstractObject {
     	super();
     }
   
-public TimeEntries(long userId,long date,int hours,long projectId,long activityId,long releaseId,String task,String remarks,long cts,long mts,
+public TimeEntries(long userId,long date,int minutes,long projectId,long activityId,long releaseId,String task,String remarks,long cts,long mts,
 	long createdBy,long modifiedBy,String approvedComments,String rejectedComments)
    {
 	   this.userId=userId;
 	   this.date=date;
-	   this.hours=hours;
+	   this.minutes=minutes;
 	   this.projectId=projectId;
 	   this.activityId=activityId;
 	   this.releaseId=releaseId;
@@ -105,11 +105,14 @@ public void setProjectId(long projectId) {
 	public void setDate(long date) {
 		this.date = date;
 	}
-	public int getHours() {
-		return hours;
+
+
+	public int getMinutes() {
+		return minutes;
 	}
-	public void setHours(int hours) {
-		this.hours = hours;
+
+	public void setMinutes(int minutes) {
+		this.minutes = minutes;
 	}
 
 	public String getTask() {

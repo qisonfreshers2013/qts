@@ -11,11 +11,9 @@ function ChangePassword(password){
 	}.ctx(this));
 }
 ChangePassword.prototype.handleShow = function(dbPassword){
-	console.log('calling modelshow');	
-	
+	console.log('calling modelshow');
 	$('#changePasswordModal').modal('show');
-	$('input.oldPasswordTextCP').focus();
-	
+	$('.oldPasswordTextCP').focus();
 	$('#changePasswordModal').keyup(function (event) {
 		  if (event.keyCode == 13) {
 				$(".error").remove();
