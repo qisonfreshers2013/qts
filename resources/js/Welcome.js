@@ -20,7 +20,7 @@ Welcome.prototype.handleShow = function(nickname,password) {
 	}.ctx(this));
 	$('.myAccount').click(function(){
 		if(status){
-			if(confirm('Do you want to leave the page. Do you want to leave page')){
+			if(confirm('Changes are not saved. Do you want to leave page')){
 				status=false;
 				App.loadMenu();
 				App.loadMyProfile(password);

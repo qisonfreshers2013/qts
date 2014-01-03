@@ -23,7 +23,7 @@ Menu.prototype.handleShow=function(){
 		
 		$('#um').click(function(){
 			if(status){
-				if(confirm('Do you want to leave the page. Do you want to leave page')){
+				if(confirm('Changes are not saved. Do you want to leave page')){
 					status=false;
 					$('#content').remove();
 					App.loadAddUser();
@@ -37,7 +37,7 @@ Menu.prototype.handleShow=function(){
 		
 		$('#addProject').click(function(){
 			if(status){
-				if(confirm('Do you want to leave the page. Do you want to leave page')){
+				if(confirm('Changes are not saved. Do you want to leave page')){
 					status=false;
 					$('#content').remove();
 					App.loadAddProject();
@@ -52,7 +52,7 @@ Menu.prototype.handleShow=function(){
 		
 		$('#allocateUsers').click(function(){
 			if(status){
-				if(confirm('Do you want to leave the page. Do you want to leave page')){
+				if(confirm('Changes are not saved. Do you want to leave page')){
 					status=false;
 					$('#content').remove();
 					App.loadAllocateUsersToProject();
@@ -67,7 +67,7 @@ Menu.prototype.handleShow=function(){
 		
 		$('#addroleIds').click(function(){
 			if(status){
-				if(confirm('Do you want to leave the page. Do you want to leave page')){
+				if(confirm('Changes are not saved. Do you want to leave page')){
 					status=false;
 					$('#content').remove();
 					App.loadRoles();
@@ -82,7 +82,7 @@ Menu.prototype.handleShow=function(){
 		
 		$('#searchProject').click(function(){
 			if(status){
-				if(confirm('Do you want to leave the page. Do you want to leave page')){
+				if(confirm('Changes are not saved. Do you want to leave page')){
 					status=false;
 					$('#content').remove();
 					App.loadSearchProject();
@@ -106,7 +106,7 @@ Menu.prototype.handleShow=function(){
 			
 			$('#tsa').click(function(){
 				if(status){
-					if(confirm('Do you want to leave the page. Do you want to leave page')){
+					if(confirm('Changes are not saved. Do you want to leave page')){
 						status=false;
 						$('#content').remove();
 						App.loadApproverTimeSheetSearch();
@@ -129,7 +129,7 @@ Menu.prototype.handleShow=function(){
 				
 				$('#tsf').click(function(){
 					if(status){
-						if(confirm('Do you want to leave the page. Do you want to leave page')){
+						if(confirm('Changes are not saved. Do you want to leave page')){
 							status=false;
 							$('#content').remove();
 							App.loadTimeSheetFilling();
@@ -153,7 +153,7 @@ Menu.prototype.handleShow=function(){
 			
 			$('#tsf').click(function(){
 				if(status){
-					if(confirm('Do you want to leave the page. Do you want to leave page')){
+					if(confirm('Changes are not saved. Do you want to leave page')){
 						status=false;
 						$('#content').remove();
 						App.loadTimeSheetFilling();
@@ -178,7 +178,7 @@ Menu.prototype.handleShow=function(){
 		//click events for approver
 		$('#tsa').click(function(){
 			if(status){
-				if(confirm('Do you want to leave the page. Do you want to leave page')){
+				if(confirm('Changes are not saved. Do you want to leave page')){
 					status=false;
 					$('#content').remove();
 					App.loadApproverTimeSheetSearch();
@@ -197,7 +197,7 @@ Menu.prototype.handleShow=function(){
 			
 			$('#tsf').click(function(){
 				if(status){
-					if(confirm('Do you want to leave the page. Do you want to leave page')){
+					if(confirm('Changes are not saved. Do you want to leave page')){
 						status=false;
 						$('#content').remove();
 						App.loadTimeSheetFilling();
@@ -226,7 +226,7 @@ Menu.prototype.handleShow=function(){
 		
 		$('#tsf').click(function(){
 			if(status){
-				if(confirm('Do you want to leave the page. Do you want to leave page')){
+				if(confirm('Changes are not saved. Do you want to leave page')){
 					status=false;
 					$('#content').remove();
 					App.loadTimeSheetFilling();
@@ -247,7 +247,7 @@ Menu.prototype.handleShow=function(){
 	if(!(roleNames.contains('ADMIN'))){
 	$('#pm').click(function(){
 		if(status){
-			if(confirm('Do you want to leave the page. Do you want to leave page')){
+			if(confirm('Changes are not saved. Do you want to leave page')){
 				status=false;
 				$('#content').remove();
 				App.loadSearchProject();
@@ -262,7 +262,7 @@ Menu.prototype.handleShow=function(){
 	
 	$('#prm').click(function(){
 		if(status){
-			if(confirm('Do you want to leave the page. Do you want to leave page')){
+			if(confirm('Changes are not saved. Do you want to leave page')){
 				status=false;
 				$('#content').remove();
 				App.loadSearchProjectRelease();
@@ -277,7 +277,7 @@ Menu.prototype.handleShow=function(){
 	
 	$('#su').click(function(){
 		if(status){
-			if(confirm('Do you want to leave the page. Do you want to leave page')){
+			if(confirm('Changes are not saved. Do you want to leave page')){
 				status=false;
 				$('#content').remove();
 				App.loadSearchUser();
