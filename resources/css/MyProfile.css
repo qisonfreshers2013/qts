@@ -19,6 +19,8 @@
 
 p.upperDesignationField {
 	width: 21%;
+	position: relative;
+    left: 23%;
 }
 
 .profileHeader {
@@ -53,16 +55,18 @@ button.changePassword {
 	position: relative;
 }
 
-input.clear {
+
+button.clearMyProfile {
+	
     background-color: #669933;
     color: #FFFFFF;
     padding: 0.1%;
     width: 12%;
+
 }
 
 p {
-	font-size: 16px;
-	
+	font-size: 16px;	
 }
 
 .editFields {
@@ -86,16 +90,16 @@ p {
 	  border: medium solid #72AEE0;
 }
 
-button.submit {
+button.submitMyProfile {
     background-color: #669933;
     color: #FFFFFF;
-    padding: 0;
+    padding: 0.1%;
     width: 10%;
 }
 
 #clearMyProfileDiv {
     margin-left: 33%;
-    margin-top: -2.1%;
+    margin-top: -2.5%;
     position: relative;
     width: 67%;
 }
@@ -122,6 +126,14 @@ div.userIdTextDiv {
 input.userIdText {
     margin-top: 0;
 }
+
+#changePasswordModal{
+	top:65%;
+	}
+
+
+
+
 /*.userId {*/
 /*   margin: 0 0 7%;*/
 /*}*/

@@ -1,16 +1,25 @@
 /**
  * 
  */
-function MyProfile(){	
+function MyProfile(password){	
 	Loader.loadHTML('.container', 'MyProfile.html', false, function(){
-			this.handleShow();
+			this.handleShow(password);
 	}.ctx(this));
 }
 
-MyProfile.prototype.handleShow = function(){
-	$('#changePasswordModal').hide();
-	
+MyProfile.prototype.handleShow = function(password){
+	$('#changePasswordModal').hide();	
 	this.loadValues();
+	
+	
+	
+	$('div#editProfileDiv').keyup(function(event){
+		if(event.keyCode == 13){
+			$('.error').remove();
+			$('button#submit').trigger("click");
+		}
+	}.ctx(this));
+	
 	$('button.submit').click(function(){	
 		var firstNameRef = $('input.firstNameText');
 		var lastNameRef = $('input.lastNameText');
@@ -29,8 +38,14 @@ MyProfile.prototype.handleShow = function(){
 		
 	}.ctx(this));
 	$('.changePassword').click(function(){		
-		App.loadChangePassword();		
+		App.loadChangePassword(password);		
 	}.ctx(this));
+	
+      $('#clear').click(function() {
+		  $('.error').remove();
+		 });
+	
+	
 	
 }
 
@@ -95,7 +110,10 @@ MyProfile.prototype.loadValues = function(){
 		}
 		else{
 			console.log("loaded my profile"+data.message);
-			alert("my profile" +" failed" + data.message);				
+			$.ambiance({
+			    message : "Fail : "+data.message,
+			    type : 'error'
+			   });				
 		}
 		
 	}.ctx(this));

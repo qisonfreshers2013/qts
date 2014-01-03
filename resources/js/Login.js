@@ -15,13 +15,29 @@ Login.prototype.handleShow = function() {
 	$('.rightContainer').show();
 	$('#userId').focus();
 	
-	$('.rightContainer').keyup(function (event) {
+	$("#loginDiv").keyup(function (event) {
 		  if (event.keyCode == 13) {
 			  if(this.validateLogin($('input.userId').val(),$('input.password').val())){		
 					this.authenticate();
 					}
 		  }
 		 }.ctx(this));
+	
+	$('#forgotPasswordModal').keyup(function (event) {
+		  if (event.keyCode == 13) {
+				$(".error").remove();
+				$( "button.submitEmail" ).trigger("click");
+		}
+	
+		}.ctx(this));
+
+	$('#forgotPasswordModal').keyup(function (event) {
+		  if (event.keyCode == 27) {
+				$(".error").remove();
+				$( "button#forgotButton" ).trigger("click");
+				$("input.emailToSend" ).val("");			
+		}		
+		}.ctx(this));
 	
 
 	
@@ -70,13 +86,7 @@ Login.prototype.handleShow = function() {
 	$("button.forgotButton").click(function(){
 		$("input.emailToSend" ).val("");
 	}.ctx(this));
-	$("#forgotPasswordModal.documentElement").keyup(function (event) {
-		  if (event.keyCode == 13) {
-			  if(this.validateLogin($('input.userId').val(),$('input.password').val())){		
-					this.authenticate();
-					}
-		  }
-		 }.ctx(this));
+
 	
 	
 }
@@ -93,10 +103,10 @@ Login.prototype.authenticate = function() {
 		      var  token = data.sessionToken;
 		      setCookie('qtsSessionId', token, null);
 		      if(data.user.nickName == null  || data.user.nickName.trim().length < 1){
-		    	 App.loadWelcome(data.user.lastName);
+		    	 App.loadWelcome(data.user.lastName,data.user.password);
 		      }
 		      else{		    	
-		    	  	App.loadWelcome(data.user.nickName);
+		    	  	App.loadWelcome(data.user.nickName,data.user.password);
 		    	  }		     
 		      App.loadOptions();
 		      App.loadQisonLogo();
@@ -141,6 +151,7 @@ Login.prototype.openEmailDialogBox = function() {
 	$(".error").hide();
 	console.log("modal");
 	$('#forgotPasswordModal').modal('show');	
+	$(".emailForgot").focus();
 }
 
 

@@ -26,7 +26,7 @@ Roles.prototype.handleShow = function() {
 			this.listUserRoles();
 		} else {
 			$.ambiance({
-				message : "Select project and user.(USERLIST)",
+				message : "Select project and user.",
 				type : 'error'
 			});
 		}
@@ -37,7 +37,12 @@ Roles.prototype.handleShow = function() {
 			event.preventDefault();
 			this.deallocateRoles();
 
-		} else {
+		} else if($('#projectList').val() != "p0" && $('#userList').val() == "u0"){
+			$.ambiance({
+				message : "Select User.",
+				type : 'error'
+			});
+		}else{
 			$.ambiance({
 				message : "Select project and user.",
 				type : 'error'
@@ -45,16 +50,10 @@ Roles.prototype.handleShow = function() {
 		}
 	}.ctx(this));
 	$("#cancelb").click(function() {
-		if ($('#projectList').val() != "p0" && $('#userList').val() != "u0") {
-			if(roles)
-				this.listUserRoles();
-		} else {
-			$.ambiance({
-				message : "Select project and user.",
-				type : 'error'
-			});
-		}
-	}.ctx(this));
+		$("#projectList option[value=\"p0\"]").attr("selected",true);
+		$("#userList").empty().append("<option id=\"u0\">select</option>");
+		$(".avalRoles").removeAttr("checked");
+	});
 };
 
 Roles.prototype.listProjects = function() {
@@ -149,17 +148,17 @@ Roles.prototype.getRoles = function() {
 														+ "</p></div>"
 								+ "</div>");
 			$("#rolesList").css({"border-spacing" : "0",
-								 "font-size" : "16px"
-								});
-			$(".rolesCheckbox").css({'margin' : '5%',
-									 'position' : 'relative',
-									 'width' : '10%'
-								});
+				 "font-size" : "16px"
+				});
+			/*$(".rolesCheckbox").css({'margin' : '5%',
+					 'position' : 'relative',
+					 'width' : '10%'
+				});
 			$(".rolesName").css({"margin-top" : "-15%",
-								 "margin-left" : "32%",
-								 "position" : "relative",
-								 "width" : "65%"
-								});
+				 "margin-left" : "32%",
+				 "position" : "relative",
+				 "width" : "65%"
+				});*/
 			}
 		});
 		} else {
@@ -182,7 +181,10 @@ Roles.prototype.listUserRoles = function() {
 			if (success) {
 				roles = data.roleIds;
 				$('input:checkbox').removeAttr('checked');
-				$("input[value=" + val + "]").prop("checked", true);
+				$.each(roles, function(i, val) {
+					$("input[value=" + val + "]").prop("checked", true);
+				});
+				
 				
 			} else {
 				$.ambiance({

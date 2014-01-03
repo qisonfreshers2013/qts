@@ -368,9 +368,5 @@ RequestManager.prototype.changePassword = function(data, callback) {
 	this.sendToServer('user/changePassword', data, callback);
 }
 
-RequestManager.prototype.getLoggedInUserDetails = function(data, callback) {
-	this.sendToServer('user/getLoginUserDetails', data, callback);
-}
-
 
 var RequestManager = new RequestManager();

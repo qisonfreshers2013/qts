@@ -15,7 +15,7 @@ TimeEntry.prototype.handleShow=function(){
     $(document).ready(function() {
         $(".datepicker").datepicker({ minDate: -30, maxDate:new Date()});
     });
-    
+    $("#calendarIcon").click(function(){$(".datepicker").focus();}.ctx(this));
     
 	$('.save').click(function(event){
 		var id=$("input[type=checkbox]:checked").val();
@@ -45,6 +45,7 @@ TimeEntry.prototype.getRequestParameters=function(){
 			               "projectId":$('.projectId').val(),
 			               "task":$('.task').val(),
 			               "hours":$('.hours').val(),
+			               "minutes":$('.minutes').val(),
 			               "activityId":$('.selectActivity').val(),
 			               "releaseId":$('.selectRelease').val(),
 			               "userRemarks":$('.userRemarks').val()
@@ -61,6 +62,7 @@ TimeEntry.prototype.getInputForTimeSheetFilling=function(){
 			    	         "task":requestParameters.task,
 	                         "activityId":requestParameters.activityId,
 	                         "hours":requestParameters.hours,
+	                         "minutes":requestParameters.minutes,
 	                         "status":"0",
 	                         "userRemarks":requestParameters.userRemarks
 			               }
@@ -92,12 +94,17 @@ TimeEntry.prototype.setRequestParameters=function(updateRequestParameters){
 		RequestManager.addTimeEntry(input, function(data, success) {
 			if (success) {
 			      alert("TimeEntry Saved");
+			      $("#cancel").trigger("click");
 			      $(".searchUserTimeEntries").trigger("click");
+			      
 			    } else {
-				alert(data.message);
+			    	$.ambiance({
+	    			    message : data.message,
+	    			    type : 'error'
+	    			   });
 			}
 		}.ctx(this));
-		DefaultTimeSheetPage.searchUserTimeEntries();
+		//DefaultTimeSheetPage.searchUserTimeEntries();
 		$( "#loadTimeSheetFilling" ).modal( "hide" );
 		
  }
@@ -122,7 +129,10 @@ TimeEntry.prototype.getProjects=function(){
 	    $('.projectId').append('<option class=\"projectValue\" value='+id+'>'+name+'</option>');
 	   });
 	  }else{
-	   alert(data.message);
+		  $.ambiance({
+			    message : data.message,
+			    type : 'error'
+			   });
 	  }
 	 }.ctx(this));
 	}
@@ -131,7 +141,9 @@ TimeEntry.prototype.getProjects=function(){
 TimeEntry.prototype.getReleases=function(){
 	 $('.selectRelease').empty();
 	 $('.selectRelease').append('<option>SELECT</option>');
+	 
 	 var id=$(".projectId").val();
+	 if(id!='SELECT'){
 	 RequestManager.getProjectReleases({"payload":{"projectId":id}}, function(data, success) {
 	  if(success){
 		  if(data.length!=0){
@@ -142,7 +154,12 @@ TimeEntry.prototype.getReleases=function(){
 	  }else{
 	   $("cancel").trigger("click");
 	  }
-	 }.ctx(this));
+	 }.ctx(this));}else{
+		  $.ambiance({
+			    message : 'Select the project to get releases.',
+			    type : 'error'
+			   });
+	 }
 	}
  
 TimeEntry.prototype.getActivities=function(){
@@ -169,6 +186,7 @@ TimeEntry.prototype.updateTimeEntry=function(){
          "date":$('.datepicker').val(),
          "task":$('.task').val(),
          "hours":$('.hours').val(),
+         "minutes":$('.minutes').val(),
          "userRemarks":$('.userRemarks').val(),
          "status":0
          } 
@@ -177,16 +195,25 @@ TimeEntry.prototype.updateTimeEntry=function(){
 	RequestManager.updateTimeEntry(input,function(data,success){
 		if(success){
 			if(data){
-			alert("Updated");
+				$.ambiance({
+				    message : 'Updated.',
+				    type : 'success'
+				   });
 			$(".cancel").trigger("click");
 			$(".searchUserTimeEntries").trigger("click");
 			$( "#loadTimeSheetFilling" ).modal('hide');
 			}else{
-				alert("Not Updated");
+				$.ambiance({
+				    message : 'Not Updated.',
+				    type : 'error'
+				   });
 			}
 		}
 		else{
-			alert(data.message);
+			$.ambiance({
+			    message : data.message,
+			    type : 'error'
+			   });
 		}
 	});
 }
@@ -200,40 +227,68 @@ TimeEntry.prototype.updateTimeEntry=function(){
 	  var dateRegex="^(0[1-9]|1[012])([-/])(0[1-9]|[12][0-9]|3[01])\\2([23]0)\\d\\d$";
 	  var pattern=new RegExp(dateRegex);
 	  if(date==''){
-		  alert("Date is Required.");
+		  $.ambiance({
+			    message :'Date is Required.',
+			    type : 'error'
+			   });
 		  isvalid=false;
 	  }
 	  else if(!pattern.test(date)){
-		alert("Invalid Date(Format:mm/dd/yyyy).");
+		  $.ambiance({
+			    message :'Invalid Date(Format:mm/dd/yyyy).',
+			    type : 'error'
+			   });
 		  isvalid=false;
 	  }
 	  else if( $('.projectId').val()=='SELECT'){
-		  alert("Select a project.");
+		  $.ambiance({
+			    message :'Select a project.',
+			    type : 'error'
+			   });
 		  isvalid=false;
 	  }
 	  else if( $('.selectRelease').val()=='SELECT'){
-		  alert("Select the Release Version of the project.");
+		  $.ambiance({
+			    message :'Select the Release Version of the project.',
+			    type : 'error'
+			   });
 		  isvalid=false;
 	  }
 	  else if($('.task').val()==''){
-		  alert("Mention the Task Performed.");
+		  $.ambiance({
+			    message :'Mention the Task Performed.',
+			    type : 'error'
+			   });
 	      isvalid=false;
 	  }
 	  else if(task.length>512){
-		  alert("Max of 512 characters is supported.");
+		  $.ambiance({
+			    message :'Max of 512 characters is supported.',
+			    type : 'error'
+			   });  
 		  isvalid=false;
 	  }
 	  else if( $('.selectActivity').val()=='SELECT'){
-		  alert("Select the Activity Done.");
+		  $.ambiance({
+			    message :'Select the Activity Done.',
+			    type : 'error'
+			   });	
 		  isvalid=false;
 	  }
 	  else if( $('.hours').val()=='SELECT'){
-		  alert("Select Hours.");
+		  $.ambiance({
+			    message :'Select Hours.',
+			    type : 'error'
+			   });
+		 
 		  isvalid=false;
 	  }
 	
 	  else if(userRemarks.length>4096){
-		  alert("Max of 4096 characters is supported.");
+		  $.ambiance({
+			    message :'Max of 4096 characters is supported.',
+			    type : 'error'
+			   });
 		  isvalid=false;
 	  }
 

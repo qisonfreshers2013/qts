@@ -62,9 +62,9 @@ App.prototype.loadOptions=function(){
 	});
 }
 
-App.prototype.loadWelcome=function(nickName){
+App.prototype.loadWelcome=function(nickName,password){
 	Loader.loadWelcome(function(){
-		new Welcome(nickName);
+		new Welcome(nickName,password);
 	});
 }
 
@@ -243,9 +243,9 @@ App.prototype.loadSearchResults = function (data) {
 	});
 }
 
-App.prototype.loadMyProfile = function () {
+App.prototype.loadMyProfile = function (password) {
 	Loader.loadMyProfile(function(){
-		new MyProfile();
+		new MyProfile(password);
 	});
 }
 
@@ -256,9 +256,9 @@ App.prototype.loadAddUser = function () {
 	});
 }
 
-App.prototype.loadChangePassword = function(){
+App.prototype.loadChangePassword = function(password){
 	Loader.loadChangePassword(function(){
-		new ChangePassword();
+		new ChangePassword(password);
 	});
 }	
 

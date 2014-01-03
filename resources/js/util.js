@@ -115,3 +115,12 @@ function getFileTypeFromFileUrl(fileUrl) {
 	}
 
 }
+
+//Array.prototype.contains = function(k) {
+//    for(var p in this){
+//        if(this[p] === k){
+//            return true;
+//        }
+//    }
+//    return false;
+//}

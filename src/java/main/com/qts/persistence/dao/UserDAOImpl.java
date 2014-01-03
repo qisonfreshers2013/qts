@@ -296,7 +296,7 @@ public class UserDAOImpl extends BaseDAOImpl implements UserDAO {
 			createCriteria.add(Restrictions.eq("isDeleted", false));
 			list = createCriteria.list();
 			if (list.size() == 0) {
-				throw new UserException(ExceptionCodes.USER_DOESNOT_EXIST, ExceptionMessages.USER_DOESNOT_EXIST);
+				throw new UserException(ExceptionCodes.EMAIL_NOT_EXISTS, ExceptionMessages.EMAIL_NOT_EXISTS);
 			}
 
 		} finally {

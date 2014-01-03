@@ -124,7 +124,7 @@ public class UserHandler extends AbstractHandler {
 			//storing gender by converting String to Boolean
 			boolean gender = bean.getGender().equalsIgnoreCase("male") ? true
 					: false;
-			boolean isAdmin=false;
+			boolean isAdmin = false;
 			user = new User(bean.getEmail(), bean.getPassword(),
 					bean.getEmployeeId(), bean.getFirstName(),
 					bean.getLastName(), bean.getNickName(), bean.getLocation(),

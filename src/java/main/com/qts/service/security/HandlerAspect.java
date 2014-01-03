@@ -1,19 +1,10 @@
 package com.qts.service.security;
 
-import com.qts.common.EntityConstants;
-import com.qts.common.Utils;
-import com.qts.exception.BusinessException;
-import com.qts.exception.ExceptionCodes;
-import com.qts.exception.ExceptionMessages;
-import com.qts.exception.ObjectNotFoundException;
-import com.qts.handler.AbstractHandler;
-import com.qts.handler.annotations.AuthorizeCategory;
-import com.qts.handler.annotations.AuthorizeEntity;
-import com.qts.model.UserProject;
-import com.qts.model.UserProjectsRoles;
-import com.qts.persistence.dao.DAOFactory;
-import com.qts.service.common.ServiceRequestContext;
-import com.qts.service.common.ServiceRequestContextHolder;
+import java.lang.reflect.Method;
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Set;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -21,11 +12,19 @@ import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.reflect.MethodSignature;
 
-import java.lang.reflect.Method;
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Set;
+import com.qts.common.Utils;
+import com.qts.exception.BusinessException;
+import com.qts.exception.ExceptionCodes;
+import com.qts.exception.ExceptionMessages;
+import com.qts.exception.ObjectNotFoundException;
+import com.qts.handler.annotations.AuthorizeCategory;
+import com.qts.handler.annotations.AuthorizeEntity;
+import com.qts.model.User;
+import com.qts.model.UserProject;
+import com.qts.model.UserProjectsRoles;
+import com.qts.persistence.dao.DAOFactory;
+import com.qts.service.common.ServiceRequestContext;
+import com.qts.service.common.ServiceRequestContextHolder;
 
 /**
  * @author Vamsi Kuchi
@@ -65,35 +64,41 @@ public class HandlerAspect {
 
 		AuthorizeEntity authorizeEntity = signature.getMethod().getAnnotation(
 				AuthorizeEntity.class);
-		long[] roles = authorizeEntity.roles();
+		//long[] roles = authorizeEntity.roles();
 		//String action = authorizeEntity.action();
 		//String entity = authorizeEntity.entity();
 		DAOFactory daoFactory = DAOFactory.getInstance();
 		//Role role = daoFactory.getRoleDAO().getRole(userRoleId);
 		long userId = Utils.getUserId();
-		List<UserProject> userProjects = daoFactory.getUserProjectDAOImplInstance().getUserProjectsByUserId(userId);
-		Set<Long> roleIds = new HashSet<>();
-		if(CollectionUtils.isNotEmpty(userProjects)) {
-			for(UserProject project : userProjects) {
-				List<UserProjectsRoles> userProjectsRoles = new LinkedList<>();
-				try {
-					userProjectsRoles = daoFactory.getUserProjectsRolesDAOInstance().getUserProjectsRolesByUserProject(project.getId());
-				} catch (Exception e) {
-				}
-				if(CollectionUtils.isNotEmpty(userProjectsRoles)) {
-					for(UserProjectsRoles userProjectsRole: userProjectsRoles) {
-						roleIds.add(userProjectsRole.getRoleId());
-					}
-				}
-			}
+		
+		User user =daoFactory.getUserDAO().getUserById(userId);
+		if(!user.getIsAdmin()){
+			throw new BusinessException(ExceptionCodes.USER_NOT_AUTHORIZED,
+				ExceptionMessages.USER_NOT_AUTHORIZED);
 		}
-		for(int i=0;i<roles.length;i++){
-			if(roleIds.contains(roles[i])) {
-			} else {
-				throw new BusinessException(ExceptionCodes.USER_NOT_AUTHORIZED,
-						ExceptionMessages.USER_NOT_AUTHORIZED);
-			}
-		}
+//		List<UserProject> userProjects = daoFactory.getUserProjectDAOImplInstance().getUserProjectsByUserId(userId);
+//		Set<Long> roleIds = new HashSet<>();
+//		if(CollectionUtils.isNotEmpty(userProjects)) {
+//			for(UserProject project : userProjects) {
+//				List<UserProjectsRoles> userProjectsRoles = new LinkedList<>();
+//				try {
+//					userProjectsRoles = daoFactory.getUserProjectsRolesDAOInstance().getUserProjectsRolesByUserProject(project.getId());
+//				} catch (Exception e) {
+//				}
+//				if(CollectionUtils.isNotEmpty(userProjectsRoles)) {
+//					for(UserProjectsRoles userProjectsRole: userProjectsRoles) {
+//						roleIds.add(userProjectsRole.getRoleId());
+//					}
+//				}
+//			}
+//		}
+//		for(int i=0;i<roles.length;i++){
+//			if(roleIds.contains(roles[i])) {
+//			} else {
+//				throw new BusinessException(ExceptionCodes.USER_NOT_AUTHORIZED,
+//						ExceptionMessages.USER_NOT_AUTHORIZED);
+//			}
+//		}
 
 		/*long affinityId = context.getAffinityId();
 		long userRoleId = context.getUserSessionToken().getRoleId();

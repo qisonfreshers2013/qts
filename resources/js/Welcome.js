@@ -1,18 +1,18 @@
 
-function Welcome(nickname,roleNames) {
+function Welcome(nickname,password) {
 	Loader.loadHTML('.welcome', 'Welcome.html', true, function(){
-		this.handleShow(nickname,roleNames);
+		this.handleShow(nickname,password);
 	}.ctx(this));
 }
 
-Welcome.prototype.handleShow = function(nickname,roleNames) {	
+Welcome.prototype.handleShow = function(nickname,password) {	
 	this.loadNickname(nickname);
 	$('.logout').click(function(){	
 		this.logout();
 	}.ctx(this));
 	$('.myAccount').click(function(){
-		App.loadMenu(roleNames);
-		App.loadMyProfile();		
+		App.loadMenu();
+		App.loadMyProfile(password);		
 	}.ctx(this));
 	$('.logout').click(function(){		 
 		console.log("logout");
@@ -20,8 +20,9 @@ Welcome.prototype.handleShow = function(nickname,roleNames) {
 }
 
 Welcome.prototype.loadNickname = function(nickname){
-	$('span.nicknameCursor').text(nickname);
-}
+	$('span.nicknameCursor').text(nickname.ellipses(15));
+	$('span.nicknameCursor').attr('title',nickname);
+	}
 
 Welcome.prototype.logout = function(){
 	var input = {"payload":{}};

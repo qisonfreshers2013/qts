@@ -260,6 +260,8 @@ public interface ExceptionCodes {
 	 public static final int EMAIL_NOT_EXISTS = 7042;
 
 	//roles related exception
+	 
+	 
 	public static final int ROLES_EMPTY_EXCEPTION=8000;
 	public static final int ROLES_LIST_EMPTY_EXCEPTION=8001;
 	public static final int PARAMETERS_EMPTY_EXCEPTION =8002;

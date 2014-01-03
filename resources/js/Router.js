@@ -1,18 +1,11 @@
 function Router() {
 	this.handleShow(function() {
+		console.log("Router loaded")
 		this.routeManager();
 	}.ctx(this));	
 }
 
 Router.prototype.handleShow = function(callBack) {
-	App.loadHeader();
-	
-	App.whiteLabelConfigs();
-	/*if (getParameterByName("action") == "resetPassword") {
-		Loader.loadResetPassword(function() {
-			setTimeout('new ResetPassword(getParameterByName("resetPasswordToken"))', 1000);
-		});
-	}*/
 	callBack();
 }
 
@@ -20,14 +13,20 @@ Router.prototype.routeManager = function() {
 	var self = this;
 	routie({
 	    '': function() {
-	    	//$('#contentRegion').empty();
-	    	App.loadRightPanel();
-	    	App.loadIndexFiles();
+	    	routie('login');
+	    },
+	    'login' : function(){
+	    	//  TODO write a method to check user login
+	    	// if false, load login page : App.loadLogin();  	App.loadPhoto();
+	    	// if logged in, load corresponding methods
+	    	console.log("login page")
+	    	App.loadLogin();
+	    	App.loadPhoto();
 	    },
 	    'home': function() {
-	    	App.reloadIndex();
-	    },
-		'category/:categoryId/:engagementModel/:pageNo/:pageSize/:tag?': function(categoryId, engagementModel, pageNo, pageSize, tag) {
+	    	this.routeHome();
+	    }
+		/*'category/:categoryId/:engagementModel/:pageNo/:pageSize/:tag?': function(categoryId, engagementModel, pageNo, pageSize, tag) {
 			self.routeCategories(categoryId, engagementModel, pageNo, pageSize, tag);
 	    },
 	    'pollCategory/:pageNo/:pageSize': function(pageNo, pageSize) {
@@ -53,56 +52,18 @@ Router.prototype.routeManager = function() {
 		},
 		'staticContent/:staticContentId': function(staticContentId) {
 			App.loadStaticPage(null, staticContentId);
-		},
-		'login' : function() {
-			App.reloadIndex(function() {
-				if(App.communtyType == 1) {
-					$('#loginModal').modal('show');
-					$('.user_email').val('');
-					$('.user_password').val('');
-					$('.alert-success').show();
-					$('.successMsg').text(Message.get('common.pwdchangedmsg.message'));
-				} else {
-					$('.loginPanel').show();
-					$('.userEmail').val('');
-					$('.userPassword').val('');
-					$('.login .alert-success').show();
-					$('.login .successMsg').text(Message.get('common.pwdchangedmsg.message'));
-				}
-			});
-		}
+		}*/
 	});
 }
 
-Router.prototype.routeCategories = function(categoryId, engagementModel, pageNo, pageSize, tag) {
-	categoryId = parseInt(categoryId);
-	App.categoryId = categoryId;
-	engagementModel = parseInt(engagementModel);
-	pageNo = parseInt(pageNo);
-	pageSize = parseInt(pageSize);
-	var options = {};
-
-	options.engagementModel = engagementModel;
-	options.categoryId = categoryId;
-	options.pageNo = pageNo;
-	options.pageSize = pageSize;
-	if(tag) {
-		options.tagName = tag;
-	}
+Router.prototype.routeHome = function() {
+	App.loadOptions()
 	
-	switch (engagementModel) {
-	case 100:
-		App.articlesIndex(options);
-		break;
-	case 200:
-		App.loadPollsIndex(options);
-		break;
-	case 300:
-		break;
-	case 5000:
-		App.loadStaticPage(categoryId);
-		break;
-	}
+}
+
+Router.prototype.isUserLoggedIn = function() {
+	App.loadOptions()
+	
 }
 
 Router.prototype.routePollCategories = function(pageNo, pageSize) {

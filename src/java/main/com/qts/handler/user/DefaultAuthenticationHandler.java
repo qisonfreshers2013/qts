@@ -66,10 +66,10 @@ public class DefaultAuthenticationHandler implements AuthenticationHandler {
 		/////////////////////////////////////////////////////////////////////////////////
 		long userId = user.getId();
 		List<UserProject> userProjects = daoFactory.getUserProjectDAOImplInstance().getUserProjectsByUserId(userId);
-		Set<String> roleNames = new HashSet<>();
+		Set<String> roleNames = new HashSet<String>();
 		if(CollectionUtils.isNotEmpty(userProjects)) {
 			for(UserProject project : userProjects) {
-				List<UserProjectsRoles> userProjectsRoles = new LinkedList<>();
+				List<UserProjectsRoles> userProjectsRoles = new LinkedList<UserProjectsRoles>();
 				try {
 					userProjectsRoles = daoFactory.getUserProjectsRolesDAOInstance().getUserProjectsRolesByUserProject(project.getId());
 				} catch (Exception e) {
