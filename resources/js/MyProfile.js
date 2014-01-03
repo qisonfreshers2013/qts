@@ -104,7 +104,10 @@ MyProfile.prototype.loadValues = function(){
 		}
 		else{
 			console.log("loaded my profile"+data.message);
-			alert("my profile" +" failed" + data.message);				
+			$.ambiance({
+			    message : "Fail : "+data.message,
+			    type : 'error'
+			   });				
 		}
 		
 	}.ctx(this));

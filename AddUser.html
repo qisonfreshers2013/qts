@@ -1,7 +1,7 @@
 
 <div id="content" class = "addUSer">
 <div id="head">
-<h2><img id="user" src="resources/img/addUser.png" alt="addUser">AddUser</h2>
+<h2><img id="user" src="resources/img/addUser.png" alt="addUser">Add User</h2>
 </div>
 <div id="line">
 <hr>
@@ -31,13 +31,13 @@
 </div>
 <div id = "innerAddUserFormRight" class = "innerAddUserFormRight">
 <div id="textField" class="textField"><input id="firstName" class = "firstName"
-	type="text" placeholder="First Name" pattern="^[A-Za-z]+[A-Za-z\s]*$" required ></div>
+	type="text" placeholder="First Name" pattern="^[A-Za-z]+[A-Za-z\s]*$" required maxlength="128"></div>
 
 <div id="textField" class="textField"><input id="lastName" class = "lastName"
-	type="text" placeholder="Last Name" pattern="^[A-Za-z]+[A-Za-z\s]*$"  required></div>
+	type="text" placeholder="Last Name" pattern="^[A-Za-z]+[A-Za-z\s]*$"  required maxlength="128"></div>
 
 <div id="textField" class="textField"><input id="nickname" class = "nickname"
-	type="text" placeholder="Nickname" pattern="^[A-Za-z]+[A-Za-z\s]*$"></div>
+	type="text" placeholder="Nickname" pattern="^[A-Za-z]+[A-Za-z\s]*$" maxlength="128"></div>
 	
 	<div id="textField" class="textField">
 <select id = "gender" class = "gender" name = "gender">
@@ -46,24 +46,24 @@
 </select></div>
 
 <div id="textField" class="textField"><input id="email" class = "email"
-	type="email" placeholder="Email" required></div>
+	type="email" placeholder="Email" required maxlength="128"></div>
 
 <div id="textField" class="textField"><input id="employeeId" class = "employeeId"
-	type="text" placeholder="Employee Id" pattern="^[A-Za-z0-9]*$" required></div>
+	type="text" placeholder="Employee Id" pattern="^[A-Za-z0-9]*$" required maxlength="128"></div>
 
 <div id="textField" class="textField"><input id="designation" class = "designation"
-	type="text" placeholder="Designation" onblur = "this.value = this.value.toUpperCase()" pattern="^[A-Z\\s]*$" required></div>
+	type="text" placeholder="Designation" onblur = "this.value = this.value.toUpperCase()" pattern="^[A-Z\\s]*$" required maxlength="128"></div>
 
 <div id="textField" class="textField"><input id="location"  class = "location"
-	type="text" placeholder="Location" pattern="^[A-Za-z]+[A-Za-z\s]*$"></div>
+	type="text" placeholder="Location" pattern="^[A-Za-z]+[A-Za-z\s]*$" maxlength="128"></div>
 
 <div id="textField" class="textField"><input id="userId" class = "userId"
 	type="email" placeholder="User Id " required></div>
 
 <div id="textField" class="textField"><input id="password" class = "password"
-	type="password" placeholder="Password " pattern=".{6,}"required></div>
+	type="password" placeholder="Password " pattern=".{6,}"required maxlength="128"></div>
 <div id="textField" class="textField"><input id="confirmPassword" class = "confirmPassword"
-	type="password" placeholder="Confirm Password " pattern=".{6,}" required></div>
+	type="password" placeholder="Confirm Password " pattern=".{6,}" required maxlength="128"></div>
 	
 </div>
 </form>

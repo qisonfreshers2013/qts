@@ -20,8 +20,9 @@ Welcome.prototype.handleShow = function(nickname,password) {
 }
 
 Welcome.prototype.loadNickname = function(nickname){
-	$('span.nicknameCursor').text(nickname);
-}
+	$('span.nicknameCursor').text(nickname.ellipses(15));
+	$('span.nicknameCursor').attr('title',nickname);
+	}
 
 Welcome.prototype.logout = function(){
 	var input = {"payload":{}};

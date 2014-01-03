@@ -66,8 +66,7 @@ button.clearMyProfile {
 }
 
 p {
-	font-size: 16px;
-	
+	font-size: 16px;	
 }
 
 .editFields {
@@ -92,7 +91,6 @@ p {
 }
 
 button.submitMyProfile {
-
     background-color: #669933;
     color: #FFFFFF;
     padding: 0.1%;
@@ -101,7 +99,7 @@ button.submitMyProfile {
 
 #clearMyProfileDiv {
     margin-left: 33%;
-    margin-top: -2.3%;
+    margin-top: -2.5%;
     position: relative;
     width: 67%;
 }
