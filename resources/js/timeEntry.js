@@ -48,7 +48,7 @@ TimeEntry.prototype.getRequestParameters=function(){
 			               "minutes":$('.minutes').val(),
 			               "activityId":$('.selectActivity').val(),
 			               "releaseId":$('.selectRelease').val(),
-			               "userRemarks":$('.userRemarks').val()
+			               "userRemarks":$('.userRemarksInModal').val()
 			               };
       return requestParameters;
 } 
@@ -221,7 +221,7 @@ TimeEntry.prototype.updateTimeEntry=function(){
  
   TimeEntry.prototype.validateTimeEntry=function(){
 	  var date=$('.datepicker').val();
-	  var userRemarks=$('.userRemarks').val();
+	  var userRemarks=$('.userRemarksInModal').val();
 	  var task=$('.task').val();
 	  var isvalid=true;
 	  $(".error").hide();
