@@ -37,13 +37,14 @@ MyProfile.prototype.handleShow = function(password){
 		}
 		
 	}.ctx(this));
-	$('.changePassword').click(function(){		
+	$('.changePassword').click(function(){	
+	
 		App.loadChangePassword(password);		
 	}.ctx(this));
 	
-      $('#clear').click(function() {
-		  $('.error').remove();
-		 });
+	$('#clear').click(function() {
+		$('.error').remove();
+	});
 	
 	
 	
@@ -135,7 +136,7 @@ MyProfile.prototype.validateName = function(name){
 	        isValid = false;
 	    }
 	    else if(nameVal.length > 128){
-	    	name.after('<span class="error" style = "color:red">maximum length of name is 128 characters</span>');
+	    	name.after('<span class="error" style = "color:red">Maximum length of name is 128 characters</span>');
 	        isValid = false;
 	    }	    
 	    else
@@ -150,11 +151,14 @@ MyProfile.prototype.validateName = function(name){
 
 MyProfile.prototype.validateNickname= function(nickname){
 	var isValid = true;
-	var nicknameReg = /^[A-Za-z]*([ {1}][A-Za-z]*)*$/g;
+	var nicknameReg =  /^[A-Za-z]*([ {1}][A-Za-z]*)*$/g;
        $('.error').hide();
 	    var nicknameVal = nickname.val();
-	    
-	    if(!nicknameReg.test(nicknameVal)) {
+	    if(nicknameVal = ""){
+	    	$('.error').hide();
+    	 	isValid = true;
+	    }
+	    else if(!nicknameReg.test(nicknameVal)) {
 	    	nickname.after('<span class="error" style = "color:red">Nickname is invalid</span>');
 	        isValid = false;
 	    }
@@ -174,10 +178,14 @@ MyProfile.prototype.validateNickname= function(nickname){
 MyProfile.prototype.validateLocation= function(location){
 	var isValid = false;
 	$(".error").hide();
-	var locationReg = /^[A-Za-z]*([ {1}][A-Za-z]*)*$/g;
+	var locationReg =  /^[A-Za-z]*([ {1}][A-Za-z]*)*$/g;
        $('.error').hide();
-	    var locationVal = location.val();	    
-	    if(!locationReg.test(locationVal)) {
+	    var locationVal = location.val();	 
+	    if(locationVal == ""){
+	    	 $('.error').hide();
+	    	isValid = true;
+	    }
+	    else if(!locationReg.test(locationVal)) {
 	    	location.after('<span class="error" style = "color:red">Location is invalid</span>');
 	        isValid = false;
 	    }

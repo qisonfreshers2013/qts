@@ -6,14 +6,22 @@
  */
 
 function ChangePassword(password){
-	Loader.loadHTML('#changePasswordModal', 'ChangePassword.html', true, function(){		
+	Loader.loadHTML('#changePasswordModal', 'ChangePassword.html', true, function(){	
+		$('input.oldPasswordTextCP').focus();	
 		this.handleShow(password);			
 	}.ctx(this));
 }
 ChangePassword.prototype.handleShow = function(dbPassword){
-	console.log('calling modelshow');
+	console.log('calling modelshow');	
+	
 	$('#changePasswordModal').modal('show');
-	$('.oldPasswordTextCP').focus();
+	
+	$('#changePasswordModal').on('show', function () {
+		$('#userId').focus();
+	  //  if (!data) return e.preventDefault() // stops modal from being shown
+	});
+
+
 	$('#changePasswordModal').keyup(function (event) {
 		  if (event.keyCode == 13) {
 				$(".error").remove();
@@ -33,26 +41,37 @@ ChangePassword.prototype.handleShow = function(dbPassword){
 	
 	console.log('called modelshow');
 	$('button#submitPassword').click(function(){
+		
 		  var oldPassword = $('input.oldPasswordTextCP');
 		  var password = $('input.passwordTextCP');
 		  var confirmPassword = $('input.confirmPasswordTextCP');
-		  
-		  if(dbPassword!=oldPassword.val()){
+		  if(oldPassword.val().length == 0){
+			  $.ambiance({
+			       message : "Old password can not be empty",
+			       type : 'error'
+			      }); 
+		  }else if(dbPassword!=oldPassword.val()){
 			   $.ambiance({
-			       message : "invalid old password",
+			       message : "Invalid old password",
 			       type : 'error'
 			      }); 
 			   
 			  }
+		  else if(password.val().length<1){
+			  $.ambiance({
+			       message : "New Password can not be empty",
+			       type : 'error'
+			      });
+		  }
 			  else if(password.val().length<6){
 			   $.ambiance({
-			       message : "Minimum length of password is 6 characters",
+			       message : "Minimum length of new password is 6 characters",
 			       type : 'error'
 			      }); 
 			   
 			  }else if(oldPassword.val().length>128){
 			   $.ambiance({
-			       message : "Maximum length of password is 128 characters",
+			       message : "Maximum length of new password is 128 characters",
 			       type : 'error'
 			      });
 			   
@@ -64,7 +83,7 @@ ChangePassword.prototype.handleShow = function(dbPassword){
 			   
 			  }else if(dbPassword==password.val()&&dbPassword==confirmPassword.val()){
 			   $.ambiance({
-			       message : " old password and new password are same",
+			       message : " Old password and new password are same",
 			       type : 'error'
 			      });
 			   

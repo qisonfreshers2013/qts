@@ -87,4 +87,5 @@ p {
     position: relative;
     text-align: center;
     width: 28%;
+    border-radius:5px;
 }

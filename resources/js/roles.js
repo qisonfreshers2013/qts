@@ -2,13 +2,14 @@ function Roles() {
 	roles = new Array([]);
 	$(".rolesContainer").remove();
 	Loader.loadHTML('#container', 'roles.html', false, function() {
+		this.listProjects();
+		this.getRoles();
 		this.handleShow();
 	}.ctx(this));
 }
 
 Roles.prototype.handleShow = function() {
-	this.listProjects();
-	this.getRoles();
+	$("#projectList").focus();
 	$("#projectList").change(
 			function() {
 				if ($("#projectList").val() != "p0") {
@@ -42,11 +43,13 @@ Roles.prototype.handleShow = function() {
 				message : "Select User.",
 				type : 'error'
 			});
+			$('#userList').focus();
 		}else{
 			$.ambiance({
 				message : "Select project and user.",
 				type : 'error'
 			});
+			$('#projectList').focus();
 		}
 	}.ctx(this));
 	$("#cancelb").click(function() {
@@ -235,6 +238,7 @@ Roles.prototype.allocateRoles = function() {
 		}
 	});
 	if (allocate.length > 0) {
+		status=true;
 		var inputToAllocate = {
 			"payload" : {
 				"projectId" : $('#projectList').val(),
@@ -244,6 +248,7 @@ Roles.prototype.allocateRoles = function() {
 		};
 		RequestManager.allocateRoles(inputToAllocate, function(data, success) {
 			if (success) {
+				status=false;
 				roles = data.roleIds;
 				allocateSuccess=true;
 				this.sucessMessage();
@@ -274,6 +279,7 @@ Roles.prototype.deallocateRoles = function() {
 		}
 	});
 	if (deallocate.length > 0) {
+		//status=true;
 		var inputToDeallocate = {
 			"payload" : {
 				"projectId" : $('#projectList').val(),
@@ -284,6 +290,7 @@ Roles.prototype.deallocateRoles = function() {
 		RequestManager.deallocateRoles(inputToDeallocate, function(data,
 				success) {
 			if (success) {
+				//status=false;
 				roles = data.roleIds;
 				deallocateSuccess=true;
 				this.allocateRoles();
@@ -299,6 +306,8 @@ Roles.prototype.deallocateRoles = function() {
 		this.allocateRoles();
 	}
 };
+
 var roles;
 var deallocateSuccess=false;
 var allocateSuccess=false;
+//var status=false;

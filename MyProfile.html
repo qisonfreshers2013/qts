@@ -33,8 +33,8 @@ Place
 <p id = "userId" class = "userId">User Id</p>
 <p id = "designation" class = "designation">Designation</p>
 <p id = "gender" class = "gender">Gender</p>
-<p id = "firstName" class = "firstName">First Name<span class="star"><sup>*</sup></span></p>
-<p id = "lastName" class = "lastName">Last Name<span class="star"><sup>*</sup></span></p>
+<p id = "firstName" class = "firstName">First Name <span class="star"><sup>*</sup></span></p>
+<p id = "lastName" class = "lastName">Last Name <span class="star"><sup>*</sup></span></p>
 <p id = "nickname" class = "nickname">Nickname</p>
 <p id = "location" class = "location">Location<span class="star"></span></p>
 
@@ -46,10 +46,10 @@ Place
 <div><input id = "designationText" class = "designationText" type = "text" value = "Designation" name = "designation" readonly="readonly"/></div>
 <div><input id = "genderText" class = "genderText" type = "text" value = "Gender" name = "gender" readonly="readonly"/></div>
 <form id = "myProfileInnerForm" class = "myProfileInnerForm">
-<div><input id = "firstNameText" class = "firstNameText" type = "text" name = "First Name"  pattern="^[A-Za-z]+[A-Za-z\s]*$" placeholder = "First Name" maxlength="128" required/></div>
-<div><input id = "lastNameText" class = "lastNameText" type = "text" name = "Last Name"  pattern="^[A-Za-z]+[A-Za-z\s]*$" placeholder = "Last Name" maxlength="128" required/></div>
-<div><input id = "nicknameText" class = "nicknameText" type = "text" name = "Nickname"   pattern="^[A-Za-z]+[A-Za-z\s]*$" placeholder = "Nickname" maxlength="128"/></div>
-<div><input id = "locationText" class = "locationText" type = "text" name = "Location"  pattern="^[A-Za-z]+[A-Za-z\s]*$"  placeholder = "Location" maxlength="128"/></div>
+<div><input id = "firstNameText" class = "firstNameText" type = "text" name = "First Name "  pattern = "^[A-Za-z]+([ {1}][A-Za-z]+)*$" placeholder = "First Name " maxlength="128" required/></div>
+<div><input id = "lastNameText" class = "lastNameText" type = "text" name = "Last Name "  pattern="^[A-Za-z]+([ {1}][A-Za-z]+)*$" placeholder = "Last Name " maxlength="128" required/></div>
+<div><input id = "nicknameText" class = "nicknameText" type = "text" name = "Nickname "   pattern="^[A-Za-z]+([ {1}][A-Za-z]+)*$" placeholder = "Nickname" maxlength="128"/></div>
+<div><input id = "locationText" class = "locationText" type = "text" name = "Location "  pattern="^[A-Za-z]+([ {1}][A-Za-z]+)*$"  placeholder = "Location" maxlength="128"/></div>
 </form>
 </div>
 <div>

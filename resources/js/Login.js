@@ -10,9 +10,8 @@ function Login() {
 
 var roleNames=new Array();
 
-Login.prototype.handleShow = function() {
-	$('.container').show();
-	$('.rightContainer').show();
+Login.prototype.handleShow = function() {	
+	
 	$('#userId').focus();
 	
 	$("#loginDiv").keyup(function (event) {
@@ -34,17 +33,12 @@ Login.prototype.handleShow = function() {
 	$('#forgotPasswordModal').keyup(function (event) {
 		  if (event.keyCode == 27) {
 				$(".error").remove();
-				//$( "button#forgotButton" ).trigger("click");
-				$('#forgotPasswordModal').modal('hide');
+				$( "button#forgotButton" ).trigger("click");
 				$("input.emailToSend" ).val("");			
 		}		
 		}.ctx(this));
-	$('#forgotPasswordModal').on('hide',function(){
-		$('.loginDiv').children().prop("disabled",false);
-	}.ctx(this));
-	$('#forgotPasswordModal').on('show',function(){
-		$('.loginDiv').children().prop("disabled",true);
-	}.ctx(this));
+	
+
 	
 //	$("#userId").blur(function(){
 //		//$(".error").hide();			
@@ -70,12 +64,20 @@ Login.prototype.handleShow = function() {
 	
 	
 	$(".forgotPasswordLink").click(function(){	
-		$(".error").empty();
+		$(".error").empty();		
 		this.openEmailDialogBox();
+		$('#forgotPasswordModal').on('show', function () {
+			$('#userId').focus();
+		  //  if (!data) return e.preventDefault() // stops modal from being shown
+		});
+		
 	}.ctx(this));	
+	
+
 	
 	$("button.submitEmail").click(function(){
 		$(".error").hide();
+	
 		if(this.validateEmail( $('.emailToSend'))){	
 		$(".error").hide();
 		var email = $('.emailToSend').val();	
@@ -89,7 +91,6 @@ Login.prototype.handleShow = function() {
 	}.ctx(this));
 	
 	$("button.forgotButton").click(function(){
-		$('#forgotPasswordModal').modal('hide');
 		$("input.emailToSend" ).val("");
 	}.ctx(this));
 
@@ -105,11 +106,14 @@ Login.prototype.authenticate = function() {
 	
 	RequestManager.authenticate(input, function(data, success) {
 		if(success){
+			//routie('home');
 		 roleNames=data.roleNames;
 		      var  token = data.sessionToken;
 		      setCookie('qtsSessionId', token, null);
 		      if(data.user.nickName == null  || data.user.nickName.trim().length < 1){
 		    	 App.loadWelcome(data.user.lastName,data.user.password);
+		    	 
+		    	 
 		      }
 		      else{		    	
 		    	  	App.loadWelcome(data.user.nickName,data.user.password);
@@ -132,21 +136,21 @@ Login.prototype.authenticate = function() {
 }
 	
 Login.prototype.sendMail = function(email){
-	$("input.emailToSend").after('<span class=\"error\ id=\"processing\">Processing.Please wait...</span>');
+	$('#sending').text("Sending...");
 	var input = {"payload":{"email":email}};
-	
 	RequestManager.sendMail(input,function(data,success){
-		
 		if(success){
+			$('#sending').text("");
 			$("input.emailToSend" ).val("");	
 			$.ambiance({
-				  message : "Success : Mail is sent = "+data,
+				  message : "Success : Mail is sent",
 				  type : 'success'
 				});
 		$('#forgotPasswordModal').modal('hide');
-		$('.loginDiv').children().prop("disabled",false);
+		
 		}
 		else{
+			$('#sending').text("");
 			$.ambiance({
 			    message : "Fail : "+data.message,
 			    type : 'error'
@@ -159,9 +163,8 @@ Login.prototype.sendMail = function(email){
 Login.prototype.openEmailDialogBox = function() {	
 	$(".error").hide();
 	console.log("modal");
-	$('#forgotPasswordModal').modal('show');
-	$('.loginDiv').children().prop("disabled",true);
-	$(".emailToSend").focus();
+	$('#forgotPasswordModal').modal('show');	
+	$(".emailForgot").focus();
 }
 
 
@@ -180,7 +183,7 @@ Login.prototype.validateLogin = function(email,password){
 
     else if(!emailReg.test(email)) {
     	$('.userId').focus();
-    	$('.userId').after('<span class = "error"  style = "color:red" >invalid UserId</span>');
+    	$('.userId').after('<span class = "error"  style = "color:red" >Invalid UserId</span>');
         isValid = false;
     }
     else if (email.length > 128){
@@ -190,13 +193,13 @@ Login.prototype.validateLogin = function(email,password){
     }
 	 else if(password.trim().length < 6 ){
 		$('.password').focus();
-		$('.password').after('<span class = "error" style = "color:red" >password too short</span>');
+		$('.password').after('<span class = "error" style = "color:red" Password too short</span>');
         isValid = false;
 	}
 	else if(password.trim().length  > 128)
 		{
 			$('.password').focus();
-			$('.password').after('<span class = "error" style = "color:red" >password too long</span>');		
+			$('.password').after('<span class = "error" style = "color:red" >Password too long</span>');		
 		}
 	    else
 		{
