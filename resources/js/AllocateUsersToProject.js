@@ -11,7 +11,7 @@ var oldIds=new Array();
 var newEmails=new Array();
 var newIds=new Array();
 var projectName=$('#projectName');
-
+var status=false;
 
 AllocateUsersToProject.prototype.getProjects=function(){
 	$('#projectName').empty();
@@ -42,16 +42,18 @@ AllocateUsersToProject.prototype.handleShow=function(){
 	
 	$('#projectName').focus();
 	$('#projectName').change(function(){
+		status=false;
 		this.getProjectUsersAndNonUsers();
 	}.ctx(this));
-
-
+	
+	
 	$('#forward').click(function(){
 		var projectId=parseInt($('select#projectName option:selected').attr('value'));
 		var options = $('select#nonExistingUsers option:selected').clone();
 		if(options.length>0){
 			$('select#existingUsers').append(options);
 			$('select#nonExistingUsers option:selected').remove();
+			status=true;
 		}else if(projectId==0){
 			$.ambiance({
 			    message : 'please select project',
@@ -73,6 +75,7 @@ AllocateUsersToProject.prototype.handleShow=function(){
 		if(options.length>0){
 			$('select#nonExistingUsers').append(options);
 			$('select#existingUsers option:selected').remove();
+			status=true;
 		}else if(projectId==0){
 			$.ambiance({
 			    message :'please select project',
@@ -96,10 +99,6 @@ AllocateUsersToProject.prototype.handleShow=function(){
 			newEmails.push($(this).text());
 		});
 
-//		alert('new Emails:'+newEmails);
-//		alert('old Emails:'+oldEmails);
-//		alert('new Ids:'+newIds);
-//		alert('old Ids:'+oldIds);
 		var projectId=$('select#projectName option:selected').attr('value');
 		if(projectId==0){
 			$.ambiance({
@@ -111,6 +110,7 @@ AllocateUsersToProject.prototype.handleShow=function(){
 		else{
 			this.allocateUsersToProject(projectId,function(){
 					this.getProjectUsersAndNonUsers();
+					status=false;
 				
 			}.ctx(this));
 			
@@ -125,49 +125,45 @@ AllocateUsersToProject.prototype.handleShow=function(){
 
 
 
-
 AllocateUsersToProject.prototype.allocateUsersToProject=function(projectId,callBack){
 	var allocateIds=new Array();
 	var deAllocateIds=new Array();
+	
+	var allocateEmailMessage='';
+	var deAllocateEmailMessage='';
 
-	var allocateEmails=new Array();
-	var deAllocateEmails=new Array();
-
-	jQuery.grep(oldIds, function(el) {
-		if (jQuery.inArray(el, newIds) == -1) 
-			deAllocateIds.push(el);
+	$.each(oldIds,function(key,value){
+		if (jQuery.inArray(value, newIds) == -1) 
+			deAllocateIds.push(value);
 	});
 
-	jQuery.grep(newIds, function(el) {
-		if (jQuery.inArray(el, oldIds) == -1) 
-			allocateIds.push(el);
+	$.each(newIds,function(key,value){
+		if (jQuery.inArray(value, oldIds) == -1) 
+			allocateIds.push(value);
 	});
-
-	jQuery.grep(oldEmails, function(el) {
-		if (jQuery.inArray(el, newEmails) == -1) 
-			deAllocateEmails.push(el);
+	$.each(oldEmails,function(key,value){
+		if (jQuery.inArray(value, newEmails) == -1) {
+			deAllocateEmailMessage+='\t'+value+'\n';
+		}
 	});
-
-	jQuery.grep(newEmails, function(el) {
-		if (jQuery.inArray(el, oldEmails) == -1) 
-			allocateEmails.push(el);
+	
+	$.each(newEmails,function(key,value){
+		if (jQuery.inArray(value, oldEmails) == -1){
+			allocateEmailMessage+='\t'+value+'\n';
+		} 
 	});
 
 	allocateIds=jQuery.unique(allocateIds);
 	deAllocateIds=jQuery.unique(deAllocateIds);
-//	alert('allocating:\n'+allocateIds);
-//	alert('deAllocate:\n'+deAllocateIds);
-//	alert('allocating:\n'+allocateEmails);
-//	alert('deAllocate:\n'+deAllocateEmails);
 	var allocatingIdsLength=allocateIds.length;
 	var daAllocatingIdsLength=deAllocateIds.length;
 	var message='';
 	if(allocatingIdsLength>0&&daAllocatingIdsLength>0){
-		message='allocating users:\n'+allocateEmails+'\n\ndeAllocatingUsers:\n'+deAllocateEmails;
+		message='ALLOCATING USERS:\n'+allocateEmailMessage+'\n\nDEALLOCATING USERS:\n'+deAllocateEmailMessage;
 	}else if(allocatingIdsLength>0){
-		message='allocating users:\n'+allocateEmails;
+		message='ALLOCATING USERS:\n'+allocateEmailMessage;
 	}else{
-		message='deAllocatingUsers:\n'+deAllocateEmails;
+		message='DEALLOCATING USERS:\n'+deAllocateEmailMessage;
 	}
 	if(allocatingIdsLength>0 || daAllocatingIdsLength>0){
 		if(confirm(message)){
@@ -249,9 +245,9 @@ AllocateUsersToProject.prototype.getProjectUsersAndNonUsers=function(){
 					});
 					
 					$.each(records,function(key,value){
-						oldEmails.push(value.email);
+						oldEmails.push(value.email.toLowerCase());
 						oldIds.push( parseInt(value.id));
-						existing.append('<option value='+value.id+'>'+value.email+'</option>');
+						existing.append('<option value='+value.id+'>'+value.email.toLowerCase()+'</option>');
 					});
 			}else{
 				$.ambiance({
@@ -282,7 +278,7 @@ AllocateUsersToProject.prototype.getProjectUsersAndNonUsers=function(){
 							email=value2;
 						}
 					});
-					nonExisting.append('<option value='+id+'>'+email+'</option>');
+					nonExisting.append('<option value='+id+'>'+email.toLowerCase()+'</option>');
 				});
 			}else{
 				$.ambiance({

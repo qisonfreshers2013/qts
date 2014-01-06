@@ -50,33 +50,25 @@ p {
     position: relative;
     width: 20%;
 }
-/* $("#roleRow").css({"border-bottom" : "1px solid",
-					"height" : "10%",
-					"position" : "relative",
-					"top" : "10%"
-		      }); */
-/* #rolesList {
-    border-spacing: 0;
-    font-size: 16px;
-} */
+
 #roleRow{
     border-bottom: 1px solid;
     height: 10%;
     position: relative;
     top: 10%;
 } 
-/* .rolesCheckbox {
+.rolesCheckbox {
     margin:5%;
     position: relative;
     width: 10%;
-} */
+}
 
-/* .rolesName {
+.rolesName {
     margin-top: -15%;
     margin-left:32%;
     position: relative;
     width: 65%;
-} */
+}
 .avalRoles {
 }
 #buttons {
@@ -95,4 +87,5 @@ p {
     position: relative;
     text-align: center;
     width: 28%;
+    border-radius:5px;
 }

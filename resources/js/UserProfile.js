@@ -56,6 +56,11 @@ UserProfile.prototype.handleShow = function(id) {
 	});
 	
 	
+	$('#clear').click(function() {
+		  $('.error').remove();
+		 });
+	
+	
 }
 
 

@@ -22,31 +22,76 @@ Menu.prototype.handleShow=function(){
 		$('#main > li').css('width','24%');
 		
 		$('#um').click(function(){
-			$('#content').remove();
-			App.loadAddUser();
+			if(status){
+				if(confirm('Changes are not saved. Do you want to leave page')){
+					status=false;
+					$('#content').remove();
+					App.loadAddUser();
+				}
+			}else{
+				$('#content').remove();
+				App.loadAddUser();
+			}
+			
 		});
 		
 		$('#addProject').click(function(){
-			$('#content').remove();
-			App.loadAddProject();
+			if(status){
+				if(confirm('Changes are not saved. Do you want to leave page')){
+					status=false;
+					$('#content').remove();
+					App.loadAddProject();
+				}
+			}else{
+				$('#content').remove();
+				App.loadAddProject();
+			}
+			
 			
 		});
 		
 		$('#allocateUsers').click(function(){
-			$('#content').remove();
-			App.loadAllocateUsersToProject();
+			if(status){
+				if(confirm('Changes are not saved. Do you want to leave page')){
+					status=false;
+					$('#content').remove();
+					App.loadAllocateUsersToProject();
+				}
+			}else{
+				$('#content').remove();
+				App.loadAllocateUsersToProject();
+			}
+			
 			
 		});
 		
 		$('#addroleIds').click(function(){
-			$('#content').remove();
-			App.loadRoles();
+			if(status){
+				if(confirm('Changes are not saved. Do you want to leave page')){
+					status=false;
+					$('#content').remove();
+					App.loadRoles();
+				}
+			}else{
+				$('#content').remove();
+				App.loadRoles();
+			}
+			
 			
 		});
 		
 		$('#searchProject').click(function(){
-			$('#content').remove();
-			App.loadSearchProject();
+			if(status){
+				if(confirm('Changes are not saved. Do you want to leave page')){
+					status=false;
+					$('#content').remove();
+					App.loadSearchProject();
+				}
+			}else{
+				$('#content').remove();
+				App.loadSearchProject();
+			}
+			
 			
 		});
 		
@@ -60,22 +105,42 @@ Menu.prototype.handleShow=function(){
 			$('#main > li').css('width','auto');
 			
 			$('#tsa').click(function(){
-				$('#content').remove();
-				App.loadApproverTimeSheetSearch();
-				App.loadDefaultApproverPage();
+				if(status){
+					if(confirm('Changes are not saved. Do you want to leave page')){
+						status=false;
+						$('#content').remove();
+						App.loadApproverTimeSheetSearch();
+						App.loadDefaultApproverPage();
+					}
+				}else{
+					$('#content').remove();
+					App.loadApproverTimeSheetSearch();
+					App.loadDefaultApproverPage();
+				}
+				
 			});
 			
 			if(roleNames.contains('MEMBER')){
 				$('#main').append('<li><a id="tsf">Time Sheet Filling</a>');
 				
-				$('#projectOptions').css( 'width', '17%').css('margin-left','-1.8%');
+				$('#projectOptions').css( 'width', '16%').css('margin-left','-1.7%');
 				$('#main > li').css('width','auto');
 				$('#main > li > a').css('padding','0 1.1em');
 				
 				$('#tsf').click(function(){
-					$('#content').remove();
-					App.loadTimeSheetFilling();
-					App.loadDefaultTimeSheetPage();
+					if(status){
+						if(confirm('Changes are not saved. Do you want to leave page')){
+							status=false;
+							$('#content').remove();
+							App.loadTimeSheetFilling();
+							App.loadDefaultTimeSheetPage();
+						}
+					}else{
+						$('#content').remove();
+						App.loadTimeSheetFilling();
+						App.loadDefaultTimeSheetPage();
+					}
+					
 				});
 			}
 		}
@@ -87,9 +152,19 @@ Menu.prototype.handleShow=function(){
 			$('#main > li').css('width','auto');
 			
 			$('#tsf').click(function(){
-				$('#content').remove();
-				App.loadTimeSheetFilling();
-				App.loadDefaultTimeSheetPage();
+				if(status){
+					if(confirm('Changes are not saved. Do you want to leave page')){
+						status=false;
+						$('#content').remove();
+						App.loadTimeSheetFilling();
+						App.loadDefaultTimeSheetPage();
+					}
+				}else{
+					$('#content').remove();
+					App.loadTimeSheetFilling();
+					App.loadDefaultTimeSheetPage();
+				}
+				
 			});
 		}
 			
@@ -102,18 +177,38 @@ Menu.prototype.handleShow=function(){
 		
 		//click events for approver
 		$('#tsa').click(function(){
-			$('#content').remove();
-			App.loadApproverTimeSheetSearch();
-			App.loadDefaultApproverPage();
+			if(status){
+				if(confirm('Changes are not saved. Do you want to leave page')){
+					status=false;
+					$('#content').remove();
+					App.loadApproverTimeSheetSearch();
+					App.loadDefaultApproverPage();
+				}
+			}else{
+				$('#content').remove();
+				App.loadApproverTimeSheetSearch();
+				App.loadDefaultApproverPage();
+			}
+			
 		});
 		
 		if(roleNames.contains('MEMBER')){
 			$('#main').append('<li><a id="tsf">Time Sheet Filling</a>');
 			
 			$('#tsf').click(function(){
-				$('#content').remove();
-				App.loadTimeSheetFilling();
-				App.loadDefaultTimeSheetPage();
+				if(status){
+					if(confirm('Changes are not saved. Do you want to leave page')){
+						status=false;
+						$('#content').remove();
+						App.loadTimeSheetFilling();
+						App.loadDefaultTimeSheetPage();
+					}
+				}else{
+					$('#content').remove();
+					App.loadTimeSheetFilling();
+					App.loadDefaultTimeSheetPage();
+				}
+				
 			});
 			
 		}
@@ -130,9 +225,19 @@ Menu.prototype.handleShow=function(){
 		//click events for member role
 		
 		$('#tsf').click(function(){
-			$('#content').remove();
-			App.loadTimeSheetFilling();
-			App.loadDefaultTimeSheetPage();
+			if(status){
+				if(confirm('Changes are not saved. Do you want to leave page')){
+					status=false;
+					$('#content').remove();
+					App.loadTimeSheetFilling();
+					App.loadDefaultTimeSheetPage();
+				}
+			}else{
+				$('#content').remove();
+				App.loadTimeSheetFilling();
+				App.loadDefaultTimeSheetPage();
+			}
+			
 		});
 	}
 	else{
@@ -141,20 +246,47 @@ Menu.prototype.handleShow=function(){
 	
 	if(!(roleNames.contains('ADMIN'))){
 	$('#pm').click(function(){
-		$('#content').remove();
-		App.loadSearchProject();
+		if(status){
+			if(confirm('Changes are not saved. Do you want to leave page')){
+				status=false;
+				$('#content').remove();
+				App.loadSearchProject();
+			}
+		}else{
+			$('#content').remove();
+			App.loadSearchProject();
+		}
+		
 	});
 	}
 	
 	$('#prm').click(function(){
-		$('#content').remove();
-		App.loadSearchProjectRelease();
+		if(status){
+			if(confirm('Changes are not saved. Do you want to leave page')){
+				status=false;
+				$('#content').remove();
+				App.loadSearchProjectRelease();
+			}
+		}else{
+			$('#content').remove();
+			App.loadSearchProjectRelease();
+		}
+		
 		
 	});
 	
 	$('#su').click(function(){
-		$('#content').remove();
-		App.loadSearchUser();
+		if(status){
+			if(confirm('Changes are not saved. Do you want to leave page')){
+				status=false;
+				$('#content').remove();
+				App.loadSearchUser();
+			}
+		}else{
+			$('#content').remove();
+			App.loadSearchUser();
+		}
+		
 	});
 	
 }

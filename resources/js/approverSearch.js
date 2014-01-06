@@ -35,14 +35,14 @@ ApproverSearch.prototype.handleShow=function(){
 		}.ctx(this));
 	
  	$(".submitComments").click(function(){
-		$("#rejectedComments").hide();
+		$("#rejectedComments").modal('hide');
 		if(statusToApproveOrReject==1){
-		this.approveTimeEntry(event);
+		this.approveTimeEntry();
 		}else{
 			if(statusToApproveOrReject==2){
 			if($(".comments").val()!=''){
-				$("#rejectedComments").hide();
-				this.rejectTimeEntry(event);}else{
+				$("#rejectedComments").modal('hide');
+				this.rejectTimeEntry();}else{
 					$("#rejectedComments").modal('show');
 					$.ambiance({
         			    message : 'Mention the Comments.',
@@ -53,7 +53,7 @@ ApproverSearch.prototype.handleShow=function(){
 	}.ctx(this));
 	
 	
-  	$('#cancel').click(function(event){
+  	$('#cancelTheAction').click(function(event){
 		$("#closeBtnForComments").trigger("click");
 		}.ctx(this));
   	
@@ -139,25 +139,6 @@ ApproverSearch.prototype.getSearchCriteria=function(){
 ApproverSearch.prototype.getInputForSearchUserTimeEntriesByApprover=function(){
 	var input;
 	var searchCriteria=this.getSearchCriteria();
-//	 if(searchCriteria.from!='' && searchCriteria.projectId!='SELECT'&& searchCriteria.status!=0 && searchCriteria.userId!='SELECT' && searchCriteria.to!='')
-//		input={ "payload": { "projectId":searchCriteria.projectId,"status":searchCriteria.status,"userId":searchCriteria.userId,"from":searchCriteria.from,"to":searchCriteria.to}}; 
-//	else if(searchCriteria.from=='' && searchCriteria.projectId=='SELECT'&& searchCriteria.status!=0 && searchCriteria.userId!='SELECT' && searchCriteria.to=='')
-//		input={ "payload": {"status":searchCriteria.status,"userId":searchCriteria.userId}}; 
-//	else if(searchCriteria.from=='' && searchCriteria.projectId!='SELECT'&& searchCriteria.status!=0 && searchCriteria.userId=='SELECT' && searchCriteria.to=='')
-//		input={ "payload": { "projectId":searchCriteria.projectId,"status":searchCriteria.status}}; 
-//	else if(searchCriteria.from=='' && searchCriteria.projectId!='SELECT'&& searchCriteria.status!=0 && searchCriteria.userId!='SELECT' && searchCriteria.to=='')
-//		input={ "payload": { "projectId":searchCriteria.projectId,"status":searchCriteria.status,"userId":searchCriteria.userId}}; 
-//	else if(searchCriteria.from!='' && searchCriteria.projectId!='SELECT'&& searchCriteria.status!=0 && searchCriteria.userId!='SELECT' && searchCriteria.to=='')
-//		input={ "payload": { "projectId":searchCriteria.projectId,"status":searchCriteria.status,"userId":searchCriteria.userId,"from":searchCriteria.from}}; 
-//	else if(searchCriteria.from!='' && searchCriteria.projectId=='SELECT'&& searchCriteria.status!=0 && searchCriteria.userId=='SELECT' && searchCriteria.to!='')
-//		input={ "payload": { "status":searchCriteria.status,"from":searchCriteria.from,"to":searchCriteria.to}}; 
-//	else if(searchCriteria.from=='' && searchCriteria.projectId=='SELECT'&& searchCriteria.status!=0 && searchCriteria.userId=='SELECT' && searchCriteria.to=='')
-//		input={ "payload": {"status":searchCriteria.status}}; 
-//	else if(searchCriteria.from=='' && searchCriteria.projectId!='SELECT'&& searchCriteria.status==0 && searchCriteria.userId=='SELECT' && searchCriteria.to=='')
-//		input={ "payload": {"projectId":searchCriteria.projectId}};
-//	else if(searchCriteria.from=='' && searchCriteria.projectId=='SELECT'&& searchCriteria.status==0 && searchCriteria.userId=='SELECT' && searchCriteria.to==''){
-//		input={ "payload": {}};
-//	}
 	 var dataToSend='{"payload":{';
 	 if(searchCriteria.from!=''){
 	 dataToSend=dataToSend+'"from":'+'"'+searchCriteria.from+'"';
@@ -177,16 +158,13 @@ ApproverSearch.prototype.getInputForSearchUserTimeEntriesByApprover=function(){
 		 dataToSend=dataToSend+',"userId":'+searchCriteria.userId;
       }
 	 if(searchCriteria.status!=0 || searchCriteria.from!='' || searchCriteria.projectId!='SELECT' || searchCriteria.userId!='SELECT'){
-		 if(searchCriteria.status!=0){
-		 dataToSend=dataToSend+',"status":'+searchCriteria.status;
+		 if(searchCriteria.status!=0 && searchCriteria.from =='' && searchCriteria.projectId=='SELECT' && searchCriteria.userId=='SELECT'){
+		 dataToSend=dataToSend+'"status":'+searchCriteria.status;
+		 }else{
+			 if(searchCriteria.status!=0)
+			 dataToSend=dataToSend+',"status":'+searchCriteria.status;
 		 }
-	 }else
-		 {
-		 if(searchCriteria.status!=0){
-			 dataToSend=dataToSend+'"status":'+searchCriteria.status;
-		 }
-		 
-		 }
+	 }
 	    dataToSend=dataToSend+'}}';
 	
 	
@@ -203,63 +181,111 @@ ApproverSearch.prototype.getInputForSearchUserTimeEntriesByApprover=function(){
 ApproverSearch.prototype.searchTimeEntriesByApprover = function() {
 	
 	var input=this.getInputForSearchUserTimeEntriesByApprover();
-//	if(input==null || input =={"payload":{"projectId":"SELECT"}}){
-//		input={"payload":{}}
-//	}
      RequestManager.searchTimeEntriesByApprover(input,function(data,success){
     		if(success){
     			var status;
     			var operations;
+    			
     			$(".approverTableData").empty();
     			if(data.length!=0){
     			$(".approverTableHeader").show();
+    			data=data.sort(function(a, b){
+   		         if (a.dateInLong == b.dateInLong) {
+   		             return 0;
+   		         } else if(a.dateInLong > b.dateInLong) {
+   		             return 1;
+   		         }
+   		         return -1;
+   		          });
     			for(var i=0;i<data.length;i++){
+    				var workedMinutes=data[i].minutes%60;
+    				var workedHours=data[i].minutes/60;
+    				var workedHoursInInteger=parseInt(workedHours);
+    				
+    				
     				
     				if(data[i].status==2){
+    					$('.searchTimeEntriesTableForApprover tbody tr th:last').hide();
     					status="Approved";
-    					operations="";
+    					tabledata="<tr class=\"approverTableData\">"+
+                        "<td>"+$.datepicker.formatDate('mm/dd/yy', new Date(data[i].dateInLong))+"</td>"+
+                        "<td title='"+data[i].projectName+"'>"+(data[i].projectName.charAt(0).toUpperCase()+data[i].projectName.substr(1).toLowerCase()).ellipses(10)+"</td>"+
+                        "<td title='"+data[i].userName+"'>"+(data[i].userName.charAt(0).toUpperCase()+data[i].userName.substr(1).toLowerCase()).ellipses(10)+"</td>"+
+                        "<td title='"+data[i].releaseVersion+"'>"+data[i].releaseVersion.ellipses(10)+"</td>"+
+                        "<td title='"+data[i].task+"'>"+(data[i].task.charAt(0).toUpperCase()+data[i].task.substr(1).toLowerCase()).ellipses(10)+"</td>"+
+                        "<td title='"+data[i].activity+"'>"+(data[i].activity.charAt(0).toUpperCase()+data[i].activity.substr(1).toLowerCase()).ellipses(10)+"</td>"+
+                        "<td>"+workedHoursInInteger+":"+workedMinutes+"</td>"+
+                        "<td>"+status+"</td>";
     				}
     				if(data[i].status==3){
+    					$('.searchTimeEntriesTableForApprover tbody tr th:last').hide();
+    					
     					status="Rejected";
-    					operations="";
+    					tabledata="<tr class=\"approverTableData\">"+
+                        "<td>"+$.datepicker.formatDate('mm/dd/yy', new Date(data[i].dateInLong))+"</td>"+
+                        "<td title='"+data[i].projectName+"'>"+(data[i].projectName.charAt(0).toUpperCase()+data[i].projectName.substr(1).toLowerCase()).ellipses(10)+"</td>"+
+                        "<td title='"+data[i].userName+"'>"+(data[i].userName.charAt(0).toUpperCase()+data[i].userName.substr(1).toLowerCase()).ellipses(10)+"</td>"+
+                        "<td title='"+data[i].releaseVersion+"'>"+data[i].releaseVersion.ellipses(10)+"</td>"+
+                        "<td title='"+data[i].task+"'>"+(data[i].task.charAt(0).toUpperCase()+data[i].task.substr(1).toLowerCase()).ellipses(10)+"</td>"+
+                        "<td title='"+data[i].activity+"'>"+(data[i].activity.charAt(0).toUpperCase()+data[i].activity.substr(1).toLowerCase()).ellipses(10)+"</td>"+
+                        "<td>"+workedHoursInInteger+":"+workedMinutes+"</td>"+
+                        "<td>"+status+"</td>";
     				}
     				if(data[i].status==1){
+    					    					
     					status="Pending";
     					operations="<button class=\"approve approveTimeEntry\" id=\"approveTimeEntry"+data[i].id+"\" value=\""+data[i].id+"\">.</button><button class=\"reject rejectTimeEntry\" id=\"rejectTimeEntry"+data[i].id+"\" value=\""+data[i].id+"\">.</button>";
+    					tabledata="<tr class=\"approverTableData\">"+
+                        "<td>"+$.datepicker.formatDate('mm/dd/yy', new Date(data[i].dateInLong))+"</td>"+
+                        "<td title='"+data[i].projectName+"'>"+(data[i].projectName.charAt(0).toUpperCase()+data[i].projectName.substr(1).toLowerCase()).ellipses(10)+"</td>"+
+                        "<td title='"+data[i].userName+"'>"+(data[i].userName.charAt(0).toUpperCase()+data[i].userName.substr(1).toLowerCase()).ellipses(10)+"</td>"+
+                        "<td title='"+data[i].releaseVersion+"'>"+data[i].releaseVersion.ellipses(10)+"</td>"+
+                        "<td title='"+data[i].task+"'>"+(data[i].task.charAt(0).toUpperCase()+data[i].task.substr(1).toLowerCase()).ellipses(10)+"</td>"+
+                        "<td title='"+data[i].activity+"'>"+(data[i].activity.charAt(0).toUpperCase()+data[i].activity.substr(1).toLowerCase()).ellipses(10)+"</td>"+
+                        "<td>"+workedHoursInInteger+":"+workedMinutes+"</td>"+
+                        "<td>"+status+"</td>"+
+                        "<td>"+operations+"</td>";
     				}
-    				var tabledata="<tr class=\"approverTableData\">"+
-                    "<td>"+$.datepicker.formatDate('mm/dd/yy', new Date(data[i].dateInLong))+"</td>"+
-                    "<td title='"+data[i].projectName+"'>"+(data[i].projectName.charAt(0).toUpperCase()+data[i].projectName.substr(1).toLowerCase()).ellipses(10)+"</td>"+
-                    "<td title='"+data[i].userName+"'>"+(data[i].userName.charAt(0).toUpperCase()+data[i].userName.substr(1).toLowerCase()).ellipses(10)+"</td>"+
-                    "<td title='"+data[i].releaseVersion+"'>"+data[i].releaseVersion.ellipses(10)+"</td>"+
-                    "<td title='"+data[i].task+"'>"+(data[i].task.charAt(0).toUpperCase()+data[i].task.substr(1).toLowerCase()).ellipses(10)+"</td>"+
-                    "<td title='"+data[i].activity+"'>"+(data[i].activity.charAt(0).toUpperCase()+data[i].activity.substr(1).toLowerCase()).ellipses(10)+"</td>"+
-                    "<td>"+data[i].hours+"</td>"+
-                    "<td>"+status+"</td>"+
-                    "<td>"+operations+"</td>";
-                    //"<td><button class=\"approve approveTimeEntry\" id=\"approveTimeEntry\" value=\""+data[i][0]+"\">.</button><button class=\"reject rejectTimeEntry\" id=\"rejectTimeEntry\" value=\""+data[i][0]+"\">.</button></td>";
-                    $(".approverTableHeader").after(tabledata);
-//    	    			 $('#approveTimeEntry'+data[i].id).click(function(event){
-//    					    	$("#rejectedComments").modal('show');
-//    					    	$(".submitComments").click(function(){
-//    								$("#rejectedComments").hide();
-//    								this.approveTimeEntry(event);	
-//    							}.ctx(this));
-//    							}.ctx(this));
-//    	    			 
-//    						$('#rejectTimeEntry'+data[i].id).click(function(event){	
-//    							$("#rejectedComments").modal('show');
-//    							$(".submitComments").click(function(){
-//    								$("#rejectedComments").hide();
-//    								this.rejectTimeEntry(event);			
-//    							}.ctx(this));
-//    							}.ctx(this));
-//    	
+    				
+    				
+    				
+    				
+    				
+    				
+//    				
+//    				if(data[i].status==2){
+//    					status="Approved";
+//    					operations="";
+//    				}
+//    				if(data[i].status==3){
+//    					status="Rejected";
+//    					operations="";
+//    				}
+//    				if(data[i].status==1){
+//    					status="Pending";
+//    					operations="<button class=\"approve approveTimeEntry\" id=\"approveTimeEntry"+data[i].id+"\" value=\""+data[i].id+"\">.</button><button class=\"reject rejectTimeEntry\" id=\"rejectTimeEntry"+data[i].id+"\" value=\""+data[i].id+"\">.</button>";
+//    				}
+//    				var tabledata="<tr class=\"approverTableData\">"+
+//                    "<td>"+$.datepicker.formatDate('mm/dd/yy', new Date(data[i].dateInLong))+"</td>"+
+//                    "<td title='"+data[i].projectName+"'>"+(data[i].projectName.charAt(0).toUpperCase()+data[i].projectName.substr(1).toLowerCase()).ellipses(10)+"</td>"+
+//                    "<td title='"+data[i].userName+"'>"+(data[i].userName.charAt(0).toUpperCase()+data[i].userName.substr(1).toLowerCase()).ellipses(10)+"</td>"+
+//                    "<td title='"+data[i].releaseVersion+"'>"+data[i].releaseVersion.ellipses(10)+"</td>"+
+//                    "<td title='"+data[i].task+"'>"+(data[i].task.charAt(0).toUpperCase()+data[i].task.substr(1).toLowerCase()).ellipses(10)+"</td>"+
+//                    "<td title='"+data[i].activity+"'>"+(data[i].activity.charAt(0).toUpperCase()+data[i].activity.substr(1).toLowerCase()).ellipses(10)+"</td>"+
+//                    "<td>"+workedHoursInInteger+":"+workedMinutes+"</td>"+
+//                    "<td>"+status+"</td>"+
+//                    "<td>"+operations+"</td>";
+                    $(".approverTableHeader").after(tabledata);	
     			}
     			
     			 $('.approveTimeEntry').click(function(event){
+    				 $("#rejectedComments").modal({
+							backdrop:"static"
+						});
+    				   $("#clearTheComments").trigger("click");
 				    	$("#rejectedComments").modal('show');
 				    	statusToApproveOrReject=1;
+				    	timeEntryIdToApproveOrReject=event.target.value;
 //				    	$(".submitComments").click(function(){
 //							$("#rejectedComments").hide();
 //							statusToApproveOrReject=1;
@@ -267,9 +293,14 @@ ApproverSearch.prototype.searchTimeEntriesByApprover = function() {
 //						}.ctx(this));
 						}.ctx(this));
  			 
-					$('.rejectTimeEntry').click(function(event){	
+					$('.rejectTimeEntry').click(function(event){
+						$("#rejectedComments").modal({
+							backdrop:"static"
+						});
+						$("#clearTheComments").trigger("click");
 						$("#rejectedComments").modal('show');
 						statusToApproveOrReject=2;
+						timeEntryIdToApproveOrReject=event.target.value;
 //						$(".submitComments").click(function(){
 //							if($(".comments").val()!=''){
 //							$("#rejectedComments").hide();
@@ -282,28 +313,6 @@ ApproverSearch.prototype.searchTimeEntriesByApprover = function() {
 //						}.ctx(this));
 						}.ctx(this));
     			
-    			
-    			
-//    			
-//    			 $('.approveTimeEntry').click(function(event){
-//				    	$("#rejectedComments").modal('show');
-//				    	$('#closeBtnForComments').click(function(event){
-//				    		$(".submitComments").trigger("click");
-//				    		}.ctx(this));
-//				    	$(".submitComments").click(function(){
-//							$("#rejectedComments").hide();
-//							this.approveTimeEntry(event);	
-//						}.ctx(this));
-//						}.ctx(this));
-//					$('.rejectTimeEntry').click(function(event){	
-//						$("#rejectedComments").modal('show');
-//						$(".submitComments").click(function(){
-//							$("#rejectedComments").hide();
-//							this.rejectTimeEntry(event);			
-//						}.ctx(this));
-//						 
-//						
-//						}.ctx(this));
     			}
     			else{
     				$.ambiance({
@@ -321,9 +330,9 @@ ApproverSearch.prototype.searchTimeEntriesByApprover = function() {
     	}.ctx(this));
 }
 
-ApproverSearch.prototype.approveTimeEntry=function(event){
+ApproverSearch.prototype.approveTimeEntry=function(){
 	$("#rejectedComments").modal('hide');
-	var timeEntryId=event.target.value;
+	var timeEntryId=timeEntryIdToApproveOrReject;
 	if($(".comments").val()==""){
 		input={"payload":{"id":timeEntryId}};
 	}
@@ -357,8 +366,8 @@ ApproverSearch.prototype.approveTimeEntry=function(event){
 	
 	
 }
-ApproverSearch.prototype.rejectTimeEntry=function(event){
-	var timeEntryId=event.target.value;
+ApproverSearch.prototype.rejectTimeEntry=function(){
+	var timeEntryId=timeEntryIdToApproveOrReject;
 	RequestManager.reject({ "payload": {"id":timeEntryId,"rejectedComments":$(".comments").val()} },function(data,success){
 		if(success){
 			if(data){
@@ -418,4 +427,5 @@ ApproverSearch.prototype.validateSearchCriteria=function(){
 	  return isvalid;
 }
 var statusToApproveOrReject;
+var timeEntryIdToApproveOrReject;
 

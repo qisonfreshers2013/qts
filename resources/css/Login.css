@@ -15,6 +15,7 @@ img.login{
 }
 .error{
 	margin-left: 3%;
+	position: relative;
 }
 .clearDivLogin {
     left: 35.5%;
@@ -31,6 +32,12 @@ img.login{
 .userIdWidth,.passwordWidth{
 width:50%;
 }
+#forgotPasswordModal{
+z-index: 9999;	
+}
+/* #processing{
+	margin-left: 3%;
+} */
 a.forgotPasswordLink{
     font-size:16px;
     text-align: left;

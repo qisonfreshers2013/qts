@@ -17,8 +17,8 @@ TimeEntry.prototype.handleShow=function(){
     });
     $("#calendarIcon").click(function(){$(".datepicker").focus();}.ctx(this));
     
-	$('.save').click(function(event){
-		var id=$("input[type=checkbox]:checked").val();
+	$('.saveTheTimeEntry').click(function(event){
+		var id=$("input[type=checkbox]:checked#checkboxForTableData").val();
 		if(this.validateTimeEntry()){
 		this.getRequestParameters();
 		event.preventDefault();
@@ -34,7 +34,7 @@ TimeEntry.prototype.handleShow=function(){
 	        this.getReleases();
 	}.ctx(this));
 	$('#closeTheModal').click(function(event){
-		$(".cancel").trigger("click");
+		$(".clearTheFields").trigger("click");
 	}.ctx(this));	
 
 }
@@ -45,6 +45,7 @@ TimeEntry.prototype.getRequestParameters=function(){
 			               "projectId":$('.projectId').val(),
 			               "task":$('.task').val(),
 			               "hours":$('.hours').val(),
+			               "minutes":$('.minutes').val(),
 			               "activityId":$('.selectActivity').val(),
 			               "releaseId":$('.selectRelease').val(),
 			               "userRemarks":$('.userRemarks').val()
@@ -61,6 +62,7 @@ TimeEntry.prototype.getInputForTimeSheetFilling=function(){
 			    	         "task":requestParameters.task,
 	                         "activityId":requestParameters.activityId,
 	                         "hours":requestParameters.hours,
+	                         "minutes":requestParameters.minutes,
 	                         "status":"0",
 	                         "userRemarks":requestParameters.userRemarks
 			               }
@@ -92,7 +94,9 @@ TimeEntry.prototype.setRequestParameters=function(updateRequestParameters){
 		RequestManager.addTimeEntry(input, function(data, success) {
 			if (success) {
 			      alert("TimeEntry Saved");
+			      $("#clearTheFields").trigger("click");
 			      $(".searchUserTimeEntries").trigger("click");
+			      
 			    } else {
 			    	$.ambiance({
 	    			    message : data.message,
@@ -100,7 +104,6 @@ TimeEntry.prototype.setRequestParameters=function(updateRequestParameters){
 	    			   });
 			}
 		}.ctx(this));
-		DefaultTimeSheetPage.searchUserTimeEntries();
 		$( "#loadTimeSheetFilling" ).modal( "hide" );
 		
  }
@@ -146,16 +149,18 @@ TimeEntry.prototype.getReleases=function(){
 	for(var i=0;i<data.length;i++){
 		 $('.selectRelease').append('<option class=\"releaseValue\" value='+data[i][0]+'>'+data[i][1]+'</option>');
 	          }}
-		  else {alert("No Releases For This Project.");}
+		  else {$.ambiance({
+			    message : 'No Releases For This Project.',
+			    type : 'error'
+			   });}
 	  }else{
-	   $("cancel").trigger("click");
-	  }
-	 }.ctx(this));}else{
 		  $.ambiance({
-			    message : 'Select the project to get releases.',
+			    message : data.message,
 			    type : 'error'
 			   });
-	 }
+	   $("cancel").trigger("click");
+	  }
+	 }.ctx(this));}
 	}
  
 TimeEntry.prototype.getActivities=function(){
@@ -167,7 +172,7 @@ TimeEntry.prototype.getActivities=function(){
 		 $('.selectActivity').append('<option class=\"activityValue\" value='+data[i].id+'>'+data[i].name+'</option>');
 	}
 	  }else{
-	   $("cancel").trigger("click");
+	   $("#clearTheFields").trigger("click");
 	  }
 	 }.ctx(this));
 	}
@@ -182,6 +187,7 @@ TimeEntry.prototype.updateTimeEntry=function(){
          "date":$('.datepicker').val(),
          "task":$('.task').val(),
          "hours":$('.hours').val(),
+         "minutes":$('.minutes').val(),
          "userRemarks":$('.userRemarks').val(),
          "status":0
          } 
@@ -194,7 +200,7 @@ TimeEntry.prototype.updateTimeEntry=function(){
 				    message : 'Updated.',
 				    type : 'success'
 				   });
-			$(".cancel").trigger("click");
+			$(".clearTheFields").trigger("click");
 			$(".searchUserTimeEntries").trigger("click");
 			$( "#loadTimeSheetFilling" ).modal('hide');
 			}else{
@@ -278,7 +284,14 @@ TimeEntry.prototype.updateTimeEntry=function(){
 		 
 		  isvalid=false;
 	  }
-	
+	  else if( $('.hours').val()== 0 && $('.minutes').val()==0){
+		  $.ambiance({
+			    message :'Cannot be added for 0 hours 0 minutes.',
+			    type : 'error'
+			   });
+		 
+		  isvalid=false;
+	  }
 	  else if(userRemarks.length>4096){
 		  $.ambiance({
 			    message :'Max of 4096 characters is supported.',

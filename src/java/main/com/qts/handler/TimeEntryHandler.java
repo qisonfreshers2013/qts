@@ -69,8 +69,8 @@ public class TimeEntryHandler {
 					|| timeEntry.getUserRemarks().length() > 4096)
 				throw new InvalidTimeEntryDataException(ExceptionCodes.MANDATORY_FIELDS_MISMATCH,ExceptionMessages.PASSED_DATA_IS_NOT_RELATED);
 		else if (timeEntry.getReleaseId() == 0 || timeEntry.getActivityId() == 0
-				|| timeEntry.getProjectId() == 0 || timeEntry.getHours() == 0
-				|| timeEntry.getHours() > 12)
+				|| timeEntry.getProjectId() == 0 || timeEntry.getMinutes()>60
+				|| timeEntry.getHours() > 23 || timeEntry.getMinutes()<0 || timeEntry.getHours() < 0 )
 			throw new InvalidTimeEntryDataException(ExceptionCodes.MANDATORY_FIELDS_MISMATCH,ExceptionMessages.PASSED_DATA_IS_NOT_RELATED);
 		else if (ReleaseHandler.getInstance()
 				.getObjectById(timeEntry.getReleaseId()).getProjectId() != timeEntry
@@ -85,7 +85,7 @@ public class TimeEntryHandler {
 					ExceptionCodes.TIMEENTRY_FILLING_IS_NOT_ALLOWED_FOR_APPROVER,
 					ExceptionMessages.TIMEENTRY_FILLING_FOR_APPROVER);
        
-		else if (getUserWorkedHoursPerDay(timeEntry.getDate()) > 24)
+		else if (getUserWorkedHoursPerDay(timeEntry.getDate()) > 1440)
 			throw new TimeEntryException(
 					ExceptionCodes.ILLEGAL_ARGUMENT_HOURS_FIELD,
 					ExceptionMessages.ILLEGAL_HOURS_ARGUMENT_PASSED);
@@ -363,9 +363,9 @@ public class TimeEntryHandler {
 			}catch(TimeEntryException ex){
 				//For TimeEntries if got Rejected to Edit Them if user has already submitted
 				TimeEntryBean timeEntryToUpdate=(TimeEntryBean) getObjectById(timeEntry.getId());
-				if(getUserWorkedHoursPerDay(timeEntry.getDate())>24){
-					 int workedHoursWithOutThisTimeEntry=getUserWorkedHoursPerDay(timeEntry.getDate())-timeEntryToUpdate.getHours();
-					if(workedHoursWithOutThisTimeEntry+timeEntry.getHours()<=24){
+				if(getUserWorkedHoursPerDay(timeEntry.getDate())>1440){
+					 int workedHoursWithOutThisTimeEntry=getUserWorkedHoursPerDay(timeEntry.getDate())-(timeEntryToUpdate.getMinutes());
+					if(workedHoursWithOutThisTimeEntry+timeEntry.getMinutes()+(timeEntry.getHours()*60)<=1440){
 					 updated = DAOFactory.getInstance()
 							.getTimeEntryDAOInstance().update(timeEntry);
 					 }else{
@@ -477,7 +477,7 @@ public class TimeEntryHandler {
 		if(validateSearchCriteria(searchCriteria)){
      	List<TimeEntryBean> getTimeEntryBeans=new ArrayList<TimeEntryBean>();
 		List<Project> associatedProjectList = ProjectHandler.getInstance().getProjectsForApprover();		
-		
+		if(searchCriteria.getProjectId()==null){
 		for (Project associatedProject : associatedProjectList) {
 			RoleBean roleBeanInput=new RoleBean(ServiceRequestContextHolder.getContext().getUserSessionToken().getUserId(),associatedProject.getId());
 			RoleBean roleBeanOutput=RoleHandler.getInstance().getUserRoles(roleBeanInput);
@@ -485,7 +485,7 @@ public class TimeEntryHandler {
 		if((roleBeanOutput.getRoleIds()!=null && roleBeanOutput.getRoleIds().contains(new Long(2)))){
 			    if(searchCriteria.getProjectId()==null || searchCriteria.getProjectId()==0){
 			    searchCriteria.setProjectId(associatedProject.getId());
-			    if(searchCriteria.getStatus()==null){
+			    if(searchCriteria.getStatus()==null && searchCriteria.getFrom()==null && searchCriteria.getTo()==null && searchCriteria.getUserId()==null){
 			    searchCriteria.setStatus(1);}
 			    }
 			   
@@ -500,7 +500,17 @@ public class TimeEntryHandler {
 			}else{
 				isApprover=isApprover+1;
 			}
+		  }}else{
+			  List<TimeEntryBean> responseList =getResultsForApprover(searchCriteria);
+				for(TimeEntryBean timeEntryBean:responseList){
+					timeEntryBean.setProjectName(ProjectHandler.getInstance().getObjectById(timeEntryBean.getProjectId()).getName());
+					timeEntryBean.setActivity(ActivityHandler.getInstance().getObjectById(timeEntryBean.getActivityId()).getName());
+					timeEntryBean.setReleaseVersion(ReleaseHandler.getInstance().getObjectById(timeEntryBean.getReleaseId()).getName());
+					timeEntryBean.setUserName(UserHandler.getInstance().getUserName(timeEntryBean.getUserId()));		
+				}
+				getTimeEntryBeans.addAll(responseList);
 		  }
+		
 		//End of For Loop
 		
 		   if(isApprover==associatedProjectList.size()){

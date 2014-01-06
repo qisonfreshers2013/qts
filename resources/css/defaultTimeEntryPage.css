@@ -11,7 +11,7 @@
 }
 #userTimeEntries {
     border-collapse: collapse;
-    margin: 2% 0 0 0.5%;
+    margin: 2% 0 2% 0.5%;
     width: 90%;
 }
 p {
@@ -29,31 +29,36 @@ tr:nth-child(2n+1) {
     background: none repeat scroll 0 0 #EFEFEF;
 }
 .dateHeader {
-    float: left;
-    margin-left: 0.6%;
     margin-top: 1%;
+    width: 10%;
 }
 .searchByDate {
-    float: left;
-    margin-left: 2%;
-    margin-top: 0;
+    left: 10%;
+    margin-left: 0;
+    margin-top: -4.9%;
+    position: relative;
+    width: 20%;
 }
 .projectHeader {
-    float: left;
-    margin: 1% 1% 1% 28%;
+    left: 42%;
+    margin-top: -4.9%;
     position: relative;
+    width: 10%;
 }
 .searchByProjectId {
-    bottom: 5%;
-    float: left;
-    left: 3%;
+    left: 53.3%;
+    margin-top: -5%;
     position: relative;
-    top: 0;
+    width: 20%;
 }
 .searchUserTimeEntries {
-    left: 47%;
+    background-color: #669933;
+    border-radius: 5px;
+    color: #FFFFFF;
+    left: 55%;
+    margin-top: -6.1%;
     position: relative;
-    top: 0;
+    width: 10%;
 }
 .savedTimeSheetsEntries {
     margin: 0.5%;
@@ -61,6 +66,7 @@ tr:nth-child(2n+1) {
 }
 .addTimeEntry {
     background-color: #669933;
+    border-radius: 5px;
     color: #FFFFFF;
     font-weight: bold;
     left: 62%;
@@ -74,32 +80,36 @@ tr:nth-child(2n+1) {
 }
 .editTimeEntry {
     background-color: #669933;
+    border-radius: 5px;
     color: #FFFFFF;
     font-weight: bold;
-    left: 55%;
+    left: 42%;
     position: relative;
     text-align: center;
-    top: 3%;
+    width: 10%;
 }
 .deleteTimeEntry {
     background-color: #669933;
+    border-radius: 5px;
     color: #FFFFFF;
     font-weight: bold;
-    left: 55%;
+    left: 43%;
     position: relative;
     text-align: center;
-    top: 3%;
+    width: 10%;
 }
 .submitTimeEntries {
     background-color: #669933;
+    border-radius: 5px;
     color: #FFFFFF;
     font-weight: bold;
-    left: 55%;
+    left: 44%;
     position: relative;
     text-align: center;
-    top: 3%;
+    width: 10%;
 }
-#calendar {
-    margin: 3.8px 1% 1% -46%;
+#calendarIcon {
+    left: 7.5%;
+    margin-top: -6%;
+    position: relative;
 }
-

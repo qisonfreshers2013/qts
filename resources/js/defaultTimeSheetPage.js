@@ -28,19 +28,14 @@ DefaultTimeSheetPage.prototype.handleShow=function(){
 					this.checked=false;}
 				});
 			}
-		$("cancel").trigger("click");
+		$("#clearTheFields").trigger("click");
 		this.add();
 	}.ctx(this));
 
 	$('.deleteTimeEntry').click(function(){
 		this.deleteTimeEntry();
 		}.ctx(this));
-	
-	$("input:checkbox").click(function(){
-		if(this.checked==false){
-			$("#selectAll").prop("checked",false);
-			}
-		});
+
 	
 	
 	
@@ -84,39 +79,37 @@ DefaultTimeSheetPage.prototype.add = function() {
 	 }
 
 DefaultTimeSheetPage.prototype.deleteTimeEntry=function(){
-	var selectedCheckBox=$("input[type=checkbox]:checked").length;
+	var selectedCheckBox=$("input[type=checkbox]:checked#checkboxForTableData").length;
 	if(selectedCheckBox!=1){
 		$.ambiance({
 		    message : 'Select 1 timeEntry to Delete.',
 		    type : 'error'
 		   });
 	}else{ 
-		if($("input[type=checkbox]:checked").val()=='on'){
-		$.ambiance({
-		    message : 'Select All CheckBox should be disabled.',
-		    type : 'error'
-		   });}
-	    else{
-	    	var id=$("input[type=checkbox]:checked").val();
+	    	var id=$("input[type=checkbox]:checked#checkboxForTableData").val();
 		 RequestManager.deleteTimeEntry({"payload":{"id":id}},function(data,success){
 			if(success){
+				if(data){
 				$.ambiance({
     			    message : 'Deleted',
     			    type : 'success'
     			   });
 				$("input[type=checkbox][value="+id+"]").empty();
-				$(".searchUserTimeEntries").trigger("click");
+				$(".searchUserTimeEntries").trigger("click");}else{
+					$.ambiance({
+	    			    message : 'Not Deleted',
+	    			    type : 'error'
+	    			   });
+				}
 			}
 			else{
 				$.ambiance({
-    			    message : data.message,
+    			    message :'TimeEntry Cannot Be Deleted.',
     			    type : 'error'
     			   });
 			}
 		 });
-	        }
-	
-}
+	         }
 }
 DefaultTimeSheetPage.prototype.submitTimeEntries=function(){
 	var selectedCheckBox=$("input[type=checkbox]:checked").length;
@@ -138,6 +131,15 @@ DefaultTimeSheetPage.prototype.submitTimeEntries=function(){
 		for(var i=0;i<idOfTimeEntries.length;i++){
 			 ids.push({"id":idOfTimeEntries[i]});
 		}
+		if(ids.length==0){
+			$.ambiance({
+			    message : 'No TimeEntries to Submit.',
+			    type : 'error'
+			   });
+			if($("#selectAll").is('input[type=checkbox]:checked')){
+				$("#selectAll").prop("checked",false);
+			}
+		}else{
 		var input={"payload":{"timeEntries":ids}};
 	RequestManager.submit(input,function(data,success){
 		if(success){
@@ -146,11 +148,7 @@ DefaultTimeSheetPage.prototype.submitTimeEntries=function(){
 			    message : 'Submitted.',
 			    type : 'success'
 			   });
-			$(".searchUserTimeEntries").trigger("click");
-			if($("#selectAll").is('input[type=checkbox]:checked')){
-				$("#selectAll").prop("checked",false);
-			}
-			
+			$(".searchUserTimeEntries").trigger("click");			
 		}
 		else{
 			$.ambiance({
@@ -165,7 +163,8 @@ DefaultTimeSheetPage.prototype.submitTimeEntries=function(){
 			   });
 		}
 	});
-	this.searchUserTimeEntries();
+	}
+	//this.searchUserTimeEntries();
 	}
 }
 
@@ -179,7 +178,9 @@ DefaultTimeSheetPage.prototype.populateFields=function(id){
 			$('.datepicker').val($.datepicker.formatDate('mm/dd/yy', new Date(data.dateInLong)));
 			$('.projectId').val(data.projectId);
 			$('.task').val(data.task);
-			$('.hours').val(data.hours);
+			$('.hours').val(parseInt(data.minutes/60));
+			$('.minutes').val(parseInt(data.minutes%60));
+			this.getReleases();
 			$('.selectActivity').val(data.activityId);
 			$('.selectRelease').val(data.releaseId);
 			$('.userRemarks').val(data.remarks);
@@ -207,19 +208,14 @@ DefaultTimeSheetPage.prototype.getRequestParameters=function(id){
 
 
 DefaultTimeSheetPage.prototype.editTimeEntry=function(){
-	var selectedCheckBox=$("input[type=checkbox]:checked").length;
+	var selectedCheckBox=$("input[type=checkbox]:checked#checkboxForTableData").length;
 	if(selectedCheckBox!=1){
 		$.ambiance({
 		    message : 'Select one timeEntry to edit.',
 		    type : 'error'
 		   });
-	}else if($("input[type=checkbox]:checked").val()=='on'){
-		$.ambiance({
-		    message : 'Select All CheckBox should be disabled.',
-		    type : 'error'
-		   });}
-	 else{
-		 var id=$("input[type=checkbox]:checked").val();
+	}else{
+		 var id=$("input[type=checkbox]:checked#checkboxForTableData").val();
 		 this.populateFields(id);
 		 $( "#loadTimeSheetFilling" ).modal('show');
 			}
@@ -257,53 +253,59 @@ DefaultTimeSheetPage.prototype.searchUserTimeEntries=function(){
 	}
 	RequestManager.searchTimeEntriesByUser(input,function(data,success){
 		if(success){
+			$("#selectAll").attr("checked",false);
 			if(data.length!=0){
+			var count=0;
 			var status;
 			var remarks;
 			var checkbox;
 			$(".userTableData").empty();
 			for(var i=0;i<data.length;i++){
+				var workedMinutes=data[i].minutes%60;
+				var workedHours=data[i].minutes/60;
+				var workedHoursInInteger=parseInt(workedHours);
 				if(data[i].status==0){
-					 status="SAVED";
+					 status="Saved";
 					 remarks="";
 					 checkbox="<input type=\"checkbox\" id=\"checkboxForTableData\" class=\"checkboxForTableData\" value="+data[i].id+"></input>";
 					if(data[i].userRemarks!=null && data[i].userRemarks!='' ){
 					 remarks="<img  class=\"userRemarks\" src=\"resources/img/userRemarks.png\" title=\""+data[i].userRemarks+"\">";}
-				 
+				      count++;
 				}
 				else if(data[i].status==1){
-					status="SUBMITTED";
+					status="Submitted";
 					checkbox='';
                     remarks="";
 					if(data[i].userRemarks!=null && data[i].userRemarks!='')
 					remarks=remarks+"<img  class=\"userRemarks\" src=\"resources/img/userRemarks.png\" title=\""+data[i].userRemarks+"\">";
 				}
 				else if(data[i].status==2){
-					status="APPROVED";
+					status="Approved";
 					checkbox='';
 					 remarks="";
-					if(data[i].userRemarks!=null){
+					if(data[i].userRemarks!=null && data[i].userRemarks!=""){
 					remarks=remarks+"<img  class=\"userRemarks\" src=\"resources/img/userRemarks.png\" title=\""+data[i].userRemarks+"\">";
-					if(data[i].approvedComments!=null)
+					if(data[i].approvedComments!=null && data[i].approvedComments!="")
 			           remarks=remarks+"<img  class=\"userRemarks\" src=\"resources/img/approvedComments.png\" title=\""+data[i].approvedComments+"\">";
 						}
 				}
 				else if(data[i].status==3){
-					status="REJECTED";
+					status="Rejected";
 					checkbox="<input type=\"checkbox\" id=\"checkboxForTableData\" class=\"checkboxForTableData\" value="+data[i].id+"></input>";
 					 remarks="<img  class=\"userRemarks\" src=\"resources/img/rejectedComments.png\" title=\""+data[i].rejectedComments+"\">";
-					if(data[i].userRemarks!=null){
+					if(data[i].userRemarks!=null && data[i].userRemarks!=""){
 					remarks=remarks+"<img  class=\"userRemarks\" src=\"resources/img/userRemarks.png\" title=\""+data[i].userRemarks+"\">";}
-				      }
+				   count++;     
+				}
 				
 				 var tabledata="<tr class=\"userTableData\" id=\"userTableData\">" +
 				    "<td>"+checkbox+"</td>"+
 	                "<td>"+$.datepicker.formatDate('mm/dd/yy', new Date(data[i].dateInLong))+"</td>"+
-	                "<td>"+data[i].projectName+"</td>"+
-	                "<td>"+data[i].releaseVersion+"</td>"+
-	                "<td>"+data[i].task+"</td>"+
-	                "<td>"+data[i].activity+"</td>"+
-	                "<td>"+data[i].hours+"</td>"+
+	                "<td title='"+data[i].projectName+"'>"+(data[i].projectName.charAt(0).toUpperCase()+data[i].projectName.substr(1).toLowerCase()).ellipses(10)+"</td>"+
+	                "<td title='"+data[i].releaseVersion+"'>"+data[i].releaseVersion.ellipses(10)+"</td>"+
+	                "<td title='"+data[i].task+"'>"+(data[i].task.charAt(0).toUpperCase()+data[i].task.substr(1).toLowerCase()).ellipses(10)+"</td>"+
+	                "<td title='"+data[i].activity+"'>"+(data[i].activity.charAt(0).toUpperCase()+data[i].activity.substr(1).toLowerCase()).ellipses(10)+"</td>"+
+	                "<td>"+workedHoursInInteger+":"+workedMinutes+"</td>"+
 	                "<td value=\""+data[i].status+"\">"+status+"</td>"+
 	                "<td>"+remarks+"</td>" +
 	                "</tr>";
@@ -313,9 +315,21 @@ DefaultTimeSheetPage.prototype.searchUserTimeEntries=function(){
 				          "padding": "1%",
 				          "text-align": "center"
 				        });
+				    
+
+					$('#checkboxForTableData').change(function(event){
+					    if($(event.target).prop("checked")){
+					    	var n=$('input[type="checkbox"]:checked').length;
+							if(count==n)
+								$("#selectAll").attr("checked",true);
+					    }
+					    if(!($(event.target).prop("checked"))){
+					    	$("#selectAll").attr("checked",false);
+					    }
+						}.ctx(this));	    
 			}
 			}else{
-				$(".userTimeEntries").empty();
+				$("#userTimeEntries").empty();
    				$.ambiance({
     			    message : 'No TimeEntries Found',
     			    type : 'error'
@@ -357,7 +371,31 @@ DefaultTimeSheetPage.prototype.getProjects=function(){
 	  }
 	 }.ctx(this));
 	}
-
+DefaultTimeSheetPage.prototype.getReleases=function(){
+	 $('.selectRelease').empty();
+	 $('.selectRelease').append('<option>SELECT</option>');
+	 
+	 var id=$(".projectId").val();
+	 if(id!='SELECT'){
+	 RequestManager.getProjectReleases({"payload":{"projectId":id}}, function(data, success) {
+	  if(success){
+		  if(data.length!=0){
+	for(var i=0;i<data.length;i++){
+		 $('.selectRelease').append('<option class=\"releaseValue\" value='+data[i][0]+'>'+data[i][1]+'</option>');
+	          }}
+		  else {  $.ambiance({
+			    message :'No Releases For this Project',
+			    type : 'error'
+			   });}
+	  }else{ 
+		  $.ambiance({
+		    message : data.message,
+		    type : 'error'
+		   });
+	   $("cancel").trigger("click");
+	  }
+	 }.ctx(this));}
+	}
 
 DefaultTimeSheetPage.prototype.validateTimeEntry=function(){
 	  var date=$('.datepicker').val();
