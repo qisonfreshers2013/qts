@@ -17,8 +17,8 @@ TimeEntry.prototype.handleShow=function(){
     });
     $("#calendarIcon").click(function(){$(".datepicker").focus();}.ctx(this));
     
-	$('.save').click(function(event){
-		var id=$("input[type=checkbox]:checked").val();
+	$('.saveTheTimeEntry').click(function(event){
+		var id=$("input[type=checkbox]:checked#checkboxForTableData").val();
 		if(this.validateTimeEntry()){
 		this.getRequestParameters();
 		event.preventDefault();
@@ -34,7 +34,7 @@ TimeEntry.prototype.handleShow=function(){
 	        this.getReleases();
 	}.ctx(this));
 	$('#closeTheModal').click(function(event){
-		$(".cancel").trigger("click");
+		$(".clearTheFields").trigger("click");
 	}.ctx(this));	
 
 }
@@ -94,7 +94,7 @@ TimeEntry.prototype.setRequestParameters=function(updateRequestParameters){
 		RequestManager.addTimeEntry(input, function(data, success) {
 			if (success) {
 			      alert("TimeEntry Saved");
-			      $("#cancel").trigger("click");
+			      $("#clearTheFields").trigger("click");
 			      $(".searchUserTimeEntries").trigger("click");
 			      
 			    } else {
@@ -104,7 +104,6 @@ TimeEntry.prototype.setRequestParameters=function(updateRequestParameters){
 	    			   });
 			}
 		}.ctx(this));
-		//DefaultTimeSheetPage.searchUserTimeEntries();
 		$( "#loadTimeSheetFilling" ).modal( "hide" );
 		
  }
@@ -150,16 +149,18 @@ TimeEntry.prototype.getReleases=function(){
 	for(var i=0;i<data.length;i++){
 		 $('.selectRelease').append('<option class=\"releaseValue\" value='+data[i][0]+'>'+data[i][1]+'</option>');
 	          }}
-		  else {alert("No Releases For This Project.");}
+		  else {$.ambiance({
+			    message : 'No Releases For This Project.',
+			    type : 'error'
+			   });}
 	  }else{
-	   $("cancel").trigger("click");
-	  }
-	 }.ctx(this));}else{
 		  $.ambiance({
-			    message : 'Select the project to get releases.',
+			    message : data.message,
 			    type : 'error'
 			   });
-	 }
+	   $("cancel").trigger("click");
+	  }
+	 }.ctx(this));}
 	}
  
 TimeEntry.prototype.getActivities=function(){
@@ -171,7 +172,7 @@ TimeEntry.prototype.getActivities=function(){
 		 $('.selectActivity').append('<option class=\"activityValue\" value='+data[i].id+'>'+data[i].name+'</option>');
 	}
 	  }else{
-	   $("cancel").trigger("click");
+	   $("#clearTheFields").trigger("click");
 	  }
 	 }.ctx(this));
 	}
@@ -199,7 +200,7 @@ TimeEntry.prototype.updateTimeEntry=function(){
 				    message : 'Updated.',
 				    type : 'success'
 				   });
-			$(".cancel").trigger("click");
+			$(".clearTheFields").trigger("click");
 			$(".searchUserTimeEntries").trigger("click");
 			$( "#loadTimeSheetFilling" ).modal('hide');
 			}else{

@@ -28,7 +28,7 @@ DefaultTimeSheetPage.prototype.handleShow=function(){
 					this.checked=false;}
 				});
 			}
-		$("cancel").trigger("click");
+		$("#clearTheFields").trigger("click");
 		this.add();
 	}.ctx(this));
 
@@ -79,20 +79,14 @@ DefaultTimeSheetPage.prototype.add = function() {
 	 }
 
 DefaultTimeSheetPage.prototype.deleteTimeEntry=function(){
-	var selectedCheckBox=$("input[type=checkbox]:checked").length;
+	var selectedCheckBox=$("input[type=checkbox]:checked#checkboxForTableData").length;
 	if(selectedCheckBox!=1){
 		$.ambiance({
 		    message : 'Select 1 timeEntry to Delete.',
 		    type : 'error'
 		   });
 	}else{ 
-		if($("input[type=checkbox]:checked").val()=='on'){
-		$.ambiance({
-		    message : 'Select All CheckBox should be disabled.',
-		    type : 'error'
-		   });}
-	    else{
-	    	var id=$("input[type=checkbox]:checked").val();
+	    	var id=$("input[type=checkbox]:checked#checkboxForTableData").val();
 		 RequestManager.deleteTimeEntry({"payload":{"id":id}},function(data,success){
 			if(success){
 				if(data){
@@ -115,9 +109,7 @@ DefaultTimeSheetPage.prototype.deleteTimeEntry=function(){
     			   });
 			}
 		 });
-	        }
-	
-}
+	         }
 }
 DefaultTimeSheetPage.prototype.submitTimeEntries=function(){
 	var selectedCheckBox=$("input[type=checkbox]:checked").length;
@@ -156,11 +148,7 @@ DefaultTimeSheetPage.prototype.submitTimeEntries=function(){
 			    message : 'Submitted.',
 			    type : 'success'
 			   });
-			$(".searchUserTimeEntries").trigger("click");
-		/*	if($("#selectAll").is('input[type=checkbox]:checked')){
-				$("#selectAll").prop("checked",false);
-			}*/
-			
+			$(".searchUserTimeEntries").trigger("click");			
 		}
 		else{
 			$.ambiance({
@@ -220,19 +208,14 @@ DefaultTimeSheetPage.prototype.getRequestParameters=function(id){
 
 
 DefaultTimeSheetPage.prototype.editTimeEntry=function(){
-	var selectedCheckBox=$("input[type=checkbox]:checked").length;
+	var selectedCheckBox=$("input[type=checkbox]:checked#checkboxForTableData").length;
 	if(selectedCheckBox!=1){
 		$.ambiance({
 		    message : 'Select one timeEntry to edit.',
 		    type : 'error'
 		   });
-	}else if($("input[type=checkbox]:checked").val()=='on'){
-		$.ambiance({
-		    message : 'Select All CheckBox should be disabled.',
-		    type : 'error'
-		   });}
-	 else{
-		 var id=$("input[type=checkbox]:checked").val();
+	}else{
+		 var id=$("input[type=checkbox]:checked#checkboxForTableData").val();
 		 this.populateFields(id);
 		 $( "#loadTimeSheetFilling" ).modal('show');
 			}
@@ -400,16 +383,18 @@ DefaultTimeSheetPage.prototype.getReleases=function(){
 	for(var i=0;i<data.length;i++){
 		 $('.selectRelease').append('<option class=\"releaseValue\" value='+data[i][0]+'>'+data[i][1]+'</option>');
 	          }}
-		  else {alert("No Releases For This Project.");}
-	  }else{
+		  else {  $.ambiance({
+			    message :'No Releases For this Project',
+			    type : 'error'
+			   });}
+	  }else{ 
+		  $.ambiance({
+		    message : data.message,
+		    type : 'error'
+		   });
 	   $("cancel").trigger("click");
 	  }
-	 }.ctx(this));}else{
-		  $.ambiance({
-			    message : 'Select the project to get releases.',
-			    type : 'error'
-			   });
-	 }
+	 }.ctx(this));}
 	}
 
 DefaultTimeSheetPage.prototype.validateTimeEntry=function(){
