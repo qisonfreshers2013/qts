@@ -23,7 +23,7 @@ SearchProjectRelease.prototype.handleShow = function() {
 						name=value2;
 					}
 				});
-				$('.SelectProject').append("<option value="+id+">"+name+"</option>");
+				$('.SelectProject').append("<option value="+id+" title="+name+">"+name.ellipses(15)+"</option>");
 			});
 		}
 		else{
