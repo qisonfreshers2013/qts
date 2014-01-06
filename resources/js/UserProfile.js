@@ -51,6 +51,10 @@ UserProfile.prototype.handleShow = function(id) {
 		
 	}.ctx(this));
 	
+	$('#clear').click(function() {
+		$('.error').remove();
+	});
+	
 	
 	$('#clear').click(function() {
 		  $('.error').remove();
@@ -136,7 +140,7 @@ UserProfile.prototype.validateName = function(name){
        $('.error').hide();
 	    var nameVal = name.val();
 	    if(nameVal.trim().length <= 0 || nameVal == null) {
-	    	name.after('<span class = "error" style = "color:red"  >Name can not be empty</span>');
+	    	name.after('<span class = "error" style = "color:red">Name can not be empty</span>');
 	        isValid = false;
 	    }
 	    else if(!nameReg.test(nameVal)) {
@@ -144,7 +148,7 @@ UserProfile.prototype.validateName = function(name){
 	        isValid = false;
 	    }
 	    else if(nameVal.length > 128){
-	    	name.after('<span class="error" style = "color:red">maximum length of name is 128 characters</span>');
+	    	name.after('<span class="error" style = "color:red">Maximum length of name is 128 characters</span>');
 	        isValid = false;
 	    }	    
 	    else
@@ -169,7 +173,7 @@ UserProfile.prototype.validateEmail = function(email){
     }
 
     else if(!emailReg.test(emailVal)) {
-    	email.after('<span class="error">Invalid email</span>');
+    	email.after('<span class="error" style = "color:red">Invalid email</span>');
         isValid = false;
     }	
 	    else
@@ -185,12 +189,17 @@ UserProfile.prototype.validateEmployeeId = function(empId){
 	var empIdReg = /^[A-Za-z0-9]+$/;
         $('.error').hide();
 	    var empIdVal = empId.val();
-	     if(!empIdReg.test(empIdVal)) {
-	    	empId.after('<span class="error" style = "color:red" >EmployeeId is invalid</span>');
+	    if(empIdVal.length < 1) {
+	    	empId.after('<span class="error" style = "color:red" >Employee Id can not be null</span>');
+	        isValid = false;
+	    }
+	    
+	    else if(!empIdReg.test(empIdVal)) {
+	    	empId.after('<span class="error" style = "color:red" >Employee Id is invalid</span>');
 	        isValid = false;
 	    }
 	     else if (empIdVal.length > 128){	    
-	    	 empId.after('<span class = "error"  style = "color:red" >Maximum length of employeeId is 128</span>');
+	    	 empId.after('<span class = "error"  style = "color:red" >Maximum length of employee id is 128</span>');
 	         isValid = false; 
 	     }
 	     else
@@ -208,7 +217,7 @@ UserProfile.prototype.validateDesignation = function(designation){
     $('.error').hide();
 	    var designationVal = designation.val();
 	    if(designationVal.trim().length < 0 ){
-	    	designation.after('<span class="error" style = "color:red">  Designation can not be empty</span>');
+	    	designation.after('<span class="error" style = "color:red">Designation can not be empty</span>');
 	    	isValid = false;
 	    }
 	    else if(!designationReg.test(designationVal)) {
@@ -229,11 +238,14 @@ UserProfile.prototype.validateDesignation = function(designation){
 
 UserProfile.prototype.validateNickname= function(nickname){
 	var isValid = true;
-	var nicknameReg = /^[A-Za-z]*([ {1}][A-Za-z]*)*$/g;
+	var nicknameReg =  /^[A-Za-z]*([ {1}][A-Za-z]*)*$/g;
        $('.error').hide();
 	    var nicknameVal = nickname.val();
-	    
-	    if(!nicknameReg.test(nicknameVal)) {
+	    if(nicknameVal = ""){
+	    	$('.error').hide();
+    	 	isValid = true;
+	    }
+	    else if(!nicknameReg.test(nicknameVal)) {
 	    	nickname.after('<span class="error" style = "color:red">Nickname is invalid</span>');
 	        isValid = false;
 	    }
@@ -252,10 +264,13 @@ UserProfile.prototype.validateNickname= function(nickname){
 UserProfile.prototype.validateLocation= function(location){
 	var isValid = false;
 	$(".error").hide();
-	var locationReg = /^[A-Za-z]*([ {1}][A-Za-z]*)*$/g;
-       $('.error').hide();
-	    var locationVal = location.val();	    
-	    if(!locationReg.test(locationVal)) {
+	var locationReg =  /^[A-Za-z]*([ {1}][A-Za-z]*)*$/g;
+      
+	    var locationVal = location.val();	
+	    if(locationVal == ""){
+	    	isValid = true;
+	    }
+	    else if(!locationReg.test(locationVal)) {
 	    	location.after('<span class="error" style = "color:red">Location is invalid</span>');
 	        isValid = false;
 	    }
@@ -272,7 +287,7 @@ UserProfile.prototype.validateUserId = function(userId,email){
 	var isValid = false;
 	$(".error").hide();
 	if(userId.val()!= email.val()){
-		userId.after('<span class="error">User id must be equal to email</span>');
+		userId.after('<span class="error" style = "color:red">User id must be equal to email</span>');
 		isValid = false;
 	}
 	else
@@ -285,8 +300,11 @@ UserProfile.prototype.validatePassword = function(password){
 	console.log(password+" validation ");	
 	$(".error").hide();
     var isValid = false;   
-    if(password.val().trim().length < 6 ){
-		password.after('<span  class = "error" style = "color:red" >minimum length of password is 6</span>');
+    if(password.length<1){
+    	password.after('<span  class = "error" style = "color:red" >Password can not be Empty</span>');
+    }    
+    else if(password.val().trim().length < 6 ){
+		password.after('<span  class = "error" style = "color:red" >Minimum length of password is 6</span>');
         isValid = false;
 	}
     else if(password.val().length > 128 ){

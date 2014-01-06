@@ -14,7 +14,7 @@ SearchProject.prototype.handleShow = function() {
 	$('#project_name').focus();
 	$('#project_name').change(function(){
 		$('#results').empty();
-		$('#adminDiv').empty();
+		$('#noRoleDiv').empty();
 		$('#approverDiv').empty();
 		$('#memberDiv').empty();
 		var projectId=$('select#project_name option:selected').attr('value');

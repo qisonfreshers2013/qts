@@ -5,6 +5,14 @@ function QisonLogo() {
 QisonLogo.prototype.handleShow = function() {
 	$('#qisonLogoImg').css('cursor','pointer');
 	$('#qisonLogoImg').click(function(){
-		App.loadOptions();
+		if(status){
+			if(confirm('Changes are not saved. Do you want to leave page')){
+				status=false;
+				App.loadOptions();
+			}
+		}else{
+			App.loadOptions();
+		}
+		
 	});
 }

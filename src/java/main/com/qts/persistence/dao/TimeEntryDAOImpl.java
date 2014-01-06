@@ -447,6 +447,8 @@ public class TimeEntryDAOImpl extends BaseDAOImpl implements TimeEntryDAO {
 								.add(Restrictions.eq("status", searchCriteria.getStatus())));
 	        		}
 	        	}
+	        }else{
+	        	approverSearchCriteria.add(Restrictions.ne("status",0));
 	        }
 	        if (searchCriteria.getFrom() == null && searchCriteria.getProjectId() != null
 					&& searchCriteria.getUserId() == null
@@ -461,6 +463,7 @@ public class TimeEntryDAOImpl extends BaseDAOImpl implements TimeEntryDAO {
 				searchCriteria.setProjectId(0);
 			}
 	        List<TimeEntryBean> submittedData=approverSearchCriteria.setResultTransformer(new AliasToBeanResultTransformer(TimeEntryBean.class)).list();
+	        searchCriteria.setProjectId(0);
 	        return submittedData;
 	}catch(Exception ex){
 		ex.printStackTrace();
