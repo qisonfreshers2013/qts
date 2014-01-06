@@ -8,6 +8,7 @@ function AddProjectRelease() {
 }
 
 AddProjectRelease.prototype.handleShow = function() {
+	
 	$('.saveAPR').click(function(){
 		this.addProjectRelease();
 		

@@ -28,7 +28,7 @@ AllocateUsersToProject.prototype.getProjects=function(){
 						name=value2;
 					}
 				});
-				$('#projectName').append('<option value='+id+'>'+name+'</option>');
+				$('#projectName').append('<option value='+id+' title='+name+'>'+name.ellipses(15)+'</option>');
 			});
 		}else{
 			alert(data.message);
@@ -39,6 +39,11 @@ AllocateUsersToProject.prototype.getProjects=function(){
 
 AllocateUsersToProject.prototype.handleShow=function(){
 	
+	$("#text").keyup(function (event) {
+		if (event.keyCode == 13) {
+			$('.go').trigger('click');
+		}
+  }.ctx(this));
 	
 	$('#projectName').focus();
 	$('#projectName').change(function(){
@@ -120,6 +125,7 @@ AllocateUsersToProject.prototype.handleShow=function(){
 
 	$(".reset").click(function(){
 		this.getProjectUsersAndNonUsers();
+		 $("#ambiance-notification").empty();
 	}.ctx(this));
 }
 
@@ -247,7 +253,7 @@ AllocateUsersToProject.prototype.getProjectUsersAndNonUsers=function(){
 					$.each(records,function(key,value){
 						oldEmails.push(value.email.toLowerCase());
 						oldIds.push( parseInt(value.id));
-						existing.append('<option value='+value.id+'>'+value.email.toLowerCase()+'</option>');
+						existing.append('<option value='+value.id+'title='+value.email+'>'+value.email.toLowerCase().ellipses(25)+'</option>');
 					});
 			}else{
 				$.ambiance({
@@ -278,7 +284,7 @@ AllocateUsersToProject.prototype.getProjectUsersAndNonUsers=function(){
 							email=value2;
 						}
 					});
-					nonExisting.append('<option value='+id+'>'+email.toLowerCase()+'</option>');
+					nonExisting.append('<option value='+id+'title='+email+'>'+email.toLowerCase().ellipses(25)+'</option>');
 				});
 			}else{
 				$.ambiance({
