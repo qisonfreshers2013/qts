@@ -3,7 +3,7 @@
  */
 function SearchUser(){
 	Loader.loadHTML('.container', 'SearchUser.html',false, function(){
-		 $('.resultsContainer').hide();		
+		
 		this.handleShow();
 	}.ctx(this));
 }
@@ -17,7 +17,7 @@ SearchUser.prototype.handleShow = function(){
 	
 	this.loadEmployeeIds();
 	//$('.container').show();
-	$('.resultsContainer').show();
+//	$('.resultsContainer').show();
 	
 	$('div#searchUserContent').keyup(function(event){
 		if(event.keyCode == 13){

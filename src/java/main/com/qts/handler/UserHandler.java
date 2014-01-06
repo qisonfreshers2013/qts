@@ -701,4 +701,6 @@ public User getUserById(Long id) throws UserException {
 		  String userFirstName = userDAOImpl.getUserName(id);
 		  return userFirstName;
 		 }
+
+	
 }

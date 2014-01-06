@@ -57,7 +57,25 @@ Router.prototype.routeManager = function() {
 }
 
 Router.prototype.routeHome = function() {
-	App.loadOptions()
+	RequestManager.getLoginUser(input, function(data, success) {
+		if(success){
+			if (data != null ){
+				App.loadOptions();
+				App.loadWelcome();//3 params
+				App.loadQisonLogo();
+			}
+			else{
+				App.loadLogin();
+		    	App.loadPhoto();
+			}
+		}else{			
+			App.loadLogin();
+	    	App.loadPhoto();
+		}
+	}.ctx(this));
+}
+
+	
 	
 }
 
