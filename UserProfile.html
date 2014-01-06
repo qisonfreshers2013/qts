@@ -11,33 +11,33 @@
 <div id = "inneruserProfileFormLeft" class = "inneruserProfileFormLeft">
 <div id="field" class="field"><p>First Name <span class="star"><sup>*</sup></span></p>
 </div>
-<div id="field" class="field"><p>Last Name<span class="star"><sup>*</sup></span></p> 
+<div id="field" class="field"><p>Last Name <span class="star"><sup>*</sup></span></p> 
 </div>
-<div id="field" class="field"><p>Nickname</p></div>
-<div id="field" class="field"><p>Gender<span class="star"><sup>*</sup></span></p>
+<div id="field" class="field"><p>Nickname </p></div>
+<div id="field" class="field"><p>Gender <span class="star"><sup>*</sup></span></p>
 </div>
 <div id="field" class="field"><p>Email <span class="star"><sup>*</sup></span></p>
 </div>
-<div id="field" class="field"><p>Employee Id<span class="star"><sup>*</sup></span></p>
+<div id="field" class="field"><p>Employee Id <span class="star"><sup>*</sup></span></p>
 </div>
-<div id="field" class="field"><p>Designation<span class="star"><sup>*</sup></span></p> 
+<div id="field" class="field"><p>Designation <span class="star"><sup>*</sup></span></p> 
 </div>
-<div id="field" class="field"><p>Location</p></div>
+<div id="field" class="field"><p>Location </p></div>
 <div id="field" class="field"><p>User Id <span class="star"><sup>*</sup></span></p>
 </div>
-<div id="field" class="field"><p>Password<span class="star"><sup>*</sup></span></p> </div>
-<div id="field" class="field"><p>Confirm Password<span class="star"><sup>*</sup></span></p> 
+<div id="field" class="field"><p>Password <span class="star"><sup>*</sup></span></p> </div>
+<div id="field" class="field"><p>Confirm Password <span class="star"><sup>*</sup></span></p> 
 </div>
 </div>
 <div id = "inneruserProfileFormRight" class = "inneruserProfileFormRight">
 <div id="textField" class="textField"><input id="firstName" class = "firstName"
-	type="text" placeholder="First Name" pattern="^[A-Za-z]+[A-Za-z\s]*$" required maxlength="128" ></div>
+	type="text" placeholder="First Name" pattern = "^[A-Za-z]+([ {1}][A-Za-z]+)*$" required maxlength="128" ></div>
 
 <div id="textField" class="textField"><input id="lastName" class = "lastName"
-	type="text" placeholder="Last Name" pattern="^[A-Za-z]+[A-Za-z\s]*$"  required maxlength="128" ></div>
+	type="text" placeholder="Last Name" pattern = "^[A-Za-z]+([ {1}][A-Za-z]+)*$"  required maxlength="128" ></div>
 
 <div id="textField" class="textField"><input id="nickname" class = "nickname"
-	type="text" placeholder="Nickname" pattern="^[A-Za-z]+[A-Za-z\s]*$" maxlength="128" ></div>
+	type="text" placeholder="Nickname" pattern = "^[A-Za-z]+([ {1}][A-Za-z]+)*$" maxlength="128" ></div>
 
 	<div id="textField" class="textField">
 	<select id = "gender" class = "gender" name = "gender">
@@ -55,7 +55,7 @@
 	type="text" placeholder="Designation" onblur = "this.value = this.value.toUpperCase()" pattern="^[A-Z\\s]*$" required></div>
 
 <div id="textField" class="textField"><input id="location"  class = "location"
-	type="text" placeholder="Location" pattern="^[A-Za-z]+[A-Za-z\s]*$" maxlength="128" ></div>
+	type="text" placeholder="Location" pattern="^[A-Za-z]+([ {1}][A-Za-z]+)*$" maxlength="128" ></div>
 
 <div id="textField" class="textField"><input id="userId" class = "userId"
 	type="email" placeholder="User Id "  maxlength="128" required ></div>

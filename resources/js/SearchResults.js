@@ -37,7 +37,7 @@ SearchResults.prototype.appendValues = function(data){
 					}
 				
 					for(j = 0 ;j<data.records[i].projects.length-1 ;j++){
-						projectList = projectList+data.records[i].projects[j]+" ,";
+						projectList = projectList+data.records[i].projects[j]+",";
 					}
 					projectList = projectList+data.records[i].projects[data.records[i].projects.length-1]+" .";
 				
@@ -82,8 +82,12 @@ SearchResults.prototype.appendValues = function(data){
 				
 				$('.deleteSymbol').click(function(event){	
 					var id = event.target.id;
+					//$('.bootbox').modal('show');
+					//$('#deleteCancel').focus();
 					var shouldDelete = confirm('Are you sure to delete this user');
-					 var input = {"payload":{"id":id}};
+					//$('#deleteCancel').click(function(){				
+					
+					var input = {"payload":{"id":id}};
 					if(shouldDelete){
 					RequestManager.deleteUser(input,function(data,success){
 						if(success){
@@ -124,7 +128,8 @@ SearchResults.prototype.appendValues = function(data){
 						}
 					}.ctx(this));
 					}
-				}.ctx(this));
+					}.ctx(this));
+				
 				
 
 				

@@ -14,6 +14,9 @@ AddProjectRelease.prototype.handleShow = function() {
 	}.ctx(this));
 	
 	$('.cancelAPR').click(function(){
+//		$("select.Selectproject option:selected").val('0');
+		$('select.SelectProject').find('option[value="0"]').attr("selected",true);
+		$('.add').empty();
 		$('.result').empty();
 	}.ctx(this));
 
