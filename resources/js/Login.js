@@ -10,8 +10,7 @@ function Login() {
 
 var roleNames=new Array();
 
-Login.prototype.handleShow = function() {
-	
+Login.prototype.handleShow = function() {	
 	
 	$('#userId').focus();
 	
