@@ -297,14 +297,10 @@ TimeEntry.prototype.updateTimeEntry=function(){
 	  }
 	  else if(userRemarks.length>4096){
 		  $.ambiance({
-			    message :'Max of 4096 characters is supported.',
+			    message :'Maximum of 4096 characters is supported.',
 			    type : 'error'
 			   });
 		  isvalid=false;
 	  }
-
-	
-	
-
 	  return isvalid;
   }

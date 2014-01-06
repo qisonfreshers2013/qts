@@ -36,10 +36,10 @@ ApproverSearch.prototype.handleShow=function(){
 	
  	$(".submitComments").click(function(){
 		$("#rejectedComments").modal('hide');
-		if(statusToApproveOrReject==1){
+		if(statusToApproveOrReject==1 && this.validateComments()){
 		this.approveTimeEntry();
 		}else{
-			if(statusToApproveOrReject==2){
+			if(statusToApproveOrReject==2 && this.validateComments()){
 			if($(".comments").val()!=''){
 				$("#rejectedComments").modal('hide');
 				this.rejectTimeEntry();}else{
@@ -54,7 +54,7 @@ ApproverSearch.prototype.handleShow=function(){
 	
 	
   	$('#cancelTheAction').click(function(event){
-		$("#closeBtnForComments").trigger("click");
+		$("#clearTheComments").trigger("click");
 		}.ctx(this));
   	
     
@@ -184,8 +184,7 @@ ApproverSearch.prototype.searchTimeEntriesByApprover = function() {
      RequestManager.searchTimeEntriesByApprover(input,function(data,success){
     		if(success){
     			var status;
-    			var operations;
-    			
+    			var operations;	
     			$(".approverTableData").empty();
     			if(data.length!=0){
     			$(".approverTableHeader").show();
@@ -201,80 +200,40 @@ ApproverSearch.prototype.searchTimeEntriesByApprover = function() {
     				var workedMinutes=data[i].minutes%60;
     				var workedHours=data[i].minutes/60;
     				var workedHoursInInteger=parseInt(workedHours);
-    				
-    				
-    				
-    				if(data[i].status==2){
-    					$('.searchTimeEntriesTableForApprover tbody tr th:last').hide();
-    					status="Approved";
-    					tabledata="<tr class=\"approverTableData\">"+
-                        "<td>"+$.datepicker.formatDate('mm/dd/yy', new Date(data[i].dateInLong))+"</td>"+
-                        "<td title='"+data[i].projectName+"'>"+(data[i].projectName.charAt(0).toUpperCase()+data[i].projectName.substr(1).toLowerCase()).ellipses(10)+"</td>"+
-                        "<td title='"+data[i].userName+"'>"+(data[i].userName.charAt(0).toUpperCase()+data[i].userName.substr(1).toLowerCase()).ellipses(10)+"</td>"+
-                        "<td title='"+data[i].releaseVersion+"'>"+data[i].releaseVersion.ellipses(10)+"</td>"+
-                        "<td title='"+data[i].task+"'>"+(data[i].task.charAt(0).toUpperCase()+data[i].task.substr(1).toLowerCase()).ellipses(10)+"</td>"+
-                        "<td title='"+data[i].activity+"'>"+(data[i].activity.charAt(0).toUpperCase()+data[i].activity.substr(1).toLowerCase()).ellipses(10)+"</td>"+
-                        "<td>"+workedHoursInInteger+":"+workedMinutes+"</td>"+
-                        "<td>"+status+"</td>";
-    				}
-    				if(data[i].status==3){
-    					$('.searchTimeEntriesTableForApprover tbody tr th:last').hide();
-    					
-    					status="Rejected";
-    					tabledata="<tr class=\"approverTableData\">"+
-                        "<td>"+$.datepicker.formatDate('mm/dd/yy', new Date(data[i].dateInLong))+"</td>"+
-                        "<td title='"+data[i].projectName+"'>"+(data[i].projectName.charAt(0).toUpperCase()+data[i].projectName.substr(1).toLowerCase()).ellipses(10)+"</td>"+
-                        "<td title='"+data[i].userName+"'>"+(data[i].userName.charAt(0).toUpperCase()+data[i].userName.substr(1).toLowerCase()).ellipses(10)+"</td>"+
-                        "<td title='"+data[i].releaseVersion+"'>"+data[i].releaseVersion.ellipses(10)+"</td>"+
-                        "<td title='"+data[i].task+"'>"+(data[i].task.charAt(0).toUpperCase()+data[i].task.substr(1).toLowerCase()).ellipses(10)+"</td>"+
-                        "<td title='"+data[i].activity+"'>"+(data[i].activity.charAt(0).toUpperCase()+data[i].activity.substr(1).toLowerCase()).ellipses(10)+"</td>"+
-                        "<td>"+workedHoursInInteger+":"+workedMinutes+"</td>"+
-                        "<td>"+status+"</td>";
-    				}
-    				if(data[i].status==1){
-    					$('.searchTimeEntriesTableForApprover tbody tr th:last').show();   					
-    					status="Pending";
-    					operations="<button class=\"approve approveTimeEntry\" id=\"approveTimeEntry"+data[i].id+"\" value=\""+data[i].id+"\">.</button><button class=\"reject rejectTimeEntry\" id=\"rejectTimeEntry"+data[i].id+"\" value=\""+data[i].id+"\">.</button>";
-    					tabledata="<tr class=\"approverTableData\">"+
-                        "<td>"+$.datepicker.formatDate('mm/dd/yy', new Date(data[i].dateInLong))+"</td>"+
-                        "<td title='"+data[i].projectName+"'>"+(data[i].projectName.charAt(0).toUpperCase()+data[i].projectName.substr(1).toLowerCase()).ellipses(10)+"</td>"+
-                        "<td title='"+data[i].userName+"'>"+(data[i].userName.charAt(0).toUpperCase()+data[i].userName.substr(1).toLowerCase()).ellipses(10)+"</td>"+
-                        "<td title='"+data[i].releaseVersion+"'>"+data[i].releaseVersion.ellipses(10)+"</td>"+
-                        "<td title='"+data[i].task+"'>"+(data[i].task.charAt(0).toUpperCase()+data[i].task.substr(1).toLowerCase()).ellipses(10)+"</td>"+
-                        "<td title='"+data[i].activity+"'>"+(data[i].activity.charAt(0).toUpperCase()+data[i].activity.substr(1).toLowerCase()).ellipses(10)+"</td>"+
-                        "<td>"+workedHoursInInteger+":"+workedMinutes+"</td>"+
-                        "<td>"+status+"</td>"+
-                        "<td>"+operations+"</td>";
-    				}
-    				
-    				
-    				
-    				
-    				
-    				
-//    				
-//    				if(data[i].status==2){
-//    					status="Approved";
-//    					operations="";
-//    				}
-//    				if(data[i].status==3){
-//    					status="Rejected";
-//    					operations="";
-//    				}
-//    				if(data[i].status==1){
-//    					status="Pending";
-//    					operations="<button class=\"approve approveTimeEntry\" id=\"approveTimeEntry"+data[i].id+"\" value=\""+data[i].id+"\">.</button><button class=\"reject rejectTimeEntry\" id=\"rejectTimeEntry"+data[i].id+"\" value=\""+data[i].id+"\">.</button>";
-//    				}
-//    				var tabledata="<tr class=\"approverTableData\">"+
-//                    "<td>"+$.datepicker.formatDate('mm/dd/yy', new Date(data[i].dateInLong))+"</td>"+
-//                    "<td title='"+data[i].projectName+"'>"+(data[i].projectName.charAt(0).toUpperCase()+data[i].projectName.substr(1).toLowerCase()).ellipses(10)+"</td>"+
-//                    "<td title='"+data[i].userName+"'>"+(data[i].userName.charAt(0).toUpperCase()+data[i].userName.substr(1).toLowerCase()).ellipses(10)+"</td>"+
-//                    "<td title='"+data[i].releaseVersion+"'>"+data[i].releaseVersion.ellipses(10)+"</td>"+
-//                    "<td title='"+data[i].task+"'>"+(data[i].task.charAt(0).toUpperCase()+data[i].task.substr(1).toLowerCase()).ellipses(10)+"</td>"+
-//                    "<td title='"+data[i].activity+"'>"+(data[i].activity.charAt(0).toUpperCase()+data[i].activity.substr(1).toLowerCase()).ellipses(10)+"</td>"+
-//                    "<td>"+workedHoursInInteger+":"+workedMinutes+"</td>"+
-//                    "<td>"+status+"</td>"+
-//                    "<td>"+operations+"</td>";
+   				 if(data[i].status==1){
+					status="Pending";
+					operations="";
+					if(data[i].userRemarks!=null && data[i].userRemarks!='')
+					operations=operations+"<img  class=\"userRemarks\" src=\"resources/img/userRemarks.png\" title=\""+data[i].userRemarks+"\">";
+					operations=operations+"<button class=\"approve approveTimeEntry\" id=\"approveTimeEntry"+data[i].id+"\" value=\""+data[i].id+"\">.</button><button class=\"reject rejectTimeEntry\" id=\"rejectTimeEntry"+data[i].id+"\" value=\""+data[i].id+"\">.</button>";
+   				 }
+				else if(data[i].status==2){
+					status="Approved";
+					 operations="";
+					if(data[i].userRemarks!=null && data[i].userRemarks!=""){
+					operations=operations+"<img  class=\"userRemarks\" src=\"resources/img/userRemarks.png\" title=\""+data[i].userRemarks+"\">";
+					if(data[i].approvedComments!=null && data[i].approvedComments!="")
+					operations=operations+"<img  class=\"userRemarks\" src=\"resources/img/approvedComments.png\" title=\""+data[i].approvedComments+"\">";
+						}
+				}
+				else if(data[i].status==3){
+					status="Rejected";
+					 operations="<img  class=\"userRemarks\" src=\"resources/img/rejectedComments.png\" title=\""+data[i].rejectedComments+"\">";
+					if(data[i].userRemarks!=null && data[i].userRemarks!=""){
+					operations=operations+"<img  class=\"userRemarks\" src=\"resources/img/userRemarks.png\" title=\""+data[i].userRemarks+"\">";}
+				       
+				}
+				
+    				var tabledata="<tr class=\"approverTableData\">"+
+                    "<td>"+$.datepicker.formatDate('mm/dd/yy', new Date(data[i].dateInLong))+"</td>"+
+                    "<td title='"+data[i].projectName+"'>"+(data[i].projectName.charAt(0).toUpperCase()+data[i].projectName.substr(1).toLowerCase()).ellipses(10)+"</td>"+
+                    "<td title='"+data[i].userName+"'>"+(data[i].userName.charAt(0).toUpperCase()+data[i].userName.substr(1).toLowerCase()).ellipses(10)+"</td>"+
+                    "<td title='"+data[i].releaseVersion+"'>"+data[i].releaseVersion.ellipses(10)+"</td>"+
+                    "<td title='"+data[i].task+"'>"+(data[i].task.charAt(0).toUpperCase()+data[i].task.substr(1).toLowerCase()).ellipses(10)+"</td>"+
+                    "<td title='"+data[i].activity+"'>"+(data[i].activity.charAt(0).toUpperCase()+data[i].activity.substr(1).toLowerCase()).ellipses(10)+"</td>"+
+                    "<td>"+workedHoursInInteger+":"+workedMinutes+"</td>"+
+                    "<td>"+status+"</td>"+
+                    "<td>"+operations+"</td>";
                     $(".approverTableHeader").after(tabledata);	
     			}
     			
@@ -286,11 +245,6 @@ ApproverSearch.prototype.searchTimeEntriesByApprover = function() {
 				    	$("#rejectedComments").modal('show');
 				    	statusToApproveOrReject=1;
 				    	timeEntryIdToApproveOrReject=event.target.value;
-//				    	$(".submitComments").click(function(){
-//							$("#rejectedComments").hide();
-//							statusToApproveOrReject=1;
-//							//this.approveTimeEntry(event);	
-//						}.ctx(this));
 						}.ctx(this));
  			 
 					$('.rejectTimeEntry').click(function(event){
@@ -301,16 +255,6 @@ ApproverSearch.prototype.searchTimeEntriesByApprover = function() {
 						$("#rejectedComments").modal('show');
 						statusToApproveOrReject=2;
 						timeEntryIdToApproveOrReject=event.target.value;
-//						$(".submitComments").click(function(){
-//							if($(".comments").val()!=''){
-//							$("#rejectedComments").hide();
-//							this.rejectTimeEntry(event);}else{
-//								$.ambiance({
-//			        			    message : 'Mention the Comments.',
-//			        			    type : 'error'
-//			        			   });
-//							}			
-//						}.ctx(this));
 						}.ctx(this));
     			
     			}
@@ -425,6 +369,18 @@ ApproverSearch.prototype.validateSearchCriteria=function(){
   	  }
 	
 	  return isvalid;
+}
+ApproverSearch.prototype.validateComments=function(){
+    var comments=$('#comments').val();
+    var isvalid=true;
+	 if(comments.length>4096){
+		  $.ambiance({
+			    message :'Maximum of 4096 characters is supported.',
+			    type : 'error'
+			   });
+		  isvalid=false;
+	  }
+	 return isvalid;
 }
 var statusToApproveOrReject;
 var timeEntryIdToApproveOrReject;

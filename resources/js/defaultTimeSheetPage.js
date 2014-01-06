@@ -21,6 +21,8 @@ DefaultTimeSheetPage.prototype.handleShow=function(){
     
 	//To Add A New TimeEntrySheet
 	$('.addTimeEntry').click(function(){
+		 $('.selectRelease').empty();
+		 $('.selectRelease').append('<option>SELECT</option>');
 		var selectedCheckBox=$("input[type=checkbox]:checked").length;
 		if(selectedCheckBox!=0){
 			$(":checkbox").each(function(){
@@ -371,7 +373,7 @@ DefaultTimeSheetPage.prototype.getProjects=function(){
 	  }
 	 }.ctx(this));
 	}
-DefaultTimeSheetPage.prototype.getReleases=function(id1){
+DefaultTimeSheetPage.prototype.getReleases=function(releaseIdToGetReleaseVersion){
 	 $('.selectRelease').empty();
 	 $('.selectRelease').append('<option>SELECT</option>');
 	 
@@ -383,7 +385,7 @@ DefaultTimeSheetPage.prototype.getReleases=function(id1){
 	for(var i=0;i<data.length;i++){
 		 $('.selectRelease').append('<option class=\"releaseValue\" value='+parseInt(data[i][0])+'>'+data[i][1]+'</option>');
 	          }
-	   $('#selectRelease option[value="'+id1+'"]').attr("selected",true);
+	   $('#selectRelease option[value="'+releaseIdToGetReleaseVersion+'"]').attr("selected",true);
 		  }
 		  else {  $.ambiance({
 			    message :'No Releases For this Project',
