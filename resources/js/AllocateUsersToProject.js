@@ -99,10 +99,6 @@ AllocateUsersToProject.prototype.handleShow=function(){
 			newEmails.push($(this).text());
 		});
 
-//		alert('new Emails:'+newEmails);
-//		alert('old Emails:'+oldEmails);
-//		alert('new Ids:'+newIds);
-//		alert('old Ids:'+oldIds);
 		var projectId=$('select#projectName option:selected').attr('value');
 		if(projectId==0){
 			$.ambiance({
@@ -127,62 +123,38 @@ AllocateUsersToProject.prototype.handleShow=function(){
 	}.ctx(this));
 }
 
-AllocateUsersToProject.prototype.handler=function(event){
-	
-	event.preventDefault();
-	if(status!=2){
-		this.preventRedirect(event);
-	}
-	
-}
 
-AllocateUsersToProject.prototype.preventRedirect=function(event){
-	
-	if(confirm('want to leave page')){
-		$('body').on(event);
-	}
-	
-}
 
 AllocateUsersToProject.prototype.allocateUsersToProject=function(projectId,callBack){
 	var allocateIds=new Array();
 	var deAllocateIds=new Array();
-
-	var allocateEmails=new Array();
-	var deAllocateEmails=new Array();
+	
 	var allocateEmailMessage='';
 	var deAllocateEmailMessage='';
 
-	jQuery.grep(oldIds, function(el) {
-		if (jQuery.inArray(el, newIds) == -1) 
-			deAllocateIds.push(el);
+	$.each(oldIds,function(key,value){
+		if (jQuery.inArray(value, newIds) == -1) 
+			deAllocateIds.push(value);
 	});
 
-	jQuery.grep(newIds, function(el) {
-		if (jQuery.inArray(el, oldIds) == -1) 
-			allocateIds.push(el);
+	$.each(newIds,function(key,value){
+		if (jQuery.inArray(value, oldIds) == -1) 
+			allocateIds.push(value);
 	});
 	$.each(oldEmails,function(key,value){
 		if (jQuery.inArray(value, newEmails) == -1) {
 			deAllocateEmailMessage+='\t'+value+'\n';
-			deAllocateEmails.push(value);
-			
 		}
 	});
 	
 	$.each(newEmails,function(key,value){
 		if (jQuery.inArray(value, oldEmails) == -1){
 			allocateEmailMessage+='\t'+value+'\n';
-			allocateEmails.push(value);
 		} 
 	});
 
 	allocateIds=jQuery.unique(allocateIds);
 	deAllocateIds=jQuery.unique(deAllocateIds);
-//	alert('allocating:\n'+allocateIds);
-//	alert('deAllocate:\n'+deAllocateIds);
-//	alert('allocating:\n'+allocateEmails);
-//	alert('deAllocate:\n'+deAllocateEmails);
 	var allocatingIdsLength=allocateIds.length;
 	var daAllocatingIdsLength=deAllocateIds.length;
 	var message='';

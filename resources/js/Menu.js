@@ -123,7 +123,7 @@ Menu.prototype.handleShow=function(){
 			if(roleNames.contains('MEMBER')){
 				$('#main').append('<li><a id="tsf">Time Sheet Filling</a>');
 				
-				$('#projectOptions').css( 'width', '17%').css('margin-left','-1.8%');
+				$('#projectOptions').css( 'width', '16%').css('margin-left','-1.7%');
 				$('#main > li').css('width','auto');
 				$('#main > li > a').css('padding','0 1.1em');
 				

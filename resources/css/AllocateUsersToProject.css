@@ -35,11 +35,12 @@
 .go, .reset {
     background-color: rgb(102, 153, 51);
     border: medium none;
+    border-radius:5px;
     color: rgb(255, 255, 255);
     font-weight: bold;
     height: 18px;
     text-align: center;
-    width: 28% !important;
+    width: 22% !important;
 }
 #projectName{
  width:31%;	
