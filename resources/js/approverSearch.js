@@ -232,7 +232,7 @@ ApproverSearch.prototype.searchTimeEntriesByApprover = function() {
                         "<td>"+status+"</td>";
     				}
     				if(data[i].status==1){
-    					    					
+    					$('.searchTimeEntriesTableForApprover tbody tr th:last').show();   					
     					status="Pending";
     					operations="<button class=\"approve approveTimeEntry\" id=\"approveTimeEntry"+data[i].id+"\" value=\""+data[i].id+"\">.</button><button class=\"reject rejectTimeEntry\" id=\"rejectTimeEntry"+data[i].id+"\" value=\""+data[i].id+"\">.</button>";
     					tabledata="<tr class=\"approverTableData\">"+
