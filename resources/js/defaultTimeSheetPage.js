@@ -16,7 +16,7 @@ DefaultTimeSheetPage.prototype.handleShow=function(){
         $(".searchByDate").datepicker({maxDate:new Date()});  
     });
   
-    $("#calendar").click(function(){$(".searchByDate").focus();}.ctx(this));
+    $("#calendarIcon").click(function(){$(".searchByDate").focus();}.ctx(this));
     
     
 	//To Add A New TimeEntrySheet
@@ -164,7 +164,6 @@ DefaultTimeSheetPage.prototype.submitTimeEntries=function(){
 		}
 	});
 	}
-	//this.searchUserTimeEntries();
 	}
 }
 
@@ -175,15 +174,15 @@ DefaultTimeSheetPage.prototype.submitTimeEntries=function(){
 DefaultTimeSheetPage.prototype.populateFields=function(id){
 	RequestManager.getTimeEntryObjectById({"payload":id},function(data,success){
 		if(success){
+			var releaseId=data.releaseId;
 			$('.datepicker').val($.datepicker.formatDate('mm/dd/yy', new Date(data.dateInLong)));
 			$('.projectId').val(data.projectId);
 			$('.task').val(data.task);
 			$('.hours').val(parseInt(data.minutes/60));
 			$('.minutes').val(parseInt(data.minutes%60));
-			this.getReleases();
+			this.getReleases(data.releaseId);
 			$('.selectActivity').val(data.activityId);
-			$('.selectRelease').val(data.releaseId);
-			$('.userRemarks').val(data.remarks);
+			$('.userRemarksInModal').val(data.userRemarks);
 		}else{
 			$.ambiance({
 			    message : data.message,
@@ -198,9 +197,10 @@ DefaultTimeSheetPage.prototype.getRequestParameters=function(id){
 			               "projectId":$('.projectId').val(),
 			               "task":$('.task').val(),
 			               "hours":$('.hours').val(),
+			               "minutes":$('.minutes').val(),
 			               "activityId":$('.selectActivity').val(),
 			               "releaseId":$('.selectRelease').val(),
-			               "userRemarks":$('.userRemarks').val()
+			               "userRemarks":$('.userRemarksInModal').val()
 			               };
 	
       return requestParameters;
@@ -371,7 +371,7 @@ DefaultTimeSheetPage.prototype.getProjects=function(){
 	  }
 	 }.ctx(this));
 	}
-DefaultTimeSheetPage.prototype.getReleases=function(){
+DefaultTimeSheetPage.prototype.getReleases=function(id1){
 	 $('.selectRelease').empty();
 	 $('.selectRelease').append('<option>SELECT</option>');
 	 
@@ -381,8 +381,10 @@ DefaultTimeSheetPage.prototype.getReleases=function(){
 	  if(success){
 		  if(data.length!=0){
 	for(var i=0;i<data.length;i++){
-		 $('.selectRelease').append('<option class=\"releaseValue\" value='+data[i][0]+'>'+data[i][1]+'</option>');
-	          }}
+		 $('.selectRelease').append('<option class=\"releaseValue\" value='+parseInt(data[i][0])+'>'+data[i][1]+'</option>');
+	          }
+	   $('#selectRelease option[value="'+id1+'"]').attr("selected",true);
+		  }
 		  else {  $.ambiance({
 			    message :'No Releases For this Project',
 			    type : 'error'
