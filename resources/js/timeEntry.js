@@ -15,7 +15,7 @@ TimeEntry.prototype.handleShow=function(){
     $(document).ready(function() {
         $(".datepicker").datepicker({ minDate: -30, maxDate:new Date()});
     });
-    $("#calendarIcon").click(function(){$(".datepicker").focus();}.ctx(this));
+    $("#calendarIconInModal").click(function(){$(".datepicker").focus();}.ctx(this));
     
 	$('.saveTheTimeEntry').click(function(event){
 		var id=$("input[type=checkbox]:checked#checkboxForTableData").val();
@@ -93,7 +93,10 @@ TimeEntry.prototype.setRequestParameters=function(updateRequestParameters){
        
 		RequestManager.addTimeEntry(input, function(data, success) {
 			if (success) {
-			      alert("TimeEntry Saved");
+				$.ambiance({
+    			    message :'TimeEntry Saved.',
+    			    type : 'success'
+    			   });
 			      $("#clearTheFields").trigger("click");
 			      $(".searchUserTimeEntries").trigger("click");
 			      
@@ -178,7 +181,7 @@ TimeEntry.prototype.getActivities=function(){
 	}
 TimeEntry.prototype.updateTimeEntry=function(){
 	 
-	var id=$("input[type=checkbox]:checked").val();
+	var id=$("input[type=checkbox]:checked#checkboxForTableData").val();
 	 
 	var input={ "payload":{"id":id,
          "projectId":$('.projectId').val(),
@@ -188,7 +191,7 @@ TimeEntry.prototype.updateTimeEntry=function(){
          "task":$('.task').val(),
          "hours":$('.hours').val(),
          "minutes":$('.minutes').val(),
-         "userRemarks":$('.userRemarks').val(),
+         "userRemarks":$('.userRemarksInModal').val(),
          "status":0
          } 
       }

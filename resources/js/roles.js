@@ -53,12 +53,25 @@ Roles.prototype.handleShow = function() {
 		}
 	}.ctx(this));
 	$("#cancelb").click(function() {
+		$("#ambiance-notification").empty();
 		$("#projectList option[value=\"p0\"]").attr("selected",true);
 		$("#userList").empty().append("<option id=\"u0\">select</option>");
 		$(".avalRoles").removeAttr("checked");
 	});
+	$('#projectUser').keyup(function(event) {
+		if(event.keyCode==13){
+			$('#saveb').trigger('click');
+		} 
+	}.ctx(this));
 };
-
+Roles.prototype.saveStatus=function(){
+	var checked = $('input:checkbox:checked.avalRoles').map(function() {
+		return parseInt(this.value);
+	}).get();
+	if(!($(roles).not(checked).length==0 && $(checked).not(roles).length==0))
+		status=true;
+	return status;
+};
 Roles.prototype.listProjects = function() {
 	if ($('#projectList').val() != "p0") {
 		RequestManager.getProjects({}, function(data, success) {
@@ -75,7 +88,7 @@ Roles.prototype.listProjects = function() {
 							name = value2;
 					});
 					$("#projectList").append(
-							"<option value=" + id + ">" + name + "</option>");
+							"<option title="+name+" value=" + id + ">" + name.ellipses(15) + "</option>");
 				});
 			} else {
 				$.ambiance({
@@ -106,7 +119,7 @@ Roles.prototype.listUsers = function() {
 				$.each(records, function(key, value) {
 					var email = value.email;
 					$("#userList").append(
-							"<option value=" + value.id + ">" + email
+							"<option title="+email+" value=" + value.id + ">" + email.ellipses(30)
 									+ "</option>");
 				});
 				this.listUserRoles();
@@ -153,15 +166,6 @@ Roles.prototype.getRoles = function() {
 			$("#rolesList").css({"border-spacing" : "0",
 				 "font-size" : "16px"
 				});
-			/*$(".rolesCheckbox").css({'margin' : '5%',
-					 'position' : 'relative',
-					 'width' : '10%'
-				});
-			$(".rolesName").css({"margin-top" : "-15%",
-				 "margin-left" : "32%",
-				 "position" : "relative",
-				 "width" : "65%"
-				});*/
 			}
 		});
 		} else {
@@ -310,4 +314,4 @@ Roles.prototype.deallocateRoles = function() {
 var roles;
 var deallocateSuccess=false;
 var allocateSuccess=false;
-//var status=false;
+var status=false;
