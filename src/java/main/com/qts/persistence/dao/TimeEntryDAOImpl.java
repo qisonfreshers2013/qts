@@ -430,7 +430,7 @@ public class TimeEntryDAOImpl extends BaseDAOImpl implements TimeEntryDAO {
 						Utils.parseDateToLong(searchCriteria.getFrom()),
 						Utils.parseDateToLong(searchCriteria.getTo())));
 	        }
-	        if(searchCriteria.getStatus()!=null){
+	        if(searchCriteria.getStatus()!=null && searchCriteria.getStatus()!=0){
 	        	approverSearchCriteria.add(Restrictions.eq("status", searchCriteria.getStatus()));
 	        	if(searchCriteria.getProjectId()!=null){
 	        		approverSearchCriteria.add(Restrictions

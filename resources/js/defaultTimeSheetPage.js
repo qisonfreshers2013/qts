@@ -261,7 +261,19 @@ DefaultTimeSheetPage.prototype.searchUserTimeEntries=function(){
 			var status;
 			var remarks;
 			var checkbox;
+			$("#tableheader").show();
+			$("#editTimeEntry").show();
+			$("#deleteTimeEntry").show();
+			$("#submitTimeEntries").show();
 			$(".userTableData").empty();
+			data=data.sort(function(a, b){
+  		         if (a.dateInLong == b.dateInLong) {
+  		             return 0;
+  		         } else if(a.dateInLong > b.dateInLong) {
+  		             return 1;
+  		         }
+  		         return -1;
+  		          });
 			for(var i=0;i<data.length;i++){
 				var workedMinutes=data[i].minutes%60;
 				var workedHours=data[i].minutes/60;
@@ -286,8 +298,8 @@ DefaultTimeSheetPage.prototype.searchUserTimeEntries=function(){
 					checkbox='';
 					 remarks="";
 					if(data[i].userRemarks!=null && data[i].userRemarks!=""){
-					remarks=remarks+"<img  class=\"userRemarks\" src=\"resources/img/userRemarks.png\" title=\""+data[i].userRemarks+"\">";
-					if(data[i].approvedComments!=null && data[i].approvedComments!="")
+					remarks=remarks+"<img  class=\"userRemarks\" src=\"resources/img/userRemarks.png\" title=\""+data[i].userRemarks+"\">";}
+					if(data[i].approvedComments!=null && data[i].approvedComments!=""){
 			           remarks=remarks+"<img  class=\"userRemarks\" src=\"resources/img/approvedComments.png\" title=\""+data[i].approvedComments+"\">";
 						}
 				}
@@ -331,7 +343,6 @@ DefaultTimeSheetPage.prototype.searchUserTimeEntries=function(){
 						}.ctx(this));	    
 			}
 			}else{
-				$("#userTimeEntries").empty();
    				$.ambiance({
     			    message : 'No TimeEntries Found',
     			    type : 'error'
@@ -339,6 +350,11 @@ DefaultTimeSheetPage.prototype.searchUserTimeEntries=function(){
 				
 			     }
 		}else {
+			$(".userTableData").empty();
+			$("#tableheader").hide();
+			$("#editTimeEntry").hide();
+			$("#deleteTimeEntry").hide();
+			$("#submitTimeEntries").hide();
 			$.ambiance({
 			    message : data.message,
 			    type : 'error'
@@ -363,7 +379,7 @@ DefaultTimeSheetPage.prototype.getProjects=function(){
 	      name=value2;
 	     }
 	    });
-	    $('#searchByProjectId').append('<option value='+id+'>'+name+'</option>');
+	    $('#searchByProjectId').append('<option value='+id+' title='+name+'>'+name.ellipses(15)+'</option>');
 	   });
 	  }else{
 		  $.ambiance({
@@ -383,7 +399,7 @@ DefaultTimeSheetPage.prototype.getReleases=function(releaseIdToGetReleaseVersion
 	  if(success){
 		  if(data.length!=0){
 	for(var i=0;i<data.length;i++){
-		 $('.selectRelease').append('<option class=\"releaseValue\" value='+parseInt(data[i][0])+'>'+data[i][1]+'</option>');
+		 $('.selectRelease').append('<option class=\"releaseValue\" value='+parseInt(data[i][0])+' title='+data[i][1]+'>'+data[i][1].ellipses(15)+'</option>');
 	          }
 	   $('#selectRelease option[value="'+releaseIdToGetReleaseVersion+'"]').attr("selected",true);
 		  }

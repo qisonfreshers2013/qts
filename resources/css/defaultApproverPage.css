@@ -31,11 +31,11 @@ p {
     text-align: center;
     font-size: 16px;
 }
-tr:nth-child(2n) {
-    background: none repeat scroll 0 0 #CDCDCD;
+#searchTimeEntriesTableForApprover tr:nth-child(2n+1) {
+    background-color: #EEEEEE;
 }
-tr:nth-child(2n+1) {
-    background: none repeat scroll 0 0 #EFEFEF;
+#searchTimeEntriesTableForApprover tr:nth-child(2n) {
+    background-color: #DDDDDD;
 }
 .approve {
     background-image: url('images/approve.png');

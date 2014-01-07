@@ -78,7 +78,7 @@ ApproverSearch.prototype.getProjects=function(){
 	      name=value2;
 	     }
 	    });
-	    $('#userProjectId').append('<option value='+id+'>'+name+'</option>');
+	    $('#userProjectId').append('<option title='+name+' value='+id+'>'+name.ellipses(15)+'</option>');
 	   });
 	  }else{
 		  $.ambiance({
@@ -108,7 +108,7 @@ ApproverSearch.prototype.getUsers=function(){
 		      name=value2;
 		     }
 		    });
-		    $('.userId').append('<option value='+id+'>'+name+'</option>');
+		    $('.userId').append('<option value='+id+' title='+name+'>'+name.ellipses(15)+'</option>');
 		   });
 		  }else{
 			  $.ambiance({
@@ -209,10 +209,10 @@ ApproverSearch.prototype.searchTimeEntriesByApprover = function() {
    				 }
 				else if(data[i].status==2){
 					status="Approved";
-					 operations="";
+					operations="";
 					if(data[i].userRemarks!=null && data[i].userRemarks!=""){
-					operations=operations+"<img  class=\"userRemarks\" src=\"resources/img/userRemarks.png\" title=\""+data[i].userRemarks+"\">";
-					if(data[i].approvedComments!=null && data[i].approvedComments!="")
+					operations=operations+"<img  class=\"userRemarks\" src=\"resources/img/userRemarks.png\" title=\""+data[i].userRemarks+"\">";}
+					if(data[i].approvedComments!=null && data[i].approvedComments!=""){
 					operations=operations+"<img  class=\"userRemarks\" src=\"resources/img/approvedComments.png\" title=\""+data[i].approvedComments+"\">";
 						}
 				}

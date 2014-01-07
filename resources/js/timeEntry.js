@@ -128,7 +128,8 @@ TimeEntry.prototype.getProjects=function(){
 	      name=value2;
 	     }
 	    });
-	    $('.projectId').append('<option class=\"projectValue\" value='+id+'>'+name+'</option>');
+	    
+	    $('.projectId').append('<option class=\"projectValue\" title='+name+' value='+id+'>'+name.ellipses(15)+'</option>');
 	   });
 	  }else{
 		  $.ambiance({
@@ -150,7 +151,8 @@ TimeEntry.prototype.getReleases=function(){
 	  if(success){
 		  if(data.length!=0){
 	for(var i=0;i<data.length;i++){
-		 $('.selectRelease').append('<option class=\"releaseValue\" value='+data[i][0]+'>'+data[i][1]+'</option>');
+		
+		 $('.selectRelease').append('<option class=\"releaseValue\" value='+data[i][0]+' title='+data[i][1]+'>'+data[i][1].ellipses(15)+'</option>');
 	          }}
 		  else {$.ambiance({
 			    message : 'No Releases For This Project.',
@@ -172,7 +174,7 @@ TimeEntry.prototype.getActivities=function(){
 	 RequestManager.getActivities({"payload":{}}, function(data, success) {
 	  if(success){
 	for(var i=0;i<data.length;i++){
-		 $('.selectActivity').append('<option class=\"activityValue\" value='+data[i].id+'>'+data[i].name+'</option>');
+		 $('.selectActivity').append('<option class=\"activityValue\" value='+data[i].id+' title='+data[i].name+'>'+data[i].name.ellipses(15)+'</option>');
 	}
 	  }else{
 	   $("#clearTheFields").trigger("click");
