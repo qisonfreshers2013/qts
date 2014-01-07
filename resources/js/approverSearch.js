@@ -207,7 +207,6 @@ ApproverSearch.prototype.searchTimeEntriesByApprover = function() {
     			oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
     			 $('#to').val($.datepicker.formatDate('mm/dd/yy', new Date()));
     			 $('#from').val($.datepicker.formatDate('mm/dd/yy',oneWeekAgo));
-    			 $('#status').val(1);
     			if(data.length!=0){
     			$(".approverTableHeader").show();
     			data=data.sort(function(a, b){
@@ -258,6 +257,7 @@ ApproverSearch.prototype.searchTimeEntriesByApprover = function() {
                     "<td>"+operations+"</td>";
                     $(".approverTableHeader").after(tabledata);	
     			}
+    			 $('#status').val(data[0].status);
     			 $('.approveTimeEntry').click(function(event){
     				 document.body.style.overflow = "hidden";
     				 $('#searchCriteria').find('*').prop('disabled',true);
