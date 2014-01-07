@@ -57,6 +57,11 @@ ApproverSearch.prototype.handleShow=function(){
 		$("#clearTheComments").trigger("click");
 		}.ctx(this));
   	
+  	$("#comments").keyup(function (event) {
+  	  if (event.keyCode == 13) {
+  	   $('#submitComments').trigger('click');
+  	  }
+  	 }.ctx(this));
     
 }
 
