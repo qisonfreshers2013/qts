@@ -74,12 +74,13 @@ AddUser.prototype.addUser = function() {
 	
 	RequestManager.addUser(input, function(data, success) {
 		if(success){
-		//	alert("success" + "  user added id = "+data);
+			$( "select.gender option").val("male");
+			$("#innerAddUserFormRight").find('input').val('');
 			$.ambiance({
-				  message : "Successfull : Id = "+data,
+				  message : "Successfully Added",
 				  type : 'success'
 				});
-			$( "input#clear" ).trigger( "click" );
+			
 		}else{
 			
 			//alert("failed"+data.message);

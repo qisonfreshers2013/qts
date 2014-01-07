@@ -5,6 +5,7 @@ function AddProject() {
 }
 
 AddProject.prototype.handleShow = function() {
+	$("#ambiance-notification").empty();
 	$('#projectName').focus();
 	
 	$("#addProjectFormDiv").keyup(function(event) {
@@ -46,7 +47,7 @@ AddProject.prototype.handleShow = function() {
 		}
 		else if(!pattern.test(projectName)){
 			$.ambiance({
-			    message : "invalid pattern for project Name",
+			    message : "Invalid pattern for project Name",
 			    type : 'error'
 			   });
 			projectNameField.focus();
@@ -70,7 +71,7 @@ AddProject.prototype.addProject = function() {
 		if(success){
 			var output=data.name;
 			$.ambiance({
-			    message : 'project sucessfully added\n'+'project name: '+output,
+			    message : 'Project sucessfully added\n'+'project name: '+output,
 			    type : 'success'
 			   });
 			$('#projectName').val('');
