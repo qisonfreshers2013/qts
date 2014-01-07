@@ -57,7 +57,7 @@ SearchProject.prototype.getProjects=function(){
 						name=value2;
 					}
 				});
-				$('#project_name').append('<option value='+id+'>'+name+'</option>');
+				$('#project_name').append('<option value='+id+' title='+name+'>'+name.ellipses(15)+'</option>');
 			});
 	}else{
 			alert(data.message);

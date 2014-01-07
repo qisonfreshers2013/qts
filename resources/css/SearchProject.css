@@ -8,7 +8,7 @@ width:100%;
     left: 27%;
     margin-top: -4%;
     position: relative;
-    width: 31%;
+    width: 27%;
 }
 #results{
 	margin-top:10%;
@@ -34,4 +34,9 @@ width:100%;
 	color: #99CC2F;
 
 }
-	
+#usersImagesAndNames{
+	float:left;
+	width:20%;
+	margin-bottom:5%;
+	text-align:center;
+}	

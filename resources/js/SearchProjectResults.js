@@ -35,24 +35,24 @@ SearchProjectResults.prototype.handleShow=function(data){
 			 approversStatus=true;
 			if(roleNames.contains('MEMBER')){
 				 membersStatus=true;
-				approver.append('<div style="float:left;width:20%;margin-bottom:5%;text-align:center"><p title='+value.firstName+'>'
+				approver.append('<div id="usersImagesAndNames"><p title='+value.firstName+'>'
 						+name+'</p><img  src='+image+'/></div>');
 				
-				member.append('<div style="float:left;width:20%;margin-bottom:5%;text-align:center"><p title='+value.firstName+'>'
+				member.append('<div id="usersImagesAndNames"><p title='+value.firstName+'>'
 						+name+'</p><img  src='+image+'/></div>');
 			}else{
-				approver.append('<div style="float:left;width:20%;margin-bottom:5%;text-align:center"><p title='+value.firstName+'>'
+				approver.append('<div id="usersImagesAndNames"><p title='+value.firstName+'>'
 						+name+'</p><img  src='+image+'/></div>');
 			}
 			
 		}else if(roleNames.contains('MEMBER')){
 			membersStatus=true;
-			member.append('<div style="float:left;width:20%;margin-bottom:5%;text-align:center"><p title='+value.firstName+'>'
+			member.append('<div id="usersImagesAndNames"><p title='+value.firstName+'>'
 					+name+'</p><img  src='+image+'/></div>');
 		}else{
 			if(!roleNames.contains('ADMIN')){
 				noRole.show();
-				noRole.append('<div style="float:left;width:20%;margin-bottom:5%;text-align:center"><p title='+value.firstName+'>'
+				noRole.append('<div id="usersImagesAndNames"><p title='+value.firstName+'>'
 						+name+'</p><img  src='+image+'/></div>');
 			}
 			

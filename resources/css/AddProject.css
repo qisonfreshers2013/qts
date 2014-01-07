@@ -22,15 +22,15 @@
 }
 .go, .reset {
     background-color: rgb(102, 153, 51);
-    border: medium none;
     color: rgb(255, 255, 255);
     font-weight: bold;
     text-align: center;
     width: 22% !important;
     height:18px;
     border-radius:5px;
+    border:medium none;
 }
 #projectName,#technologies{
-	width:40%;
+	width:35%;
 }
 
