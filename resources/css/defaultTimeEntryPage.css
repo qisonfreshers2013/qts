@@ -4,7 +4,7 @@
     margin-top: 8%;
 }
 #userTimeEntries th {
-    background-color: #ADD8E6;
+    background-color: #3091FF;
     color: #000000;
     font-size: 16px;
     text-align: center;
@@ -22,11 +22,11 @@ p {
     padding: 1%;
     text-align: center;
 }
-tr:nth-child(2n) {
-    background: none repeat scroll 0 0 #CDCDCD;
+#userTimeEntries tr:nth-child(2n+1) {
+    background-color: #EEEEEE;
 }
-tr:nth-child(2n+1) {
-    background: none repeat scroll 0 0 #EFEFEF;
+#userTimeEntries tr:nth-child(2n) {
+    background-color: #DDDDDD;
 }
 .dateHeader {
     margin-top: 1%;
@@ -55,10 +55,12 @@ tr:nth-child(2n+1) {
     background-color: #669933;
     border-radius: 5px;
     color: #FFFFFF;
+    font-weight: bold;
     left: 55%;
     margin-top: -6.1%;
     position: relative;
     width: 10%;
+    border:medium none;
 }
 .savedTimeSheetsEntries {
     margin: 0.5%;
@@ -74,6 +76,7 @@ tr:nth-child(2n+1) {
     margin-top: 1%;
     position: relative;
     text-align: center;
+    border:medium none;
 }
 #loadTimeSheetFilling {
     display: none;
@@ -87,6 +90,7 @@ tr:nth-child(2n+1) {
     position: relative;
     text-align: center;
     width: 10%;
+    border:medium none;
 }
 .deleteTimeEntry {
     background-color: #669933;
@@ -97,6 +101,7 @@ tr:nth-child(2n+1) {
     position: relative;
     text-align: center;
     width: 10%;
+    border:medium none;
 }
 .submitTimeEntries {
     background-color: #669933;
@@ -107,6 +112,7 @@ tr:nth-child(2n+1) {
     position: relative;
     text-align: center;
     width: 10%;
+    border:medium none;
 }
 #calendarIcon {
     left: 7.5%;

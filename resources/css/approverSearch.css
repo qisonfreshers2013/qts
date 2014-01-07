@@ -77,6 +77,24 @@ p {
     text-align: center;
     width: 10%;
 }
+#submitComments{
+	background-color: #669933;
+    border: medium none;
+    border-radius: 5px;
+    color: #FFFFFF;
+    font-weight: bold;
+    text-align: center;
+    width: 15%;
+}
+#cancelTheAction{
+	background-color: #669933;
+    border: medium none;
+    border-radius: 5px;
+    color: #FFFFFF;
+    font-weight: bold;
+    text-align: center;
+    width: 15%;
+}
 #rejectedComments {
     display: none;
     width: 30%;

@@ -15,7 +15,7 @@ TimeEntry.prototype.handleShow=function(){
     $(document).ready(function() {
         $(".datepicker").datepicker({ minDate: -30, maxDate:new Date()});
     });
-    $("#calendarIcon").click(function(){$(".datepicker").focus();}.ctx(this));
+    $("#calendarIconInModal").click(function(){$(".datepicker").focus();}.ctx(this));
     
 	$('.saveTheTimeEntry').click(function(event){
 		var id=$("input[type=checkbox]:checked#checkboxForTableData").val();
@@ -48,7 +48,7 @@ TimeEntry.prototype.getRequestParameters=function(){
 			               "minutes":$('.minutes').val(),
 			               "activityId":$('.selectActivity').val(),
 			               "releaseId":$('.selectRelease').val(),
-			               "userRemarks":$('.userRemarks').val()
+			               "userRemarks":$('.userRemarksInModal').val()
 			               };
       return requestParameters;
 } 
@@ -93,7 +93,10 @@ TimeEntry.prototype.setRequestParameters=function(updateRequestParameters){
        
 		RequestManager.addTimeEntry(input, function(data, success) {
 			if (success) {
-			      alert("TimeEntry Saved");
+				$.ambiance({
+    			    message :'TimeEntry Saved.',
+    			    type : 'success'
+    			   });
 			      $("#clearTheFields").trigger("click");
 			      $(".searchUserTimeEntries").trigger("click");
 			      
@@ -125,7 +128,8 @@ TimeEntry.prototype.getProjects=function(){
 	      name=value2;
 	     }
 	    });
-	    $('.projectId').append('<option class=\"projectValue\" value='+id+'>'+name+'</option>');
+	    
+	    $('.projectId').append('<option class=\"projectValue\" title='+name+' value='+id+'>'+name.ellipses(15)+'</option>');
 	   });
 	  }else{
 		  $.ambiance({
@@ -147,7 +151,8 @@ TimeEntry.prototype.getReleases=function(){
 	  if(success){
 		  if(data.length!=0){
 	for(var i=0;i<data.length;i++){
-		 $('.selectRelease').append('<option class=\"releaseValue\" value='+data[i][0]+'>'+data[i][1]+'</option>');
+		
+		 $('.selectRelease').append('<option class=\"releaseValue\" value='+data[i][0]+' title='+data[i][1]+'>'+data[i][1].ellipses(15)+'</option>');
 	          }}
 		  else {$.ambiance({
 			    message : 'No Releases For This Project.',
@@ -169,7 +174,7 @@ TimeEntry.prototype.getActivities=function(){
 	 RequestManager.getActivities({"payload":{}}, function(data, success) {
 	  if(success){
 	for(var i=0;i<data.length;i++){
-		 $('.selectActivity').append('<option class=\"activityValue\" value='+data[i].id+'>'+data[i].name+'</option>');
+		 $('.selectActivity').append('<option class=\"activityValue\" value='+data[i].id+' title='+data[i].name+'>'+data[i].name.ellipses(15)+'</option>');
 	}
 	  }else{
 	   $("#clearTheFields").trigger("click");
@@ -178,7 +183,7 @@ TimeEntry.prototype.getActivities=function(){
 	}
 TimeEntry.prototype.updateTimeEntry=function(){
 	 
-	var id=$("input[type=checkbox]:checked").val();
+	var id=$("input[type=checkbox]:checked#checkboxForTableData").val();
 	 
 	var input={ "payload":{"id":id,
          "projectId":$('.projectId').val(),
@@ -188,7 +193,7 @@ TimeEntry.prototype.updateTimeEntry=function(){
          "task":$('.task').val(),
          "hours":$('.hours').val(),
          "minutes":$('.minutes').val(),
-         "userRemarks":$('.userRemarks').val(),
+         "userRemarks":$('.userRemarksInModal').val(),
          "status":0
          } 
       }
@@ -221,7 +226,7 @@ TimeEntry.prototype.updateTimeEntry=function(){
  
   TimeEntry.prototype.validateTimeEntry=function(){
 	  var date=$('.datepicker').val();
-	  var userRemarks=$('.userRemarks').val();
+	  var userRemarks=$('.userRemarksInModal').val();
 	  var task=$('.task').val();
 	  var isvalid=true;
 	  $(".error").hide();
@@ -294,14 +299,10 @@ TimeEntry.prototype.updateTimeEntry=function(){
 	  }
 	  else if(userRemarks.length>4096){
 		  $.ambiance({
-			    message :'Max of 4096 characters is supported.',
+			    message :'Maximum of 4096 characters is supported.',
 			    type : 'error'
 			   });
 		  isvalid=false;
 	  }
-
-	
-	
-
 	  return isvalid;
   }

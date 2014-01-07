@@ -6,8 +6,15 @@ function AddProject() {
 
 AddProject.prototype.handleShow = function() {
 	$('#projectName').focus();
+	
+	$("#addProjectFormDiv").keyup(function(event) {
+		if (event.keyCode == 13) {
+			$('.go').trigger('click');
+		}
+  }.ctx(this));
+	
+	
 	$('.go').click(function(){
-		
 		var projectNameField=$('#projectName');
 		var technologiesField=$('#technologies');
 		
@@ -23,14 +30,14 @@ AddProject.prototype.handleShow = function() {
 			   });
 			projectNameField.focus();
 		}
-		else if(projectName.length>127){
+		else if(projectName.length>128){
 			$.ambiance({
 			    message : "Project name length can't be more than 128 characters.",
 			    type : 'error'
 			   });
 			projectNameField.focus();
 		}
-		else if(technologies.length>511){
+		else if(technologies.length>512){
 			$.ambiance({
 			    message : "Technologies  length can't be more than 512 characters.",
 			    type : 'error'
@@ -49,6 +56,10 @@ AddProject.prototype.handleShow = function() {
 			this.addProject();
 		}
 	}.ctx(this));
+	
+	$('#resetAP').click(function(){
+		 $("#ambiance-notification").empty();
+	});
 
 }
 

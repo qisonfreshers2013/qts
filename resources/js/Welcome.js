@@ -1,16 +1,16 @@
 
-function Welcome(nickname,password) {
+function Welcome(nickname) {
 	Loader.loadHTML('.welcome', 'Welcome.html', true, function(){
-		this.handleShow(nickname,password);
+		this.handleShow(nickname);
 	}.ctx(this));
 }
 
-Welcome.prototype.handleShow = function(nickname,password) {	
+Welcome.prototype.handleShow = function(nickname) {	
 	this.loadNickname(nickname);
 	$('.logout').click(function(){	
-		if(status){
-			if(confirm('Changes are not saved. Do you want to leave the page')){
-				status=false;
+		if(allocateUsersToProjectStatus==true){
+			if(confirm('Changes are not saved. Do you want to leave the page?')){
+				allocateUsersToProjectStatus=false;
 				this.logout();
 			}
 		}else{
@@ -19,15 +19,15 @@ Welcome.prototype.handleShow = function(nickname,password) {
 		
 	}.ctx(this));
 	$('.myAccount').click(function(){
-		if(status){
-			if(confirm('Changes are not saved. Do you want to leave page')){
-				status=false;
+		if(allocateUsersToProjectStatus==true){
+			if(confirm('Changes are not saved. Do you want to leave page?')){
+				allocateUsersToProjectStatus=false;
 				App.loadMenu();
-				App.loadMyProfile(password);
+				App.loadMyProfile();
 			}
 		}else{
 			App.loadMenu();
-			App.loadMyProfile(password);
+			App.loadMyProfile();
 		}
 				
 	}.ctx(this));

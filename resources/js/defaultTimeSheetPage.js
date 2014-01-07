@@ -16,11 +16,13 @@ DefaultTimeSheetPage.prototype.handleShow=function(){
         $(".searchByDate").datepicker({maxDate:new Date()});  
     });
   
-    $("#calendar").click(function(){$(".searchByDate").focus();}.ctx(this));
+    $("#calendarIcon").click(function(){$(".searchByDate").focus();}.ctx(this));
     
     
 	//To Add A New TimeEntrySheet
 	$('.addTimeEntry').click(function(){
+		 $('.selectRelease').empty();
+		 $('.selectRelease').append('<option>SELECT</option>');
 		var selectedCheckBox=$("input[type=checkbox]:checked").length;
 		if(selectedCheckBox!=0){
 			$(":checkbox").each(function(){
@@ -164,7 +166,6 @@ DefaultTimeSheetPage.prototype.submitTimeEntries=function(){
 		}
 	});
 	}
-	//this.searchUserTimeEntries();
 	}
 }
 
@@ -175,15 +176,15 @@ DefaultTimeSheetPage.prototype.submitTimeEntries=function(){
 DefaultTimeSheetPage.prototype.populateFields=function(id){
 	RequestManager.getTimeEntryObjectById({"payload":id},function(data,success){
 		if(success){
+			var releaseId=data.releaseId;
 			$('.datepicker').val($.datepicker.formatDate('mm/dd/yy', new Date(data.dateInLong)));
 			$('.projectId').val(data.projectId);
 			$('.task').val(data.task);
 			$('.hours').val(parseInt(data.minutes/60));
 			$('.minutes').val(parseInt(data.minutes%60));
-			this.getReleases();
+			this.getReleases(data.releaseId);
 			$('.selectActivity').val(data.activityId);
-			$('.selectRelease').val(data.releaseId);
-			$('.userRemarks').val(data.remarks);
+			$('.userRemarksInModal').val(data.userRemarks);
 		}else{
 			$.ambiance({
 			    message : data.message,
@@ -198,9 +199,10 @@ DefaultTimeSheetPage.prototype.getRequestParameters=function(id){
 			               "projectId":$('.projectId').val(),
 			               "task":$('.task').val(),
 			               "hours":$('.hours').val(),
+			               "minutes":$('.minutes').val(),
 			               "activityId":$('.selectActivity').val(),
 			               "releaseId":$('.selectRelease').val(),
-			               "userRemarks":$('.userRemarks').val()
+			               "userRemarks":$('.userRemarksInModal').val()
 			               };
 	
       return requestParameters;
@@ -259,7 +261,19 @@ DefaultTimeSheetPage.prototype.searchUserTimeEntries=function(){
 			var status;
 			var remarks;
 			var checkbox;
+			$("#tableheader").show();
+			$("#editTimeEntry").show();
+			$("#deleteTimeEntry").show();
+			$("#submitTimeEntries").show();
 			$(".userTableData").empty();
+			data=data.sort(function(a, b){
+  		         if (a.dateInLong == b.dateInLong) {
+  		             return 0;
+  		         } else if(a.dateInLong > b.dateInLong) {
+  		             return 1;
+  		         }
+  		         return -1;
+  		          });
 			for(var i=0;i<data.length;i++){
 				var workedMinutes=data[i].minutes%60;
 				var workedHours=data[i].minutes/60;
@@ -284,8 +298,8 @@ DefaultTimeSheetPage.prototype.searchUserTimeEntries=function(){
 					checkbox='';
 					 remarks="";
 					if(data[i].userRemarks!=null && data[i].userRemarks!=""){
-					remarks=remarks+"<img  class=\"userRemarks\" src=\"resources/img/userRemarks.png\" title=\""+data[i].userRemarks+"\">";
-					if(data[i].approvedComments!=null && data[i].approvedComments!="")
+					remarks=remarks+"<img  class=\"userRemarks\" src=\"resources/img/userRemarks.png\" title=\""+data[i].userRemarks+"\">";}
+					if(data[i].approvedComments!=null && data[i].approvedComments!=""){
 			           remarks=remarks+"<img  class=\"userRemarks\" src=\"resources/img/approvedComments.png\" title=\""+data[i].approvedComments+"\">";
 						}
 				}
@@ -329,7 +343,6 @@ DefaultTimeSheetPage.prototype.searchUserTimeEntries=function(){
 						}.ctx(this));	    
 			}
 			}else{
-				$("#userTimeEntries").empty();
    				$.ambiance({
     			    message : 'No TimeEntries Found',
     			    type : 'error'
@@ -337,6 +350,11 @@ DefaultTimeSheetPage.prototype.searchUserTimeEntries=function(){
 				
 			     }
 		}else {
+			$(".userTableData").empty();
+			$("#tableheader").hide();
+			$("#editTimeEntry").hide();
+			$("#deleteTimeEntry").hide();
+			$("#submitTimeEntries").hide();
 			$.ambiance({
 			    message : data.message,
 			    type : 'error'
@@ -361,7 +379,7 @@ DefaultTimeSheetPage.prototype.getProjects=function(){
 	      name=value2;
 	     }
 	    });
-	    $('#searchByProjectId').append('<option value='+id+'>'+name+'</option>');
+	    $('#searchByProjectId').append('<option value='+id+' title='+name+'>'+name.ellipses(15)+'</option>');
 	   });
 	  }else{
 		  $.ambiance({
@@ -371,7 +389,7 @@ DefaultTimeSheetPage.prototype.getProjects=function(){
 	  }
 	 }.ctx(this));
 	}
-DefaultTimeSheetPage.prototype.getReleases=function(){
+DefaultTimeSheetPage.prototype.getReleases=function(releaseIdToGetReleaseVersion){
 	 $('.selectRelease').empty();
 	 $('.selectRelease').append('<option>SELECT</option>');
 	 
@@ -381,8 +399,10 @@ DefaultTimeSheetPage.prototype.getReleases=function(){
 	  if(success){
 		  if(data.length!=0){
 	for(var i=0;i<data.length;i++){
-		 $('.selectRelease').append('<option class=\"releaseValue\" value='+data[i][0]+'>'+data[i][1]+'</option>');
-	          }}
+		 $('.selectRelease').append('<option class=\"releaseValue\" value='+parseInt(data[i][0])+' title='+data[i][1]+'>'+data[i][1].ellipses(15)+'</option>');
+	          }
+	   $('#selectRelease option[value="'+releaseIdToGetReleaseVersion+'"]').attr("selected",true);
+		  }
 		  else {  $.ambiance({
 			    message :'No Releases For this Project',
 			    type : 'error'

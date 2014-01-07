@@ -22,9 +22,9 @@ Menu.prototype.handleShow=function(){
 		$('#main > li').css('width','24%');
 		
 		$('#um').click(function(){
-			if(status){
-				if(confirm('Changes are not saved. Do you want to leave page')){
-					status=false;
+			if(allocateUsersToProjectStatus==true){
+				if(confirm('Changes are not saved. Do you want to leave page?')){
+					allocateUsersToProjectStatus=false;
 					$('#content').remove();
 					App.loadAddUser();
 				}
@@ -36,9 +36,9 @@ Menu.prototype.handleShow=function(){
 		});
 		
 		$('#addProject').click(function(){
-			if(status){
-				if(confirm('Changes are not saved. Do you want to leave page')){
-					status=false;
+			if(allocateUsersToProjectStatus==true){
+				if(confirm('Changes are not saved. Do you want to leave page?')){
+					allocateUsersToProjectStatus=false;
 					$('#content').remove();
 					App.loadAddProject();
 				}
@@ -51,9 +51,9 @@ Menu.prototype.handleShow=function(){
 		});
 		
 		$('#allocateUsers').click(function(){
-			if(status){
-				if(confirm('Changes are not saved. Do you want to leave page')){
-					status=false;
+			if(allocateUsersToProjectStatus==true){
+				if(confirm('Changes are not saved. Do you want to leave page?')){
+					allocateUsersToProjectStatus=false;
 					$('#content').remove();
 					App.loadAllocateUsersToProject();
 				}
@@ -66,9 +66,9 @@ Menu.prototype.handleShow=function(){
 		});
 		
 		$('#addroleIds').click(function(){
-			if(status){
-				if(confirm('Changes are not saved. Do you want to leave page')){
-					status=false;
+			if(allocateUsersToProjectStatus==true){
+				if(confirm('Changes are not saved. Do you want to leave page?')){
+					allocateUsersToProjectStatus=false;
 					$('#content').remove();
 					App.loadRoles();
 				}
@@ -81,9 +81,9 @@ Menu.prototype.handleShow=function(){
 		});
 		
 		$('#searchProject').click(function(){
-			if(status){
-				if(confirm('Changes are not saved. Do you want to leave page')){
-					status=false;
+			if(allocateUsersToProjectStatus==true){
+				if(confirm('Changes are not saved. Do you want to leave page?')){
+					allocateUsersToProjectStatus=false;
 					$('#content').remove();
 					App.loadSearchProject();
 				}
@@ -105,9 +105,9 @@ Menu.prototype.handleShow=function(){
 			$('#main > li').css('width','auto');
 			
 			$('#tsa').click(function(){
-				if(status){
-					if(confirm('Changes are not saved. Do you want to leave page')){
-						status=false;
+				if(allocateUsersToProjectStatus==true){
+					if(confirm('Changes are not saved. Do you want to leave page?')){
+						allocateUsersToProjectStatus=false;
 						$('#content').remove();
 						App.loadApproverTimeSheetSearch();
 						App.loadDefaultApproverPage();
@@ -128,9 +128,9 @@ Menu.prototype.handleShow=function(){
 				$('#main > li > a').css('padding','0 1.1em');
 				
 				$('#tsf').click(function(){
-					if(status){
-						if(confirm('Changes are not saved. Do you want to leave page')){
-							status=false;
+					if(allocateUsersToProjectStatus==true){
+						if(confirm('Changes are not saved. Do you want to leave page?')){
+							allocateUsersToProjectStatus=false;
 							$('#content').remove();
 							App.loadTimeSheetFilling();
 							App.loadDefaultTimeSheetPage();
@@ -152,9 +152,9 @@ Menu.prototype.handleShow=function(){
 			$('#main > li').css('width','auto');
 			
 			$('#tsf').click(function(){
-				if(status){
-					if(confirm('Changes are not saved. Do you want to leave page')){
-						status=false;
+				if(allocateUsersToProjectStatus==true){
+					if(confirm('Changes are not saved. Do you want to leave page?')){
+						allocateUsersToProjectStatus=false;
 						$('#content').remove();
 						App.loadTimeSheetFilling();
 						App.loadDefaultTimeSheetPage();
@@ -177,18 +177,9 @@ Menu.prototype.handleShow=function(){
 		
 		//click events for approver
 		$('#tsa').click(function(){
-			if(status){
-				if(confirm('Changes are not saved. Do you want to leave page')){
-					status=false;
-					$('#content').remove();
-					App.loadApproverTimeSheetSearch();
-					App.loadDefaultApproverPage();
-				}
-			}else{
 				$('#content').remove();
 				App.loadApproverTimeSheetSearch();
 				App.loadDefaultApproverPage();
-			}
 			
 		});
 		
@@ -196,18 +187,9 @@ Menu.prototype.handleShow=function(){
 			$('#main').append('<li><a id="tsf">Time Sheet Filling</a>');
 			
 			$('#tsf').click(function(){
-				if(status){
-					if(confirm('Changes are not saved. Do you want to leave page')){
-						status=false;
-						$('#content').remove();
-						App.loadTimeSheetFilling();
-						App.loadDefaultTimeSheetPage();
-					}
-				}else{
 					$('#content').remove();
 					App.loadTimeSheetFilling();
 					App.loadDefaultTimeSheetPage();
-				}
 				
 			});
 			
@@ -225,18 +207,9 @@ Menu.prototype.handleShow=function(){
 		//click events for member role
 		
 		$('#tsf').click(function(){
-			if(status){
-				if(confirm('Changes are not saved. Do you want to leave page')){
-					status=false;
-					$('#content').remove();
-					App.loadTimeSheetFilling();
-					App.loadDefaultTimeSheetPage();
-				}
-			}else{
 				$('#content').remove();
 				App.loadTimeSheetFilling();
 				App.loadDefaultTimeSheetPage();
-			}
 			
 		});
 	}
@@ -246,9 +219,9 @@ Menu.prototype.handleShow=function(){
 	
 	if(!(roleNames.contains('ADMIN'))){
 	$('#pm').click(function(){
-		if(status){
-			if(confirm('Changes are not saved. Do you want to leave page')){
-				status=false;
+		if(allocateUsersToProjectStatus==true){
+			if(confirm('Changes are not saved. Do you want to leave page?')){
+				allocateUsersToProjectStatus=false;
 				$('#content').remove();
 				App.loadSearchProject();
 			}
@@ -261,9 +234,9 @@ Menu.prototype.handleShow=function(){
 	}
 	
 	$('#prm').click(function(){
-		if(status){
-			if(confirm('Changes are not saved. Do you want to leave page')){
-				status=false;
+		if(allocateUsersToProjectStatus==true){
+			if(confirm('Changes are not saved. Do you want to leave page?')){
+				allocateUsersToProjectStatus=false;
 				$('#content').remove();
 				App.loadSearchProjectRelease();
 			}
@@ -276,9 +249,9 @@ Menu.prototype.handleShow=function(){
 	});
 	
 	$('#su').click(function(){
-		if(status){
-			if(confirm('Changes are not saved. Do you want to leave page')){
-				status=false;
+		if(allocateUsersToProjectStatus==true){
+			if(confirm('Changes are not saved. Do you want to leave page?')){
+				allocateUsersToProjectallocateUsersToProjectStatus=false;
 				$('#content').remove();
 				App.loadSearchUser();
 			}

@@ -56,10 +56,10 @@ public class TimeEntryDAOImpl extends BaseDAOImpl implements TimeEntryDAO {
 
 		  saveTimeEntry.setUserId(timeEntry.getUserId());
 		  try {
-		   saveTimeEntry.setCts(Utils.parseDateToLong((timeEntry.getDate())));
+		   saveTimeEntry.setCts(Calendar.getInstance().getTimeInMillis());
 		   saveTimeEntry.setDate(Utils.parseDateToLong(timeEntry.getDate()));
 		  // saveTimeEntry.setMts(Utils.parseDateToLong(timeEntry.getDate()));
-		   saveTimeEntry.setMts(Utils.parseDateToLong((timeEntry.getDate())));
+		   saveTimeEntry.setMts(Calendar.getInstance().getTimeInMillis());
 		  } catch (Exception e) {
 		   e.printStackTrace();
 		  }
@@ -430,7 +430,7 @@ public class TimeEntryDAOImpl extends BaseDAOImpl implements TimeEntryDAO {
 						Utils.parseDateToLong(searchCriteria.getFrom()),
 						Utils.parseDateToLong(searchCriteria.getTo())));
 	        }
-	        if(searchCriteria.getStatus()!=null){
+	        if(searchCriteria.getStatus()!=null && searchCriteria.getStatus()!=0){
 	        	approverSearchCriteria.add(Restrictions.eq("status", searchCriteria.getStatus()));
 	        	if(searchCriteria.getProjectId()!=null){
 	        		approverSearchCriteria.add(Restrictions
@@ -453,14 +453,14 @@ public class TimeEntryDAOImpl extends BaseDAOImpl implements TimeEntryDAO {
 	        if (searchCriteria.getFrom() == null && searchCriteria.getProjectId() != null
 					&& searchCriteria.getUserId() == null
 					&& searchCriteria.getTo() == null
-					&& searchCriteria.getStatus() != null && searchCriteria.getStatus()==1) {
+					&& searchCriteria.getStatus() != null && searchCriteria.getStatus()==0) {
 				approverSearchCriteria.add(Restrictions.between("date",
 						getPreviousWeekDate.getTimeInMillis(),
 						new Date().getTime()));
 				approverSearchCriteria.add(Restrictions.eq("projectId", searchCriteria.getProjectId()));
-    			approverSearchCriteria.add(Restrictions.eq("status", searchCriteria.getStatus()));
+    			approverSearchCriteria.add(Restrictions.eq("status",1));
 				approverSearchCriteria.addOrder(Order.desc("date"));	
-				searchCriteria.setProjectId(0);
+				//searchCriteria.setProjectId(0);
 			}
 	        List<TimeEntryBean> submittedData=approverSearchCriteria.setResultTransformer(new AliasToBeanResultTransformer(TimeEntryBean.class)).list();
 	        searchCriteria.setProjectId(0);

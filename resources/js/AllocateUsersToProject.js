@@ -1,17 +1,18 @@
 function AllocateUsersToProject(){
 	Loader.loadHTML('.container', 'AllocateUsersToProject.html',false, function(){
+		this.oldEmails='';
+		this.oldIds='';
+		this.newEmails='';
+		this.newIds='';
+		this.existingOptions='';
+		this.nonExistingOptions='';
+		this.projectName=$('#projectName');
 		this.getProjects();
 		this.handleShow();
 	}.ctx(this));
 }
 
-
-var oldEmails=new Array();
-var oldIds=new Array();
-var newEmails=new Array();
-var newIds=new Array();
-var projectName=$('#projectName');
-var status=false;
+var allocateUsersToProjectStatus=false;
 
 AllocateUsersToProject.prototype.getProjects=function(){
 	$('#projectName').empty();
@@ -28,7 +29,7 @@ AllocateUsersToProject.prototype.getProjects=function(){
 						name=value2;
 					}
 				});
-				$('#projectName').append('<option value='+id+'>'+name+'</option>');
+				$('#projectName').append('<option value='+id+' title='+name+'>'+name.ellipses(15)+'</option>');
 			});
 		}else{
 			alert(data.message);
@@ -39,10 +40,22 @@ AllocateUsersToProject.prototype.getProjects=function(){
 
 AllocateUsersToProject.prototype.handleShow=function(){
 	
+	oldEmails=new Array();
+	oldIds=new Array();
+	newEmails=new Array();
+	newIds=new Array();
 	
 	$('#projectName').focus();
+	
+	$("#text").keyup(function (event) {
+		if (event.keyCode == 13) {
+			$('.go').trigger('click');
+		}
+	}.ctx(this));
+
+
 	$('#projectName').change(function(){
-		status=false;
+		allocateUsersToProjectStatus=false;
 		this.getProjectUsersAndNonUsers();
 	}.ctx(this));
 	
@@ -53,17 +66,17 @@ AllocateUsersToProject.prototype.handleShow=function(){
 		if(options.length>0){
 			$('select#existingUsers').append(options);
 			$('select#nonExistingUsers option:selected').remove();
-			status=true;
+			allocateUsersToProjectStatus=true;
 		}else if(projectId==0){
 			$.ambiance({
-			    message : 'please select project',
-			    type : 'error'
-			   });
+				message : 'please select project',
+				type : 'error'
+			});
 		}else{
 			$.ambiance({
-			    message :'please select atleast one user for allocation',
-			    type : 'error'
-			   });
+				message :'please select atleast one user for allocation',
+				type : 'error'
+			});
 		}
 
 	});
@@ -75,17 +88,17 @@ AllocateUsersToProject.prototype.handleShow=function(){
 		if(options.length>0){
 			$('select#nonExistingUsers').append(options);
 			$('select#existingUsers option:selected').remove();
-			status=true;
+			allocateUsersToProjectStatus=true;
 		}else if(projectId==0){
 			$.ambiance({
-			    message :'please select project',
-			    type : 'error'
-			   });
+				message :'please select project',
+				type : 'error'
+			});
 		}else{
 			$.ambiance({
-			    message :'please select atleast one user for deallocation',
-			    type : 'error'
-			   });
+				message :'please select atleast one user for deallocation',
+				type : 'error'
+			});
 		}
 
 	});
@@ -102,33 +115,54 @@ AllocateUsersToProject.prototype.handleShow=function(){
 		var projectId=$('select#projectName option:selected').attr('value');
 		if(projectId==0){
 			$.ambiance({
-			    message :'select project name',
-			    type : 'error'
-			   });
+				message :'select project name',
+				type : 'error'
+			});
 			$('#projectName').focus();
 		}
 		else{
 			this.allocateUsersToProject(projectId,function(){
-					this.getProjectUsersAndNonUsers();
-					status=false;
+				oldIds.length=0;
+				oldEmails.length=0;
+				
+				this.sortSelectBoxeOptions($('select#nonExistingUsers'));
+				this.sortSelectBoxeOptions($('select#existingUsers'));
+
+				$('select#existingUsers option').each(function(){
+					oldIds.push(parseInt($(this).val()));
+					oldEmails.push($(this).text());
+				});
+				
+				existingOptions= $('select#existingUsers option').clone();
+				nonExistingOptions= $('select#nonExistingUsers option').clone();
+				allocateUsersToProjectStatus=false;
 				
 			}.ctx(this));
-			
+
 		}
 
 	}.ctx(this));
 
 	$(".reset").click(function(){
-		this.getProjectUsersAndNonUsers();
+		
+		allocateUsersToProjectStatus=false;
+		$("#ambiance-notification").empty();
+		$('select#existingUsers').empty().append(existingOptions);
+		$('select#nonExistingUsers').empty().append(nonExistingOptions);
+		
+		Array.prototype.forEach.call(document.querySelectorAll("select#existingUsers :checked"), function(el) { el.selected = false });
+		Array.prototype.forEach.call(document.querySelectorAll("select#nonExistingUsers :checked"), function(el) { el.selected = false });
+		
 	}.ctx(this));
 }
+
 
 
 
 AllocateUsersToProject.prototype.allocateUsersToProject=function(projectId,callBack){
 	var allocateIds=new Array();
 	var deAllocateIds=new Array();
-	
+
 	var allocateEmailMessage='';
 	var deAllocateEmailMessage='';
 
@@ -146,7 +180,7 @@ AllocateUsersToProject.prototype.allocateUsersToProject=function(projectId,callB
 			deAllocateEmailMessage+='\t'+value+'\n';
 		}
 	});
-	
+
 	$.each(newEmails,function(key,value){
 		if (jQuery.inArray(value, oldEmails) == -1){
 			allocateEmailMessage+='\t'+value+'\n';
@@ -175,16 +209,16 @@ AllocateUsersToProject.prototype.allocateUsersToProject=function(projectId,callB
 								callBack();
 							}else{
 								$.ambiance({
-								    message :data.message,
-								    type : 'error'
-								   });
+									message :data.message,
+									type : 'error'
+								});
 							}
 						}.ctx(this));
 					}else{
 						$.ambiance({
-						    message :data.message,
-						    type : 'error'
-						   });
+							message :data.message,
+							type : 'error'
+						});
 					}
 				}.ctx(this));
 
@@ -195,9 +229,9 @@ AllocateUsersToProject.prototype.allocateUsersToProject=function(projectId,callB
 						callBack();
 					}else{
 						$.ambiance({
-						    message :data.message,
-						    type : 'error'
-						   });
+							message :data.message,
+							type : 'error'
+						});
 					}
 				}.ctx(this));
 			}else{
@@ -206,18 +240,18 @@ AllocateUsersToProject.prototype.allocateUsersToProject=function(projectId,callB
 						callBack();
 					}else{
 						$.ambiance({
-						    message :data.message,
-						    type : 'error'
-						   });
+							message :data.message,
+							type : 'error'
+						});
 					}
 				}.ctx(this));
 			}
 		}
 	}else{
 		$.ambiance({
-		    message :'please select atleast one user for allocation or deallocation',
-		    type : 'error'
-		   });
+			message :'please select atleast one user for allocation or deallocation',
+			type : 'error'
+		});
 	}
 
 }
@@ -236,24 +270,26 @@ AllocateUsersToProject.prototype.getProjectUsersAndNonUsers=function(){
 			if(success){
 				var records=data.projectUserRecords;
 				records=records.sort(function(a, b){
-					    if (a.email.toLowerCase() == b.email.toLowerCase()) {
-					        return 0;
-					    } else if(a.email.toLowerCase() > b.email.toLowerCase()) {
-					        return 1;
-					    }
-					    return -1;
-					});
-					
-					$.each(records,function(key,value){
-						oldEmails.push(value.email.toLowerCase());
-						oldIds.push( parseInt(value.id));
-						existing.append('<option value='+value.id+'>'+value.email.toLowerCase()+'</option>');
-					});
+					if (a.email.toLowerCase() == b.email.toLowerCase()) {
+						return 0;
+					} else if(a.email.toLowerCase() > b.email.toLowerCase()) {
+						return 1;
+					}
+					return -1;
+				});
+
+				$.each(records,function(key,value){
+					var email=value.email.toLowerCase();
+					oldEmails.push(email.ellipses(30));
+					oldIds.push( parseInt(value.id));
+					existing.append('<option value='+value.id+' title='+email+'>'+email.ellipses(30)+'</option>');
+				});
+				existingOptions=$('select#existingUsers option').clone();
 			}else{
 				$.ambiance({
-				    message :data.message,
-				    type : 'error'
-				   });
+					message :data.message,
+					type : 'error'
+				});
 			}
 		}.ctx(this));
 
@@ -261,34 +297,47 @@ AllocateUsersToProject.prototype.getProjectUsersAndNonUsers=function(){
 			var id='0';
 			var email='';
 			if(success){
-//					data=data.sort(function(a, b){
-//						if (a.email.toLowerCase() == b.email.toLowerCase()) {
-//					        return 0;
-//					    } else if (a.email.toLowerCase() > b.email.toLowerCase()) {
-//					        return 1;
-//					    }
-//					    return -1;
-//					});
+
+				data=data.sort(function(a, b){
+					if (a[1].toLowerCase() == b[1].toLowerCase()) {
+						return 0;
+					} else if(a[1].toLowerCase() > b[1].toLowerCase()) {
+						return 1;
+					}
+					return -1;
+				});
+
+
 				$.each(data,function(key1,value1){
 					$.each(value1,function(key2,value2){
 						if(key2==0){
 							id=value2;
 						}
 						if(key2==1){
-							email=value2;
+							email=value2.toLowerCase();
 						}
 					});
-					nonExisting.append('<option value='+id+'>'+email.toLowerCase()+'</option>');
+					nonExisting.append('<option value='+id+' title='+email+'>'+email.ellipses(30)+'</option>');
 				});
+				nonExistingOptions=$('select#nonExistingUsers option').clone();
 			}else{
 				$.ambiance({
-				    message :data.message,
-				    type : 'error'
-				   });
+					message :data.message,
+					type : 'error'
+				});
 			}
 		}.ctx(this));
 
 
 	}
 
+}
+
+AllocateUsersToProject.prototype.sortSelectBoxeOptions=function(selectBoxReference){
+	var options =selectBoxReference.find("option").sort(function (a, b) {
+		if (a.text < b.text) return -1;
+		if (a.text > b.text) return 1;
+		return 0;
+	});
+	selectBoxReference.empty().append(options);
 }
