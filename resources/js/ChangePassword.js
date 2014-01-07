@@ -41,6 +41,7 @@ ChangePassword.prototype.handleShow = function(){
 		}
 		  if (event.keyCode == 27) {
 				$(".error").remove();
+				$('#myProfileInnerForm,#submitMyProfileDiv,#clearMyProfileDiv,#changePasswordDiv').find('*').prop('disabled',false);
 				$("button#closeCPbutton" ).trigger("click");	
 			//	document.body.style.overflow = "visible";
 				//$( "button#clearCP" ).trigger("click");					
@@ -56,7 +57,7 @@ ChangePassword.prototype.handleShow = function(){
 		  var confirmPassword = $('input.confirmPasswordTextCP');
 		  if(oldPassword.val().length == 0){
 			  $.ambiance({
-			       message : "Old password can not be empty",
+			       message : "Old password can't be null",
 			       type : 'error'
 			      }); 
 		  }else if(oldPassword.val() != dbPassword){	
@@ -68,7 +69,7 @@ ChangePassword.prototype.handleShow = function(){
 		  }				  
 		  else if(password.val().length<1){
 			  $.ambiance({
-			       message : "New Password can not be empty",
+			       message : "New Password can't be null",
 			       type : 'error'
 			      });
 		  }
@@ -112,6 +113,7 @@ ChangePassword.prototype.handleShow = function(){
 	
 	$("button#closeCPbutton" ).click(function(){		
 		document.body.style.overflow = "visible";
+		$('#myProfileInnerForm,#submitMyProfileDiv,#clearMyProfileDiv,#changePasswordDiv').find('*').prop('disabled',false);
 		$( "button#clearCP" ).trigger("click");
 		 $("#ambiance-notification").empty();
 	}.ctx(this));
@@ -119,6 +121,7 @@ ChangePassword.prototype.handleShow = function(){
 	$(document.documentElement).keyup(function (event) {
 	    if (event.keyCode == 27)  {
 			$(".error").remove();
+			$('#myProfileInnerForm,#submitMyProfileDiv,#clearMyProfileDiv,#changePasswordDiv').find('*').prop('disabled',false);
 			document.body.style.overflow = "visible";			
 	}	    
 	   }.ctx(this));
@@ -136,18 +139,14 @@ ChangePassword.prototype.changePassword = function(oldPassword,password,confirmP
 	
 	RequestManager.changePassword(input,function(data,success){
 		if(success){
-			document.body.style.overflow = "visible";
-
-			
-	   
+			document.body.style.overflow = "visible";	   
 		$('#changePasswordModal').modal('hide');
-		$( "input.closeCPbutton" ).trigger( "click");
-		
-		document.location.reload();
+		$( "input.closeCPbutton" ).trigger( "click");		
 		$.ambiance({
 			  message : "Success : Password is changed,Please login with New Password",
 			  type : 'success'
 			});
+		setTimeout(function(){document.location.reload();},2000);
 		}
 		else{
 			$.ambiance({
