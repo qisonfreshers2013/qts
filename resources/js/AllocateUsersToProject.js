@@ -12,7 +12,7 @@ function AllocateUsersToProject(){
 	}.ctx(this));
 }
 
-var allocateUsersToProjectStatus=false;
+
 
 AllocateUsersToProject.prototype.getProjects=function(){
 	$('#projectName').empty();

@@ -8,6 +8,7 @@ function Login() {
 }
 
 var roleNames=new Array();
+var allocateUsersToProjectStatus=false;
 
 Login.prototype.handleShow = function() {		
 	$('#userId').focus();	
@@ -56,8 +57,7 @@ Login.prototype.handleShow = function() {
 		
 	$(".clearLogin").click(function(){		
 		$('#userId').focus();
-		$(".error").hide();
-		$("#ambiance-notification").empty();
+		$(".error").hide();		
 	}.ctx(this));
 	
 	
