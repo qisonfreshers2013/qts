@@ -52,7 +52,7 @@ public interface ExceptionMessages {
 	public static final String RELEASES_ID_INVALID = "Releases ID is Invalid.";
 	public static final String RELEASES_EMPTY_FOR_THE_PROJECT="There are no releases for this project";
 	public static final String RELEASESBEAN_NOT_NULL = "Project Id Cannot be null";
-	public static final String RELEASES_CANNOT_BE_ADDED_FOR_THE_PROJECT = "Cannot add Entry..Entry already Exists.";
+	public static final String RELEASES_CANNOT_BE_ADDED_FOR_THE_PROJECT = "Entry already Exists.";
 	public static final String TIME_ENTRY_PRESENT = "Time Entry is Referring The Record";
 	public static final String RELEASE_ID_NULL = "Release ID cannot be null";
 

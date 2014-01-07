@@ -52,7 +52,7 @@
 	type="text" placeholder="Employee Id" pattern="^[A-Za-z0-9]*$" required></div>
 
 <div id="textField" class="textField"><input id="designation" class = "designation"
-	type="text" placeholder="Designation" onblur = "this.value = this.value.toUpperCase()" pattern="^[A-Z\\s]*$" required></div>
+	type="text" placeholder="Designation" onkeyup = "this.value = this.value.toUpperCase()" pattern="^[A-Z\\s]*$" required></div>
 
 <div id="textField" class="textField"><input id="location"  class = "location"
 	type="text" placeholder="Location" pattern="^[A-Za-z]+([ {1}][A-Za-z]+)*$" maxlength="128" ></div>

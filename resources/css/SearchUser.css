@@ -135,3 +135,9 @@ input.nickname, input.employeeId, input.designation, input.email {
 p.error {
     color: #FF0000;
 }
+
+
+.resultsContainer {
+    margin-bottom: 20%;
+}
+
