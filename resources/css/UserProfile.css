@@ -68,6 +68,7 @@ input.password {
     width: 21%;
 }
 .inneruserProfileForm {
+    margin-bottom: 5%;
     position: relative;
     top: 6%;
 }

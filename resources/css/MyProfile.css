@@ -5,6 +5,7 @@
 .editProfileDiv {
 	position: relative;
 	clear:both;
+	margin-bottom:5%;
 }
 
 .firstNameText {
@@ -107,7 +108,7 @@ button.submitMyProfile {
 
 #clearMyProfileDiv {
     margin-left: 32%;
-    margin-top: -2.1%;
+    margin-top: -2%;
     position: relative;
     width: 67%;
     

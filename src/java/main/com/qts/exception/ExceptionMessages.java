@@ -52,20 +52,20 @@ public interface ExceptionMessages {
 	public static final String RELEASES_ID_INVALID = "Releases ID is Invalid.";
 	public static final String RELEASES_EMPTY_FOR_THE_PROJECT="There are no releases for this project";
 	public static final String RELEASESBEAN_NOT_NULL = "Project Id Cannot be null";
-	public static final String RELEASES_CANNOT_BE_ADDED_FOR_THE_PROJECT = "Cannot add Entry..Entry already Exists.";
+	public static final String RELEASES_CANNOT_BE_ADDED_FOR_THE_PROJECT = "Entry already Exists.";
 	public static final String TIME_ENTRY_PRESENT = "Time Entry is Referring The Record";
 	public static final String RELEASE_ID_NULL = "Release ID cannot be null";
 
 
 	//user web services releted exceptions
 	public static final String USER_ID_NOT_NUMBER = "Id of user must be long";
-	 public static final String USER_NAME_FORMAT = "name cannot be null";
+	 public static final String USER_NAME_FORMAT = "Name cannot be null";
 	 public static final String USER_EMAIL_FORMAT = "Email is invalid";
 	 public static final String EMPLOYEE_ID_INVALID_FORMAT = "employee id is invalid";
 	 public static final String DESIGNATION_PATTERN_INVALID = "designation is invalid";
-	 public static final String USER_ID_FORMAT = "invalid email pattern";
-	 public static final String PASSWORD_FORMAT = "invalid password";
-	 public static final String USER_ID_AND_PASSWORD_NULL = "user id and pass word are empty";
+	 public static final String USER_ID_FORMAT = "Invalid email pattern";
+	 public static final String PASSWORD_FORMAT = "Invalid password";
+	 public static final String USER_ID_AND_PASSWORD_NULL = "User id and pass word are empty";
 	 public static final String USER_DETAILS_NULL = "Enter mandatory fields";
 	 public static final String CONFIRM_PASSWORD_NULL = "Confirm password Null";
 	 public static final String CONFIRM_PASSWORD_NOT_EQUAL = "Confirm password is not equal to password";
@@ -81,9 +81,9 @@ public interface ExceptionMessages {
 	 public static final String EMPLOYEE_ID_INVALID = "Employee id is Invalid";
 	 public static final String USER_ID_NULL = "User Id can not be null";
 	 public static final String USER_ID_AND_PASSWORD_INVALID = "User id/password does not exist";
-	 public static final String PASSWORD_NULL = "password can not be null";
-	 public static final String USER_DOESNOT_EXIST = "user not existing with this id";
-	 public static final String USER_CAN_NOT_ADDED = "user can not be added";
+	 public static final String PASSWORD_NULL = "Password can not be null";
+	 public static final String USER_DOESNOT_EXIST = "User not existing with this id";
+	 public static final String USER_CAN_NOT_ADDED = "User can not be added";
 	 public static final String LOCATION_INVALID = "Invalid location";
 	 public static final String DELETE_INVALID = "User not existing";
 	 public static final String UPDATE_NOT_EXIST_INVALID = "invalid user id,Action can not be performed";
@@ -96,7 +96,7 @@ public interface ExceptionMessages {
 	 public static final String DUPLICATE_ENTRY = "Duplicate Entry for Email or EmployeeId";
 	 public static final String DESIGNATION_NULL = "Designation Can not null";
 	 public static final String EMAIL_USERID_NOT_EQUAL = "UserId must equal to Email";
-	 public static final String UPDATE_HANDLAER_EXCEPTION = "exception in update handler,validations return false";
+	 public static final String UPDATE_HANDLAER_EXCEPTION = "Exception in update handler,validations return false";
 	 public static final String EMAIL_NOT_EXISTS = "Email is not existing";
 	 public static final String USER_NOT_AUTHENTICATED = "Please login.";
 	 public static final String SEARCH_RESULTS_NO_MATCH = "No matches found";
@@ -135,6 +135,7 @@ public interface ExceptionMessages {
 	public static final String TIMEENTRY_USER_NOT_AUTHORIZED="USERS/ADMIN ARE NOT AUTHORIZED TO PERFORM SEARCH OPERATION";
 	public static final String SELECT_APPROPRIATE_FIELDS_FOR_SEARCH="Select USERID,PROJECTID,STATUS of the user for search";
 	public static final String APPROVER_NOTAUTHORIZED="APPROVER IS NOT AUTHORIZED FOR THIS PROJECT";
+	public static final String INVALID_ID="INVALID ID";
 	//roles exception
 	public static final String ROLES_EMPTY_EXCEPTION="Select atleast one role.";
 	public static final String ROLES_LIST_EMPTY_EXCEPTION="No Roles available add few.";
@@ -150,9 +151,5 @@ public interface ExceptionMessages {
 	public static final String USER_IS_ADMIN_SO_CANNOT_BE_MEMBER = "This user has admin role so he cannot be member";
 	public static final String USER_IS_MEMBER_SO_CANNOT_BE_ADMIN = "This user has member role so he cannot be admin";
 	
-
-	
-	
-
 }
 

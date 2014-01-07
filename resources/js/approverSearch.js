@@ -52,12 +52,29 @@ ApproverSearch.prototype.handleShow=function(){
 		}}
 	}.ctx(this));
 	
+	$('#clearTheComments').click(function(event){
+	    $('#comments').val('');
+	}.ctx(this));
 	
-  	$('#cancelTheAction').click(function(event){
-		$("#clearTheComments").trigger("click");
+	
+  	$('#closeBtnForComments').click(function(event){
+  		 document.body.style.overflow = "visible";
+  		 $('#searchCriteria').find('*').prop('disabled',false);
 		}.ctx(this));
   	
-    
+  	$("#rejectedComments").keyup(function (event) {
+  	  if (event.keyCode == 13) {
+  	   $('.submitComments').trigger('click');
+  	  }
+  	 }.ctx(this));
+  	
+ 	$(document.documentElement).keyup(function (event) {
+  	  if (event.keyCode == 27) {
+  		  document.body.style.overflow = "visible";
+  		 $('#searchCriteria').find('*').prop('disabled',false);
+  	  }
+  	 }.ctx(this));
+  	   
 }
 
 
@@ -186,6 +203,10 @@ ApproverSearch.prototype.searchTimeEntriesByApprover = function() {
     			var status;
     			var operations;	
     			$(".approverTableData").empty();
+    			var oneWeekAgo=new Date();
+    			oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
+    			 $('#to').val($.datepicker.formatDate('mm/dd/yy', new Date()));
+    			 $('#from').val($.datepicker.formatDate('mm/dd/yy',oneWeekAgo));
     			if(data.length!=0){
     			$(".approverTableHeader").show();
     			data=data.sort(function(a, b){
@@ -236,8 +257,10 @@ ApproverSearch.prototype.searchTimeEntriesByApprover = function() {
                     "<td>"+operations+"</td>";
                     $(".approverTableHeader").after(tabledata);	
     			}
-    			
+    			 $('#status').val(data[0].status);
     			 $('.approveTimeEntry').click(function(event){
+    				 document.body.style.overflow = "hidden";
+    				 $('#searchCriteria').find('*').prop('disabled',true);
     				 $("#rejectedComments").modal({
 							backdrop:"static"
 						});
@@ -248,6 +271,8 @@ ApproverSearch.prototype.searchTimeEntriesByApprover = function() {
 						}.ctx(this));
  			 
 					$('.rejectTimeEntry').click(function(event){
+						document.body.style.overflow = "hidden";
+						$('#searchCriteria').find('*').prop('disabled',true);
 						$("#rejectedComments").modal({
 							backdrop:"static"
 						});
@@ -285,6 +310,8 @@ ApproverSearch.prototype.approveTimeEntry=function(){
 	}
 	RequestManager.approve(input,function(data, success){
 		if(success){
+			document.body.style.overflow = "visible";
+	  		 $('#searchCriteria').find('*').prop('disabled',false);
 			if(data){
 				$.ambiance({
 				    message : "TimeEntry Approved.",
@@ -301,6 +328,8 @@ ApproverSearch.prototype.approveTimeEntry=function(){
 			}
 		}
 		else{
+			document.body.style.overflow = "visible";
+	  		 $('#searchCriteria').find('*').prop('disabled',false);
 			$.ambiance({
 			    message : data.message,
 			    type : 'error'
@@ -314,6 +343,8 @@ ApproverSearch.prototype.rejectTimeEntry=function(){
 	var timeEntryId=timeEntryIdToApproveOrReject;
 	RequestManager.reject({ "payload": {"id":timeEntryId,"rejectedComments":$(".comments").val()} },function(data,success){
 		if(success){
+			 document.body.style.overflow = "visible";
+	  		 $('#searchCriteria').find('*').prop('disabled',false);
 			if(data){
 				$.ambiance({
 				    message : "TimeEntry Rejected.",
@@ -328,6 +359,8 @@ ApproverSearch.prototype.rejectTimeEntry=function(){
 			}
 		}
 		else{
+			 document.body.style.overflow = "visible";
+	  		 $('#searchCriteria').find('*').prop('disabled',false);
 			$.ambiance({
 			    message : data.message,
 			    type : 'error'
@@ -373,9 +406,9 @@ ApproverSearch.prototype.validateSearchCriteria=function(){
 ApproverSearch.prototype.validateComments=function(){
     var comments=$('#comments').val();
     var isvalid=true;
-	 if(comments.length>4096){
+	 if(comments.length>128){
 		  $.ambiance({
-			    message :'Maximum of 4096 characters is supported.',
+			    message :'Maximum of 128 characters is supported.',
 			    type : 'error'
 			   });
 		  isvalid=false;

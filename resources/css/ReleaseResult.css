@@ -1,10 +1,10 @@
 #resultTable{
-	width:50%;
+	width:60%;
 }
 
 #resultTable th{
 background-color:#3091FF;
-padding:4%;
+padding:3%;
 width:33%;
 }
 #resultTable tr:nth-child(even){
@@ -16,9 +16,4 @@ width:33%;
 #resultTable td{
 padding:2%;
 width:33%;
-}
-.result{
-    position: relative;
- 	margin-top:5%;
- 	margin-bottom:5%;
 }

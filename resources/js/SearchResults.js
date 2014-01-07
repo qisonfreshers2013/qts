@@ -99,7 +99,7 @@ SearchResults.prototype.appendValues = function(data){
 								if(success){			
 									
 									for(var i=0 ; i<data.length; i++){
-										 $('select.employeeId').append('<option value='+data[i]+'>'+data[i]+'</option>');	
+										 $('select.employeeId').append('<option value = '+data[i]+' title = '+data[i]+'>'+data[i].ellipses(10)+'</option>');	
 									}		
 								}	
 								else{

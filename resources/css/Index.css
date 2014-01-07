@@ -26,7 +26,6 @@ body {
 .footer {
     border-top: 2px solid #000000;
     clear: both;
-    margin-top: 10%;
     padding-top: 1%;
 }
 .container {
@@ -37,11 +36,13 @@ body {
 .leftContainer {
     float: left;
     position: relative;
+    margin-bottom:15%;
 }
 .rightContainer {
     float: right;
     position: relative;
     width: 45%;
+    margin-bottom:15%;
 }
 
 .footer p {

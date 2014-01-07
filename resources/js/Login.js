@@ -31,6 +31,7 @@ Login.prototype.handleShow = function() {
 	$('#forgotPasswordModal').keyup(function (event) {
 		  if (event.keyCode == 27) {
 				$(".error").remove();
+				$('#loginDiv').children().prop('disabled',false);
 				$( "button#forgotButton" ).trigger("click");
 				$("input.emailToSend" ).val("");			
 		}		
@@ -63,6 +64,8 @@ Login.prototype.handleShow = function() {
 	
 	$(".forgotPasswordLink").click(function(){	
 		$("#ambiance-notification").empty();
+		$('#userId').focus();
+		$('#loginDiv').children().prop('disabled',true);
 		$(".error").empty();	
 		document.body.style.overflow = "hidden";
 		this.openEmailDialogBox();
@@ -78,7 +81,7 @@ Login.prototype.handleShow = function() {
 	
 	$("button.submitEmail").click(function(){
 		$(".error").hide();
-	
+		$('#loginDiv').children().prop('disabled',false);
 		if(this.validateEmail( $('.emailToSend'))){	
 		$(".error").hide();
 		var email = $('.emailToSend').val();	
@@ -93,12 +96,14 @@ Login.prototype.handleShow = function() {
 	
 	$("button.forgotButton").click(function(){
 		$("input.emailToSend" ).val("");
+		$('#loginDiv').children().prop('disabled',false);
 		document.body.style.overflow = "visible";
 	}.ctx(this));
 	
 	$(document.documentElement).keyup(function (event) {
 	    if (event.keyCode == 27)  {
 			$(".error").remove();
+			$('#loginDiv').children().prop('disabled',false);
 			document.body.style.overflow = "visible";			
 	}	    
 	}.ctx(this));
@@ -134,7 +139,7 @@ Login.prototype.authenticate = function() {
 			    message : "Fail : "+data.message,
 			    type : 'error'
 			   });
-			$( "button#clearLogin" ).trigger("click");			
+			$( "input#password" ).val("");			
 	}		
 	}.ctx(this));
 }
@@ -198,12 +203,12 @@ Login.prototype.validateLogin = function(email,password){
     	$('.userId').after('<span class = "error"  style = "color:red" > UserId too long</span>');
         isValid = false;    	
     }
-    else if(password.length < 6 ){
+    else if(password.length < 1 ){
 		$('.password').focus();
 		$('.password').after('<span class = "error" style = "color:red" >Password can'+"'"+'t be null</span>');
         isValid = false;
 	} 
-	 else if(password.trim().length < 6 ){
+	 else if(password.length < 6 ){
 		$('.password').focus();
 		$('.password').after('<span class = "error" style = "color:red" > Password too short</span>');
         isValid = false;
