@@ -15,6 +15,7 @@ function AllocateUsersToProject(){
 
 
 AllocateUsersToProject.prototype.getProjects=function(){
+	$("#ambiance-notification").empty();
 	$('#projectName').empty();
 	$('#projectName').append('<option value=0>--select--</option>');
 	RequestManager.getProjects({}, function(data, success) {
@@ -53,7 +54,13 @@ AllocateUsersToProject.prototype.handleShow=function(){
 		}
 	}.ctx(this));
 
-
+	$('#projectName').keyup(function(event){
+		if (event.keyCode == 37||event.keyCode == 38||event.keyCode == 39||event.keyCode == 40) {
+			allocateUsersToProjectStatus=false;
+			this.getProjectUsersAndNonUsers();
+		}
+	}.ctx(this));
+	
 	$('#projectName').change(function(){
 		allocateUsersToProjectStatus=false;
 		this.getProjectUsersAndNonUsers();

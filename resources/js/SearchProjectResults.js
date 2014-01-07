@@ -5,6 +5,7 @@ function SearchProjectResults(data){
 }
 
 SearchProjectResults.prototype.handleShow=function(data){
+	$("#ambiance-notification").empty();
 	var approver=$('#approverDiv');
 	var member=$('#memberDiv');
 	var noRole=$('#noRoleDiv');
