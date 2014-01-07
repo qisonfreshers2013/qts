@@ -34,8 +34,8 @@
 }
 .go, .reset {
     background-color: rgb(102, 153, 51);
-    border: medium none;
     border-radius:5px;
+    border: medium none;
     color: rgb(255, 255, 255);
     font-weight: bold;
     height: 18px;
@@ -43,7 +43,7 @@
     width: 22% !important;
 }
 #projectName{
- width:31%;	
+ width:27%;	
 }
 
 .projectNameAllocate{
