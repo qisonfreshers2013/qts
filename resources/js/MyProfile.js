@@ -34,7 +34,8 @@ MyProfile.prototype.handleShow = function(){
 		}
 		
 	}.ctx(this));
-	$('.changePassword').click(function(){		
+	$('.changePassword').click(function(){
+		
 		App.loadChangePassword();		
 	}.ctx(this));
 	
@@ -139,7 +140,7 @@ MyProfile.prototype.validateName = function(name){
        $('.error').hide();
 	    var nameVal = name.val();
 	    if(nameVal.trim().length <= 0 || nameVal == null) {
-	    	name.after('<span class = "error" style = "color:red"  >Name can not be empty</span>');
+	    	name.after('<span class = "error" style = "color:red"  >Name can'+"'"+'t  be null</span>');
 	        isValid = false;
 	    }
 	    else if(!nameReg.test(nameVal)) {

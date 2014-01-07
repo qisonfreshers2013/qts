@@ -90,16 +90,16 @@ public interface ExceptionMessages {
 	 public static final String DELETED_ALREADY = "User already deleted";
 	 public static final String SEND_MAIL_FAILED = "An Error occured.Try Again";
 	 public static final String DELETE_ID_ZERO = "Choose id from one to perform delete operation";
-	 public static final String OLD_PASSWORD_INVALID = "old password is invalid";
+	 public static final String OLD_PASSWORD_INVALID = "Old password is invalid";
 	 public static final String DUPLICATE_ENTRY_EMAIL = "Duplicate entry for Email";
 	 public static final String DUPLICATE_ENTRY_EMPLOYEE_ID = "Duplicate entry for Employee Id";
 	 public static final String DUPLICATE_ENTRY = "Duplicate Entry for Email or EmployeeId";
-	 public static final String DESIGNATION_NULL = "designation Can not null";
+	 public static final String DESIGNATION_NULL = "Designation Can not null";
 	 public static final String EMAIL_USERID_NOT_EQUAL = "UserId must equal to Email";
 	 public static final String UPDATE_HANDLAER_EXCEPTION = "exception in update handler,validations return false";
 	 public static final String EMAIL_NOT_EXISTS = "Email is not existing";
 	 public static final String USER_NOT_AUTHENTICATED = "Please login.";
-	 public static final String SEARCH_RESULTS_NO_MATCH = "no matchs found";
+	 public static final String SEARCH_RESULTS_NO_MATCH = "No matches found";
 
 	//Time Entry Exception messages
 	public static final String DATE_CANNOT_BE_NULL= "DATE CANNOT BE NULL";
