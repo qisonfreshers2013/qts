@@ -33,33 +33,38 @@ div#submitDiv {
     width: 77%;
 }
 div#clearDiv {
-    left: 36.9%;
-    margin-top: -2.7%;
+    left: 34.9%;
+    margin-top: -2.1%;
     position: relative;
     width: 77%;
  
 }
 button.clearUserProfile {
     background-color: #669933;
-    color: #FFFFFF;
-    padding: 0.2%;
-    width: 9%;
+    color: #FFFFFF;  
+    width: 12%;
+    border:medium none;
+    border-radius:5px;
+     font-weight: bold;
+    
 }
-input.firstName, input.lastName, input.nickname, input.email, input.employeeId, input.designation, input.location, input.userId, input.password, input.confirmPassword {
+input.firstName, input.lastName, input.nickname, input.email, input.employeeId, input.designation, input.location, input.userIdTextUP, input.password, input.confirmPassword {
     width: 21%;
 }
 button.submitUserProfile {
 	background-color: #669933;
-    color: #FFFFFF;
-    padding: 0.2%;
-    width: 9%;
+    color: #FFFFFF;   
+    width: 12%;
+    border:medium none;
+    border-radius:5px;
+    font-weight: bold;
 }
 hr {
     background-color: #E0E0E0;
     color: #E0E0E0;
     height: 2px;
 }
-input.password, input.userId {
+input.password {
     width: 21%;
 }
 .inneruserProfileForm {
@@ -85,6 +90,6 @@ select.gender {
     margin-top: 8%;
 }
 
-input.userId {
-    margin-left: 0%;
-}
+/*input.userIdTextUP {*/
+/*    margin-left: 0%;*/
+/*}*/

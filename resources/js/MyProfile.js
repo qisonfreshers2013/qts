@@ -1,18 +1,15 @@
 /**
  * 
  */
-function MyProfile(password){	
+function MyProfile(){	
 	Loader.loadHTML('.container', 'MyProfile.html', false, function(){
-			this.handleShow(password);
+			this.handleShow();
 	}.ctx(this));
 }
 
-MyProfile.prototype.handleShow = function(password){
+MyProfile.prototype.handleShow = function(){
 	$('#changePasswordModal').hide();	
 	this.loadValues();
-	
-	
-	
 	$('div#editProfileDiv').keyup(function(event){
 		if(event.keyCode == 13){
 			$('.error').remove();
@@ -37,12 +34,12 @@ MyProfile.prototype.handleShow = function(password){
 		}
 		
 	}.ctx(this));
-	$('.changePassword').click(function(){	
-	
-		App.loadChangePassword(password);		
+	$('.changePassword').click(function(){		
+		App.loadChangePassword();		
 	}.ctx(this));
 	
 	$('#clear').click(function() {
+		 $("#ambiance-notification").empty();
 		$('.error').remove();
 	});
 	
@@ -64,15 +61,21 @@ MyProfile.prototype.saveValues = function(firstNameRef,lastNameRef,nicknameRef,l
 				});
 			if((data.nickName==null) || (data.nickName.trim().length < 1)){
 				
-				$('span.nicknameCursor').text(data.lastName);
-				$('h1.nicknameHeader').text(data.lastName);
+				$('span.nicknameCursor').text(data.lastName.ellipses(15));
+				  $('span.nicknameCursor').attr('title',data.lastName);
+				$('h1.nicknameHeader').text(data.lastName.ellipses(15));
+				  $('h1.nicknameHeader').attr('title',data.lastName);
 			}
 			else{
-				$('h1.nicknameHeader').text(data.nickName);
-			    $('span.nicknameCursor').text(data.nickName);
+				$('h1.nicknameHeader').text(data.nickName.ellipses(15));
+				 $('h1.nicknameHeader').attr('title',data.nickName);
+			    $('span.nicknameCursor').text(data.nickName.ellipses(15));
+			    $('span.nicknameCursor').attr('title',data.nickName);
 			}
-			$('p.locationHeader').text(data.location);	
-			$('p.upperDesignationField').text(data.designation);			
+			$('p.locationHeader').text(data.location.ellipses(15));	
+			$('p.locationHeader').text(data.location.ellipses(15));
+			$('p.upperDesignationField').text(data.designation.ellipses(10));	
+			$('p.upperDesignationField').text(data.designation.ellipses(15));
 			
 		}
 		else
@@ -91,13 +94,21 @@ MyProfile.prototype.loadValues = function(){
 	RequestManager.getLoginUserDetails(input,function(data,success){
 		if(success){
 			console.log("success profile" + data.payload);
-			if(data.nickName == null || data.nickName.trim().length<1 )
+			if(data.nickName == null || data.nickName.trim().length<1 ){
 			
-			   $('h1.nicknameHeader').text(data.lastName);
-			else
-				$('h1.nicknameHeader').text(data.nickName);
-			$('p.locationHeader').text(data.location);	
-			$('p.upperDesignationField').text(data.designation);
+			   $('h1.nicknameHeader').text(data.lastName.ellipses(15));
+			   $('h1.nicknameHeader').attr('title',data.lastName);
+			}
+			else{
+				$('h1.nicknameHeader').text(data.nickName.ellipses(15));
+				$('h1.nicknameHeader').attr('title',data.nickName);				
+			}
+			 $('p.locationHeader').text(data.location.ellipses(15));	
+			 $('p.locationHeader').attr('title',data.location);
+			 
+			 $('p.upperDesignationField').text(data.designation.ellipses(10));
+			 $('p.upperDesignationField').attr('title',data.designation);
+			 
 			var gender = (data.gender)?"Male":"Female";
 			$('input.employeeIdText').val(data.employeeId);
 			$('input.emailText').val(data.email);
@@ -151,10 +162,10 @@ MyProfile.prototype.validateName = function(name){
 
 MyProfile.prototype.validateNickname= function(nickname){
 	var isValid = true;
-	var nicknameReg =  /^[A-Za-z]*([ {1}][A-Za-z]*)*$/g;
+	var nicknameReg =/^[A-Za-z]+([ {1}][A-Za-z]+)*$/g;
        $('.error').hide();
 	    var nicknameVal = nickname.val();
-	    if(nicknameVal = ""){
+	    if(nicknameVal.length < 1){
 	    	$('.error').hide();
     	 	isValid = true;
 	    }
@@ -178,10 +189,10 @@ MyProfile.prototype.validateNickname= function(nickname){
 MyProfile.prototype.validateLocation= function(location){
 	var isValid = false;
 	$(".error").hide();
-	var locationReg =  /^[A-Za-z]*([ {1}][A-Za-z]*)*$/g;
-       $('.error').hide();
+	var locationReg =/^[A-Za-z]+([ {1}][A-Za-z]+)*$/g;
+      
 	    var locationVal = location.val();	 
-	    if(locationVal == ""){
+	    if(locationVal.length < 1){
 	    	 $('.error').hide();
 	    	isValid = true;
 	    }

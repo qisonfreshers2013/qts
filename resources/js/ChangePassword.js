@@ -5,42 +5,51 @@
  * 
  */
 
-function ChangePassword(password){
-	Loader.loadHTML('#changePasswordModal', 'ChangePassword.html', true, function(){	
-		$('input.oldPasswordTextCP').focus();	
-		this.handleShow(password);			
+function ChangePassword(){
+	Loader.loadHTML('#changePasswordModal', 'ChangePassword.html', true, function(){
+		document.body.style.overflow = "hidden";
+		this.dbPassword = "";
+		this.handleShow();			
 	}.ctx(this));
 }
-ChangePassword.prototype.handleShow = function(dbPassword){
-	console.log('calling modelshow');	
-	
-	$('#changePasswordModal').modal('show');
-	
+ChangePassword.prototype.handleShow = function(){
+	this.getPassword();
+//	var input = {"payload":{}};
+//	
+//	RequestManager.getLoginUserDetails(input,function(data,success){
+//		if(success){
+//			dbPassword = data.password;	
+//		}
+//		else{
+//			$.ambiance({
+//			    message : "Fail : "+data.message,
+//			    type : 'error'
+//			   });
+//			}
+//		}.ctx(this));
+		
+	$('#changePasswordModal').modal('show');	
 	$('#changePasswordModal').on('show', function () {
-		$('#userId').focus();
+		$('#oldPasswordTextCP').focus();
+//		document.body.style.overflow = "hidden";
 	  //  if (!data) return e.preventDefault() // stops modal from being shown
-	});
-
-
+	}.ctx(this));
 	$('#changePasswordModal').keyup(function (event) {
 		  if (event.keyCode == 13) {
 				$(".error").remove();
 				$( "button#submitPassword" ).trigger("click");
 		}
-	
-		}.ctx(this));
-
-	$('#changePasswordModal').keyup(function (event) {
 		  if (event.keyCode == 27) {
 				$(".error").remove();
 				$("button#closeCPbutton" ).trigger("click");	
-				$( "button#clearCP" ).trigger("click");
-					
-		}		
+			//	document.body.style.overflow = "visible";
+				//$( "button#clearCP" ).trigger("click");					
+		}	
 		}.ctx(this));
 	
-	console.log('called modelshow');
-	$('button#submitPassword').click(function(){
+
+	
+	$('button#submitPassword').click(function(){	
 		
 		  var oldPassword = $('input.oldPasswordTextCP');
 		  var password = $('input.passwordTextCP');
@@ -50,13 +59,13 @@ ChangePassword.prototype.handleShow = function(dbPassword){
 			       message : "Old password can not be empty",
 			       type : 'error'
 			      }); 
-		  }else if(dbPassword!=oldPassword.val()){
+		  }else if(oldPassword.val() != dbPassword){	
+			  
 			   $.ambiance({
 			       message : "Invalid old password",
 			       type : 'error'
 			      }); 
-			   
-			  }
+		  }				  
 		  else if(password.val().length<1){
 			  $.ambiance({
 			       message : "New Password can not be empty",
@@ -67,21 +76,25 @@ ChangePassword.prototype.handleShow = function(dbPassword){
 			   $.ambiance({
 			       message : "Minimum length of new password is 6 characters",
 			       type : 'error'
-			      }); 
-			   
-			  }else if(oldPassword.val().length>128){
+			      }); 			   
+			  } else if(oldPassword.val().length>128){
 			   $.ambiance({
 			       message : "Maximum length of new password is 128 characters",
 			       type : 'error'
-			      });
-			   
-			  }else if(password.val()!=confirmPassword.val()){
-			   $.ambiance({
+			      });			   
+			  }
+			  else if(password.val().indexOf(' ') >= 0){
+				  $.ambiance({
+				       message : "Invalid new Password",
+				       type : 'error'
+				      });
+			    }else if(password.val()!=confirmPassword.val()){
+			     $.ambiance({
 			       message : "Confirm password must equal to password",
 			       type : 'error'
 			      });
 			   
-			  }else if(dbPassword==password.val()&&dbPassword==confirmPassword.val()){
+			  }else if(dbPassword==password.val()){
 			   $.ambiance({
 			       message : " Old password and new password are same",
 			       type : 'error'
@@ -95,7 +108,20 @@ ChangePassword.prototype.handleShow = function(dbPassword){
 //var isConfirmPasswordValidated = this.validateConfirmPassword(confirmPassword,password);
 //if(isOldPasswordValidated&&isPasswordValidated&&isConfirmPasswordValidated)
 //this.changePassword(oldPassword.val(),password.val(),confirmPassword.val());
-	}.ctx(this));	
+	}.ctx(this));
+	
+	$("button#closeCPbutton" ).click(function(){		
+		document.body.style.overflow = "visible";
+		$( "button#clearCP" ).trigger("click");
+		 $("#ambiance-notification").empty();
+	}.ctx(this));
+		
+	$(document.documentElement).keyup(function (event) {
+	    if (event.keyCode == 27)  {
+			$(".error").remove();
+			document.body.style.overflow = "visible";			
+	}	    
+	   }.ctx(this));
 	
 }
 
@@ -110,12 +136,18 @@ ChangePassword.prototype.changePassword = function(oldPassword,password,confirmP
 	
 	RequestManager.changePassword(input,function(data,success){
 		if(success){
-			$.ambiance({
-				  message : "Success : Password is changed",
-				  type : 'success'
-				});
+			document.body.style.overflow = "visible";
+
+			
+	   
 		$('#changePasswordModal').modal('hide');
 		$( "input.closeCPbutton" ).trigger( "click");
+		
+		document.location.reload();
+		$.ambiance({
+			  message : "Success : Password is changed,Please login with New Password",
+			  type : 'success'
+			});
 		}
 		else{
 			$.ambiance({
@@ -123,8 +155,25 @@ ChangePassword.prototype.changePassword = function(oldPassword,password,confirmP
 			    type : 'error'
 			   });	
 		}
-	}).ctx(this);
+	}.ctx(this));
 }
+
+ChangePassword.prototype.getPassword = function(){
+	
+	var input = {"payload":{}};
+	RequestManager.getLoginUserDetails(input,function(data,success){
+		if(success){
+			dbPassword = data.password;	
+		}
+		else{
+			$.ambiance({
+			    message : "Fail : "+data.message,
+			    type : 'error'
+			   });
+			}
+		}.ctx(this));
+			
+	}
 
 
 ChangePassword.prototype.validatePassword = function(passwordRef){
@@ -151,8 +200,7 @@ ChangePassword.prototype.validatePassword = function(passwordRef){
 			$(".error").hide();
 			isValid = true;    
 	}
-	return isValid; 
-	
+	return isValid; 	
 }
 ChangePassword.prototype.validateConfirmPassword = function(confirmPasswordRef,passwordRef){
 	var isValid = false;

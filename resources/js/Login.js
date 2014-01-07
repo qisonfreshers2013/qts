@@ -1,8 +1,7 @@
 /**
  * 
  */
-function Login() {
-	
+function Login() {	
 	Loader.loadHTML('.rightContainer', 'Login.html', true, function(){
 		this.handleShow();
 	}.ctx(this));
@@ -10,10 +9,8 @@ function Login() {
 
 var roleNames=new Array();
 
-Login.prototype.handleShow = function() {	
-	
-	$('#userId').focus();
-	
+Login.prototype.handleShow = function() {		
+	$('#userId').focus();	
 	$("#loginDiv").keyup(function (event) {
 		  if (event.keyCode == 13) {
 			  if(this.validateLogin($('input.userId').val(),$('input.password').val())){		
@@ -60,12 +57,16 @@ Login.prototype.handleShow = function() {
 	$(".clearLogin").click(function(){		
 		$('#userId').focus();
 		$(".error").hide();
+		$("#ambiance-notification").empty();
 	}.ctx(this));
 	
 	
 	$(".forgotPasswordLink").click(function(){	
-		$(".error").empty();		
+		$("#ambiance-notification").empty();
+		$(".error").empty();	
+		document.body.style.overflow = "hidden";
 		this.openEmailDialogBox();
+		$("input.emailToSend" ).val("");
 		$('#forgotPasswordModal').on('show', function () {
 			$('#userId').focus();
 		  //  if (!data) return e.preventDefault() // stops modal from being shown
@@ -92,8 +93,15 @@ Login.prototype.handleShow = function() {
 	
 	$("button.forgotButton").click(function(){
 		$("input.emailToSend" ).val("");
+		document.body.style.overflow = "visible";
 	}.ctx(this));
-
+	
+	$(document.documentElement).keyup(function (event) {
+	    if (event.keyCode == 27)  {
+			$(".error").remove();
+			document.body.style.overflow = "visible";			
+	}	    
+	}.ctx(this));
 	
 	
 }
@@ -108,19 +116,17 @@ Login.prototype.authenticate = function() {
 		if(success){
 			//routie('home');
 		 roleNames=data.roleNames;
+		 $("#ambiance-notification").empty();
 		      var  token = data.sessionToken;
 		      setCookie('qtsSessionId', token, null);
 		      if(data.user.nickName == null  || data.user.nickName.trim().length < 1){
-		    	 App.loadWelcome(data.user.lastName,data.user.password);
-		    	 
-		    	 
+		    	 App.loadWelcome(data.user.lastName); 		    	 
 		      }
 		      else{		    	
-		    	  	App.loadWelcome(data.user.nickName,data.user.password);
+		    	  	App.loadWelcome(data.user.nickName);
 		    	  }		     
 		      App.loadOptions();
 		      App.loadQisonLogo();
-
 		}else{
 			
 			//alert('Fail to login :'+ data.message);
@@ -129,25 +135,28 @@ Login.prototype.authenticate = function() {
 			    type : 'error'
 			   });
 			$( "button#clearLogin" ).trigger("click");			
-	}
-		
-		
+	}		
 	}.ctx(this));
 }
 	
 Login.prototype.sendMail = function(email){
+//	$('#sending').text("Sending.").delay(56);
+//	$('#sending').text("Sending..").delay(56);
 	$('#sending').text("Sending...");
+//	var img = '<img src="resources\css\images\ajax-loader.gif" width="300" height="300">';
+//	$('.modal-title').html(img);
+	
 	var input = {"payload":{"email":email}};
 	RequestManager.sendMail(input,function(data,success){
 		if(success){
-			$('#sending').text("");
+			document.body.style.overflow = "visible";
+			$('#sending').text("");			
 			$("input.emailToSend" ).val("");	
 			$.ambiance({
 				  message : "Success : Mail is sent",
 				  type : 'success'
 				});
-		$('#forgotPasswordModal').modal('hide');
-		
+		$('#forgotPasswordModal').modal('hide');		
 		}
 		else{
 			$('#sending').text("");
@@ -167,8 +176,6 @@ Login.prototype.openEmailDialogBox = function() {
 	$(".emailForgot").focus();
 }
 
-
-
 Login.prototype.validateLogin = function(email,password){
 	$(".error").hide();
 	console.log(email+" validation "+password);
@@ -177,29 +184,38 @@ Login.prototype.validateLogin = function(email,password){
   //  var emailVal = email;
     if(email == "" || email == null) {
     	$('.userId').focus();
-    	$('.userId').after('<span class = "error" style = "color:red" >UserId can not be null</span>');
+    	$('.userId').after('<span class = "error" style = "color:red" >UserId can'+"'"+'t be null</span>');
         isValid = false;
     }
 
     else if(!emailReg.test(email)) {
     	$('.userId').focus();
-    	$('.userId').after('<span class = "error"  style = "color:red" >Invalid UserId</span>');
+    	$('.userId').after('<span class = "error"  style = "color:red" > Invalid UserId</span>');
         isValid = false;
     }
     else if (email.length > 128){
     	$('.userId').focus();
-    	$('.userId').after('<span class = "error"  style = "color:red" >UserId too long</span>');
+    	$('.userId').after('<span class = "error"  style = "color:red" > UserId too long</span>');
         isValid = false;    	
     }
+    else if(password.length < 6 ){
+		$('.password').focus();
+		$('.password').after('<span class = "error" style = "color:red" >Password can'+"'"+'t be null</span>');
+        isValid = false;
+	} 
 	 else if(password.trim().length < 6 ){
 		$('.password').focus();
-		$('.password').after('<span class = "error" style = "color:red" Password too short</span>');
+		$('.password').after('<span class = "error" style = "color:red" > Password too short</span>');
         isValid = false;
-	}
+	} 
+	else if(password.indexOf(' ') >= 0){
+		$('.password').after('<span  class = "error" style = "color:red" >Invalid Password</span>');
+	        isValid = false;
+	 }
 	else if(password.trim().length  > 128)
 		{
 			$('.password').focus();
-			$('.password').after('<span class = "error" style = "color:red" >Password too long</span>');		
+			$('.password').after('<span class = "error" style = "color:red" > Password too long</span>');		
 		}
 	    else
 		{
@@ -218,7 +234,7 @@ Login.prototype.validateEmail = function(emailRef){
    
     if(emailVal == '') {
     	emailRef.focus();
-    	emailRef.after('<span class = "error" style = "color:red;" >Email can not be null</span>');
+    	emailRef.after('<span class = "error" style = "color:red;" > Email can not be null</span>');
         isValid = false;
     }
 

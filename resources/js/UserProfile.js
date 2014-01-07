@@ -32,7 +32,7 @@ UserProfile.prototype.handleShow = function(id) {
 						if(this.validateEmployeeId($('input.employeeId'))){
 							if(this.validateDesignation($('input.designation'))){
 								if(this.validateLocation($('input.location'))){
-									if(this.validateUserId($('input.userId'),$('input.email'))){
+									if(this.validateUserId($('input.userIdTextUP'),$('input.email'))){
 										if(this.validatePassword($('input.password'))){
 											if(this.validateConfirmPassword($('input.confirmPassword'),$('input.password'))){
 												
@@ -51,14 +51,13 @@ UserProfile.prototype.handleShow = function(id) {
 		
 	}.ctx(this));
 	
-	$('#clear').click(function() {
-		$('.error').remove();
-	});
+	
 	
 	
 	$('#clear').click(function() {
+		 $("#ambiance-notification").empty();
 		  $('.error').remove();
-		 });
+		 }.ctx(this));
 	
 	
 }
@@ -82,7 +81,7 @@ UserProfile.prototype.loadUserValues = function(id){
 			$('input.employeeId').val(data.employeeId);
 			$('input.designation').val(data.designation);
 			$('input.location').val(data.location);	
-			$('input.userId').val(data.userId);
+			$('input.userIdTextUP').val(data.userId);
 			$('input.password').val(data.password);
 			$('input.confirmPassword').val(data.password);			
 		}
@@ -109,7 +108,7 @@ UserProfile.prototype.saveUserProfile = function(id) {
 			"employeeId":$('.employeeId').val(),
 			"designation":$('.designation').val(),
 			"location":$('.location').val(),
-			"userId":$('.userId').val(),
+			"userId":$('.userIdTextUP').val(),
 			"password":$('.password').val(),
 			"confirmPassword":$('.confirmPassword').val()
 		}};
@@ -238,10 +237,10 @@ UserProfile.prototype.validateDesignation = function(designation){
 
 UserProfile.prototype.validateNickname= function(nickname){
 	var isValid = true;
-	var nicknameReg =  /^[A-Za-z]*([ {1}][A-Za-z]*)*$/g;
+	var nicknameReg =  /^[A-Za-z]+([ {1}][A-Za-z]+)*$/g;
        $('.error').hide();
 	    var nicknameVal = nickname.val();
-	    if(nicknameVal = ""){
+	    if(nicknameVal.length < 1){
 	    	$('.error').hide();
     	 	isValid = true;
 	    }
@@ -264,10 +263,10 @@ UserProfile.prototype.validateNickname= function(nickname){
 UserProfile.prototype.validateLocation= function(location){
 	var isValid = false;
 	$(".error").hide();
-	var locationReg =  /^[A-Za-z]*([ {1}][A-Za-z]*)*$/g;
+	var locationReg =  /^[A-Za-z]+([ {1}][A-Za-z]+)*$/g;
       
 	    var locationVal = location.val();	
-	    if(locationVal == ""){
+	    if(locationVal.length < 1){
 	    	isValid = true;
 	    }
 	    else if(!locationReg.test(locationVal)) {
@@ -300,7 +299,8 @@ UserProfile.prototype.validatePassword = function(password){
 	console.log(password+" validation ");	
 	$(".error").hide();
     var isValid = false;   
-    if(password.length<1){
+    if(password.val().length<1){
+        isValid = false;
     	password.after('<span  class = "error" style = "color:red" >Password can not be Empty</span>');
     }    
     else if(password.val().trim().length < 6 ){
@@ -326,10 +326,11 @@ UserProfile.prototype.validateConfirmPassword = function(confirmPassword,passwor
 		confirmPassword.after('<span  class = "error">Confirm password and password must be equal</span>');
 		isValid = false;
 	}
-	else
-		isValid = true;
-	
-	return isValid;
+	else{
+		isValid = true;	
+		$(".error").hide();
+	}
+		return isValid;
 	
 }
 

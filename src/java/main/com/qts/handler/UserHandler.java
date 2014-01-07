@@ -149,6 +149,7 @@ public class UserHandler extends AbstractHandler {
 		if (bean.getId() == 0) {
 			throw new UserException(ExceptionCodes.DELETE_ID_ZERO,
 					ExceptionMessages.DELETE_ID_ZERO);
+			
 		}
 		UserProjectHandler userProjectHandler = UserProjectHandler.getInstance();
 		List<UserProject> userProjectList = userProjectHandler.getUserProjectsByUserId(bean.getId());//get user project list for Specified users Id
@@ -162,22 +163,25 @@ public class UserHandler extends AbstractHandler {
 			}
 		}
 		//if user not associated with projects delete user logically
-		   //	try{
-		  //deleteUserTimeEntriesByUserId(long id);
-	      //}catch(TimeEntryException){}
-		UserDAO userDAOImpl = DAOFactory.getInstance().getUserDAO();
-		
+		//	try{
+	    //deleteUserTimeEntriesByUserId(long id);
+	    //}catch(TimeEntryException){}
+		UserDAO userDAOImpl = DAOFactory.getInstance().getUserDAO();		
 		isDeleted = userDAOImpl.deleteUser(bean.getId());
 		return isDeleted;
 	}
 
 	public boolean changePassword(ChangePasswordBean bean) throws UserException {
 		boolean isPasswordChanged = false;
+		UserDAO userDAOImpl = DAOFactory.getInstance().getUserDAO();
 		isPasswordChanged = validatePassword(bean.getOldPassword());
+		User user = userDAOImpl.getUserById(ServiceRequestContextHolder.getContext().getUserSessionToken().getUserId());
+		if (!user.getPassword().equals( bean.getOldPassword())){
+			throw new UserException(ExceptionCodes.OLD_PASSWORD_INVALID,ExceptionMessages.OLD_PASSWORD_INVALID);
+		}
 		isPasswordChanged = validatePassword(bean.getPassword());
 		isPasswordChanged = validateConfirmPassword(bean.getPassword(),
-				bean.getConfirmPassword());
-		UserDAO userDAOImpl = DAOFactory.getInstance().getUserDAO();
+				bean.getConfirmPassword());	
 		isPasswordChanged = userDAOImpl.changePassword(bean);
 		return isPasswordChanged;
 	}

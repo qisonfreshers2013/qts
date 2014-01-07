@@ -4,6 +4,7 @@
 
 .editProfileDiv {
 	position: relative;
+	clear:both;
 }
 
 .firstNameText {
@@ -20,7 +21,7 @@
 p.upperDesignationField {
 	width: 21%;
 	position: relative;
-    left: 23%;
+    left: 18%;;
 }
 
 .profileHeader {
@@ -44,11 +45,13 @@ p.upperDesignationField {
 
 button.changePassword {
     background-color: #669933;
-    border-radius: 5%;
+    border-radius: 5px;
     color: #FFFFFF;
     display: inline-block;
     text-decoration: none;
     width: 26.5%;
+    border:medium none;
+    font-weight: bold;
 }
 
 .editProfileHeader {
@@ -57,12 +60,13 @@ button.changePassword {
 }
 
 
-button.clearMyProfile {
-	
+button.clearMyProfile {	
     background-color: #669933;
-    color: #FFFFFF;
-    padding: 0.1%;
-    width: 12%;
+    color: #FFFFFF;    
+    width: 14%;
+    border:medium none;
+    border-radius:5px;
+    font-weight: bold;
 
 }
 
@@ -88,28 +92,32 @@ p {
 
 #profilePhotoDiv img {
 	border-radius: 50%;
-	  border: medium solid #72AEE0;
+	border: medium solid #72AEE0;
 }
 
 button.submitMyProfile {
     background-color: #669933;
-    color: #FFFFFF;
-    padding: 0.1%;
-    width: 10%;
+    color: #FFFFFF;  
+    width: 14%;
+    border:medium none;
+    border-radius:5px;
+    font-weight: bold;
+    
 }
 
 #clearMyProfileDiv {
-    margin-left: 33%;
-    margin-top: -2.5%;
+    margin-left: 32%;
+    margin-top: -2.1%;
     position: relative;
     width: 67%;
+    
 }
 
 #submitMyProfileDiv {
     margin-left: 20%;
     margin-top: 0;
     position: relative;
-    width: 80%;
+    width: 67%;
 }
 
 div.changePasswordDiv {
@@ -131,19 +139,11 @@ input.userIdText {
 #changePasswordModal{
 	top:65%;
 	}
-
-
-
-
-/*.userId {*/
-/*   margin: 0 0 7%;*/
-/*}*/
-
 input.employeeIdText, input.emailText, input.userIdText, input.designationText, input.genderText, input.firstNameText, input.lastNameText, input.nicknameText, input.locationText {
     width: 25%;
 }
 
-.userId {
+.userIdFieldMP {
     margin-bottom: 5%;
     margin-left: 0;
 }
