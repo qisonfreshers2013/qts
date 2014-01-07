@@ -75,7 +75,7 @@ SearchProjectRelease.prototype.results=function(){
 			$('.AddPR').click(function(){
 				App.loadAddProjectRelease();
 			}.ctx(this));
-			App.loadReleaseResult();
+			
 		}
 		else{
 			$.ambiance({
@@ -83,7 +83,9 @@ SearchProjectRelease.prototype.results=function(){
 				type : 'error'
 			});
 		}
+		
 	}
+	App.loadReleaseResult();
 	
 }
 
