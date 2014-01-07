@@ -18,11 +18,14 @@
      color: red;
 }
 
+.ReleaseName{
+	width: 39.8%;
+}
 
 .buttons {   
     left: 20%;
     margin-bottom: 5%;
-    margin-top: 3%;
+    margin-top: 2%;
     position: relative;
     width: 40%;
 
@@ -35,6 +38,12 @@
     font-weight: bold;
     position: relative;
     text-align: center;
-    width: 28% !important;
+    width: 25% !important;
 }
+
+.cancelAPR{
+	margin-left:11.5%;
+}
+
+
 

@@ -16,3 +16,11 @@
     width: 60%;
 	 
 }
+
+.SelectProject{
+	width: 41.5%;
+}
+
+.mandatory {
+     color: red;
+}
