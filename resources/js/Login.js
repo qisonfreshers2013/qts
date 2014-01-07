@@ -139,7 +139,7 @@ Login.prototype.authenticate = function() {
 			    message : "Fail : "+data.message,
 			    type : 'error'
 			   });
-			$( "button#clearLogin" ).trigger("click");			
+			$( "input#password" ).val("");			
 	}		
 	}.ctx(this));
 }

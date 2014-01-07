@@ -71,12 +71,12 @@ AllocateUsersToProject.prototype.handleShow=function(){
 			
 		}else if(projectId==0){
 			$.ambiance({
-				message : 'please select project',
+				message : 'Please select project',
 				type : 'error'
 			});
 		}else{
 			$.ambiance({
-				message :'please select atleast one user for allocation',
+				message :'Please select atleast one user for allocation',
 				type : 'error'
 			});
 		}
@@ -95,12 +95,12 @@ AllocateUsersToProject.prototype.handleShow=function(){
 			
 		}else if(projectId==0){
 			$.ambiance({
-				message :'please select project',
+				message :'Please select project',
 				type : 'error'
 			});
 		}else{
 			$.ambiance({
-				message :'please select atleast one user for deallocation',
+				message :'Please select atleast one user for deallocation',
 				type : 'error'
 			});
 		}
@@ -257,7 +257,7 @@ AllocateUsersToProject.prototype.allocateUsersToProject=function(projectId,callB
 		}
 	}else{
 		$.ambiance({
-			message :'please select atleast one user for allocation or deallocation',
+			message :'Please select atleast one user for allocation or deallocation',
 			type : 'error'
 		});
 	}
