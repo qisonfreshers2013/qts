@@ -35,8 +35,32 @@ TimeEntry.prototype.handleShow=function(){
 	}.ctx(this));
 	$('#closeTheModal').click(function(event){
 		$(".clearTheFields").trigger("click");
+		 document.body.style.overflow = "visible";
+		 $('.savedTimeSheetsEntries').find('*').prop('disabled',false);
 	}.ctx(this));	
 
+	$('.clearTheFields').click(function(event){
+		 $('.selectRelease').empty();
+		 $('.selectRelease').append('<option>SELECT</option>');
+	}.ctx(this));
+	
+  	$("#loadTimeSheetFilling").keyup(function (event) {
+    	  if (event.keyCode == 13) {
+    	   $('.saveTheTimeEntry').trigger('click');
+    	  }
+    	 }.ctx(this));
+	
+	
+	
+  	$(document.documentElement).keyup(function (event) {
+    	  if (event.keyCode == 27) {
+    		  document.body.style.overflow = "visible";
+    		  $('.savedTimeSheetsEntries').find('*').prop('disabled',false);
+    	  }
+    	 }.ctx(this));
+	
+	
+	
 }
  
 TimeEntry.prototype.getRequestParameters=function(){
@@ -93,6 +117,8 @@ TimeEntry.prototype.setRequestParameters=function(updateRequestParameters){
        
 		RequestManager.addTimeEntry(input, function(data, success) {
 			if (success) {
+				document.body.style.overflow = "visible";
+				$('.savedTimeSheetsEntries').find('*').prop('disabled',false);
 				$.ambiance({
     			    message :'TimeEntry Saved.',
     			    type : 'success'
@@ -101,6 +127,8 @@ TimeEntry.prototype.setRequestParameters=function(updateRequestParameters){
 			      $(".searchUserTimeEntries").trigger("click");
 			      
 			    } else {
+			    	document.body.style.overflow = "visible";
+					$('.savedTimeSheetsEntries').find('*').prop('disabled',false);
 			    	$.ambiance({
 	    			    message : data.message,
 	    			    type : 'error'
@@ -200,6 +228,8 @@ TimeEntry.prototype.updateTimeEntry=function(){
 	
 	RequestManager.updateTimeEntry(input,function(data,success){
 		if(success){
+			document.body.style.overflow = "visible";
+			$('.savedTimeSheetsEntries').find('*').prop('disabled',false);
 			if(data){
 				$.ambiance({
 				    message : 'Updated.',
@@ -216,6 +246,8 @@ TimeEntry.prototype.updateTimeEntry=function(){
 			}
 		}
 		else{
+			document.body.style.overflow = "visible";
+			$('.savedTimeSheetsEntries').find('*').prop('disabled',false);
 			$.ambiance({
 			    message : data.message,
 			    type : 'error'

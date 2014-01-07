@@ -135,6 +135,7 @@ public interface ExceptionMessages {
 	public static final String TIMEENTRY_USER_NOT_AUTHORIZED="USERS/ADMIN ARE NOT AUTHORIZED TO PERFORM SEARCH OPERATION";
 	public static final String SELECT_APPROPRIATE_FIELDS_FOR_SEARCH="Select USERID,PROJECTID,STATUS of the user for search";
 	public static final String APPROVER_NOTAUTHORIZED="APPROVER IS NOT AUTHORIZED FOR THIS PROJECT";
+	public static final String INVALID_ID="INVALID ID";
 	//roles exception
 	public static final String ROLES_EMPTY_EXCEPTION="Select atleast one role.";
 	public static final String ROLES_LIST_EMPTY_EXCEPTION="No Roles available add few.";
@@ -150,9 +151,5 @@ public interface ExceptionMessages {
 	public static final String USER_IS_ADMIN_SO_CANNOT_BE_MEMBER = "This user has admin role so he cannot be member";
 	public static final String USER_IS_MEMBER_SO_CANNOT_BE_ADMIN = "This user has member role so he cannot be admin";
 	
-
-	
-	
-
 }
 
