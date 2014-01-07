@@ -5,6 +5,7 @@ function AddProject() {
 }
 
 AddProject.prototype.handleShow = function() {
+	$("#ambiance-notification").empty();
 	$('#projectName').focus();
 	
 	$("#addProjectFormDiv").keyup(function(event) {

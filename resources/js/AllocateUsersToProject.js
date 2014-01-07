@@ -15,6 +15,7 @@ function AllocateUsersToProject(){
 
 
 AllocateUsersToProject.prototype.getProjects=function(){
+	$("#ambiance-notification").empty();
 	$('#projectName').empty();
 	$('#projectName').append('<option value=0>--select--</option>');
 	RequestManager.getProjects({}, function(data, success) {
@@ -53,7 +54,13 @@ AllocateUsersToProject.prototype.handleShow=function(){
 		}
 	}.ctx(this));
 
-
+	$('#projectName').keyup(function(event){
+		if (event.keyCode == 37||event.keyCode == 38||event.keyCode == 39||event.keyCode == 40) {
+			allocateUsersToProjectStatus=false;
+			this.getProjectUsersAndNonUsers();
+		}
+	}.ctx(this));
+	
 	$('#projectName').change(function(){
 		allocateUsersToProjectStatus=false;
 		this.getProjectUsersAndNonUsers();
@@ -71,12 +78,12 @@ AllocateUsersToProject.prototype.handleShow=function(){
 			
 		}else if(projectId==0){
 			$.ambiance({
-				message : 'Please select project',
+				message : 'please select project',
 				type : 'error'
 			});
 		}else{
 			$.ambiance({
-				message :'Please select atleast one user for allocation',
+				message :'please select atleast one user for allocation',
 				type : 'error'
 			});
 		}
@@ -95,12 +102,12 @@ AllocateUsersToProject.prototype.handleShow=function(){
 			
 		}else if(projectId==0){
 			$.ambiance({
-				message :'Please select project',
+				message :'please select project',
 				type : 'error'
 			});
 		}else{
 			$.ambiance({
-				message :'Please select atleast one user for deallocation',
+				message :'please select atleast one user for deallocation',
 				type : 'error'
 			});
 		}
@@ -257,7 +264,7 @@ AllocateUsersToProject.prototype.allocateUsersToProject=function(projectId,callB
 		}
 	}else{
 		$.ambiance({
-			message :'Please select atleast one user for allocation or deallocation',
+			message :'please select atleast one user for allocation or deallocation',
 			type : 'error'
 		});
 	}
