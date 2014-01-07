@@ -97,7 +97,7 @@ SearchUser.prototype.loadEmployeeIds = function(){
 		if(success){			
 			
 			for(var i=0 ; i<data.length; i++){
-				 $('select.employeeId').append('<option value='+data[i]+'>'+data[i]+'</option>');	
+				 $('select.employeeId').append('<option value='+data[i]+' title='+data[i]+'>'+data[i].ellipses(10)+'</option>');	
 			}		
 		}	
 		else{
@@ -153,7 +153,7 @@ SearchUser.prototype.validateEmail = function(email){
     	email.focus();
     	//email.addClass("focus");
     	$.ambiance({
-    		message:"Invalid Email",
+    		message:"Invalid email",
     		type:'error'
     	});
     	//$('p.error').text("Invalid Email");
@@ -187,7 +187,7 @@ SearchUser.prototype.validateDesignation = function(designation){
 	    var designationVal = designation.val();
 	    if(!designationReg.test(designationVal)) {
 	    	$.ambiance({
-	    		message:"Designation is invalid",
+	    		message:"Designation is invalid,it should be capital letters",
 	    		type:'error'
 	    	});
 	    	//$('p.error').text("Designation is invalid");

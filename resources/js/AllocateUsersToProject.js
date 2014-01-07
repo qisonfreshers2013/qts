@@ -64,9 +64,11 @@ AllocateUsersToProject.prototype.handleShow=function(){
 		var projectId=parseInt($('select#projectName option:selected').attr('value'));
 		var options = $('select#nonExistingUsers option:selected').clone();
 		if(options.length>0){
+			
 			$('select#existingUsers').append(options);
 			$('select#nonExistingUsers option:selected').remove();
 			allocateUsersToProjectStatus=true;
+			
 		}else if(projectId==0){
 			$.ambiance({
 				message : 'please select project',
@@ -86,9 +88,11 @@ AllocateUsersToProject.prototype.handleShow=function(){
 		var projectId=parseInt($('select#projectName option:selected').attr('value'));
 		var options = $('select#existingUsers option:selected').clone();
 		if(options.length>0){
+			
 			$('select#nonExistingUsers').append(options);
 			$('select#existingUsers option:selected').remove();
 			allocateUsersToProjectStatus=true;
+			
 		}else if(projectId==0){
 			$.ambiance({
 				message :'please select project',
@@ -108,8 +112,10 @@ AllocateUsersToProject.prototype.handleShow=function(){
 		newIds.length=0;
 		newEmails.length=0;
 		$('select#existingUsers option').each(function(){
+			
 			newIds.push(parseInt($(this).val()));
 			newEmails.push($(this).text());
+			
 		});
 
 		var projectId=$('select#projectName option:selected').attr('value');
@@ -189,9 +195,11 @@ AllocateUsersToProject.prototype.allocateUsersToProject=function(projectId,callB
 
 	allocateIds=jQuery.unique(allocateIds);
 	deAllocateIds=jQuery.unique(deAllocateIds);
+	
 	var allocatingIdsLength=allocateIds.length;
 	var daAllocatingIdsLength=deAllocateIds.length;
 	var message='';
+	
 	if(allocatingIdsLength>0&&daAllocatingIdsLength>0){
 		message='ALLOCATING USERS:\n'+allocateEmailMessage+'\n\nDEALLOCATING USERS:\n'+deAllocateEmailMessage;
 	}else if(allocatingIdsLength>0){
@@ -264,6 +272,7 @@ AllocateUsersToProject.prototype.getProjectUsersAndNonUsers=function(){
 	existing.empty();
 	oldEmails.length=0;
 	oldIds.length=0;
+	
 	var projectId=$('select#projectName option:selected').attr('value');
 	if(projectId!=0){
 		RequestManager.getProjectUsers({"payload":{"projectId":projectId}}, function(data, success) {

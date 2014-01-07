@@ -22,12 +22,16 @@ Welcome.prototype.handleShow = function(nickname) {
 		if(allocateUsersToProjectStatus==true){
 			if(confirm('Changes are not saved. Do you want to leave page?')){
 				allocateUsersToProjectStatus=false;
-				App.loadMenu();
-				App.loadMyProfile();
+				App.loadMenu(function(){
+					App.loadMyProfile();
+				});
+				
 			}
 		}else{
-			App.loadMenu();
-			App.loadMyProfile();
+			App.loadMenu(function(){
+				App.loadMyProfile();
+			});
+			
 		}
 				
 	}.ctx(this));
