@@ -13,6 +13,8 @@ function ChangePassword(){
 	}.ctx(this));
 }
 ChangePassword.prototype.handleShow = function(){
+	
+	
 	this.getPassword();
 //	var input = {"payload":{}};
 //	
@@ -45,7 +47,8 @@ ChangePassword.prototype.handleShow = function(){
 				$("button#closeCPbutton" ).trigger("click");	
 			//	document.body.style.overflow = "visible";
 				//$( "button#clearCP" ).trigger("click");					
-		}	
+		}
+		  
 		}.ctx(this));
 	
 

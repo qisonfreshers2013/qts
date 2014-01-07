@@ -251,7 +251,7 @@ Menu.prototype.handleShow=function(){
 	$('#su').click(function(){
 		if(allocateUsersToProjectStatus==true){
 			if(confirm('Changes are not saved. Do you want to leave page?')){
-				allocateUsersToProjectallocateUsersToProjectStatus=false;
+				allocateUsersToProjectStatus=false;
 				$('#content').remove();
 				App.loadSearchUser();
 			}

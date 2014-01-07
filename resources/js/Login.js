@@ -239,7 +239,7 @@ Login.prototype.validateEmail = function(emailRef){
    
     if(emailVal == '') {
     	emailRef.focus();
-    	emailRef.after('<span class = "error" style = "color:red;" > Email can not be null</span>');
+    	emailRef.after('<span class = "error" style = "color:red;" > Email can'+"'"+'t  be null</span>');
         isValid = false;
     }
 
