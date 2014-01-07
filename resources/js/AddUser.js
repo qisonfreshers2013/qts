@@ -2,23 +2,24 @@
  * 
  */
 function AddUser() {
+	
 	Loader.loadHTML('#container', 'AddUser.html', false, function(){
 		this.handleShow();
 	}.ctx(this));
 }
 
 AddUser.prototype.handleShow = function() {
-//	$('.container').show();
-	
+	 $("#ambiance-notification").empty();
+//	$('.container').show();	
 //	$('input.firstname').keyup(function(){
 //		this.validateName();
 //	}.ctx(this));
 	
 	$('input.email').keyup(function(){
-			$('input.userId').val($('input.email').val()) ; 
+			$('input.userIdTextAU').val($('input.email').val()) ; 
 			}.ctx(this));
 	$('input.email').blur(function(){
-		$('input.userId').val($('input.email').val()) ; 
+		$('input.userIdTextAU').val($('input.email').val()) ; 
 		}.ctx(this));
 	$('div.addUSer').keyup(function(event){
 		if(event.keyCode == 13){
@@ -34,12 +35,10 @@ AddUser.prototype.handleShow = function() {
 						if(this.validateEmployeeId($('input.employeeId'))){
 							if(this.validateDesignation($('input.designation'))){
 								if(this.validateLocation($('input.location'))){
-									if(this.validateUserId($('input.userId'),$('input.email'))){
+									if(this.validateUserId($('input.userIdTextAU'),$('input.email'))){
 										if(this.validatePassword($('input.password'))){
 											if(this.validateConfirmPassword($('input.confirmPassword'),$('input.password'))){
-												
-												this.addUser();	
-												
+												this.addUser();													
 											}
 										}
 									}
@@ -53,6 +52,7 @@ AddUser.prototype.handleShow = function() {
 		
 	}.ctx(this));
 	$('.clear').click(function() {
+		 $("#ambiance-notification").empty();
 		$('.error').remove();
 	});
 	
@@ -67,7 +67,7 @@ AddUser.prototype.addUser = function() {
 		"employeeId":$('.employeeId').val(),
 		"designation":$('.designation').val(),
 		"location":$('.location').val(),
-		"userId":$('.userId').val(),
+		"userId":$('.userIdTextAU').val(),
 		"password":$('.password').val(),
 		"confirmPassword":$('.confirmPassword').val()
 	}};
@@ -92,11 +92,10 @@ AddUser.prototype.addUser = function() {
 }
 
 
-
 AddUser.prototype.validateName = function(name){
 	var isValid = false;
 //	 var nameReg = /^[A-Za-z\s]+$/;
-	 var nameReg=/^[A-Za-z]+([ {1}][A-Za-z]+)*$/g;
+	 var nameReg = /^[A-Za-z]+([ {1}][A-Za-z]+)*$/g;
         $('.error').hide();
 	    var nameVal = name.val();
 	    if(nameVal.trim().length <= 0 || nameVal == null) {
@@ -175,8 +174,6 @@ AddUser.prototype.validateEmployeeId = function(empId){
 	    return isValid;
 }
 
-
-
 AddUser.prototype.validateDesignation = function(designation){
 	var isValid = false; 
 	var designationReg = /^[A-Z]+$/;
@@ -187,7 +184,7 @@ AddUser.prototype.validateDesignation = function(designation){
 	    	isValid = false;
 	    }
 	    else if(!designationReg.test(designationVal)) {
-	    	designation.after('<span class="error" style = "color:red">Designation must be in capitals</span>');
+	    	designation.after('<span class="error" style = "color:red">Invalid Designation,it  must be in capitals</span>');
 	        isValid = false;
 	    }
 	    else if(designationVal.length > 128 ){
@@ -203,11 +200,11 @@ AddUser.prototype.validateDesignation = function(designation){
 }
 
 AddUser.prototype.validateNickname= function(nickname){
-	var isValid = true;
-	var nicknameReg = /^[A-Za-z]*([ {1}][A-Za-z]*)*$/g;
+	var isValid = false;
+	var nicknameReg = /^[A-Za-z]+([ {1}][A-Za-z]+)*$/g;
        $('.error').hide();
 	    var nicknameVal = nickname.val();
-	    if(nicknameVal = "" || nicknameVal == null){
+	    if(nicknameVal.length < 1){
 	    	$('.error').hide();
     	 	isValid = true;
 	    }
@@ -219,8 +216,7 @@ AddUser.prototype.validateNickname= function(nickname){
 	    	nickname.after('<span class="error" style = "color:red">Maximum length of nickname is 128</span>');
 	        isValid = false;
 	    }
-	    else 
-	    	{
+	    else {
 	    	 	$('.error').hide();
 	    	 	isValid = true;
 	    	}
@@ -230,10 +226,11 @@ AddUser.prototype.validateNickname= function(nickname){
 AddUser.prototype.validateLocation= function(location){
 	var isValid = false;
 	$(".error").hide();
-	var locationReg =  /^[A-Za-z]*([ {1}][A-Za-z]*)*$/g;
-       $('.error').hide();
+	var locationReg =  /^[A-Za-z]+([ {1}][A-Za-z]+)*$/g;
+     
 	    var locationVal = location.val();	
-	    if(locationVal == "" || locationVal.length == null){
+	    if(locationVal.length < 1){
+	    	  $('.error').hide();
 	    	isValid = true;
 	    }
 	    else if(!locationReg.test(locationVal)) {
@@ -245,9 +242,10 @@ AddUser.prototype.validateLocation= function(location){
 	    	location.after('<span class="error" style = "color:red">Maximum length of location is 128</span>');
 	        isValid = false;
 	    }
-	    else
+	    else{
 	    	$('.error').hide();
 	    	isValid = true;
+	    }
 	    return isValid;
 }
 
@@ -272,16 +270,20 @@ AddUser.prototype.validatePassword = function(password){
     	{
     	isValid = false;
     	password.after('<span  class = "error" style = "color:red" >Password can not be empty</span>');
-    	}
-    else if(password.val().trim().length < 6 ){
+    	}    
+    else if(password.val().length < 6 ){
 		password.after('<span  class = "error" style = "color:red" >Minimum length of password is 6</span>');
         isValid = false;
-	}
+	}    
     else if(password.val().length > 128 ){
 		password.after('<span  class = "error" style = "color:red" >Maximum length of password is 128</span>');
         isValid = false;
 	}
-	    else
+    else if(password.val().indexOf(' ') >= 0){
+    	password.after('<span  class = "error" style = "color:red" >Invalid Password</span>');
+        isValid = false;
+    }
+	    else		
 		{
 			$(".error").hide();
 			isValid = true;    
@@ -297,8 +299,7 @@ AddUser.prototype.validateConfirmPassword = function(confirmPassword,password){
 		isValid = false;
 	}
 	else
-		isValid = true;
-	
+		isValid = true;	
 	return isValid;
 	
 }

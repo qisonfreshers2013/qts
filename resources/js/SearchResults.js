@@ -16,10 +16,7 @@ SearchResults.prototype.handleShow = function(data){
 	//$('#projectsIdSR').tooltip();
 //	var options = null;
 
-//	$(document).tooltip('position',position);
-
-
-	
+//	$(document).tooltip('position',position);	
 	//$("#projectsIdSR").tooltip(this.options);
 }
 
@@ -63,9 +60,7 @@ SearchResults.prototype.appendValues = function(data){
 								"<td ><img src = 'resources/img/delete.png' alt = 'delete' style ='cursor:pointer;' title = 'delete user' class='deleteSymbolSelf' id = "+ data.records[i].id +" /><img src ='resources/img/edit.png'  style ='cursor:pointer;' title = 'edit profile' alt = 'edit' id = "+data.records[i].id+" class='editSymbol'/></td>"+
 						"</tr>"	); 	
 						projectList = "";
-						}
-					
-					
+						}					
 					}
 				$('.editSymbol').click(function(event){		
 					var id = event.target.id;
@@ -81,6 +76,7 @@ SearchResults.prototype.appendValues = function(data){
 				}.ctx(this));			
 				
 				$('.deleteSymbol').click(function(event){	
+					
 					var id = event.target.id;
 					//$('.bootbox').modal('show');
 					//$('#deleteCancel').focus();
