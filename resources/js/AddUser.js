@@ -99,7 +99,7 @@ AddUser.prototype.validateName = function(name){
         $('.error').hide();
 	    var nameVal = name.val();
 	    if(nameVal.trim().length <= 0 || nameVal == null) {
-	    	name.after('<span class = "error" style = "color:red"  >Name can not be empty</span>');
+	    	name.after('<span class = "error" style = "color:red"  >Name can'+"'"+'t be empty</span>');
 	        isValid = false;
 	    }
 	    else if(!nameReg.test(nameVal)) {
@@ -127,7 +127,7 @@ AddUser.prototype.validateEmail = function(email){
 
     var emailVal = email.val();
     if(emailVal.trim().length <= 0 || emailVal == null) {
-    	email.after('<span class = "error" style = "color:red" >Email can not be null</span>');
+    	email.after('<span class = "error" style = "color:red" >Email can'+"'"+'t  be null</span>');
         isValid = false;
     }
 
@@ -154,12 +154,12 @@ AddUser.prototype.validateEmployeeId = function(empId){
         $('.error').hide();
 	    var empIdVal = empId.val();
 	   if(empIdVal.length<1){
-		   empId.after('<span class="error" style = "color:red" >Employee Id can not be empty</span>');
+		   empId.after('<span class="error" style = "color:red" >Employee id can'+"'"+'t  be empty</span>');
 	        isValid = false;
 	   }
 		   
 	   else if(!empIdReg.test(empIdVal)) {
-	    	empId.after('<span class="error" style = "color:red" >Employee Id is invalid</span>');
+	    	empId.after('<span class="error" style = "color:red" >Employee id is invalid</span>');
 	        isValid = false;
 	     }
 	     else if (empIdVal.length > 128){	    
@@ -180,11 +180,11 @@ AddUser.prototype.validateDesignation = function(designation){
        $('.error').hide();
 	    var designationVal = designation.val();
 	    if(designationVal.trim().length < 1 ){
-	    	designation.after('<span class="error" style = "color:red">Designation can not be empty</span>');
+	    	designation.after('<span class="error" style = "color:red">Designation can'+"'"+'t  be empty</span>');
 	    	isValid = false;
 	    }
 	    else if(!designationReg.test(designationVal)) {
-	    	designation.after('<span class="error" style = "color:red">Invalid Designation,it  must be in capitals</span>');
+	    	designation.after('<span class="error" style = "color:red">Invalid Designation,it  must be in capital letters</span>');
 	        isValid = false;
 	    }
 	    else if(designationVal.length > 128 ){
@@ -253,7 +253,7 @@ AddUser.prototype.validateUserId = function(userId,email){
 	var isValid = false;
 	$(".error").hide();
 	if(userId.val()!= email.val()){
-		userId.after('<span class="error" style = "color:red" >UserId must be equal to email </span>');
+		userId.after('<span class="error" style = "color:red" >User id must be equal to email </span>');
 		isValid = false;
 	}
 	else
@@ -269,7 +269,7 @@ AddUser.prototype.validatePassword = function(password){
     if(password.val().length < 1)
     	{
     	isValid = false;
-    	password.after('<span  class = "error" style = "color:red" >Password can not be empty</span>');
+    	password.after('<span  class = "error" style = "color:red" >Password can'+"'"+'t  be empty</span>');
     	}    
     else if(password.val().length < 6 ){
 		password.after('<span  class = "error" style = "color:red" >Minimum length of password is 6</span>');

@@ -22,7 +22,9 @@ DefaultTimeSheetPage.prototype.handleShow=function(){
 	//To Add A New TimeEntrySheet
 	$('.addTimeEntry').click(function(){
 		 $('.selectRelease').empty();
+		 $('.savedTimeSheetsEntries').find('*').prop('disabled',true);
 		 $('.selectRelease').append('<option>SELECT</option>');
+		 $('#searchByDate').val('');
 		var selectedCheckBox=$("input[type=checkbox]:checked").length;
 		if(selectedCheckBox!=0){
 			$(":checkbox").each(function(){
@@ -74,9 +76,11 @@ DefaultTimeSheetPage.prototype.loadTimeSheetFilling=function(){
 
 
 DefaultTimeSheetPage.prototype.add = function() {
+	document.body.style.overflow = "hidden";
 	$('#loadTimeSheetFilling').modal({
 		backdrop:"static"
 		});
+	
 	  $( "#loadTimeSheetFilling" ).modal('show');
 	 }
 
@@ -84,7 +88,7 @@ DefaultTimeSheetPage.prototype.deleteTimeEntry=function(){
 	var selectedCheckBox=$("input[type=checkbox]:checked#checkboxForTableData").length;
 	if(selectedCheckBox!=1){
 		$.ambiance({
-		    message : 'Select 1 timeEntry to Delete.',
+		    message : 'Select One Time Entry to Delete.',
 		    type : 'error'
 		   });
 	}else{ 
@@ -117,7 +121,7 @@ DefaultTimeSheetPage.prototype.submitTimeEntries=function(){
 	var selectedCheckBox=$("input[type=checkbox]:checked").length;
 	if(selectedCheckBox==0){
 		$.ambiance({
-		    message : 'Select  TimeEntries to Submit.',
+		    message : 'Select  Time Entries to Submit.',
 		    type : 'error'
 		   });
 	}else{
@@ -135,7 +139,7 @@ DefaultTimeSheetPage.prototype.submitTimeEntries=function(){
 		}
 		if(ids.length==0){
 			$.ambiance({
-			    message : 'No TimeEntries to Submit.',
+			    message : 'No Time Entries to Submit.',
 			    type : 'error'
 			   });
 			if($("#selectAll").is('input[type=checkbox]:checked')){
@@ -213,7 +217,7 @@ DefaultTimeSheetPage.prototype.editTimeEntry=function(){
 	var selectedCheckBox=$("input[type=checkbox]:checked#checkboxForTableData").length;
 	if(selectedCheckBox!=1){
 		$.ambiance({
-		    message : 'Select one timeEntry to edit.',
+		    message : 'Select One Time Entry to Edit.',
 		    type : 'error'
 		   });
 	}else{
@@ -342,6 +346,7 @@ DefaultTimeSheetPage.prototype.searchUserTimeEntries=function(){
 					    }
 						}.ctx(this));	    
 			}
+			$('#searchByDate').val($.datepicker.formatDate('mm/dd/yy', new Date(data[0].dateInLong)));
 			}else{
    				$.ambiance({
     			    message : 'No TimeEntries Found',

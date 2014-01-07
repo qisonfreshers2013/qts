@@ -1,22 +1,20 @@
 <div>
 
-<div class=" rejectedComments modal" id="rejectedComments">
+<div class=" rejectedComments modal" id="rejectedComments" tabindex="-1">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" id="closeBtnForComments" aria-hidden="true">&times;</button>
 <h4 class="modal-title">Comments</h4>
 </div>
- <div class="modal-body">
-<form>
+ <div class="modal-body" id="commentsBody">
+
 Comments :<input  class="comments" id="comments" type=text></input>
-<input type="reset" id="clearTheComments" class="clearTheComments" hidden="true"></input>
-</form>
 <button class="submitComments" id="submitComments" >Ok</button>
-<button class="cancelTheAction" id="cancelTheAction">Clear</button>
+<button class="clearTheComments" id="clearTheComments">Clear</button>
 </div>
 </div>
 <h2><img src="resources/img/tsa.png" alt=""></img>Time Sheet Approval</h2>
 <hr>
-<fieldset>
+<fieldset id="searchCriteria">
  <p class="projectIdHeader">Project</p>
  <select class="userProjectId userProjectName" id="userProjectId"></select>
   <p class="userHeader">User</p>
@@ -36,6 +34,7 @@ Comments :<input  class="comments" id="comments" type=text></input>
  </select>
  <button class="search searchTimeEntriesByApprover" id="searchTimeEntriesByApprover">SEARCH</button>
  </fieldset>
+ <p id="note" class="note">Note: By default previous one week time entries with pending status is displayed.</p>
  </div>
 </body>
 </html>

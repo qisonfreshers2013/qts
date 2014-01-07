@@ -58,6 +58,7 @@ public class TimeEntryHandler {
 	private boolean validateTimeEntryBean(TimeEntryBean timeEntry) throws InvalidTimeEntryDataException,ObjectNotFoundException,TimeEntryException,Exception {
 		RoleBean roleBean = new RoleBean(ServiceRequestContextHolder.getContext()
 				.getUserSessionToken().getUserId(),timeEntry.getProjectId());
+		 int userWorkedHours=getUserWorkedHoursPerDay(timeEntry.getDate());
 		try{
 			if (ReleaseHandler.getInstance().getObjectById(
 					timeEntry.getReleaseId()) == null
@@ -84,12 +85,19 @@ public class TimeEntryHandler {
 			throw new TimeEntryException(
 					ExceptionCodes.TIMEENTRY_FILLING_IS_NOT_ALLOWED_FOR_APPROVER,
 					ExceptionMessages.TIMEENTRY_FILLING_FOR_APPROVER);
-       
-		else if (getUserWorkedHoursPerDay(timeEntry.getDate()) > 1440)
-			throw new TimeEntryException(
+      
+		else if (getUserWorkedHoursPerDay(timeEntry.getDate()) >= 1440)
+		throw new TimeEntryException(
 					ExceptionCodes.ILLEGAL_ARGUMENT_HOURS_FIELD,
 					ExceptionMessages.ILLEGAL_HOURS_ARGUMENT_PASSED);
-       }
+		else if(timeEntry.getId()==null){
+			if((getUserWorkedHoursPerDay(timeEntry.getDate())+timeEntry.getMinutes()+(timeEntry.getHours()*60))>1440){
+				throw new TimeEntryException(
+						ExceptionCodes.ILLEGAL_ARGUMENT_HOURS_FIELD,
+						ExceptionMessages.ILLEGAL_HOURS_ARGUMENT_PASSED);
+			}
+		}	
+             }
 		catch(RolesException roleNotFound){
 	    	   throw new InvalidTimeEntryDataException(ExceptionCodes.INVALID_ROLE_ID,ExceptionMessages.ROLE_ID_DOESNOT_EXISTS);
 	       }
@@ -327,20 +335,24 @@ public class TimeEntryHandler {
 	/*
 	 * Handler Method Used By DeleteEntry Service
 	 */
-	public boolean delete(TimeEntryBean timeEntry) throws Exception {
-
-		
+	public boolean delete(TimeEntryBean timeEntry) throws ObjectNotFoundException,TimeEntryException {
 		boolean isTimeEntryDeleted =false;
 		timeEntry.setUserId(ServiceRequestContextHolder.getContext()
 				.getUserSessionToken().getUserId());
 		// validating whether Id is passed or not
 		if (timeEntry.getId() != null) {
+			TimeEntryBean timeEntryBean =getObjectById(timeEntry.getId());
+			if(timeEntryBean.getUserId()==ServiceRequestContextHolder.getContext()
+					.getUserSessionToken().getUserId()){
 			 isTimeEntryDeleted = DAOFactory.getInstance()
 					.getTimeEntryDAOInstance().delete(timeEntry);
+			 }else {
+				 throw new TimeEntryException(ExceptionCodes.USER_NOT_AUTHORIZED,ExceptionMessages.USER_NOT_AUTHORIZED);
+			 }
 			}
 		 else {
-			throw new InvalidTimeEntryDataException();
-		}
+			throw new ObjectNotFoundException(ExceptionCodes.OBJECT_NOT_FOUND,ExceptionMessages.INVALID_ID);
+		      }
 		return isTimeEntryDeleted;
 	}
 
@@ -352,6 +364,12 @@ public class TimeEntryHandler {
 		boolean updated=true;
 		timeEntry.setUserId(ServiceRequestContextHolder.getContext()
 				.getUserSessionToken().getUserId());
+	
+		if(timeEntry.getId()==null){
+			throw new ObjectNotFoundException(ExceptionCodes.OBJECT_NOT_FOUND,ExceptionMessages.INVALID_ID);
+		}
+		TimeEntryBean timeEntryToUpdate=(TimeEntryBean) getObjectById(timeEntry.getId());
+		
 		//validateDate validates the DATE String 
 		
 	   //validateTimeEntryBean validates the projectId,releaseId,ActivityId
@@ -362,8 +380,7 @@ public class TimeEntryHandler {
 			}
 			}catch(TimeEntryException ex){
 				//For TimeEntries if got Rejected to Edit Them if user has already submitted
-				TimeEntryBean timeEntryToUpdate=(TimeEntryBean) getObjectById(timeEntry.getId());
-				if(getUserWorkedHoursPerDay(timeEntry.getDate())>1440){
+				if(getUserWorkedHoursPerDay(timeEntry.getDate())>=1440){
 					 int workedHoursWithOutThisTimeEntry=getUserWorkedHoursPerDay(timeEntry.getDate())-(timeEntryToUpdate.getMinutes());
 					if(workedHoursWithOutThisTimeEntry+timeEntry.getMinutes()+(timeEntry.getHours()*60)<=1440){
 					 updated = DAOFactory.getInstance()

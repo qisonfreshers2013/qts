@@ -13,6 +13,8 @@ function ChangePassword(){
 	}.ctx(this));
 }
 ChangePassword.prototype.handleShow = function(){
+	
+	
 	this.getPassword();
 //	var input = {"payload":{}};
 //	
@@ -44,7 +46,8 @@ ChangePassword.prototype.handleShow = function(){
 				$("button#closeCPbutton" ).trigger("click");	
 			//	document.body.style.overflow = "visible";
 				//$( "button#clearCP" ).trigger("click");					
-		}	
+		}
+		  
 		}.ctx(this));
 	
 
@@ -56,7 +59,7 @@ ChangePassword.prototype.handleShow = function(){
 		  var confirmPassword = $('input.confirmPasswordTextCP');
 		  if(oldPassword.val().length == 0){
 			  $.ambiance({
-			       message : "Old password can not be empty",
+			       message : "Old password can't be null",
 			       type : 'error'
 			      }); 
 		  }else if(oldPassword.val() != dbPassword){	

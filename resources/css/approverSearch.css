@@ -15,7 +15,7 @@ p {
     left: 25%;
     margin-top: -5%;
     position: relative;
-    width: 15%;
+    width: 18%;
 }
 .userHeader {
     left: 52%;
@@ -27,7 +27,7 @@ p {
     left: 60%;
     margin-top: -5%;
     position: relative;
-    width: 15%;
+    width: 18%;
 }
 .fromHeader {
     margin-top: 2%;
@@ -63,9 +63,9 @@ p {
     left: 25%;
     margin-top: -4.9%;
     position: relative;
-    width: 15%;
+    width: 18%;
 }
-.searchTimeEntriesByApprover {
+#searchTimeEntriesByApprover {
     background-color: #669933;
     border: medium none;
     border-radius: 5px;
@@ -86,7 +86,7 @@ p {
     text-align: center;
     width: 15%;
 }
-#cancelTheAction{
+#clearTheComments{
 	background-color: #669933;
     border: medium none;
     border-radius: 5px;
@@ -107,5 +107,11 @@ p {
 #calendarForTo {
     left: 57.5%;
     margin-top: -5.8%;
+    position: relative;
+}
+#note {
+    color: #FF0000;
+    font-size: 12px;
+    margin-left: 53%;
     position: relative;
 }
