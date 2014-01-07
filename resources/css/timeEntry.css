@@ -1,10 +1,10 @@
 
 @charset "ISO-8859-1";
 .majorDiv {
-	position:relative;
+    position: relative;
 }
 .fieldset {
-        width: 100%;
+    width: 100%;
 }
 p {
     font-size: 16px;
@@ -23,7 +23,7 @@ p {
 }
 .rightHeaders {
     left: 53%;
-    margin-top: -42%;
+    margin-top: -35%;
     position: relative;
     width: 15%;
 }
@@ -38,7 +38,7 @@ p {
     margin-top: -3%;
     width: 94%;
 }
-.projectId {
+.selectRelease {
     margin-left: 0;
     margin-top: -5.5%;
     position: relative;
@@ -56,34 +56,35 @@ p {
     position: relative;
     width: 45%;
 }
-.selectRelease {
+.projectId {
     margin-left: 0;
-    margin-top: 27%;
+    margin-top: 31%;
     position: relative;
     width: 93%;
 }
 .selectActivity {
-    margin-top: 9%;
+    margin-top: 5%;
     position: relative;
     width: 94%;
 }
 .userRemarksInModal {
     margin-left: 0;
     margin-top: 7%;
-    position:relative;
-    resize:none;
-     width: 90%;
+    position: relative;
+    resize: none;
+    width: 89%;
 }
-.release {
+.projectHeaderInTimeEntry {
     margin-left: 2%;
-    margin-top: 16%;
+    margin-top: 18%;
 }
 .activity {
     margin-left: 4%;
-    margin-top: 41%;
+    margin-top: 30%;
 }
 .clearTheFields {
     background-color: #669933;
+    border: medium none;
     border-radius: 5px;
     color: #FFFFFF;
     font-weight: bold;
@@ -95,6 +96,7 @@ p {
 }
 .saveTheTimeEntry {
     background-color: #669933;
+    border: medium none;
     border-radius: 5px;
     color: #FFFFFF;
     font-weight: bold;
@@ -119,7 +121,7 @@ p {
     position: relative;
     width: 50%;
 }
-#timeEntrymodal{
-	 margin-top:2%;
-	 margin-bottom:3%;
+#timeEntrymodal {
+    margin-bottom: 3%;
+    margin-top: 2%;
 }

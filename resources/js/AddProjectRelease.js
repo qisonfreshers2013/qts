@@ -9,6 +9,17 @@ function AddProjectRelease() {
 
 AddProjectRelease.prototype.handleShow = function() {
 	
+	$('.ReleaseName').keyup(function(event){
+		
+//		alert(event.keyCode);
+		if(event.keyCode == 13){
+			event.preventDefault();
+			$('.saveAPR').trigger("click");
+	//		this.addProjectRelease();
+		}
+	}.ctx(this));
+	
+	
 	$('.saveAPR').click(function(){
 		this.addProjectRelease();
 		

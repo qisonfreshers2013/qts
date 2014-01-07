@@ -486,7 +486,7 @@ public class TimeEntryHandler {
 			    if(searchCriteria.getProjectId()==null || searchCriteria.getProjectId()==0){
 			    searchCriteria.setProjectId(associatedProject.getId());
 			    if(searchCriteria.getStatus()==null && searchCriteria.getFrom()==null && searchCriteria.getTo()==null && searchCriteria.getUserId()==null){
-			    searchCriteria.setStatus(1);}
+			    searchCriteria.setStatus(0);}
 			    }
 			   
 				List<TimeEntryBean> responseList =getResultsForApprover(searchCriteria);

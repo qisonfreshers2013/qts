@@ -8,15 +8,16 @@
 <form>
    <div class="leftHeaders">
       <p>Date<span id = star class = "star"><sup>*</sup></span> </p><br> 
-      <p>Project<span id = star class = "star"><sup>*</sup></span> </p><br>
+      <p>Release<span id = star class = "star"><sup>*</sup></span></p><br>
       <p>Task<span id = star class = "star"><sup>*</sup></span> </p><br>
       <p>Hours<span id = star class = "star"><sup>*</sup></span></p>
    </div>
    <div class="leftHeaderFields">
    <input type="text" class="datepicker " id="timeEntryDate" required></input><br>
    <img id="calendarIconInModal" class="calendarIconInModal" src="resources/img/Calendar.png"></img>
-   <select class="projectId projectName " id="projectName projectId" required> 
-        </select><br>
+    <select class="selectRelease" id="selectRelease" required>
+        <option>SELECT</option>
+       </select><br>
    <input type="text" class="task" required></input><br>
    <select class="hours" required>
      <option>SELECT</option>
@@ -54,20 +55,18 @@
     </select>   
    </div>
    <div class="rightHeaders" id="rightHeaders">
-      <br><br><p class="release" id="release">Release<span id = star class = "star"><sup>*</sup></span></p>
+      <br><br><p class="projectHeaderInTimeEntry" id="projectHeaderInTimeEntry">Project<span id = star class = "star"><sup>*</sup></span></p>
       <p class="activity" id="activity">Activity<span id = star class = "star"><sup>*</sup></span></p><br> 
       <p class="remarksHeader">Remarks</p>
    </div>
    <div class="rightHeaderFields">
-        <select class="selectRelease" id="selectRelease" required>
-        <option>SELECT</option>
-       </select><br>
+        <select class="projectId projectName " id="projectName projectId" required> 
+        </select><br>
    <select class="selectActivity" id="selectActivity" required>
         <option  class="activityValue" value="0">--select--</option>
    </select><br>
    <textarea class="userRemarksInModal" id="userRemarksInModal"></textarea>
    </div>
- 
     <input  id="clearTheFields" class="clearTheFields" type="reset" value="Clear"></input>
     </form>
     <input   id="saveTheTimeEntry" class="saveTheTimeEntry" type=button value="Save"></input>

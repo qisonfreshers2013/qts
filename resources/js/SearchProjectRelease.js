@@ -23,7 +23,7 @@ SearchProjectRelease.prototype.handleShow = function() {
 						name=value2;
 					}
 				});
-				$('.SelectProject').append("<option value="+id+">"+name+"</option>");
+				$('.SelectProject').append("<option value="+id+" title="+name+">"+name.ellipses(15)+"</option>");
 			});
 		}
 		else{
@@ -48,11 +48,11 @@ SearchProjectRelease.prototype.handleShow = function() {
 					"color": "#FFFFFF",
 					"font-weight": "bold",
 					"left":"60%",
-					"margin-top":"-11%",
+					"margin-top":"-10.6%",
 					"position": "relative",
 					"text-align": "center",
 					"width": "15%",
-					"height":"30px",
+					"height":"28px",
 					"font-size":"16px"
 				});
 				$('.AddPR').click(function(){
