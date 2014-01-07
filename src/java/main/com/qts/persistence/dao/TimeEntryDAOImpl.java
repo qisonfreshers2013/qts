@@ -20,6 +20,7 @@ import org.hibernate.transform.Transformers;
 
 import com.qts.common.Utils;
 import com.qts.exception.ExceptionCodes;
+import com.qts.exception.ExceptionMessages;
 import com.qts.exception.ObjectNotFoundException;
 import com.qts.model.TimeEntries;
 import com.qts.model.TimeEntryBean;
@@ -103,7 +104,7 @@ public class TimeEntryDAOImpl extends BaseDAOImpl implements TimeEntryDAO {
 			if(rejectedCount!=0)
 			return true;
 			else
-				throw new ObjectNotFoundException(ExceptionCodes.OBJECT_NOT_FOUND,"Invalid Id");
+				throw new ObjectNotFoundException(ExceptionCodes.OBJECT_NOT_FOUND,ExceptionMessages.INVALID_ID);
 		} catch (Exception e) {
 			throw e;
 		}
@@ -129,7 +130,7 @@ public class TimeEntryDAOImpl extends BaseDAOImpl implements TimeEntryDAO {
 			if(approved!=0)
 			return true;
 			else 
-				throw new ObjectNotFoundException(ExceptionCodes.OBJECT_NOT_FOUND,"Invalid Id");
+				throw new ObjectNotFoundException(ExceptionCodes.OBJECT_NOT_FOUND,ExceptionMessages.INVALID_ID);
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -157,7 +158,7 @@ public class TimeEntryDAOImpl extends BaseDAOImpl implements TimeEntryDAO {
 			if(isDeleted!=0){
 			return true;}
 			else 
-				throw new ObjectNotFoundException(ExceptionCodes.OBJECT_NOT_FOUND,"Invalid Id");
+				throw new ObjectNotFoundException(ExceptionCodes.OBJECT_NOT_FOUND,ExceptionMessages.INVALID_ID);
 			
 		} catch (ObjectNotFoundException e) {
 			throw e;
@@ -200,7 +201,7 @@ public class TimeEntryDAOImpl extends BaseDAOImpl implements TimeEntryDAO {
 				return true;
 			}
 			else{
-				throw new ObjectNotFoundException(ExceptionCodes.OBJECT_NOT_FOUND,"Invalid Id");
+				throw new ObjectNotFoundException(ExceptionCodes.OBJECT_NOT_FOUND,ExceptionMessages.INVALID_ID);
 			    }
 		}catch(ObjectNotFoundException e){
 			throw e;
@@ -231,7 +232,7 @@ public class TimeEntryDAOImpl extends BaseDAOImpl implements TimeEntryDAO {
 				return session;
 			}
 			else 
-				throw new ObjectNotFoundException(ExceptionCodes.OBJECT_NOT_FOUND,"Invalid Id");
+				throw new ObjectNotFoundException(ExceptionCodes.OBJECT_NOT_FOUND,ExceptionMessages.INVALID_ID);
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw e;
@@ -250,7 +251,7 @@ public class TimeEntryDAOImpl extends BaseDAOImpl implements TimeEntryDAO {
 				return mapped.get(0);
 				}
 			else
-				throw new ObjectNotFoundException(ExceptionCodes.OBJECT_NOT_FOUND,"Invalid Id");
+				throw new ObjectNotFoundException(ExceptionCodes.OBJECT_NOT_FOUND,ExceptionMessages.INVALID_ID);
 
 		} catch (ObjectNotFoundException e) {
 			e.printStackTrace();
@@ -268,7 +269,7 @@ public class TimeEntryDAOImpl extends BaseDAOImpl implements TimeEntryDAO {
 				return true;
 				}
 			else
-				throw new ObjectNotFoundException(ExceptionCodes.OBJECT_NOT_FOUND,"Invalid Id");
+				throw new ObjectNotFoundException(ExceptionCodes.OBJECT_NOT_FOUND,ExceptionMessages.INVALID_ID);
 
 		} catch (ObjectNotFoundException e) {
 			e.printStackTrace();
@@ -666,7 +667,7 @@ public class TimeEntryDAOImpl extends BaseDAOImpl implements TimeEntryDAO {
 			return true;
 			}
 			else 
-				throw new ObjectNotFoundException(ExceptionCodes.OBJECT_NOT_FOUND,"Invalid Id");
+				throw new ObjectNotFoundException(ExceptionCodes.OBJECT_NOT_FOUND,ExceptionMessages.INVALID_ID);
 			
 		} catch (ObjectNotFoundException e) {
 			throw e;

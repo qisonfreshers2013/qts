@@ -35,10 +35,10 @@ div#submitDiv {
 }
 
 div#clearDiv {
-   left: 35%;
-   margin-top: -1.9%;
-   position: relative;
-   width: 16%;
+    left: 35%;
+    margin-top: -2.1%;
+    position: relative;
+    width: 16%;
 }
 
 button.clear {
@@ -69,6 +69,7 @@ input.password, input.userId {
     width: 21%;
 }
 .innerAddUserForm {
+    margin-bottom: 5%;
     position: relative;
     top: 6%;
 }

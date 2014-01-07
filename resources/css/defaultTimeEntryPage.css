@@ -63,7 +63,8 @@ p {
     border:medium none;
 }
 .savedTimeSheetsEntries {
-    margin: 0.5%;
+    margin-bottom:25%;
+    margin-top:12%;
     width: 100%;
 }
 .addTimeEntry {
@@ -115,7 +116,7 @@ p {
     border:medium none;
 }
 #calendarIcon {
-    left: 7.5%;
+    left: 7.1%;
     margin-top: -6%;
     position: relative;
 }
