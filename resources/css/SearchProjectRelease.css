@@ -1,3 +1,5 @@
+/* Author: N V Siva Reddy*/
+
 .content{
 	margin-top: 8%;
     width: 100%;
@@ -10,7 +12,7 @@
 }
 
 .selectProjectName {
-    left: 20%;
+    left: 16%;
     margin-top: -3.3%;
     position: relative;
     width: 60%;
