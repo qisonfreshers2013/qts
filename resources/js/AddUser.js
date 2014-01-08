@@ -137,7 +137,7 @@ AddUser.prototype.validateEmail = function(email){
         isValid = false;
     }
     else if (emailVal.length > 128){
-    	email.focus();
+    	
     	email.after('<span class = "error"  style = "color:red" >Maximum length of Email is 128</span>');
         isValid = false; 
     }

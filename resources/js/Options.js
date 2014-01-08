@@ -59,7 +59,7 @@ Options.prototype.handleShow = function() {
 				"cursor": "pointer",
 				"height": "162px",
 				"left": "67%",
-				"margin": "-18.7% 2% 1.5%",
+				"margin": "-18.7% 1.5% 1.5%",
 				"position": "relative",
 				"width": "30%"
 			});

@@ -118,7 +118,7 @@ Roles.prototype.listUsers = function() {
 				$("#userList").empty().append(
 						"<option value=\"u0\">select</option>");
 				$.each(records, function(key, value) {
-					var email = value.email;
+					var email = value.email.toLowerCase();
 					$("#userList").append(
 							"<option title="+email+" value=" + value.id + ">" + email.ellipses(30)
 									+ "</option>");

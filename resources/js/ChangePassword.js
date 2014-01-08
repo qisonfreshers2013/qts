@@ -12,9 +12,8 @@ function ChangePassword(){
 		this.handleShow();			
 	}.ctx(this));
 }
-ChangePassword.prototype.handleShow = function(){
-	
-	
+
+ChangePassword.prototype.handleShow = function(){	
 	this.getPassword();
 //	var input = {"payload":{}};
 //	
@@ -49,10 +48,7 @@ ChangePassword.prototype.handleShow = function(){
 				//$( "button#clearCP" ).trigger("click");					
 		}
 		  
-		}.ctx(this));
-	
-
-	
+		}.ctx(this));	
 	$('button#submitPassword').click(function(){	
 		
 		  var oldPassword = $('input.oldPasswordTextCP');
@@ -130,8 +126,6 @@ ChangePassword.prototype.handleShow = function(){
 	   }.ctx(this));
 	
 }
-
-
 ChangePassword.prototype.changePassword = function(oldPassword,password,confirmPassword){
 	
 	var input = {"payload":
@@ -149,7 +143,8 @@ ChangePassword.prototype.changePassword = function(oldPassword,password,confirmP
 			  message : "Success : Password is changed,Please login with New Password",
 			  type : 'success'
 			});
-		setTimeout(function(){document.location.reload();},2000);
+		this.logout();
+	
 		}
 		else{
 			$.ambiance({
@@ -160,8 +155,7 @@ ChangePassword.prototype.changePassword = function(oldPassword,password,confirmP
 	}.ctx(this));
 }
 
-ChangePassword.prototype.getPassword = function(){
-	
+ChangePassword.prototype.getPassword = function(){	
 	var input = {"payload":{}};
 	RequestManager.getLoginUserDetails(input,function(data,success){
 		if(success){
@@ -177,10 +171,25 @@ ChangePassword.prototype.getPassword = function(){
 			
 	}
 
+ChangePassword.prototype.logout = function(){
+	RequestManager.logout({},function(data,success){
+		if(success){
+			setTimeout(function(){
+				document.location.reload();
+				},1000);
+				}
+		else{
+			$.ambiance({
+			    message : "Fail : "+data.message,
+			    type : 'error'
+			   });		
+		}
+	}.ctx(this));
+}
 
 ChangePassword.prototype.validatePassword = function(passwordRef){
 	var password = passwordRef.val();
-	console.log(password+" validation ");
+	
 	$(".error").hide();
     var isValid = false; 
     if(password.length < 1){
