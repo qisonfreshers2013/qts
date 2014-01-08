@@ -215,7 +215,7 @@ UserProfile.prototype.validateDesignation = function(designation){
 	var designationReg = /^[A-Z]+$/;
     $('.error').hide();
 	    var designationVal = designation.val();
-	    if(designationVal.trim().length < 0 ){
+	    if(designationVal.trim().length < 1 ){
 	    	designation.after('<span class="error" style = "color:red">Designation can'+"'"+'t  be null</span>');
 	    	isValid = false;
 	    }
