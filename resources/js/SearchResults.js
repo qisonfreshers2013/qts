@@ -31,8 +31,7 @@ SearchResults.prototype.appendValues = function(data){
 				for(var i = 0;i<data.records.length;i++){
 					if(data.records[i].projects.length<1){
 						data.records[i].projects[0] = "No projects";
-					}
-				
+					}				
 					for(j = 0 ;j<data.records[i].projects.length-1 ;j++){
 						projectList = projectList+data.records[i].projects[j]+",";
 					}
@@ -75,60 +74,9 @@ SearchResults.prototype.appendValues = function(data){
 					   });
 				}.ctx(this));			
 				
-				$('.deleteSymbol').click(function(event){	
-					
-					var id = event.target.id;
-					//$('.bootbox').modal('show');
-					//$('#deleteCancel').focus();
-					var shouldDelete = confirm('Are you sure to delete this user');
-					//$('#deleteCancel').click(function(){				
-					
-					var input = {"payload":{"id":id}};
-					if(shouldDelete){
-					RequestManager.deleteUser(input,function(data,success){
-						if(success){
-							$(event.target).parent().parent().remove();
-							if($('table tr').length==1){
-								$('#resultsContainer').empty();
-								
-							}	
-							
-							var input = {"payload":{}};
-							 $('select.employeeId').empty();
-							 $('select.employeeId').append('<option value="">--select--</option>');
-							RequestManager.getEmployeeIds(input,function(data,success){		
-								if(success){			
-									
-									for(var i=0 ; i<data.length; i++){
-										 $('select.employeeId').append('<option value = '+data[i]+' title = '+data[i]+'>'+data[i].ellipses(10)+'</option>');	
-									}		
-								}	
-								else{
-									$.ambiance({
-									    message : "Fail : "+data.message,
-									    type : 'error'
-									   });	
-									}
-							}.ctx(this));							
-							
-							
-							$.ambiance({
-								  message : "Success : user deleted", 
-								  type : 'success'
-								 });
-							}
-						else{
-							$.ambiance({
-							    message :"Fail : "+ data.message,
-							    type : 'error'
-							   });			
-						}
+				$('.deleteSymbol').click(function(event){						
+				this.deleteUser(event);
 					}.ctx(this));
-					}
-					}.ctx(this));
-				
-				
-
 				
 				}
 			else{
@@ -169,6 +117,76 @@ SearchResults.prototype.appendValues = function(data){
 	}.ctx(this));
 
 }
+
+SearchResults.prototype.deleteUser = function(event){
+	var id = event.target.id;
+	//$('.bootbox').modal('show');
+	//$('#deleteCancel').focus();
+	var shouldDelete = confirm('Are you sure to delete this user');
+	//$('#deleteCancel').click(function(){				
+
+	var input = {"payload":{"id":id}};
+	if(shouldDelete){
+	RequestManager.deleteUser(input,function(data,success){
+		if(success){
+			$(event.target).parent().parent().remove();
+			if($('table tr').length==1){
+				$('#resultsContainer').empty();
+				
+			}			
+			var input = {"payload":{}};
+			 $('select.employeeId').empty();
+			 $('select.employeeId').append('<option value="">--select--</option>');
+			RequestManager.getEmployeeIds(input,function(data,success){		
+				if(success){			
+					
+					for(var i=0 ; i<data.length; i++){
+						 $('select.employeeId').append('<option value = '+data[i]+' title = '+data[i]+'>'+data[i].ellipses(10)+'</option>');	
+					}		
+				}	
+				else{
+					$.ambiance({
+					    message : "Fail : "+data.message,
+					    type : 'error'
+					   });	
+					}
+			}.ctx(this));							
+			
+			
+			$.ambiance({
+				  message : "Success : user deleted", 
+				  type : 'success'
+				 });
+			}
+		else{
+			$.ambiance({
+			    message :"Fail : "+ data.message,
+			    type : 'error'
+			   });			
+		}
+	}.ctx(this));
+	}
+	
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 //	$("#projectsIdSR").tooltip('show');
 
 
