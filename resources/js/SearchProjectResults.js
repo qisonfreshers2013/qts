@@ -1,7 +1,5 @@
 function SearchProjectResults(data){
-	Loader.loadHTML('#results', 'SearchProjectResults.html',false, function(){
 		this.handleShow(data);
-	}.ctx(this));
 }
 
 SearchProjectResults.prototype.handleShow=function(data){

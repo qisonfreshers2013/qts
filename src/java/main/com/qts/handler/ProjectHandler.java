@@ -226,7 +226,7 @@ public class ProjectHandler extends AbstractHandler {
 	
 	
 	/*
-	 * Fetching All Members Of Project
+	 * Fetching All Users Of Project
 	 */
 	public ProjectUserRecords getProjectUsers(ProjectBean projectBean) throws ProjectException{
 
