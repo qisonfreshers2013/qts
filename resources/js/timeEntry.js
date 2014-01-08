@@ -4,7 +4,7 @@
  */
 function TimeEntry(){
 	Loader.loadHTML('#loadTimeSheetFilling', 'timeEntry.html', true, function() {
-		 //this.getProjects();
+		 this.getProjects();
 	     this.getActivities();
 		this.handleShow();
 	}.ctx(this))
@@ -142,34 +142,34 @@ TimeEntry.prototype.setRequestParameters=function(updateRequestParameters){
  }
  
  
-//TimeEntry.prototype.getProjects=function(){
-//	 $('.projectId').empty();
-//	 $('.projectId').append('<option class=\"projectValue\">SELECT</option>');
-//	 RequestManager.getProjectsForMember({}, function(data, success) {
-//	  if(success){
-//	   var id=0;
-//	   var name;
-//	   $.each(data,function(key1,value1){
-//	    $.each(value1,function(key2,value2){
-//	     if(key2=='id'){
-//	      id=value2;
-//	     }else{
-//	    	 if(key2=='name')
-//	      name=value2;
-//	     }
-//	    });
-//	    
-//	    $('.projectId').append('<option class=\"projectValue\" title='+name+' value='+id+'>'+name.ellipses(15)+'</option>');
-//	   });
-//	  }else{
-//		  $.ambiance({
-//			    message : data.message,
-//			    type : 'error'
-//			   });
-//	  }
-//	 }.ctx(this));
-//	}
-// 
+TimeEntry.prototype.getProjects=function(){
+	 $('.projectId').empty();
+	 $('.projectId').append('<option class=\"projectValue\">SELECT</option>');
+	 RequestManager.getProjectsForMember({}, function(data, success) {
+	  if(success){
+	   var id=0;
+	   var name;
+	   $.each(data,function(key1,value1){
+	    $.each(value1,function(key2,value2){
+	     if(key2=='id'){
+	      id=value2;
+	     }else{
+	    	 if(key2=='name')
+	      name=value2;
+	     }
+	    });
+	    
+	    $('.projectId').append('<option class=\"projectValue\" title='+name+' value='+id+'>'+name.ellipses(15)+'</option>');
+	   });
+	  }else{
+		  $.ambiance({
+			    message : data.message,
+			    type : 'error'
+			   });
+	  }
+	 }.ctx(this));
+	}
+ 
  
 TimeEntry.prototype.getReleases=function(){
 	 $('.selectRelease').empty();

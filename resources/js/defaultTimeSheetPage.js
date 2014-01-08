@@ -370,14 +370,13 @@ DefaultTimeSheetPage.prototype.searchUserTimeEntries=function(){
 }
 
 DefaultTimeSheetPage.prototype.getProjects=function(){
-	 $('#searchByProjectId,.projectId').empty();
+	 $('#searchByProjectId').empty();
 	 $('#searchByProjectId').append('<option>SELECT</option>');
 	
 	 RequestManager.getProjectsForMember({}, function(data, success) {
 	  if(success){
 	   var id=0;
 	   var name;
-	   $('.projectId').append('<option class=\"projectValue\">SELECT</option>');
 	   $.each(data,function(key1,value1){
 	    $.each(value1,function(key2,value2){
 	     if(key2=='id'){
@@ -388,7 +387,7 @@ DefaultTimeSheetPage.prototype.getProjects=function(){
 	     }
 	    });
 	    
-	    $('#searchByProjectId,.projectId').append('<option value='+id+' title='+name+'>'+name.ellipses(15)+'</option>');
+	    $('#searchByProjectId').append('<option value='+id+' title='+name+'>'+name.ellipses(15)+'</option>');
 	   });
 	  }else{
 		  $.ambiance({
