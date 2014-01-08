@@ -34,7 +34,7 @@ p {
 }
 .searchByDate {
     left: 10%;
-    margin-left: 0;
+    margin-left: -1%;
     margin-top: -4.9%;
     position: relative;
     width: 20%;
@@ -72,7 +72,7 @@ p {
     border-radius: 5px;
     color: #FFFFFF;
     font-weight: bold;
-    left: 62%;
+    left: 74.3%;
     margin-bottom: 2%;
     margin-top: 1%;
     position: relative;
@@ -87,7 +87,7 @@ p {
     border-radius: 5px;
     color: #FFFFFF;
     font-weight: bold;
-    left: 42%;
+     left: 56%;
     position: relative;
     text-align: center;
     width: 10%;
@@ -98,7 +98,7 @@ p {
     border-radius: 5px;
     color: #FFFFFF;
     font-weight: bold;
-    left: 43%;
+    left: 58%;
     position: relative;
     text-align: center;
     width: 10%;
@@ -109,7 +109,7 @@ p {
     border-radius: 5px;
     color: #FFFFFF;
     font-weight: bold;
-    left: 44%;
+    left: 59.6%;
     position: relative;
     text-align: center;
     width: 10%;
