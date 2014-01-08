@@ -394,7 +394,7 @@ public class TimeEntryDAOImpl extends BaseDAOImpl implements TimeEntryDAO {
 	try {
 
 		Calendar getPreviousWeekDate = GregorianCalendar.getInstance();
-		getPreviousWeekDate.add(Calendar.DAY_OF_YEAR, -7);
+		getPreviousWeekDate.add(Calendar.DAY_OF_YEAR, -6);
 		getPreviousWeekDate.getTimeInMillis();
 		Criteria approverSearchCriteria = session
 				.createCriteria(TimeEntries.class);
