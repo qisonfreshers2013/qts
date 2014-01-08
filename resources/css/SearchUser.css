@@ -125,6 +125,8 @@ button.search {
     border: medium none;
     border-radius: 5px;   
     width: 12%;
+    font-weight:bold;
+    
 }
 input.nickname, input.employeeId, input.designation, input.email {
     width: 50%;
