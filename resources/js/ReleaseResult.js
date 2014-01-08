@@ -1,3 +1,7 @@
+/**
+ * Author: N V Siva Reddy
+ */
+
 function ReleaseResult() {	
 	Loader.loadHTML('.result', 'ReleaseResult.html', true, function(){
 		this.handleShow();
@@ -22,7 +26,7 @@ ReleaseResult.prototype.handleShow = function() {
 							name=value2;
 						}
 					});
-					$('table').append("<tr style='text-align:center'><td title="+name+">"+name.ellipses(15)+"</td><td title="+projectName+">"+projectName.ellipses(15)+"</td><td><img class='deletePR' id="+id+" src='resources/img/delete.png' style='width:15%;cursor:pointer'/></td></tr>");
+					$('table').append("<tr style='text-align:center'><td title="+name+">"+name.ellipses(15)+"</td><td title="+projectName+">"+projectName.ellipses(15)+"</td><td><img class='deletePR' id="+id+" src='resources/img/delete.png' style='width:20px;cursor:pointer'/></td></tr>");
 				});
 				$('.deletePR').click(function(event){
 					var releaseId=event.target.id;

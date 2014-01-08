@@ -1,3 +1,5 @@
+/* Author: N V Siva Reddy*/
+
 .addProjectRelease{
     position: relative;
     width: 100%;
@@ -8,7 +10,7 @@
 }
 
 .rightAddProject {
-    left: 20%;
+    left: 16%;
     margin-top: -3.5%;
     position: relative;
     width: 60%;
@@ -23,7 +25,7 @@
 }
 
 .buttons {   
-    left: 20%;
+    left: 16%;
     margin-bottom: 5%;
     margin-top: 2%;
     position: relative;
