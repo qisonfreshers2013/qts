@@ -20,6 +20,11 @@ ApproverSearch.prototype.handleShow=function(){
         $(".from").datepicker({maxDate:new Date()});
         $(".to").datepicker({maxDate:new Date()});
         this.getProjects();
+        $('#status option[value=1]').attr("selected",true);
+        var oneWeekAgo=new Date();
+		oneWeekAgo.setDate(oneWeekAgo.getDate() - 6);
+		 $('#to').val($.datepicker.formatDate('mm/dd/yy', new Date()));
+		 $('#from').val($.datepicker.formatDate('mm/dd/yy',oneWeekAgo));
         $(".approverTableHeader").hide();
         this.searchTimeEntriesByApprover();
     }.ctx(this));   
@@ -43,6 +48,7 @@ ApproverSearch.prototype.handleShow=function(){
 			if($(".comments").val()!=''){
 				$("#rejectedComments").modal('hide');
 				this.rejectTimeEntry();}else{
+					 $('#comments').focus();
 					$("#rejectedComments").modal('show');
 					$.ambiance({
         			    message : 'Mention the Comments.',
@@ -54,6 +60,7 @@ ApproverSearch.prototype.handleShow=function(){
 	
 	$('#clearTheComments').click(function(event){
 	    $('#comments').val('');
+	    $('#comments').focus();
 	}.ctx(this));
 	
 	
@@ -203,11 +210,6 @@ ApproverSearch.prototype.searchTimeEntriesByApprover = function() {
     			var status;
     			var operations;	
     			$(".approverTableData").empty();
-    			var oneWeekAgo=new Date();
-    			oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
-    			 $('#to').val($.datepicker.formatDate('mm/dd/yy', new Date()));
-    			 $('#from').val($.datepicker.formatDate('mm/dd/yy',oneWeekAgo));
-    			 $('#status').val(1);
     			if(data.length!=0){
     			$(".approverTableHeader").show();
     			data=data.sort(function(a, b){
@@ -225,9 +227,13 @@ ApproverSearch.prototype.searchTimeEntriesByApprover = function() {
    				 if(data[i].status==1){
 					status="Pending";
 					operations="";
-					if(data[i].userRemarks!=null && data[i].userRemarks!='')
+					//operations=operations+"<button class=\"approve approveTimeEntry\" id=\"approveTimeEntry"+data[i].id+"\" value=\""+data[i].id+"\">.</button><button class=\"reject rejectTimeEntry\" id=\"rejectTimeEntry"+data[i].id+"\" value=\""+data[i].id+"\">.</button>";
+					if(data[i].userRemarks!=null && data[i].userRemarks!=''){
 					operations=operations+"<img  class=\"userRemarks\" src=\"resources/img/userRemarks.png\" title=\""+data[i].userRemarks+"\">";
 					operations=operations+"<button class=\"approve approveTimeEntry\" id=\"approveTimeEntry"+data[i].id+"\" value=\""+data[i].id+"\">.</button><button class=\"reject rejectTimeEntry\" id=\"rejectTimeEntry"+data[i].id+"\" value=\""+data[i].id+"\">.</button>";
+					}else{
+						operations=operations+"<button class=\"approveWithOutComments approveTimeEntry\" id=\"approveTimeEntry"+data[i].id+"\" value=\""+data[i].id+"\">.</button><button class=\"rejectWithOutComments rejectTimeEntry\" id=\"rejectTimeEntry"+data[i].id+"\" value=\""+data[i].id+"\">.</button>";
+					}
    				 }
 				else if(data[i].status==2){
 					status="Approved";
@@ -266,6 +272,7 @@ ApproverSearch.prototype.searchTimeEntriesByApprover = function() {
 						});
     				   $("#clearTheComments").trigger("click");
 				    	$("#rejectedComments").modal('show');
+				    	$('#comments').focus();
 				    	statusToApproveOrReject=1;
 				    	timeEntryIdToApproveOrReject=event.target.value;
 						}.ctx(this));
@@ -278,6 +285,7 @@ ApproverSearch.prototype.searchTimeEntriesByApprover = function() {
 						});
 						$("#clearTheComments").trigger("click");
 						$("#rejectedComments").modal('show');
+						$('#comments').focus();
 						statusToApproveOrReject=2;
 						timeEntryIdToApproveOrReject=event.target.value;
 						}.ctx(this));
@@ -290,6 +298,7 @@ ApproverSearch.prototype.searchTimeEntriesByApprover = function() {
         			   });
     				$(".approverTableHeader").hide();
     			}
+    			 
     		}else {
     			$.ambiance({
     			    message : data.message,
