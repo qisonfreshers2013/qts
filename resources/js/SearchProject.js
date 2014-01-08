@@ -18,11 +18,8 @@ SearchProject.prototype.handleShow = function() {
 		
 		$("#ambiance-notification").empty();
 		
-		if (event.keyCode == 37||event.keyCode == 38||event.keyCode == 39||event.keyCode == 40) {
-			this.getProjectUsers();
-		}
-		
-		if (event.keyCode == 13) {
+	  if (event.keyCode == 13) {
+			$('#results').empty();
 			this.getProjectUsers();
 		}
 	}.ctx(this));
@@ -31,6 +28,7 @@ SearchProject.prototype.handleShow = function() {
 	$('#project_name').change(function(){
 		
 		$("#ambiance-notification").empty();
+		$('#results').empty();
 		this.getProjectUsers();
 
 	}.ctx(this));
@@ -62,15 +60,14 @@ SearchProject.prototype.getProjects=function(){
 }
 
 SearchProject.prototype.getProjectUsers=function(){
-	$('#results').empty();
-	$('#noRoleDiv').empty();
-	$('#approverDiv').empty();
-	$('#memberDiv').empty();
+
 	var projectId=$('select#project_name option:selected').attr('value');
 	if(projectId!=0){
 		RequestManager.getProjectUsers({"payload":{"projectId":projectId}}, function(data, success) {
 			if(success){
 				if(data.projectUserRecords!=null){
+					$('#results').append('<div class="headline"><h2><img src="resources/img/u216_normal.png"/>Results<br><hr></h2></div>'+
+										'<div id=approverDiv></div><div id=memberDiv></div><div id=noRoleDiv></div>');
 					App.loadSearchProjectResults(data);
 				}
 				else{

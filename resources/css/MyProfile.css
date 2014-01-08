@@ -50,9 +50,10 @@ button.changePassword {
     color: #FFFFFF;
     display: inline-block;
     text-decoration: none;
-    width: 26.5%;
+    width: 25.2%;
     border:medium none;
     font-weight: bold;
+    
 }
 
 .editProfileHeader {
@@ -83,7 +84,7 @@ p {
 }
 
 .editTextFields {
-    left: 20%;
+    left: 16.3%;
     line-height: 47px;
     margin-top: -45%;
     position: relative;
@@ -107,7 +108,7 @@ button.submitMyProfile {
 }
 
 #clearMyProfileDiv {
-    margin-left: 32%;
+    margin-left: 28%;
     margin-top: -2%;
     position: relative;
     width: 67%;
@@ -115,14 +116,14 @@ button.submitMyProfile {
 }
 
 #submitMyProfileDiv {
-    margin-left: 20%;
+    margin-left: 16.3%;
     margin-top: 0;
     position: relative;
     width: 67%;
 }
 
 div.changePasswordDiv {
-    margin-left: 20%;
+    margin-left: 16.3%;
     margin-top: 1.8%;
     position: relative;
 }

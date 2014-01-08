@@ -9,7 +9,7 @@ function ApproverSearch(){
 
 ApproverSearch.prototype.handleShow=function(){
 	$(".container").show();
-	
+	$("#ambiance-notification").empty();
 	$("#rejectedComments").hide();
 	
 	$(".userProjectId").change(function(){
@@ -120,19 +120,11 @@ ApproverSearch.prototype.getUsers=function(){
 		 $('.userId').append('<option>SELECT</option>');
 		 RequestManager.getProjectUsers({"payload":{"projectId":projectId}}, function(data, success) {
 		  if(success){
-		   var id=0;
 		   var records=data.projectUserRecords;
-		   var name='';
-		   $.each(records,function(key1,value1){
-		    $.each(value1,function(key2,value2){
-		     if(key2=='id'){
-		      id=value2;
-		     }else{
-		    	 if(key2=='firstName')
-		      name=value2;
-		     }
-		    });
-		    $('.userId').append('<option value='+id+' title='+name+'>'+name.ellipses(15)+'</option>');
+		   $.each(records,function(key,value){
+			   if(value.roleNames.contains('MEMBER')){
+				   $('.userId').append('<option value='+value.id+' title='+value.firstName+'>'+value.firstName.ellipses(15)+'</option>');
+			   }
 		   });
 		  }else{
 			  $.ambiance({
@@ -145,7 +137,7 @@ ApproverSearch.prototype.getUsers=function(){
 		 $('.userId').empty();
 		 $('.userId').append('<option>SELECT</option>');
 	     } 
-
+	
 	 }
 ApproverSearch.prototype.getSearchCriteria=function(){
 	

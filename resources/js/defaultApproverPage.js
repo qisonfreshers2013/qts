@@ -9,7 +9,7 @@ function DefaultApproverPage(){
 	}.ctx(this))
 }
 DefaultApproverPage.prototype.handleShow=function(){
-    
+	$("#ambiance-notification").empty();    
 
 }
 DefaultApproverPage.prototype.loadApproverSearch=function(){
