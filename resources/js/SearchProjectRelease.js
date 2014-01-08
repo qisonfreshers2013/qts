@@ -9,6 +9,7 @@ function SearchProjectRelease() {
 }
 
 SearchProjectRelease.prototype.handleShow = function() {
+	$("#ambiance-notification").empty();
 	$('.SelectProject').focus();
 	RequestManager.getProjects({},function(data,success){
 		if(success){
@@ -36,8 +37,8 @@ SearchProjectRelease.prototype.handleShow = function() {
 	
 	
 	$('#SelectProject').keyup(function(event){
-		
-		if(event.keycode==37||event.keycode==38||event.keycode==39||event.keycode==40){
+		$("#ambiance-notification").empty();
+		if(event.keyCode==37||event.keyCode==38||event.keyCode==39||event.keyCode==40){
 			$('.add').empty();
 			this.results();	
 		}
@@ -45,6 +46,7 @@ SearchProjectRelease.prototype.handleShow = function() {
 	}.ctx(this));
 
 	$('.SelectProject').change(function(){
+		$("#ambiance-notification").empty();
 		$('.add').empty();
 		this.results();
 	}.ctx(this));
@@ -73,6 +75,7 @@ SearchProjectRelease.prototype.results=function(){
 				"font-size":"16px"
 			});
 			$('.AddPR').click(function(){
+				$("#ambiance-notification").empty();
 				App.loadAddProjectRelease();
 			}.ctx(this));
 			

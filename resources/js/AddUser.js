@@ -137,7 +137,7 @@ AddUser.prototype.validateEmail = function(email){
         isValid = false;
     }
     else if (emailVal.length > 128){
-    	email.focus();
+    	
     	email.after('<span class = "error"  style = "color:red" >Maximum length of Email is 128</span>');
         isValid = false; 
     }
@@ -181,7 +181,7 @@ AddUser.prototype.validateDesignation = function(designation){
        $('.error').hide();
 	    var designationVal = designation.val();
 	    if(designationVal.trim().length < 1 ){
-	    	designation.after('<span class="error" style = "color:red">Designation can'+"'"+'t  be empty</span>');
+	    	designation.after('<span class="error" style = "color:red">Designation can'+"'"+'t  be null</span>');
 	    	isValid = false;
 	    }
 	    else if(!designationReg.test(designationVal)) {

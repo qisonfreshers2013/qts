@@ -88,8 +88,9 @@ SearchResults.prototype.appendValues = function(data){
 					RequestManager.deleteUser(input,function(data,success){
 						if(success){
 							$(event.target).parent().parent().remove();
-							if($('table tr').length==0){
-								$('#resultsTable').empty();
+							if($('table tr').length==1){
+								$('#resultsContainer').empty();
+								
 							}	
 							
 							var input = {"payload":{}};

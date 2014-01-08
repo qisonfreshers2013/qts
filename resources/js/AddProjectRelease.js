@@ -8,9 +8,9 @@ function AddProjectRelease() {
 }
 
 AddProjectRelease.prototype.handleShow = function() {
-	
+	$("#ambiance-notification").empty();
 	$('.ReleaseName').keyup(function(event){
-		
+		$("#ambiance-notification").empty();
 //		alert(event.keyCode);
 		if(event.keyCode == 13){
 			event.preventDefault();
@@ -21,11 +21,13 @@ AddProjectRelease.prototype.handleShow = function() {
 	
 	
 	$('.saveAPR').click(function(){
+		$("#ambiance-notification").empty();
 		this.addProjectRelease();
 		
 	}.ctx(this));
 	
 	$('.cancelAPR').click(function(){
+		$("#ambiance-notification").empty();
 //		$("select.Selectproject option:selected").val('0');
 		$('select.SelectProject').find('option[value="0"]').attr("selected",true);
 		$('.add').empty();
