@@ -24,3 +24,9 @@
 .mandatory {
      color: red;
 }
+
+.result{
+    position: relative;
+ 	margin-top:5%;
+ 	margin-bottom:27%;
+}

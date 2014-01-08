@@ -88,8 +88,9 @@ SearchResults.prototype.appendValues = function(data){
 					RequestManager.deleteUser(input,function(data,success){
 						if(success){
 							$(event.target).parent().parent().remove();
-							if($('table tr').length==0){
-								$('#resultsTable').empty();
+							if($('table tr').length==1){
+								$('#resultsContainer').empty();
+								
 							}	
 							
 							var input = {"payload":{}};
@@ -99,7 +100,7 @@ SearchResults.prototype.appendValues = function(data){
 								if(success){			
 									
 									for(var i=0 ; i<data.length; i++){
-										 $('select.employeeId').append('<option value='+data[i]+'>'+data[i]+'</option>');	
+										 $('select.employeeId').append('<option value = '+data[i]+' title = '+data[i]+'>'+data[i].ellipses(10)+'</option>');	
 									}		
 								}	
 								else{

@@ -34,8 +34,9 @@ MyProfile.prototype.handleShow = function(){
 		}
 		
 	}.ctx(this));
-	$('.changePassword').click(function(){
-		
+
+	$('.changePassword').click(function(){	
+		$('#editProfileDiv').find('*').prop('disabled',true);
 		App.loadChangePassword();		
 	}.ctx(this));
 	
@@ -43,9 +44,6 @@ MyProfile.prototype.handleShow = function(){
 		 $("#ambiance-notification").empty();
 		$('.error').remove();
 	});
-	
-	
-	
 }
 
 MyProfile.prototype.saveValues = function(firstNameRef,lastNameRef,nicknameRef,locationRef){

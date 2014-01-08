@@ -12,9 +12,8 @@ function ChangePassword(){
 		this.handleShow();			
 	}.ctx(this));
 }
-ChangePassword.prototype.handleShow = function(){
-	
-	
+
+ChangePassword.prototype.handleShow = function(){	
 	this.getPassword();
 //	var input = {"payload":{}};
 //	
@@ -43,15 +42,13 @@ ChangePassword.prototype.handleShow = function(){
 		}
 		  if (event.keyCode == 27) {
 				$(".error").remove();
+				$('#myProfileInnerForm,#submitMyProfileDiv,#clearMyProfileDiv,#changePasswordDiv').find('*').prop('disabled',false);
 				$("button#closeCPbutton" ).trigger("click");	
 			//	document.body.style.overflow = "visible";
 				//$( "button#clearCP" ).trigger("click");					
 		}
 		  
-		}.ctx(this));
-	
-
-	
+		}.ctx(this));	
 	$('button#submitPassword').click(function(){	
 		
 		  var oldPassword = $('input.oldPasswordTextCP');
@@ -71,7 +68,7 @@ ChangePassword.prototype.handleShow = function(){
 		  }				  
 		  else if(password.val().length<1){
 			  $.ambiance({
-			       message : "New Password can not be empty",
+			       message : "New Password can't be null",
 			       type : 'error'
 			      });
 		  }
@@ -115,6 +112,7 @@ ChangePassword.prototype.handleShow = function(){
 	
 	$("button#closeCPbutton" ).click(function(){		
 		document.body.style.overflow = "visible";
+		$('#myProfileInnerForm,#submitMyProfileDiv,#clearMyProfileDiv,#changePasswordDiv').find('*').prop('disabled',false);
 		$( "button#clearCP" ).trigger("click");
 		 $("#ambiance-notification").empty();
 	}.ctx(this));
@@ -122,13 +120,12 @@ ChangePassword.prototype.handleShow = function(){
 	$(document.documentElement).keyup(function (event) {
 	    if (event.keyCode == 27)  {
 			$(".error").remove();
+			$('#myProfileInnerForm,#submitMyProfileDiv,#clearMyProfileDiv,#changePasswordDiv').find('*').prop('disabled',false);
 			document.body.style.overflow = "visible";			
 	}	    
 	   }.ctx(this));
 	
 }
-
-
 ChangePassword.prototype.changePassword = function(oldPassword,password,confirmPassword){
 	
 	var input = {"payload":
@@ -139,18 +136,15 @@ ChangePassword.prototype.changePassword = function(oldPassword,password,confirmP
 	
 	RequestManager.changePassword(input,function(data,success){
 		if(success){
-			document.body.style.overflow = "visible";
-
-			
-	   
+			document.body.style.overflow = "visible";	   
 		$('#changePasswordModal').modal('hide');
-		$( "input.closeCPbutton" ).trigger( "click");
-		
-		document.location.reload();
+		$( "input.closeCPbutton" ).trigger( "click");		
 		$.ambiance({
 			  message : "Success : Password is changed,Please login with New Password",
 			  type : 'success'
 			});
+		this.logout();
+	
 		}
 		else{
 			$.ambiance({
@@ -161,8 +155,7 @@ ChangePassword.prototype.changePassword = function(oldPassword,password,confirmP
 	}.ctx(this));
 }
 
-ChangePassword.prototype.getPassword = function(){
-	
+ChangePassword.prototype.getPassword = function(){	
 	var input = {"payload":{}};
 	RequestManager.getLoginUserDetails(input,function(data,success){
 		if(success){
@@ -178,10 +171,25 @@ ChangePassword.prototype.getPassword = function(){
 			
 	}
 
+ChangePassword.prototype.logout = function(){
+	RequestManager.logout({},function(data,success){
+		if(success){
+			setTimeout(function(){
+				document.location.reload();
+				},1000);
+				}
+		else{
+			$.ambiance({
+			    message : "Fail : "+data.message,
+			    type : 'error'
+			   });		
+		}
+	}.ctx(this));
+}
 
 ChangePassword.prototype.validatePassword = function(passwordRef){
 	var password = passwordRef.val();
-	console.log(password+" validation ");
+	
 	$(".error").hide();
     var isValid = false; 
     if(password.length < 1){

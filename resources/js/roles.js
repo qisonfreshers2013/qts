@@ -2,6 +2,7 @@ function Roles() {
 	roles = new Array([]);
 	$(".rolesContainer").remove();
 	Loader.loadHTML('#container', 'roles.html', false, function() {
+		$("#ambiance-notification").empty();
 		this.listProjects();
 		this.getRoles();
 		this.handleShow();
@@ -58,7 +59,7 @@ Roles.prototype.handleShow = function() {
 		$("#userList").empty().append("<option id=\"u0\">select</option>");
 		$(".avalRoles").removeAttr("checked");
 	});
-	$('#projectUser').keyup(function(event) {
+	$('.roles').keyup(function(event) {
 		if(event.keyCode==13){
 			$('#saveb').trigger('click');
 		} 
@@ -117,7 +118,7 @@ Roles.prototype.listUsers = function() {
 				$("#userList").empty().append(
 						"<option value=\"u0\">select</option>");
 				$.each(records, function(key, value) {
-					var email = value.email;
+					var email = value.email.toLowerCase();
 					$("#userList").append(
 							"<option title="+email+" value=" + value.id + ">" + email.ellipses(30)
 									+ "</option>");
@@ -151,7 +152,6 @@ Roles.prototype.getRoles = function() {
 					else
 						name = innerValue.charAt(0).toUpperCase()+ innerValue.substr(1).toLowerCase();
 			});
-			if(id!=1){
 			$("#role").append("<div id=\"roleRow\"><div id=\"rolesList\" class=\"rolesCheckbox\">"
 														+ "<input type=\"checkbox\" id=role"
 														+ id
@@ -166,7 +166,6 @@ Roles.prototype.getRoles = function() {
 			$("#rolesList").css({"border-spacing" : "0",
 				 "font-size" : "16px"
 				});
-			}
 		});
 		} else {
 			$.ambiance({

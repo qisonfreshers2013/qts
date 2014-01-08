@@ -44,10 +44,11 @@ App.prototype.loadAddProjectRelease=function(){
 	});
 }
 
-App.prototype.loadMenu=function(){
+App.prototype.loadMenu=function(cb){
 	Loader.loadMenu(function(){
 		new Menu();
 	});
+	cb();
 }
 
 App.prototype.loadSearchProjectRelease=function(){

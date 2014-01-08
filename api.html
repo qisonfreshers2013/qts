@@ -3,10 +3,10 @@
                     "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-  		<script src="resources/js/lib/jquery.js"></script>
-		<script src="resources/js/lib/jquery.treeview.js"></script>
-		<link href="resources/css/jquery.treeview.css" rel="stylesheet">
-  <style type="text/css">
+<script src="resources/js/lib/jquery.js"></script>
+<script src="resources/js/lib/jquery.treeview.js"></script>
+<link href="resources/css/jquery.treeview.css" rel="stylesheet">
+<style type="text/css">
 #browser {
 	font-family: Verdana, helvetica, arial, sans-serif;
 	font-size: 68.75%;
@@ -18,14 +18,14 @@
 }
 </style>
 <script>
-  $(document).ready(function(){
-    $("#browser").treeview({
-    	   collapsed: true,
-    	   animated: "fast"
-    	   
-    })
-  });
-  </script>
+	$(document).ready(function() {
+		$("#browser").treeview({
+			collapsed : true,
+			animated : "fast"
+
+		})
+	});
+</script>
 
 </head>
 <body>
@@ -197,6 +197,17 @@
 						<li><span class="file reqtype">method : POST</span></li>
 						<li><span class="file author">author : Anil Ram</span></li>
 					</ul></li>
+			</ul>
+			<ul>
+				<li><span class="folder api">get EmployeeIds</span>
+					<ul id="folder1_11">
+						<li><span class="file url">http://localhost:8080/services/v1/user/getEmployeeIds</span></li>
+						<li><span class="file input">input:{} </span></li>
+						<li><span class="file output">output:{"status":"SUCCESS","payload":["105","106","112","12","122","123","1234","12345","140","147","150","170","189","189000","2","21","23200","234234","2346029","5689","67","68","69","70","71","73","77","78","896","90","96","97","99","fahfda","hgfvjh","hsjfjsdf","Naminderxvxcnbvjhgjsdfgkjdhjkdfkddjgfjdkfhdjkhkgdhgkldfhgdkfhgkdjghdfghdjkfhgdfkjhgfkdghkldfhgkfhgfghkfghfkghdsfhkdjfhskdfhdkfhf","qwert","QWERTY","rgrg","sdf","sdfsdf","shankar"]}</span>
+						</li>
+						<li><span class="file reqtype">method : POST</span></li>
+						<li><span class="file author">author : Anil Ram</span></li>
+					</ul></li>
 			</ul></li>
 		<li><span class="folder module">PROJECT</span>
 			<ul>
@@ -217,8 +228,7 @@
 					<ul id="folder2_2">
 						<li><span class="file url">URL :
 								http://localhost:8080/services/v1/project/getProjectsForUser</span></li>
-						<li><span class="file input"> input:{}
-						 </span></li>
+						<li><span class="file input"> input:{} </span></li>
 						<li><span class="file output">ouput :
 								{"status":"SUCCESS","payload":[{"name":"MERAEVENTS","id":3,"objectType":130,"technologies":null,"modifierId":0,"cts":0,"mts":0,"creatorId":0,"deleted":0},{"name":"QTSPLATFORM","id":7,"objectType":130,"technologies":"JAVA","modifierId":0,"cts":0,"mts":0,"creatorId":0,"deleted":0},{"name":"QisonP","id":8,"objectType":130,"technologies":"java","modifierId":0,"cts":0,"mts":0,"creatorId":0,"deleted":0}]}</span>
 						</li>
@@ -253,7 +263,8 @@
 						<li><span class="file input"> input :
 								{"payload":{"projectId":"2"}} </span></li>
 						<li><span class="file output">output
-								{"status":"SUCCESS","payload":{"projectUserRecords":[{"id":2,"roles":[],"employeeId":"68","designation":"TRAINEE","email":"anilram.laxmisetti@qison.com","firstName":"anil","userId":"ANILRAM.LAXMISETTY@QISON.COM","photoFileUrl":null},{"id":40,"roles":[],"employeeId":"ZXcv","designation":"ASDFGHJK","email":"as@gmail.com","firstName":"aSZfgnjm","userId":"as@gmail.com","photoFileUrl":null},{"id":7,"roles":[],"employeeId":"69","designation":"APM","email":"DEEPA.SHARMA@QISON.COM","firstName":"Deepa","userId":"DEEPA.SHARMA@QISON.COM","photoFileUrl":null},{"id":5,"roles":[],"employeeId":"71","designation":"TRAINEE","email":"jagadish@qison.com","firstName":"JAGADISH","userId":"jagadish@qison.com","photoFileUrl":null},{"id":3,"roles":["member","Approver"],"employeeId":"67","designation":"TRAINEE","email":"manikumar.garaga446@qison.com","firstName":"Mani Kumar","userId":"MANIKUMAR.GARAGA@QISON.COM","photoFileUrl":null}]}}
+								{"status":"SUCCESS","payload":{"projectUserRecords":[{"id":2,"roles":[],"employeeId":"68","designation":"TRAINEE","email":"anilram.laxmisetti@qison.com","firstName":"anil","userId":"ANILRAM.LAXMISETTY@QISON.COM","photoFileUrl":null},{"id":40,"roles":[],"employeeId":"ZXcv","designation":"ASDFGHJK","email":"as@gmail.com","firstName":"aSZfgnjm","userId":"as@gmail.com","photoFileUrl":null},{"id":7,"roles":[],"employeeId":"69","designation":"APM","email":"DEEPA.SHARMA@QISON.COM","firstName":"Deepa","userId":"DEEPA.SHARMA@QISON.COM","photoFileUrl":null},{"id":5,"roles":[],"employeeId":"71","designation":"TRAINEE","email":"jagadish@qison.com","firstName":"JAGADISH","userId":"jagadish@qison.com","photoFileUrl":null},{"id":3,"roles":["member","Approver"],"employeeId":"67","designation":"TRAINEE","email":"manikumar.garaga446@qison.com","firstName":"Mani
+								Kumar","userId":"MANIKUMAR.GARAGA@QISON.COM","photoFileUrl":null}]}}
 						</span></li>
 						<li><span class="file reqtype">method : POST</span></li>
 						<li><span class="file author">author : MANI KUMAR</span></li>
@@ -267,7 +278,15 @@
 						<li><span class="file input"> input : {"payload":{
 								"projectId":"1"}} </span></li>
 						<li><span class="file output"> output :
-											{"status":"SUCCESS","payload":[[8,"LAXMI.MUNNANGI@QISON.COM","78","LAXMI CHAITANYA","MUNNANGI",7,"laxmi","LAXMI.MUNNANGI@QISON.COM","SR NAGAR","TRAINEE"],[39,"mani@gamil.com","566","sdfhj","asdfhj",7,"fgd","mani@gamil.com","hyd","PKIJN"],[3,"manikumar.garaga@qison.com","67","Mani Kumar","Garaga",3,"Garaga","MANIKUMAR.GARAGA@QISON.COM","hyd","TRAINEE"],[11,"NAMINDER@QISON.COM","1","Namindher ","dhir",7,"Namindher ","NAMINDER@QISON.COM","Madhapur","COO"],[24,"rajesh@gmail.com","200","Kapila","thota",7,"rammi","rajesh@gmail.com","hyd","APM"],[19,"Ram@gmail.com","96","Ramesh","Pasupulati",7,"rammi","Ram@gmail.com","hyd","APM"],[31,"rambabu4@gmail.com","2334200","rambabu","Pasupulati",7,"rammi","rambabu4@gmail.com","hyd","APM"],[23,"rambabu@gmail.com","100","rambabu","Pasupulati",7,"rammi","rambabu@gmail.com","hyd","APM"],[12,"Ramesh@gmail.com","90","Ramesh","Pasupulati",7,"rammi","Ramesh@gmail.com","hyd","APM"],[20,"Rammi@gmail.com","97","Ramesh","Pasupulati",7,"rammi","Rammi@gmail.com","hyd","APM"],[9,"RAMNIVAS.VENNU@QISON.COM","77","RAM NIVAS","VENNU",7,"ram","RAMNIVAS.VENNU@QISON.COM","SR NAGAR","TRAINEE"],[4,"SHIVA.NIMMAKAYALA@QISON.COM","70","Kapila","thota",4,"rammi","SHIVA.NIMMAKAYALA@QISON.COM","hyd","APM"],[1,"VAMSI.KUCHI@QISON.COM","150","Kapila","thota",1,"rammi","VAMSI.KUCHI@QISON.COM","hyd","APM"],[10,"VINAY.THANDRA@QISON.COM","21","VINAY","THANDRA",7,"vinay","VINAY.THANDRA@QISON.COM",null,"PROJECT MANAGER"]]}						</span></li>
+								{"status":"SUCCESS","payload":[[8,"LAXMI.MUNNANGI@QISON.COM","78","LAXMI
+								CHAITANYA","MUNNANGI",7,"laxmi","LAXMI.MUNNANGI@QISON.COM","SR
+								NAGAR","TRAINEE"],[39,"mani@gamil.com","566","sdfhj","asdfhj",7,"fgd","mani@gamil.com","hyd","PKIJN"],[3,"manikumar.garaga@qison.com","67","Mani
+								Kumar","Garaga",3,"Garaga","MANIKUMAR.GARAGA@QISON.COM","hyd","TRAINEE"],[11,"NAMINDER@QISON.COM","1","Namindher
+								","dhir",7,"Namindher
+								","NAMINDER@QISON.COM","Madhapur","COO"],[24,"rajesh@gmail.com","200","Kapila","thota",7,"rammi","rajesh@gmail.com","hyd","APM"],[19,"Ram@gmail.com","96","Ramesh","Pasupulati",7,"rammi","Ram@gmail.com","hyd","APM"],[31,"rambabu4@gmail.com","2334200","rambabu","Pasupulati",7,"rammi","rambabu4@gmail.com","hyd","APM"],[23,"rambabu@gmail.com","100","rambabu","Pasupulati",7,"rammi","rambabu@gmail.com","hyd","APM"],[12,"Ramesh@gmail.com","90","Ramesh","Pasupulati",7,"rammi","Ramesh@gmail.com","hyd","APM"],[20,"Rammi@gmail.com","97","Ramesh","Pasupulati",7,"rammi","Rammi@gmail.com","hyd","APM"],[9,"RAMNIVAS.VENNU@QISON.COM","77","RAM
+								NIVAS","VENNU",7,"ram","RAMNIVAS.VENNU@QISON.COM","SR
+								NAGAR","TRAINEE"],[4,"SHIVA.NIMMAKAYALA@QISON.COM","70","Kapila","thota",4,"rammi","SHIVA.NIMMAKAYALA@QISON.COM","hyd","APM"],[1,"VAMSI.KUCHI@QISON.COM","150","Kapila","thota",1,"rammi","VAMSI.KUCHI@QISON.COM","hyd","APM"],[10,"VINAY.THANDRA@QISON.COM","21","VINAY","THANDRA",7,"vinay","VINAY.THANDRA@QISON.COM",null,"PROJECT
+								MANAGER"]]} </span></li>
 						<li><span class="file reqtype">method : POST</span></li>
 						<li><span class="file author">author : mani kumar</span></li>
 					</ul></li>
@@ -280,7 +299,8 @@
 						<li><span class="file input">input : {"payload":{
 								"projectId":"2", "userIds":["1","2","3"]}} </span></li>
 						<li><span class="file output"> output :
-												{"status":"SUCCESS","payload":{"projectUserRecords":[{"id":6,"roles":[],"employeeId":"72","designation":"APM","email":"AJAYKUMAR.SAMUDRALA@QISON.COM","firstName":"Ajay","userId":"AJAYKUMAR.SAMUDRALA@QISON.COM","photoFileUrl":null},{"id":2,"roles":[],"employeeId":"68","designation":"TRAINEE","email":"anilram.laxmisetti@qison.com","firstName":"anil","userId":"ANILRAM.LAXMISETTY@QISON.COM","photoFileUrl":null},{"id":40,"roles":[],"employeeId":"ZXcv","designation":"ASDFGHJK","email":"as@gmail.com","firstName":"aSZfgnjm","userId":"as@gmail.com","photoFileUrl":null},{"id":7,"roles":[],"employeeId":"69","designation":"APM","email":"DEEPA.SHARMA@QISON.COM","firstName":"Deepa","userId":"DEEPA.SHARMA@QISON.COM","photoFileUrl":null},{"id":5,"roles":[],"employeeId":"71","designation":"TRAINEE","email":"jagadish@qison.com","firstName":"JAGADISH","userId":"jagadish@qison.com","photoFileUrl":null},{"id":3,"roles":["member","Approver"],"employeeId":"67","designation":"TRAINEE","email":"manikumar.garaga446@qison.com","firstName":"Mani Kumar","userId":"MANIKUMAR.GARAGA@QISON.COM","photoFileUrl":null}]}}
+								{"status":"SUCCESS","payload":{"projectUserRecords":[{"id":6,"roles":[],"employeeId":"72","designation":"APM","email":"AJAYKUMAR.SAMUDRALA@QISON.COM","firstName":"Ajay","userId":"AJAYKUMAR.SAMUDRALA@QISON.COM","photoFileUrl":null},{"id":2,"roles":[],"employeeId":"68","designation":"TRAINEE","email":"anilram.laxmisetti@qison.com","firstName":"anil","userId":"ANILRAM.LAXMISETTY@QISON.COM","photoFileUrl":null},{"id":40,"roles":[],"employeeId":"ZXcv","designation":"ASDFGHJK","email":"as@gmail.com","firstName":"aSZfgnjm","userId":"as@gmail.com","photoFileUrl":null},{"id":7,"roles":[],"employeeId":"69","designation":"APM","email":"DEEPA.SHARMA@QISON.COM","firstName":"Deepa","userId":"DEEPA.SHARMA@QISON.COM","photoFileUrl":null},{"id":5,"roles":[],"employeeId":"71","designation":"TRAINEE","email":"jagadish@qison.com","firstName":"JAGADISH","userId":"jagadish@qison.com","photoFileUrl":null},{"id":3,"roles":["member","Approver"],"employeeId":"67","designation":"TRAINEE","email":"manikumar.garaga446@qison.com","firstName":"Mani
+								Kumar","userId":"MANIKUMAR.GARAGA@QISON.COM","photoFileUrl":null}]}}
 						</span></li>
 						<li><span class="file reqtype">method : POST</span></li>
 						<li><span class="file author">author : Mani kumar</span></li>
@@ -295,7 +315,9 @@
 						<li><span class="file input">input :
 								{"payload":{"projectId":"2","userIds":["7"]}} </span></li>
 						<li><span class="file output"> output :
-													{"status":"SUCCESS","payload":{"projectUserRecords":[{"id":2,"roles":[],"employeeId":"68","designation":"TRAINEE","email":"anilram.laxmisetti@qison.com","firstName":"anil","userId":"ANILRAM.LAXMISETTY@QISON.COM","photoFileUrl":null},{"id":40,"roles":[],"employeeId":"ZXcv","designation":"ASDFGHJK","email":"as@gmail.com","firstName":"aSZfgnjm","userId":"as@gmail.com","photoFileUrl":null},{"id":7,"roles":[],"employeeId":"69","designation":"APM","email":"DEEPA.SHARMA@QISON.COM","firstName":"Deepa","userId":"DEEPA.SHARMA@QISON.COM","photoFileUrl":null},{"id":5,"roles":[],"employeeId":"71","designation":"TRAINEE","email":"jagadish@qison.com","firstName":"JAGADISH","userId":"jagadish@qison.com","photoFileUrl":null},{"id":3,"roles":["member","Approver"],"employeeId":"67","designation":"TRAINEE","email":"manikumar.garaga446@qison.com","firstName":"Mani Kumar","userId":"MANIKUMAR.GARAGA@QISON.COM","photoFileUrl":null}]}}				</span></li>
+								{"status":"SUCCESS","payload":{"projectUserRecords":[{"id":2,"roles":[],"employeeId":"68","designation":"TRAINEE","email":"anilram.laxmisetti@qison.com","firstName":"anil","userId":"ANILRAM.LAXMISETTY@QISON.COM","photoFileUrl":null},{"id":40,"roles":[],"employeeId":"ZXcv","designation":"ASDFGHJK","email":"as@gmail.com","firstName":"aSZfgnjm","userId":"as@gmail.com","photoFileUrl":null},{"id":7,"roles":[],"employeeId":"69","designation":"APM","email":"DEEPA.SHARMA@QISON.COM","firstName":"Deepa","userId":"DEEPA.SHARMA@QISON.COM","photoFileUrl":null},{"id":5,"roles":[],"employeeId":"71","designation":"TRAINEE","email":"jagadish@qison.com","firstName":"JAGADISH","userId":"jagadish@qison.com","photoFileUrl":null},{"id":3,"roles":["member","Approver"],"employeeId":"67","designation":"TRAINEE","email":"manikumar.garaga446@qison.com","firstName":"Mani
+								Kumar","userId":"MANIKUMAR.GARAGA@QISON.COM","photoFileUrl":null}]}}
+						</span></li>
 						<li><span class="file reqtype">method : POST</span></li>
 						<li><span class="file author">author : MANI KUMAR</span></li>
 					</ul></li>
@@ -308,7 +330,7 @@
 						<li><span class="file input">input : {} </span></li>
 						<li><span class="file output"> output :
 								{"status":"SUCCESS","payload":[{"name":"MERAEVENTS","id":3,"objectType":130,"technologies":null,"modifierId":0,"cts":0,"mts":0,"creatorId":0,"deleted":0},{"name":"QTSPLATFORM","id":7,"objectType":130,"technologies":"JAVA","modifierId":0,"cts":0,"mts":0,"creatorId":0,"deleted":0},{"name":"QisonP","id":8,"objectType":130,"technologies":"java","modifierId":0,"cts":0,"mts":0,"creatorId":0,"deleted":0}]}</span>
-						</span></li>
+							</span></li>
 						<li><span class="file reqtype">method : POST</span></li>
 						<li><span class="file author">author : Mani kumar</span></li>
 					</ul></li>
@@ -326,363 +348,316 @@
 					</ul></li>
 			</ul></li>
 		<li><span class="folder module">TIME ENTRY</span>
-	 		<ul>
-	 			<li><span class="folder api">ADD TIME ENTRY</span>
-	 				<ul id="folder3_1">
-	 					<li><span class="file url">URL : http://localhost:8080/services/v1/timeEntry/add</span></li>
-						<li>
-							<span class="file input">
-								input : { "payload": { "date": "12-12-2013",
-									"projectId":"3", "releaseId": "6", "activityId": "2",
-									"task": "coding", "hours":"3", "userRemarks": "almost done"} }
-							</span>
-						</li>
-						<li>
-							<span class="file output">output :	{"status":"SUCCESS","payload":true}</span>
-						</li>	
-						<li>
-							<span class="file reqtype">method :	POST</span>
-						</li>
-						<li>
-							<span class="file author">author : Ajay Kumar</span>
-						</li>		
-					</ul>
-	 			</li>
-	 		</ul>
-	 		<ul>
-	 			<li><span class="folder api">DELETE TIME ENTRY</span>
-	 				<ul id="folder3_2">
-	 					<li><span class="file url">URL : http://localhost:8080/services/v1/timeEntry/delete</span></li>
-						<li>
-							<span class="file input">
-								input : { "payload": { "id": "39"} }
-							</span>
-						</li>
-						<li>
-							<span class="file output">output :{"status":"SUCCESS","payload":true}</span>
-						</li>	
-						<li>
-							<span class="file reqtype">method :	POST</span>
-						</li>
-						<li>
-							<span class="file author">author : Ajay Kumar</span>
-						</li>		
-					</ul>
-	 			</li>
-	 		</ul>
-	 		<ul>
-	 			<li><span class="folder api">UPDATE TIME ENTRY</span>
-	 				<ul id="folder3_3">
-	 					<li><span class="file url">URL : http://localhost:8080/services/v1/timeEntry/update</span></li>
-						<li>
-							<span class="file input">
-								input : { "payload":{"id":"40","projectId":"3","releaseId":"6","activityId":"2","date":"12/13/2013","task":"fixing bug","hours":"3","userRemarks":"testing"} }
-							</span>
-						</li>
-						<li>
-							<span class="file output">output : {"status":"SUCCESS","payload":true}</span>
-						</li>	
-						<li>
-							<span class="file reqtype">method :	POST</span>
-						</li>
-						<li>
-							<span class="file author">author : Ajay Kumar</span>
-						</li>		
-					</ul>
-	 			</li>
-	 		</ul>
-	 		<ul>
-	 			<li><span class="folder api">SUBMIT TIME ENTRIES</span>
-	 				<ul id="folder3_4">
-	 					<li><span class="file url">URL : http://localhost:8080/services/v1/timeEntry/submitTimeEntries</span></li>
-						<li>
-							<span class="file input">
-								input : { "payload": {"timeEntries":[{"id":"56"},{"id":"57"},{"id":"58"}] } }
-							</span>
-						</li>
-						<li>
-							<span class="file output">output :	{"status":"SUCCESS","payload":true}</span>
-						</li>	
-						<li>
-							<span class="file reqtype">method :	POST</span>
-						</li>
-						<li>
-							<span class="file author">author : Ajay Kumar</span>
-						</li>		
-					</ul>
-	 			</li>
-	 		</ul>
-	 		<ul>
-	 			<li><span class="folder api">APPROVE TIME ENTRY</span>
-	 				<ul id="folder3_5">
-	 					<li><span class="file url">URL : http://localhost:8080/services/v1/timeEntry/approveTimeEntry</span></li>
-						<li>
-							<span class="file input">
-								input : { "payload": {"id":"39" }}
-							</span>
-						</li>
-						<li>
-							<span class="file output">output :	{"status":"SUCCESS","payload":true}</span>
-						</li>	
-						<li>
-							<span class="file input">
-								input : {"payload": {"id":"96","approvedComments":"TaskDone"} }
-							</span>
-						</li>
-						<li>
-							<span class="file output">output :	{"status":"SUCCESS","payload":true}</span>
-						</li>	
-						<li>
-							<span class="file reqtype">method :	POST</span>
-						</li>
-						<li>
-							<span class="file author">author : Ajay Kumar</span>
-						</li>		
-					</ul>
-	 			</li>
-	 		</ul>
-	 			<ul>
-	 			<li><span class="folder api">REJECT TIME ENTRY</span>
-	 				<ul id="folder3_6">
-	 					<li><span class="file url">URL : http://localhost:8080/services/v1/timeEntry/rejectTimeEntry</span></li>
-						<li>
-							<span class="file input">
-								input : { "payload": {"id":"35","rejectedComments":"TaskNotyetDone"} }
-							</span>
-						</li>
-						<li>
-							<span class="file output">output :	{"status":"SUCCESS","payload":true}</span>
-						</li>	
-						<li>
-							<span class="file reqtype">method :	POST</span>
-						</li>
-						<li>
-							<span class="file author">author : Ajay Kumar</span>
-						</li>		
-					</ul>
-	 			</li>
-	 		</ul>
-	 		 			<ul>
-	 			<li><span class="folder api">USER SEARCH RESULTS</span>
-	 				<ul id="folder3_7">
-	 					<li><span class="file url">URL : http://localhost:8080/services/v1/timeEntry/searchTimeEntriesByUser</span></li>
-						<li>
-							<span class="file input">
-								input : { "payload": {} }
-							</span>
-						</li>
-						<li>
-							<span class="file output">output :{"status":"SUCCESS","payload":[{"id":89,"date":null,"hours":1,"status":0,"projectId":3,"from":null,"releaseId":16,"userId":7,"userName":"DEEPA","task":"Testing","activityId":3,"approvedComments":null,"rejectedComments":null,"activity":"QA","to":null,"dateInLong":1388082600000,"releaseVersion":"2.0","projectName":"MERAEVENTS","userRemarks":"testing the save"},{"id":90,"date":null,"hours":4,"status":2,"projectId":3,"from":null,"releaseId":6,"userId":7,"userName":"DEEPA","task":"verification","activityId":2,"approvedComments":null,"rejectedComments":"","activity":"DEVELOPMENT","to":null,"dateInLong":1388082600000,"releaseVersion":"1.0","projectName":"MERAEVENTS","userRemarks":"bgbbytbrybb"},{"id":91,"date":null,"hours":4,"status":0,"projectId":3,"from":null,"releaseId":6,"userId":7,"userName":"DEEPA","task":"verification","activityId":2,"approvedComments":null,"rejectedComments":null,"activity":"DEVELOPMENT","to":null,"dateInLong":1388082600000,"releaseVersion":"1.0","projectName":"MERAEVENTS","userRemarks":""},{"id":95,"date":null,"hours":1,"status":0,"projectId":3,"from":null,"releaseId":16,"userId":7,"userName":"DEEPA","task":"html pattern","activityId":1,"approvedComments":null,"rejectedComments":null,"activity":"DESIGN","to":null,"dateInLong":1388082600000,"releaseVersion":"2.0","projectName":"MERAEVENTS","userRemarks":""},{"id":96,"date":null,"hours":1,"status":1,"projectId":3,"from":null,"releaseId":16,"userId":7,"userName":"DEEPA","task":"html pattern","activityId":1,"approvedComments":null,"rejectedComments":null,"activity":"DESIGN","to":null,"dateInLong":1388082600000,"releaseVersion":"2.0","projectName":"MERAEVENTS","userRemarks":""},{"id":97,"date":null,"hours":1,"status":1,"projectId":3,"from":null,"releaseId":16,"userId":7,"userName":"DEEPA","task":"html pattern","activityId":1,"approvedComments":null,"rejectedComments":null,"activity":"DESIGN","to":null,"dateInLong":1388082600000,"releaseVersion":"2.0","projectName":"MERAEVENTS","userRemarks":""}]}</span>
-					   </li>
-					   <li>
-							<span class="file input">
-								input :{"payload":{"date":"12-13-2013","projectId":"3"}}
-							</span>
-						</li>
-						 	<li>
-							<span class="file output">output :{"status":"SUCCESS","payload":[{"id":40,"date":null,"hours":3,"status":2,"projectId":3,"from":null,"releaseId":6,"userId":7,"userName":"DEEPA","task":"fixing bug","activityId":2,"approvedComments":null,"rejectedComments":null,"activity":"DEVELOPMENT","to":null,"dateInLong":1386873000000,"releaseVersion":"1.0","projectName":"MERAEVENTS","userRemarks":"testing"},{"id":72,"date":null,"hours":3,"status":2,"projectId":3,"from":null,"releaseId":6,"userId":7,"userName":"DEEPA","task":"fixing bug","activityId":2,"approvedComments":null,"rejectedComments":null,"activity":"DEVELOPMENT","to":null,"dateInLong":1386873000000,"releaseVersion":"1.0","projectName":"MERAEVENTS","userRemarks":"testing"}]}</span>
-					   </li>
-					   		   <li>
-							<span class="file input">
-								input :{"payload":{"date":"12-13-2013"}}
-							</span>
-						</li>
-						 	<li>
-							<span class="file output">output :{"status":"SUCCESS","payload":[{"id":40,"date":null,"hours":3,"status":2,"projectId":3,"from":null,"releaseId":6,"userId":7,"userName":"DEEPA","task":"fixing bug","activityId":2,"approvedComments":null,"rejectedComments":null,"activity":"DEVELOPMENT","to":null,"dateInLong":1386873000000,"releaseVersion":"1.0","projectName":"MERAEVENTS","userRemarks":"testing"},{"id":72,"date":null,"hours":3,"status":2,"projectId":3,"from":null,"releaseId":6,"userId":7,"userName":"DEEPA","task":"fixing bug","activityId":2,"approvedComments":null,"rejectedComments":null,"activity":"DEVELOPMENT","to":null,"dateInLong":1386873000000,"releaseVersion":"1.0","projectName":"MERAEVENTS","userRemarks":"testing"}]}</span>
-					   </li>
-					   		   <li>
-							<span class="file input">
-								input :{"payload":{"projectId":"3"}}
-							</span>
-						</li>
-						 	<li>
-							<span class="file output">output :{"status":"SUCCESS","payload":[{"id":40,"date":null,"hours":3,"status":2,"projectId":3,"from":null,"releaseId":6,"userId":7,"userName":"DEEPA","task":"fixing bug","activityId":2,"approvedComments":null,"rejectedComments":null,"activity":"DEVELOPMENT","to":null,"dateInLong":1386873000000,"releaseVersion":"1.0","projectName":"MERAEVENTS","userRemarks":"testing"},{"id":71,"date":null,"hours":3,"status":2,"projectId":3,"from":null,"releaseId":6,"userId":7,"userName":"DEEPA","task":"coding","activityId":2,"approvedComments":null,"rejectedComments":null,"activity":"DEVELOPMENT","to":null,"dateInLong":1386786600000,"releaseVersion":"1.0","projectName":"MERAEVENTS","userRemarks":"almost done"},{"id":72,"date":null,"hours":3,"status":2,"projectId":3,"from":null,"releaseId":6,"userId":7,"userName":"DEEPA","task":"fixing bug","activityId":2,"approvedComments":null,"rejectedComments":null,"activity":"DEVELOPMENT","to":null,"dateInLong":1386873000000,"releaseVersion":"1.0","projectName":"MERAEVENTS","userRemarks":"testing"},{"id":74,"date":null,"hours":3,"status":3,"projectId":3,"from":null,"releaseId":6,"userId":7,"userName":"DEEPA","task":"coding","activityId":2,"approvedComments":null,"rejectedComments":"TaskNotyetDone","activity":"DEVELOPMENT","to":null,"dateInLong":1387737000000,"releaseVersion":"1.0","projectName":"MERAEVENTS","userRemarks":"almost done"},{"id":75,"date":null,"hours":3,"status":3,"projectId":3,"from":null,"releaseId":6,"userId":7,"userName":"DEEPA","task":"coding","activityId":2,"approvedComments":null,"rejectedComments":"TaskNotyetDone","activity":"DEVELOPMENT","to":null,"dateInLong":1387737000000,"releaseVersion":"1.0","projectName":"MERAEVENTS","userRemarks":"almost done"},{"id":76,"date":null,"hours":3,"status":3,"projectId":3,"from":null,"releaseId":6,"userId":7,"userName":"DEEPA","task":"coding","activityId":2,"approvedComments":null,"rejectedComments":"testing reject button","activity":"DEVELOPMENT","to":null,"dateInLong":1387737000000,"releaseVersion":"1.0","projectName":"MERAEVENTS","userRemarks":"almost done"},{"id":77,"date":null,"hours":3,"status":2,"projectId":3,"from":null,"releaseId":6,"userId":7,"userName":"DEEPA","task":"coding","activityId":2,"approvedComments":null,"rejectedComments":null,"activity":"DEVELOPMENT","to":null,"dateInLong":1387737000000,"releaseVersion":"1.0","projectName":"MERAEVENTS","userRemarks":"almost done"},{"id":78,"date":null,"hours":3,"status":3,"projectId":3,"from":null,"releaseId":6,"userId":7,"userName":"DEEPA","task":"coding","activityId":2,"approvedComments":null,"rejectedComments":"","activity":"DEVELOPMENT","to":null,"dateInLong":1387737000000,"releaseVersion":"1.0","projectName":"MERAEVENTS","userRemarks":"almost done"},{"id":79,"date":null,"hours":3,"status":2,"projectId":3,"from":null,"releaseId":6,"userId":7,"userName":"DEEPA","task":"coding","activityId":2,"approvedComments":null,"rejectedComments":null,"activity":"DEVELOPMENT","to":null,"dateInLong":1387737000000,"releaseVersion":"1.0","projectName":"MERAEVENTS","userRemarks":"almost done"},{"id":80,"date":null,"hours":3,"status":2,"projectId":3,"from":null,"releaseId":6,"userId":7,"userName":"DEEPA","task":"coding","activityId":2,"approvedComments":null,"rejectedComments":"TaskNotyetDone","activity":"DEVELOPMENT","to":null,"dateInLong":1387737000000,"releaseVersion":"1.0","projectName":"MERAEVENTS","userRemarks":"almost done"},{"id":81,"date":null,"hours":3,"status":3,"projectId":3,"from":null,"releaseId":6,"userId":7,"userName":"DEEPA","task":"coding","activityId":2,"approvedComments":null,"rejectedComments":"TaskNotyetDone","activity":"DEVELOPMENT","to":null,"dateInLong":1387737000000,"releaseVersion":"1.0","projectName":"MERAEVENTS","userRemarks":"almost done"},{"id":83,"date":null,"hours":3,"status":0,"projectId":3,"from":null,"releaseId":6,"userId":7,"userName":"DEEPA","task":"coding","activityId":2,"approvedComments":null,"rejectedComments":null,"activity":"DEVELOPMENT","to":null,"dateInLong":1386786600000,"releaseVersion":"1.0","projectName":"MERAEVENTS","userRemarks":"almost done"},{"id":84,"date":null,"hours":3,"status":3,"projectId":3,"from":null,"releaseId":6,"userId":7,"userName":"DEEPA","task":"coding","activityId":2,"approvedComments":null,"rejectedComments":"","activity":"DEVELOPMENT","to":null,"dateInLong":1386786600000,"releaseVersion":"1.0","projectName":"MERAEVENTS","userRemarks":"almost done"},{"id":85,"date":null,"hours":3,"status":2,"projectId":3,"from":null,"releaseId":6,"userId":7,"userName":"DEEPA","task":"coding","activityId":2,"approvedComments":null,"rejectedComments":null,"activity":"DEVELOPMENT","to":null,"dateInLong":1387737000000,"releaseVersion":"1.0","projectName":"MERAEVENTS","userRemarks":" Edited Copy"},{"id":87,"date":null,"hours":1,"status":2,"projectId":3,"from":null,"releaseId":6,"userId":7,"userName":"DEEPA","task":"test","activityId":3,"approvedComments":null,"rejectedComments":null,"activity":"QA","to":null,"dateInLong":1387909800000,"releaseVersion":"1.0","projectName":"MERAEVENTS","userRemarks":""},{"id":88,"date":null,"hours":1,"status":2,"projectId":3,"from":null,"releaseId":6,"userId":7,"userName":"DEEPA","task":"test","activityId":3,"approvedComments":null,"rejectedComments":null,"activity":"QA","to":null,"dateInLong":1387996200000,"releaseVersion":"1.0","projectName":"MERAEVENTS","userRemarks":""},{"id":89,"date":null,"hours":1,"status":0,"projectId":3,"from":null,"releaseId":16,"userId":7,"userName":"DEEPA","task":"Testing","activityId":3,"approvedComments":null,"rejectedComments":null,"activity":"QA","to":null,"dateInLong":1388082600000,"releaseVersion":"2.0","projectName":"MERAEVENTS","userRemarks":"testing the save"},{"id":90,"date":null,"hours":4,"status":2,"projectId":3,"from":null,"releaseId":6,"userId":7,"userName":"DEEPA","task":"verification","activityId":2,"approvedComments":null,"rejectedComments":"","activity":"DEVELOPMENT","to":null,"dateInLong":1388082600000,"releaseVersion":"1.0","projectName":"MERAEVENTS","userRemarks":"bgbbytbrybb"},{"id":91,"date":null,"hours":4,"status":0,"projectId":3,"from":null,"releaseId":6,"userId":7,"userName":"DEEPA","task":"verification","activityId":2,"approvedComments":null,"rejectedComments":null,"activity":"DEVELOPMENT","to":null,"dateInLong":1388082600000,"releaseVersion":"1.0","projectName":"MERAEVENTS","userRemarks":""},{"id":92,"date":null,"hours":10,"status":3,"projectId":3,"from":null,"releaseId":6,"userId":7,"userName":"DEEPA","task":"xsedxceqwsxex","activityId":1,"approvedComments":null,"rejectedComments":"","activity":"DESIGN","to":null,"dateInLong":1387996200000,"releaseVersion":"1.0","projectName":"MERAEVENTS","userRemarks":""},{"id":93,"date":null,"hours":10,"status":2,"projectId":3,"from":null,"releaseId":6,"userId":7,"userName":"DEEPA","task":"xsedxceqwsxex","activityId":3,"approvedComments":null,"rejectedComments":null,"activity":"QA","to":null,"dateInLong":1387996200000,"releaseVersion":"1.0","projectName":"MERAEVENTS","userRemarks":""},{"id":94,"date":null,"hours":10,"status":2,"projectId":3,"from":null,"releaseId":6,"userId":7,"userName":"DEEPA","task":"xsedxceqwsxex","activityId":2,"approvedComments":null,"rejectedComments":null,"activity":"DEVELOPMENT","to":null,"dateInLong":1387996200000,"releaseVersion":"1.0","projectName":"MERAEVENTS","userRemarks":""},{"id":95,"date":null,"hours":1,"status":0,"projectId":3,"from":null,"releaseId":16,"userId":7,"userName":"DEEPA","task":"html pattern","activityId":1,"approvedComments":null,"rejectedComments":null,"activity":"DESIGN","to":null,"dateInLong":1388082600000,"releaseVersion":"2.0","projectName":"MERAEVENTS","userRemarks":""},{"id":96,"date":null,"hours":1,"status":2,"projectId":3,"from":null,"releaseId":16,"userId":7,"userName":"DEEPA","task":"html pattern","activityId":1,"approvedComments":"TaskDone","rejectedComments":null,"activity":"DESIGN","to":null,"dateInLong":1388082600000,"releaseVersion":"2.0","projectName":"MERAEVENTS","userRemarks":""},{"id":97,"date":null,"hours":1,"status":1,"projectId":3,"from":null,"releaseId":16,"userId":7,"userName":"DEEPA","task":"html pattern","activityId":1,"approvedComments":null,"rejectedComments":null,"activity":"DESIGN","to":null,"dateInLong":1388082600000,"releaseVersion":"2.0","projectName":"MERAEVENTS","userRemarks":""}]}</span>
-					   </li>	
-						<li>
-							<span class="file reqtype">method :	POST</span>
-						</li>
-						<li>
-							<span class="file author">author : Ajay Kumar</span>
-						</li>		
-					</ul>
-	 			</li>
-	 		</ul>
-	 		 			<ul>
-	 			<li><span class="folder api">APPROVER SEARCH RESULTS</span>
-	 				<ul id="folder3_8">
-	 					<li><span class="file url">URL : http://localhost:8080/services/v1/timeEntry/searchTimeEntriesByApprover</span></li>
-						<li>
-							<span class="file input">
-								input : { "payload": {} }
-							</span>
-						</li>
-						<li>
-							<span class="file output">output :{"status":"SUCCESS","payload":[{"id":97,"date":null,"hours":1,"status":1,"projectId":3,"from":null,"releaseId":16,"userId":7,"userName":"DEEPA","task":"html pattern","activityId":1,"approvedComments":null,"rejectedComments":null,"activity":"DESIGN","to":null,"dateInLong":1388082600000,"releaseVersion":"2.0","projectName":"MERAEVENTS","userRemarks":""}]}</span>
-						</li>
-							<li>
-							<span class="file input">
-								input : { "payload": {"userId":"7","status":"3"} }
-							</span>
-						</li>
-						<li>
-							<span class="file output">output :{"status":"SUCCESS","payload":[{"id":74,"date":null,"hours":3,"status":3,"projectId":3,"from":null,"releaseId":6,"userId":7,"userName":"DEEPA","task":"coding","activityId":2,"approvedComments":null,"rejectedComments":"TaskNotyetDone","activity":"DEVELOPMENT","to":null,"dateInLong":1387737000000,"releaseVersion":"1.0","projectName":"MERAEVENTS","userRemarks":"almost done"},{"id":75,"date":null,"hours":3,"status":3,"projectId":3,"from":null,"releaseId":6,"userId":7,"userName":"DEEPA","task":"coding","activityId":2,"approvedComments":null,"rejectedComments":"TaskNotyetDone","activity":"DEVELOPMENT","to":null,"dateInLong":1387737000000,"releaseVersion":"1.0","projectName":"MERAEVENTS","userRemarks":"almost done"},{"id":76,"date":null,"hours":3,"status":3,"projectId":3,"from":null,"releaseId":6,"userId":7,"userName":"DEEPA","task":"coding","activityId":2,"approvedComments":null,"rejectedComments":"testing reject button","activity":"DEVELOPMENT","to":null,"dateInLong":1387737000000,"releaseVersion":"1.0","projectName":"MERAEVENTS","userRemarks":"almost done"},{"id":78,"date":null,"hours":3,"status":3,"projectId":3,"from":null,"releaseId":6,"userId":7,"userName":"DEEPA","task":"coding","activityId":2,"approvedComments":null,"rejectedComments":"","activity":"DEVELOPMENT","to":null,"dateInLong":1387737000000,"releaseVersion":"1.0","projectName":"MERAEVENTS","userRemarks":"almost done"},{"id":81,"date":null,"hours":3,"status":3,"projectId":3,"from":null,"releaseId":6,"userId":7,"userName":"DEEPA","task":"coding","activityId":2,"approvedComments":null,"rejectedComments":"TaskNotyetDone","activity":"DEVELOPMENT","to":null,"dateInLong":1387737000000,"releaseVersion":"1.0","projectName":"MERAEVENTS","userRemarks":"almost done"},{"id":84,"date":null,"hours":3,"status":3,"projectId":3,"from":null,"releaseId":6,"userId":7,"userName":"DEEPA","task":"coding","activityId":2,"approvedComments":null,"rejectedComments":"","activity":"DEVELOPMENT","to":null,"dateInLong":1386786600000,"releaseVersion":"1.0","projectName":"MERAEVENTS","userRemarks":"almost done"},{"id":92,"date":null,"hours":10,"status":3,"projectId":3,"from":null,"releaseId":6,"userId":7,"userName":"DEEPA","task":"xsedxceqwsxex","activityId":1,"approvedComments":null,"rejectedComments":"","activity":"DESIGN","to":null,"dateInLong":1387996200000,"releaseVersion":"1.0","projectName":"MERAEVENTS","userRemarks":""}]}</span>
-						</li>
-									</li>
-							<li>
-							<span class="file input">
-								input : { "payload":{"projectId":"3","status":"2"} }
-							</span>
-						</li>
-						<li>
-							<span class="file output">output :{"status":"SUCCESS","payload":[{"id":40,"date":null,"hours":3,"status":2,"projectId":3,"from":null,"releaseId":6,"userId":7,"userName":"DEEPA","task":"fixing bug","activityId":2,"approvedComments":null,"rejectedComments":null,"activity":"DEVELOPMENT","to":null,"dateInLong":1386873000000,"releaseVersion":"1.0","projectName":"MERAEVENTS","userRemarks":"testing"},{"id":71,"date":null,"hours":3,"status":2,"projectId":3,"from":null,"releaseId":6,"userId":7,"userName":"DEEPA","task":"coding","activityId":2,"approvedComments":null,"rejectedComments":null,"activity":"DEVELOPMENT","to":null,"dateInLong":1386786600000,"releaseVersion":"1.0","projectName":"MERAEVENTS","userRemarks":"almost done"},{"id":72,"date":null,"hours":3,"status":2,"projectId":3,"from":null,"releaseId":6,"userId":7,"userName":"DEEPA","task":"fixing bug","activityId":2,"approvedComments":null,"rejectedComments":null,"activity":"DEVELOPMENT","to":null,"dateInLong":1386873000000,"releaseVersion":"1.0","projectName":"MERAEVENTS","userRemarks":"testing"},{"id":77,"date":null,"hours":3,"status":2,"projectId":3,"from":null,"releaseId":6,"userId":7,"userName":"DEEPA","task":"coding","activityId":2,"approvedComments":null,"rejectedComments":null,"activity":"DEVELOPMENT","to":null,"dateInLong":1387737000000,"releaseVersion":"1.0","projectName":"MERAEVENTS","userRemarks":"almost done"},{"id":79,"date":null,"hours":3,"status":2,"projectId":3,"from":null,"releaseId":6,"userId":7,"userName":"DEEPA","task":"coding","activityId":2,"approvedComments":null,"rejectedComments":null,"activity":"DEVELOPMENT","to":null,"dateInLong":1387737000000,"releaseVersion":"1.0","projectName":"MERAEVENTS","userRemarks":"almost done"},{"id":80,"date":null,"hours":3,"status":2,"projectId":3,"from":null,"releaseId":6,"userId":7,"userName":"DEEPA","task":"coding","activityId":2,"approvedComments":null,"rejectedComments":"TaskNotyetDone","activity":"DEVELOPMENT","to":null,"dateInLong":1387737000000,"releaseVersion":"1.0","projectName":"MERAEVENTS","userRemarks":"almost done"},{"id":85,"date":null,"hours":3,"status":2,"projectId":3,"from":null,"releaseId":6,"userId":7,"userName":"DEEPA","task":"coding","activityId":2,"approvedComments":null,"rejectedComments":null,"activity":"DEVELOPMENT","to":null,"dateInLong":1387737000000,"releaseVersion":"1.0","projectName":"MERAEVENTS","userRemarks":" Edited Copy"},{"id":87,"date":null,"hours":1,"status":2,"projectId":3,"from":null,"releaseId":6,"userId":7,"userName":"DEEPA","task":"test","activityId":3,"approvedComments":null,"rejectedComments":null,"activity":"QA","to":null,"dateInLong":1387909800000,"releaseVersion":"1.0","projectName":"MERAEVENTS","userRemarks":""},{"id":88,"date":null,"hours":1,"status":2,"projectId":3,"from":null,"releaseId":6,"userId":7,"userName":"DEEPA","task":"test","activityId":3,"approvedComments":null,"rejectedComments":null,"activity":"QA","to":null,"dateInLong":1387996200000,"releaseVersion":"1.0","projectName":"MERAEVENTS","userRemarks":""},{"id":90,"date":null,"hours":4,"status":2,"projectId":3,"from":null,"releaseId":6,"userId":7,"userName":"DEEPA","task":"verification","activityId":2,"approvedComments":null,"rejectedComments":"","activity":"DEVELOPMENT","to":null,"dateInLong":1388082600000,"releaseVersion":"1.0","projectName":"MERAEVENTS","userRemarks":"bgbbytbrybb"},{"id":93,"date":null,"hours":10,"status":2,"projectId":3,"from":null,"releaseId":6,"userId":7,"userName":"DEEPA","task":"xsedxceqwsxex","activityId":3,"approvedComments":null,"rejectedComments":null,"activity":"QA","to":null,"dateInLong":1387996200000,"releaseVersion":"1.0","projectName":"MERAEVENTS","userRemarks":""},{"id":94,"date":null,"hours":10,"status":2,"projectId":3,"from":null,"releaseId":6,"userId":7,"userName":"DEEPA","task":"xsedxceqwsxex","activityId":2,"approvedComments":null,"rejectedComments":null,"activity":"DEVELOPMENT","to":null,"dateInLong":1387996200000,"releaseVersion":"1.0","projectName":"MERAEVENTS","userRemarks":""},{"id":96,"date":null,"hours":1,"status":2,"projectId":3,"from":null,"releaseId":16,"userId":7,"userName":"DEEPA","task":"html pattern","activityId":1,"approvedComments":"TaskDone","rejectedComments":null,"activity":"DESIGN","to":null,"dateInLong":1388082600000,"releaseVersion":"2.0","projectName":"MERAEVENTS","userRemarks":""}]}</span>
-						</li>
-								<li>
-							<span class="file input">
-								input : { "payload":{"projectId":"3","status":"2","userId":7} }
-							</span>
-						</li>
-						<li>
-							<span class="file output">output :{"status":"SUCCESS","payload":[{"id":40,"date":null,"hours":3,"status":2,"projectId":3,"from":null,"releaseId":6,"userId":7,"userName":"DEEPA","task":"fixing bug","activityId":2,"approvedComments":null,"rejectedComments":null,"activity":"DEVELOPMENT","to":null,"dateInLong":1386873000000,"releaseVersion":"1.0","projectName":"MERAEVENTS","userRemarks":"testing"},{"id":71,"date":null,"hours":3,"status":2,"projectId":3,"from":null,"releaseId":6,"userId":7,"userName":"DEEPA","task":"coding","activityId":2,"approvedComments":null,"rejectedComments":null,"activity":"DEVELOPMENT","to":null,"dateInLong":1386786600000,"releaseVersion":"1.0","projectName":"MERAEVENTS","userRemarks":"almost done"},{"id":72,"date":null,"hours":3,"status":2,"projectId":3,"from":null,"releaseId":6,"userId":7,"userName":"DEEPA","task":"fixing bug","activityId":2,"approvedComments":null,"rejectedComments":null,"activity":"DEVELOPMENT","to":null,"dateInLong":1386873000000,"releaseVersion":"1.0","projectName":"MERAEVENTS","userRemarks":"testing"},{"id":77,"date":null,"hours":3,"status":2,"projectId":3,"from":null,"releaseId":6,"userId":7,"userName":"DEEPA","task":"coding","activityId":2,"approvedComments":null,"rejectedComments":null,"activity":"DEVELOPMENT","to":null,"dateInLong":1387737000000,"releaseVersion":"1.0","projectName":"MERAEVENTS","userRemarks":"almost done"},{"id":79,"date":null,"hours":3,"status":2,"projectId":3,"from":null,"releaseId":6,"userId":7,"userName":"DEEPA","task":"coding","activityId":2,"approvedComments":null,"rejectedComments":null,"activity":"DEVELOPMENT","to":null,"dateInLong":1387737000000,"releaseVersion":"1.0","projectName":"MERAEVENTS","userRemarks":"almost done"},{"id":80,"date":null,"hours":3,"status":2,"projectId":3,"from":null,"releaseId":6,"userId":7,"userName":"DEEPA","task":"coding","activityId":2,"approvedComments":null,"rejectedComments":"TaskNotyetDone","activity":"DEVELOPMENT","to":null,"dateInLong":1387737000000,"releaseVersion":"1.0","projectName":"MERAEVENTS","userRemarks":"almost done"},{"id":85,"date":null,"hours":3,"status":2,"projectId":3,"from":null,"releaseId":6,"userId":7,"userName":"DEEPA","task":"coding","activityId":2,"approvedComments":null,"rejectedComments":null,"activity":"DEVELOPMENT","to":null,"dateInLong":1387737000000,"releaseVersion":"1.0","projectName":"MERAEVENTS","userRemarks":" Edited Copy"},{"id":87,"date":null,"hours":1,"status":2,"projectId":3,"from":null,"releaseId":6,"userId":7,"userName":"DEEPA","task":"test","activityId":3,"approvedComments":null,"rejectedComments":null,"activity":"QA","to":null,"dateInLong":1387909800000,"releaseVersion":"1.0","projectName":"MERAEVENTS","userRemarks":""},{"id":88,"date":null,"hours":1,"status":2,"projectId":3,"from":null,"releaseId":6,"userId":7,"userName":"DEEPA","task":"test","activityId":3,"approvedComments":null,"rejectedComments":null,"activity":"QA","to":null,"dateInLong":1387996200000,"releaseVersion":"1.0","projectName":"MERAEVENTS","userRemarks":""},{"id":90,"date":null,"hours":4,"status":2,"projectId":3,"from":null,"releaseId":6,"userId":7,"userName":"DEEPA","task":"verification","activityId":2,"approvedComments":null,"rejectedComments":"","activity":"DEVELOPMENT","to":null,"dateInLong":1388082600000,"releaseVersion":"1.0","projectName":"MERAEVENTS","userRemarks":"bgbbytbrybb"},{"id":93,"date":null,"hours":10,"status":2,"projectId":3,"from":null,"releaseId":6,"userId":7,"userName":"DEEPA","task":"xsedxceqwsxex","activityId":3,"approvedComments":null,"rejectedComments":null,"activity":"QA","to":null,"dateInLong":1387996200000,"releaseVersion":"1.0","projectName":"MERAEVENTS","userRemarks":""},{"id":94,"date":null,"hours":10,"status":2,"projectId":3,"from":null,"releaseId":6,"userId":7,"userName":"DEEPA","task":"xsedxceqwsxex","activityId":2,"approvedComments":null,"rejectedComments":null,"activity":"DEVELOPMENT","to":null,"dateInLong":1387996200000,"releaseVersion":"1.0","projectName":"MERAEVENTS","userRemarks":""},{"id":96,"date":null,"hours":1,"status":2,"projectId":3,"from":null,"releaseId":16,"userId":7,"userName":"DEEPA","task":"html pattern","activityId":1,"approvedComments":"TaskDone","rejectedComments":null,"activity":"DESIGN","to":null,"dateInLong":1388082600000,"releaseVersion":"2.0","projectName":"MERAEVENTS","userRemarks":""}]}</span>
-						</li>
-									<li>
-							<span class="file input">
-								input :{ "payload": { "projectId":"3","status":"1","userId":7,"from":"12-05-2013" } }
-							</span>
-						</li>
-						<li>
-							<span class="file output">output :{"status":"SUCCESS","payload":[{"id":97,"date":null,"hours":1,"status":1,"projectId":3,"from":null,"releaseId":16,"userId":7,"userName":"DEEPA","task":"html pattern","activityId":1,"approvedComments":null,"rejectedComments":null,"activity":"DESIGN","to":null,"dateInLong":1388082600000,"releaseVersion":"2.0","projectName":"MERAEVENTS","userRemarks":""}]}
-						</li>
-						<li>
-							<span class="file input">
-								input :{ "payload":  { "projectId":"3","status":"1","userId":7,"from":"12-05-2013","to":"12-13-2013" }}
-							</span>
-						</li>
-						<li>
-							<span class="file output">output :{"status":"SUCCESS","payload":[]}</span>
-						</li>
-						<li>
-						<span class="file input">
-								input :{ "payload":  {"status":"1","from":"12-05-2013","to":"12-13-2013" }}
-							</span>
-						</li>
-						<li>
-							<span class="file output">output :{"status":"SUCCESS","payload":[{"id":1,"date":null,"hours":4,"status":2,"projectId":1,"from":null,"releaseId":1,"userId":1,"userName":"Kapila","task":"testing bug 001","activityId":1,"approvedComments":null,"rejectedComments":null,"activity":"DESIGN","to":null,"dateInLong":2013,"releaseVersion":"1.0","projectName":"COS/QSP","userRemarks":"bug is released"},{"id":2,"date":null,"hours":5,"status":1,"projectId":1,"from":null,"releaseId":2,"userId":1,"userName":"Kapila","task":"coding","activityId":2,"approvedComments":null,"rejectedComments":null,"activity":"DEVELOPMENT","to":null,"dateInLong":2013,"releaseVersion":"1.1","projectName":"COS/QSP","userRemarks":"successful"},{"id":3,"date":null,"hours":8,"status":2,"projectId":1,"from":null,"releaseId":1,"userId":2,"userName":"anil","task":"basic coding","activityId":1,"approvedComments":null,"rejectedComments":null,"activity":"DESIGN","to":null,"dateInLong":2013,"releaseVersion":"1.0","projectName":"COS/QSP","userRemarks":"executed "},{"id":7,"date":null,"hours":4,"status":1,"projectId":1,"from":null,"releaseId":1,"userId":5,"userName":"JAGADISH","task":"developing algorithm","activityId":3,"approvedComments":null,"rejectedComments":null,"activity":"QA","to":null,"dateInLong":2013,"releaseVersion":"1.0","projectName":"COS/QSP","userRemarks":null},{"id":8,"date":null,"hours":5,"status":1,"projectId":1,"from":null,"releaseId":1,"userId":5,"userName":"JAGADISH","task":"drawing flowcharts","activityId":3,"approvedComments":null,"rejectedComments":null,"activity":"QA","to":null,"dateInLong":2013,"releaseVersion":"1.0","projectName":"COS/QSP","userRemarks":null},{"id":9,"date":null,"hours":10,"status":2,"projectId":1,"from":null,"releaseId":1,"userId":6,"userName":"Ajay","task":"creating user cases","activityId":2,"approvedComments":null,"rejectedComments":null,"activity":"DEVELOPMENT","to":null,"dateInLong":2013,"releaseVersion":"1.0","projectName":"COS/QSP","userRemarks":"some user cases are pending"},{"id":10,"date":null,"hours":4,"status":3,"projectId":1,"from":null,"releaseId":1,"userId":7,"userName":"DEEPA","task":"functional testing","activityId":3,"approvedComments":null,"rejectedComments":"TESTING APPROVE/REJECT","activity":"QA","to":null,"dateInLong":2013,"releaseVersion":"1.0","projectName":"COS/QSP","userRemarks":null},{"id":11,"date":null,"hours":4,"status":1,"projectId":2,"from":null,"releaseId":2,"userId":7,"userName":"DEEPA","task":"regression testing","activityId":3,"approvedComments":null,"rejectedComments":null,"activity":"QA","to":null,"dateInLong":2013,"releaseVersion":"1.1","projectName":"FLIPLIST","userRemarks":null},{"id":12,"date":null,"hours":7,"status":1,"projectId":2,"from":null,"releaseId":1,"userId":8,"userName":"LAXMI CHAITANYA","task":"retriving bug 999f","activityId":3,"approvedComments":null,"rejectedComments":null,"activity":"QA","to":null,"dateInLong":2013,"releaseVersion":"1.0","projectName":"FLIPLIST","userRemarks":null},{"id":13,"date":null,"hours":4,"status":1,"projectId":2,"from":null,"releaseId":1,"userId":9,"userName":"RAM NIVAS","task":"study manual","activityId":2,"approvedComments":null,"rejectedComments":null,"activity":"DEVELOPMENT","to":null,"dateInLong":2013,"releaseVersion":"1.0","projectName":"FLIPLIST","userRemarks":null},{"id":19,"date":null,"hours":8,"status":1,"projectId":6,"from":null,"releaseId":15,"userId":1,"userName":"Kapila","task":"Guiding freshers","activityId":4,"approvedComments":null,"rejectedComments":null,"activity":"Guiding","to":null,"dateInLong":1386095400000,"releaseVersion":"1.0","projectName":"QTS","userRemarks":"nothing"},{"id":20,"date":null,"hours":4,"status":0,"projectId":6,"from":null,"releaseId":15,"userId":1,"userName":"Kapila","task":"Guiding","activityId":4,"approvedComments":null,"rejectedComments":null,"activity":"Guiding","to":null,"dateInLong":1386181800000,"releaseVersion":"1.0","projectName":"QTS","userRemarks":""},{"id":21,"date":null,"hours":4,"status":0,"projectId":6,"from":null,"releaseId":15,"userId":1,"userName":"Kapila","task":"Guiding","activityId":4,"approvedComments":null,"rejectedComments":null,"activity":"Guiding","to":null,"dateInLong":1386181800000,"releaseVersion":"1.0","projectName":"QTS","userRemarks":null},{"id":22,"date":null,"hours":4,"status":0,"projectId":6,"from":null,"releaseId":15,"userId":1,"userName":"Kapila","task":"Guiding","activityId":4,"approvedComments":null,"rejectedComments":null,"activity":"Guiding","to":null,"dateInLong":1386181800000,"releaseVersion":"1.0","projectName":"QTS","userRemarks":null},{"id":23,"date":null,"hours":4,"status":0,"projectId":6,"from":null,"releaseId":15,"userId":1,"userName":"Kapila","task":"Guiding","activityId":4,"approvedComments":null,"rejectedComments":null,"activity":"Guiding","to":null,"dateInLong":1386181800000,"releaseVersion":"1.0","projectName":"QTS","userRemarks":null},{"id":24,"date":null,"hours":4,"status":0,"projectId":6,"from":null,"releaseId":15,"userId":1,"userName":"Kapila","task":"Guiding","activityId":4,"approvedComments":null,"rejectedComments":null,"activity":"Guiding","to":null,"dateInLong":1386181800000,"releaseVersion":"1.0","projectName":"QTS","userRemarks":null},{"id":25,"date":null,"hours":4,"status":0,"projectId":6,"from":null,"releaseId":15,"userId":1,"userName":"Kapila","task":"Guiding","activityId":4,"approvedComments":null,"rejectedComments":null,"activity":"Guiding","to":null,"dateInLong":1386181800000,"releaseVersion":"1.0","projectName":"QTS","userRemarks":null},{"id":26,"date":null,"hours":3,"status":0,"projectId":6,"from":null,"releaseId":15,"userId":6,"userName":"Ajay","task":"developing","activityId":2,"approvedComments":null,"rejectedComments":null,"activity":"DEVELOPMENT","to":null,"dateInLong":1386181800000,"releaseVersion":"1.0","projectName":"QTS","userRemarks":null},{"id":27,"date":null,"hours":3,"status":0,"projectId":6,"from":null,"releaseId":15,"userId":6,"userName":"Ajay","task":"developing","activityId":2,"approvedComments":null,"rejectedComments":null,"activity":"DEVELOPMENT","to":null,"dateInLong":1388860200000,"releaseVersion":"1.0","projectName":"QTS","userRemarks":null},{"id":28,"date":null,"hours":3,"status":0,"projectId":6,"from":null,"releaseId":15,"userId":6,"userName":"Ajay","task":"developing","activityId":2,"approvedComments":null,"rejectedComments":null,"activity":"DEVELOPMENT","to":null,"dateInLong":1388860200000,"releaseVersion":"1.0","projectName":"QTS","userRemarks":null},{"id":29,"date":null,"hours":3,"status":0,"projectId":6,"from":null,"releaseId":15,"userId":6,"userName":"Ajay","task":"developing","activityId":2,"approvedComments":null,"rejectedComments":null,"activity":"DEVELOPMENT","to":null,"dateInLong":1380911400000,"releaseVersion":"1.0","projectName":"QTS","userRemarks":null},{"id":30,"date":null,"hours":3,"status":0,"projectId":6,"from":null,"releaseId":15,"userId":6,"userName":"Ajay","task":"developing","activityId":2,"approvedComments":null,"rejectedComments":null,"activity":"DEVELOPMENT","to":null,"dateInLong":1383244200000,"releaseVersion":"1.0","projectName":"QTS","userRemarks":null},{"id":31,"date":null,"hours":3,"status":0,"projectId":6,"from":null,"releaseId":15,"userId":6,"userName":"Ajay","task":"developing","activityId":2,"approvedComments":null,"rejectedComments":null,"activity":"DEVELOPMENT","to":null,"dateInLong":1383503400000,"releaseVersion":"1.0","projectName":"QTS","userRemarks":null},{"id":32,"date":null,"hours":3,"status":0,"projectId":6,"from":null,"releaseId":15,"userId":6,"userName":"Ajay","task":"developing","activityId":2,"approvedComments":null,"rejectedComments":null,"activity":"DEVELOPMENT","to":null,"dateInLong":1383503400000,"releaseVersion":"1.0","projectName":"QTS","userRemarks":null},{"id":34,"date":null,"hours":3,"status":0,"projectId":6,"from":null,"releaseId":15,"userId":6,"userName":"Ajay","task":"Coding","activityId":2,"approvedComments":null,"rejectedComments":null,"activity":"DEVELOPMENT","to":null,"dateInLong":1383676200000,"releaseVersion":"1.0","projectName":"QTS","userRemarks":null},{"id":35,"date":null,"hours":3,"status":3,"projectId":1,"from":null,"releaseId":15,"userId":6,"userName":"Ajay","task":"Coding","activityId":2,"approvedComments":null,"rejectedComments":"TaskNotyetDone","activity":"DEVELOPMENT","to":null,"dateInLong":1388428200000,"releaseVersion":"1.0","projectName":"COS/QSP","userRemarks":null},{"id":36,"date":null,"hours":3,"status":3,"projectId":1,"from":null,"releaseId":15,"userId":6,"userName":"Ajay","task":"Coding","activityId":2,"approvedComments":null,"rejectedComments":"FillDataCorrectly","activity":"DEVELOPMENT","to":null,"dateInLong":1384885800000,"releaseVersion":"1.0","projectName":"COS/QSP","userRemarks":null},{"id":37,"date":null,"hours":1,"status":1,"projectId":1,"from":null,"releaseId":16,"userId":6,"userName":"Ajay","task":"UpdateEntryServiceTesting","activityId":2,"approvedComments":null,"rejectedComments":null,"activity":"DEVELOPMENT","to":null,"dateInLong":1386613800000,"releaseVersion":"2.0","projectName":"COS/QSP","userRemarks":"done with Uservice"},{"id":38,"date":null,"hours":2,"status":1,"projectId":2,"from":null,"releaseId":5,"userId":10,"userName":"VINAY","task":"developing","activityId":2,"approvedComments":null,"rejectedComments":null,"activity":"DEVELOPMENT","to":null,"dateInLong":1386786600000,"releaseVersion":"2.0","projectName":"FLIPLIST","userRemarks":"following naming convention"},{"id":40,"date":null,"hours":3,"status":2,"projectId":3,"from":null,"releaseId":6,"userId":7,"userName":"DEEPA","task":"fixing bug","activityId":2,"approvedComments":null,"rejectedComments":null,"activity":"DEVELOPMENT","to":null,"dateInLong":1386873000000,"releaseVersion":"1.0","projectName":"MERAEVENTS","userRemarks":"testing"},{"id":41,"date":null,"hours":3,"status":3,"projectId":3,"from":null,"releaseId":6,"userId":2,"userName":"anil","task":"coding","activityId":2,"approvedComments":null,"rejectedComments":"rejecting","activity":"DEVELOPMENT","to":null,"dateInLong":1386786600000,"releaseVersion":"1.0","projectName":"MERAEVENTS","userRemarks":"almost done"},{"id":44,"date":null,"hours":3,"status":0,"projectId":3,"from":null,"releaseId":16,"userId":3,"userName":"Mani Kumar","task":"coding","activityId":2,"approvedComments":null,"rejectedComments":null,"activity":"DEVELOPMENT","to":null,"dateInLong":1387045800000,"releaseVersion":"2.0","projectName":"MERAEVENTS","userRemarks":"almost done"},{"id":45,"date":null,"hours":3,"status":1,"projectId":3,"from":null,"releaseId":16,"userId":3,"userName":"Mani Kumar","task":"coding","activityId":2,"approvedComments":null,"rejectedComments":null,"activity":"DEVELOPMENT","to":null,"dateInLong":1387045800000,"releaseVersion":"2.0","projectName":"MERAEVENTS","userRemarks":"almost done"},{"id":46,"date":null,"hours":3,"status":2,"projectId":6,"from":null,"releaseId":15,"userId":27,"userName":"rama","task":"coding","activityId":2,"approvedComments":null,"rejectedComments":null,"activity":"DEVELOPMENT","to":null,"dateInLong":1387391400000,"releaseVersion":"1.0","projectName":"QTS","userRemarks":"almost done"},{"id":47,"date":null,"hours":5,"status":3,"projectId":6,"from":null,"releaseId":15,"userId":27,"userName":"rama","task":"testing","activityId":3,"approvedComments":null,"rejectedComments":"TaskNotyetDone","activity":"QA","to":null,"dateInLong":1387391400000,"releaseVersion":"1.0","projectName":"QTS","userRemarks":"pending"},{"id":48,"date":null,"hours":3,"status":2,"projectId":6,"from":null,"releaseId":15,"userId":27,"userName":"rama","task":"coding","activityId":2,"approvedComments":null,"rejectedComments":null,"activity":"DEVELOPMENT","to":null,"dateInLong":1387218600000,"releaseVersion":"1.0","projectName":"QTS","userRemarks":"almost done"},{"id":49,"date":null,"hours":3,"status":3,"projectId":6,"from":null,"releaseId":15,"userId":27,"userName":"rama","task":"debugging","activityId":3,"approvedComments":null,"rejectedComments":"TaskNotyetDone","activity":"QA","to":null,"dateInLong":1387132200000,"releaseVersion":"1.0","projectName":"QTS","userRemarks":"almost done"},{"id":50,"date":null,"hours":9,"status":0,"projectId":6,"from":null,"releaseId":15,"userId":27,"userName":"rama","task":"testing","activityId":3,"approvedComments":null,"rejectedComments":null,"activity":"QA","to":null,"dateInLong":1387045800000,"releaseVersion":"1.0","projectName":"QTS","userRemarks":"almost done"},{"id":51,"date":null,"hours":7,"status":0,"projectId":6,"from":null,"releaseId":15,"userId":27,"userName":"rama","task":"testing","activityId":3,"approvedComments":null,"rejectedComments":null,"activity":"QA","to":null,"dateInLong":1387305000000,"releaseVersion":"1.0","projectName":"QTS","userRemarks":"almost done"},{"id":52,"date":null,"hours":3,"status":0,"projectId":8,"from":null,"releaseId":17,"userId":20,"userName":"Ramesh","task":"coding","activityId":2,"approvedComments":null,"rejectedComments":null,"activity":"DEVELOPMENT","to":null,"dateInLong":1387477800000,"releaseVersion":"2.0","projectName":"QisonProject","userRemarks":"almost done"},{"id":53,"date":null,"hours":3,"status":0,"projectId":3,"from":null,"releaseId":6,"userId":3,"userName":"Mani Kumar","task":"coding","activityId":2,"approvedComments":null,"rejectedComments":null,"activity":"DEVELOPMENT","to":null,"dateInLong":1386786600000,"releaseVersion":"1.0","projectName":"MERAEVENTS","userRemarks":"almost done"},{"id":54,"date":null,"hours":3,"status":0,"projectId":3,"from":null,"releaseId":6,"userId":3,"userName":"Mani Kumar","task":"coding","activityId":2,"approvedComments":null,"rejectedComments":null,"activity":"DEVELOPMENT","to":null,"dateInLong":1386786600000,"releaseVersion":"1.0","projectName":"MERAEVENTS","userRemarks":"almost done"},{"id":55,"date":null,"hours":3,"status":0,"projectId":3,"from":null,"releaseId":6,"userId":3,"userName":"Mani Kumar","task":"coding","activityId":2,"approvedComments":null,"rejectedComments":null,"activity":"DEVELOPMENT","to":null,"dateInLong":1386786600000,"releaseVersion":"1.0","projectName":"MERAEVENTS","userRemarks":"almost done"},{"id":56,"date":null,"hours":3,"status":1,"projectId":3,"from":null,"releaseId":6,"userId":3,"userName":"Mani Kumar","task":"coding","activityId":2,"approvedComments":null,"rejectedComments":null,"activity":"DEVELOPMENT","to":null,"dateInLong":1386786600000,"releaseVersion":"1.0","projectName":"MERAEVENTS","userRemarks":"almost done"},{"id":57,"date":null,"hours":3,"status":1,"projectId":3,"from":null,"releaseId":6,"userId":3,"userName":"Mani Kumar","task":"coding","activityId":2,"approvedComments":null,"rejectedComments":null,"activity":"DEVELOPMENT","to":null,"dateInLong":1386786600000,"releaseVersion":"1.0","projectName":"MERAEVENTS","userRemarks":"almost done"},{"id":58,"date":null,"hours":3,"status":1,"projectId":3,"from":null,"releaseId":6,"userId":3,"userName":"Mani Kumar","task":"coding","activityId":2,"approvedComments":null,"rejectedComments":null,"activity":"DEVELOPMENT","to":null,"dateInLong":1386786600000,"releaseVersion":"1.0","projectName":"MERAEVENTS","userRemarks":"almost done"},{"id":59,"date":null,"hours":3,"status":0,"projectId":3,"from":null,"releaseId":6,"userId":3,"userName":"Mani Kumar","task":"coding","activityId":2,"approvedComments":null,"rejectedComments":null,"activity":"DEVELOPMENT","to":null,"dateInLong":1386786600000,"releaseVersion":"1.0","projectName":"MERAEVENTS","userRemarks":"almost done"},{"id":60,"date":null,"hours":3,"status":0,"projectId":3,"from":null,"releaseId":6,"userId":3,"userName":"Mani Kumar","task":"coding","activityId":2,"approvedComments":null,"rejectedComments":null,"activity":"DEVELOPMENT","to":null,"dateInLong":1386613800000,"releaseVersion":"1.0","projectName":"MERAEVENTS","userRemarks":"almost done"},{"id":62,"date":null,"hours":3,"status":0,"projectId":3,"from":null,"releaseId":6,"userId":3,"userName":"Mani Kumar","task":"coding","activityId":2,"approvedComments":null,"rejectedComments":null,"activity":"DEVELOPMENT","to":null,"dateInLong":1385317800000,"releaseVersion":"1.0","projectName":"MERAEVENTS","userRemarks":"almost done"},{"id":63,"date":null,"hours":3,"status":0,"projectId":3,"from":null,"releaseId":6,"userId":3,"userName":"Mani Kumar","task":"coding","activityId":2,"approvedComments":null,"rejectedComments":null,"activity":"DEVELOPMENT","to":null,"dateInLong":1385317800000,"releaseVersion":"1.0","projectName":"MERAEVENTS","userRemarks":"almost done"},{"id":64,"date":null,"hours":3,"status":0,"projectId":3,"from":null,"releaseId":6,"userId":3,"userName":"Mani Kumar","task":"coding","activityId":2,"approvedComments":null,"rejectedComments":null,"activity":"DEVELOPMENT","to":null,"dateInLong":1385317800000,"releaseVersion":"1.0","projectName":"MERAEVENTS","userRemarks":"almost done"},{"id":65,"date":null,"hours":3,"status":0,"projectId":3,"from":null,"releaseId":6,"userId":3,"userName":"Mani Kumar","task":"coding","activityId":2,"approvedComments":null,"rejectedComments":null,"activity":"DEVELOPMENT","to":null,"dateInLong":1385145000000,"releaseVersion":"1.0","projectName":"MERAEVENTS","userRemarks":"almost done"},{"id":67,"date":null,"hours":2,"status":3,"projectId":3,"from":null,"releaseId":6,"userId":3,"userName":"Mani Kumar","task":"testing","activityId":3,"approvedComments":null,"rejectedComments":"TaskNotyetDone","activity":"QA","to":null,"dateInLong":1387650600000,"releaseVersion":"1.0","projectName":"MERAEVENTS","userRemarks":"done"},{"id":69,"date":null,"hours":3,"status":0,"projectId":3,"from":null,"releaseId":6,"userId":3,"userName":"Mani Kumar","task":"coding","activityId":2,"approvedComments":null,"rejectedComments":null,"activity":"DEVELOPMENT","to":null,"dateInLong":1386786600000,"releaseVersion":"1.0","projectName":"MERAEVENTS","userRemarks":"almost done"},{"id":71,"date":null,"hours":3,"status":2,"projectId":3,"from":null,"releaseId":6,"userId":7,"userName":"DEEPA","task":"coding","activityId":2,"approvedComments":null,"rejectedComments":null,"activity":"DEVELOPMENT","to":null,"dateInLong":1386786600000,"releaseVersion":"1.0","projectName":"MERAEVENTS","userRemarks":"almost done"},{"id":72,"date":null,"hours":3,"status":2,"projectId":3,"from":null,"releaseId":6,"userId":7,"userName":"DEEPA","task":"fixing bug","activityId":2,"approvedComments":null,"rejectedComments":null,"activity":"DEVELOPMENT","to":null,"dateInLong":1386873000000,"releaseVersion":"1.0","projectName":"MERAEVENTS","userRemarks":"testing"},{"id":74,"date":null,"hours":3,"status":3,"projectId":3,"from":null,"releaseId":6,"userId":7,"userName":"DEEPA","task":"coding","activityId":2,"approvedComments":null,"rejectedComments":"TaskNotyetDone","activity":"DEVELOPMENT","to":null,"dateInLong":1387737000000,"releaseVersion":"1.0","projectName":"MERAEVENTS","userRemarks":"almost done"},{"id":75,"date":null,"hours":3,"status":3,"projectId":3,"from":null,"releaseId":6,"userId":7,"userName":"DEEPA","task":"coding","activityId":2,"approvedComments":null,"rejectedComments":"TaskNotyetDone","activity":"DEVELOPMENT","to":null,"dateInLong":1387737000000,"releaseVersion":"1.0","projectName":"MERAEVENTS","userRemarks":"almost done"},{"id":76,"date":null,"hours":3,"status":3,"projectId":3,"from":null,"releaseId":6,"userId":7,"userName":"DEEPA","task":"coding","activityId":2,"approvedComments":null,"rejectedComments":"testing reject button","activity":"DEVELOPMENT","to":null,"dateInLong":1387737000000,"releaseVersion":"1.0","projectName":"MERAEVENTS","userRemarks":"almost done"},{"id":77,"date":null,"hours":3,"status":2,"projectId":3,"from":null,"releaseId":6,"userId":7,"userName":"DEEPA","task":"coding","activityId":2,"approvedComments":null,"rejectedComments":null,"activity":"DEVELOPMENT","to":null,"dateInLong":1387737000000,"releaseVersion":"1.0","projectName":"MERAEVENTS","userRemarks":"almost done"},{"id":78,"date":null,"hours":3,"status":3,"projectId":3,"from":null,"releaseId":6,"userId":7,"userName":"DEEPA","task":"coding","activityId":2,"approvedComments":null,"rejectedComments":"","activity":"DEVELOPMENT","to":null,"dateInLong":1387737000000,"releaseVersion":"1.0","projectName":"MERAEVENTS","userRemarks":"almost done"},{"id":79,"date":null,"hours":3,"status":2,"projectId":3,"from":null,"releaseId":6,"userId":7,"userName":"DEEPA","task":"coding","activityId":2,"approvedComments":null,"rejectedComments":null,"activity":"DEVELOPMENT","to":null,"dateInLong":1387737000000,"releaseVersion":"1.0","projectName":"MERAEVENTS","userRemarks":"almost done"},{"id":80,"date":null,"hours":3,"status":2,"projectId":3,"from":null,"releaseId":6,"userId":7,"userName":"DEEPA","task":"coding","activityId":2,"approvedComments":null,"rejectedComments":"TaskNotyetDone","activity":"DEVELOPMENT","to":null,"dateInLong":1387737000000,"releaseVersion":"1.0","projectName":"MERAEVENTS","userRemarks":"almost done"},{"id":81,"date":null,"hours":3,"status":3,"projectId":3,"from":null,"releaseId":6,"userId":7,"userName":"DEEPA","task":"coding","activityId":2,"approvedComments":null,"rejectedComments":"TaskNotyetDone","activity":"DEVELOPMENT","to":null,"dateInLong":1387737000000,"releaseVersion":"1.0","projectName":"MERAEVENTS","userRemarks":"almost done"},{"id":82,"date":null,"hours":3,"status":1,"projectId":3,"from":null,"releaseId":6,"userId":11,"userName":"Naminder","task":"coding","activityId":2,"approvedComments":null,"rejectedComments":null,"activity":"DEVELOPMENT","to":null,"dateInLong":1386786600000,"releaseVersion":"1.0","projectName":"MERAEVENTS","userRemarks":"almost done"},{"id":83,"date":null,"hours":3,"status":0,"projectId":3,"from":null,"releaseId":6,"userId":7,"userName":"DEEPA","task":"coding","activityId":2,"approvedComments":null,"rejectedComments":null,"activity":"DEVELOPMENT","to":null,"dateInLong":1386786600000,"releaseVersion":"1.0","projectName":"MERAEVENTS","userRemarks":"almost done"},{"id":84,"date":null,"hours":3,"status":3,"projectId":3,"from":null,"releaseId":6,"userId":7,"userName":"DEEPA","task":"coding","activityId":2,"approvedComments":null,"rejectedComments":"","activity":"DEVELOPMENT","to":null,"dateInLong":1386786600000,"releaseVersion":"1.0","projectName":"MERAEVENTS","userRemarks":"almost done"},{"id":85,"date":null,"hours":3,"status":2,"projectId":3,"from":null,"releaseId":6,"userId":7,"userName":"DEEPA","task":"coding","activityId":2,"approvedComments":null,"rejectedComments":null,"activity":"DEVELOPMENT","to":null,"dateInLong":1387737000000,"releaseVersion":"1.0","projectName":"MERAEVENTS","userRemarks":" Edited Copy"},{"id":87,"date":null,"hours":1,"status":2,"projectId":3,"from":null,"releaseId":6,"userId":7,"userName":"DEEPA","task":"test","activityId":3,"approvedComments":null,"rejectedComments":null,"activity":"QA","to":null,"dateInLong":1387909800000,"releaseVersion":"1.0","projectName":"MERAEVENTS","userRemarks":""},{"id":88,"date":null,"hours":1,"status":2,"projectId":3,"from":null,"releaseId":6,"userId":7,"userName":"DEEPA","task":"test","activityId":3,"approvedComments":null,"rejectedComments":null,"activity":"QA","to":null,"dateInLong":1387996200000,"releaseVersion":"1.0","projectName":"MERAEVENTS","userRemarks":""},{"id":89,"date":null,"hours":1,"status":0,"projectId":3,"from":null,"releaseId":16,"userId":7,"userName":"DEEPA","task":"Testing","activityId":3,"approvedComments":null,"rejectedComments":null,"activity":"QA","to":null,"dateInLong":1388082600000,"releaseVersion":"2.0","projectName":"MERAEVENTS","userRemarks":"testing the save"},{"id":90,"date":null,"hours":4,"status":2,"projectId":3,"from":null,"releaseId":6,"userId":7,"userName":"DEEPA","task":"verification","activityId":2,"approvedComments":null,"rejectedComments":"","activity":"DEVELOPMENT","to":null,"dateInLong":1388082600000,"releaseVersion":"1.0","projectName":"MERAEVENTS","userRemarks":"bgbbytbrybb"},{"id":91,"date":null,"hours":4,"status":0,"projectId":3,"from":null,"releaseId":6,"userId":7,"userName":"DEEPA","task":"verification","activityId":2,"approvedComments":null,"rejectedComments":null,"activity":"DEVELOPMENT","to":null,"dateInLong":1388082600000,"releaseVersion":"1.0","projectName":"MERAEVENTS","userRemarks":""},{"id":92,"date":null,"hours":10,"status":3,"projectId":3,"from":null,"releaseId":6,"userId":7,"userName":"DEEPA","task":"xsedxceqwsxex","activityId":1,"approvedComments":null,"rejectedComments":"","activity":"DESIGN","to":null,"dateInLong":1387996200000,"releaseVersion":"1.0","projectName":"MERAEVENTS","userRemarks":""},{"id":93,"date":null,"hours":10,"status":2,"projectId":3,"from":null,"releaseId":6,"userId":7,"userName":"DEEPA","task":"xsedxceqwsxex","activityId":3,"approvedComments":null,"rejectedComments":null,"activity":"QA","to":null,"dateInLong":1387996200000,"releaseVersion":"1.0","projectName":"MERAEVENTS","userRemarks":""},{"id":94,"date":null,"hours":10,"status":2,"projectId":3,"from":null,"releaseId":6,"userId":7,"userName":"DEEPA","task":"xsedxceqwsxex","activityId":2,"approvedComments":null,"rejectedComments":null,"activity":"DEVELOPMENT","to":null,"dateInLong":1387996200000,"releaseVersion":"1.0","projectName":"MERAEVENTS","userRemarks":""},{"id":95,"date":null,"hours":1,"status":0,"projectId":3,"from":null,"releaseId":16,"userId":7,"userName":"DEEPA","task":"html pattern","activityId":1,"approvedComments":null,"rejectedComments":null,"activity":"DESIGN","to":null,"dateInLong":1388082600000,"releaseVersion":"2.0","projectName":"MERAEVENTS","userRemarks":""},{"id":96,"date":null,"hours":1,"status":2,"projectId":3,"from":null,"releaseId":16,"userId":7,"userName":"DEEPA","task":"html pattern","activityId":1,"approvedComments":"TaskDone","rejectedComments":null,"activity":"DESIGN","to":null,"dateInLong":1388082600000,"releaseVersion":"2.0","projectName":"MERAEVENTS","userRemarks":""},{"id":97,"date":null,"hours":1,"status":1,"projectId":3,"from":null,"releaseId":16,"userId":7,"userName":"DEEPA","task":"html pattern","activityId":1,"approvedComments":null,"rejectedComments":null,"activity":"DESIGN","to":null,"dateInLong":1388082600000,"releaseVersion":"2.0","projectName":"MERAEVENTS","userRemarks":""},{"id":98,"date":null,"hours":10,"status":0,"projectId":97,"from":null,"releaseId":61,"userId":49,"userName":"sai","task":"Services","activityId":3,"approvedComments":null,"rejectedComments":null,"activity":"QA","to":null,"dateInLong":1388082600000,"releaseVersion":"1.0","projectName":"stromy arch ","userRemarks":"Cmpltd"},{"id":99,"date":null,"hours":6,"status":2,"projectId":97,"from":null,"releaseId":62,"userId":49,"userName":"sai","task":"Ui testing","activityId":3,"approvedComments":null,"rejectedComments":null,"activity":"QA","to":null,"dateInLong":1387996200000,"releaseVersion":"2.0","projectName":"stromy arch ","userRemarks":""},{"id":100,"date":null,"hours":12,"status":0,"projectId":97,"from":null,"releaseId":62,"userId":49,"userName":"sai","task":"Verification","activityId":3,"approvedComments":null,"rejectedComments":null,"activity":"QA","to":null,"dateInLong":1387823400000,"releaseVersion":"2.0","projectName":"stromy arch ","userRemarks":"Not yet done"},{"id":101,"date":null,"hours":11,"status":3,"projectId":97,"from":null,"releaseId":61,"userId":49,"userName":"sai","task":"HTML","activityId":2,"approvedComments":null,"rejectedComments":"","activity":"DEVELOPMENT","to":null,"dateInLong":1387909800000,"releaseVersion":"1.0","projectName":"stromy arch ","userRemarks":"completed"},{"id":103,"date":null,"hours":7,"status":3,"projectId":97,"from":null,"releaseId":61,"userId":49,"userName":"sai","task":"services","activityId":2,"approvedComments":null,"rejectedComments":"","activity":"DEVELOPMENT","to":null,"dateInLong":1388082600000,"releaseVersion":"1.0","projectName":"stromy arch ","userRemarks":"not completed"},{"id":104,"date":null,"hours":7,"status":2,"projectId":97,"from":null,"releaseId":61,"userId":49,"userName":"sai","task":"services","activityId":1,"approvedComments":null,"rejectedComments":null,"activity":"DESIGN","to":null,"dateInLong":1388082600000,"releaseVersion":"1.0","projectName":"stromy arch ","userRemarks":"not completed"},{"id":105,"date":null,"hours":11,"status":0,"projectId":97,"from":null,"releaseId":61,"userId":49,"userName":"sai","task":"HTML","activityId":2,"approvedComments":null,"rejectedComments":null,"activity":"DEVELOPMENT","to":null,"dateInLong":1387909800000,"releaseVersion":"1.0","projectName":"stromy arch ","userRemarks":"completed"},{"id":106,"date":null,"hours":12,"status":0,"projectId":97,"from":null,"releaseId":61,"userId":49,"userName":"sai","task":"Verification","activityId":3,"approvedComments":null,"rejectedComments":null,"activity":"QA","to":null,"dateInLong":1387823400000,"releaseVersion":"1.0","projectName":"stromy arch ","userRemarks":"Not yet done"}]}</span>
-						</li>
-						<li>
-						<span class="file input">
-								input :{ "payload":  {"status":"1"}}
-							</span>
-						</li>
-						<li>
-							<span class="file output">output :{"status":"SUCCESS","payload":[{"id":40,"date":null,"hours":3,"status":2,"projectId":3,"from":null,"releaseId":6,"userId":7,"userName":"DEEPA","task":"fixing bug","activityId":2,"approvedComments":null,"rejectedComments":null,"activity":"DEVELOPMENT","to":null,"dateInLong":1386873000000,"releaseVersion":"1.0","projectName":"MERAEVENTS","userRemarks":"testing"},{"id":71,"date":null,"hours":3,"status":2,"projectId":3,"from":null,"releaseId":6,"userId":7,"userName":"DEEPA","task":"coding","activityId":2,"approvedComments":null,"rejectedComments":null,"activity":"DEVELOPMENT","to":null,"dateInLong":1386786600000,"releaseVersion":"1.0","projectName":"MERAEVENTS","userRemarks":"almost done"},{"id":72,"date":null,"hours":3,"status":2,"projectId":3,"from":null,"releaseId":6,"userId":7,"userName":"DEEPA","task":"fixing bug","activityId":2,"approvedComments":null,"rejectedComments":null,"activity":"DEVELOPMENT","to":null,"dateInLong":1386873000000,"releaseVersion":"1.0","projectName":"MERAEVENTS","userRemarks":"testing"},{"id":77,"date":null,"hours":3,"status":2,"projectId":3,"from":null,"releaseId":6,"userId":7,"userName":"DEEPA","task":"coding","activityId":2,"approvedComments":null,"rejectedComments":null,"activity":"DEVELOPMENT","to":null,"dateInLong":1387737000000,"releaseVersion":"1.0","projectName":"MERAEVENTS","userRemarks":"almost done"},{"id":79,"date":null,"hours":3,"status":2,"projectId":3,"from":null,"releaseId":6,"userId":7,"userName":"DEEPA","task":"coding","activityId":2,"approvedComments":null,"rejectedComments":null,"activity":"DEVELOPMENT","to":null,"dateInLong":1387737000000,"releaseVersion":"1.0","projectName":"MERAEVENTS","userRemarks":"almost done"},{"id":80,"date":null,"hours":3,"status":2,"projectId":3,"from":null,"releaseId":6,"userId":7,"userName":"DEEPA","task":"coding","activityId":2,"approvedComments":null,"rejectedComments":"TaskNotyetDone","activity":"DEVELOPMENT","to":null,"dateInLong":1387737000000,"releaseVersion":"1.0","projectName":"MERAEVENTS","userRemarks":"almost done"},{"id":85,"date":null,"hours":3,"status":2,"projectId":3,"from":null,"releaseId":6,"userId":7,"userName":"DEEPA","task":"coding","activityId":2,"approvedComments":null,"rejectedComments":null,"activity":"DEVELOPMENT","to":null,"dateInLong":1387737000000,"releaseVersion":"1.0","projectName":"MERAEVENTS","userRemarks":" Edited Copy"},{"id":87,"date":null,"hours":1,"status":2,"projectId":3,"from":null,"releaseId":6,"userId":7,"userName":"DEEPA","task":"test","activityId":3,"approvedComments":null,"rejectedComments":null,"activity":"QA","to":null,"dateInLong":1387909800000,"releaseVersion":"1.0","projectName":"MERAEVENTS","userRemarks":""},{"id":88,"date":null,"hours":1,"status":2,"projectId":3,"from":null,"releaseId":6,"userId":7,"userName":"DEEPA","task":"test","activityId":3,"approvedComments":null,"rejectedComments":null,"activity":"QA","to":null,"dateInLong":1387996200000,"releaseVersion":"1.0","projectName":"MERAEVENTS","userRemarks":""},{"id":90,"date":null,"hours":4,"status":2,"projectId":3,"from":null,"releaseId":6,"userId":7,"userName":"DEEPA","task":"verification","activityId":2,"approvedComments":null,"rejectedComments":"","activity":"DEVELOPMENT","to":null,"dateInLong":1388082600000,"releaseVersion":"1.0","projectName":"MERAEVENTS","userRemarks":"bgbbytbrybb"},{"id":93,"date":null,"hours":10,"status":2,"projectId":3,"from":null,"releaseId":6,"userId":7,"userName":"DEEPA","task":"xsedxceqwsxex","activityId":3,"approvedComments":null,"rejectedComments":null,"activity":"QA","to":null,"dateInLong":1387996200000,"releaseVersion":"1.0","projectName":"MERAEVENTS","userRemarks":""},{"id":94,"date":null,"hours":10,"status":2,"projectId":3,"from":null,"releaseId":6,"userId":7,"userName":"DEEPA","task":"xsedxceqwsxex","activityId":2,"approvedComments":null,"rejectedComments":null,"activity":"DEVELOPMENT","to":null,"dateInLong":1387996200000,"releaseVersion":"1.0","projectName":"MERAEVENTS","userRemarks":""},{"id":96,"date":null,"hours":1,"status":2,"projectId":3,"from":null,"releaseId":16,"userId":7,"userName":"DEEPA","task":"html pattern","activityId":1,"approvedComments":"TaskDone","rejectedComments":null,"activity":"DESIGN","to":null,"dateInLong":1388082600000,"releaseVersion":"2.0","projectName":"MERAEVENTS","userRemarks":""}]}</span>
-						</li>	
-						<li>
-							<span class="file reqtype">method :	POST</span>
-						</li>
-						<li>
-							<span class="file author">author : Ajay Kumar</span>
-						</li>		
-					</ul>
-	 			</li>
-	 		</ul>
-			</li>
-		<li><span class="folder module">ROLES</span>
 			<ul>
-				<li><span class="folder api">get All Roles</span>
-					<ul id="folder4_1">
+				<li><span class="folder api">ADD TIME ENTRY</span>
+					<ul id="folder3_1">
 						<li><span class="file url">URL :
-								http://localhost:8080/services/v1/role/get</span></li>
+								http://localhost:8080/services/v1/timeEntry/add</span></li>
+						<li><span class="file input"> input :
+								{"payload":{"date":"01/07/2014","projectId":"2","releaseId":"5","task":"123456","activityId":"1","hours":"1","minutes":"15","status":"0","userRemarks":"adadqer"}}
+						</span></li>
+						<li><span class="file output">output :
+								{"status":"SUCCESS","payload":true}</span></li>
+						<li><span class="file reqtype">method : POST</span></li>
+						<li><span class="file author">author : Ajay Kumar</span></li>
+					</ul></li>
+			</ul>
+			<ul>
+				<li><span class="folder api">DELETE TIME ENTRY</span>
+					<ul id="folder3_2">
+						<li><span class="file url">URL :
+								http://localhost:8080/services/v1/timeEntry/delete</span></li>
+						<li><span class="file input"> input :
+								{"payload":{"id":"302"}} </span></li>
+						<li><span class="file output">output
+								:{"status":"SUCCESS","payload":true}</span></li>
+						<li><span class="file reqtype">method : POST</span></li>
+						<li><span class="file author">author : Ajay Kumar</span></li>
+					</ul></li>
+			</ul>
+			<ul>
+				<li><span class="folder api">UPDATE TIME ENTRY</span>
+					<ul id="folder3_3">
+						<li><span class="file url">URL :
+								http://localhost:8080/services/v1/timeEntry/update</span></li>
+						<li><span class="file input"> input :
+								{"payload":{"id":"294","projectId":"2","releaseId":"115","activityId":"2","date":"01/07/2014","task":"fdfdf","hours":"0","minutes":"45","userRemarks":"Testing","status":0}}
+						</span></li>
+						<li><span class="file output">output :
+								{"status":"SUCCESS","payload":true}</span></li>
+						<li><span class="file reqtype">method : POST</span></li>
+						<li><span class="file author">author : Ajay Kumar</span></li>
+					</ul></li>
+			</ul>
+			<ul>
+				<li><span class="folder api">SUBMIT TIME ENTRIES</span>
+					<ul id="folder3_4">
+						<li><span class="file url">URL :
+								http://localhost:8080/services/v1/timeEntry/submitTimeEntries</span></li>
+						<li><span class="file input"> input :
+								{"payload":{"timeEntries":[{"id":"288"},{"id":"283"}]}} </span></li>
+						<li><span class="file output">output :
+								{"status":"SUCCESS","payload":true}</span></li>
+						<li><span class="file reqtype">method : POST</span></li>
+						<li><span class="file author">author : Ajay Kumar</span></li>
+					</ul></li>
+			</ul>
+			<ul>
+				<li><span class="folder api">APPROVE TIME ENTRY</span>
+					<ul id="folder3_5">
+						<li><span class="file url">URL :
+								http://localhost:8080/services/v1/timeEntry/approveTimeEntry</span></li>
+						<li><span class="file input"> input :
+								{"payload":{"id":"297"}} </span></li>
+						<li><span class="file output">output :
+								{"status":"SUCCESS","payload":true}</span></li>
+						<li><span class="file input"> input : {"payload":
+								{"id":"96","approvedComments":"TaskDone"} } </span></li>
+						<li><span class="file output">output :
+								{"status":"SUCCESS","payload":true}</span></li>
+						<li><span class="file reqtype">method : POST</span></li>
+						<li><span class="file author">author : Ajay Kumar</span></li>
+					</ul></li>
+			</ul>
+			<ul>
+				<li><span class="folder api">REJECT TIME ENTRY</span>
+					<ul id="folder3_6">
+						<li><span class="file url">URL :
+								http://localhost:8080/services/v1/timeEntry/rejectTimeEntry</span></li>
+						<li><span class="file input"> input :
+								{"payload":{"id":"292","rejectedComments":"Invalid Entry"}} </span></li>
+						<li><span class="file output">output :
+								{"status":"SUCCESS","payload":true}</span></li>
+						<li><span class="file reqtype">method : POST</span></li>
+						<li><span class="file author">author : Ajay Kumar</span></li>
+					</ul></li>
+			</ul>
+			<ul>
+				<li><span class="folder api">USER SEARCH RESULTS</span>
+					<ul id="folder3_7">
+						<li><span class="file url">URL :
+								http://localhost:8080/services/v1/timeEntry/searchTimeEntriesByUser</span></li>
 						<li><span class="file input"> input : { "payload": {}
-						</span></li>
-						<li><span class="file output">output :
-								{"status":"SUCCESS","payload":[[1,"ADMIN"],[2,"APPROVER"],[3,"MEMBER"]]}</span></li>
-						<li><span class="file reqtype">method : POST</span></li>
-						<li><span class="file author">author : Jagadish</span></li>
-					</ul></li>
-			</ul>
-			<ul>
-				<li><span class="folder api">get User Roles</span>
-					<ul id="folder4_2">
-						<li><span class="file url">URL :
-								http://localhost:8080/services/v1/role/getUserRoles</span></li>
-						<li><span class="file input"> input : {"payload":{
-								"userId":3, "projectId":3 } } </span></li>
-						<li><span class="file output">output :
-								{"status":"SUCCESS","payload":{"projectId":3,"userId":3,"roleIds":[2,3]}}</span></li>
-						<li><span class="file reqtype">method : POST</span></li>
-						<li><span class="file author">author : Jagadish</span></li>
-					</ul></li>
-			</ul>
-			<ul>
-				<li><span class="folder api">allocate Roles</span>
-					<ul id="folder4_3">
-						<li><span class="file url">URL :
-								http://localhost:8080/services/v1/role/allocateRoles</span></li>
-						<li><span class="file input"> input : {"payload":{
-								"userId":3, "projectId":3, "roleIds":[2,3] } } </span></li>
-						<li><span class="file output"> output :
-								{"status":"SUCCESS","payload":{"projectId":3,"userId":3,"roleIds":[2,3]}}
-						</span></li>
-						<li><span class="file reqtype">method : POST</span></li>
-						<li><span class="file author">author : Jagadish</span></li>
-					</ul></li>
-			</ul>
-			<ul>
-				<li><span class="folder api">deallocate Roles</span>
-					<ul id="folder4_3">
-						<li><span class="file url">URL :
-								http://localhost:8080/services/v1/role/deallocateRoles</span></li>
-						<li><span class="file input"> input :{"payload":{
-								"userId":3, "projectId":3, "roleIds":[1] } } </span></li>
-						<li><span class="file output"> output :
-								{"status":"SUCCESS","payload":{"projectId":3,"userId":3,"roleIds":[2,3]}}
-						</span></li>
-						<li><span class="file reqtype">method : POST</span></li>
-						<li><span class="file author">author : Jagadish</span></li>
-					</ul></li>
-			</ul></li>
-		<li><span class="folder module">RELEASES</span>
-			<ul>
-				<li><span class="folder api">getReleases</span>
-					<ul id="folder5_1">
-						<li><span class="file url">URL :
-								http://localhost:8080/services/v1/release/get</span></li>
-						<li><span class="file input"> input :
-								{"payload":{"projectId":"1"}} </span></li>
-						<li><span class="file output">{"status":"SUCCESS","payload":[[1,"1.0"],[2,"1.1"],[3,"2.0"],[137,"v5.0"],[144,"v6.0"]]}</span>
+								} </span></li>
+						<li><span class="file output">output
+								:{"status":"SUCCESS","payload":[{"id":280,"date":null,"hours":null,"minutes":75,"status":2,"projectId":1,"from":null,"userId":11,"userName":"Naminder","task":"hkhkjhjk","activityId":2,"approvedComments":"xcwsd","rejectedComments":null,"releaseId":2,"releaseVersion":"1.1","userRemarks":"","projectName":"COS/QSP","dateInLong":1389033000000,"to":null,"activity":"DEVELOPMENT"},{"id":281,"date":null,"hours":null,"minutes":105,"status":0,"projectId":2,"from":null,"userId":11,"userName":"Naminder","task":"5475","activityId":2,"approvedComments":null,"rejectedComments":null,"releaseId":5,"releaseVersion":"2.0","userRemarks":"","projectName":"FLIPLIST","dateInLong":1389033000000,"to":null,"activity":"DEVELOPMENT"},{"id":283,"date":null,"hours":null,"minutes":660,"status":1,"projectId":2,"from":null,"userId":11,"userName":"Naminder","task":"dfdfgfg","activityId":2,"approvedComments":null,"rejectedComments":null,"releaseId":5,"releaseVersion":"2.0","userRemarks":"","projectName":"FLIPLIST","dateInLong":1389033000000,"to":null,"activity":"DEVELOPMENT"},{"id":284,"date":null,"hours":null,"minutes":420,"status":1,"projectId":1,"from":null,"userId":11,"userName":"Naminder","task":"fgfghh","activityId":2,"approvedComments":null,"rejectedComments":null,"releaseId":2,"releaseVersion":"1.1","userRemarks":"","projectName":"COS/QSP","dateInLong":1389033000000,"to":null,"activity":"DEVELOPMENT"},{"id":288,"date":null,"hours":null,"minutes":60,"status":1,"projectId":2,"from":null,"userId":11,"userName":"Naminder","task":"sahhhfhffwefwehfiuwhefiuwifjwifhewhfuwhefwhfiwfiwehfoweiofjiejfiwejfwehfweiofjwehfiuwehuwhefiwfhefukwhefuhweufheufhwuehwejfiwlejfiwjefejwfehfefewffwfwefwfwf","activityId":2,"approvedComments":null,"rejectedComments":null,"releaseId":115,"releaseVersion":"VERSION
+								1.2","userRemarks":"fcff","projectName":"FLIPLIST","dateInLong":1389033000000,"to":null,"activity":"DEVELOPMENT"},{"id":289,"date":null,"hours":null,"minutes":60,"status":1,"projectId":2,"from":null,"userId":11,"userName":"Naminder","task":"deasdefde","activityId":1,"approvedComments":null,"rejectedComments":null,"releaseId":115,"releaseVersion":"VERSION
+								1.2","userRemarks":"edfcfebfenbfwefefwefwefbefbwebwehechwiebcikwehbceceuuecueucueceeeucecehneuchneucjewejeujneuhuhhuhechcuewhcuhuewhniuewhcewjewjeiwejhwocjhwjwhewhuhcwuehcwegyhcewuhciweghwhfiewhuwhfwuifhwfwfwewefewffefefewfwefweweffewfewfwefwefwefewfwfwefewf","projectName":"FLIPLIST","dateInLong":1389033000000,"to":null,"activity":"DESIGN"},{"id":294,"date":null,"hours":null,"minutes":45,"status":1,"projectId":2,"from":null,"userId":11,"userName":"Naminder","task":"fdfdf","activityId":2,"approvedComments":null,"rejectedComments":null,"releaseId":115,"releaseVersion":"VERSION
+								1.2","userRemarks":"Testing","projectName":"FLIPLIST","dateInLong":1389033000000,"to":null,"activity":"DEVELOPMENT"}]}</span>
+						</li>
+						<li><span class="file input"> input
+								:{"payload":{"date":"12-13-2013","projectId":"3"}} </span></li>
+						<li><span class="file output">output
+								:{"status":"SUCCESS","payload":[{"id":261,"date":null,"hours":null,"minutes":180,"status":1,"projectId":2,"from":null,"userId":11,"userName":"Naminder","task":"bug","activityId":2,"approvedComments":null,"rejectedComments":null,"releaseId":5,"releaseVersion":"2.0","userRemarks":"","projectName":"FLIPLIST","dateInLong":1388946600000,"to":null,"activity":"DEVELOPMENT"}]}</span>
+						</li>
+						<li><span class="file input"> input
+								:{"payload":{"date":"12-13-2013"}} </span></li>
+						<li><span class="file output">output
+								:{"status":"SUCCESS","payload":[{"id":261,"date":null,"hours":null,"minutes":180,"status":1,"projectId":2,"from":null,"userId":11,"userName":"Naminder","task":"bug","activityId":2,"approvedComments":null,"rejectedComments":null,"releaseId":5,"releaseVersion":"2.0","userRemarks":"","projectName":"FLIPLIST","dateInLong":1388946600000,"to":null,"activity":"DEVELOPMENT"},{"id":263,"date":null,"hours":null,"minutes":15,"status":2,"projectId":1,"from":null,"userId":11,"userName":"Naminder","task":"4r34","activityId":1,"approvedComments":null,"rejectedComments":null,"releaseId":1,"releaseVersion":"1.0","userRemarks":"","projectName":"COS/QSP","dateInLong":1388946600000,"to":null,"activity":"DESIGN"},{"id":266,"date":null,"hours":null,"minutes":75,"status":0,"projectId":1,"from":null,"userId":11,"userName":"Naminder","task":"adfadf","activityId":2,"approvedComments":null,"rejectedComments":"dgfhgfghgghj","releaseId":2,"releaseVersion":"1.1","userRemarks":"afafdaf","projectName":"COS/QSP","dateInLong":1388946600000,"to":null,"activity":"DEVELOPMENT"},{"id":274,"date":null,"hours":null,"minutes":15,"status":2,"projectId":1,"from":null,"userId":11,"userName":"Naminder","task":"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA","activityId":1,"approvedComments":"dew","rejectedComments":null,"releaseId":1,"releaseVersion":"1.0","userRemarks":"","projectName":"COS/QSP","dateInLong":1388946600000,"to":null,"activity":"DESIGN"},{"id":282,"date":null,"hours":null,"minutes":240,"status":0,"projectId":1,"from":null,"userId":11,"userName":"Naminder","task":"fhghjgj","activityId":2,"approvedComments":null,"rejectedComments":null,"releaseId":1,"releaseVersion":"1.0","userRemarks":"","projectName":"COS/QSP","dateInLong":1388946600000,"to":null,"activity":"DEVELOPMENT"}]}</span>
+						</li>
+						<li><span class="file input"> input
+								:{"payload":{"projectId":"3"}} </span></li>
+						<li><span class="file output">output
+								:{"status":"SUCCESS","payload":[{"id":208,"date":null,"hours":null,"minutes":0,"status":0,"projectId":2,"from":null,"userId":11,"userName":"Naminder","task":"34535","activityId":2,"approvedComments":null,"rejectedComments":"","releaseId":115,"releaseVersion":"VERSION
+								1.2","userRemarks":"","projectName":"FLIPLIST","dateInLong":1388601000000,"to":null,"activity":"DEVELOPMENT"},{"id":226,"date":null,"hours":null,"minutes":1,"status":1,"projectId":2,"from":null,"userId":11,"userName":"Naminder","task":"23425","activityId":1,"approvedComments":null,"rejectedComments":null,"releaseId":5,"releaseVersion":"2.0","userRemarks":"","projectName":"FLIPLIST","dateInLong":1388687400000,"to":null,"activity":"DESIGN"},{"id":227,"date":null,"hours":null,"minutes":1,"status":1,"projectId":2,"from":null,"userId":11,"userName":"Naminder","task":"23425","activityId":1,"approvedComments":null,"rejectedComments":null,"releaseId":5,"releaseVersion":"2.0","userRemarks":"","projectName":"FLIPLIST","dateInLong":1388687400000,"to":null,"activity":"DESIGN"},{"id":228,"date":null,"hours":null,"minutes":1,"status":1,"projectId":2,"from":null,"userId":11,"userName":"Naminder","task":"23425","activityId":1,"approvedComments":null,"rejectedComments":null,"releaseId":5,"releaseVersion":"2.0","userRemarks":"","projectName":"FLIPLIST","dateInLong":1388687400000,"to":null,"activity":"DESIGN"},{"id":229,"date":null,"hours":null,"minutes":1,"status":1,"projectId":2,"from":null,"userId":11,"userName":"Naminder","task":"23425","activityId":1,"approvedComments":null,"rejectedComments":null,"releaseId":5,"releaseVersion":"2.0","userRemarks":"","projectName":"FLIPLIST","dateInLong":1388687400000,"to":null,"activity":"DESIGN"},{"id":231,"date":null,"hours":null,"minutes":150,"status":1,"projectId":2,"from":null,"userId":11,"userName":"Naminder","task":"coding","activityId":1,"approvedComments":null,"rejectedComments":null,"releaseId":115,"releaseVersion":"VERSION
+								1.2","userRemarks":"jflajldkfjlkajdflk","projectName":"FLIPLIST","dateInLong":1388687400000,"to":null,"activity":"DESIGN"},{"id":242,"date":null,"hours":null,"minutes":315,"status":1,"projectId":2,"from":null,"userId":11,"userName":"Naminder","task":"grfcgr","activityId":2,"approvedComments":null,"rejectedComments":null,"releaseId":5,"releaseVersion":"2.0","userRemarks":"gvgvffbdgb","projectName":"FLIPLIST","dateInLong":1388601000000,"to":null,"activity":"DEVELOPMENT"},{"id":243,"date":null,"hours":null,"minutes":105,"status":1,"projectId":2,"from":null,"userId":11,"userName":"Naminder","task":"decfefc","activityId":2,"approvedComments":null,"rejectedComments":null,"releaseId":115,"releaseVersion":"VERSION
+								1.2","userRemarks":"cedsfce","projectName":"FLIPLIST","dateInLong":1388601000000,"to":null,"activity":"DEVELOPMENT"},{"id":261,"date":null,"hours":null,"minutes":180,"status":1,"projectId":2,"from":null,"userId":11,"userName":"Naminder","task":"bug","activityId":2,"approvedComments":null,"rejectedComments":null,"releaseId":5,"releaseVersion":"2.0","userRemarks":"","projectName":"FLIPLIST","dateInLong":1388946600000,"to":null,"activity":"DEVELOPMENT"},{"id":281,"date":null,"hours":null,"minutes":105,"status":0,"projectId":2,"from":null,"userId":11,"userName":"Naminder","task":"5475","activityId":2,"approvedComments":null,"rejectedComments":null,"releaseId":5,"releaseVersion":"2.0","userRemarks":"","projectName":"FLIPLIST","dateInLong":1389033000000,"to":null,"activity":"DEVELOPMENT"},{"id":283,"date":null,"hours":null,"minutes":660,"status":1,"projectId":2,"from":null,"userId":11,"userName":"Naminder","task":"dfdfgfg","activityId":2,"approvedComments":null,"rejectedComments":null,"releaseId":5,"releaseVersion":"2.0","userRemarks":"","projectName":"FLIPLIST","dateInLong":1389033000000,"to":null,"activity":"DEVELOPMENT"},{"id":288,"date":null,"hours":null,"minutes":60,"status":1,"projectId":2,"from":null,"userId":11,"userName":"Naminder","task":"sahhhfhffwefwehfiuwhefiuwifjwifhewhfuwhefwhfiwfiwehfoweiofjiejfiwejfwehfweiofjwehfiuwehuwhefiwfhefukwhefuhweufheufhwuehwejfiwlejfiwjefejwfehfefewffwfwefwfwf","activityId":2,"approvedComments":null,"rejectedComments":null,"releaseId":115,"releaseVersion":"VERSION
+								1.2","userRemarks":"fcff","projectName":"FLIPLIST","dateInLong":1389033000000,"to":null,"activity":"DEVELOPMENT"},{"id":289,"date":null,"hours":null,"minutes":60,"status":1,"projectId":2,"from":null,"userId":11,"userName":"Naminder","task":"deasdefde","activityId":1,"approvedComments":null,"rejectedComments":null,"releaseId":115,"releaseVersion":"VERSION
+								1.2","userRemarks":"edfcfebfenbfwefefwefwefbefbwebwehechwiebcikwehbceceuuecueucueceeeucecehneuchneucjewejeujneuhuhhuhechcuewhcuhuewhniuewhcewjewjeiwejhwocjhwjwhewhuhcwuehcwegyhcewuhciweghwhfiewhuwhfwuifhwfwfwewefewffefefewfwefweweffewfewfwefwefwefewfwfwefewf","projectName":"FLIPLIST","dateInLong":1389033000000,"to":null,"activity":"DESIGN"},{"id":294,"date":null,"hours":null,"minutes":45,"status":1,"projectId":2,"from":null,"userId":11,"userName":"Naminder","task":"fdfdf","activityId":2,"approvedComments":null,"rejectedComments":null,"releaseId":115,"releaseVersion":"VERSION
+								1.2","userRemarks":"Testing","projectName":"FLIPLIST","dateInLong":1389033000000,"to":null,"activity":"DEVELOPMENT"}]}</span>
 						</li>
 						<li><span class="file reqtype">method : POST</span></li>
-						<li><span class="file author">author : Shiva</span></li>
+						<li><span class="file author">author : Ajay Kumar</span></li>
 					</ul></li>
 			</ul>
 			<ul>
-				<li><span class="folder api">addRelease</span>
-					<ul id="folder5_2">
+				<li><span class="folder api">APPROVER SEARCH RESULTS</span>
+					<ul id="folder3_8">
 						<li><span class="file url">URL :
-								http://localhost:8080/services/v1/release/add</span></li>
-						<li><span class="file input"> input :
-								{"payload":{"projectId":"2","releaseName":"v7.0"}} </span></li>
-						<li><span class="file output">output :
-								{"status":"SUCCESS","payload":{"name":"v7.0","id":147,"objectType":132,"projectId":2,"modifierId":0,"cts":0,"mts":0,"creatorId":0,"deleted":0}}</span>
+								http://localhost:8080/services/v1/timeEntry/searchTimeEntriesByApprover</span></li>
+						<li><span class="file input"> input : { "payload": {}
+								} </span></li>
+						<li><span class="file output">output
+								:{"status":"SUCCESS","payload":[{"id":276,"date":null,"hours":null,"minutes":15,"status":1,"projectId":12,"from":null,"userId":5,"userName":"JAGADISH","task":"jklajlkfjakljf","activityId":2,"approvedComments":null,"rejectedComments":"not
+								valid","releaseId":126,"releaseVersion":"version1.1","userRemarks":"","projectName":"cos12345","dateInLong":1389033000000,"to":null,"activity":"DEVELOPMENT"},{"id":290,"date":null,"hours":null,"minutes":360,"status":1,"projectId":12,"from":null,"userId":5,"userName":"JAGADISH","task":"cossss","activityId":2,"approvedComments":null,"rejectedComments":null,"releaseId":126,"releaseVersion":"version1.1","userRemarks":"","projectName":"cos12345","dateInLong":1389033000000,"to":null,"activity":"DEVELOPMENT"},{"id":291,"date":null,"hours":null,"minutes":90,"status":1,"projectId":12,"from":null,"userId":5,"userName":"JAGADISH","task":"cos/qsp","activityId":1,"approvedComments":null,"rejectedComments":null,"releaseId":126,"releaseVersion":"version1.1","userRemarks":"","projectName":"cos12345","dateInLong":1389033000000,"to":null,"activity":"DESIGN"},{"id":293,"date":null,"hours":null,"minutes":15,"status":1,"projectId":12,"from":null,"userId":7,"userName":"Deepa","task":"grfgrgg","activityId":2,"approvedComments":null,"rejectedComments":null,"releaseId":126,"releaseVersion":"version1.1","userRemarks":"gfgdtge","projectName":"cos12345","dateInLong":1389033000000,"to":null,"activity":"DEVELOPMENT"}]}</span>
 						</li>
-						<li><span class="file reqtype">method : POST</span></li>
-						<li><span class="file author">author : Shiva</span></li>
-					</ul></li>
-			</ul>
-			<ul>
-				<li><span class="folder api">deleteRelease</span>
-					<ul id="folder5_3">
-						<li><span class="file url">URL :
-								http://localhost:8080/services/v1/release/delete</span></li>
 						<li><span class="file input"> input :
-								{"payload":{"releaseId":"147"}} </span></li>
-						<li><span class="file output">output :
-								{"status":"SUCCESS","payload":{"name":"v7.0","id":147,"objectType":132,"projectId":2,"modifierId":0,"cts":0,"mts":0,"creatorId":0,"deleted":0}}</span>
-						</li>
-						<li><span class="file reqtype">method : POST</span></li>
-						<li><span class="file author">author : Shiva</span></li>
-					</ul></li>
+								{"payload":{"projectId":12,"userId":5,"status":1}} </span></li>
+						<li><span class="file output">output
+								:{"status":"SUCCESS","payload":[{"id":276,"date":null,"hours":null,"minutes":15,"status":1,"projectId":12,"from":null,"userId":5,"userName":"JAGADISH","task":"jklajlkfjakljf","activityId":2,"approvedComments":null,"rejectedComments":"not
+								valid","releaseId":126,"releaseVersion":"version1.1","userRemarks":"","projectName":"cos12345","dateInLong":1389033000000,"to":null,"activity":"DEVELOPMENT"},{"id":290,"date":null,"hours":null,"minutes":360,"status":1,"projectId":12,"from":null,"userId":5,"userName":"JAGADISH","task":"cossss","activityId":2,"approvedComments":null,"rejectedComments":null,"releaseId":126,"releaseVersion":"version1.1","userRemarks":"","projectName":"cos12345","dateInLong":1389033000000,"to":null,"activity":"DEVELOPMENT"},{"id":291,"date":null,"hours":null,"minutes":90,"status":1,"projectId":12,"from":null,"userId":5,"userName":"JAGADISH","task":"cos/qsp","activityId":1,"approvedComments":null,"rejectedComments":null,"releaseId":126,"releaseVersion":"version1.1","userRemarks":"","projectName":"cos12345","dateInLong":1389033000000,"to":null,"activity":"DESIGN"}]}</span>
+						</li></li>
+				<li><span class="file input"> input :
+						{"payload":{"projectId":12,"status":2}} </span></li>
+				<li><span class="file output">{"status":"SUCCESS","payload":[{"id":168,"date":null,"hours":null,"minutes":1,"status":2,"projectId":12,"from":null,"userId":8,"userName":"LAXMI
+						CHAITANYA","task":"123456","activityId":4,"approvedComments":null,"rejectedComments":null,"releaseId":126,"releaseVersion":"version1.1","userRemarks":"","projectName":"cos12345","dateInLong":1388428200000,"to":null,"activity":"Guiding"},{"id":169,"date":null,"hours":null,"minutes":1,"status":2,"projectId":12,"from":null,"userId":8,"userName":"LAXMI
+						CHAITANYA","task":"123","activityId":3,"approvedComments":"valid","rejectedComments":null,"releaseId":126,"releaseVersion":"version1.1","userRemarks":"dfgdh
+						rghr","projectName":"cos12345","dateInLong":1388428200000,"to":null,"activity":"QA"},{"id":272,"date":null,"hours":null,"minutes":120,"status":2,"projectId":12,"from":null,"userId":7,"userName":"Deepa","task":"ftfgswt4","activityId":2,"approvedComments":null,"rejectedComments":null,"releaseId":126,"releaseVersion":"version1.1","userRemarks":"4fefwse4tfg4ews","projectName":"cos12345","dateInLong":1388860200000,"to":null,"activity":"DEVELOPMENT"},{"id":273,"date":null,"hours":null,"minutes":60,"status":2,"projectId":12,"from":null,"userId":7,"userName":"Deepa","task":"zSXsx","activityId":2,"approvedComments":"jlkajflkjalkfjl","rejectedComments":null,"releaseId":126,"releaseVersion":"version1.1","userRemarks":"","projectName":"cos12345","dateInLong":1388860200000,"to":null,"activity":"DEVELOPMENT"},{"id":278,"date":null,"hours":null,"minutes":75,"status":2,"projectId":12,"from":null,"userId":5,"userName":"JAGADISH","task":"jajdf","activityId":2,"approvedComments":"fgsfgsfgsfg","rejectedComments":null,"releaseId":126,"releaseVersion":"version1.1","userRemarks":"afaf","projectName":"cos12345","dateInLong":1389033000000,"to":null,"activity":"DEVELOPMENT"},{"id":286,"date":null,"hours":null,"minutes":60,"status":2,"projectId":12,"from":null,"userId":5,"userName":"JAGADISH","task":"jajlkfjalkfd","activityId":2,"approvedComments":"adf","rejectedComments":null,"releaseId":126,"releaseVersion":"version1.1","userRemarks":"afafafad","projectName":"cos12345","dateInLong":1389033000000,"to":null,"activity":"DEVELOPMENT"}]}</span>
+				</li>
+				<li><span class="file input"> input
+						:{"payload":{"from":"01/06/2014","projectId":12,"userId":7,"status":1}}
+				</span></li>
+				<li><span class="file output">output
+						:{"status":"SUCCESS","payload":[{"id":293,"date":null,"hours":null,"minutes":15,"status":1,"projectId":12,"from":null,"userId":7,"userName":"Deepa","task":"grfgrgg","activityId":2,"approvedComments":null,"rejectedComments":null,"releaseId":126,"releaseVersion":"version1.1","userRemarks":"gfgdtge","projectName":"cos12345","dateInLong":1389033000000,"to":null,"activity":"DEVELOPMENT"}]}</span>
+				</li>
+				<li><span class="file input"> input
+						:{"payload":{"from":"01/01/2014","to":"01/07/2014","projectId":12,"userId":7,"status":2}}
+				</span></li>
+				<li><span class="file output">output
+						:{"status":"SUCCESS","payload":[{"id":272,"date":null,"hours":null,"minutes":120,"status":2,"projectId":12,"from":null,"userId":7,"userName":"Deepa","task":"ftfgswt4","activityId":2,"approvedComments":null,"rejectedComments":null,"releaseId":126,"releaseVersion":"version1.1","userRemarks":"4fefwse4tfg4ews","projectName":"cos12345","dateInLong":1388860200000,"to":null,"activity":"DEVELOPMENT"},{"id":273,"date":null,"hours":null,"minutes":60,"status":2,"projectId":12,"from":null,"userId":7,"userName":"Deepa","task":"zSXsx","activityId":2,"approvedComments":"jlkajflkjalkfjl","rejectedComments":null,"releaseId":126,"releaseVersion":"version1.1","userRemarks":"","projectName":"cos12345","dateInLong":1388860200000,"to":null,"activity":"DEVELOPMENT"}]}</span>
+				</li>
+				<li><span class="file input"> input
+						:{"payload":{"from":"01/01/2014","to":"01/07/2014","status":2}} </span></li>
+				<li><span class="file output">output
+						:{"status":"SUCCESS","payload":[{"id":172,"date":null,"hours":null,"minutes":3,"status":2,"projectId":3,"from":null,"userId":2,"userName":"anil","task":"vdvdsvs","activityId":2,"approvedComments":null,"rejectedComments":null,"releaseId":39,"releaseVersion":"5.0","userRemarks":"","projectName":"MERAEVENTS","dateInLong":1388601000000,"to":null,"activity":"DEVELOPMENT"},{"id":193,"date":null,"hours":null,"minutes":2,"status":2,"projectId":3,"from":null,"userId":8,"userName":"LAXMI
+						CHAITANYA","task":"asdf","activityId":2,"approvedComments":null,"rejectedComments":null,"releaseId":16,"releaseVersion":"2.0","userRemarks":"","projectName":"MERAEVENTS","dateInLong":1388601000000,"to":null,"activity":"DEVELOPMENT"},{"id":194,"date":null,"hours":null,"minutes":1,"status":2,"projectId":3,"from":null,"userId":8,"userName":"LAXMI
+						CHAITANYA","task":"timeStamp
+						testing","activityId":2,"approvedComments":null,"rejectedComments":null,"releaseId":16,"releaseVersion":"2.0","userRemarks":"testing
+						the
+						timeStamp","projectName":"MERAEVENTS","dateInLong":1388601000000,"to":null,"activity":"DEVELOPMENT"},{"id":195,"date":null,"hours":null,"minutes":2,"status":2,"projectId":3,"from":null,"userId":8,"userName":"LAXMI
+						CHAITANYA","task":"testing the
+						cts","activityId":2,"approvedComments":null,"rejectedComments":null,"releaseId":16,"releaseVersion":"2.0","userRemarks":"","projectName":"MERAEVENTS","dateInLong":1388601000000,"to":null,"activity":"DEVELOPMENT"},{"id":196,"date":null,"hours":null,"minutes":2,"status":2,"projectId":3,"from":null,"userId":7,"userName":"Deepa","task":"ecsadxeqwd","activityId":1,"approvedComments":"valid","rejectedComments":null,"releaseId":65,"releaseVersion":"meraa","userRemarks":"dwdssd","projectName":"MERAEVENTS","dateInLong":1388687400000,"to":null,"activity":"DESIGN"},{"id":197,"date":null,"hours":null,"minutes":60,"status":2,"projectId":3,"from":null,"userId":7,"userName":"Deepa","task":"ecsadxeqwd","activityId":1,"approvedComments":null,"rejectedComments":"invalid","releaseId":39,"releaseVersion":"5.0","userRemarks":"","projectName":"MERAEVENTS","dateInLong":1388687400000,"to":null,"activity":"DESIGN"},{"id":199,"date":null,"hours":null,"minutes":2,"status":2,"projectId":3,"from":null,"userId":7,"userName":"Deepa","task":"ecsadxeqwd","activityId":4,"approvedComments":null,"rejectedComments":null,"releaseId":16,"releaseVersion":"2.0","userRemarks":"6tyhry","projectName":"MERAEVENTS","dateInLong":1388687400000,"to":null,"activity":"Guiding"},{"id":200,"date":null,"hours":null,"minutes":2,"status":2,"projectId":3,"from":null,"userId":7,"userName":"Deepa","task":"ecsadxeqwdhbyh","activityId":3,"approvedComments":null,"rejectedComments":null,"releaseId":16,"releaseVersion":"2.0","userRemarks":"6tyhryyhnyn","projectName":"MERAEVENTS","dateInLong":1388687400000,"to":null,"activity":"QA"},{"id":201,"date":null,"hours":null,"minutes":2,"status":2,"projectId":3,"from":null,"userId":7,"userName":"Deepa","task":"ecsadxeqwdhbyh","activityId":1,"approvedComments":null,"rejectedComments":null,"releaseId":16,"releaseVersion":"2.0","userRemarks":"6tyhryyhnyn","projectName":"MERAEVENTS","dateInLong":1388687400000,"to":null,"activity":"DESIGN"},{"id":232,"date":null,"hours":null,"minutes":135,"status":2,"projectId":3,"from":null,"userId":8,"userName":"LAXMI
+						CHAITANYA","task":"testing","activityId":3,"approvedComments":null,"rejectedComments":null,"releaseId":16,"releaseVersion":"2.0","userRemarks":"adfafadfa","projectName":"MERAEVENTS","dateInLong":1388687400000,"to":null,"activity":"QA"},{"id":234,"date":null,"hours":null,"minutes":165,"status":2,"projectId":3,"from":null,"userId":8,"userName":"LAXMI
+						CHAITANYA","task":"adfadfaf","activityId":2,"approvedComments":"aaa","rejectedComments":null,"releaseId":38,"releaseVersion":"4.0","userRemarks":"afafd","projectName":"MERAEVENTS","dateInLong":1388687400000,"to":null,"activity":"DEVELOPMENT"},{"id":236,"date":null,"hours":null,"minutes":315,"status":2,"projectId":3,"from":null,"userId":8,"userName":"LAXMI
+						CHAITANYA","task":"af","activityId":1,"approvedComments":null,"rejectedComments":null,"releaseId":16,"releaseVersion":"2.0","userRemarks":"adfafaf","projectName":"MERAEVENTS","dateInLong":1388687400000,"to":null,"activity":"DESIGN"},{"id":237,"date":null,"hours":null,"minutes":240,"status":2,"projectId":3,"from":null,"userId":8,"userName":"LAXMI
+						CHAITANYA","task":"adfaf","activityId":1,"approvedComments":null,"rejectedComments":null,"releaseId":16,"releaseVersion":"2.0","userRemarks":"afafaf","projectName":"MERAEVENTS","dateInLong":1388601000000,"to":null,"activity":"DESIGN"},{"id":240,"date":null,"hours":null,"minutes":135,"status":2,"projectId":3,"from":null,"userId":8,"userName":"LAXMI
+						CHAITANYA","task":"dfafdadf","activityId":2,"approvedComments":null,"rejectedComments":"1234","releaseId":73,"releaseVersion":"meraaeven","userRemarks":"sgsfgsgf","projectName":"MERAEVENTS","dateInLong":1388687400000,"to":null,"activity":"DEVELOPMENT"},{"id":245,"date":null,"hours":null,"minutes":60,"status":2,"projectId":3,"from":null,"userId":2,"userName":"anil","task":"rdrfc","activityId":2,"approvedComments":"excellent","rejectedComments":null,"releaseId":16,"releaseVersion":"2.0","userRemarks":"fewfddf","projectName":"MERAEVENTS","dateInLong":1388601000000,"to":null,"activity":"DEVELOPMENT"},{"id":251,"date":null,"hours":null,"minutes":210,"status":2,"projectId":3,"from":null,"userId":2,"userName":"anil","task":"hj","activityId":1,"approvedComments":"excellent","rejectedComments":null,"releaseId":38,"releaseVersion":"4.0","userRemarks":"","projectName":"MERAEVENTS","dateInLong":1388601000000,"to":null,"activity":"DESIGN"},{"id":254,"date":null,"hours":null,"minutes":60,"status":2,"projectId":3,"from":null,"userId":8,"userName":"LAXMI
+						CHAITANYA","task":"dfaefz","activityId":2,"approvedComments":"grfgrgrsg","rejectedComments":null,"releaseId":6,"releaseVersion":"1.0","userRemarks":"","projectName":"MERAEVENTS","dateInLong":1388687400000,"to":null,"activity":"DEVELOPMENT"},{"id":255,"date":null,"hours":null,"minutes":180,"status":2,"projectId":3,"from":null,"userId":8,"userName":"LAXMI
+						CHAITANYA","task":"rfgsfg","activityId":2,"approvedComments":"rsgsg","rejectedComments":null,"releaseId":16,"releaseVersion":"2.0","userRemarks":"","projectName":"MERAEVENTS","dateInLong":1388687400000,"to":null,"activity":"DEVELOPMENT"},{"id":297,"date":null,"hours":null,"minutes":15,"status":2,"projectId":3,"from":null,"userId":7,"userName":"Deepa","task":"ffff","activityId":2,"approvedComments":null,"rejectedComments":null,"releaseId":38,"releaseVersion":"4.0","userRemarks":"","projectName":"MERAEVENTS","dateInLong":1389033000000,"to":null,"activity":"DEVELOPMENT"},{"id":299,"date":null,"hours":null,"minutes":15,"status":2,"projectId":3,"from":null,"userId":7,"userName":"Deepa","task":"afafdafaf","activityId":2,"approvedComments":"Good
+						Work","rejectedComments":null,"releaseId":6,"releaseVersion":"1.0","userRemarks":"","projectName":"MERAEVENTS","dateInLong":1389033000000,"to":null,"activity":"DEVELOPMENT"},{"id":272,"date":null,"hours":null,"minutes":120,"status":2,"projectId":12,"from":null,"userId":7,"userName":"Deepa","task":"ftfgswt4","activityId":2,"approvedComments":null,"rejectedComments":null,"releaseId":126,"releaseVersion":"version1.1","userRemarks":"4fefwse4tfg4ews","projectName":"cos12345","dateInLong":1388860200000,"to":null,"activity":"DEVELOPMENT"},{"id":273,"date":null,"hours":null,"minutes":60,"status":2,"projectId":12,"from":null,"userId":7,"userName":"Deepa","task":"zSXsx","activityId":2,"approvedComments":"jlkajflkjalkfjl","rejectedComments":null,"releaseId":126,"releaseVersion":"version1.1","userRemarks":"","projectName":"cos12345","dateInLong":1388860200000,"to":null,"activity":"DEVELOPMENT"},{"id":278,"date":null,"hours":null,"minutes":75,"status":2,"projectId":12,"from":null,"userId":5,"userName":"JAGADISH","task":"jajdf","activityId":2,"approvedComments":"fgsfgsfgsfg","rejectedComments":null,"releaseId":126,"releaseVersion":"version1.1","userRemarks":"afaf","projectName":"cos12345","dateInLong":1389033000000,"to":null,"activity":"DEVELOPMENT"},{"id":286,"date":null,"hours":null,"minutes":60,"status":2,"projectId":12,"from":null,"userId":5,"userName":"JAGADISH","task":"jajlkfjalkfd","activityId":2,"approvedComments":"adf","rejectedComments":null,"releaseId":126,"releaseVersion":"version1.1","userRemarks":"afafafad","projectName":"cos12345","dateInLong":1389033000000,"to":null,"activity":"DEVELOPMENT"}]}</span>
+				</li>
+				<li><span class="file input"> input
+						:{"payload":{"status":1}} </span></li>
+				<li><span class="file output">output
+						:{"status":"SUCCESS","payload":[{"id":125,"date":null,"hours":null,"minutes":2,"status":1,"projectId":12,"from":null,"userId":8,"userName":"LAXMI
+						CHAITANYA","task":"Testing","activityId":3,"approvedComments":null,"rejectedComments":null,"releaseId":126,"releaseVersion":"version1.1","userRemarks":"update
+						Test","projectName":"cos12345","dateInLong":1388341800000,"to":null,"activity":"QA"},{"id":276,"date":null,"hours":null,"minutes":15,"status":1,"projectId":12,"from":null,"userId":5,"userName":"JAGADISH","task":"jklajlkfjakljf","activityId":2,"approvedComments":null,"rejectedComments":"not
+						valid","releaseId":126,"releaseVersion":"version1.1","userRemarks":"","projectName":"cos12345","dateInLong":1389033000000,"to":null,"activity":"DEVELOPMENT"},{"id":290,"date":null,"hours":null,"minutes":360,"status":1,"projectId":12,"from":null,"userId":5,"userName":"JAGADISH","task":"cossss","activityId":2,"approvedComments":null,"rejectedComments":null,"releaseId":126,"releaseVersion":"version1.1","userRemarks":"","projectName":"cos12345","dateInLong":1389033000000,"to":null,"activity":"DEVELOPMENT"},{"id":291,"date":null,"hours":null,"minutes":90,"status":1,"projectId":12,"from":null,"userId":5,"userName":"JAGADISH","task":"cos/qsp","activityId":1,"approvedComments":null,"rejectedComments":null,"releaseId":126,"releaseVersion":"version1.1","userRemarks":"","projectName":"cos12345","dateInLong":1389033000000,"to":null,"activity":"DESIGN"},{"id":293,"date":null,"hours":null,"minutes":15,"status":1,"projectId":12,"from":null,"userId":7,"userName":"Deepa","task":"grfgrgg","activityId":2,"approvedComments":null,"rejectedComments":null,"releaseId":126,"releaseVersion":"version1.1","userRemarks":"gfgdtge","projectName":"cos12345","dateInLong":1389033000000,"to":null,"activity":"DEVELOPMENT"}]}</span>
+				</li>
+				<li><span class="file reqtype">method : POST</span></li>
+				<li><span class="file author">author : Ajay Kumar</span></li>
 			</ul></li>
 	</ul>
+	</li>
+	<li><span class="folder module">ROLES</span>
+		<ul>
+			<li><span class="folder api">get All Roles</span>
+				<ul id="folder4_1">
+					<li><span class="file url">URL :
+							http://localhost:8080/services/v1/role/get</span></li>
+					<li><span class="file input"> input : { "payload": {} </span></li>
+					<li><span class="file output">output :
+							{"status":"SUCCESS","payload":[[1,"ADMIN"],[2,"APPROVER"],[3,"MEMBER"]]}</span></li>
+					<li><span class="file reqtype">method : POST</span></li>
+					<li><span class="file author">author : Jagadish</span></li>
+				</ul></li>
+		</ul>
+		<ul>
+			<li><span class="folder api">get User Roles</span>
+				<ul id="folder4_2">
+					<li><span class="file url">URL :
+							http://localhost:8080/services/v1/role/getUserRoles</span></li>
+					<li><span class="file input"> input : {"payload":{
+							"userId":3, "projectId":3 } } </span></li>
+					<li><span class="file output">output :
+							{"status":"SUCCESS","payload":{"projectId":3,"userId":3,"roleIds":[2,3]}}</span></li>
+					<li><span class="file reqtype">method : POST</span></li>
+					<li><span class="file author">author : Jagadish</span></li>
+				</ul></li>
+		</ul>
+		<ul>
+			<li><span class="folder api">allocate Roles</span>
+				<ul id="folder4_3">
+					<li><span class="file url">URL :
+							http://localhost:8080/services/v1/role/allocateRoles</span></li>
+					<li><span class="file input"> input : {"payload":{
+							"userId":3, "projectId":3, "roleIds":[2,3] } } </span></li>
+					<li><span class="file output"> output :
+							{"status":"SUCCESS","payload":{"projectId":3,"userId":3,"roleIds":[2,3]}}
+					</span></li>
+					<li><span class="file reqtype">method : POST</span></li>
+					<li><span class="file author">author : Jagadish</span></li>
+				</ul></li>
+		</ul>
+		<ul>
+			<li><span class="folder api">deallocate Roles</span>
+				<ul id="folder4_3">
+					<li><span class="file url">URL :
+							http://localhost:8080/services/v1/role/deallocateRoles</span></li>
+					<li><span class="file input"> input :{"payload":{
+							"userId":3, "projectId":3, "roleIds":[1] } } </span></li>
+					<li><span class="file output"> output :
+							{"status":"SUCCESS","payload":{"projectId":3,"userId":3,"roleIds":[2,3]}}
+					</span></li>
+					<li><span class="file reqtype">method : POST</span></li>
+					<li><span class="file author">author : Jagadish</span></li>
+				</ul></li>
+		</ul></li>
+	<li><span class="folder module">RELEASES</span>
+		<ul>
+			<li><span class="folder api">getReleases</span>
+				<ul id="folder5_1">
+					<li><span class="file url">URL :
+							http://localhost:8080/services/v1/release/get</span></li>
+					<li><span class="file input"> input :
+							{"payload":{"projectId":"1"}} </span></li>
+					<li><span class="file output">{"status":"SUCCESS","payload":[[1,"1.0"],[2,"1.1"],[3,"2.0"],[137,"v5.0"],[144,"v6.0"]]}</span>
+					</li>
+					<li><span class="file reqtype">method : POST</span></li>
+					<li><span class="file author">author : Shiva</span></li>
+				</ul></li>
+		</ul>
+		<ul>
+			<li><span class="folder api">addRelease</span>
+				<ul id="folder5_2">
+					<li><span class="file url">URL :
+							http://localhost:8080/services/v1/release/add</span></li>
+					<li><span class="file input"> input :
+							{"payload":{"projectId":"2","releaseName":"v7.0"}} </span></li>
+					<li><span class="file output">output :
+							{"status":"SUCCESS","payload":{"name":"v7.0","id":147,"objectType":132,"projectId":2,"modifierId":0,"cts":0,"mts":0,"creatorId":0,"deleted":0}}</span>
+					</li>
+					<li><span class="file reqtype">method : POST</span></li>
+					<li><span class="file author">author : Shiva</span></li>
+				</ul></li>
+		</ul>
+		<ul>
+			<li><span class="folder api">deleteRelease</span>
+				<ul id="folder5_3">
+					<li><span class="file url">URL :
+							http://localhost:8080/services/v1/release/delete</span></li>
+					<li><span class="file input"> input :
+							{"payload":{"releaseId":"147"}} </span></li>
+					<li><span class="file output">output :
+							{"status":"SUCCESS","payload":{"name":"v7.0","id":147,"objectType":132,"projectId":2,"modifierId":0,"cts":0,"mts":0,"creatorId":0,"deleted":0}}</span>
+					</li>
+					<li><span class="file reqtype">method : POST</span></li>
+					<li><span class="file author">author : Shiva</span></li>
+				</ul></li>
+		</ul></li>
+
+
+	<li><span class="folder module">ACTIVITIES</span>
+		<ul>
+			<li><span class="folder api">getActivities</span>
+				<ul id="folder6_1">
+					<li><span class="file url">URL :
+							http://localhost:8080/services//v1/activities/getActivities</span></li>
+					<li><span class="file input"> input : {"payload":{}} </span></li>
+					<li><span class="file output">{"status":"SUCCESS","payload":[{"name":"DESIGN","id":1,"description":"DESIGNING
+							HOW TO DEVELOP THE
+							APPLICATION","objectType":135,"modifierId":0,"cts":0,"mts":0,"creatorId":0,"deleted":0},{"name":"DEVELOPMENT","id":2,"description":"DEVELOPING
+							THE
+							APPLICATION","objectType":135,"modifierId":0,"cts":0,"mts":0,"creatorId":0,"deleted":0},{"name":"QA","id":3,"description":null,"objectType":135,"modifierId":0,"cts":0,"mts":0,"creatorId":0,"deleted":0},{"name":"Guiding","id":4,"description":"Guiding
+							the
+							Freshers","objectType":135,"modifierId":0,"cts":0,"mts":0,"creatorId":0,"deleted":0}]}</span>
+					</li>
+					<li><span class="file reqtype">method : POST</span></li>
+					<li><span class="file author">author : Ajay</span></li>
+				</ul></li>
+		</ul></li>
+	</ul>
+
+
 </body>
 </html>

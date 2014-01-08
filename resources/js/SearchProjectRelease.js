@@ -9,6 +9,7 @@ function SearchProjectRelease() {
 }
 
 SearchProjectRelease.prototype.handleShow = function() {
+	$("#ambiance-notification").empty();
 	$('.SelectProject').focus();
 	RequestManager.getProjects({},function(data,success){
 		if(success){
@@ -33,35 +34,61 @@ SearchProjectRelease.prototype.handleShow = function() {
 			});
 		}
 	}.ctx(this));
-
-	$('.SelectProject').change(function(){
-		var projectId=parseInt($('select.SelectProject option:selected').attr('value'));
-		if(roleNames.contains('ADMIN')){
+	
+	
+	$('#SelectProject').keyup(function(event){
+		$("#ambiance-notification").empty();
+		if(event.keyCode==37||event.keyCode==38||event.keyCode==39||event.keyCode==40){
 			$('.add').empty();
-			if(projectId!=0){
-				
-				$('.add').append('<div><button type="button" class="AddPR" id="AddPR">Add Release</button></div>');
-				$('#AddPR').css({
-					"background-color": "#669933",
-					"border": "medium none",
-					"border-radius":"5px",
-					"color": "#FFFFFF",
-					"font-weight": "bold",
-					"left":"60%",
-					"margin-top":"-10.6%",
-					"position": "relative",
-					"text-align": "center",
-					"width": "15%",
-					"height":"28px",
-					"font-size":"16px"
-				});
-				$('.AddPR').click(function(){
-					App.loadAddProjectRelease();
-				}.ctx(this));
-			}
+			this.results();	
 		}
-		App.loadReleaseResult();
+		
 	}.ctx(this));
 
+	$('.SelectProject').change(function(){
+		$("#ambiance-notification").empty();
+		$('.add').empty();
+		this.results();
+	}.ctx(this));
+
+}
+
+SearchProjectRelease.prototype.results=function(){
+	var projectId=parseInt($('select.SelectProject option:selected').attr('value'));
+	if(roleNames.contains('ADMIN')){
+
+		if(projectId!=0){
+			
+			$('.add').append('<div><button type="button" class="AddPR" id="AddPR">Add Release</button></div>');
+			$('#AddPR').css({
+				"background-color": "#669933",
+				"border": "medium none",
+				"border-radius":"5px",
+				"color": "#FFFFFF",
+				"font-weight": "bold",
+				"left":"48%",
+				"margin-top":"-10.6%",
+				"position": "relative",
+				"text-align": "center",
+				"width": "15%",
+				"height":"28px",
+				"font-size":"16px"
+			});
+			$('.AddPR').click(function(){
+				$("#ambiance-notification").empty();
+				App.loadAddProjectRelease();
+			}.ctx(this));
+			
+		}
+		else{
+			$.ambiance({
+				message : "Please Select One Project",
+				type : 'error'
+			});
+		}
+		
+	}
+	App.loadReleaseResult();
+	
 }
 

@@ -74,12 +74,13 @@ AddUser.prototype.addUser = function() {
 	
 	RequestManager.addUser(input, function(data, success) {
 		if(success){
-		//	alert("success" + "  user added id = "+data);
+			$( "select.gender option").val("male");
+			$("#innerAddUserFormRight").find('input').val('');
 			$.ambiance({
-				  message : "Successfull : Id = "+data,
+				  message : "Successfully Added",
 				  type : 'success'
 				});
-			$( "input#clear" ).trigger( "click" );
+			
 		}else{
 			
 			//alert("failed"+data.message);
@@ -136,7 +137,7 @@ AddUser.prototype.validateEmail = function(email){
         isValid = false;
     }
     else if (emailVal.length > 128){
-    	email.focus();
+    	
     	email.after('<span class = "error"  style = "color:red" >Maximum length of Email is 128</span>');
         isValid = false; 
     }
