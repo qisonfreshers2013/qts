@@ -181,7 +181,7 @@ AddUser.prototype.validateDesignation = function(designation){
        $('.error').hide();
 	    var designationVal = designation.val();
 	    if(designationVal.trim().length < 1 ){
-	    	designation.after('<span class="error" style = "color:red">Designation can'+"'"+'t  be empty</span>');
+	    	designation.after('<span class="error" style = "color:red">Designation can'+"'"+'t  be null</span>');
 	    	isValid = false;
 	    }
 	    else if(!designationReg.test(designationVal)) {
