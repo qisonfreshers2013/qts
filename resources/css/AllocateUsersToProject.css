@@ -13,16 +13,19 @@
 #nonUsers {
     margin-top: 4%;
     position: relative;
+    width: 40%;
 }
 #copy {
     left: 36%;
     margin-top: -10.5%;
     position: relative;
+    width: 20%;
 }
 #users {
     left: 43%;
     margin-top: -14.7%;
     position: relative;
+    width: 40%;
 }
 .saveBlock {
     left: 43%;
@@ -50,8 +53,7 @@
 .projectNameAllocate{
 	margin-left:15%;
 }
-#nonExistingUsers,#existingUsers{
-	width:33%; 
-	height:120px;
-	
+#nonExistingUsers, #existingUsers {
+    height: 120px;
+    width: 82%;
 }
