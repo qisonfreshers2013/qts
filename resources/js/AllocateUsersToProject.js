@@ -54,20 +54,28 @@ AllocateUsersToProject.prototype.handleShow=function(){
 		}
 	}.ctx(this));
 
-	$('#projectName').keyup(function(event){
-		if (event.keyCode == 37||event.keyCode == 38||event.keyCode == 39||event.keyCode == 40) {
-			allocateUsersToProjectStatus=false;
-			this.getProjectUsersAndNonUsers();
-		}
-	}.ctx(this));
+//	$('#projectName').keyup(function(event){
+//		
+//		if (event.keyCode == 37||event.keyCode == 38||event.keyCode == 39||event.keyCode == 40) {
+//			$("#ambiance-notification").empty();
+//			allocateUsersToProjectStatus=false;
+//			this.getProjectUsersAndNonUsers();
+//		}
+//	}.ctx(this));
 	
 	$('#projectName').change(function(){
+		
+		$("#ambiance-notification").empty();
+		
 		allocateUsersToProjectStatus=false;
 		this.getProjectUsersAndNonUsers();
 	}.ctx(this));
 	
 	
 	$('#forward').click(function(){
+		
+		$("#ambiance-notification").empty();
+		
 		var projectId=parseInt($('select#projectName option:selected').attr('value'));
 		var options = $('select#nonExistingUsers option:selected').clone();
 		if(options.length>0){
@@ -92,6 +100,9 @@ AllocateUsersToProject.prototype.handleShow=function(){
 
 
 	$('#backward').click(function(){
+		
+		$("#ambiance-notification").empty();
+		
 		var projectId=parseInt($('select#projectName option:selected').attr('value'));
 		var options = $('select#existingUsers option:selected').clone();
 		if(options.length>0){
@@ -116,6 +127,9 @@ AllocateUsersToProject.prototype.handleShow=function(){
 
 
 	$('.go').click(function(){
+		
+		$("#ambiance-notification").empty();
+		
 		newIds.length=0;
 		newEmails.length=0;
 		$('select#existingUsers option').each(function(){
