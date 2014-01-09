@@ -32,11 +32,7 @@ App.prototype.loadSearchProject=function(){
 		new SearchProject();
 	});
 }
-App.prototype.loadSearchProjectResults=function(data){
-	Loader.loadSearchProjectResults(function(){
-		new SearchProjectResults(data);
-	});
-}
+
 
 App.prototype.loadAddProjectRelease=function(){
 	Loader.loadAddProjectRelease(function(){
@@ -47,8 +43,8 @@ App.prototype.loadAddProjectRelease=function(){
 App.prototype.loadMenu=function(cb){
 	Loader.loadMenu(function(){
 		new Menu();
+		cb();
 	});
-	cb();
 }
 
 App.prototype.loadSearchProjectRelease=function(){

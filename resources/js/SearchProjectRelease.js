@@ -39,8 +39,9 @@ SearchProjectRelease.prototype.handleShow = function() {
 	$('#SelectProject').keyup(function(event){
 		$("#ambiance-notification").empty();
 		if(event.keyCode==37||event.keyCode==38||event.keyCode==39||event.keyCode==40){
-			$('.add').empty();
-			this.results();	
+//			$('.add').empty();
+			$('.SelectProject').trigger('change');
+//			this.results();	
 		}
 		
 	}.ctx(this));
