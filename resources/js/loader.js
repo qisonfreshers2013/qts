@@ -30,11 +30,6 @@ Loader.prototype.handleShow = function() {
 	 
 	}
 
-	Loader.prototype.loadSearchProjectResults=function(cb){
-	 LazyLoad.css('resources/css/SearchProjectResults.css');
-	 LazyLoad.js('resources/js/SearchProjectResults.js',cb);
-	 
-	}
 	Loader.prototype.loadAddProjectRelease=function(cb){
 	 LazyLoad.css('resources/css/AddProjectRelease.css');
 	 LazyLoad.js('resources/js/AddProjectRelease.js',cb);

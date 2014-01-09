@@ -707,4 +707,16 @@ public User getUserById(Long id) throws UserException {
 		 }
 
 	
+	@AuthorizeEntity(roles = {Roles.ROLE_ADMIN}, entity = "User.java")
+	public User getUserByIdAOP(Long id) throws UserException{
+		if(id == null) {       
+			throw new UserException(ExceptionCodes.USER_ID_INVALID,ExceptionMessages.USER_ID_INVALID);
+		}
+		User user = DAOFactory.getInstance().getUserDAO().getUserById(id);
+		if(user == null)
+			throw new UserException(ExceptionCodes.USER_DOESNOT_EXIST,ExceptionMessages.USER_DOESNOT_EXIST);
+		return user;		
+	}
+
+	
 }

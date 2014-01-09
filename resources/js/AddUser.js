@@ -1,8 +1,7 @@
 /**
  * 
  */
-function AddUser() {
-	
+function AddUser() {	
 	Loader.loadHTML('#container', 'AddUser.html', false, function(){
 		this.handleShow();
 	}.ctx(this));
@@ -10,10 +9,6 @@ function AddUser() {
 
 AddUser.prototype.handleShow = function() {
 	 $("#ambiance-notification").empty();
-//	$('.container').show();	
-//	$('input.firstname').keyup(function(){
-//		this.validateName();
-//	}.ctx(this));
 	
 	$('input.email').keyup(function(){
 			$('input.userIdTextAU').val($('input.email').val()) ; 
@@ -21,7 +16,7 @@ AddUser.prototype.handleShow = function() {
 	$('input.email').blur(function(){
 		$('input.userIdTextAU').val($('input.email').val()) ; 
 		}.ctx(this));
-	$('div.addUSer').keyup(function(event){
+	$('div#innerAddUserFormRight').keyup(function(event){
 		if(event.keyCode == 13){
 			$('button#submit').trigger("click");
 		}
@@ -124,7 +119,7 @@ AddUser.prototype.validateEmail = function(email){
 	var isValid = false;
 	$(".error").hide();
     var isValid = false;
-    var emailReg = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,})?$/;
+    var emailReg = /^[_A-Za-z]+[_A-Za-z0-9-]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$/; /*// /^([\w-\.]+@([\w-]+\.)+[\w-]{2,})?$/;*/
 
     var emailVal = email.val();
     if(emailVal.trim().length <= 0 || emailVal == null) {

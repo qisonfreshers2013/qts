@@ -111,6 +111,14 @@ label#emailForgot{
 }
 
 
+ button:focus,input[type="button"]:focus,input[type="reset"]:focus {
+outline: thin dotted rgb(255, 255, 255);
+outline-offset: -2px;
+/*border-color:#52a8ec;
+box-shadow:0 1px 1px rgba(0,0,0,0.075) inset,0 0 15px rgba(82,168,236,0.6);
+outline:0 none;*/
+}
+
 
 /*p.error{*/
 /*color:red;*/

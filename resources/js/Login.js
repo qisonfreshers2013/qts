@@ -12,7 +12,7 @@ var allocateUsersToProjectStatus=false;
 
 Login.prototype.handleShow = function() {		
 	$('#userId').focus();	
-	$("#loginDiv").keyup(function (event) {
+	$("#loginTextDivTab").keyup(function (event) {
 		  if (event.keyCode == 13) {
 			  if(this.validateLogin($('input.userId').val(),$('input.password').val())){		
 					this.authenticate();
@@ -24,8 +24,7 @@ Login.prototype.handleShow = function() {
 		  if (event.keyCode == 13) {
 				$(".error").remove();
 				$( "button.submitEmail" ).trigger("click");
-		}
-	
+		}	
 		}.ctx(this));
 
 	$('#forgotPasswordModal').keyup(function (event) {
@@ -57,7 +56,7 @@ Login.prototype.handleShow = function() {
 	}.ctx(this));
 		
 	$(".clearLogin").click(function(){		
-		$('#userId').focus();
+	//	$('#userId').focus();
 		$(".error").hide();		
 	}.ctx(this));
 	
@@ -185,7 +184,7 @@ Login.prototype.validateLogin = function(email,password){
 	$(".error").hide();
 	console.log(email+" validation "+password);
     var isValid = false;
-    var emailReg = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,})?$/;
+    var emailReg = /^[_A-Za-z]+[_A-Za-z0-9-]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$/;
   //  var emailVal = email;
     if(email == "" || email == null) {
     	$('.userId').focus();
@@ -235,7 +234,7 @@ Login.prototype.validateEmail = function(emailRef){
 	console.log(emailVal+" validation ");
 	$(".error").hide();
     var isValid = false;
-    var emailReg = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,})?$/;
+    var emailReg = /^[_A-Za-z]+[_A-Za-z0-9-]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$/;
    
     if(emailVal == '') {
     	emailRef.focus();

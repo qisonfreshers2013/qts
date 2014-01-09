@@ -10,7 +10,7 @@ function MyProfile(){
 MyProfile.prototype.handleShow = function(){
 	$('#changePasswordModal').hide();	
 	this.loadValues();
-	$('div#editProfileDiv').keyup(function(event){
+	$('form#myProfileInnerForm').keyup(function(event){
 		if(event.keyCode == 13){
 			$('.error').remove();
 			$('button#submit').trigger("click");
