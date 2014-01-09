@@ -5,17 +5,19 @@ function AddProject() {
 }
 
 AddProject.prototype.handleShow = function() {
+	var flag=true;
 	$("#ambiance-notification").empty();
 	$('#projectName').focus();
 	
-	$("#addProjectFormDiv").keyup(function(event) {
+	$(".enterActionAp").keyup(function(event) {
 		if (event.keyCode == 13) {
-			$('.go').trigger('click');
+			$('#go').trigger('click');
 		}
-  }.ctx(this));
+    }.ctx(this));
 	
 	
-	$('.go').click(function(){
+	
+	$('#go').click(function(){
 		var projectNameField=$('#projectName');
 		var technologiesField=$('#technologies');
 		

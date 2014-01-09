@@ -20,7 +20,7 @@
     position: relative;
     width: 40%;
 }
-.go, .reset {
+#go, .reset {
     background-color: rgb(102, 153, 51);
     color: rgb(255, 255, 255);
     font-weight: bold;
