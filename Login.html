@@ -1,60 +1,64 @@
-<div id = "content">
-<div id = "loginDiv"  class = "loginDiv">
-<fieldset id = "loginFieldSet" class = "loginFieldSet">
-<div id = "loginImg" class = "loginImg"><img id = "login" class="login" src = "resources/img/login.png" alt = "login"><span id = "loginHeader">Login</span>
+<div id="content">
+<div id="loginDiv" class="loginDiv">
+<fieldset id="loginFieldSet" class="loginFieldSet">
+<div id="loginImg" class="loginImg"><img id="login" class="login"
+	src="resources/img/login.png" alt="login"><span id="loginHeader">Login</span>
 </div>
-<form id = "loginForm" class = "loginForm" >
-<!--<div id = "userIdField" class = "userIdField">-->
+<form id="loginForm" class="loginForm"><!--<div id = "userIdField" class = "userIdField">-->
 <!--<p><label id = "loginUserId " class = "loginUserId " for="userId">User Id<span id = star class = "star"><sup>*</sup></span> </label></p>-->
 <!--</div>-->
-<div id = "userIdText" class = "userIdText ">
-<input id = "userId" class = "userId userIdWidth" type = "email" pattern = "^([\w-\.]+@([\w-]+\.)+[\w-]{2,})?$" autofocus  placeholder = "User Id"  title = "Email Pattern" pattern = "^[_A-Za-z]+[_A-Za-z0-9-]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" maxlength="128" required/>
-</div>
-<!--<div id = "passwordField" class = "passwordField">-->
-<!--<p><label for="password">Password<span id = star class = "star"><sup>*</sup></span></label> </p>-->
+<div id = "loginTextDivTab">
+<div id="userIdText" class="userIdText "><input id="userId"
+	class="userId userIdWidth" type="email" autofocus placeholder="User Id"
+	title="Email Pattern"
+	pattern="^[_A-Za-z]+[_A-Za-z0-9-]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$"
+	maxlength="128" required /></div>
+<!--<div id = "passwordField" class = "passwordField">--> <!--<p><label for="password">Password<span id = star class = "star"><sup>*</sup></span></label> </p>-->
 <!--</div>-->
-<div id = "passwordText" class = "passwordText">
-<input id = "password"  class = "password passwordWidth" type = "password" placeholder= "Password"  pattern=".{6,}" title = "minimum length is 6" required maxlength="128"/>
+<div id="passwordText" class="passwordText"><input id="password"
+	class="password passwordWidth" type="password" placeholder="Password"
+	pattern=".{6,}" title="minimum length is 6" required maxlength="128" />
 </div>
-<div id = "forgotPassword" class = "forgotPassword">
-<a id = "forgotPasswordLink" class = "forgotPasswordLink" data-target="#forgotPasswordModal">Forgot Password ?</a>
 </div>
-<!--<div id = "error" class = "error">-->
-<!--<p id = "error" class = "error"></p>-->
-<!--</div>-->
-</form>
-<div id = "submitDivLogin" class = "submitDivLogin">
-<button id = "submitLogin" form = "loginForm" class = "submitLogin" type = "button" value = "signin">Sign In</button>
+<div id="forgotPassword" class="forgotPassword"><a
+	id="forgotPasswordLink" class="forgotPasswordLink"
+	data-target="#forgotPasswordModal">Forgot Password ?</a></div>
+<!--<div id = "error" class = "error">--> <!--<p id = "error" class = "error"></p>-->
+<!--</div>--></form>
+<div id="submitDivLogin" class="submitDivLogin">
+<button id="submitLogin" form="loginForm" class="submitLogin"
+	type="button" value="signin">Sign In</button>
 </div>
-<div id = "clearDivLogin" class = "clearDivLogin">
-<button id = "clearLogin" class = "clearLogin" type = "reset" form = "loginForm" value = "">Cancel</button>
+<div id="clearDivLogin" class="clearDivLogin">
+<button id="clearLogin" class="clearLogin" type="reset" form="loginForm"
+	value="">Cancel</button>
 </div>
 
 </fieldset>
 </div>
 <!-- Modal -->
-<div class="modal fade forgotPasswordModal" id="forgotPasswordModal" data-backdrop="static">
- <div class="modal-header">
-
-<!--   <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>-->
-        <button type="button" id = "forgotButton" class="btn btn-default  forgotButton close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h2 class="modal-title">Email</h2>
-        <p class="sending" id = "sending"></p>
-<!--        <canvas id="spinner"></canvas>-->
-      </div>
-<div class="modal-body"><label id = "emailForgot" class = "emailForgot" for="emailToSend">Email <span id = star class = "star"><sup>*</sup></span></label> <input
-	type="email" name="emailToSend"  id="emailToSend" placeholder = "email" class="emailToSend" required maxlength="128"></div>
-<div class="modal-footer">
-
-<!--<button type="button" id  = "forgotButton" class="btn btn-default forgotButton" data-dismiss="modal">Close</button>-->
-<button id = "submitEmail"  type="button" class="btn btn-primary submitEmail">Submit</button>
+<div class="modal fade forgotPasswordModal" id="forgotPasswordModal"
+	data-backdrop="static">
+<div class="modal-header"><!--   <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>-->
+<button type="button" id="forgotButton"
+	class="btn btn-default  forgotButton close" data-dismiss="modal"
+	aria-hidden="true">&times;</button>
+<h2 class="modal-title">Email</h2>
+<p class="sending" id="sending"></p>
+<!--        <canvas id="spinner"></canvas>--></div>
+<div class="modal-body"><label id="emailForgot"
+	class="emailForgot" for="emailToSend">Email <span id=star
+	class="star"><sup>*</sup></span></label> <input type="email" name="emailToSend"
+	pattern="^[_A-Za-z]+[_A-Za-z0-9-]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$"
+	id="emailToSend" placeholder="email" class="emailToSend" required
+	maxlength="128"></div>
+<div class="modal-footer"><!--<button type="button" id  = "forgotButton" class="btn btn-default forgotButton" data-dismiss="modal">Close</button>-->
+<button id="submitEmail" type="button"
+	class="btn btn-primary submitEmail">Submit</button>
 </div>
 </div>
 <!--<div class="modal fade sending" id="sending" data-backdrop="static">-->
-<!-- <div class="modal-header">-->
-<!--Sending....-->
-<!--</div>-->
-<!--</div>-->
+<!-- <div class="modal-header">--> <!--Sending....--> <!--</div>--> <!--</div>-->
 </div>
 
 

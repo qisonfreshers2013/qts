@@ -54,6 +54,7 @@ SearchUser.prototype.handleShow = function(){
 		if(nickname == "" || nickname.trim().length<1){
 			isNicknameValidated = true;
 			nickname = null;
+			
 		}	
 		else{
 			isNicknameValidated = this.validateNickname($('input.nickname'));	
@@ -148,7 +149,7 @@ SearchUser.prototype.validateEmail = function(email){
 	var isValid = false;
 	//$(".error").show();
  
-    var emailReg = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,})?$/;
+    var emailReg = /^[_A-Za-z]+[_A-Za-z0-9-]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$/;
 
     var emailVal = email.val();
     if(!emailReg.test(emailVal)) {

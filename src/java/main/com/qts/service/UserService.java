@@ -305,7 +305,7 @@ public class UserService extends BaseService {
 	public String getUserDetails(@Context HttpHeaders headers,@Context UriInfo info,WebserviceRequest request) throws UserException{
 		UserBean bean = (UserBean) JsonUtil.getObject(request.getPayload(),
 				UserBean.class);
-		User user = UserHandler.getInstance().getUserById(bean.getId());
+		User user = UserHandler.getInstance().getUserByIdAOP(bean.getId());
 		return JsonUtil.getJsonBasedOnDescriptor(user, User.class);		
 	}
 	

@@ -23,11 +23,12 @@ SearchResults.prototype.handleShow = function(data){
 SearchResults.prototype.appendValues = function(data){
 	var projectList ="";
 	//$("#projectsIdSR"+data.records[i].id).tooltip(this.options);
-	RequestManager.getLoginUserDetails({"payload":{}},function(Userdata,success){
-		if(success){
-			var empId=Userdata.employeeId;
+	
 			
-			if(roleNames.contains('ADMIN')){
+			if(roleNames.contains('ADMIN')){			
+				RequestManager.getLoginUserDetails({"payload":{}},function(Userdata,success){
+					if(success){
+						var empId=Userdata.employeeId;
 				for(var i = 0;i<data.records.length;i++){
 					if(data.records[i].projects.length<1){
 						data.records[i].projects[0] = "No projects";
@@ -44,7 +45,7 @@ SearchResults.prototype.appendValues = function(data){
 								"<td ><p style = 'font-size:12px' title = '"+data.records[i].employeeId+"' >"+data.records[i].employeeId.ellipses(10)+"</p></td>"+
 								"<td ><p style = 'font-size:12px' title = '"+data.records[i].designation+"' >"+data.records[i].designation.ellipses(10)+"</p></td>"+			     
 								"<td id = 'projectsIdSR"+data.records[i].id+"' title = '"+projectList+"'><p style = 'font-size:12px;'>"+projectList.ellipses(10)+"</p></td>"+
-								"<td ><img src = 'resources/img/delete.png' alt = 'delete' style ='cursor:pointer;' title = 'delete user' class='deleteSymbol' id = "+ data.records[i].id +" /><img src ='resources/img/edit.png'  style ='cursor:pointer;' title = 'edit profile' alt = 'edit' id = "+data.records[i].id+" class='editSymbol'/></td>"+
+								"<td ><button class = 'deleteSRbutton' id = "+ data.records[i].id +" style = 'background-color:inherit;border:none' ><img src = 'resources/img/delete.png' alt = 'delete' style ='cursor:pointer;' title = 'delete user' class='deleteSymbol'  /></button><button class = 'editSRbutton' id = "+data.records[i].id+"  style = 'background-color:inherit;border:none'><img src ='resources/img/edit.png'  style ='cursor:pointer;' title = 'edit profile' alt = 'edit'  class='editSymbol'/></button></td>"+
 						"</tr>"	); 		
 					projectList = "";
 					}
@@ -56,31 +57,40 @@ SearchResults.prototype.appendValues = function(data){
 								"<td ><p style = 'font-size:12px' title = '"+data.records[i].employeeId+"' >"+data.records[i].employeeId.ellipses(10)+"</p></td>"+
 								"<td ><p style = 'font-size:12px' title = '"+data.records[i].designation+"' >"+data.records[i].designation.ellipses(10)+"</p></td>"+			     
 								"<td id = 'projectsIdSR"+data.records[i].id+"' title = '"+projectList+"'><p style = 'font-size:12px;'>"+projectList.ellipses(10)+"</p></td>"+
-								"<td ><img src = 'resources/img/delete.png' alt = 'delete' style ='cursor:pointer;' title = 'delete user' class='deleteSymbolSelf' id = "+ data.records[i].id +" /><img src ='resources/img/edit.png'  style ='cursor:pointer;' title = 'edit profile' alt = 'edit' id = "+data.records[i].id+" class='editSymbol'/></td>"+
+								"<td ><button class = 'deleteSRbuttonSelf' id = "+ data.records[i].id +"  style = 'background-color:inherit;border:none'><img src = 'resources/img/delete.png' alt = 'delete' style ='cursor:pointer;' title = 'delete user' class='deleteSymbolSelf' /></button><button class = 'editSRbutton' id = "+data.records[i].id+"  style = 'background-color:inherit;border:none'><img src ='resources/img/edit.png'  style ='cursor:pointer;' title = 'edit profile' alt = 'edit'  class='editSymbol'/></button></td>"+
 						"</tr>"	); 	
 						projectList = "";
 						}					
 					}
-				$('.editSymbol').click(function(event){		
-					var id = event.target.id;
+				$('button.editSRbutton').click(function(event){		
+					var userId = event.target.id;
 					$('#content').remove();
-			    	App.loadUserProfile(id);
+			    	App.loadUserProfile(userId);
 				}.ctx(this));
 				
-				$('.deleteSymbolSelf').click(function(event){
+				$('button.deleteSRbuttonSelf').click(function(event){
 					$.ambiance({
 					    message :"You are not allowed to perform this action",
 					    type : 'error'
 					   });
 				}.ctx(this));			
 				
-				$('.deleteSymbol').click(function(event){						
+				$('button.deleteSRbutton').click(function(event){	
+					
 				this.deleteUser(event);
-					}.ctx(this));
-				
-				}
+					}.ctx(this));				
+			}
 			else{
-				 $('#resultsTable thead tr th:last').hide();
+				$.ambiance({
+				    message : "Fail : "+data.message,
+				    type : 'error'
+				   });	
+				}
+				}.ctx(this));				
+				}			
+			
+			else{
+				$('#resultsTable thead tr th:last').hide();
 				for(var i = 0;i<data.records.length;i++){
 					if(data.records[i].projects.length<1){
 						data.records[i].projects[0] = "No projects";
@@ -92,10 +102,6 @@ SearchResults.prototype.appendValues = function(data){
 					}
 					projectList = projectList+data.records[i].projects[data.records[i].projects.length-1]+" .";
 					}
-//					options = {"title":data.records[i].projects,
-//							   "placement":"right"
-//							};
-				//	if(empId!=data.records[i].employeeId){
 						$("#resultsTable tbody").append("<tr style = 'text-align:center;'>"+			        
 								"<td id ="+data.records[i].photoFileUrl+"><img src='resources/img/defaultImage.png' alt = 'default image' class='defaultImage'/></td>"+
 								"<td ><p style = 'font-size:12px;' title = '"+data.records[i].email+"'>"+data.records[i].email.ellipses(35)+"</p></td>"+
@@ -103,29 +109,19 @@ SearchResults.prototype.appendValues = function(data){
 								"<td ><p style = 'font-size:12px' title = '"+data.records[i].designation+"'>"+data.records[i].designation.ellipses(10)+"</p></td>"+			     
 								"<td id = 'projectsIdSR"+data.records[i].id+"' title = '"+projectList+"' ><p style = 'font-size:12px;'>"+projectList.ellipses(10)+"</p></td>"+						
 						"</tr>"	);
-					projectList = "";
-					//}
+					projectList = "";				
 				}				
-			}			
-		}
-		else{
-			$.ambiance({
-			    message : "Fail : "+data.message,
-			    type : 'error'
-			   });	
-		}
-	}.ctx(this));
-
+			}	
 }
 
 SearchResults.prototype.deleteUser = function(event){
-	var id = event.target.id;
+	var userId = event.target.id;
 	//$('.bootbox').modal('show');
 	//$('#deleteCancel').focus();
 	var shouldDelete = confirm('Are you sure to delete this user');
 	//$('#deleteCancel').click(function(){				
 
-	var input = {"payload":{"id":id}};
+	var input = {"payload":{"id":userId}};
 	if(shouldDelete){
 	RequestManager.deleteUser(input,function(data,success){
 		if(success){

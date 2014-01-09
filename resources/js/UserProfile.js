@@ -18,7 +18,7 @@ UserProfile.prototype.handleShow = function(id) {
 //	}.ctx(this));
 	
 	
-	$('div.userProfile').keyup(function(event){
+	$('div#inneruserProfileFormRight').keyup(function(event){
 		if(event.keyCode == 13){
 			$('button#submit').trigger("click");
 		}
@@ -163,7 +163,7 @@ UserProfile.prototype.validateEmail = function(email){
 	var isValid = false;
 	$(".error").hide();
     var isValid = false;
-    var emailReg = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,})?$/;
+    var emailReg = /^[_A-Za-z]+[_A-Za-z0-9-]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$/;
 
     var emailVal = email.val();
     if(emailVal.length<1) {
@@ -263,7 +263,7 @@ UserProfile.prototype.validateNickname= function(nickname){
 UserProfile.prototype.validateLocation= function(location){
 	var isValid = false;
 	$(".error").hide();
-	var locationReg =  /^[A-Za-z]+([ {1}][A-Za-z]+)*$/g;
+	var locationReg = /^[A-Za-z]+([ {1}][A-Za-z]+)*$/g;
       
 	    var locationVal = location.val();	
 	    if(locationVal.length < 1){
