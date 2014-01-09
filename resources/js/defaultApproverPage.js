@@ -10,7 +10,6 @@ function DefaultApproverPage(){
 }
 DefaultApproverPage.prototype.handleShow=function(){
 	$("#ambiance-notification").empty();    
-
 }
 DefaultApproverPage.prototype.loadApproverSearch=function(){
 	new ApproverSearch();

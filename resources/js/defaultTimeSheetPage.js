@@ -15,6 +15,7 @@ DefaultTimeSheetPage.prototype.handleShow=function(){
 	  
     $(document).ready(function() {
         $(".searchByDate").datepicker({maxDate:new Date()});  
+       
     });
   
     $("#calendarIcon").click(function(){$(".searchByDate").focus();}.ctx(this));
@@ -66,8 +67,12 @@ DefaultTimeSheetPage.prototype.handleShow=function(){
 		this.searchUserTimeEntries();
 		}.ctx(this));
 	
+	$(".searchByProjectId,.searchByDate").keyup(function (event) {
+  	  if (event.keyCode == 13) {
+  	   $('.searchUserTimeEntries').trigger('click');
+  	  }
+  	 }.ctx(this));
 	
-
 }
 
 DefaultTimeSheetPage.prototype.loadTimeSheetFilling=function(){
@@ -347,7 +352,7 @@ DefaultTimeSheetPage.prototype.searchUserTimeEntries=function(){
 					    }
 						}.ctx(this));	    
 			}
-			$('#searchByDate').val($.datepicker.formatDate('mm/dd/yy', new Date(data[0].dateInLong)));
+			//$('#searchByDate').val($.datepicker.formatDate('mm/dd/yy', new Date(data[0].dateInLong)));
 			}else{
    				$.ambiance({
     			    message : 'No TimeEntries Found',

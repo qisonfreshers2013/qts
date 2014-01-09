@@ -60,7 +60,7 @@ ApproverSearch.prototype.handleShow=function(){
 	
 	$('#clearTheComments').click(function(event){
 	    $('#comments').val('');
-	    $('#comments').focus();
+	    //$('#comments').focus();
 	}.ctx(this));
 	
 	
@@ -69,11 +69,17 @@ ApproverSearch.prototype.handleShow=function(){
   		 $('#searchCriteria').find('*').prop('disabled',false);
 		}.ctx(this));
   	
-  	$("#rejectedComments").keyup(function (event) {
+  	$(".comments").keyup(function (event) {
   	  if (event.keyCode == 13) {
   	   $('.submitComments').trigger('click');
   	  }
   	 }.ctx(this));
+	
+	$("#searchCriteria").keyup(function (event) {
+	  	  if (event.keyCode == 13) {
+	  	   $('.searchTimeEntriesByApprover').trigger('click');
+	  	  }
+	  	 }.ctx(this));
   	
  	$(document.documentElement).keyup(function (event) {
   	  if (event.keyCode == 27) {
@@ -264,7 +270,10 @@ ApproverSearch.prototype.searchTimeEntriesByApprover = function() {
 						});
     				   $("#clearTheComments").trigger("click");
 				    	$("#rejectedComments").modal('show');
-				    	$('#comments').focus();
+//				    	$('#rejectedComments').on('shown.bs.modal', function (e) {
+//				    	    e.preventDefault();
+//							$('#comments').focus();
+//							});
 				    	statusToApproveOrReject=1;
 				    	timeEntryIdToApproveOrReject=event.target.value;
 						}.ctx(this));
@@ -277,7 +286,10 @@ ApproverSearch.prototype.searchTimeEntriesByApprover = function() {
 						});
 						$("#clearTheComments").trigger("click");
 						$("#rejectedComments").modal('show');
-						$('#comments').focus();
+						//$('#comments').focus();
+//						$('#rejectedComments').on('shown.bs.modal', function () {
+//							$('#comments').focus();
+//							});
 						statusToApproveOrReject=2;
 						timeEntryIdToApproveOrReject=event.target.value;
 						}.ctx(this));

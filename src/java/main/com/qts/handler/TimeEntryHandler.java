@@ -301,7 +301,9 @@ public class TimeEntryHandler {
 				&& timeEntry.getRejectedComments() == null){
 			throw new InvalidTimeEntryDataException(ExceptionCodes.TIMEENTRY_REJECT_FAILED,ExceptionMessages.TIMEENTRY_REJECT_FAILED);
 		}else{
-			TimeEntryBean timeEntryToApprove=(TimeEntryBean) TimeEntryHandler.getInstance().getObjectById(timeEntry.getId());
+			TimeEntries timeEntryToApprove=(TimeEntries) DAOFactory.getInstance()
+					.getTimeEntryDAOInstance()
+					.getTimeEntryObjectById(timeEntry.getId());
 			RoleBean roleBeanInput=new RoleBean(ServiceRequestContextHolder.getContext().getUserSessionToken().getUserId(),timeEntryToApprove.getProjectId());
 			RoleBean roleBeanOutput=RoleHandler.getInstance().getUserRoles(roleBeanInput);
 			if(roleBeanOutput.getRoleIds().contains(new Long(2))){
@@ -321,7 +323,9 @@ public class TimeEntryHandler {
 		if (timeEntry.getId() == null){ 
 			throw new InvalidTimeEntryDataException(ExceptionCodes.TIMEENTRY_APPROVE_FAILED,ExceptionMessages.TIMEENTRY_APPROVE_FAILED);
 		}else{
-			TimeEntryBean timeEntryToApprove=(TimeEntryBean) TimeEntryHandler.getInstance().getObjectById(timeEntry.getId());
+			TimeEntries timeEntryToApprove=(TimeEntries) DAOFactory.getInstance()
+					.getTimeEntryDAOInstance()
+					.getTimeEntryObjectById(timeEntry.getId());
 			RoleBean roleBeanInput=new RoleBean(ServiceRequestContextHolder.getContext().getUserSessionToken().getUserId(),timeEntryToApprove.getProjectId());
 			RoleBean roleBeanOutput=RoleHandler.getInstance().getUserRoles(roleBeanInput);
 			if(roleBeanOutput.getRoleIds().contains(new Long(2))){
@@ -546,8 +550,9 @@ public class TimeEntryHandler {
 		
 		}
 	
-	public TimeEntryBean getObjectById(long id) throws ObjectNotFoundException{
+	public TimeEntryBean getObjectById(long id) throws ObjectNotFoundException, TimeEntryException{
 		
+       
 		TimeEntries timeEntry= DAOFactory.getInstance()
 				.getTimeEntryDAOInstance()
 				.getTimeEntryObjectById(id);
@@ -556,17 +561,18 @@ public class TimeEntryHandler {
 		timeEntryBean.setActivity(ActivityHandler.getInstance().getObjectById(timeEntryBean.getActivityId()).getName());
 		timeEntryBean.setReleaseVersion(ReleaseHandler.getInstance().getObjectById(timeEntryBean.getReleaseId()).getName());
 		timeEntryBean.setUserName(UserHandler.getInstance().getUserName(timeEntryBean.getUserId()));	
-		;
+		
 		if(timeEntry!=null){
-			return timeEntryBean;
+			if(timeEntry.getUserId()==ServiceRequestContextHolder.getContext().getUserSessionToken().getUserId())
+			return timeEntryBean;	
+			else 
+				throw new TimeEntryException(ExceptionCodes.USER_NOT_AUTHORIZED,ExceptionMessages.USER_NOT_AUTHORIZED);
 		}else{
-			throw new ObjectNotFoundException();
+			throw new ObjectNotFoundException(ExceptionCodes.OBJECT_NOT_FOUND,ExceptionMessages.INVALID_ID);
 			}
+		
 	}
 	
-	
-	
-
 	/*
 	 * Handler Method used to obtain worked hours by a user for that date
 	 */
