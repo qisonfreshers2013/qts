@@ -42,16 +42,18 @@ TimeEntry.prototype.handleShow=function(){
 	}.ctx(this));	
 
 	$('.clearTheFields').click(function(event){
+		$(".hiddenResetButton").trigger("click");
 		 $('.selectRelease').empty();
 		 $('.selectRelease').append('<option>SELECT</option>');
+		 
 	}.ctx(this));
 	
-  	$("#loadTimeSheetFilling").keyup(function (event) {
+  	$(".rightHeaderFields,.selectRelease,.hours,.task,.minutes").keyup(function (event) {
     	  if (event.keyCode == 13) {
     	   $('.saveTheTimeEntry').trigger('click');
     	  }
     	 }.ctx(this));
-	
+
 	
 	
   	$(document.documentElement).keyup(function (event) {

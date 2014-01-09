@@ -35,7 +35,7 @@ p {
 }
 .datepicker {
     margin-left: 0;
-    margin-top: -3%;
+    margin-top: -5%;
     width: 94%;
 }
 .selectRelease {
@@ -88,8 +88,8 @@ p {
     border-radius: 5px;
     color: #FFFFFF;
     font-weight: bold;
-    left: 83%;
-    margin-top: 3%;
+    left: 71%;
+    margin-top: -4%;
     position: relative;
     text-align: center;
     width: 13% !important;
@@ -100,8 +100,8 @@ p {
     border-radius: 5px;
     color: #FFFFFF;
     font-weight: bold;
-    left: 67%;
-    margin-top: -13%;
+    left: 69%;
+    margin-top: -4%;
     position: relative;
     text-align: center;
     width: 13% !important;

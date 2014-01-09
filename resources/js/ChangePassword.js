@@ -35,7 +35,7 @@ ChangePassword.prototype.handleShow = function(){
 //		document.body.style.overflow = "hidden";
 	  //  if (!data) return e.preventDefault() // stops modal from being shown
 	}.ctx(this));
-	$('#changePasswordModal').keyup(function (event) {
+	$('#formDiv').keyup(function (event) {
 		  if (event.keyCode == 13) {
 				$(".error").remove();
 				$( "button#submitPassword" ).trigger("click");
