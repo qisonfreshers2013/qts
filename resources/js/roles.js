@@ -61,7 +61,10 @@ Roles.prototype.handleShow = function() {
 	});
 	$('.roles').keyup(function(event) {
 		if(event.keyCode==13){
-			$('#saveb').trigger('click');
+				if($('#cancelb').is(':focus'))
+					$('cancelb').trigger('click');
+				else
+					$('#saveb').trigger('click');
 		} 
 	}.ctx(this));
 };
