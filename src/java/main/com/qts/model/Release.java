@@ -18,7 +18,7 @@ import javax.persistence.UniqueConstraint;
  */
 
 @Entity
-@Table(name = "releases", uniqueConstraints = { @UniqueConstraint(columnNames = {"name", "project_id" }) })
+@Table(name = "RELEASES", uniqueConstraints = { @UniqueConstraint(columnNames = {"name", "project_id" }) })
 public class Release extends AbstractObject {
 
 	@Id
