@@ -45,7 +45,8 @@ SearchResults.prototype.appendValues = function(data){
 								"<td ><p style = 'font-size:12px' title = '"+data.records[i].employeeId+"' >"+data.records[i].employeeId.ellipses(10)+"</p></td>"+
 								"<td ><p style = 'font-size:12px' title = '"+data.records[i].designation+"' >"+data.records[i].designation.ellipses(10)+"</p></td>"+			     
 								"<td id = 'projectsIdSR"+data.records[i].id+"' title = '"+projectList+"'><p style = 'font-size:12px;'>"+projectList.ellipses(10)+"</p></td>"+
-								"<td ><button class = 'deleteSRbutton' id = "+ data.records[i].id +" style = 'background-color:inherit;border:none' ><img src = 'resources/img/delete.png' alt = 'delete' style ='cursor:pointer;' title = 'delete user' class='deleteSymbol'  /></button><button class = 'editSRbutton' id = "+data.records[i].id+"  style = 'background-color:inherit;border:none'><img src ='resources/img/edit.png'  style ='cursor:pointer;' title = 'edit profile' alt = 'edit'  class='editSymbol'/></button></td>"+
+								"<td> <input class = 'deleteSRbutton' title = 'Delete User' id = "+ data.records[i].id +" type='image' src = 'resources/img/delete.png' style = 'background-color:inherit;border:none' alt='Delete'>  <input class = 'editSRbutton'  title = 'Edit User'  id = "+ data.records[i].id +" type='image' src = 'resources/img/edit.png' style = 'background-color:inherit;border:none' alt = 'Edit' ></td>"+								
+								//"<td ><button class = 'deleteSRbutton' id = "+ data.records[i].id +" style = 'background-color:inherit;border:none' ><img src = 'resources/img/delete.png' alt = 'delete' style ='cursor:pointer;' title = 'delete user' class='deleteSymbol'  /></button><button class = 'editSRbutton' id = "+data.records[i].id+"  style = 'background-color:inherit;border:none'><img src ='resources/img/edit.png'  style ='cursor:pointer;' title = 'edit profile' alt = 'edit'  class='editSymbol'/></button></td>"+
 						"</tr>"	); 		
 					projectList = "";
 					}
@@ -57,25 +58,27 @@ SearchResults.prototype.appendValues = function(data){
 								"<td ><p style = 'font-size:12px' title = '"+data.records[i].employeeId+"' >"+data.records[i].employeeId.ellipses(10)+"</p></td>"+
 								"<td ><p style = 'font-size:12px' title = '"+data.records[i].designation+"' >"+data.records[i].designation.ellipses(10)+"</p></td>"+			     
 								"<td id = 'projectsIdSR"+data.records[i].id+"' title = '"+projectList+"'><p style = 'font-size:12px;'>"+projectList.ellipses(10)+"</p></td>"+
-								"<td ><button class = 'deleteSRbuttonSelf' id = "+ data.records[i].id +"  style = 'background-color:inherit;border:none'><img src = 'resources/img/delete.png' alt = 'delete' style ='cursor:pointer;' title = 'delete user' class='deleteSymbolSelf' /></button><button class = 'editSRbutton' id = "+data.records[i].id+"  style = 'background-color:inherit;border:none'><img src ='resources/img/edit.png'  style ='cursor:pointer;' title = 'edit profile' alt = 'edit'  class='editSymbol'/></button></td>"+
+								"<td> <input class = 'deleteSRbuttonSelf' title = 'Self deletion not possible' id = "+ data.records[i].id +" type='image' src = 'resources/img/delete.png' style = 'background-color:inherit;border:none;' alt='Delete'>  <input class = 'editSRbutton'  title = 'Edit Self'  id = "+ data.records[i].id +" type='image' src = 'resources/img/edit.png' style = 'background-color:inherit;border:none' alt = 'Edit' ></td>"+	
+								//"<td ><button class = 'deleteSRbuttonSelf' id = "+ data.records[i].id +"  style = 'background-color:inherit;border:none'><img src = 'resources/img/delete.png' alt = 'delete' style ='cursor:pointer;' title = 'delete user' class='deleteSymbolSelf' /></button><button class = 'editSRbutton' id = "+data.records[i].id+"  style = 'background-color:inherit;border:none'><img src ='resources/img/edit.png'  style ='cursor:pointer;' title = 'edit profile' alt = 'edit'  class='editSymbol'/></button></td>"+
 						"</tr>"	); 	
 						projectList = "";
 						}					
 					}
-				$('button.editSRbutton').click(function(event){		
+				$('input.editSRbutton').click(function(event){	
+					
 					var userId = event.target.id;
 					$('#content').remove();
 			    	App.loadUserProfile(userId);
 				}.ctx(this));
 				
-				$('button.deleteSRbuttonSelf').click(function(event){
+				$('input.deleteSRbuttonSelf').click(function(event){
 					$.ambiance({
 					    message :"You are not allowed to perform this action",
 					    type : 'error'
 					   });
 				}.ctx(this));			
 				
-				$('button.deleteSRbutton').click(function(event){	
+				$('input.deleteSRbutton').click(function(event){	
 					
 				this.deleteUser(event);
 					}.ctx(this));				

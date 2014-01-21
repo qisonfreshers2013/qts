@@ -172,7 +172,7 @@ AddUser.prototype.validateEmployeeId = function(empId){
 
 AddUser.prototype.validateDesignation = function(designation){
 	var isValid = false; 
-	var designationReg = /^[A-Z]+$/;
+	var designationReg = /^[A-Z]+([ {1}][A-Z]+)*$/;
        $('.error').hide();
 	    var designationVal = designation.val();
 	    if(designationVal.trim().length < 1 ){

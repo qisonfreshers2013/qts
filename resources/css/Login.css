@@ -111,6 +111,10 @@ label#emailForgot{
 }
 
 
+#welcomeContentainer {
+    margin-top: 6%;
+}
+
  button:focus,input[type="button"]:focus,input[type="reset"]:focus {
 outline: thin dotted rgb(255, 255, 255);
 outline-offset: -2px;

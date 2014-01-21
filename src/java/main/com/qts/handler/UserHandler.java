@@ -447,6 +447,7 @@ public class UserHandler extends AbstractHandler {
 		
 		isValidated = true;
 		return isValidated;
+		
 	}
 
 	private boolean validateDesignation(String designation) throws UserException {
@@ -459,6 +460,7 @@ public class UserHandler extends AbstractHandler {
 			boolean isDesignationPatternValid = Pattern
 					.compile(Utils.DESIGNATION).matcher(designation)
 					.matches();
+
 			isValidated = true;
 			if (!isDesignationPatternValid) {
 				isValidated = false;

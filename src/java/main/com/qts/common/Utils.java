@@ -26,7 +26,7 @@ public final class Utils {
     public static final String EMAIL_PATTERN = "^[_A-Za-z]+[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
     public static final String NAME_PATTERN = "^[A-Za-z0-9\\s]*$";
     public static final String USER_NAME_PATTERN = "^[A-Za-z\\s]*$";
-    public static final String DESIGNATION = "^([A-Z]+)$";
+    public static final String DESIGNATION = "^[A-Z]+([ {1}][A-Z]+)*$";
     public static final String GENDER = "^(?:male|Male|female|Female)$";//----//^M(ale)?$|^F(emale)?$
     public static final String EMPLOYEE_ID_PATTERN = "^[A-Za-z0-9]*$";
     public static final int MIN_PASSWORD_LENGTH = 6;

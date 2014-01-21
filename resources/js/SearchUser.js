@@ -185,7 +185,7 @@ SearchUser.prototype.validateEmail = function(email){
 
 SearchUser.prototype.validateDesignation = function(designation){
 	var isValid = false; 
-	var designationReg = /^[A-Z]+$/;
+	var designationReg = /^[A-Z]+([ {1}][A-Z]+)*$/;
 	//$(".error").show();
 	    var designationVal = designation.val();
 	    if(!designationReg.test(designationVal)) {

@@ -27,8 +27,7 @@ ChangePassword.prototype.handleShow = function(){
 //			    type : 'error'
 //			   });
 //			}
-//		}.ctx(this));
-		
+//		}.ctx(this));		
 	$('#changePasswordModal').modal('show');	
 	$('#changePasswordModal').on('show', function () {
 		$('#oldPasswordTextCP').focus();
