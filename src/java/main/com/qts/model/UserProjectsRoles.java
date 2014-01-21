@@ -7,7 +7,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="user_projects_roles")
+@Table(name="USER_PROJECTS_ROLES")
 public class UserProjectsRoles extends AbstractObject 
 {
 	@Id

@@ -49,6 +49,7 @@ SearchProjectRelease.prototype.handleShow = function() {
 	$('.SelectProject').change(function(){
 		$("#ambiance-notification").empty();
 		$('.add').empty();
+		$('.result').empty();
 		this.results();
 	}.ctx(this));
 	

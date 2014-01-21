@@ -7,7 +7,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="project")
+@Table(name="PROJECT")
 public class Project extends AbstractObject{
  @Id
  @GeneratedValue
